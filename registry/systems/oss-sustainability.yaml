@@ -1,0 +1,17 @@
+id: oss-sustainability
+name: Open-Source Sustainability
+kind: funding-domain
+wires:
+  - oss
+summary: "The funding community that pays for the maintenance and health of open-source software
+  itself: maintainer salaries, project stewardship, security work, and fiscal hosting. Capital moves
+  through project-steward foundations (Apache, Linux Foundation, PHP, Perl, FreeBSD, Drupal
+  Association and peers), corporate FOSS funds (GitHub Secure Open Source Fund, Microsoft FOSS Fund,
+  Spotify FOSS Fund, Google Summer of Code, Meta Open Source), philanthropic programs (Sloan and
+  Ford digital-infrastructure funding, CZI Essential Open Source Software, Mozilla MOSS), and
+  dedicated funds and fiscal hosts such as Open Source Collective, FLOSS/fund, and the Open Source
+  Endowment."
+funding_channels: []
+sources:
+  - https://www.oscollective.org/
+  - https://floss.fund/

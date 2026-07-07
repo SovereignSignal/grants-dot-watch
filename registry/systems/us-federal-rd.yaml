@@ -1,0 +1,14 @@
+id: us-federal-rd
+name: US Federal R&D
+kind: funding-domain
+wires:
+  - ai
+summary: Research and development funding by agencies of the United States federal government.
+  Capital moves through peer-reviewed grants (NSF, NIH), small-business innovation awards (SBIR/STTR
+  at NSF and AFWERX), program-manager-driven contracts and Broad Agency Announcements (DARPA,
+  ARPA-H, BARDA), standards and measurement programs (NIST), and mission initiatives such as the
+  Department of Energy's Genesis Mission for AI-accelerated science.
+funding_channels: []
+sources:
+  - https://www.nsf.gov/
+  - https://www.grants.gov/

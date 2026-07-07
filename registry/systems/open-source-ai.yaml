@@ -1,0 +1,15 @@
+id: open-source-ai
+name: Open-Source AI
+kind: funding-domain
+wires:
+  - ai
+  - oss
+summary: The funding community around openly released AI models, datasets, and tooling. Capital
+  moves through corporate open-model labs (Meta Llama, Alibaba Qwen, Moonshot AI, Zhipu AI, Mistral)
+  that fund grants, compute credits, and impact programs to grow their open ecosystems; through
+  platform and research organizations such as Hugging Face, EleutherAI, and Ai2's OLMo effort; and
+  through dedicated grant tracks for open-source AI projects such as AI Grant.
+funding_channels: []
+sources:
+  - https://huggingface.co/
+  - https://allenai.org/olmo

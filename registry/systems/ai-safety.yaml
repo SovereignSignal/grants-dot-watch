@@ -1,0 +1,16 @@
+id: ai-safety
+name: AI Safety & Existential Risk Funding
+kind: funding-domain
+wires:
+  - ai
+summary: "A funding community dedicated to reducing catastrophic risks from advanced AI: technical
+  alignment and interpretability research, AI governance and policy, model evaluations, and
+  field-building. Capital moves from large grantmakers (Coefficient Giving, formerly Open
+  Philanthropy; Survival and Flourishing Fund; Future of Life Institute; Schmidt Sciences) and
+  pooled funds (Long-Term Future Fund, AI Safety Fund at the Frontier Model Forum) into research
+  nonprofits, fellowships and talent pipelines (MATS, BlueDot Impact), and regranting platforms such
+  as Manifund. Government AI security institutes participate as research anchors of the same field."
+funding_channels: []
+sources:
+  - https://coefficientgiving.org/
+  - https://funds.effectivealtruism.org/funds/far-future

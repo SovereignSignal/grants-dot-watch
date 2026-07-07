@@ -1,0 +1,15 @@
+id: web3-public-goods
+name: Web3 Public Goods Funding
+kind: funding-domain
+wires:
+  - crypto
+  - oss
+summary: The crypto-native movement that funds open-source software and shared infrastructure as
+  public goods using onchain allocation mechanisms. Capital moves through quadratic funding rounds
+  (Gitcoin Grants), retroactive public goods funding (Optimism Retro Funding), epoch-based community
+  allocation (Octant), and ecosystem public-goods programs such as CeloPG and GoodDollar's builder
+  programs, with matching pools amplifying many small community contributions.
+funding_channels: []
+sources:
+  - https://gitcoin.co/
+  - https://octant.build/

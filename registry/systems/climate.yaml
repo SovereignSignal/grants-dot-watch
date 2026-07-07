@@ -1,0 +1,13 @@
+id: climate
+name: Climate Funding
+kind: funding-domain
+wires:
+  - ai
+summary: The philanthropic and corporate funding community for climate mitigation, including
+  AI-enabled climate work. Capital moves through regranting intermediaries such as the ClimateWorks
+  Foundation, large donor vehicles such as the Bezos Earth Fund, and corporate advance-market
+  commitments such as Stripe Climate's carbon-removal purchasing.
+funding_channels: []
+sources:
+  - https://www.climateworks.org/
+  - https://stripe.com/climate

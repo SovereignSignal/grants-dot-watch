@@ -1,0 +1,15 @@
+id: eu-public-rd
+name: EU & European Public R&D
+kind: funding-domain
+wires:
+  - ai
+  - oss
+summary: Research and innovation funding by the European Union and pan-European intergovernmental
+  bodies. Capital moves through Horizon Europe framework-programme calls, the EuroHPC Joint
+  Undertaking's supercomputing investments, intergovernmental organizations such as ECMWF running
+  open innovation programmes, and EC-funded Next Generation Internet grants channeled through
+  allocators like the NLnet Foundation.
+funding_channels: []
+sources:
+  - https://ec.europa.eu/programmes/horizon2020/
+  - https://www.eurohpc-ju.europa.eu/

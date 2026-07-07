@@ -1,0 +1,13 @@
+id: japan-public-rd
+name: Japan Public R&D
+kind: funding-domain
+wires:
+  - ai
+summary: Research and development funding by Japanese government agencies. Capital moves through the
+  Japan Science and Technology Agency's research grants and strategic programs and through NEDO, the
+  New Energy and Industrial Technology Development Organization, which funds applied technology
+  development including AI.
+funding_channels: []
+sources:
+  - https://jst.go.jp/
+  - https://www.nedo.go.jp/english/

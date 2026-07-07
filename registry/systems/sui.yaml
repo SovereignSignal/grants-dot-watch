@@ -1,0 +1,13 @@
+id: sui
+name: Sui
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: Sui is a high-throughput layer-1 blockchain whose ecosystem funding flows from the Sui
+  Foundation through developer grants and ecosystem programs, and from the foundations of protocols
+  native to the Sui stack such as Walrus, the decentralized storage network. Grants target developer
+  tooling, infrastructure, and applications built on Sui and its Move-based technology.
+funding_channels: []
+sources:
+  - https://sui.io/
+  - https://www.sui.io/programs-funding

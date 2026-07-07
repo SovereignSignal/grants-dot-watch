@@ -1,0 +1,16 @@
+id: ethereum
+name: Ethereum
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: Ethereum is the largest smart-contract blockchain and the gravitational center of crypto
+  grant funding. Capital moves through the Ethereum Foundation's Ecosystem Support Program, the
+  treasuries of protocol DAOs built on the chain (Uniswap, Aave, Lido, Compound and many others),
+  the foundations of its layer-2 networks, and community mechanisms such as Gitcoin quadratic
+  funding rounds and Octant epochs. Most funders in this system award grants for open-source
+  tooling, infrastructure, protocol research, and applications that grow activity on Ethereum and
+  its rollups.
+funding_channels: []
+sources:
+  - https://ethereum.org/
+  - https://esp.ethereum.foundation/

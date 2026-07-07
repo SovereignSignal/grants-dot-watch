@@ -1,0 +1,16 @@
+id: optimism
+name: Optimism
+kind: protocol-ecosystem
+part_of:
+  - ethereum
+wires:
+  - crypto
+summary: Optimism is an Ethereum layer-2 ecosystem built on the OP Stack, governed by the Optimism
+  Collective and funded from its OP token treasury. Its signature funding mechanism is Retroactive
+  Public Goods Funding (Retro Funding), which rewards projects after they have demonstrated impact,
+  alongside foundation missions and grants council allocations. Funding targets public goods,
+  developer tooling, onchain applications, and OP Stack core development.
+funding_channels: []
+sources:
+  - https://www.optimism.io/
+  - https://atlas.optimism.io/

@@ -1,0 +1,14 @@
+id: global-health
+name: Global Health Funding
+kind: funding-domain
+wires:
+  - ai
+summary: The philanthropic and multilateral funding community for global health research, vaccines,
+  and health delivery, increasingly funding AI applications in these areas. Capital moves through
+  mega-foundations (the Gates Foundation, Wellcome Trust) and pooled coalitions they co-fund (CEPI
+  for epidemic preparedness, Gavi for vaccine delivery) into research institutions, product
+  development partnerships, and country programs.
+funding_channels: []
+sources:
+  - https://www.gatesfoundation.org/
+  - https://wellcome.org/

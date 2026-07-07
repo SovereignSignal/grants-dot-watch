@@ -1,0 +1,14 @@
+id: xrpl
+name: XRP Ledger
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: The XRP Ledger (XRPL) is a payments-oriented blockchain whose ecosystem funding is anchored
+  by Ripple and XRPL community bodies. Capital has moved through XRPL Grants (140+ projects funded
+  since 2021) and now primarily through the XRPL Accelerator, a cohort-based program offering up to
+  $200k in non-dilutive grants plus mentorship to startups building on the ledger in payments, DeFi,
+  real-world assets, and AI.
+funding_channels: []
+sources:
+  - https://xrpl.org/
+  - https://xrplgrants.org/

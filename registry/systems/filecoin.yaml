@@ -1,0 +1,14 @@
+id: filecoin
+name: Filecoin / Protocol Labs
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: Filecoin is a decentralized storage network stewarded by the Filecoin Foundation together
+  with Protocol Labs, its originating research and development organization. Capital moves through
+  Filecoin Foundation development grants covering storage and retrieval markets, developer tooling,
+  integrations, the Filecoin Virtual Machine, and protocol research, and through Protocol Labs
+  research grants and RFPs in distributed systems and cryptography.
+funding_channels: []
+sources:
+  - https://fil.org/
+  - https://research.protocol.ai/

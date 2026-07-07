@@ -1,0 +1,14 @@
+id: stellar
+name: Stellar
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: Stellar is a payments-focused blockchain whose ecosystem funding is anchored by the Stellar
+  Development Foundation and its XLM treasury. The main channel is the Stellar Community Fund, a
+  community-driven grants program that funds teams building on the network from ideation through
+  launch via Build Awards (Open, Integration, and RFP tracks) plus supporting programs such as the
+  Audit Bank.
+funding_channels: []
+sources:
+  - https://stellar.org/
+  - https://communityfund.stellar.org/

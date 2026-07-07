@@ -1,0 +1,17 @@
+id: arbitrum
+name: Arbitrum
+kind: protocol-ecosystem
+part_of:
+  - ethereum
+wires:
+  - crypto
+summary: Arbitrum is an Ethereum layer-2 rollup ecosystem whose ARB token treasury is controlled by
+  the Arbitrum DAO. Capital moves through DAO-voted incentive programs such as the Short-Term
+  Incentive Program (STIP) and its Bridge continuation, and through delegated grant tracks
+  administered via Questbook where community-elected domain allocators distribute milestone-based
+  grants. The Arbitrum Foundation and specialist service firms working for the DAO design and
+  execute these programs.
+funding_channels: []
+sources:
+  - https://arbitrum.foundation/
+  - https://forum.arbitrum.foundation/

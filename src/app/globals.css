@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+/* ── grants.watch: the observatory ledger ─────────────────────────────
+   Deep-field indigo, warm starlight ink, three validated wire hues
+   (dark-surface validated: #BC7E1E / #9B7BF7 / #1FA3B5), gold reserved
+   for capital in motion. Committed dark. */
+
+@theme {
+  --color-void: #0b0e1a;
+  --color-deep: #0e1322;
+  --color-surface: #131829;
+  --color-raised: #1a2033;
+  --color-line: #232a40;
+  --color-paper: #e8e6df;
+  --color-dim: #9094a8;
+  --color-faint: #5b5f73;
+
+  --color-crypto: #bc7e1e;
+  --color-ai: #9b7bf7;
+  --color-oss: #1fa3b5;
+
+  --color-live: #4fbf7e;
+  --color-closing: #d9a13f;
+  --color-signal: #e8b44f;
+
+  --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-body: 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-void);
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-signal) 30%, transparent);
+}
+
+/* catalog coordinates — the registry's mono voice */
+.coord {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* hairline with a star point — section divider */
+.starline {
+  position: relative;
+  border-top: 1px solid var(--color-line);
+}
+.starline::before {
+  content: '';
+  position: absolute;
+  top: -2.5px;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--color-faint);
+  transform: rotate(45deg);
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+/* focus visibility — quality floor */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

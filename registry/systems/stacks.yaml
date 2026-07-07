@@ -1,0 +1,14 @@
+id: stacks
+name: Stacks
+kind: protocol-ecosystem
+wires:
+  - crypto
+summary: "Stacks is a Bitcoin layer-2 protocol whose ecosystem funding was restructured by
+  governance vote (SIP-031) into two allocating entities: Stacks Labs, the operational entity for
+  core development and growth, and the Stacks Endowment, a long-term treasury vehicle that runs the
+  grant programs. The Endowment deploys capital across ecosystem grants (Builder Grants up to $50k
+  and Getting Started Grants up to $10k), DeFi liquidity provision, and protocol treasuries."
+funding_channels: []
+sources:
+  - https://www.stacks.co/
+  - https://stacksendowment.co/

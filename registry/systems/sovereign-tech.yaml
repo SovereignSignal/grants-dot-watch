@@ -1,0 +1,15 @@
+id: sovereign-tech
+name: Sovereign Tech & Public-Interest Digital Infrastructure
+kind: funding-domain
+wires:
+  - oss
+summary: "Publicly backed funds that invest in open digital base technologies as public
+  infrastructure: package managers, protocol implementations, core libraries, and developer tooling
+  that societies depend on. Capital moves through government-funded allocators — Germany's Sovereign
+  Tech Agency, the Netherlands-based NLnet Foundation channeling European Next Generation Internet
+  money, and the US-funded Open Technology Fund — as structured grants and commissions to
+  maintainers of critical open-source components."
+funding_channels: []
+sources:
+  - https://www.sovereign.tech/
+  - https://nlnet.nl/

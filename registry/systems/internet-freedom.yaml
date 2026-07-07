@@ -1,0 +1,14 @@
+id: internet-freedom
+name: Internet Freedom & Digital Rights
+kind: funding-domain
+wires:
+  - oss
+summary: A funding community supporting censorship circumvention, privacy, secure communications,
+  and digital civil liberties. Capital moves through the Open Technology Fund's technology and
+  applied-research funds, foundation grantmakers such as the Open Society Foundations, litigation
+  funders like the Digital Freedom Fund, and targeted programs such as the Human Rights Foundation's
+  AI for Individual Rights Fund, reaching open-source tool builders, researchers, and activists.
+funding_channels: []
+sources:
+  - https://www.opentech.fund/
+  - https://digitalfreedomfund.org/

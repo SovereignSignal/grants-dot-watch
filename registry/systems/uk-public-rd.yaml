@@ -1,0 +1,13 @@
+id: uk-public-rd
+name: UK Public R&D
+kind: funding-domain
+wires:
+  - ai
+summary: Research and development funding by the United Kingdom government and its arm's-length
+  bodies. Capital moves through UK Research and Innovation council grants and fellowships, ARIA's
+  DARPA-style high-risk programme funding, national institutes such as the Alan Turing Institute,
+  and the AI Security Institute's frontier-model testing and research partnerships.
+funding_channels: []
+sources:
+  - https://www.ukri.org/
+  - https://www.aria.org.uk/
