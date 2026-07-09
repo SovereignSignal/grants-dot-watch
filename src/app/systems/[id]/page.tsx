@@ -153,7 +153,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
               const org = orgById.get(p.org);
               const live = mostLiveRound(p.rounds);
               return (
-                <Card key={p.id} className="flex flex-col gap-2">
+                <Card key={p.id} href={`/programs/${p.id}`} className="flex flex-col gap-2">
                   <h3 className="display text-base font-semibold tracking-tight">{p.name}</h3>
                   {org && <div className="coord">{org.name}</div>}
                   <div className="flex items-center justify-between gap-2">

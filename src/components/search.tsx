@@ -46,7 +46,7 @@ function scoreItem(item: SearchIndexItem, q: string): number {
   return Math.max(nameTier * 10, akaTier * 10 - 3);
 }
 
-export default function Search() {
+export default function Search({ className = '' }: { className?: string } = {}) {
   const router = useRouter();
   const [items, setItems] = useState<SearchIndexItem[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -156,7 +156,7 @@ export default function Search() {
   }, [panelOpen, query]);
 
   return (
-    <div ref={containerRef} className="relative flex-1 min-w-0 flex justify-end self-center">
+    <div ref={containerRef} className={`relative flex-1 min-w-0 flex justify-end self-center ${className}`}>
       {!mobileOpen && (
         <button
           type="button"
@@ -165,7 +165,7 @@ export default function Search() {
             requestAnimationFrame(() => inputRef.current?.focus());
           }}
           className="md:hidden inline-flex size-8 items-center justify-center rounded-md border border-line text-dim hover:text-paper hover:border-faint transition-colors"
-          aria-label="Search the register"
+          aria-label="Open search"
         >
           <span aria-hidden>🔍</span>
         </button>

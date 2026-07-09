@@ -153,9 +153,18 @@ export default function Home() {
                   <div className="mt-4 flex items-end justify-between gap-3">
                     <div className="min-w-0">
                       <div className="coord">{r.round.closes ? 'CLOSES' : 'WINDOW'}</div>
-                      <div className={`whitespace-nowrap font-mono text-lg ${closingSoon ? 'text-closing' : 'text-paper'}`}>
-                        {r.round.closes ? dateShort(r.round.closes) : 'Rolling'}
-                        {closingSoon && <span className="ml-2 text-xs">{days}d left</span>}
+                      <div
+                        className={`flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-mono text-lg ${closingSoon ? 'text-closing' : 'text-paper'}`}
+                      >
+                        <span className="whitespace-nowrap">{r.round.closes ? dateShort(r.round.closes) : 'Rolling'}</span>
+                        {closingSoon && (
+                          <span className="whitespace-nowrap text-xs">
+                            <span aria-hidden className="mr-1.5">
+                              ·
+                            </span>
+                            {days}d left
+                          </span>
+                        )}
                       </div>
                     </div>
                     {r.round.size && (
@@ -205,7 +214,9 @@ export default function Home() {
                         {a.funder_name}
                       </Link>
                       <span className="text-faint"> → </span>
-                      <span className="text-dim">{a.grantee_name}</span>
+                      <Link href={`/grantees/${a.grantee}`} className="text-dim hover:text-signal hover:underline">
+                        {a.grantee_name}
+                      </Link>
                     </td>
                     <td className="whitespace-nowrap px-4 py-2.5 text-right font-mono text-signal">
                       {money(a.amount, a.amount_text)}
