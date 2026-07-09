@@ -1,10 +1,17 @@
 import { NextResponse } from 'next/server';
-import { COOKIE_NAME } from '../lib';
+import { COOKIE_NAME, safeEqual } from '../lib';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const THIRTY_DAYS = 60 * 60 * 24 * 30;
+const COOKIE_OPTS = {
+  httpOnly: true,
+  maxAge: THIRTY_DAYS,
+  sameSite: 'strict' as const,
+  secure: process.env.NODE_ENV === 'production',
+  path: '/',
+};
 
 export async function POST(req: Request) {
   let body: { token?: string };
@@ -18,18 +25,19 @@ export async function POST(req: Request) {
   const token = (body.token || '').trim();
 
   if (!adminToken) {
-    // local dev: no token configured, the gate is already open — set the
-    // cookie anyway so the UI has something consistent to send back.
-    const res = NextResponse.json({ ok: true, dev: true });
-    if (token) res.cookies.set(COOKIE_NAME, token, { httpOnly: true, maxAge: THIRTY_DAYS, sameSite: 'lax', path: '/' });
-    return res;
+    // No token configured: dev convenience only. In production the Desk
+    // fails closed — same rule as checkAuth.
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json({ error: 'desk not configured' }, { status: 503 });
+    }
+    return NextResponse.json({ ok: true, dev: true });
   }
 
-  if (!token || token !== adminToken) {
+  if (!token || !safeEqual(token, adminToken)) {
     return NextResponse.json({ error: 'invalid token' }, { status: 401 });
   }
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(COOKIE_NAME, adminToken, { httpOnly: true, maxAge: THIRTY_DAYS, sameSite: 'lax', path: '/' });
+  res.cookies.set(COOKIE_NAME, adminToken, COOKIE_OPTS);
   return res;
 }
