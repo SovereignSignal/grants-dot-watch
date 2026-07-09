@@ -1,0 +1,247 @@
+[
+  {
+    "type": "profile_note",
+    "org": "1inch-network",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: 1inch Network — website incorrect",
+    "summary": "Registry lists website as https://1inch.io/, which now 301-redirects to https://1inch.com/, the platform's current canonical domain. The redirect still lands on the right org, but the field is stale.",
+    "evidence_url": "https://1inch.com/",
+    "proposed_change": {
+      "orgs/1inch-network.yaml": {
+        "website": "https://1inch.com/"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "cloud-native-computing-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Cloud Native Computing Foundation — project counts incorrect",
+    "summary": "Profile states 36 graduated, 38 incubating, and 152 sandbox projects. Live count fetched 2026-07-09 from cncf.io is 36 graduated, 39 incubating, 151 sandbox — off by one in two categories, expected drift for a rolling landscape count. Consider dropping exact counts or noting an as-of date.",
+    "evidence_url": "https://www.cncf.io/",
+    "proposed_change": {
+      "orgs/cloud-native-computing-foundation.yaml": {
+        "profile_project_counts": "36 graduated, 39 incubating, 151 sandbox (as of 2026-07-09)"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "google-chrome",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Google Chrome — profile fund name incorrect",
+    "summary": "Profile names a fund 'Advanced Apps Fund'; Chrome's own announcement and blog posts call it the 'Advanced Web Apps Fund' (the Open Collective URL slug /advanced-apps-fund likely caused the truncation).",
+    "evidence_url": "https://developer.chrome.com/blog/advanced-web-apps-fund",
+    "proposed_change": {
+      "orgs/google-chrome.yaml": {
+        "profile_fund_name": "Advanced Web Apps Fund"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "mozilla-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Mozilla Foundation — funding.apply_url / profile currency incorrect",
+    "summary": "File presents Mozilla Technology Fund (MTF) as Mozilla's live, applyable fund with a working apply_url. That URL now redirects to Mozilla's generic grantmaking hub, which no longer lists MTF among its current programs (Incubator, Mozilla Fellows, Responsible Computing Challenge, Collaborative Funds). MTF ran exactly three cohorts (2022-2024, ~$1M total) with no cohort found since. Mozilla's current live themed/mentored $50k-cohort vehicle is the 'Incubator' program (launched Nov 2025), currently running 'Democracy x AI Cohort 2026'. A BD person following the file's apply_url today lands on a dead-end generic page, not an active call for proposals.",
+    "evidence_url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/",
+    "proposed_change": {
+      "orgs/mozilla-foundation.yaml": {
+        "funding.apply_url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/",
+        "profile_note": "Reframe MTF as historical (2022-2024, ~$1M across 3 cohorts, program page now redirects to the generic grantmaking hub). Mozilla's current live themed-cohort/mentorship vehicle is the 'Incubator' program (launched Nov 2025), currently running 'Democracy x AI Cohort 2026' at up to $50,000 + up to $250,000 Sustain Track."
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "second-look-research",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Second Look Research — profile incorrect",
+    "summary": "Profile claims the org 'recently launched a Request for Replications, hiring 10 graduate-level research fellows.' No program named 'Request for Replications' exists on the site (only 'Research' and 'Fellowship' nav sections). The site's own fellowship-page copy (pulled from the compiled JS bundle, since it's a client-rendered SPA) states a planned cohort of 'roughly 7 in-person fellows, plus 1-2 program leaders,' each receiving a $10,000 stipend.",
+    "evidence_url": "https://secondlookresearch.com/replications",
+    "proposed_change": {
+      "orgs/second-look-research.yaml": {
+        "profile": "No program is named 'Request for Replications' on the site. The fellowship page describes a planned cohort of 'roughly 7 in-person fellows, plus 1-2 program leaders,' each receiving a $10,000 stipend, to work full-time in-person on replication projects."
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "coefficient-giving",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Coefficient Giving — socials incorrect (empty)",
+    "summary": "socials field is empty ({}) but the org has an active, findable X account. Also worth refreshing: the file's 'more than $4 billion' cumulative total (from a mid-2025 Wikipedia snapshot) trails the org's own more recent public framing of 'over $5 billion' directed since 2014.",
+    "evidence_url": "https://x.com/coeff_giving",
+    "proposed_change": {
+      "orgs/coefficient-giving.yaml": {
+        "socials": {
+          "x": "https://x.com/coeff_giving"
+        }
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "profile_note",
+    "org": "shuttleworth-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Shuttleworth Foundation — status incorrect",
+    "summary": "File's status is 'unknown', hedged in the profile as 'current status is unclear.' The Foundation publicly announced on its own blog (July 19 2022) it was closing 'by the beginning of 2024,' ending its 17-year fellowship model after 56 fellows. Wikipedia independently confirms the closure. This is a confirmed shutdown, not an ambiguous stale page.",
+    "evidence_url": "https://en.wikipedia.org/wiki/Shuttleworth_Foundation",
+    "proposed_change": {
+      "orgs/shuttleworth-foundation.yaml": {
+        "status": "closed"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "profile_note",
+    "org": "shuttleworth-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Shuttleworth Foundation — website incorrect (dead domain)",
+    "summary": "Listed website https://shuttleworthfoundation.org returns a bare HTTP 404 (nginx placeholder) on every path when checked via direct curl, on both www and non-www. An AI-oriented fetch of the same domain returned fabricated-looking content that varied suspiciously by URL slug — signs of cloaking on a lapsed, re-registered domain; do not trust automated fetches of this domain. Wikipedia's current citation points to shuttleworthfoundation.com instead, but that domain is an explicit unofficial fan project ('No somos la fundacion original... No otorgamos becas... No estamos afiliados oficialmente con Mark Shuttleworth') — there is no live official Shuttleworth Foundation website.",
+    "evidence_url": "https://shuttleworthfoundation.com",
+    "proposed_change": {
+      "orgs/shuttleworth-foundation.yaml": {
+        "website": "(dead — 404 confirmed via direct curl on every path; no live official site exists)"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "profile_note",
+    "org": "shuttleworth-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: Shuttleworth Foundation — profile incorrect (closure not stated)",
+    "summary": "Profile text hedges 'current status is unclear' rather than stating the confirmed closure. Should be updated to reflect the org announced its own shutdown.",
+    "evidence_url": "https://en.wikipedia.org/wiki/Shuttleworth_Foundation",
+    "proposed_change": {
+      "orgs/shuttleworth-foundation.yaml": {
+        "profile": "The Shuttleworth Foundation announced in July 2022 it would close 'by the beginning of 2024,' ending its fellowship model after 17 years and 56 fellows; it is confirmed closed and no longer awarding grants."
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "profile_note",
+    "org": "seri-mats-mats-program",
+    "org_name": null,
+    "program": null,
+    "title": "Audit: SERI MATS (MATS Program) — name incorrect",
+    "summary": "File's primary name is 'SERI MATS (MATS Program).' The program no longer uses 'SERI MATS' as its name: current site describes it simply as 'MATS', run by the independent nonprofit 'MATS Research', with no mention of Stanford. The SERI (Stanford Existential Risks Initiative) affiliation was dropped by the Winter 2023-24 cohort when the program became an independent 501(c)(3). Leading with 'SERI MATS' in a BD-facing registry risks implying a current Stanford affiliation that no longer exists. All funding mechanics/figures (10-week program, $1,250/week stipend, $2,000/week compute budget, Berkeley/London, 527+ researchers since 2021) are independently confirmed correct.",
+    "evidence_url": "https://www.matsprogram.org/about",
+    "proposed_change": {
+      "orgs/seri-mats-mats-program.yaml": {
+        "name": "MATS (MATS Research)"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "future-of-life-institute-fli",
+    "org_name": null,
+    "program": "future-of-life-phd-fellowship",
+    "title": "Audit: Future of Life PhD Fellowship — rounds list incorrect (missing cohort)",
+    "summary": "Rounds list shows 2022, 2023, 2025 but omits a real 'Class of 2024' cohort (Luke Bailey, Angira Sharma) that is live on the program's own source page. Also worth noting: as of the fetch the most recent cycle shows 'Closed for submissions' (deadline Nov 21 2025, offers by end of March 2026) — 'active' is defensible for a recurring fellowship but the current-cycle nuance isn't captured.",
+    "evidence_url": "https://futureoflife.org/grant-program/phd-fellowships/",
+    "proposed_change": {
+      "programs/future-of-life-phd-fellowship.yaml": {
+        "add_round": {
+          "name": "Class of 2024",
+          "status": "deployed",
+          "source": "https://futureoflife.org/grant-program/phd-fellowships/"
+        }
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "mozilla-foundation",
+    "org_name": null,
+    "program": "mozilla-foundation-technology-fund",
+    "title": "Audit: Mozilla Technology Fund (program) — status incorrect",
+    "summary": "Program status is 'active', but the current mozillafoundation.org grantmaking landing page (and the program's own apply_url, which resolves to a generic overview, not an MTF-specific CFP) lists only Incubator, Mozilla Fellows, Responsible Computing Challenge, and Collaborative Funds as open programs — MTF is absent. No evidence of any MTF round since 2024 (AI and Environmental Justice) was found. The newest program with MTF's exact shape ($50K award, 12-month track) is now branded 'Democracy x AI Cohort' under Incubator, not MTF.",
+    "evidence_url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/",
+    "proposed_change": {
+      "programs/mozilla-foundation-technology-fund.yaml": {
+        "status": "unknown or concluded (no MTF activity found since 2024 round; program may be folded into Incubator/Democracy x AI Cohort)"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "openssf-technical-initiative-funding",
+    "org_name": null,
+    "program": "openssf-ti-funding",
+    "title": "Audit: OpenSSF Technical Initiative Funding — apply_url incorrect (dead link)",
+    "summary": "Registry apply_url https://openssf.org/community/technical-initiatives/ returns HTTP 404. The correct current URL is https://openssf.org/about/tac/technical-initiative-funding/. The process description (GitHub issue request, TAC bi-monthly review, tiered to lifecycle stage) is directionally correct against the live page, but the specific '$70k-$150k' tier figures could not be confirmed (the live page describes tiers only qualitatively) and should be re-sourced or flagged unverified. The '$12.5M from AWS/Google/Microsoft/OpenAI + Alpha-Omega' claim was not independently checked in this pass.",
+    "evidence_url": "https://openssf.org/about/tac/technical-initiative-funding/",
+    "proposed_change": {
+      "programs/openssf-ti-funding.yaml": {
+        "apply_url": "https://openssf.org/about/tac/technical-initiative-funding/"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "responsible-technology-youth-power-fund",
+    "org_name": null,
+    "program": "responsible-technology-youth-power-fund-grants",
+    "title": "Audit: Responsible Technology Youth Power Fund grants — amount range incorrect",
+    "summary": "Registry states grant size range as '$50,000-$100,000'. Multiple independent sources (opportunitydesk.org and others covering the same 2026/Fund-3 cycle) consistently state the range is $25,000-$100,000, with a $75,000 cap for new grantees and up to $100,000 for returning grantees. Program, cohort history, and Fund 3/Fund 4 timeline are otherwise confirmed accurate.",
+    "evidence_url": "https://opportunitydesk.org",
+    "proposed_change": {
+      "programs/responsible-technology-youth-power-fund-grants.yaml": {
+        "summary_amount": "$25,000-$100,000 (new grantees capped at $75,000; returning grantees up to $100,000)"
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": null
+  }
+]
