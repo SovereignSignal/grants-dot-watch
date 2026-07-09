@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { buildStarmap, WIRE_HEX } from '@/lib/starmap';
-import { Coord, Empty, RoundStatus, WireBadge } from '@/components/ui';
-import { dateShort, money, WIRE_LABEL } from '@/lib/format';
-import type { Award, Org, Program, Round, Wire } from '@/lib/types';
+import { Coord, Empty } from '@/components/ui';
+import { dateShort } from '@/lib/format';
+import type { Org, Program, Round } from '@/lib/types';
 import Field from '@/components/field';
 
 interface OpenRound {
@@ -32,30 +32,17 @@ function collectOpenRounds(programs: Program[], orgs: Org[]): OpenRound[] {
   return rounds;
 }
 
-function latestAwards(awards: Award[], cap: number): Award[] {
-  return awards
-    .filter((a) => a.date)
-    .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-    .slice(0, cap);
-}
-
 function daysUntil(date: string | undefined): number | null {
   if (!date) return null;
   const d = new Date(date + 'T23:59:59Z').getTime() - Date.now();
   return Math.ceil(d / 86_400_000);
 }
 
-const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
-
 export default function Home() {
-  const { systems, orgs, programs, awards, orgStats, bySystem, counts } = loadRegistry();
+  const { systems, orgs, programs, orgStats, counts } = loadRegistry();
   const map = buildStarmap(systems, orgs, orgStats);
 
-  const openRounds = collectOpenRounds(programs, orgs).slice(0, 6);
-  const recentAwards = latestAwards(awards, 8);
-  const systemsRanked = [...systems].sort(
-    (a, b) => (bySystem.get(b.id)?.orgs.length || 0) - (bySystem.get(a.id)?.orgs.length || 0)
-  );
+  const openRounds = collectOpenRounds(programs, orgs).slice(0, 3);
 
   return (
     <>
@@ -103,33 +90,13 @@ export default function Home() {
               </p>
               <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
                 <span className="font-mono text-sm text-paper">
-                  {counts.systems} <span className="coord">SYSTEMS</span>
-                </span>
-                <span className="font-mono text-sm text-paper">
-                  {counts.funders} <span className="coord">FUNDERS</span>
-                </span>
-                <span className="font-mono text-sm text-paper">
-                  {counts.awards.toLocaleString()} <span className="coord">AWARDS</span>
+                  {counts.funders} <span className="coord">FUNDERS TRACKED</span>
                 </span>
                 <Link href="/galaxy" className="coord transition-colors hover:text-paper">
                   ENTER THE GALAXY →
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="pointer-events-none absolute bottom-3 right-4 hidden md:block">
-          <div className="flex items-center gap-4">
-            {WIRES.map((w) => (
-              <span key={w} className="coord flex items-center gap-1.5">
-                <span aria-hidden className="inline-block size-1.5 rounded-full" style={{ background: WIRE_HEX[w] }} />
-                {WIRE_LABEL[w].toUpperCase()}
-              </span>
-            ))}
-            <span className="coord flex items-center gap-1.5">
-              <span aria-hidden className="inline-block size-1.5 rounded-full ring-2 ring-live/60" />
-              LIVE ROUND
-            </span>
           </div>
         </div>
       </section>
@@ -172,7 +139,6 @@ export default function Home() {
                       </div>
                       <div className="coord mt-1 truncate">{r.orgName}</div>
                     </div>
-                    <RoundStatus status={r.round.status} />
                   </div>
                   <div className="mt-4 flex items-end justify-between gap-3">
                     <div className="min-w-0">
@@ -206,100 +172,20 @@ export default function Home() {
 
       <div className="starline" />
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="mb-5 flex items-baseline justify-between gap-4">
-          <div>
-            <Coord>CAPITAL IN MOTION</Coord>
-            <h2 className="display mt-1 text-2xl font-semibold text-paper">Latest awards</h2>
-          </div>
-          <Link href="/awards" className="coord hover:text-paper">
-            THE LEDGER →
-          </Link>
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex flex-wrap gap-x-10 gap-y-4">
+          {[
+            { href: '/systems', label: 'Systems', n: counts.systems },
+            { href: '/orgs', label: 'Organizations', n: counts.orgs },
+            { href: '/programs', label: 'Programs', n: counts.programs },
+            { href: '/awards', label: 'The ledger', n: counts.awards },
+          ].map((x) => (
+            <Link key={x.href} href={x.href} className="group">
+              <span className="font-mono text-2xl text-paper group-hover:text-signal">{x.n.toLocaleString()}</span>
+              <span className="coord ml-2 group-hover:text-dim">{x.label} →</span>
+            </Link>
+          ))}
         </div>
-        {recentAwards.length === 0 ? (
-          <Empty>No awards on file yet.</Empty>
-        ) : (
-          <div className="overflow-x-auto rounded-md border border-line bg-surface">
-            <table className="w-full min-w-[560px] text-sm">
-              <thead>
-                <tr className="coord text-left">
-                  <th className="px-4 pb-2 pt-3 font-normal">Date</th>
-                  <th className="px-4 pb-2 pt-3 font-normal">Funder → Grantee</th>
-                  <th className="px-4 pb-2 pt-3 text-right font-normal">Amount</th>
-                  <th className="px-4 pb-2 pt-3 font-normal">Wire</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentAwards.map((a) => (
-                  <tr key={a.key} className="border-t border-line/70">
-                    <td className="whitespace-nowrap px-4 py-2.5 font-mono text-dim">{dateShort(a.date)}</td>
-                    <td className="px-4 py-2.5">
-                      <Link href={`/orgs/${a.funder}`} className="text-paper hover:underline">
-                        {a.funder_name}
-                      </Link>
-                      <span className="text-faint"> → </span>
-                      <Link href={`/grantees/${a.grantee}`} className="text-dim hover:text-signal hover:underline">
-                        {a.grantee_name}
-                      </Link>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2.5 text-right font-mono text-signal">
-                      {money(a.amount, a.amount_text)}
-                    </td>
-                    <td className="px-4 py-2.5">{a.wire && <WireBadge wire={a.wire} small />}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      <div className="starline" />
-
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="mb-5 flex items-baseline justify-between gap-4">
-          <div>
-            <Coord>TAXONOMY</Coord>
-            <h2 className="display mt-1 text-2xl font-semibold text-paper">Systems</h2>
-          </div>
-          <Link href="/systems" className="coord hover:text-paper">
-            ALL SYSTEMS →
-          </Link>
-        </div>
-        {systemsRanked.length === 0 ? (
-          <Empty>No systems on file.</Empty>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {systemsRanked.slice(0, 9).map((s) => {
-              const bucket = bySystem.get(s.id);
-              const members = bucket?.orgs || [];
-              return (
-                <Link
-                  key={s.id}
-                  href={`/systems/${s.id}`}
-                  className="group rounded-md border border-line bg-surface p-4 transition-colors hover:border-faint hover:bg-raised"
-                >
-                  <Coord>{s.kind === 'protocol-ecosystem' ? 'PROTOCOL ECOSYSTEM' : 'FUNDING DOMAIN'}</Coord>
-                  <div className="display mt-1 text-lg font-semibold text-paper">{s.name}</div>
-                  <div className="mt-3 flex flex-wrap items-center gap-1" aria-hidden>
-                    {members.slice(0, 24).map((o) => (
-                      <span
-                        key={o.id}
-                        className="inline-block size-1.5 rounded-full opacity-80"
-                        style={{ background: o.wires?.[0] ? WIRE_HEX[o.wires[0]] : 'var(--color-faint)' }}
-                      />
-                    ))}
-                    {members.length > 24 && <span className="coord ml-1">+{members.length - 24}</span>}
-                  </div>
-                  <div className="coord mt-3">
-                    {members.length} {members.length === 1 ? 'FUNDER' : 'FUNDERS'} · {bucket?.programs.length ?? 0}{' '}
-                    PROGRAMS
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
       </section>
     </>
   );

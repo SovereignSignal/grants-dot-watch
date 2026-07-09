@@ -5,7 +5,6 @@ import '@fontsource-variable/instrument-sans/index.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
-import { loadRegistry } from '@/lib/registry';
 import Search from '@/components/search';
 import ThemeToggle from '@/components/theme-toggle';
 
@@ -30,7 +29,6 @@ const NAV = [
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const { counts } = loadRegistry();
   return (
     <html lang="en">
       <head>
@@ -54,9 +52,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
             <Search className="order-2 md:order-4" />
             <ThemeToggle className="order-2 md:order-5" />
-            <span className="coord ml-auto hidden md:order-6 md:block">
-              {counts.funders} funders · {counts.programs} programs · {counts.awards} awards
-            </span>
           </div>
         </header>
         <main className="flex-1">{children}</main>
