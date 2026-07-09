@@ -1,0 +1,24 @@
+id: solana-foundation-grants
+name: Solana Foundation Grants
+org: solana-foundation
+parent: null
+systems: []
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://solana.org/grants-funding
+summary: >
+  The Solana Foundation Grants program funds projects that generate public goods for
+  the Solana ecosystem via milestone-based traditional grants, convertible grants
+  (which convert to investment on hitting milestones), and RFPs, across DeFi, DePIN,
+  games, NFTs, and core open-source infrastructure. Applications are reviewed on a
+  rolling basis (review ~1 week, decision ~3 weeks).
+rounds:
+  - name: Wave One
+    status: closed
+    size: "11 awards"
+    source: https://solana.com/news/solana-foundation-grants---wave-one
+sources:
+  - https://solana.org/grants-funding
+  - https://solana.com/news/solana-foundation-grants---wave-one
+  - https://www.prnewswire.com/news-releases/zk-internationals-subsidiary-xsigma-was-awarded-with-a-grant-from-solana-foundation-for-its-defi-project-301387689.html

@@ -1,0 +1,23 @@
+id: google-chrome-advanced-apps-fund
+name: Chrome Advanced Apps Fund
+org: google-chrome
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: unknown
+mechanism: grants
+apply_url: https://opencollective.com/chrome
+summary: >
+  A Google Chrome-run fund, fiscally hosted by Open Source Collective, that
+  paid out to 10 open-source projects in the "advanced apps" space
+  (progressive web apps and related web-platform capabilities) in a single
+  distribution window in October 2022.
+rounds:
+  - name: Advanced Apps Fund disbursements
+    status: closed
+    closes: "2022-10-07"
+    size: "$84,565.22 across 10 awards"
+    source: https://opencollective.com/chrome/projects/advanced-apps-fund/transactions
+sources:
+  - https://opencollective.com/chrome/projects/advanced-apps-fund/transactions
+  - https://opencollective.com/chrome

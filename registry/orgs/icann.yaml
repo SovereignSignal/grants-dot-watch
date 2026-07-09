@@ -11,9 +11,9 @@ website: https://www.icann.org/
 socials: {}
 status: unknown
 profile: >
-  ICANN is a non-profit organization tracked as a funder on the open-source
-  wire of this registry. Its website (icann.org) refused automated fetching,
-  so its current activity and funding programs have not yet been confirmed or
-  profiled here.
+  ICANN is a non-profit organization that coordinates the internet's domain
+  name and addressing systems. Its website (icann.org) blocks automated
+  fetching, so its current funding programs have not yet been confirmed here.
 sources:
   - https://www.icann.org/
+  - https://en.wikipedia.org/wiki/ICANN

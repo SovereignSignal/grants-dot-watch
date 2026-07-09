@@ -1,0 +1,30 @@
+id: circle
+name: Circle
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: company
+website: https://www.circle.com
+socials: {}
+status: active
+profile: >
+  Circle is the operator of the USDC stablecoin and a regulated digital-
+  currency infrastructure company. Its Developer Grants program funds
+  developers building USDC-powered applications, with a first 2026 cohort
+  targeting agentic economic activity, stablecoin foreign exchange,
+  peer-to-peer payments, treasury management, prediction markets, and
+  lending/borrowing products; grantees can apply for follow-on funding after
+  completing milestones.
+funding:
+  focus:
+    - USDC-powered applications
+    - agentic economic activity
+    - stablecoin foreign exchange
+    - payments
+    - treasury management
+  typical_size: "$5,000-$100,000 in USDC, tailored to project scope"
+  apply_url: https://www.circle.com/grant
+sources:
+  - https://www.circle.com
+  - https://www.circle.com/grant

@@ -1,0 +1,31 @@
+id: mozilla-foundation-technology-fund
+name: Mozilla Technology Fund
+org: mozilla-foundation
+parent: null
+systems: [oss-sustainability]
+wires: [ai, oss]
+status: active
+mechanism: grants
+apply_url: https://www.mozillafoundation.org/en/what-we-fund/programs/mozilla-technology-fund-mtf/
+summary: >
+  The Mozilla Technology Fund (MTF) gives awards of up to $50,000 plus a 12-month
+  mentorship cohort to open-source projects tackling a themed public-interest
+  technology challenge each round. Awardees join monthly calls with Mozilla fellow
+  mentors; project outputs must be open source.
+rounds:
+  - name: "2024 — AI and Environmental Justice"
+    status: closed
+    size: "10 awards"
+    source: https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2024-AI-and-Environmental-Justice.md
+  - name: "2023 — Auditing Tools for AI Systems"
+    status: closed
+    size: "8 awards"
+    source: https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2023-Auditing-Tools-For-AI-Systems.md
+  - name: "2022 — Bias and Transparency in AI"
+    status: closed
+    size: "5 awards"
+    source: https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2022-Bias-and-Transparency-in-AI.md
+sources:
+  - https://www.mozillafoundation.org/en/what-we-fund/programs/mozilla-technology-fund-mtf/
+  - https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2024-AI-and-Environmental-Justice.md
+  - https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2023-Auditing-Tools-For-AI-Systems.md

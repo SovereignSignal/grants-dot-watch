@@ -1,0 +1,29 @@
+id: linux-foundation
+name: Linux Foundation
+aka: []
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.linuxfoundation.org/
+socials:
+  x: https://x.com/linuxfoundation
+  github: https://github.com/linuxfoundation
+status: active
+profile: >
+  Linux Foundation is a nonprofit that hosts and stewards over 1,300 open-source
+  projects, including Kubernetes and the Cloud Native Computing Foundation. It funds
+  open-source security work, training scholarships, and event travel grants, and
+  recently channeled a large pool of corporate-backed funding (from members including
+  AWS, Google, Microsoft, and OpenAI) into Alpha-Omega and OpenSSF security
+  initiatives. It also runs LFX Mentorship, a paid apprenticeship connecting
+  contributors with member open-source projects.
+funding:
+  focus:
+    - open source security
+    - training scholarships
+    - event travel grants
+    - research
+sources:
+  - https://www.linuxfoundation.org/
+  - https://www.linuxfoundation.org/blog

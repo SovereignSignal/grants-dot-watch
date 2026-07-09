@@ -1,0 +1,33 @@
+id: coinbase-developer-platform
+name: Coinbase Developer Platform (CDP)
+aka:
+  - CDP
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: company
+website: https://www.coinbase.com/developer-platform
+socials: {}
+status: active
+profile: >
+  Coinbase Developer Platform is Coinbase's suite of onchain developer
+  tools (CDP Wallets, AgentKit, the CDP SDK, Onramp, and the Swap API). Its
+  Builder Grants fund developers shipping user-facing onchain apps that
+  integrate CDP tooling, run in quarterly or seasonal rounds (e.g. Spring,
+  Summer, and AgentKit-focused editions), and CDP also sponsors dedicated
+  hackathon tracks such as "Agents in Action."
+funding:
+  focus:
+    - onchain apps
+    - crypto wallets
+    - AI agents
+    - developer tooling
+    - fiat-to-crypto onramp
+    - token swaps
+    - payments
+  typical_size: "$3,000-$10,000 per grant; ~$30,000 total per round"
+  cadence: "Quarterly / seasonal rounds"
+  apply_url: https://www.coinbase.com/developer-platform/discover/launches
+sources:
+  - https://www.coinbase.com/developer-platform
+  - https://www.coinbase.com/developer-platform/discover/launches

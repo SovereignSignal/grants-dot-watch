@@ -1,0 +1,33 @@
+id: omidyar-network
+name: Omidyar Network
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://omidyar.com
+socials: {}
+status: active
+profile: >
+  Omidyar Network is a philanthropic investment firm, founded around Pierre Omidyar's
+  giving, that funds work to shape technology's impact on society across three
+  pillars: Culture of Tech, Governance of Tech, and Business of Tech. It deploys both
+  nonprofit grants and for-profit/impact investments, with a current emphasis on
+  responsible technology and ethical, equitable AI guardrails. It does not accept
+  unsolicited applications for general funding, instead sourcing opportunities through
+  research, referrals, and partner introductions; as of 2026 it is led by CEO Michele
+  Jawando.
+funding:
+  focus:
+    - responsible technology
+    - governance of technology / tech policy
+    - AI ethics and guardrails
+    - digital economy
+    - tech journalism and media
+    - culture of tech
+    - responsible tech business practices
+  cadence: Opportunities sourced on an ongoing basis through research and referrals; no open application cycle for general funding
+  eligibility: Does not accept unsolicited applications or proposals for general funding
+sources:
+  - https://omidyar.com
+  - https://omidyar.com/update/omidyar-network-launches-a-dedicated-funding-effort-to-promote-inclusive-and-responsible-development-of-generative-ai/

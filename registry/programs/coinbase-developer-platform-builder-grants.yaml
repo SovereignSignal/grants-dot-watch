@@ -1,0 +1,30 @@
+id: coinbase-developer-platform-builder-grants
+name: CDP Builder Grants
+org: coinbase-developer-platform
+parent: null
+systems: [ethereum]
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://www.coinbase.com/developer-platform/discover/launches
+summary: >
+  Coinbase Developer Platform's grant program for developers building real,
+  user-facing onchain applications using CDP tools (Wallets, AgentKit, the
+  CDP SDK, Onramp, and the Swap API). Runs in quarterly/seasonal rounds
+  ($3,000-$10,000 per grant, ~$30,000 per round); a project must be at MVP
+  stage with a public demo video. CDP also funded prize tracks at the
+  "Agents in Action" hackathon (Best Use of x402 + CDP Wallet, Best Use of
+  CDP Wallet, Best Use of x402), each with 1st/2nd/3rd place awards.
+rounds:
+  - name: Spring 2025 round
+    status: closed
+    closes: "2025-04-20"
+    source: https://www.coinbase.com/developer-platform/discover/launches
+  - name: Agents in Action Hackathon — Coinbase tracks
+    status: closed
+    closes: "2025-07-02"
+    size: "9 prize awards across 3 tracks"
+    source: https://www.coinbase.com/developer-platform/discover/launches/agents-in-action-winners
+sources:
+  - https://www.coinbase.com/developer-platform/discover/launches
+  - https://www.coinbase.com/developer-platform/discover/launches/agents-in-action-winners

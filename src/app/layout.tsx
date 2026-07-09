@@ -6,6 +6,7 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
 import { loadRegistry } from '@/lib/registry';
+import Search from '@/components/search';
 
 export const metadata: Metadata = {
   title: { default: 'grants.watch', template: '%s · grants.watch' },
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
             </nav>
+            <Search />
             <span className="coord ml-auto hidden md:block">
               {counts.funders} funders · {counts.programs} programs · {counts.awards} awards
             </span>

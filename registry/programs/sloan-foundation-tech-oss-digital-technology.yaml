@@ -1,0 +1,22 @@
+id: sloan-foundation-tech-oss-digital-technology
+name: Alfred P. Sloan Foundation — Digital Technology Program
+org: sloan-foundation-tech-oss
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: active
+mechanism: grants
+apply_url: https://sloan.org/programs/digital-technology/open-source-in-science
+summary: >
+  The Sloan Foundation's Digital Technology program funds the tools, norms, and
+  institutions that sustain open-source software, hardware, and models in research.
+  Its Open Source in Science line funds university Open Source Program Office (OSPO)
+  grants (up to $750,000 over two years), publication/archiving infrastructure, and
+  research-software career paths; prospective applicants submit a two-page letter of
+  inquiry. Recorded sub-lines include "Better Software for Science" (13 grants) and
+  "Exploratory Grantmaking in Technology" (8 grants).
+rounds: []
+sources:
+  - https://sloan.org/programs/digital-technology/open-source-in-science
+  - https://sloan.org/grant-detail/g-2024-22595
+  - https://sloan.org/grant-detail/g-2026-79308

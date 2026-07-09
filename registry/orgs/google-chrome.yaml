@@ -1,0 +1,30 @@
+id: google-chrome
+name: Google Chrome
+aka:
+  - Chrome
+  - Google Chrome team
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: company
+website: https://developer.chrome.com/
+socials: {}
+status: active
+profile: >
+  The Google Chrome team funds open-source web-platform work through
+  targeted funds fiscally hosted by Open Source Collective, including the
+  Advanced Apps Fund and the Web Framework & Tools Performance Fund. The
+  Web Framework & Tools Performance Fund backs projects that improve
+  framework and tooling performance (bundle size, progressive delivery,
+  meta-framework and build-tool improvements) and remained active into
+  2026, with over $2.2M contributed and 18 expenses paid as of the most
+  recent review.
+funding:
+  focus:
+    - web framework performance
+    - developer tooling
+    - open-source web platform projects
+  apply_url: https://opencollective.com/chrome
+sources:
+  - https://opencollective.com/chrome
+  - https://developer.chrome.com/blog/framework-fund-2022

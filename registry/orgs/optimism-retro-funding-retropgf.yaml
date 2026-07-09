@@ -7,6 +7,7 @@ aka:
 systems: [optimism, web3-public-goods]
 wires: [crypto]
 roles: [funder]
+org_type: dao
 website: https://atlas.optimism.io/
 status: active
 profile: >

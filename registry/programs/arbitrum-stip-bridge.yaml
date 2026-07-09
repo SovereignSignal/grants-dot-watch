@@ -1,0 +1,23 @@
+id: arbitrum-stip-bridge
+name: Arbitrum STIP Bridge
+org: arbitrum-foundation
+parent: null
+systems: [arbitrum]
+wires: [crypto]
+status: concluded
+mechanism: grants
+apply_url: null
+summary: >
+  A follow-on, bridging round of the Short-Term Incentive Program that
+  extended incentive funding to 39 protocols on Arbitrum after STIP Round 1
+  concluded, approved via Arbitrum DAO governance to avoid a funding gap
+  while a longer-term incentive framework was designed.
+rounds:
+  - name: STIP Bridge
+    status: closed
+    closes: "2024-05-28"
+    size: "~$28,761,022 in ARB across 39 protocols"
+    source: https://forum.arbitrum.foundation/t/stip-bridge-funded-protocols-results/24491
+sources:
+  - https://forum.arbitrum.foundation/t/stip-bridge-funded-protocols-results/24491
+  - https://arbitrum.foundation/

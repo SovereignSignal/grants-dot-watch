@@ -1,0 +1,24 @@
+id: arbitrum-stip-round-1
+name: Arbitrum Short-Term Incentive Program (STIP) Round 1
+org: arbitrum-foundation
+parent: null
+systems: [arbitrum]
+wires: [crypto]
+status: concluded
+mechanism: grants
+apply_url: null
+summary: >
+  A one-time, DAO-approved incentive round that distributed roughly $50M in
+  ARB across around 30 protocols on Arbitrum to bootstrap usage and liquidity.
+  Recipients committed to incentive-distribution plans (e.g. liquidity mining,
+  fee rebates) rather than open-ended grants; funded via an Arbitrum DAO
+  governance proposal.
+rounds:
+  - name: STIP Round 1
+    status: closed
+    closes: "2023-10-13"
+    size: "~$50,000,000 in ARB across ~30 protocols"
+    source: https://forum.arbitrum.foundation/t/stip-grant-recipients-update/18884
+sources:
+  - https://forum.arbitrum.foundation/t/stip-grant-recipients-update/18884
+  - https://arbitrum.foundation/

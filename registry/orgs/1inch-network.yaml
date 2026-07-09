@@ -12,13 +12,11 @@ socials:
 status: active
 profile: >
   The 1inch Network is a DeFi platform that aggregates liquidity across exchanges
-  so users can swap tokens at optimal rates, and has expanded into intent-based
-  cross-chain swaps spanning 13+ blockchain networks. The 1inch Foundation,
-  describing itself as a DeFi development accelerator bridging on-chain governance
-  and off-chain action, funds developers, teams, and individuals working on tools,
-  products, or content that benefit the 1inch ecosystem, with non-dilutive grants
-  paid in 1INCH tokens or other agreed currencies, typically aligned with project
-  milestones.
+  so users can swap tokens at optimal rates. Its foundation supports projects and
+  initiatives that drive sustainable growth of the 1inch ecosystem, including
+  community engagement, protocol integrations, research and analytics, education,
+  and events, with non-dilutive grants paid in 1INCH tokens or other agreed
+  currencies, structured around project milestones.
 sources:
   - https://1inch.io/
   - https://1inch.network/foundation

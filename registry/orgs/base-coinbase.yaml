@@ -1,0 +1,31 @@
+id: base-coinbase
+name: Base (Coinbase)
+aka:
+  - Base
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: company
+website: https://base.org/
+socials:
+  x: https://x.com/base
+  github: https://github.com/base-org
+status: active
+profile: >
+  Base is Coinbase's Ethereum layer-2 network, built for onchain finance,
+  payments, DeFi, and agentic apps. It funds ecosystem builders through
+  several channels: retroactive Builder Grants (1-5 ETH for shipped
+  projects, more than 20 cohorts since 2024), weekly builder rewards via
+  Talent Protocol, the Base Ecosystem Fund for investment alongside Coinbase
+  Ventures, and quarterly CDP Builder Grant pools. A $2M Builder Grants pool
+  was announced for 2025-2026.
+funding:
+  focus:
+    - onchain finance
+    - payments
+    - DeFi
+    - agentic apps
+  apply_url: https://docs.base.org/get-started/get-funded
+sources:
+  - https://base.org/
+  - https://docs.base.org/get-started/get-funded

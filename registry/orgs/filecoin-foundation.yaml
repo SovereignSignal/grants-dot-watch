@@ -1,0 +1,36 @@
+id: filecoin-foundation
+name: Filecoin Foundation
+aka:
+  - Filecoin Foundation and Protocol Labs
+systems: [filecoin]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://fil.org/
+socials:
+  x: https://x.com/filfoundation
+  github: https://github.com/filecoin-project
+status: active
+profile: >
+  Filecoin Foundation stewards the decentralized-storage Filecoin protocol
+  alongside Protocol Labs, funding open developer grants ($5k-$50k),
+  Builder Next Step grants ($5k-$10k), and Retroactive Public Goods Funding
+  (RetroPGF) rounds allocating hundreds of thousands of FIL to
+  infrastructure, tooling, and impact projects. Funded work must be
+  open-sourced (MIT/Apache 2.0 dual license for Open Grants). Programs are
+  active and scaling, with recurring dev-grant waves and RetroPGF rounds.
+funding:
+  focus:
+    - decentralized storage
+    - data retrieval
+    - developer tooling
+    - Filecoin Virtual Machine (FVM)
+    - protocol research
+    - public goods
+  typical_size: "Open Grants up to $50,000; Builder Next Steps grants $5k-$10k"
+  cadence: "Rolling submissions, reviewed on a recurring cycle"
+  apply_url: https://github.com/filecoin-project/devgrants
+sources:
+  - https://fil.org/
+  - https://github.com/filecoin-project/devgrants
+  - https://filecoinfoundation.medium.com/wave-11-dev-grant-recipients-ddc60c0b426c

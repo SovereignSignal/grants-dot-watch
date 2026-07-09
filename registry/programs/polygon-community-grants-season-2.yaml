@@ -1,0 +1,27 @@
+id: polygon-community-grants-season-2
+name: Polygon Community Grants Program — Season 2
+org: polygon
+parent: null
+systems: [ethereum]
+wires: [crypto]
+status: concluded
+mechanism: grants
+apply_url: https://polygon.questbook.xyz/
+summary: >
+  Season 2 of the Polygon Community Grants Program made up to 35M POL available to
+  fund builders on Polygon, split between a Grant Allocators Track (up to 15M POL,
+  themed around AI, DePIN, and memecoins via independent allocators like Gitcoin,
+  IoTeX, and Eliza Labs) and a Direct Track (up to 20M POL for any category). KYC was
+  mandatory and funding was milestone-based. The program now shows as closed on
+  Questbook.
+rounds:
+  - name: Season 2 — Direct Track
+    status: closed
+    opens: "2025-01-14"
+    closes: "2025-04-15"
+    size: "7 awards recorded"
+    source: https://ourcryptotalk.com/blog/polygon-community-grants-season-2-winners-selected
+sources:
+  - https://polygon.questbook.xyz/
+  - https://ourcryptotalk.com/blog/polygon-community-grants-season-2-winners-selected
+  - https://polygon.technology/grow

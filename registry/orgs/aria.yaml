@@ -1,0 +1,28 @@
+id: aria
+name: ARIA (Advanced Research and Invention Agency)
+aka:
+  - Advanced Research and Invention Agency
+systems: [uk-public-rd]
+wires: [ai, oss]
+roles: [funder]
+org_type: government
+website: https://www.aria.org.uk/
+socials:
+  x: https://x.com/ARIA_Research
+status: active
+profile: >
+  ARIA is the UK government's independent research and development funding
+  agency, modeled on DARPA, backing high-risk, high-reward programmes in
+  areas including AI safety, AI scientists, and other scientific and
+  technological breakthroughs. It funds through solicited programme calls
+  and virtual institutes rather than open, unsolicited proposals, and
+  continues to issue new calls and awards across AI- and OSS-adjacent
+  domains.
+funding:
+  focus:
+    - AI safety
+    - AI scientists / scientific discovery tools
+    - high-risk, high-reward R&D
+  apply_url: https://www.aria.org.uk/
+sources:
+  - https://www.aria.org.uk/

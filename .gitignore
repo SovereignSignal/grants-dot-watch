@@ -4,4 +4,6 @@ node_modules/
 .env.*
 *.log
 .DS_Store
-seed/
+/seed/
+.data/
+tsconfig.tsbuildinfo

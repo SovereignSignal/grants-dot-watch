@@ -1,0 +1,21 @@
+id: mozilla-foundation-moss-secure-open-source-fund
+name: Mozilla Open Source Support (MOSS) — Secure Open Source (SOS) Fund
+org: mozilla-foundation
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: concluded
+mechanism: grants
+apply_url: https://www.mozilla.org/en-US/moss/secure-open-source/
+summary: >
+  The Secure Open Source (SOS) track of Mozilla Open Source Support paid for
+  third-party security audits of widely used open-source software and the remedial
+  work to fix problems found. Of the awards with a disclosed dollar amount, sizes
+  ranged from $15,000 to $187,500; many entries in Mozilla's award directory do not
+  disclose an amount. Mozilla selected candidates directly rather than running an
+  open application process. The broader MOSS program is on indefinite hiatus and not
+  accepting new applications following Mozilla's 2020 restructuring.
+rounds: []
+sources:
+  - https://www.mozilla.org/en-US/moss/secure-open-source/
+  - https://github.com/mozilla/moss-directory/blob/master/SOS_Fund.md

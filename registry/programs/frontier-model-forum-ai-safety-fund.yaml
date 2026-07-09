@@ -1,0 +1,30 @@
+id: frontier-model-forum-ai-safety-fund
+name: AI Safety Fund
+org: frontier-model-forum
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://aisfund.org/funding-opportunities/
+summary: >
+  The Frontier Model Forum's AI Safety Fund awards grants to independent
+  researchers at academic institutions, research institutions, NGOs, and
+  mission-driven for-profits, for research addressing critical safety and
+  security risks of frontier AI models and enabling standardized
+  third-party evaluations. Proposed budgets are capped at $500,000 per
+  grant, and rounds run as periodic competitive RFPs rather than rolling
+  applications.
+rounds:
+  - name: AISF Round One (Summer 2024)
+    status: closed
+    size: "12 awards"
+    source: https://aisfund.org/update-on-the-aisf-grantmaking-and-upcoming-funding-opportunity/
+  - name: AISF Round Two
+    status: closed
+    closes: "2025-12-11"
+    size: "11 awards, over $5M total"
+    source: https://www.frontiermodelforum.org/updates/announcement-of-new-ai-safety-fund-grantees/
+sources:
+  - https://aisfund.org/funding-opportunities/
+  - https://www.frontiermodelforum.org/updates/announcement-of-new-ai-safety-fund-grantees/

@@ -1,0 +1,30 @@
+id: avalanche-foundation
+name: Avalanche Foundation
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://build.avax.network/grants
+socials:
+  x: https://x.com/AvalancheFDN
+  github: https://github.com/avalanche-foundation
+  forum: https://forum.avax.network/
+status: active
+profile: >
+  The Avalanche Foundation supports the Avalanche layer-1 network through
+  several parallel funding tracks: the retroactive Retro9000 programme on
+  C-Chain (monthly rounds, over $1M distributed to 19 projects in June
+  2025), Team1 Builder Grants, research grants, and the Blizzard Fund for
+  venture-style investment. New research funding calls continued into 2026,
+  with no signs of the programmes winding down.
+funding:
+  focus:
+    - core protocol infrastructure
+    - developer tooling
+    - security
+    - research
+  apply_url: https://grants.avax.network/
+sources:
+  - https://build.avax.network/grants
+  - https://www.avax.network/about/blog/the-avalanche-foundation-announces-retro9000-c-chain-round-2

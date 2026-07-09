@@ -1,0 +1,15 @@
+id: omidyar-network-generative-ai-funding
+name: Omidyar Network — Generative AI Funding Effort
+org: omidyar-network
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: grants
+summary: >
+  A dedicated Omidyar Network funding effort, launched with a $30M initial
+  investment, to promote inclusive and responsible development of generative AI. Made
+  at least 6 awards as part of the initial cohort.
+rounds: []
+sources:
+  - https://omidyar.com/update/omidyar-network-launches-a-dedicated-funding-effort-to-promote-inclusive-and-responsible-development-of-generative-ai/

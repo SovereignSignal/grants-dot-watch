@@ -11,9 +11,10 @@ website: https://www.internetsociety.org/
 socials: {}
 status: unknown
 profile: >
-  The Internet Society is a non-profit organization tracked as a funder on
-  the open-source wire of this registry. Its website (internetsociety.org)
-  refused automated fetching, so its current activity and funding programs
-  have not yet been confirmed or profiled here.
+  The Internet Society is a non-profit organization that promotes the open
+  development and use of the internet. Its website (internetsociety.org)
+  blocks automated fetching, so its current funding programs have not yet
+  been confirmed here.
 sources:
   - https://www.internetsociety.org/
+  - https://en.wikipedia.org/wiki/Internet_Society

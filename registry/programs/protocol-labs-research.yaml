@@ -1,0 +1,26 @@
+id: protocol-labs-research
+name: Protocol Labs Research
+org: protocol-labs
+parent: null
+systems: [filecoin]
+wires: [crypto]
+status: paused
+mechanism: rfp
+apply_url: https://grants.protocol.ai/
+summary: >
+  Protocol Labs Research funds goal-driven and open research advancing distributed
+  systems, cryptography, networking, and web3/crypto-networks (the technologies
+  behind IPFS, Filecoin, and related projects), via topic-specific RFPs, a wildcard
+  RFP-X, open research awards, and fellowships (e.g. a $60k PL Research Doctoral
+  Fellowship; Cryptonet network grants of ~$25k-$35k). Individual RFPs are reviewed on
+  their own schedules. The general Open Research Grants program has been paused since
+  early 2023.
+rounds:
+  - name: Protocol Labs Grant Program (2018)
+    status: closed
+    size: "5 awards"
+    source: https://www.cryptoninjas.net/2019/04/19/protocol-labs-announces-first-recipients-of-grant-program/
+sources:
+  - https://research.protocol.ai/
+  - https://grants.protocol.ai/
+  - https://www.cryptoninjas.net/2019/04/19/protocol-labs-announces-first-recipients-of-grant-program/

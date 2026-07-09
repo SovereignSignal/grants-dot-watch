@@ -1,0 +1,39 @@
+id: polygon
+name: Polygon
+aka:
+  - Polygon Labs
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://polygon.technology/
+socials:
+  x: https://x.com/0xPolygon
+  github: https://github.com/0xPolygon
+  forum: https://forum.polygon.technology/
+status: active
+profile: >
+  Polygon operates a Community Treasury and Grants Program (successor to Polygon
+  Village) that has allocated tens of millions of POL tokens for builders across AI,
+  DePIN, gaming, consumer apps, DeFi, and infrastructure. Season 2 (January–April
+  2025) made up to 35M POL available, split between a themed Grant Allocators Track
+  run by partners like Gitcoin, IoTeX, and Eliza Labs, and a Direct Track open to any
+  category, following Season 1's 18M POL distributed across 70+ projects. Funding is
+  milestone-based and governed through the Polygon forum and GitHub proposals.
+funding:
+  focus:
+    - AI agents and infrastructure
+    - DePIN
+    - memecoins
+    - DeFi
+    - consumer apps
+    - infrastructure and developer tooling
+    - RWAs
+    - gaming
+  typical_size: Any amount requested, subject to per-track guidelines; final amount at grant allocator discretion, denominated in POL
+  cadence: Seasonal program; proposals reviewed and accepted on a rolling basis within the application window
+  apply_url: https://polygon.questbook.xyz/
+sources:
+  - https://polygon.technology/
+  - https://polygon.questbook.xyz/
+  - https://ourcryptotalk.com/blog/polygon-community-grants-season-2-winners-selected

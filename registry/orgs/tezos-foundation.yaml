@@ -13,11 +13,10 @@ socials:
 status: active
 profile: >
   The Tezos Foundation funds projects that advance the Tezos ecosystem through a
-  rolling grants program. Grants span seven verticals: core development (protocol
-  design, Octez, Smart Rollups), developer support, infrastructure and tooling,
-  arts and culture, DeFi on Tezos and Etherlink, business development, and gaming.
-  Applications are reviewed on a rolling basis, with review averaging about four
-  weeks plus roughly four more weeks of paperwork.
+  rolling grants program. Grants span seven verticals: core development, technical
+  relations, infrastructure and tooling, arts and culture, DeFi, business
+  development, and gaming. Applications are reviewed on a rolling basis, with
+  review averaging about four weeks plus roughly four more weeks of paperwork.
 sources:
   - https://tezos.foundation/
   - https://tezos.foundation/grants/

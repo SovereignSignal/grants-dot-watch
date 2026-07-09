@@ -16,11 +16,11 @@ socials:
 status: active
 profile: >
   Octant is an Ethereum-ecosystem funder that allocates capital to public goods through
-  epoch-based community allocation. Recent tracked activity includes ecosystem funding
-  deployments to projects such as Shutter Network and a proposed yield-powered matching
-  collaboration with Gitcoin for the GG25 round. Community discussion runs on its public
-  forum at discuss.octant.app.
+  epoch-based community allocation. Its vault infrastructure has been adopted by other
+  ecosystem initiatives, including Shutter DAO's Shutter Champions program, and it has a
+  proposed yield-powered matching collaboration with Gitcoin for the GG25 round. Community
+  discussion runs on its public forum at discuss.octant.app.
 sources:
   - https://octant.build/
-  - https://x.com/ShutterNetwork/status/2036077585143406691
+  - https://blog.shutter.network/shutter-dao-0x36-deploys-1-2m-to-fund-ecosystem-growth/
   - https://gov.gitcoin.co/t/proposal-gitcoin-x-octant-yield-powered-matching-for-gg25/24977

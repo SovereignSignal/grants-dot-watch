@@ -1,0 +1,29 @@
+id: celo
+name: Celo
+aka: []
+systems: [web3-public-goods]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://celo.org/
+socials:
+  x: https://x.com/Celo
+  github: https://github.com/celo-org
+  forum: https://forum.celo.org/c/ecosystem/grants/27
+status: active
+profile: >
+  Celo is a mobile-first, EVM-compatible layer-1 blockchain focused on
+  real-world payments and adoption, governed by the Celo DAO with support
+  from the Celo Foundation and cLabs. Ecosystem funding runs through
+  CeloPG (public goods / retroactive grants), milestone-based grants,
+  security subsidies, and Gitcoin-style quadratic-funding rounds, funded in
+  CELO, cUSD, and OP each season.
+funding:
+  focus:
+    - public goods
+    - real-world payments
+    - ecosystem infrastructure
+  apply_url: https://forum.celo.org/c/ecosystem/grants/27
+sources:
+  - https://celo.org/
+  - https://forum.celo.org/c/ecosystem/grants/27

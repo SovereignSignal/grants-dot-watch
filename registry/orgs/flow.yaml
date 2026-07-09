@@ -1,0 +1,29 @@
+id: flow
+name: Flow
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://developers.flow.com/
+socials:
+  x: https://x.com/flow_blockchain
+  github: https://github.com/onflow
+status: active
+profile: >
+  Flow is a layer-1 blockchain built for consumer-scale apps, NFTs, and
+  gaming, governed and funded primarily through the Flow Foundation. The
+  Foundation runs two parallel programmes: GrantDAO, a community-voted
+  (MACI voting on DoraHacks) fund for pre-startup and hackathon-stage
+  builders, and Ecosystem Grants, a top-down programme for growth-stage
+  teams reviewed internally by the Foundation against milestones and
+  roadmaps. GrantDAO Round 1 closed August 2025 with Round 2 following in
+  early 2026.
+funding:
+  focus:
+    - consumer apps
+    - NFTs
+    - gaming
+  apply_url: https://developers.flow.com/
+sources:
+  - https://developers.flow.com/

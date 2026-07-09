@@ -1,0 +1,27 @@
+id: deep-funding
+name: Deep Funding
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: dao
+website: https://deepfunding.ai/
+socials:
+  x: https://x.com/DeepFunding
+status: active
+profile: >
+  Deep Funding is SingularityNET's (now part of the Artificial
+  Superintelligence Alliance) decentralized AI innovation fund. It awards
+  milestone-based grants, runs RFPs, and hosts hackathons to support
+  builders creating tools, services, and beneficial AGI projects for a
+  decentralized AI marketplace, with awards up to $100k+ and community
+  voting alongside reviewer input. 2025 activity included a $500k RFP for
+  BGI technical projects and Hyperon-focused rounds.
+funding:
+  focus:
+    - decentralized AI
+    - AGI infrastructure
+    - AI marketplace tooling
+  apply_url: https://deepfunding.ai/
+sources:
+  - https://deepfunding.ai/

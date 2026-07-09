@@ -1,0 +1,28 @@
+id: xrpl
+name: XRPL
+aka:
+  - XRP Ledger
+  - XRP Ledger Foundation
+  - XRPLF
+systems: [xrpl]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://xrpl.org/
+socials:
+  x: https://x.com/XRPLF
+  github: https://github.com/XRPLF
+status: active
+profile: >
+  XRPL refers to the XRP Ledger, an open-source, decentralized blockchain whose
+  protocol development is stewarded by the XRP Ledger Foundation (XRPLF), an
+  independent nonprofit separate from Ripple Labs that maintains core infrastructure
+  such as the rippled server and the xrpl.js/xrpl-py/xrpl4j client libraries. Funding
+  for builders on the ledger flows through several channels, including Ripple's XRPL
+  Accelerator and its 2026 shift toward a distributed, $550M "XRPL FinTech Builder
+  Program," plus community-run initiatives such as XRPL Commons' Glow retroactive
+  funding and periodic ecosystem hackathons.
+sources:
+  - https://xrpl.org/
+  - https://github.com/XRPLF
+  - https://ripple.com/insights/supporting-innovation-on-the-xrp-ledger/

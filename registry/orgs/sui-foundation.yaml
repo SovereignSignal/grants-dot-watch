@@ -1,0 +1,32 @@
+id: sui-foundation
+name: Sui Foundation
+aka: []
+systems: [sui]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.sui.io/
+socials:
+  x: https://x.com/SuiFoundation
+  github: https://github.com/sui-foundation
+status: active
+profile: >
+  Sui Foundation stewards the Sui blockchain ecosystem through a mix of funding
+  mechanisms: Hydropower, its official non-dilutive accelerator offering mentorship
+  and capital connections; a DeFi Moonshots program offering up to $500,000 in
+  liquidity incentives to top protocol builders; Academic Research Awards (~$25,000
+  per award) for blockchain science and security research; Requests for Proposals
+  targeting specific technical or ecosystem challenges; and direct strategic
+  investment in core-primitive builders.
+funding:
+  focus:
+    - DeFi
+    - accelerator support
+    - academic blockchain research
+    - RFP-driven ecosystem challenges
+  typical_size: "Academic Research Awards ~$25,000 per award; DeFi Moonshots up to $500,000 in liquidity incentives"
+  apply_url: https://www.sui.io/programs-funding
+sources:
+  - https://www.sui.io/
+  - https://www.sui.io/programs-funding
+  - https://www.sui.io/request-for-proposals

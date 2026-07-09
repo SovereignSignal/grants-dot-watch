@@ -1,0 +1,26 @@
+id: schmidt-sciences-trustworthy-ai
+name: Schmidt Sciences — Science of Trustworthy AI
+org: schmidt-sciences
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: rfp
+apply_url: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
+summary: >
+  Schmidt Sciences' Science of Trustworthy AI program funds technical research to
+  understand, predict, and control risks from advanced AI systems, across three aims:
+  characterizing/forecasting misalignment in frontier models, developing
+  generalizable measurement and intervention, and overseeing superhuman-capability
+  and multi-agent systems. Awardees also receive compute, software engineering
+  support, and frontier-model API credits. Funded in two tiers (up to $1M; $1M-$5M+
+  over 1-3 years) across sub-tracks including "Understanding Safety in AI Systems"
+  (23 awards) and "Inference-Time Compute" (10 awards).
+rounds:
+  - name: 2026 Science of Trustworthy AI RFP
+    status: closed
+    closes: "2026-05-17"
+    source: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
+sources:
+  - https://www.schmidtsciences.org/trustworthy-ai/
+  - https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/

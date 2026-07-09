@@ -1,0 +1,37 @@
+id: sloan-foundation-tech-oss
+name: Alfred P. Sloan Foundation — Technology Program
+aka:
+  - Alfred P. Sloan Foundation
+  - Sloan Foundation
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://sloan.org
+socials: {}
+status: active
+profile: >
+  The Alfred P. Sloan Foundation is a longstanding U.S. philanthropic foundation
+  funding basic research, higher education, and public understanding of science. Its
+  Technology program supports the tools, norms, and institutions that sustain
+  open-source software, hardware, and models used in research; its Open Source in
+  Science line funds work such as establishing university Open Source Program Offices
+  (OSPOs, up to $750,000 over two years), software-sustainability infrastructure, and
+  research-software career paths. Prospective applicants submit a two-page letter of
+  inquiry rather than a full unsolicited proposal.
+funding:
+  focus:
+    - open source software
+    - research software / scientific software
+    - Open Source Program Offices (OSPOs)
+    - research software engineering
+    - software sustainability and maintenance
+    - scientific collaboration
+    - emerging technology for research
+  typical_size: Up to $750,000 over two years for university OSPO grants
+  eligibility: For OSPO grants, U.S. higher education institutions; Open Source in Science funds tooling, institutions, and incentives rather than individual dev projects
+  apply_url: https://sloan.org/programs/digital-technology/open-source-in-science
+sources:
+  - https://sloan.org
+  - https://sloan.org/programs/digital-technology/open-source-in-science
+  - https://sloan.org/grant-detail/g-2024-22595

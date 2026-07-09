@@ -1,0 +1,29 @@
+id: unicef
+name: UNICEF
+aka:
+  - UNICEF Innovation Fund
+systems: []
+wires: [crypto, ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.unicef.org/innovation/
+socials:
+  x: https://x.com/UNICEFinnovate
+status: active
+profile: >
+  UNICEF, through its Innovation Fund and Office of Innovation, runs equity-free
+  funding programs for early-stage, open-source frontier-tech startups working on
+  problems affecting children, including dedicated Blockchain Ventures and an
+  AI/Blockchain "Data and Trust" cohort. Selected teams receive up to $100,000 paid in
+  crypto (ETH/BTC/USDC) plus technical mentorship and piloting support, with recurring
+  calls aimed at startups in emerging markets.
+funding:
+  focus:
+    - blockchain for social good
+    - AI for data and trust
+    - digital public goods
+  typical_size: up to $100,000, paid in ETH/BTC/USDC
+  apply_url: https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions
+sources:
+  - https://www.unicef.org/innovation/
+  - https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions

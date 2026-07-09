@@ -1,0 +1,30 @@
+id: hedera
+name: Hedera
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://hedera.com/
+socials:
+  x: https://x.com/hedera
+  github: https://github.com/hashgraph
+status: active
+profile: >
+  Hedera is an enterprise-grade public distributed-ledger network governed
+  by the Hedera Council, a rotating body of 30+ global organizations.
+  Ecosystem funding flows primarily through the independent Hashgraph
+  Association, a Swiss non-profit that runs innovation and grant programmes
+  and co-funding for startups, enterprises, and government initiatives
+  building on Hedera, with awards reported up to $250k-$1.5M per project.
+  Hedera also runs hackathons such as the Hello Future Apex Hackathon
+  (up to $250,000 in prizes across tracks).
+funding:
+  focus:
+    - tokenization
+    - AI
+    - real-world assets (RWA)
+    - enterprise adoption
+  apply_url: https://hedera.com/
+sources:
+  - https://hedera.com/

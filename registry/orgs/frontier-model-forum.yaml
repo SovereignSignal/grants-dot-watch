@@ -1,0 +1,35 @@
+id: frontier-model-forum
+name: Frontier Model Forum
+aka:
+  - AI Safety Fund (Frontier Model Forum)
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.frontiermodelforum.org/
+socials:
+  x: https://x.com/fmf_org
+status: active
+profile: >
+  The Frontier Model Forum is an industry-backed non-profit founded by
+  Anthropic, Google, Microsoft, and OpenAI, focused on frontier AI safety
+  best practices, research, and information-sharing with policymakers. It
+  manages the AI Safety Fund, which awards grants for independent research
+  addressing critical safety and security risks of frontier AI models, with
+  current priority areas in biosecurity, cybersecurity, AI agent
+  evaluation, and synthetic content.
+funding:
+  focus:
+    - AI safety
+    - AI security
+    - biosecurity
+    - cybersecurity
+    - AI agent evaluation
+    - synthetic content
+    - third-party model evaluations
+  typical_size: "Proposed budgets up to $500,000 per grant; most recent cohort awarded over $5M across 11 grantees"
+  cadence: "Competitive funding rounds via periodic RFPs (Round One Nov 2024; Round Two Dec 2025)"
+  apply_url: https://aisfund.org/funding-opportunities/
+sources:
+  - https://www.frontiermodelforum.org/
+  - https://www.frontiermodelforum.org/ai-safety-fund/

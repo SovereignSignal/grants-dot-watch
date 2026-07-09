@@ -1,0 +1,31 @@
+id: ford-foundation-digital-infrastructure-research
+name: Digital Infrastructure Research Grants
+org: ford-foundation
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: concluded
+mechanism: grants
+apply_url: null
+summary: >
+  A collaborative research-grants initiative — Ford Foundation with the
+  Alfred P. Sloan Foundation, Mozilla's Open Source Support programme,
+  Omidyar Network, and Open Society Foundations (fiscally hosted by Open
+  Collective Foundation for the 2020 round) — funding research on the
+  open-source code and digital infrastructure underpinning the internet,
+  including how to sustain maintainer communities and address systemic
+  inequities in the field. Ran across a 2018 wave (managed jointly by Ford
+  and Sloan) and a larger 2020 collaborative wave.
+rounds:
+  - name: 2018 Digital Infrastructure Research Grants
+    status: closed
+    size: "13 awards (8 managed by Ford, 5 managed by Sloan)"
+    source: https://www.fordfoundation.org/media/5391/digital-infrastructure-research_-funded-project-descriptions.pdf
+  - name: 2020 Digital Infrastructure Research Grants
+    status: closed
+    size: "12 awards, $997,566.57 total"
+    source: https://opencollective.com/di-grants/projects/municipal-di
+sources:
+  - https://www.fordfoundation.org/media/5391/digital-infrastructure-research_-funded-project-descriptions.pdf
+  - https://opencollective.com/di-grants/projects/municipal-di
+  - https://www.fordfoundation.org/work/challenging-inequality/technology-and-society/digital-infrastructure/our-work/

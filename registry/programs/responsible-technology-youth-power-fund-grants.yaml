@@ -23,7 +23,8 @@ rounds:
   - name: "Fund 3 (2026 cohort)"
     status: deployed
     closes: "2025-10-10"
-    source: https://www.rtyouthpower.org/apply
+    size: "$1.9M across 24 organizations"
+    source: https://www.prnewswire.com/news-releases/responsible-technology-youth-power-fund-announces-1-9-million-in-grants-to-third-cohort-of-youth-led-organizations-302746335.html
   - name: "Fund 4"
     status: announced
     source: https://www.rtyouthpower.org/apply
@@ -31,3 +32,4 @@ sources:
   - https://www.rtyouthpower.org/apply
   - https://omidyar.com/update/young-leaders-in-technology-granted-2-million-to-create-safe-and-inclusive-online-spaces/
   - https://omidyar.com/update/responsible-tech-youth-power-fund-chooses-next-generation-of-leaders-to-transform-responsible-technology-landscape/
+  - https://www.prnewswire.com/news-releases/responsible-technology-youth-power-fund-announces-1-9-million-in-grants-to-third-cohort-of-youth-led-organizations-302746335.html

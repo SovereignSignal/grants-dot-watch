@@ -1,0 +1,26 @@
+id: filecoin-foundation-dev-grants
+name: Filecoin Foundation Dev Grants
+org: filecoin-foundation
+parent: null
+systems: [filecoin]
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://github.com/filecoin-project/devgrants
+summary: >
+  Filecoin Foundation's open developer grants programme, run in numbered
+  waves, with an Open Grants track (up to $50,000) and a smaller
+  Microgrants track. Funded work must be open-sourced under a dual MIT/
+  Apache 2.0 license.
+rounds:
+  - name: Wave 11 — Open Grants
+    status: closed
+    size: "8 awards"
+    source: https://filecoinfoundation.medium.com/wave-11-dev-grant-recipients-ddc60c0b426c
+  - name: Wave 11 — Microgrants
+    status: closed
+    size: "5 awards"
+    source: https://filecoinfoundation.medium.com/wave-11-dev-grant-recipients-ddc60c0b426c
+sources:
+  - https://github.com/filecoin-project/devgrants
+  - https://filecoinfoundation.medium.com/wave-11-dev-grant-recipients-ddc60c0b426c

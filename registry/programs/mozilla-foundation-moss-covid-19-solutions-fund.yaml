@@ -1,0 +1,18 @@
+id: mozilla-foundation-moss-covid-19-solutions-fund
+name: Mozilla Open Source Support (MOSS) — COVID-19 Solutions Fund
+org: mozilla-foundation
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: concluded
+mechanism: grants
+summary: >
+  A one-time Mozilla Open Source Support (MOSS) track funding open-source projects
+  responding to the COVID-19 pandemic (contact tracing/health data tools, mutual-aid
+  logistics, medical hardware). Made at least 6 awards totaling roughly $214,964,
+  including to OpenMRS, Careables, Open Food Network, and VentMon. Part of the
+  broader MOSS program, now on indefinite hiatus.
+rounds: []
+sources:
+  - https://github.com/mozilla/moss-directory/blob/master/COVID_19_Solutions_Fund.md
+  - https://www.mozilla.org/en-US/moss/

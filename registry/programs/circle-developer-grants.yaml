@@ -1,0 +1,20 @@
+id: circle-developer-grants
+name: Circle Developer Grants
+org: circle
+parent: null
+systems: []
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://www.circle.com/grant
+summary: >
+  Circle's grants program for developers building USDC-powered applications,
+  covering agentic economic activity, stablecoin FX, peer-to-peer payments,
+  treasury management, prediction markets, and lending/borrowing. Grants run
+  $5,000-$100,000 in USDC through a five-step review (application, team
+  review, technical evaluation, milestone design, milestone-based
+  disbursement); a first cohort opened in 2026.
+rounds: []
+sources:
+  - https://www.circle.com/grant
+  - https://x.com/BuildOnCircle/status/2034315397646963009
