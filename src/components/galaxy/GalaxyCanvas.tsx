@@ -29,7 +29,65 @@ import GalaxyLegend from './GalaxyLegend';
 
 const LIVE_HEX = '#4fbf7e'; // mirrors --color-live (globals.css)
 const SIGNAL_HEX = '#e8b44f'; // mirrors --color-signal — used for the focus pulse ring
-const CLUSTER_LABEL_HEX = '#5b5f73'; // mirrors --color-faint
+const CLUSTER_LABEL_HEX = '#9094a8'; // mirrors --color-dim (faint was unreadable over nebulas)
+
+// Display-layer luminous variants for the additive canvas (see field.tsx).
+// UI marks keep the validated WIRE_HEX trio; identity is never color-alone.
+const GLOW_HEX: Record<string, string> = {
+  crypto: '#eaa63f',
+  ai: '#a98bff',
+  oss: '#3cc4d6',
+};
+
+// Pre-rendered star sprites (halo + core + hot center), keyed by hue, radius
+// bucket, and live flag. Per-frame gradient allocation at 459 stars was the
+// difference between 60fps and 2fps.
+const SPRITE_CACHE = new Map<string, { c: HTMLCanvasElement; half: number }>();
+function starSprite(hex: string, r: number, live: boolean): { c: HTMLCanvasElement; half: number } {
+  const rb = Math.min(24, Math.round(r * 4) / 4); // quarter-px buckets, capped
+  const key = `${hex}|${rb}|${live}`;
+  let s = SPRITE_CACHE.get(key);
+  if (s) return s;
+  const dpr = Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 2);
+  const haloR = rb * (live ? 4.6 : 2.8) + 2;
+  const half = Math.ceil(haloR + 2);
+  const sc = document.createElement('canvas');
+  sc.width = sc.height = Math.max(2, half * 2 * dpr);
+  const scc = sc.getContext('2d')!;
+  scc.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const halo = scc.createRadialGradient(half, half, 0, half, half, haloR);
+  halo.addColorStop(0, hexToRgba(hex, 0.45));
+  halo.addColorStop(0.4, hexToRgba(hex, 0.14));
+  halo.addColorStop(1, hexToRgba(hex, 0));
+  scc.fillStyle = halo;
+  scc.beginPath();
+  scc.arc(half, half, haloR, 0, Math.PI * 2);
+  scc.fill();
+  scc.fillStyle = hex;
+  scc.beginPath();
+  scc.arc(half, half, rb, 0, Math.PI * 2);
+  scc.fill();
+  if (rb > 2.6) {
+    scc.fillStyle = hexToRgba('#f5f2e8', 0.85);
+    scc.beginPath();
+    scc.arc(half, half, rb * 0.42, 0, Math.PI * 2);
+    scc.fill();
+  }
+  s = { c: sc, half };
+  SPRITE_CACHE.set(key, s);
+  return s;
+}
+
+// World-space dust, computed once per module load — pure depth, no data.
+const DUST_FIELD: { x: number; y: number; r: number; a: number }[] = [];
+for (let i = 0; i < 380; i++) {
+  DUST_FIELD.push({
+    x: hashUnit(`dust-${i}`),
+    y: hashUnit(`dust2-${i}`),
+    r: 0.35 + hashUnit(`dust3-${i}`) * 0.8,
+    a: 0.1 + hashUnit(`dust4-${i}`) * 0.26,
+  });
+}
 
 const FOCUS_ZOOM = 2.4;
 const DRAG_THRESHOLD = 3; // px before a pointer-down reads as a drag, not a tap
@@ -154,31 +212,48 @@ export default function GalaxyCanvas({ map, meta, focusOrgId }: { map: Starmap; 
 
     ctx.clearRect(0, 0, w, h);
 
+    // dust — precomputed depth layer in world space (pans with the camera)
+    for (const d of DUST_FIELD) {
+      const pos = worldToScreen(d.x, d.y, w, h, camera);
+      if (pos.x < -4 || pos.x > w + 4 || pos.y < -4 || pos.y > h + 4) continue;
+      ctx.globalAlpha = d.a;
+      ctx.fillStyle = '#aeb4cf';
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // nebulas — ADDITIVE so overlapping systems glow instead of graying out
+    ctx.globalCompositeOperation = 'lighter';
+    const labelPlan: { text: string; x: number; y: number }[] = [];
     for (const c of map.clusters) {
       const pos = worldToScreen(c.x, c.y, w, h, camera);
       const radius = c.r * Math.min(w, h) * camera.zoom;
       if (radius < 1 || pos.x + radius < -40 || pos.x - radius > w + 40 || pos.y + radius < -40 || pos.y - radius > h + 40) continue;
 
       const wire = clusterWire.get(c.system);
-      const tint = wire ? WIRE_HEX[wire] : STAR_DEFAULT;
+      const tint = wire ? GLOW_HEX[wire] : STAR_DEFAULT;
       const rr = Math.max(6, radius);
-      const grad = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, rr);
-      grad.addColorStop(0, hexToRgba(tint, 0.12));
-      grad.addColorStop(1, hexToRgba(tint, 0));
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, rr, 0, Math.PI * 2);
-      ctx.fill();
+      for (const k of [1, 0.6]) {
+        const bx = pos.x + (k === 1 ? 0 : (hashUnit(c.system) - 0.5) * rr * 0.7);
+        const by = pos.y + (k === 1 ? 0 : (hashUnit(c.system + '·b') - 0.5) * rr * 0.5);
+        const grad = ctx.createRadialGradient(bx, by, 0, bx, by, rr * k);
+        grad.addColorStop(0, hexToRgba(tint, 0.09));
+        grad.addColorStop(0.55, hexToRgba(tint, 0.035));
+        grad.addColorStop(1, hexToRgba(tint, 0));
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(bx, by, rr * k, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
-      if (c.members >= 2 && (camera.zoom > 1.4 || c.r > 0.11)) {
-        ctx.font = '600 10px "IBM Plex Mono", ui-monospace, monospace';
-        ctx.fillStyle = CLUSTER_LABEL_HEX;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'alphabetic';
-        const ly = Math.min(h - 6, Math.max(12, pos.y - rr - 6));
-        ctx.fillText(c.name.toUpperCase(), pos.x, ly);
+      if (c.members >= 2 && (camera.zoom > 1.4 || c.r > 0.08)) {
+        const ly = Math.min(h - 8, Math.max(16, pos.y - Math.min(rr * 0.55, 84)));
+        labelPlan.push({ text: c.name.toUpperCase(), x: pos.x, y: ly });
       }
     }
+    ctx.globalCompositeOperation = 'source-over';
 
     for (const s of map.stars) {
       const pos = worldToScreen(s.x, s.y, w, h, camera);
@@ -195,25 +270,23 @@ export default function GalaxyCanvas({ map, meta, focusOrgId }: { map: Starmap; 
         alpha *= 0.82 + 0.18 * (0.5 + 0.5 * Math.sin((t / period) * Math.PI * 2 + phase * Math.PI * 2));
       }
 
-      const hex = s.wire ? WIRE_HEX[s.wire] : STAR_DEFAULT;
+      const hex = s.wire ? GLOW_HEX[s.wire] : STAR_DEFAULT;
+
+      // sprite = pre-rendered halo + core + hot center (see starSprite)
+      const sp = starSprite(hex, r, s.live);
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.drawImage(sp.c, pos.x - sp.half, pos.y - sp.half, sp.half * 2, sp.half * 2);
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
 
       if (s.live) {
-        const glowR = r * 2.4 + 5;
-        const glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, glowR);
-        glow.addColorStop(0, hexToRgba(LIVE_HEX, 0.32 * alpha));
-        glow.addColorStop(1, hexToRgba(LIVE_HEX, 0));
-        ctx.fillStyle = glow;
+        ctx.strokeStyle = hexToRgba(LIVE_HEX, 0.4 * alpha);
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, glowR, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(pos.x, pos.y, r + 3.5, 0, Math.PI * 2);
+        ctx.stroke();
       }
-
-      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
-      ctx.fillStyle = hex;
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
 
       if (pulseOrgRef.current === s.org && pulseStartRef.current != null) {
         const elapsed = t - pulseStartRef.current;
@@ -230,6 +303,26 @@ export default function GalaxyCanvas({ map, meta, focusOrgId }: { map: Starmap; 
           pulseOrgRef.current = null;
         }
       }
+    }
+
+    // cluster labels last — above stars, collision-skipped, with a tick line
+    ctx.font = '600 10px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    const placed: { x0: number; x1: number; y0: number; y1: number }[] = [];
+    for (const l of labelPlan) {
+      const tw = ctx.measureText(l.text).width;
+      const rect = { x0: l.x - tw / 2 - 6, x1: l.x + tw / 2 + 6, y0: l.y - 12, y1: l.y + 4 };
+      if (placed.some((p) => rect.x0 < p.x1 && rect.x1 > p.x0 && rect.y0 < p.y1 && rect.y1 > p.y0)) continue;
+      placed.push(rect);
+      ctx.fillStyle = hexToRgba(CLUSTER_LABEL_HEX, 0.8);
+      ctx.fillText(l.text, l.x, l.y);
+      ctx.strokeStyle = hexToRgba(CLUSTER_LABEL_HEX, 0.3);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(l.x, l.y + 4);
+      ctx.lineTo(l.x, l.y + 14);
+      ctx.stroke();
     }
   }, [map, clusterWire, camera, liveOnly, wireFilter, reducedMotion, fontsReady, size]);
 

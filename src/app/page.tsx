@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { buildStarmap } from '@/lib/starmap';
-import { Card, Coord, Empty, RoundStatus, Stat, WireBadge } from '@/components/ui';
-import { dateShort, money } from '@/lib/format';
-import type { Award, Org, Program, Round } from '@/lib/types';
+import { buildStarmap, WIRE_HEX } from '@/lib/starmap';
+import { Coord, Empty, RoundStatus, WireBadge } from '@/components/ui';
+import { dateShort, money, WIRE_LABEL } from '@/lib/format';
+import type { Award, Org, Program, Round, Wire } from '@/lib/types';
 import Field from '@/components/field';
 
 interface OpenRound {
@@ -39,11 +39,19 @@ function latestAwards(awards: Award[], cap: number): Award[] {
     .slice(0, cap);
 }
 
+function daysUntil(date: string | undefined): number | null {
+  if (!date) return null;
+  const d = new Date(date + 'T23:59:59Z').getTime() - Date.now();
+  return Math.ceil(d / 86_400_000);
+}
+
+const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
+
 export default function Home() {
   const { systems, orgs, programs, awards, orgStats, bySystem, counts } = loadRegistry();
   const map = buildStarmap(systems, orgs, orgStats);
 
-  const openRounds = collectOpenRounds(programs, orgs).slice(0, 9);
+  const openRounds = collectOpenRounds(programs, orgs).slice(0, 6);
   const recentAwards = latestAwards(awards, 8);
   const systemsRanked = [...systems].sort(
     (a, b) => (bySystem.get(b.id)?.orgs.length || 0) - (bySystem.get(a.id)?.orgs.length || 0)
@@ -53,89 +61,156 @@ export default function Home() {
     <>
       <section className="relative">
         <Field map={map} />
-        <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-void via-void/40 to-transparent">
-          <div className="mx-auto w-full max-w-6xl px-4 pb-10">
-            <div className="coord mb-3">
-              THE REGISTER · {counts.systems} SYSTEMS · {counts.funders} FUNDERS
+        <div className="pointer-events-none absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-6xl px-4">
+            <div className="max-w-2xl">
+              <div className="coord mb-4 flex items-center gap-3">
+                <span className="inline-block h-px w-8 bg-faint" aria-hidden />
+                THE REGISTER
+              </div>
+              <h1 className="display text-5xl font-semibold leading-[1.04] tracking-tight text-paper md:text-7xl">
+                The funding world,
+                <br />
+                on file.
+              </h1>
+              <p className="mt-4 max-w-lg text-base text-paper/70 md:text-lg">
+                Every system, funder, program, and award tracked across crypto, AI, and open source — kept current, in
+                one registry.
+              </p>
+              <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+                <span className="font-mono text-sm text-paper">
+                  {counts.systems} <span className="coord">SYSTEMS</span>
+                </span>
+                <span className="font-mono text-sm text-paper">
+                  {counts.funders} <span className="coord">FUNDERS</span>
+                </span>
+                <span className="font-mono text-sm text-paper">
+                  {counts.awards.toLocaleString()} <span className="coord">AWARDS</span>
+                </span>
+                <Link href="/galaxy" className="coord transition-colors hover:text-paper">
+                  ENTER THE GALAXY →
+                </Link>
+              </div>
             </div>
-            <h1 className="display max-w-2xl text-4xl font-semibold tracking-tight text-paper md:text-6xl">
-              The funding world, on file.
-            </h1>
-            <p className="mt-3 max-w-xl text-dim">
-              Every system, funder, program, and award we track across crypto, AI, and open source — kept current, in
-              one registry.
-            </p>
+          </div>
+        </div>
+        <div className="pointer-events-none absolute bottom-3 right-4 hidden md:block">
+          <div className="flex items-center gap-4">
+            {WIRES.map((w) => (
+              <span key={w} className="coord flex items-center gap-1.5">
+                <span aria-hidden className="inline-block size-1.5 rounded-full" style={{ background: WIRE_HEX[w] }} />
+                {WIRE_LABEL[w].toUpperCase()}
+              </span>
+            ))}
+            <span className="coord flex items-center gap-1.5">
+              <span aria-hidden className="inline-block size-1.5 rounded-full ring-2 ring-live/60" />
+              LIVE ROUND
+            </span>
           </div>
         </div>
       </section>
 
       <div className="starline" />
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="mb-4 flex items-baseline justify-between gap-4">
-          <h2 className="display text-xl font-semibold text-paper">Now open</h2>
-          <Link href="/programs" className="coord hover:text-dim">
-            All programs →
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-5 flex items-baseline justify-between gap-4">
+          <div>
+            <Coord>DEADLINES AHEAD</Coord>
+            <h2 className="display mt-1 text-2xl font-semibold text-paper">Now open</h2>
+          </div>
+          <Link href="/programs" className="coord hover:text-paper">
+            ALL PROGRAMS →
           </Link>
         </div>
         {openRounds.length === 0 ? (
           <Empty>No open rounds on file.</Empty>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {openRounds.map((r) => (
-              <Card key={r.key} href="/programs">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <div className="truncate font-medium text-paper">{r.program.name}</div>
-                    <div className="truncate text-sm text-dim">{r.orgName}</div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {openRounds.map((r) => {
+              const wire = (r.program.wires || [])[0] || null;
+              const days = daysUntil(r.round.closes);
+              const closingSoon = days !== null && days >= 0 && days <= 14;
+              return (
+                <Link
+                  key={r.key}
+                  href={`/programs/${r.program.id}`}
+                  className="group relative overflow-hidden rounded-md border border-line bg-surface p-4 transition-colors hover:border-faint hover:bg-raised"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-[2px] opacity-80"
+                    style={{ background: wire ? WIRE_HEX[wire] : 'var(--color-line)' }}
+                  />
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="line-clamp-2 font-medium leading-snug text-paper" title={r.program.name}>
+                        {r.program.name}
+                      </div>
+                      <div className="coord mt-1 truncate">{r.orgName}</div>
+                    </div>
+                    <RoundStatus status={r.round.status} />
                   </div>
-                  <RoundStatus status={r.round.status} />
-                </div>
-                <div className="mt-3 flex items-center justify-between text-xs">
-                  <span className="font-mono text-dim">
-                    {r.round.closes ? `Closes ${dateShort(r.round.closes)}` : 'No deadline on file'}
-                  </span>
-                  {r.round.size && <span className="font-mono text-paper">{r.round.size}</span>}
-                </div>
-              </Card>
-            ))}
+                  <div className="mt-4 flex items-end justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="coord">{r.round.closes ? 'CLOSES' : 'WINDOW'}</div>
+                      <div className={`whitespace-nowrap font-mono text-lg ${closingSoon ? 'text-closing' : 'text-paper'}`}>
+                        {r.round.closes ? dateShort(r.round.closes) : 'Rolling'}
+                        {closingSoon && <span className="ml-2 text-xs">{days}d left</span>}
+                      </div>
+                    </div>
+                    {r.round.size && (
+                      <div className="line-clamp-2 max-w-[45%] text-right font-mono text-xs leading-snug text-signal">
+                        {r.round.size}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
       </section>
 
       <div className="starline" />
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="mb-4 flex items-baseline justify-between gap-4">
-          <h2 className="display text-xl font-semibold text-paper">Latest awards</h2>
-          <Link href="/awards" className="coord hover:text-dim">
-            All awards →
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-5 flex items-baseline justify-between gap-4">
+          <div>
+            <Coord>CAPITAL IN MOTION</Coord>
+            <h2 className="display mt-1 text-2xl font-semibold text-paper">Latest awards</h2>
+          </div>
+          <Link href="/awards" className="coord hover:text-paper">
+            THE LEDGER →
           </Link>
         </div>
         {recentAwards.length === 0 ? (
           <Empty>No awards on file yet.</Empty>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[520px] text-sm">
+          <div className="overflow-x-auto rounded-md border border-line bg-surface">
+            <table className="w-full min-w-[560px] text-sm">
               <thead>
                 <tr className="coord text-left">
-                  <th className="pb-2 pr-4 font-normal">Date</th>
-                  <th className="pb-2 pr-4 font-normal">Funder → Grantee</th>
-                  <th className="pb-2 pr-4 font-normal">Amount</th>
-                  <th className="pb-2 font-normal">Wire</th>
+                  <th className="px-4 pb-2 pt-3 font-normal">Date</th>
+                  <th className="px-4 pb-2 pt-3 font-normal">Funder → Grantee</th>
+                  <th className="px-4 pb-2 pt-3 text-right font-normal">Amount</th>
+                  <th className="px-4 pb-2 pt-3 font-normal">Wire</th>
                 </tr>
               </thead>
               <tbody>
                 {recentAwards.map((a) => (
-                  <tr key={a.key} className="border-t border-line">
-                    <td className="whitespace-nowrap py-2 pr-4 font-mono text-dim">{dateShort(a.date)}</td>
-                    <td className="py-2 pr-4">
-                      <span className="text-paper">{a.funder_name}</span>
+                  <tr key={a.key} className="border-t border-line/70">
+                    <td className="whitespace-nowrap px-4 py-2.5 font-mono text-dim">{dateShort(a.date)}</td>
+                    <td className="px-4 py-2.5">
+                      <Link href={`/orgs/${a.funder}`} className="text-paper hover:underline">
+                        {a.funder_name}
+                      </Link>
                       <span className="text-faint"> → </span>
                       <span className="text-dim">{a.grantee_name}</span>
                     </td>
-                    <td className="whitespace-nowrap py-2 pr-4 font-mono text-paper">{money(a.amount, a.amount_text)}</td>
-                    <td className="py-2">{a.wire && <WireBadge wire={a.wire} small />}</td>
+                    <td className="whitespace-nowrap px-4 py-2.5 text-right font-mono text-signal">
+                      {money(a.amount, a.amount_text)}
+                    </td>
+                    <td className="px-4 py-2.5">{a.wire && <WireBadge wire={a.wire} small />}</td>
                   </tr>
                 ))}
               </tbody>
@@ -146,28 +221,46 @@ export default function Home() {
 
       <div className="starline" />
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="mb-4 flex items-baseline justify-between gap-4">
-          <h2 className="display text-xl font-semibold text-paper">Systems</h2>
-          <Link href="/systems" className="coord hover:text-dim">
-            All systems →
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-5 flex items-baseline justify-between gap-4">
+          <div>
+            <Coord>TAXONOMY</Coord>
+            <h2 className="display mt-1 text-2xl font-semibold text-paper">Systems</h2>
+          </div>
+          <Link href="/systems" className="coord hover:text-paper">
+            ALL SYSTEMS →
           </Link>
         </div>
         {systemsRanked.length === 0 ? (
           <Empty>No systems on file.</Empty>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {systemsRanked.map((s) => {
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {systemsRanked.slice(0, 9).map((s) => {
               const bucket = bySystem.get(s.id);
+              const members = bucket?.orgs || [];
               return (
-                <Card key={s.id} href={`/systems/${s.id}`}>
-                  <Coord>{s.kind === 'protocol-ecosystem' ? 'Protocol ecosystem' : 'Funding domain'}</Coord>
+                <Link
+                  key={s.id}
+                  href={`/systems/${s.id}`}
+                  className="group rounded-md border border-line bg-surface p-4 transition-colors hover:border-faint hover:bg-raised"
+                >
+                  <Coord>{s.kind === 'protocol-ecosystem' ? 'PROTOCOL ECOSYSTEM' : 'FUNDING DOMAIN'}</Coord>
                   <div className="display mt-1 text-lg font-semibold text-paper">{s.name}</div>
-                  <div className="mt-4 flex gap-6">
-                    <Stat label="Members" value={bucket?.orgs.length ?? 0} />
-                    <Stat label="Programs" value={bucket?.programs.length ?? 0} />
+                  <div className="mt-3 flex flex-wrap items-center gap-1" aria-hidden>
+                    {members.slice(0, 24).map((o) => (
+                      <span
+                        key={o.id}
+                        className="inline-block size-1.5 rounded-full opacity-80"
+                        style={{ background: o.wires?.[0] ? WIRE_HEX[o.wires[0]] : 'var(--color-faint)' }}
+                      />
+                    ))}
+                    {members.length > 24 && <span className="coord ml-1">+{members.length - 24}</span>}
                   </div>
-                </Card>
+                  <div className="coord mt-3">
+                    {members.length} {members.length === 1 ? 'FUNDER' : 'FUNDERS'} · {bucket?.programs.length ?? 0}{' '}
+                    PROGRAMS
+                  </div>
+                </Link>
               );
             })}
           </div>

@@ -55,15 +55,15 @@ export function buildStarmap(
     .sort((a, b) => b.n - a.n);
 
   const clusters: GalaxyCluster[] = bySize.map(({ s, n }, i) => {
-    const rad = 0.07 + 0.055 * Math.sqrt(n + 1);
-    const dist = 0.09 * Math.sqrt(i + 0.6);
+    const rad = Math.min(0.16, 0.05 + 0.042 * Math.sqrt(n + 1));
+    const dist = 0.115 * Math.sqrt(i + 0.6);
     const ang = i * GOLDEN + unit(hash(s.id)) * 0.5;
     return {
       system: s.id,
       name: s.name,
       kind: s.kind,
-      x: 0.5 + Math.cos(ang) * dist * 0.92,
-      y: 0.5 + Math.sin(ang) * dist * 0.62, // squash to widescreen
+      x: 0.5 + Math.cos(ang) * dist * 0.95,
+      y: 0.5 + Math.sin(ang) * dist * 0.66, // squash to widescreen
       r: rad,
       members: n,
     };
@@ -74,7 +74,7 @@ export function buildStarmap(
     const st = stats.get(o.id);
     const weight =
       (st?.awards_given || 0) + (st?.programs || 0) * 2 + (st?.live_rounds || 0) * 3;
-    const r = 1.6 + Math.min(6.5, Math.log2(1 + weight) * 1.35);
+    const r = 1.5 + Math.min(8, Math.log2(1 + weight) * 1.7);
     const primary = (o.systems || [])[0] || null;
     const c = primary ? cmap.get(primary) : undefined;
     const h1 = hash(o.id);
