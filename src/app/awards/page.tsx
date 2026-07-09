@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { PageHeader, Empty, Stat } from '@/components/ui';
@@ -6,6 +7,8 @@ import type { Award, Wire } from '@/lib/types';
 import { param, hrefWith, type SearchParams, type Query } from '@/components/ledger/query';
 import { ChipRow, FilterChip, ActiveFilterChip } from '@/components/ledger/chip';
 import { Pager } from '@/components/ledger/pager';
+
+export const metadata: Metadata = { title: 'Awards' };
 
 const WIRE_ORDER: Wire[] = ['crypto', 'ai', 'oss'];
 const PAGE_SIZE = 100;

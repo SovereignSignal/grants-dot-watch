@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { PageHeader, Card, RoundStatus, Empty, Stat } from '@/components/ui';
@@ -7,6 +8,8 @@ import { param, hrefWith, type SearchParams, type Query } from '@/components/led
 import { ChipRow, FilterChip, ActiveFilterChip } from '@/components/ledger/chip';
 import { MECHANISM_LABEL, PROGRAM_STATUS_LABEL } from '@/components/ledger/labels';
 import { mostLiveRound, programRank } from '@/components/ledger/rounds';
+
+export const metadata: Metadata = { title: 'Programs' };
 
 const STATUS_ORDER = ['active', 'announced', 'paused', 'concluded', 'unknown'];
 const MECHANISM_ORDER = ['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other'];
