@@ -1,0 +1,42 @@
+{
+ "merge_candidates": [
+  {
+   "domain": "x1ecochain.com",
+   "a": "x1-ecochain",
+   "b": "x1-eco-chain"
+  },
+  {
+   "domain": "sia.tech",
+   "a": "crc",
+   "b": "sia-foundation"
+  },
+  {
+   "domain": "nsf.gov",
+   "a": "national-science-foundation",
+   "b": "nsf-x-labs"
+  },
+  {
+   "domain": "nsf.gov",
+   "a": "national-science-foundation",
+   "b": "nsf-techaccess"
+  },
+  {
+   "domain": "bnbchain.org",
+   "a": "bnb-hack",
+   "b": "bnb-chain"
+  },
+  {
+   "domain": "google.org",
+   "a": "google",
+   "b": "google-org"
+  },
+  {
+   "domain": "zetachain.com",
+   "a": "zetachain-grant-program",
+   "b": "zetachain-grants"
+  }
+ ],
+ "unmatched": {
+  "watch_surfaces": 75
+ }
+}

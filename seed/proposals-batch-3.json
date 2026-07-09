@@ -1,0 +1,82 @@
+[
+  {
+    "type": "profile_note",
+    "org": "eleutherai",
+    "org_name": null,
+    "program": null,
+    "title": "EleutherAI is tagged roles:[funder] but its own site describes no funding program",
+    "summary": "EleutherAI's registry profile lists it as a funder, but its site and current profile text describe it only as an open-source AI research org (models, interpretability research, a Summer of Open Science program) with no evidenced grants, RFPs, or funding mechanism of its own. Recommend downgrading roles to ecosystem unless a grant program can be sourced.",
+    "evidence_url": "https://www.eleuther.ai/",
+    "proposed_change": {
+      "orgs/eleutherai.yaml": {
+        "roles": ["ecosystem"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "olmo-open-language-model",
+    "org_name": null,
+    "program": null,
+    "title": "olmo-open-language-model registry entry is a model project, not a funder org — should be Ai2",
+    "summary": "The seed's olmo-open-language-model org file describes OLMo, a model family released by Ai2 (Allen Institute for AI), and its own profile text already states the OLMo page describes no grants or funding program. The funder entity is Ai2 itself; recommend replacing this entry with an Ai2 org file (or merging into one if it already exists) rather than treating a model release as a funder.",
+    "evidence_url": "https://allenai.org/olmo",
+    "proposed_change": {
+      "action": "replace_org",
+      "remove": "orgs/olmo-open-language-model.yaml",
+      "orgs/allen-institute-for-ai-ai2.yaml": {
+        "id": "allen-institute-for-ai-ai2",
+        "name": "Allen Institute for AI (Ai2)",
+        "aka": ["Ai2", "AI2"],
+        "systems": ["open-source-ai"],
+        "wires": ["ai", "oss"],
+        "org_type": "nonprofit",
+        "website": "https://allenai.org",
+        "profile": "Ai2 is a Seattle-based nonprofit AI research institute; it releases the fully open OLMo model family (7B and 32B base, instruct, and thinking variants) among other open research programs.",
+        "sources": ["https://allenai.org/olmo", "https://allenai.org"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "silicon-catalyst",
+    "org_name": null,
+    "program": null,
+    "title": "Silicon Catalyst is tagged org_type nonprofit and wires [oss] but is a for-profit semiconductor accelerator",
+    "summary": "Silicon Catalyst's own profile describes a fee/equity-style accelerator-incubator model (in-kind goods and services from partners like TSMC and Synopsys, a 24-month program, franchised regional operations) typical of a for-profit accelerator, not a nonprofit. Its focus is semiconductor hardware, not open-source software, making the oss wire tag questionable. Recommend correcting org_type to company and dropping or replacing the oss wire.",
+    "evidence_url": "https://www.siliconcatalyst.com/",
+    "proposed_change": {
+      "orgs/silicon-catalyst.yaml": {
+        "org_type": "company",
+        "wires": []
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "ecmwf",
+    "org_name": null,
+    "program": null,
+    "title": "ECMWF's systems tag [eu-public-rd] is imprecise — it's an intergovernmental operator, not an EU body",
+    "summary": "ECMWF is an independent intergovernmental organization (member states beyond the EU, including the UK and others) that operates EU-funded programs like Copernicus and Destination Earth under contract; it is not itself an EU institution. Tagging it under eu-public-rd conflates the operator with the funding program. Recommend the owner decide whether to keep eu-public-rd as a loose proxy for 'EU-programme-adjacent' or introduce a more precise system/tag for intergovernmental operators.",
+    "evidence_url": "https://www.ecmwf.int",
+    "proposed_change": {
+      "orgs/ecmwf.yaml": {
+        "profile_note": "ECMWF is an intergovernmental organization (member states include non-EU countries) that operates EU-funded programmes (Copernicus, Destination Earth) under contract; it is not itself an EU body.",
+        "systems_flag": "eu-public-rd tag may be imprecise; owner review requested"
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

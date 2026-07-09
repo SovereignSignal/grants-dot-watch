@@ -1,0 +1,2326 @@
+[
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "GOAT Network",
+    "program": "GOAT AI Builder Grants",
+    "title": "GOAT Network launches AI Builder Grants with up to $1M pool",
+    "summary": "GOAT Network is funding teams building agent-native AI applications with real economic utility on its network through base grants plus a pool of up to $1M; the first funded project has been announced. Applications are rolling with no listed deadline.",
+    "evidence_url": "https://www.goat.network/news/goat-ai-builder-grants-program",
+    "proposed_change": {
+      "orgs/goat-network.yaml": {
+        "id": "goat-network",
+        "name": "GOAT Network",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai",
+          "crypto"
+        ],
+        "org_type": "dao",
+        "website": "https://www.goat.network/",
+        "status": "active"
+      },
+      "programs/goat-ai-builder-grants.yaml": {
+        "id": "goat-ai-builder-grants",
+        "name": "GOAT AI Builder Grants",
+        "org": "goat-network",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Base grants plus up to $1M pool for teams building agent-native AI applications with real economic utility on GOAT Network."
+      }
+    },
+    "confidence": 52,
+    "signal_id": 8872,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Reactive Network",
+    "program": "Reactive Developer Fund",
+    "title": "Reactive Network commits $3M Dev Fund for EVM-compatible app builders",
+    "summary": "Reactive Network's $3M Dev Fund backs EVM-compatible app builders with two tiers: Builder Grants ($3K-$5K) and Growth Grants (up to $10K), rolling and open globally. Posted officially by Reactive Network.",
+    "evidence_url": "https://reactive.network/devfund",
+    "proposed_change": {
+      "orgs/reactive-network.yaml": {
+        "id": "reactive-network",
+        "name": "Reactive Network",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "company",
+        "website": "https://reactive.network/",
+        "status": "active"
+      },
+      "programs/reactive-developer-fund.yaml": {
+        "id": "reactive-developer-fund",
+        "name": "Reactive Developer Fund",
+        "org": "reactive-network",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://reactive.network/devfund",
+        "summary": "$3M fund backing EVM-compatible app builders via Builder Grants ($3K-$5K) and Growth Grants (up to $10K); rolling, global."
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8821,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Zama",
+    "program": "Zama Developer Program Season 3",
+    "title": "Zama opens Season 3 of its confidential-computing developer program",
+    "summary": "Zama's Developer Program Season 3 funds confidential application development on Ethereum -- FHE-powered smart contracts, private token distribution, and composable privacy -- with a 12,500 cUSDT reward pool and a 2026-07-07 deadline.",
+    "evidence_url": "https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key",
+    "proposed_change": {
+      "orgs/zama.yaml": {
+        "id": "zama",
+        "name": "Zama",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "company",
+        "website": "https://www.zama.org/",
+        "status": "active"
+      },
+      "programs/zama-developer-program.yaml": {
+        "id": "zama-developer-program",
+        "name": "Zama Developer Program",
+        "org": "zama",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Confidential application development program for FHE-powered smart contracts, private token distribution, and composable privacy on Ethereum.",
+        "rounds": [
+          {
+            "name": "Season 3",
+            "status": "open",
+            "closes": "2026-07-07",
+            "size": "12,500 cUSDT",
+            "source": "https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 8381,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Rootstock Collective",
+    "program": "Rootstock Collective Grants v3.2",
+    "title": "Rootstock Collective runs v3.2 grants for measurable-impact Bitcoin sidechain projects",
+    "summary": "Rootstock (RSK) Collective Grants v3.2 funds projects driving TVL, users, and adoption on the Bitcoin sidechain, prioritizing DeFi, infrastructure, tooling, and payments. Applications are rolling.",
+    "evidence_url": "https://rootstockcollective.xyz/collective-grants/",
+    "proposed_change": {
+      "orgs/rootstock-collective.yaml": {
+        "id": "rootstock-collective",
+        "name": "Rootstock Collective",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "dao",
+        "website": "https://rootstockcollective.xyz/",
+        "status": "active"
+      },
+      "programs/rootstock-collective-grants.yaml": {
+        "id": "rootstock-collective-grants",
+        "name": "Rootstock Collective Grants",
+        "org": "rootstock-collective",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://rootstockcollective.xyz/collective-grants/",
+        "summary": "Grants for measurable-impact projects driving TVL, users, and adoption on the Rootstock (RSK) Bitcoin sidechain, prioritizing DeFi, infra, tooling, and payments.",
+        "rounds": [
+          {
+            "name": "v3.2",
+            "status": "open",
+            "source": "https://rootstockcollective.xyz/collective-grants/"
+          }
+        ]
+      }
+    },
+    "confidence": 50,
+    "signal_id": 8458,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Zealynx",
+    "program": "Zealynx Audit Grants Season 1",
+    "title": "Zealynx subsidizes smart contract audits for early-stage DeFi protocols",
+    "summary": "Zealynx Audit Grants Season 1 covers 25-100% of senior smart contract audit costs for early-stage, pre-mainnet DeFi protocols across multiple languages, with no equity or tokens required. Deadline 2026-07-06.",
+    "evidence_url": "https://grants.zealynx.io/",
+    "proposed_change": {
+      "orgs/zealynx.yaml": {
+        "id": "zealynx",
+        "name": "Zealynx",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "company",
+        "website": "https://grants.zealynx.io/",
+        "status": "active"
+      },
+      "programs/zealynx-audit-grants.yaml": {
+        "id": "zealynx-audit-grants",
+        "name": "Zealynx Audit Grants",
+        "org": "zealynx",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://grants.zealynx.io/",
+        "summary": "Subsidy program covering 25-100% of senior smart contract audit costs for early-stage, pre-mainnet DeFi protocols; no equity or tokens required.",
+        "rounds": [
+          {
+            "name": "Season 1",
+            "status": "open",
+            "closes": "2026-07-06",
+            "source": "https://grants.zealynx.io/"
+          }
+        ]
+      }
+    },
+    "confidence": 48,
+    "signal_id": 8106,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Konnex",
+    "program": "Konnex Builder Grant Program",
+    "title": "Konnex offers tiered grants up to $200K+ for subnet builders",
+    "summary": "Konnex runs a tiered builder grant program for its subnets: Spark ($25K for prototypes), Launch ($75K for demos), and Mainnet ($200K+ for shipped subnets), with SDK support and marketing allocations. The program page is on Konnex's testnet domain.",
+    "evidence_url": "https://subnets.testnet.konnex.world/builder",
+    "proposed_change": {
+      "orgs/konnex.yaml": {
+        "id": "konnex",
+        "name": "Konnex",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "company",
+        "website": "https://subnets.testnet.konnex.world/",
+        "status": "active"
+      },
+      "programs/konnex-builder-grants.yaml": {
+        "id": "konnex-builder-grants",
+        "name": "Konnex Builder Grant Program",
+        "org": "konnex",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://subnets.testnet.konnex.world/builder",
+        "summary": "Tiered grants for builders on Konnex subnets: Spark ($25K prototypes), Launch ($75K demos), Mainnet ($200K+ shipped subnets), with SDK support and marketing allocations."
+      }
+    },
+    "confidence": 40,
+    "signal_id": 7918,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "AAIF",
+    "program": "AAIF Goose Grant Program",
+    "title": "AAIF funds up to $100K for enhancements to the open-source Goose AI agent",
+    "summary": "AAIF's Goose Grant Program offers up to $100,000 over 12 months to individuals or small teams building impactful enhancements to Goose, the open-source AI agent project. Applications are rolling.",
+    "evidence_url": "https://goose-docs.ai/grants/",
+    "proposed_change": {
+      "orgs/aaif.yaml": {
+        "id": "aaif",
+        "name": "AAIF",
+        "aka": [
+          "Goose"
+        ],
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai",
+          "oss"
+        ],
+        "website": "https://goose-docs.ai/grants/",
+        "status": "active"
+      },
+      "programs/aaif-goose-grant-program.yaml": {
+        "id": "aaif-goose-grant-program",
+        "name": "AAIF Goose Grant Program",
+        "org": "aaif",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://goose-docs.ai/grants/",
+        "summary": "Grants up to $100,000 over 12 months for individuals or small teams building impactful enhancements to the open-source Goose AI agent project.",
+        "rounds": [
+          {
+            "name": "Rolling",
+            "status": "open",
+            "source": "https://goose-docs.ai/grants/"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8547,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Rocket Pool",
+    "program": "Rocket Pool GMC Grants, Bounties & Retrospective Awards",
+    "title": "Rocket Pool's GMC distributes $25,000 across Round 36 grants, bounties, and retrospective awards",
+    "summary": "Rocket Pool's Grants and Marketing Committee (GMC) approved three of four applications in Round 36 (April 7-May 7), totaling $25,000: $18,000 for a Chainlink Oracle build (rETH infrastructure), $5,000 retrospective for prior work, and $2,000 for a support-payments bounty. Awards are subject to a two-week challenge period ending 2026-06-14.",
+    "evidence_url": "https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951",
+    "proposed_change": {
+      "orgs/rocket-pool.yaml": {
+        "id": "rocket-pool",
+        "name": "Rocket Pool",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "dao",
+        "systems": [
+          "ethereum"
+        ],
+        "website": "https://rocketpool.net/",
+        "status": "active"
+      },
+      "programs/rocket-pool-gmc-grants.yaml": {
+        "id": "rocket-pool-gmc-grants",
+        "name": "Rocket Pool GMC Grants, Bounties & Retrospective Awards",
+        "org": "rocket-pool",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://dao.rocketpool.net/",
+        "summary": "Rocket Pool's Grants and Marketing Committee (GMC) funds grants, bounties, and retrospective awards for rETH/protocol infrastructure work, run in numbered rounds.",
+        "rounds": [
+          {
+            "name": "Round 36 (Apr 7-May 7 2026)",
+            "status": "closed",
+            "size": "$25,000 across 3 awards",
+            "source": "https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 8261,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_award",
+    "org": "rocket-pool",
+    "org_name": null,
+    "program": "rocket-pool-gmc-grants",
+    "title": "Rocket Pool GMC awards $18,000 for Chainlink Oracle rETH infrastructure work",
+    "summary": "Rocket Pool's GMC Round 36 approved an $18,000 grant to contributor 'Langers' for Chainlink Oracle work supporting rETH infrastructure, the largest of three approved awards in the round.",
+    "evidence_url": "https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951",
+    "proposed_change": {
+      "awards/2026.jsonl": {
+        "funder": "rocket-pool",
+        "funder_name": "Rocket Pool",
+        "grantee": "langers-chainlink-oracle",
+        "grantee_name": "Langers (Chainlink Oracle for rETH)",
+        "amount": 18000,
+        "currency": "USD",
+        "amount_text": "$18,000",
+        "date": "2026-06-01",
+        "program": "rocket-pool-gmc-grants",
+        "wire": "crypto",
+        "source": "https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951",
+        "key": "rocket-pool-round-36-langers-2026"
+      }
+    },
+    "confidence": 52,
+    "signal_id": 8261,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "TheDAO",
+    "program": "Ethereum Security Quadratic Funding Round",
+    "title": "TheDAO and Giveth distribute 638+ ETH across 134 Ethereum-security projects",
+    "summary": "TheDAO partnered with Giveth to run an Ethereum Security Quadratic Funding round (April 23-May 14 2026); distribution sent 638+ ETH in matching funds across 134 security-focused projects, up from an original 500 ETH matching pool after additional ecosystem contributions.",
+    "evidence_url": "https://x.com/thedaofund/status/2064017424827977833",
+    "proposed_change": {
+      "orgs/thedao-fund.yaml": {
+        "id": "thedao-fund",
+        "name": "TheDAO",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "systems": [
+          "ethereum"
+        ],
+        "status": "active"
+      },
+      "programs/ethereum-security-qf.yaml": {
+        "id": "ethereum-security-qf",
+        "name": "Ethereum Security Quadratic Funding Round",
+        "org": "thedao-fund",
+        "mechanism": "quadratic",
+        "status": "active",
+        "summary": "Quadratic funding round run by TheDAO in partnership with Giveth, matching community contributions toward Ethereum-ecosystem security work.",
+        "rounds": [
+          {
+            "name": "April 23-May 14 2026 round",
+            "status": "deployed",
+            "size": "638+ ETH across 134 projects (from a 500 ETH matching pool)",
+            "source": "https://forum.giveth.io/t/ethereum-security-qf-round-results-april-23-may-14-2026/2201"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8598,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Ethereum Security Subsidy Program",
+    "program": "Ethereum Security Subsidy Program",
+    "title": "Ethereum Security Subsidy Program funds 30% of audit costs for 30 Cohort 1 projects",
+    "summary": "The Ethereum Security Subsidy Program selected 30 projects in its first cohort, covering up to 30% of audit costs from a $1 million pool and connecting recipients to top crypto audit firms. Named recipients include Lido Finance, Anvil, Bebop, and MetaLeX Labs. Cohort II applications closed 2026-06-14.",
+    "evidence_url": "https://ethdaily.io/ethereum-security-subsidy-program-cohort-1",
+    "proposed_change": {
+      "orgs/ethereum-security-subsidy-program.yaml": {
+        "id": "ethereum-security-subsidy-program",
+        "name": "Ethereum Security Subsidy Program",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "systems": [
+          "ethereum"
+        ],
+        "status": "active"
+      },
+      "programs/ethereum-security-subsidy.yaml": {
+        "id": "ethereum-security-subsidy",
+        "name": "Ethereum Security Subsidy Program",
+        "org": "ethereum-security-subsidy-program",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Subsidizes up to 30% of smart-contract audit costs for selected Ethereum ecosystem projects, connecting recipients to top crypto audit firms.",
+        "rounds": [
+          {
+            "name": "Cohort 1",
+            "status": "closed",
+            "size": "30 projects from a $1M pool",
+            "source": "https://ethdaily.io/ethereum-security-subsidy-program-cohort-1"
+          },
+          {
+            "name": "Cohort II",
+            "status": "closed",
+            "closes": "2026-06-14",
+            "source": "https://ethdaily.io/ethereum-security-subsidy-program-cohort-1"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 8461,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Gray Area",
+    "program": "Gray Area / Modal AI Arts Open Call",
+    "title": "Gray Area and Modal fund AI-driven creative projects with cash, production, and compute credits",
+    "summary": "Gray Area's AI Arts Open Call, run with Modal, offers artists using AI for creative projects a $2,000 honorarium, up to $5,000 in production funding, and up to $20,000 in Modal compute credits. Deadline 2026-07-15.",
+    "evidence_url": "https://x.com/GrayAreaorg/status/2067658757572857968",
+    "proposed_change": {
+      "orgs/gray-area.yaml": {
+        "id": "gray-area",
+        "name": "Gray Area",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "org_type": "nonprofit",
+        "website": "https://grayarea.org/",
+        "status": "active"
+      },
+      "programs/gray-area-modal-ai-arts-open-call.yaml": {
+        "id": "gray-area-modal-ai-arts-open-call",
+        "name": "Gray Area / Modal AI Arts Open Call",
+        "org": "gray-area",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Open call for artists using AI in creative projects, run with compute partner Modal: $2,000 honorarium, up to $5,000 production funding, and up to $20,000 in Modal compute credits.",
+        "rounds": [
+          {
+            "name": "2026 cycle",
+            "status": "open",
+            "closes": "2026-07-15",
+            "source": "https://x.com/GrayAreaorg/status/2067658757572857968"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 9698,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Coderabbit",
+    "program": "Coderabbit OSS Fund",
+    "title": "Coderabbit commits $1M to open source, ~$700K already contributed",
+    "summary": "Coderabbit (with contributor Santosh Yadav) has committed $1M to an open-source distribution fund supporting open-source projects and maintainers, with roughly $700K already contributed. Deadline rolling.",
+    "evidence_url": "https://www.coderabbit.ai/blog/coderabbit-commits-1-million-to-open-source",
+    "proposed_change": {
+      "orgs/coderabbit.yaml": {
+        "id": "coderabbit",
+        "name": "Coderabbit",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "org_type": "company",
+        "website": "https://www.coderabbit.ai/",
+        "status": "active"
+      },
+      "programs/coderabbit-oss-fund.yaml": {
+        "id": "coderabbit-oss-fund",
+        "name": "Coderabbit OSS Fund",
+        "org": "coderabbit",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://www.coderabbit.ai/blog/coderabbit-commits-1-million-to-open-source",
+        "summary": "$1M distribution fund supporting open-source projects and maintainers; roughly $700K already contributed as of June 2026."
+      }
+    },
+    "confidence": 50,
+    "signal_id": 9667,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "DoorDash",
+    "program": "DoorDash Research Fellowship",
+    "title": "DoorDash runs a 3-6 month applied ML research fellowship for summer/fall 2026",
+    "summary": "DoorDash's Research Fellowship is a 3-6 month (extendable) applied machine-learning research fellowship for summer/fall 2026, including a housing subsidy.",
+    "evidence_url": "https://careersatdoordash.com/jobs/ai-research-fellowship-summer-and-fall-2026/7848317",
+    "proposed_change": {
+      "orgs/doordash.yaml": {
+        "id": "doordash",
+        "name": "DoorDash",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "org_type": "company",
+        "website": "https://careersatdoordash.com/",
+        "status": "active"
+      },
+      "programs/doordash-research-fellowship.yaml": {
+        "id": "doordash-research-fellowship",
+        "name": "DoorDash Research Fellowship",
+        "org": "doordash",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://careersatdoordash.com/jobs/ai-research-fellowship-summer-and-fall-2026/7848317",
+        "summary": "3-6 month (extendable) applied ML research fellowship for summer/fall 2026, including a housing subsidy."
+      }
+    },
+    "confidence": 50,
+    "signal_id": 9639,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "MicroAGI",
+    "program": "MicroAGI Research Fellowship",
+    "title": "MicroAGI offers $10K/month plus up to $2M compute for embodied-AI builders",
+    "summary": "MicroAGI's Research Fellowship is a 6-month in-residence program in Munich or Zurich for embodied AI and robotics builders, offering a $10,000/month stipend, up to $2M in compute, and lab access.",
+    "evidence_url": "https://www.microagi.ai/fellowship",
+    "proposed_change": {
+      "orgs/microagi.yaml": {
+        "id": "microagi",
+        "name": "MicroAGI",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.microagi.ai/",
+        "status": "active"
+      },
+      "programs/microagi-research-fellowship.yaml": {
+        "id": "microagi-research-fellowship",
+        "name": "MicroAGI Research Fellowship",
+        "org": "microagi",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://www.microagi.ai/fellowship",
+        "summary": "6-month in-residence fellowship in Munich or Zurich for embodied AI/robotics builders: $10K/month stipend, up to $2M compute, lab access."
+      }
+    },
+    "confidence": 55,
+    "signal_id": 9439,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Code for Africa",
+    "program": "Civic Graph Fellowship",
+    "title": "Code for Africa runs a 3-month Civic Graph Fellowship in South Africa ahead of elections",
+    "summary": "Code for Africa's Civic Graph Fellowship is a 3-month part-time fellowship (7 positions) for building open-source civic data systems, OSINT, and structured transparency data in South Africa ahead of elections. Deadline 2026-06-28.",
+    "evidence_url": "https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/",
+    "proposed_change": {
+      "orgs/code-for-africa.yaml": {
+        "id": "code-for-africa",
+        "name": "Code for Africa",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "org_type": "nonprofit",
+        "website": "https://codeforafrica.org/",
+        "status": "active"
+      },
+      "programs/civic-graph-fellowship.yaml": {
+        "id": "civic-graph-fellowship",
+        "name": "Civic Graph Fellowship",
+        "org": "code-for-africa",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/",
+        "summary": "3-month part-time fellowship (7 positions) building open-source civic data systems, OSINT, and structured transparency data in South Africa ahead of elections.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "open",
+            "closes": "2026-06-28",
+            "size": "7 positions",
+            "source": "https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 9406,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "grantmaking.ai",
+    "program": "grantmaking.ai seed grant round",
+    "title": "grantmaking.ai launches $1M seed round of $5K-$50K AI-safety grants",
+    "summary": "grantmaking.ai is building a public database of x-risk AI-safety funding opportunities and, to seed the platform, launched a $1M grant round for rapid distribution of $5K-$50K grants, with applications due 2026-06-30.",
+    "evidence_url": "https://www.grantmaking.ai/",
+    "proposed_change": {
+      "orgs/grantmaking-ai.yaml": {
+        "id": "grantmaking-ai",
+        "name": "grantmaking.ai",
+        "roles": [
+          "funder",
+          "ecosystem"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.grantmaking.ai/",
+        "status": "active"
+      },
+      "programs/grantmaking-ai-seed-round.yaml": {
+        "id": "grantmaking-ai-seed-round",
+        "name": "grantmaking.ai Seed Grant Round",
+        "org": "grantmaking-ai",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Seed round to test and populate the grantmaking.ai platform: $1M for rapid distribution of $5K-$50K AI-safety grants.",
+        "rounds": [
+          {
+            "name": "2026 seed round",
+            "status": "open",
+            "closes": "2026-06-30",
+            "size": "$1M ($5K-$50K per grant)",
+            "source": "https://www.grantmaking.ai/"
+          }
+        ]
+      }
+    },
+    "confidence": 52,
+    "signal_id": 9314,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "AxonDAO",
+    "program": "AxonDAO Grant Program",
+    "title": "AxonDAO funds health AI, DeSci, bioinformatics, and scientific computing teams",
+    "summary": "AxonDAO's grant program supports researchers and teams building in health AI, DeSci, bioinformatics, and scientific computing, offering funding, compute credits, mentorship, and network connections.",
+    "evidence_url": "https://www.axondao.io/grants",
+    "proposed_change": {
+      "orgs/axondao.yaml": {
+        "id": "axondao",
+        "name": "AxonDAO",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "ai"
+        ],
+        "org_type": "dao",
+        "website": "https://www.axondao.io/",
+        "status": "active"
+      },
+      "programs/axondao-grant-program.yaml": {
+        "id": "axondao-grant-program",
+        "name": "AxonDAO Grant Program",
+        "org": "axondao",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://www.axondao.io/grants",
+        "summary": "Grants, compute credits, mentorship, and connections for researchers and teams building in health AI, DeSci, bioinformatics, and scientific computing."
+      }
+    },
+    "confidence": 42,
+    "signal_id": 8877,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "AI4D",
+    "program": "AI4D Inclusive AI Innovations in Africa Program",
+    "title": "AI4D offers up to KES 5,000,000 for inclusive AI innovation in Africa",
+    "summary": "The AI4D Inclusive AI Innovations in Africa Program funds inclusive AI projects with up to KES 5,000,000 (roughly $38,700). Deadline 2026-07-17.",
+    "evidence_url": "https://www.scholarshipbob.com/scholarship/artificial-intelligence-for-development-ai4d-inclusive-ai-innovations-in-africa-program-2026-with-up-to-kes-5-000-000-in-funding",
+    "proposed_change": {
+      "orgs/ai4d.yaml": {
+        "id": "ai4d",
+        "name": "AI4D",
+        "aka": [
+          "Artificial Intelligence for Development"
+        ],
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "status": "active"
+      },
+      "programs/ai4d-inclusive-ai-innovations-africa.yaml": {
+        "id": "ai4d-inclusive-ai-innovations-africa",
+        "name": "AI4D Inclusive AI Innovations in Africa Program",
+        "org": "ai4d",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Funds inclusive AI innovation projects in Africa, up to KES 5,000,000 per award.",
+        "rounds": [
+          {
+            "name": "2026 cycle",
+            "status": "open",
+            "closes": "2026-07-17",
+            "size": "up to KES 5,000,000",
+            "source": "https://www.scholarshipbob.com/scholarship/artificial-intelligence-for-development-ai4d-inclusive-ai-innovations-in-africa-program-2026-with-up-to-kes-5-000-000-in-funding"
+          }
+        ]
+      }
+    },
+    "confidence": 42,
+    "signal_id": 8695,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "OS4Science",
+    "program": "Open Source for the Life Sciences",
+    "title": "OS4Science funds open-source software for data-intensive life-science research",
+    "summary": "OS4Science's Open Source for the Life Sciences program funds open-source software underpinning data-intensive research and AI-driven discovery in the life sciences, via a two-step LOI plus Full Application process.",
+    "evidence_url": "https://os4science.org/funding_opportunity/os4ls/",
+    "proposed_change": {
+      "orgs/os4science.yaml": {
+        "id": "os4science",
+        "name": "OS4Science",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://os4science.org/",
+        "status": "active"
+      },
+      "programs/open-source-for-the-life-sciences.yaml": {
+        "id": "open-source-for-the-life-sciences",
+        "name": "Open Source for the Life Sciences",
+        "org": "os4science",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://os4science.org/funding_opportunity/os4ls/",
+        "summary": "Funds open-source software underpinning data-intensive research and AI-driven discovery in the life sciences; two-step LOI then Full Application process."
+      }
+    },
+    "confidence": 42,
+    "signal_id": 9192,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Enel Foundation",
+    "program": "wAtt-boost Youth Start-Up Program",
+    "title": "Enel Foundation offers EUR 10,000 to African youth start-ups in energy, AI, and climate tech",
+    "summary": "Enel Foundation's wAtt-boost program (2nd edition) awards a EUR 10,000 prize to youth-led start-ups in Africa working in renewable energy, AI, smart grids, and climate tech.",
+    "evidence_url": "https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition",
+    "proposed_change": {
+      "orgs/enel-foundation.yaml": {
+        "id": "enel-foundation",
+        "name": "Enel Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "org_type": "foundation",
+        "website": "https://www.enelfoundation.org/",
+        "status": "active"
+      },
+      "programs/watt-boost-youth-startup-program.yaml": {
+        "id": "watt-boost-youth-startup-program",
+        "name": "wAtt-boost Youth Start-Up Program",
+        "org": "enel-foundation",
+        "mechanism": "prize",
+        "status": "active",
+        "summary": "EUR 10,000 prize for youth-led African start-ups in renewable energy, AI, smart grids, and climate tech; 2nd edition.",
+        "apply_url": "https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition"
+      }
+    },
+    "confidence": 48,
+    "signal_id": 9122,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "G-Research",
+    "program": "G-Research Grants",
+    "title": "G-Research runs monthly research grants for trustworthy AI and causal inference",
+    "summary": "G-Research Grants is a recurring monthly award for research in trustworthy AI, causal inference, and related ML topics, with winners announced each month.",
+    "evidence_url": "https://www.gresearch.com/news/g-research-may-2026-grant-winners",
+    "proposed_change": {
+      "orgs/g-research.yaml": {
+        "id": "g-research",
+        "name": "G-Research",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "org_type": "company",
+        "website": "https://www.gresearch.com/",
+        "status": "active"
+      },
+      "programs/g-research-grants.yaml": {
+        "id": "g-research-grants",
+        "name": "G-Research Grants",
+        "org": "g-research",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Monthly research grants for trustworthy AI, causal inference, and related machine-learning topics.",
+        "apply_url": "https://www.gresearch.com/grants/"
+      }
+    },
+    "confidence": 40,
+    "signal_id": 9120,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "IVADO",
+    "program": "R3AI Research Clusters Call (2027-2030)",
+    "title": "IVADO opens 2027-2030 call for AI research clusters in Quebec/Canada",
+    "summary": "IVADO's 2027-2030 R3AI Research Clusters call funds AI research clusters based in Quebec/Canada. Deadline 2026-07-31.",
+    "evidence_url": "https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/",
+    "proposed_change": {
+      "orgs/ivado.yaml": {
+        "id": "ivado",
+        "name": "IVADO",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://ivado.ca/",
+        "status": "active"
+      },
+      "programs/ivado-r3ai-research-clusters.yaml": {
+        "id": "ivado-r3ai-research-clusters",
+        "name": "R3AI Research Clusters Call",
+        "org": "ivado",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Call for proposals to fund AI research clusters based in Quebec/Canada, 2027-2030 cycle.",
+        "rounds": [
+          {
+            "name": "2027-2030 cycle",
+            "status": "open",
+            "closes": "2026-07-31",
+            "source": "https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/"
+          }
+        ]
+      }
+    },
+    "confidence": 45,
+    "signal_id": 9127,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "CV Labs",
+    "program": "Stellar x CV Labs Accelerator",
+    "title": "CV Labs and Stellar launch accelerator offering up to $150,000 in XLM",
+    "summary": "CV Labs, with the Stellar Development Foundation, runs an accelerator for startups building DeFi, payments, and RWA products on Stellar or for EMEA. Participants get ecosystem guidance, protocol workshops, VC intros, and up to $150,000 in XLM initial development funding, with possible follow-on grants. Deadline 2026-07-03.",
+    "evidence_url": "https://www.cvlabs.com/accelerator/stellar",
+    "proposed_change": {
+      "orgs/cv-labs.yaml": {
+        "id": "cv-labs",
+        "name": "CV Labs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "org_type": "company",
+        "website": "https://www.cvlabs.com/",
+        "status": "active"
+      },
+      "programs/stellar-x-cv-labs-accelerator.yaml": {
+        "id": "stellar-x-cv-labs-accelerator",
+        "name": "Stellar x CV Labs Accelerator",
+        "org": "cv-labs",
+        "mechanism": "incubator",
+        "status": "active",
+        "apply_url": "https://www.cvlabs.com/accelerator/stellar",
+        "summary": "Accelerator for startups building DeFi, payments, and RWA products on Stellar or for EMEA; up to $150,000 in XLM initial development funding from the Stellar Development Foundation, with possible follow-on grants.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "open",
+            "closes": "2026-07-03",
+            "size": "up to $150,000 in XLM",
+            "source": "https://www.cvlabs.com/accelerator/stellar"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8254,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Python Software Foundation",
+    "program": "PSF Fellow nominations",
+    "title": "Python Software Foundation opens Q3 2026 Fellow nominations",
+    "summary": "The Python Software Foundation's Fellow program recognizes individuals for significant contributions to the Python community; the Q3 2026 nomination batch closes 2026-08-20.",
+    "evidence_url": "https://www.python.org/psf/fellows/",
+    "proposed_change": {
+      "orgs/python-software-foundation.yaml": {
+        "id": "python-software-foundation",
+        "name": "Python Software Foundation",
+        "aka": [
+          "PSF"
+        ],
+        "roles": [
+          "funder",
+          "ecosystem"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "org_type": "nonprofit",
+        "website": "https://www.python.org/psf/",
+        "status": "active"
+      },
+      "programs/psf-fellow-program.yaml": {
+        "id": "psf-fellow-program",
+        "name": "PSF Fellow Program",
+        "org": "python-software-foundation",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://www.python.org/psf/fellows/",
+        "summary": "Nomination-based honorary recognition program for individuals who have made significant contributions to the Python community; nominations reviewed quarterly.",
+        "rounds": [
+          {
+            "name": "Q3 2026 batch",
+            "status": "open",
+            "closes": "2026-08-20",
+            "source": "https://www.python.org/psf/fellows/"
+          }
+        ]
+      }
+    },
+    "confidence": 45,
+    "signal_id": 9215,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "OpenSats",
+    "program": "OpenSats Nostr Grants",
+    "title": "OpenSats announces 17th wave of Nostr protocol grants",
+    "summary": "OpenSats announced its 17th wave of grants funding Nostr protocol projects, covering app discovery, private calls, software distribution, client onboarding, and AI tools for open-source Bitcoin/freedom-tech developers.",
+    "evidence_url": "https://opensats.org/blog/seventeenth-wave-of-nostr-grants",
+    "proposed_change": {
+      "orgs/opensats.yaml": {
+        "id": "opensats",
+        "name": "OpenSats",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "oss"
+        ],
+        "org_type": "nonprofit",
+        "website": "https://opensats.org/",
+        "status": "active"
+      },
+      "programs/opensats-nostr-grants.yaml": {
+        "id": "opensats-nostr-grants",
+        "name": "OpenSats Nostr Grants",
+        "org": "opensats",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "Recurring wave-based grants funding Nostr protocol projects: app discovery, private calls, software distribution, client onboarding, and AI tools for open-source Bitcoin/freedom-tech developers.",
+        "rounds": [
+          {
+            "name": "Wave 17",
+            "status": "deployed",
+            "source": "https://opensats.org/blog/seventeenth-wave-of-nostr-grants"
+          }
+        ]
+      }
+    },
+    "confidence": 50,
+    "signal_id": 8000,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Vals AI",
+    "program": "Vals AI Fellowship",
+    "title": "Vals AI Fellowship pays $1K-$2.5K/week to build AI evaluation benchmarks",
+    "summary": "The Vals AI Fellowship is a 3-6 month program for researchers/builders working on AI evaluation benchmarks, offering a $1,000-$2,500/week stipend plus unlimited API credits, GPU budgets, and mentorship, remote or in SF. Deadline 2026-06-30.",
+    "evidence_url": "https://x.com/suraj_sharma14/status/2067238331478614508",
+    "proposed_change": {
+      "orgs/vals-ai.yaml": {
+        "id": "vals-ai",
+        "name": "Vals AI",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.vals.ai/",
+        "status": "active"
+      },
+      "programs/vals-ai-fellowship.yaml": {
+        "id": "vals-ai-fellowship",
+        "name": "Vals AI Fellowship",
+        "org": "vals-ai",
+        "mechanism": "fellowship",
+        "status": "active",
+        "summary": "3-6 month paid fellowship for researchers/builders working on AI evaluation benchmarks: $1,000-$2,500/week stipend plus unlimited API credits, GPU budgets, and mentorship; remote or SF.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "open",
+            "closes": "2026-06-30",
+            "source": "https://x.com/suraj_sharma14/status/2067238331478614508"
+          }
+        ]
+      }
+    },
+    "confidence": 48,
+    "signal_id": 9691,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "GovAI",
+    "program": "GovAI Winter Fellowship 2027",
+    "title": "Centre for the Governance of AI runs Winter Fellowship 2027 in DC and London",
+    "summary": "GovAI (Centre for the Governance of AI) runs a three-month bipartisan Winter Fellowship 2027 for careers in AI governance/policy, with a DC track (research, expert seminars, networking; deadline 2026-07-12) and a fully funded UK/London track (up to GBP 12,000 stipend, travel support, visa sponsorship, Jan-Apr 2027; deadline 2026-07-12).",
+    "evidence_url": "https://www.governance.ai/post/winter-fellowship-2027-research-track",
+    "proposed_change": {
+      "orgs/govai.yaml": {
+        "id": "govai",
+        "name": "GovAI",
+        "aka": [
+          "Centre for the Governance of AI"
+        ],
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "org_type": "nonprofit",
+        "website": "https://www.governance.ai/",
+        "status": "active"
+      },
+      "programs/govai-winter-fellowship.yaml": {
+        "id": "govai-winter-fellowship",
+        "name": "GovAI Winter Fellowship 2027",
+        "org": "govai",
+        "mechanism": "fellowship",
+        "status": "active",
+        "summary": "Three-month bipartisan fellowship for AI governance/policy research, with DC and London (UK GovAI) tracks; London track fully funded with up to GBP 12,000 stipend, travel support, and visa sponsorship, running Jan-Apr 2027.",
+        "rounds": [
+          {
+            "name": "2027 cohort",
+            "status": "open",
+            "closes": "2026-07-12",
+            "source": "https://www.governance.ai/post/winter-fellowship-2027-research-track"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 9695,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "BASE Research",
+    "program": "BASE Fellowship",
+    "title": "BASE Research runs Fall 2026 fellowship building Black leadership in AI safety",
+    "summary": "BASE Research's Fellowship Fall 2026 is a 13-week remote, part-time program developing Black leadership in AI Safety, AI Governance, and AI Security through mentorship and research projects. Deadline 2026-06-16.",
+    "evidence_url": "https://www.baseresearch.org/base-fellowship-f26",
+    "proposed_change": {
+      "orgs/base-research.yaml": {
+        "id": "base-research",
+        "name": "BASE Research",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.baseresearch.org/",
+        "status": "active"
+      },
+      "programs/base-fellowship.yaml": {
+        "id": "base-fellowship",
+        "name": "BASE Fellowship",
+        "org": "base-research",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://www.baseresearch.org/base-fellowship-f26",
+        "summary": "13-week remote part-time program building Black leadership in AI Safety, AI Governance, and AI Security, with mentorship and research projects.",
+        "rounds": [
+          {
+            "name": "Fall 2026",
+            "status": "closed",
+            "closes": "2026-06-16",
+            "source": "https://www.baseresearch.org/base-fellowship-f26"
+          }
+        ]
+      }
+    },
+    "confidence": 45,
+    "signal_id": 8062,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "interledger-fellowship-program",
+    "org_name": null,
+    "program": "Interledger Open Payments Accelerator",
+    "title": "Interledger Foundation launches four-month Open Payments Accelerator",
+    "summary": "The Interledger Foundation launched a four-month accelerator on 2026-06-01 providing $50,000 in funding plus mentorship and technical workshops to early-stage teams building proof-of-concept digital financial services for underserved populations using Open Payments and the Interledger Protocol. Open to fintech founders, developer-led teams, social entrepreneurs, and NGOs; deadline 2026-06-30.",
+    "evidence_url": "https://interledger.org/grant/open-payments-accelerator",
+    "proposed_change": {
+      "programs/interledger-open-payments-accelerator.yaml": {
+        "id": "interledger-open-payments-accelerator",
+        "name": "Interledger Open Payments Accelerator",
+        "org": "interledger-fellowship-program",
+        "mechanism": "incubator",
+        "status": "active",
+        "apply_url": "https://interledger.org/grant/open-payments-accelerator",
+        "summary": "Four-month accelerator providing $50,000 plus mentorship and technical workshops to early-stage teams building proof-of-concept digital financial services for underserved populations using Open Payments and the Interledger Protocol.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "closed",
+            "opens": "2026-06-01",
+            "closes": "2026-06-30",
+            "size": "$50,000",
+            "source": "https://interledger.org/grant/open-payments-accelerator"
+          }
+        ]
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8888,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "national-science-foundation",
+    "org_name": null,
+    "program": "TechAccess: AI-Ready America",
+    "title": "NSF opens TechAccess: AI-Ready America coordination hubs and national lead award",
+    "summary": "NSF's TechAccess: AI-Ready America initiative (NSF 26-508) funds State/Territory AI Readiness Coordination Hubs (round 1 LOIs due 2026-06-16, full proposals due 2026-07-16) plus a single National Coordination Lead award of up to $5 million/year for up to five years to coordinate the hubs, with a 2026-07-21 deadline.",
+    "evidence_url": "https://www.nsf.gov/tip/updates/nsf-initiative-make-america-ai-ready-seeks-national-lead",
+    "proposed_change": {
+      "programs/nsf-techaccess-ai-ready-america.yaml": {
+        "id": "nsf-techaccess-ai-ready-america",
+        "name": "TechAccess: AI-Ready America",
+        "org": "national-science-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "us-federal-rd"
+        ],
+        "summary": "NSF initiative funding State/Territory AI Readiness Coordination Hubs and a single National Coordination Lead (up to $5M/year for up to 5 years) to coordinate them nationally.",
+        "rounds": [
+          {
+            "name": "State/Territory Coordination Hubs, Round 1",
+            "status": "open",
+            "closes": "2026-07-16",
+            "source": "https://www.nsf.gov/funding/opportunities/techaccess-ai-ready-america/nsf26-508/solicitation"
+          },
+          {
+            "name": "National Coordination Lead",
+            "status": "open",
+            "closes": "2026-07-21",
+            "size": "up to $5M/year for up to 5 years, one award",
+            "source": "https://www.nsf.gov/tip/updates/nsf-initiative-make-america-ai-ready-seeks-national-lead"
+          }
+        ]
+      }
+    },
+    "confidence": 68,
+    "signal_id": 8463,
+    "wire": "ai"
+  },
+  {
+    "type": "round_update",
+    "org": "nsf-sbir-sttr",
+    "org_name": null,
+    "program": "nsf-americas-seed-fund",
+    "title": "NSF relaunches SBIR/STTR with $250M plus a new $40M instrumentation pilot",
+    "summary": "On 2026-05-26 NSF relaunched its SBIR/STTR program (America's Seed Fund) with $250 million in non-dilutive funding for deep-tech startups including AI, plus a new $40 million pilot emphasizing next-generation scientific instrumentation.",
+    "evidence_url": "https://www.nsf.gov/news/nsf-deploys-250-million-restart-small-business-innovation",
+    "proposed_change": {
+      "programs/nsf-americas-seed-fund.yaml": {
+        "rounds_add": [
+          {
+            "name": "2026 relaunch",
+            "status": "open",
+            "opens": "2026-05-26",
+            "size": "$250M (deep-tech incl. AI)",
+            "source": "https://www.nsf.gov/news/nsf-deploys-250-million-restart-small-business-innovation"
+          },
+          {
+            "name": "Instrumentation Pilot",
+            "status": "open",
+            "opens": "2026-05-26",
+            "size": "$40M",
+            "source": "https://www.nsf.gov/news/nsf-deploys-250-million-restart-small-business-innovation"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8091,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "aria",
+    "org_name": null,
+    "program": "Safeguarded AI: Cybersecurity (TA2)",
+    "title": "ARIA opens GBP 20M Cybersecurity call within its Safeguarded AI programme",
+    "summary": "ARIA's Mathematics for Safe AI programme has an active Cybersecurity (TA2) call allocating GBP 20 million from its wider GBP 59 million Safeguarded AI programme, structured as Blue Team awards (3-6, building production-grade security-critical software with machine-checked proofs) and one Red Team for adversarial evaluation. Deadline 2026-07-01.",
+    "evidence_url": "https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding",
+    "proposed_change": {
+      "programs/aria-safeguarded-ai-cybersecurity.yaml": {
+        "id": "aria-safeguarded-ai-cybersecurity",
+        "name": "Safeguarded AI: Cybersecurity (TA2)",
+        "org": "aria",
+        "parent": null,
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "uk-public-rd",
+          "ai-safety"
+        ],
+        "apply_url": "https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding",
+        "summary": "Cybersecurity call within ARIA's GBP 59M Safeguarded AI programme, allocating GBP 20M across Blue Team awards (3-6, production-grade security-critical software with machine-checked proofs) and one Red Team for adversarial evaluation.",
+        "rounds": [
+          {
+            "name": "TA2 2026 call",
+            "status": "open",
+            "closes": "2026-07-01",
+            "size": "GBP 20M",
+            "source": "https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding"
+          }
+        ]
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8093,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "google-deepmind",
+    "org_name": null,
+    "program": "Multi-Agent AI Safety Research Fund",
+    "title": "Google DeepMind and partners commit $10M to multi-agent AI safety research",
+    "summary": "Google DeepMind, Schmidt Sciences, the Cooperative AI Foundation, ARIA, and Google.org jointly launched a $10M fund kick-starting independent academic and research-institution work on multi-agent AI safety -- agent sandboxes/testbeds, agent network science, agent infrastructure security, and oversight/control methods. Open to academic and independent researchers globally via the Schmidt Sciences portal. Deadline 2026-08-08.",
+    "evidence_url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
+    "proposed_change": {
+      "programs/multi-agent-ai-safety-research-fund.yaml": {
+        "id": "multi-agent-ai-safety-research-fund",
+        "name": "Multi-Agent AI Safety Research Fund",
+        "org": "google-deepmind",
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "ai-safety"
+        ],
+        "apply_url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
+        "summary": "$10M fund jointly run by Google DeepMind, Schmidt Sciences, the Cooperative AI Foundation, ARIA, and Google.org, kick-starting independent research on multi-agent AI safety.",
+        "rounds": [
+          {
+            "name": "2026 call",
+            "status": "open",
+            "closes": "2026-08-08",
+            "size": "$10M",
+            "source": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/"
+          }
+        ]
+      }
+    },
+    "confidence": 68,
+    "signal_id": 8829,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "rust-foundation",
+    "org_name": null,
+    "program": "Rust Foundation Maintainers Fund",
+    "title": "Rust Foundation launches Maintainers Fund for stable, long-term maintainer support",
+    "summary": "The Rust Foundation launched a new Maintainers Fund providing stable, long-term funding and a Maintainer in Residence program for key Rust maintainers, funded through donations and contributions.",
+    "evidence_url": "https://blog.rust-lang.org/2026/06/02/launching-the-rust-foundation-maintainers-fund",
+    "proposed_change": {
+      "programs/rust-foundation-maintainers-fund.yaml": {
+        "id": "rust-foundation-maintainers-fund",
+        "name": "Rust Foundation Maintainers Fund",
+        "org": "rust-foundation",
+        "mechanism": "fellowship",
+        "status": "active",
+        "summary": "Provides stable, long-term funding and a Maintainer in Residence program for key Rust maintainers, funded through donations and contributions.",
+        "sources": [
+          "https://blog.rust-lang.org/2026/06/02/launching-the-rust-foundation-maintainers-fund"
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 8506,
+    "wire": "oss"
+  },
+  {
+    "type": "new_award",
+    "org": "alpha-omega",
+    "org_name": null,
+    "program": null,
+    "title": "Alpha-Omega backs $250,000 FreeBSD AI-assisted vulnerability discovery project",
+    "summary": "The FreeBSD Foundation launched an AI-assisted vulnerability discovery project backed by a $250,000 grant, part of the same open-source security funding push (with Trail of Bits/HackerOne/Rust involvement) that Alpha-Omega and the Linux Foundation have run this cycle, including a $12.5M open-source security package that also funds a Rust AI Security Engineer in Residence.",
+    "evidence_url": "https://freebsdfoundation.org/blog/freebsd-ai-assisted-vulnerability-discovery-project-launch/",
+    "proposed_change": {
+      "awards/2026.jsonl": {
+        "funder": "alpha-omega",
+        "funder_name": "Alpha-Omega",
+        "grantee": "freebsd-foundation",
+        "grantee_name": "FreeBSD Foundation",
+        "amount": 250000,
+        "currency": "USD",
+        "amount_text": "$250,000",
+        "date": "2026-06-17",
+        "program": null,
+        "wire": "oss",
+        "source": "https://freebsdfoundation.org/blog/freebsd-ai-assisted-vulnerability-discovery-project-launch/",
+        "key": "alpha-omega-freebsd-ai-vuln-2026"
+      }
+    },
+    "confidence": 55,
+    "signal_id": 9574,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "rust-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Rust Foundation adds an AI Security Engineer in Residence, funded via Alpha-Omega/Linux Foundation",
+    "summary": "The Rust Foundation is bringing on a full-time AI Security Engineer in Residence for six months, funded through part of the Linux Foundation's $12.5M open-source security package (administered with Alpha-Omega). The role triages AI-assisted vulnerability reports across Rust and high-impact crates, coordinates fixes, and documents methods for maintainers.",
+    "evidence_url": "https://alpha-omega.dev/blog/an-ai-security-engineer-in-residence-for-the-rust-ecosystem/",
+    "proposed_change": {
+      "orgs/rust-foundation.yaml": {
+        "profile_update": "Hosts an AI Security Engineer in Residence (6-month role) funded through part of the Linux Foundation's $12.5M open-source security package administered with Alpha-Omega, triaging AI-assisted vulnerability reports across Rust and high-impact crates.",
+        "sources_add": [
+          "https://alpha-omega.dev/blog/an-ai-security-engineer-in-residence-for-the-rust-ecosystem/"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 9628,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "sovereign-tech-agency",
+    "org_name": null,
+    "program": "Sovereign Tech Fellowship",
+    "title": "Sovereign Tech Agency announces 2026 Fellowship cohort of 14 maintainers",
+    "summary": "The Sovereign Tech Agency announced its 2026 Fellowship cohort on 2026-06-11: 14 maintainers, community managers, and technical writers working across Rust, Python, GNOME, Netfilter, rOpenSci, docs.rs, CPython, FreeCAD, and other critical open-source ecosystems. The fellowship provides flexible direct support via freelance or employment contracts for critical OSS work.",
+    "evidence_url": "https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows",
+    "proposed_change": {
+      "programs/sovereign-tech-fellowship.yaml": {
+        "id": "sovereign-tech-fellowship",
+        "name": "Sovereign Tech Fellowship",
+        "org": "sovereign-tech-agency",
+        "mechanism": "fellowship",
+        "status": "active",
+        "systems": [
+          "sovereign-tech"
+        ],
+        "summary": "Flexible direct support (freelance or employment contracts) for maintainers, community managers, and technical writers doing critical open-source work.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "deployed",
+            "size": "14 fellows",
+            "source": "https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows"
+          }
+        ]
+      }
+    },
+    "confidence": 65,
+    "signal_id": 8871,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "stellar-development-foundation",
+    "org_name": null,
+    "program": "Stellar Marketing Grants",
+    "title": "Stellar Development Foundation offers up to $500K in marketing grants",
+    "summary": "Stellar Development Foundation's Marketing Grants fund user-acquisition and growth campaigns for qualified teams building on the Stellar network, up to $500,000. This gives a concrete size to the Marketing Grants line already named on SDF's grants-and-funding page.",
+    "evidence_url": "https://stellar.org/grants-and-funding/marketing-grants",
+    "proposed_change": {
+      "programs/stellar-marketing-grants.yaml": {
+        "id": "stellar-marketing-grants",
+        "name": "Stellar Marketing Grants",
+        "org": "stellar-development-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "stellar"
+        ],
+        "apply_url": "https://stellar.org/grants-and-funding/marketing-grants",
+        "summary": "Marketing grants of up to $500,000 to fund user-acquisition and growth campaigns for qualified teams building on the Stellar network.",
+        "rounds": [
+          {
+            "name": "Rolling",
+            "status": "open",
+            "size": "up to $500,000",
+            "source": "https://stellar.org/grants-and-funding/marketing-grants"
+          }
+        ]
+      }
+    },
+    "confidence": 60,
+    "signal_id": 8811,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "ebpf-foundation",
+    "org_name": null,
+    "program": "eBPF Foundation 2026 Academic Research Grant Program",
+    "title": "eBPF Foundation offers up to $50,000 for academic kernel research",
+    "summary": "The eBPF Foundation published its 2026 academic research grant page (2026-05-21), offering unrestricted awards of up to $50,000 for upstream research on kernel-level OSS infrastructure, verification, performance, and security. Application window 2026-06-15 through 2026-07-15.",
+    "evidence_url": "https://ebpf.foundation/funding-opportunities/research-fund/",
+    "proposed_change": {
+      "programs/ebpf-foundation-academic-research-grant.yaml": {
+        "id": "ebpf-foundation-academic-research-grant",
+        "name": "eBPF Foundation Academic Research Grant Program",
+        "org": "ebpf-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://ebpf.foundation/funding-opportunities/research-fund/",
+        "summary": "Unrestricted awards of up to $50,000 for upstream academic research on kernel-level OSS infrastructure, verification, performance, and security.",
+        "rounds": [
+          {
+            "name": "2026 cycle",
+            "status": "open",
+            "opens": "2026-06-15",
+            "closes": "2026-07-15",
+            "size": "up to $50,000",
+            "source": "https://ebpf.foundation/funding-opportunities/research-fund/"
+          }
+        ]
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8090,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "unitary-foundation",
+    "org_name": null,
+    "program": "UnitaryHACK 2026",
+    "title": "Unitary Foundation runs bounty-driven open-source quantum software event",
+    "summary": "UnitaryHACK 2026, organized by Unitary Foundation, offers cash bounties for open-source quantum software contributions from developers worldwide. Deadline 2026-06-17.",
+    "evidence_url": "https://unitaryhack.dev/",
+    "proposed_change": {
+      "programs/unitaryhack.yaml": {
+        "id": "unitaryhack",
+        "name": "UnitaryHACK",
+        "org": "unitary-foundation",
+        "mechanism": "prize",
+        "status": "active",
+        "systems": [
+          "oss-sustainability"
+        ],
+        "apply_url": "https://unitaryhack.dev/",
+        "summary": "Bounty-driven contribution event for open-source quantum software, open to developers worldwide.",
+        "rounds": [
+          {
+            "name": "2026",
+            "status": "closed",
+            "closes": "2026-06-17",
+            "source": "https://unitaryhack.dev/"
+          }
+        ]
+      }
+    },
+    "confidence": 50,
+    "signal_id": 8310,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "foresight-institute",
+    "org_name": null,
+    "program": "Norm Hardy Prize",
+    "title": "Foresight Institute's Norm Hardy Prize awards $10,000 for usable-security work",
+    "summary": "Foresight Institute's 2026 Norm Hardy Prize is a $10,000 Secure AI / usable-security prize for work that helps users make wise security decisions. Deadline 2026-07-31.",
+    "evidence_url": "https://foresight.org/prizes/norm-hardy-prize/",
+    "proposed_change": {
+      "programs/norm-hardy-prize.yaml": {
+        "id": "norm-hardy-prize",
+        "name": "Norm Hardy Prize",
+        "org": "foresight-institute",
+        "mechanism": "prize",
+        "status": "active",
+        "systems": [
+          "ai-safety"
+        ],
+        "apply_url": "https://foresight.org/prizes/norm-hardy-prize/",
+        "summary": "$10,000 Secure AI / usable-security prize for work that helps users make wise security decisions.",
+        "rounds": [
+          {
+            "name": "2026",
+            "status": "open",
+            "closes": "2026-07-31",
+            "size": "$10,000",
+            "source": "https://foresight.org/prizes/norm-hardy-prize/"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8094,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "pulitzer-center",
+    "org_name": null,
+    "program": "AI Accountability Fellowships",
+    "title": "Pulitzer Center funds journalists reporting on AI accountability with up to $25,000",
+    "summary": "Pulitzer Center's AI Accountability Fellowships offer up to $25,000 to journalists investigating AI accountability. Deadline 2026-07-12.",
+    "evidence_url": "https://pulitzercenter.org/grants-fellowships/opportunities-journalists/ai-accountability-fellowships",
+    "proposed_change": {
+      "programs/pulitzer-ai-accountability-fellowships.yaml": {
+        "id": "pulitzer-ai-accountability-fellowships",
+        "name": "AI Accountability Fellowships",
+        "org": "pulitzer-center",
+        "mechanism": "fellowship",
+        "status": "active",
+        "apply_url": "https://pulitzercenter.org/grants-fellowships/opportunities-journalists/ai-accountability-fellowships",
+        "summary": "Up to $25,000 for journalists investigating AI accountability.",
+        "rounds": [
+          {
+            "name": "2026 cycle",
+            "status": "open",
+            "closes": "2026-07-12",
+            "size": "up to $25,000",
+            "source": "https://pulitzercenter.org/grants-fellowships/opportunities-journalists/ai-accountability-fellowships"
+          }
+        ]
+      }
+    },
+    "confidence": 60,
+    "signal_id": 8524,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "amazon-web-services-aws",
+    "org_name": null,
+    "program": "AWS AI & ML Scholars Program",
+    "title": "AWS runs a fully funded AI/ML scholars program for Global South participants",
+    "summary": "AWS's AI & ML Scholars Program is a fully funded program for AI/ML education and research targeted at Global South participants. Deadline 2026-06-24.",
+    "evidence_url": "https://x.com/AndroOxinu/status/2059091674001822006",
+    "proposed_change": {
+      "programs/aws-ai-ml-scholars-program.yaml": {
+        "id": "aws-ai-ml-scholars-program",
+        "name": "AWS AI & ML Scholars Program",
+        "org": "amazon-web-services-aws",
+        "mechanism": "fellowship",
+        "status": "active",
+        "summary": "Fully funded AI/ML education and research program targeted at Global South participants.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "closed",
+            "closes": "2026-06-24",
+            "source": "https://x.com/AndroOxinu/status/2059091674001822006"
+          }
+        ]
+      }
+    },
+    "confidence": 42,
+    "signal_id": 8115,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "filecoin-foundation",
+    "org_name": null,
+    "program": "Filecoin ProPGF (Proactive Public Goods Funding)",
+    "title": "Filecoin Foundation runs ProPGF Batch 3 for core infrastructure and RFP tracks",
+    "summary": "Filecoin Foundation's ProPGF (distinct from its Retroactive PGF rounds) is a milestone-based public-goods funding track for core infrastructure maintenance and RFPs across Web3 Builders and Web2 Object Storage verticals. Batch 3 reporting is inconsistent across sources: signals report the round size as either $2M or $4M and the deadline as either 2026-06-09 or 2026-06-16 -- flagged for verification against the Filecoin Foundation blog before publishing a figure.",
+    "evidence_url": "https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track",
+    "proposed_change": {
+      "programs/filecoin-propgf.yaml": {
+        "id": "filecoin-propgf",
+        "name": "Filecoin ProPGF",
+        "org": "filecoin-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "filecoin"
+        ],
+        "summary": "Proactive, milestone-based public-goods funding for core Filecoin infrastructure maintenance and RFPs in Web3 Builders and Web2 Object Storage verticals, distinct from Filecoin's Retroactive PGF rounds.",
+        "rounds": [
+          {
+            "name": "Batch 3",
+            "status": "closed",
+            "closes": "2026-06-16",
+            "size": "reported as $2M-$4M (source figures conflict)",
+            "source": "https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track"
+          }
+        ]
+      }
+    },
+    "confidence": 38,
+    "signal_id": 8339,
+    "wire": "crypto"
+  },
+  {
+    "type": "round_update",
+    "org": "solana-foundation",
+    "org_name": null,
+    "program": "solana-foundation-grants",
+    "title": "Solana Foundation adds a Perps & Derivatives Grants vertical",
+    "summary": "Solana Foundation Grants opened a new vertical for teams building fully on-chain perpetuals and derivatives on Solana, with milestone-based funding on a rolling basis.",
+    "evidence_url": "https://solana.com/news/build-onchain-perps",
+    "proposed_change": {
+      "programs/solana-foundation-grants.yaml": {
+        "rounds_add": [
+          {
+            "name": "Perps & Derivatives vertical",
+            "status": "open",
+            "source": "https://solana.com/news/build-onchain-perps"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 8862,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "sui-foundation",
+    "org_name": null,
+    "program": "Sui Overflow",
+    "title": "Sui Foundation runs Sui Overflow 2026, a flagship hackathon with $1M+ in prizes",
+    "summary": "Sui Overflow 2026 is the flagship hackathon for Sui builders, offering over $1M in prizes and seed funding across core tracks, running roughly May through August 2026.",
+    "evidence_url": "https://overflow.sui.io/",
+    "proposed_change": {
+      "programs/sui-overflow.yaml": {
+        "id": "sui-overflow",
+        "name": "Sui Overflow",
+        "org": "sui-foundation",
+        "mechanism": "prize",
+        "status": "active",
+        "systems": [
+          "sui"
+        ],
+        "apply_url": "https://overflow.sui.io/",
+        "summary": "Sui Foundation's flagship annual hackathon for Sui builders, with prizes and seed funding across core tracks.",
+        "rounds": [
+          {
+            "name": "2026",
+            "status": "open",
+            "opens": "2026-05-01",
+            "size": "over $1,000,000",
+            "source": "https://overflow.sui.io/"
+          }
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 7907,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": null,
+    "program": "Arbitrum Founder House London",
+    "title": "Arbitrum Foundation opens Founder House London with $300K in prizes plus a $70K grant pool",
+    "summary": "Arbitrum Foundation opened applications on 2026-06-04 for Founder House London (July 10-12, 2026), the in-person phase of its Open House founder program: $300K in milestone-based prizes and grants across general, Robinhood Chain, and agentic tracks, plus a reserved $70K Arbitrum Foundation grant pool for teams building onchain payments, RWA, DeFi, agentic, and privacy businesses on Arbitrum. Applications closed 2026-06-25.",
+    "evidence_url": "https://blog.arbitrum.foundation/arbitrum-founder-house-london-apply-now-to-launch-businesses-powering-the-programmable-economy/",
+    "proposed_change": {
+      "programs/arbitrum-founder-house-london.yaml": {
+        "id": "arbitrum-founder-house-london",
+        "name": "Arbitrum Founder House London",
+        "org": "arbitrum-foundation",
+        "mechanism": "incubator",
+        "status": "active",
+        "systems": [
+          "arbitrum"
+        ],
+        "apply_url": "https://blog.arbitrum.foundation/arbitrum-founder-house-london-apply-now-to-launch-businesses-powering-the-programmable-economy/",
+        "summary": "In-person phase of Arbitrum Foundation's Open House founder program: $300K in milestone-based prizes/grants across general, Robinhood Chain, and agentic tracks, plus a reserved $70K grant pool for onchain payments, RWA, DeFi, agentic, and privacy businesses.",
+        "rounds": [
+          {
+            "name": "London, July 10-12 2026",
+            "status": "closed",
+            "closes": "2026-06-25",
+            "size": "$300K prizes/grants + $70K reserved grant pool",
+            "source": "https://blog.arbitrum.foundation/arbitrum-founder-house-london-apply-now-to-launch-businesses-powering-the-programmable-economy/"
+          }
+        ]
+      }
+    },
+    "confidence": 60,
+    "signal_id": 8464,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": null,
+    "program": "Arbitrum New Grants Program",
+    "title": "Arbitrum DAO reportedly approves a new grants program for DeFi and gaming",
+    "summary": "A wire signal reports Arbitrum DAO approved a new Grants Program aimed at accelerating ecosystem growth in DeFi and gaming, rolling deadline. Source could not be independently verified against the Arbitrum Foundation's existing grant pages (Questbook, Trailblazer, Audit Subsidy, Arbifuel, DRIP), so this may overlap with an already-documented initiative -- flagged for verification before promotion.",
+    "evidence_url": "https://arbitrum.foundation/grants",
+    "proposed_change": {
+      "programs/arbitrum-new-grants-program.yaml": {
+        "id": "arbitrum-new-grants-program",
+        "name": "Arbitrum New Grants Program",
+        "org": "arbitrum-foundation",
+        "mechanism": "grants",
+        "status": "unknown",
+        "systems": [
+          "arbitrum"
+        ],
+        "summary": "Reported new Arbitrum DAO grants program targeting DeFi and gaming ecosystem growth; needs verification against existing Arbitrum grant initiatives before promotion.",
+        "sources": [
+          "https://arbitrum.foundation/grants"
+        ]
+      }
+    },
+    "confidence": 30,
+    "signal_id": 8436,
+    "wire": "crypto"
+  },
+  {
+    "type": "status_change",
+    "org": "arbitrum-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Arbitrum Watchdog Program closes historic misuse cases, tightens investigation window",
+    "summary": "Arbitrum's Watchdog Program reviewing committee completed all investigations into historic incentive-program cases (one confirmed as valid misuse, one not valid). A new time-frame limit effective May 11 restricts future investigations to incidents occurring after 2025. The program's working budget stood at ~476,546 ARB at month end, with oversight transitioning from Entropy to OpCo over coming months.",
+    "evidence_url": "https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968",
+    "proposed_change": {
+      "orgs/arbitrum-foundation.yaml": {
+        "profile_update": "Runs a Watchdog Program investigating misuse of historic incentive programs; as of May 2026 all outstanding cases were resolved, future investigations are limited to post-2025 incidents, and oversight is transitioning from Entropy to OpCo.",
+        "sources_add": [
+          "https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968"
+        ]
+      }
+    },
+    "confidence": 50,
+    "signal_id": 8656,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "arbitrum-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Arbitrum DAO Grant Program publishes its Season 3 Impact Report",
+    "summary": "The Arbitrum D.A.O. Grant Program released its Season 3 Impact Report, covering outcomes, milestone completions, and overall program effectiveness from the S3 grant cycle.",
+    "evidence_url": "https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753/55?u=jojo",
+    "proposed_change": {
+      "orgs/arbitrum-foundation.yaml": {
+        "sources_add": [
+          "https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753/55?u=jojo"
+        ]
+      }
+    },
+    "confidence": 45,
+    "signal_id": 8869,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "nlnet-foundation",
+    "org_name": null,
+    "program": "Restack",
+    "title": "NLnet and FSFE launch EUR 10M Restack cascade fund for the open internet stack",
+    "summary": "Restack is a new EUR 10 million Horizon Europe cascade-funding programme led by NLnet Foundation with FSFE and other consortium partners, retaining the NGI Zero approach. It offers R&D grants of EUR 5,000-50,000 with rolling open calls every two months from June 2026 through 2030, plus a scale-up track for proven projects, across four themes: open-tech sovereignty/privacy, internet resilience, reducing digital environmental impact, and supply-chain transparency.",
+    "evidence_url": "https://fsfe.org/news/2026/news-20260528-01.en.html",
+    "proposed_change": {
+      "programs/nlnet-restack.yaml": {
+        "id": "nlnet-restack",
+        "name": "Restack",
+        "org": "nlnet-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "systems": [
+          "eu-public-rd",
+          "sovereign-tech"
+        ],
+        "apply_url": "https://nlnet.nl/restack/",
+        "summary": "EUR 10M Horizon Europe cascade-funding programme led by NLnet with FSFE and other partners, offering EUR 5,000-50,000 R&D grants with rolling calls every two months (2026-2030) plus a scale-up track, across open-tech sovereignty/privacy, internet resilience, environmental impact, and supply-chain transparency.",
+        "rounds": [
+          {
+            "name": "First call",
+            "status": "open",
+            "opens": "2026-06-01",
+            "closes": "2026-08-01",
+            "size": "EUR 10M programme; EUR 5,000-50,000 per grant",
+            "source": "https://fsfe.org/news/2026/news-20260528-01.en.html"
+          }
+        ]
+      }
+    },
+    "confidence": 65,
+    "signal_id": 9269,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "anthropic",
+    "org_name": null,
+    "program": "Claude Corps",
+    "title": "Anthropic commits $150M to launch Claude Corps fellowship",
+    "summary": "Anthropic launched Claude Corps on 2026-06-11, committing an initial $150M to a 12-month paid fellowship placing early-career AI talent with US nonprofits. Hosts can receive a $10,000 implementation grant plus up to $2,500 in Claude licenses and API credits per fellow. First-cohort fellow and host applications closed 2026-07-17.",
+    "evidence_url": "https://www.anthropic.com/news/claude-corps",
+    "proposed_change": {
+      "programs/claude-corps.yaml": {
+        "id": "claude-corps",
+        "name": "Claude Corps",
+        "org": "anthropic",
+        "mechanism": "fellowship",
+        "status": "active",
+        "wires": [
+          "ai"
+        ],
+        "apply_url": "https://www.anthropic.com/news/claude-corps",
+        "summary": "12-month paid fellowship placing early-career AI talent with US nonprofits; hosts receive a $10,000 implementation grant plus up to $2,500 in Claude licenses/API credits per fellow.",
+        "rounds": [
+          {
+            "name": "First cohort",
+            "status": "closed",
+            "opens": "2026-06-11",
+            "closes": "2026-07-17",
+            "size": "$150M initial commitment",
+            "source": "https://www.anthropic.com/news/claude-corps"
+          }
+        ]
+      }
+    },
+    "confidence": 70,
+    "signal_id": 8870,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "anthropic",
+    "org_name": null,
+    "program": "Economic Futures Initiative",
+    "title": "Anthropic scales Economic Futures to a $200M research fund plus $150M fellowship",
+    "summary": "On 2026-06-10 Anthropic announced a major scale-up of its Economic Futures program: a $200M Economic Futures Research Fund supporting empirical research, policy trials, and evaluations on AI labor-market impacts (the prior round structure offered $10K-$50K awards to economists and data scientists), plus a new $150M National Fellowship Program for early-career professionals distributing AI's economic benefits beyond coastal tech hubs. No application portal was live yet at announcement; together the two commitments represent roughly 1.2% of Anthropic's $30B Series G.",
+    "evidence_url": "https://www.anthropic.com/economic-futures",
+    "proposed_change": {
+      "programs/anthropic-economic-futures-initiative.yaml": {
+        "id": "anthropic-economic-futures-initiative",
+        "name": "Economic Futures Initiative",
+        "org": "anthropic",
+        "mechanism": "grants",
+        "status": "announced",
+        "wires": [
+          "ai"
+        ],
+        "apply_url": "https://www.anthropic.com/economic-futures",
+        "summary": "A $200M Economic Futures Research Fund for empirical research/policy trials on AI labor-market impacts (prior structure: $10K-$50K awards to economists/data scientists), plus a $150M National Fellowship Program for early-career professionals distributing AI's economic benefits beyond coastal tech hubs.",
+        "rounds": [
+          {
+            "name": "2026 scale-up",
+            "status": "announced",
+            "opens": "2026-06-10",
+            "size": "$200M research fund + $150M fellowship program",
+            "source": "https://www.anthropic.com/economic-futures"
+          }
+        ]
+      }
+    },
+    "confidence": 68,
+    "signal_id": 8830,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "openai-foundation",
+    "org_name": null,
+    "program": "Economic Research Exchange",
+    "title": "OpenAI Foundation opens Economic Research Exchange for external economists",
+    "summary": "OpenAI launched the Economic Research Exchange on 2026-06-08, an open call for external researchers in applied causal inference, labor economics, and productivity to run empirical studies on AI's economic impact through structured, project-based collaborations with OpenAI's Economic Research division (research support and data access; no fixed grant figure published). Applications open through 2026-07-05, decisions by 2026-07-31.",
+    "evidence_url": "https://openai.com/index/economic-research-exchange/",
+    "proposed_change": {
+      "programs/openai-economic-research-exchange.yaml": {
+        "id": "openai-economic-research-exchange",
+        "name": "Economic Research Exchange",
+        "org": "openai-foundation",
+        "mechanism": "other",
+        "status": "active",
+        "wires": [
+          "ai"
+        ],
+        "apply_url": "https://openai.com/index/economic-research-exchange/",
+        "summary": "Open call for external researchers in applied causal inference, labor economics, and productivity to run empirical studies on AI's economic impact via structured collaborations with OpenAI's Economic Research division; research support and data access, no fixed grant figure published.",
+        "rounds": [
+          {
+            "name": "2026 cohort",
+            "status": "open",
+            "opens": "2026-06-08",
+            "closes": "2026-07-05",
+            "source": "https://openai.com/index/economic-research-exchange/"
+          }
+        ]
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8659,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "openai-foundation",
+    "org_name": null,
+    "program": "AI Resilience",
+    "title": "OpenAI Foundation deploys $130M+ across AI Resilience focus areas",
+    "summary": "OpenAI Foundation's AI Resilience program had deployed $130M+ in initial grants as of 2026-06-01, across four focus areas: bio-resilience, cyber-resilience, AI model safety, and impact on children/youth from AI tools. Led by OpenAI co-founder Wojciech Zaremba, it is part of the Foundation's broader $1B+ annual deployment from its $25B commitment.",
+    "evidence_url": "https://openaifoundation.org/news/update-on-the-openai-foundation",
+    "proposed_change": {
+      "programs/openai-ai-resilience.yaml": {
+        "id": "openai-ai-resilience",
+        "name": "AI Resilience",
+        "org": "openai-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "wires": [
+          "ai"
+        ],
+        "apply_url": "https://openaifoundation.org/news/update-on-the-openai-foundation",
+        "summary": "Grants across four focus areas -- bio-resilience, cyber-resilience, AI model safety, and impact on children/youth from AI tools -- led by co-founder Wojciech Zaremba, part of the Foundation's broader $1B+ annual deployment from its $25B commitment.",
+        "rounds": [
+          {
+            "name": "Initial grants (as of June 2026)",
+            "status": "deployed",
+            "size": "$130M+",
+            "source": "https://openaifoundation.org/news/update-on-the-openai-foundation"
+          }
+        ]
+      }
+    },
+    "confidence": 65,
+    "signal_id": 9232,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "openai-foundation",
+    "org_name": null,
+    "program": "Economic Futures in the Age of AI",
+    "title": "OpenAI Foundation commits initial $250M to Economic Futures program",
+    "summary": "The OpenAI Foundation committed an initial $250M to grants, partnerships, and direct work on secure and abundant economic futures in the age of AI, spanning independent measurement/forecasting of AI's economic impacts, resourcing workers and communities through near-term disruption, and new approaches to sharing economic gains broadly. Announced 2026-05-27.",
+    "evidence_url": "https://openaifoundation.org/news/economic-futures-in-the-age-of-ai",
+    "proposed_change": {
+      "programs/openai-economic-futures.yaml": {
+        "id": "openai-economic-futures",
+        "name": "Economic Futures in the Age of AI",
+        "org": "openai-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "wires": [
+          "ai"
+        ],
+        "apply_url": "https://openaifoundation.org/news/economic-futures-in-the-age-of-ai",
+        "summary": "Initial $250M commitment to grants, partnerships, and direct work spanning independent measurement/forecasting of AI's economic impact, resourcing workers/communities through near-term disruption, and new approaches to sharing economic gains broadly.",
+        "rounds": [
+          {
+            "name": "Initial commitment",
+            "status": "announced",
+            "opens": "2026-05-27",
+            "size": "$250M",
+            "source": "https://openaifoundation.org/news/economic-futures-in-the-age-of-ai"
+          }
+        ]
+      }
+    },
+    "confidence": 65,
+    "signal_id": 8089,
+    "wire": "ai"
+  },
+  {
+    "type": "round_update",
+    "org": "openai-foundation",
+    "org_name": null,
+    "program": "openai-people-first-ai-fund",
+    "title": "OpenAI Foundation doubles People-First AI Fund to $100M total, adds named wave-2 grantees",
+    "summary": "The OpenAI Foundation added $50M to its People-First AI Fund, bringing the total 2026 commitment to $100M, and began accepting new applications 2026-06-15. Wave 1 (Dec 2025) deployed $40.5M to 208 community-based nonprofits from ~3,000 applications; a board-directed wave 2 added $9.5M (announced 2026-06-04) to grantees including Every Cure, CareMessage, and the Lenfest Institute.",
+    "evidence_url": "https://openaifoundation.org/news/update-on-the-people-first-ai-fund",
+    "proposed_change": {
+      "programs/openai-people-first-ai-fund.yaml": {
+        "size_update": "$100M total (2026 commitment doubled from $50M)",
+        "rounds_add": [
+          {
+            "name": "Wave 1 (Dec 2025)",
+            "status": "deployed",
+            "size": "$40.5M to 208 nonprofits from ~3,000 applications",
+            "source": "https://openaifoundation.org/news/update-on-the-people-first-ai-fund"
+          },
+          {
+            "name": "Wave 2",
+            "status": "deployed",
+            "opens": "2026-06-04",
+            "size": "$9.5M, incl. Every Cure, CareMessage, Lenfest Institute",
+            "source": "https://openaifoundation.org/news/update-on-the-people-first-ai-fund"
+          }
+        ]
+      }
+    },
+    "confidence": 70,
+    "signal_id": 9420,
+    "wire": "ai"
+  },
+  {
+    "type": "round_update",
+    "org": "gitcoin",
+    "org_name": null,
+    "program": "gitcoin-grants",
+    "title": "Gitcoin's GG24 Public Goods Tooling round allocated $123,800 total",
+    "summary": "Gitcoin's GG24 Public Goods Tooling Development Round (October 2025-March 2026) allocated $123,800 total: $83,800 in proactive funding across 12 projects via two conviction-voting pools, $40,000 in performance-based retro funding, and a $20,000 operations fee (16.1% of total).",
+    "evidence_url": "https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276",
+    "proposed_change": {
+      "programs/gitcoin-grants.yaml": {
+        "round_update": {
+          "name": "GG24 Public Goods Tooling Development Round",
+          "size": "$123,800 total ($83,800 proactive across 12 projects, $40,000 retro, $20,000 ops fee)"
+        }
+      }
+    },
+    "confidence": 68,
+    "signal_id": 8086,
+    "wire": "crypto"
+  },
+  {
+    "type": "status_change",
+    "org": "ethereum-foundation",
+    "org_name": null,
+    "program": "ethereum-esp",
+    "title": "Ethereum Foundation ESP switches to ETH as default grant payment method",
+    "summary": "The Ethereum Foundation's Ecosystem Support Program announced ETH will become the default payment method for all newly approved grants starting 2026-06-10. The change applies only to new applications submitted on or after that date, not previously approved grants.",
+    "evidence_url": "https://x.com/ef_esp/status/2062897232635195871",
+    "proposed_change": {
+      "programs/ethereum-esp.yaml": {
+        "profile_update": "ETH is the default payment method for grants newly approved on or after 2026-06-10 (previously approved grants unaffected)."
+      }
+    },
+    "confidence": 62,
+    "signal_id": 8510,
+    "wire": "crypto"
+  },
+  {
+    "type": "round_update",
+    "org": "ethereum-foundation",
+    "org_name": null,
+    "program": "ethereum-esp",
+    "title": "Ethereum Foundation ESP opens RFP for an open-source DeFi risk intelligence aggregator",
+    "summary": "The Ethereum Foundation ESP opened an RFP for an open-source, neutral DeFi risk data aggregator as a public good for Ethereum ecosystem builders and researchers. Deadline 2026-06-15.",
+    "evidence_url": "https://esp.ethereum.foundation/applicants/rfp/defi_risk_intel_agg",
+    "proposed_change": {
+      "programs/ethereum-esp.yaml": {
+        "rounds_add": [
+          {
+            "name": "RFP: DeFi Risk Intelligence Aggregator",
+            "status": "closed",
+            "closes": "2026-06-15",
+            "source": "https://esp.ethereum.foundation/applicants/rfp/defi_risk_intel_agg"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 8384,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "ethereum-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Vitalik outlines a narrower, longevity-focused direction for the Ethereum Foundation",
+    "summary": "Vitalik Buterin described the Ethereum Foundation's evolving role as operating like 'one node' rather than the center of Ethereum. The EF holds only ~0.16% of all ETH and is choosing longevity over breadth: selling less ETH and narrowing focus to censorship-resistance, privacy, and security (CROPs), with technical priorities including AI-assisted formal verification and intermediary minimization (e.g. FOCIL, EIP-8141).",
+    "evidence_url": "https://x.com/vitalikbuterin/status/2058583593102844111",
+    "proposed_change": {
+      "orgs/ethereum-foundation.yaml": {
+        "profile_update": "As of mid-2026, the Foundation is narrowing its strategic focus to censorship-resistance, openness, privacy, and security (CROPs), holds ~0.16% of all ETH, and is positioning itself as one node among many rather than Ethereum's center.",
+        "sources_add": [
+          "https://x.com/vitalikbuterin/status/2058583593102844111"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": 7933,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "octant",
+    "org_name": null,
+    "program": "Octant Epoch Funding",
+    "title": "Octant opens Epoch 12 with a 200 ETH matching pool and quadratic-funding upgrades",
+    "summary": "Octant opened Epoch 12, its 13th funding round, with a 200 ETH matching pool and an allocation window from 2026-06-16 to 2026-06-30. The epoch introduces ProperQF (quadratic funding), zk-proofs in voting, ETH contributions (split 50/50 between GLM burn and project allocation), and the v2 platform; 26 projects are participating, including Protocol Guild, L2Beat, RevokeCash, EAS, and Shutter Network.",
+    "evidence_url": "https://x.com/octantapp/status/2066912429561217132",
+    "proposed_change": {
+      "programs/octant-epoch-funding.yaml": {
+        "id": "octant-epoch-funding",
+        "name": "Octant Epoch Funding",
+        "org": "octant",
+        "mechanism": "quadratic",
+        "status": "active",
+        "systems": [
+          "ethereum",
+          "web3-public-goods"
+        ],
+        "apply_url": "https://octant.build/",
+        "summary": "Octant's recurring epoch-based public-goods funding round, distributing a matching pool via quadratic funding to participating ecosystem projects.",
+        "rounds": [
+          {
+            "name": "Epoch 12",
+            "status": "closed",
+            "opens": "2026-06-16",
+            "closes": "2026-06-30",
+            "size": "200 ETH matching pool, 26 projects",
+            "source": "https://x.com/octantapp/status/2066912429561217132"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": 9530,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "avalanche-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Avalanche Foundation's Call for Research Proposals passes 150 applications, stays open",
+    "summary": "The Avalanche Foundation's Call for Research Proposals (tokenomics, validator economics, network security) has received over 150 applications and remains open on a rolling basis.",
+    "evidence_url": "https://x.com/AvalancheFDN/status/2064744164198388055",
+    "proposed_change": {
+      "orgs/avalanche-foundation.yaml": {
+        "profile_update": "Its Call for Research Proposals (tokenomics, validator economics, network security) had received 150+ applications as of June 2026 and remains open on a rolling basis.",
+        "sources_add": [
+          "https://x.com/AvalancheFDN/status/2064744164198388055"
+        ]
+      }
+    },
+    "confidence": 50,
+    "signal_id": 8718,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "circle",
+    "org_name": null,
+    "program": "circle-developer-grants",
+    "title": "Circle Developer Grants relaunch highlights integration with its Arc ecosystem",
+    "summary": "Circle's Developer Grants relaunch emphasizes builders integrating Arc and Circle platforms, covering AI agents, prediction markets, stablecoins, and lending, with milestone-based funding, technical support, and marketing.",
+    "evidence_url": "https://www.circle.com/grant",
+    "proposed_change": {
+      "programs/circle-developer-grants.yaml": {
+        "summary_add": "A relaunched cohort emphasizes builders integrating Circle's Arc platform alongside USDC, covering AI agents, prediction markets, stablecoins, and lending."
+      }
+    },
+    "confidence": 40,
+    "signal_id": 7945,
+    "wire": "crypto"
+  },
+  {
+    "type": "status_change",
+    "org": "celo",
+    "org_name": null,
+    "program": null,
+    "title": "Celo's Prezenti Grants applications move to the Tally platform",
+    "summary": "Celo's Prezenti Grants program moved its application intake to Tally; applications are open for submission on the new platform.",
+    "evidence_url": "https://forum.celo.org/t/prezenti-grant-applications-have-moved-to-tally/13318",
+    "proposed_change": {
+      "orgs/celo.yaml": {
+        "profile_update": "Prezenti Grants (a Celo builder grant line) now takes applications through Tally rather than its prior intake.",
+        "sources_add": [
+          "https://forum.celo.org/t/prezenti-grant-applications-have-moved-to-tally/13318"
+        ]
+      }
+    },
+    "confidence": 40,
+    "signal_id": 9242,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "red-hat",
+    "org_name": null,
+    "program": null,
+    "title": "IBM and Red Hat commit $5 billion to open-source security in the AI era",
+    "summary": "IBM and Red Hat announced a $5 billion commitment (2026-05-28) to secure and maintain open-source projects, including AI-driven vulnerability detection and software supply-chain improvements.",
+    "evidence_url": "https://newsroom.ibm.com/2026-05-28-ibm-and-red-hat-commit-5-billion-to-redefine-the-future-of-open-source-in-the-ai-era",
+    "proposed_change": {
+      "orgs/red-hat.yaml": {
+        "profile_update": "Parent company IBM and Red Hat jointly committed $5 billion (announced 2026-05-28) to securing and maintaining open-source projects, including AI-driven vulnerability detection and supply-chain improvements.",
+        "sources_add": [
+          "https://newsroom.ibm.com/2026-05-28-ibm-and-red-hat-commit-5-billion-to-redefine-the-future-of-open-source-in-the-ai-era"
+        ]
+      }
+    },
+    "confidence": 52,
+    "signal_id": 8427,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "zcash",
+    "org_name": null,
+    "program": null,
+    "title": "New Zcash Grants Hub consolidates ZCG, Coinholder, and ZecHub funding lanes",
+    "summary": "A new community-run Zcash Grants Hub consolidates live ZCG grants, coinholder retroactive grants, and ZecHub DAO funding/application surfaces with links to each official program.",
+    "evidence_url": "https://zgrantshub.com/",
+    "proposed_change": {
+      "orgs/zcash.yaml": {
+        "sources_add": [
+          "https://zgrantshub.com/"
+        ]
+      }
+    },
+    "confidence": 40,
+    "signal_id": 8316,
+    "wire": "crypto"
+  }
+]
