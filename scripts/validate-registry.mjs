@@ -95,9 +95,9 @@ for (const { file, base, doc } of programs) {
 // awards jsonl
 const awardsDir = join(ROOT, 'awards');
 if (existsSync(awardsDir)) {
+  const keyLocations = new Map(); // key -> "file:line" of first sighting, for cross-file dup detection
   for (const f of readdirSync(awardsDir).filter((f) => f.endsWith('.jsonl'))) {
     const lines = readFileSync(join(awardsDir, f), 'utf8').split('\n').filter(Boolean);
-    const keys = new Set();
     lines.forEach((line, i) => {
       let a;
       try {
@@ -105,9 +105,13 @@ if (existsSync(awardsDir)) {
       } catch {
         return err(`awards/${f}:${i + 1}`, 'bad json line');
       }
-      if (!a.funder || !a.grantee_name || !a.key) err(`awards/${f}:${i + 1}`, 'missing funder/grantee_name/key');
-      if (keys.has(a.key)) err(`awards/${f}:${i + 1}`, `duplicate key ${a.key}`);
-      keys.add(a.key);
+      const loc = `awards/${f}:${i + 1}`;
+      if (!a.funder || !a.grantee_name || !a.key) err(loc, 'missing funder/grantee_name/key');
+      if (a.funder && !orgIds.has(a.funder)) err(loc, `funder "${a.funder}" not in orgs/`);
+      if (a.key) {
+        if (keyLocations.has(a.key)) err(loc, `duplicate key ${a.key} (first seen at ${keyLocations.get(a.key)})`);
+        else keyLocations.set(a.key, loc);
+      }
     });
   }
 }
