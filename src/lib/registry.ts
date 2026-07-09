@@ -10,18 +10,44 @@ const ROOT = join(process.cwd(), 'registry');
 let cache: RegistryIndex | null = null;
 let cacheStamp = '';
 
-function dirStamp(): string {
-  // cheap change detection: mtimes of the four registry dirs
-  return ['systems', 'orgs', 'programs', 'awards']
-    .map((d) => {
-      const p = join(ROOT, d);
+/** Per-file stamp for one registry subdir: path + mtimeMs + size for every
+ *  matching file, so editing (not just adding/removing) a file busts the
+ *  cache. A missing dir or a stat race degrades to an empty entry rather
+ *  than throwing — loadRegistry() must never fail on this. */
+function dirFileStamp(dir: string, ext: string): string {
+  let files: string[];
+  try {
+    files = readdirSync(dir).filter((f) => f.endsWith(ext)).sort();
+  } catch {
+    return '';
+  }
+  return files
+    .map((f) => {
+      const p = join(dir, f);
       try {
-        return `${d}:${statSync(p).mtimeMs}:${readdirSync(p).length}`;
+        const st = statSync(p);
+        return `${p}:${st.mtimeMs}:${st.size}`;
       } catch {
-        return `${d}:0:0`;
+        return `${p}:0:0`;
       }
     })
     .join('|');
+}
+
+function registryStamp(): string {
+  return [
+    dirFileStamp(join(ROOT, 'systems'), '.yaml'),
+    dirFileStamp(join(ROOT, 'orgs'), '.yaml'),
+    dirFileStamp(join(ROOT, 'programs'), '.yaml'),
+    dirFileStamp(join(ROOT, 'awards'), '.jsonl'),
+  ].join('||');
+}
+
+/** Force the next loadRegistry() call to re-read from disk regardless of the
+ *  stamp. Call after any write to registry/ files (e.g. applyProposal). */
+export function invalidateRegistryCache(): void {
+  cache = null;
+  cacheStamp = '';
 }
 
 function loadYamlDir<T>(sub: string): T[] {
@@ -57,7 +83,7 @@ function loadAwards(): Award[] {
 }
 
 export function loadRegistry(force = false): RegistryIndex {
-  const stamp = dirStamp();
+  const stamp = registryStamp();
   if (cache && !force && stamp === cacheStamp) return cache;
 
   const systems = loadYamlDir<System>('systems').sort((a, b) => a.name.localeCompare(b.name));

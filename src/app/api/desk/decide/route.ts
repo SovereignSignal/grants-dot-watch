@@ -12,7 +12,7 @@ interface DecideBody {
 }
 
 export async function POST(req: Request) {
-  const auth = checkAuth(req);
+  const auth = await checkAuth(req);
   if (!auth.ok) return unauthorized();
 
   let body: DecideBody;
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     return Response.json({ error: 'id and decision (approved|rejected) are required' }, { status: 400 });
   }
 
-  const proposal = getProposal(id);
+  const proposal = await getProposal(id);
   if (!proposal) return Response.json({ error: 'not found' }, { status: 404 });
   if (proposal.state !== 'pending') return Response.json({ error: 'already decided' }, { status: 409 });
 
@@ -46,6 +46,6 @@ export async function POST(req: Request) {
     }
   }
 
-  const { proposal: updated, verdict } = recordVerdict(id, decision, { note: mergedNote, commit });
+  const { proposal: updated, verdict } = await recordVerdict(id, decision, { note: mergedNote, commit });
   return Response.json({ ok: true, commit, proposal: updated, verdict });
 }

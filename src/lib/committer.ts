@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import YAML from 'yaml';
-import { loadRegistry } from './registry';
+import { invalidateRegistryCache, loadRegistry } from './registry';
 import type { Award, Org, Proposal, Program, Round, Wire } from './types';
 
 const REPO_ROOT = process.cwd();
@@ -383,7 +383,9 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
   return { changes, notes };
 }
 
-/** Writes buildProposalChanges' output to disk. */
+/** Writes buildProposalChanges' output to disk. Invalidates the in-memory
+ *  registry cache on success so the running process reflects the write on
+ *  its very next read, instead of waiting out the stale stamp window. */
 export function applyProposal(p: Proposal): ApplyResult {
   const result = buildProposalChanges(p);
   for (const c of result.changes) {
@@ -392,6 +394,7 @@ export function applyProposal(p: Proposal): ApplyResult {
     if (c.op === 'append') appendFileSync(abs, c.content, 'utf8');
     else writeFileSync(abs, c.content, 'utf8');
   }
+  if (result.changes.length > 0) invalidateRegistryCache();
   return result;
 }
 
@@ -407,15 +410,17 @@ function appendPendingCommit(entry: { files: string[]; message: string; at: stri
   appendFileSync(PENDING_COMMITS, `${JSON.stringify(entry)}\n`, 'utf8');
 }
 
-/** Best-effort local git commit, scoped to registry/ only. On any failure
- *  (no git repo, nothing to commit, etc.) the change is logged to
- *  .data/pending-commits.jsonl and this returns null — the file mutation
- *  already happened and is never rolled back. */
+/** Best-effort local git commit, scoped to exactly the files passed in — never
+ *  a blanket `registry/` add, so approving one Desk proposal can never sweep
+ *  up unrelated local registry changes. On any failure (no git repo, nothing
+ *  to commit, etc.) the change is logged to .data/pending-commits.jsonl and
+ *  this returns null — the file mutation already happened and is never
+ *  rolled back. */
 export function commitChange(files: string[], message: string): string | null {
   if (files.length === 0) return null;
   if (process.env.GRANTS_WATCH_NO_GIT === '1') return null;
   try {
-    execFileSync('git', ['add', '-A', 'registry'], { cwd: REPO_ROOT, stdio: 'pipe' });
+    execFileSync('git', ['add', '--', ...files], { cwd: REPO_ROOT, stdio: 'pipe' });
     execFileSync('git', ['commit', '-m', message, '--author', 'The Desk <desk@grants.watch>'], {
       cwd: REPO_ROOT,
       stdio: 'pipe',

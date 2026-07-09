@@ -21,7 +21,13 @@
     "@fontsource-variable/bricolage-grotesque": "^5.2.10",
     "@fontsource-variable/instrument-sans": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@privy-io/node": "^0.9.0",
+    "@privy-io/react-auth": "^3.34.0",
+    "@solana-program/system": "^0.10.0",
+    "@solana-program/token": "^0.9.0",
+    "@solana/kit": "^5.5.1",
     "next": "^16.2.10",
+    "pg": "^8.22.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "yaml": "^2.9.0"
@@ -29,6 +35,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
