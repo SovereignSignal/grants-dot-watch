@@ -1,0 +1,21 @@
+id: walrus-foundation
+name: Walrus Foundation
+aka:
+  - Walrus
+systems:
+  - sui
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.walrus.xyz/
+socials: {}
+status: active
+profile: >
+  Foundation behind Walrus, a verifiable data platform created by Mysten Labs
+  that lets builders in AI and onchain finance store, verify, and control data,
+  with emphasis on data availability, programmability, verifiability, and
+  privacy. Its site invites developers to apply for grants and RFPs to get
+  support building on the platform.
+sources:
+  - https://www.walrus.xyz/
+  - https://thewalrussessions.wal.app/

@@ -1,0 +1,23 @@
+id: cohere-for-ai
+name: Cohere For AI
+aka:
+  - Cohere Labs
+  - for.ai
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://cohere.com/research
+socials: {}
+status: active
+profile: >
+  Cohere For AI, renamed Cohere Labs in April 2025, is Cohere's dedicated
+  machine-learning research lab and open science community, with roots in
+  the for.ai research collaboration founded in 2017. It runs a Research
+  Scholars Program offering mentorship and infrastructure to rising
+  researchers, an open science community of about 4,500 members from 150
+  countries, and Catalyst Grants providing free API access to academic
+  partners and impact-focused organizations. Known projects include the Aya
+  multilingual model family and the Global MMLU benchmark.
+sources:
+  - https://cohere.com/research

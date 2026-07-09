@@ -1,0 +1,18 @@
+id: center-for-civic-futures
+name: Center for Civic Futures
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.centerforcivicfutures.org/
+status: active
+profile: >
+  The Center for Civic Futures is a non-partisan nonprofit that helps
+  government leaders navigate AI and emerging technologies through learning,
+  pilots, and partnerships. It operates a $20 million Public Benefit
+  Innovation Fund supporting real-world AI experimentation in public
+  services, and runs programs like the AI Readiness Project to prepare
+  government leaders for technological change.
+sources:
+  - https://www.centerforcivicfutures.org/

@@ -1,0 +1,24 @@
+id: revnets
+name: Revnets
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://revnet.eth.limo/
+socials:
+  x: https://x.com/revnets
+  github: https://github.com/rev-net
+status: active
+profile: >
+  Revnets (Revenue Networks) is an Ethereum-based protocol for deploying autonomous,
+  immutable, rule-based treasuries that tokenize revenues or fundraises and distribute them
+  automatically to participants without centralized operators. It runs no traditional grant
+  program — the protocol itself is the funding mechanism, governed by immutable rules and
+  $REV token economics. The protocol has seen security audits and version updates, including
+  a reported V5 exploit remediation.
+sources:
+  - https://revnet.eth.limo/
+  - https://x.com/owockibot/status/2041894551577862530

@@ -1,0 +1,23 @@
+id: european-high-performance-computing-joint-undertaking
+name: European High Performance Computing Joint Undertaking
+aka:
+  - EuroHPC JU
+  - EuroHPC Joint Undertaking
+systems: [eu-public-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.eurohpc-ju.europa.eu/
+socials: {}
+status: active
+profile: >
+  The European High Performance Computing Joint Undertaking (EuroHPC JU) is
+  an EU body building a world-class supercomputing ecosystem in Europe. It
+  procures supercomputers, funds competitive Research & Innovation calls to
+  advance HPC hardware, software, applications, and skills, and supports AI
+  Factories that offer compute access and services across industrial
+  sectors. Its funding promotes collaboration among researchers,
+  businesses, and institutions.
+sources:
+  - https://www.eurohpc-ju.europa.eu/
+  - https://www.eurohpc-ju.europa.eu/research-innovation_en

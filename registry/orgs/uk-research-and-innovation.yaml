@@ -1,0 +1,23 @@
+id: uk-research-and-innovation
+name: UK Research and Innovation
+aka:
+  - Innovate UK
+  - UKRI
+systems:
+  - uk-public-rd
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.ukri.org/
+socials: {}
+status: active
+profile: >
+  UK public funding body that invests around 8 billion pounds of public money
+  each year into research and innovation. It operates through nine entities:
+  seven research councils (AHRC, BBSRC, ESRC, EPSRC, MRC, NERC, STFC),
+  Research England, and Innovate UK. Funding is distributed via competitive
+  open calls through its funding finder, with innovation funding applications
+  handled at apply-for-innovation-funding.service.gov.uk.
+sources:
+  - https://www.ukri.org/
+  - https://apply-for-innovation-funding.service.gov.uk/

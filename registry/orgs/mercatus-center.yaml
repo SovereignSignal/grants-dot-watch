@@ -1,0 +1,19 @@
+id: mercatus-center
+name: Mercatus Center
+aka: [Emergent Ventures]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: education
+website: https://www.mercatus.org/
+socials: {}
+status: active
+profile: >
+  The Mercatus Center at George Mason University is a classical liberal
+  research organization advancing market-oriented scholarship and policy. It
+  runs multiple grant and fellowship programs, including Emergent Ventures, a
+  low-overhead fellowship and grant program supporting entrepreneurs with
+  scalable ideas, plus academic fellowships and initiatives such as The 1991
+  Project and Marginal Revolution University.
+sources:
+  - https://www.mercatus.org/

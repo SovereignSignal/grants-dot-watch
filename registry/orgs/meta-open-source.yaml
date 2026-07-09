@@ -1,0 +1,19 @@
+id: meta-open-source
+name: Meta Open Source
+aka: []
+systems: [oss-sustainability]
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://opensource.fb.com/
+socials: {}
+status: active
+profile: >
+  Meta Open Source is Meta's hub for its open source software work, showcasing
+  projects such as React, PyTorch, and Docusaurus and describing its approach
+  as built on collaboration, community, and technology. The site itself does
+  not describe a grants or funding program; open source engineering updates
+  are published on the Meta engineering blog.
+sources:
+  - https://opensource.fb.com/
+  - https://engineering.fb.com/category/open-source/

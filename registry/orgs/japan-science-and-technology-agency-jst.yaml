@@ -1,0 +1,25 @@
+id: japan-science-and-technology-agency-jst
+name: Japan Science and Technology Agency
+aka:
+  - Japan Science and Technology Agency (JST)
+  - JST
+systems:
+  - japan-public-rd
+wires:
+  - ai
+  - oss
+roles:
+  - funder
+org_type: government
+website: https://www.jst.go.jp/
+socials: {}
+status: active
+profile: >
+  JST is a Japanese government science and technology agency that supports
+  the whole process from the creation of knowledge to its return to society.
+  It actively funds research through numerous open calls for proposals,
+  including collaborative research programs with countries such as Canada,
+  Thailand, and Indonesia, plus international exchange programs.
+sources:
+  - https://www.jst.go.jp/EN/
+  - https://jst.go.jp/kisoken/boshuu/

@@ -1,0 +1,24 @@
+id: laude-moonshots
+name: Moonshots
+org: laude-institute-moonshot-program
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: grants
+summary: >
+  Laude Institute's Moonshots is a research grant competition funding AI projects
+  aimed at humanity's hardest problems across four tracks: accelerating science,
+  advancing healthcare, workforce reskilling, and civic discourse. Its first
+  competition, Moonshots // ONE, drew 125 proposals from 600+ researchers across
+  47 institutions and deployed $4.1M in seed grants across 25 teams, with seed
+  winners competing for at least one $10M lab to be decided in October 2026; all
+  winning projects commit to sharing their work as open source.
+rounds:
+  - name: "Moonshots // ONE seed phase"
+    status: deployed
+    opens: "2025-06"
+    size: "$4.1M across 25 teams"
+    source: https://www.laude.org/moonshots
+sources:
+  - https://www.laude.org/moonshots

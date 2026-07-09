@@ -1,0 +1,22 @@
+id: global-innovation-fund-gif
+name: Global Innovation Fund
+aka:
+  - Global Innovation Fund (GIF)
+  - GIF
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.globalinnovation.fund/
+socials: {}
+status: active
+profile: >
+  The Global Innovation Fund helps build scalable, sustainable innovations
+  that improve lives for underserved and vulnerable people, primarily in
+  Africa and Asia. It provides flexible capital — grants, equity, and debt —
+  along with strategic support to fund early-stage innovations focused on
+  climate resilience and inclusive economic opportunity.
+sources:
+  - https://www.globalinnovation.fund/

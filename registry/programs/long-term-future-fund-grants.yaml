@@ -1,0 +1,26 @@
+id: long-term-future-fund-grants
+name: Long-Term Future Fund Grants
+org: long-term-future-fund
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://av20jp3z.paperform.co/?fund=Long-Term%20Future%20Fund
+summary: >
+  Makes grants aimed at positively influencing the long-term trajectory of
+  civilization, primarily by reducing global catastrophic risks -- especially
+  from advanced AI and pandemics -- via technical research, policy, advocacy,
+  infrastructure, and field-building. Grants range from $1,000 to over
+  $500,000 (recent grants roughly $6k-$175k), through focused rounds plus an
+  always-open application evaluated in the next round.
+rounds:
+  - name: May 2023 to March 2024 grant recommendations
+    status: deployed
+    source: https://forum.effectivealtruism.org/posts/pJyCWzevPHsycj4oQ/long-term-future-fund-may-2023-to-march-2024-payout
+  - name: 2025 grant round
+    status: deployed
+    source: https://funds.effectivealtruism.org/grants?fund=Long-Term+Future+Fund
+sources:
+  - https://funds.effectivealtruism.org/funds/far-future
+  - https://forum.effectivealtruism.org/posts/pJyCWzevPHsycj4oQ/long-term-future-fund-may-2023-to-march-2024-payout

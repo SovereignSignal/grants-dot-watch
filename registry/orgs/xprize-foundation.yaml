@@ -1,0 +1,20 @@
+id: xprize-foundation
+name: XPRIZE Foundation
+aka:
+  - XPRIZE
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://xprize.org
+socials: {}
+status: active
+profile: >
+  Nonprofit that funds innovation through large incentive prize competitions,
+  inviting innovators worldwide to compete for prize money to develop
+  breakthrough solutions across five focus areas. Active competitions listed on
+  its site include XPRIZE Wildfire ($11 million), XPRIZE Water Scarcity
+  ($119 million), XPRIZE Healthspan, and XPRIZE Quantum Applications.
+sources:
+  - https://xprize.org
+  - https://xprize.org/competitions

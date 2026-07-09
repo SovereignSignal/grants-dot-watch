@@ -1,0 +1,17 @@
+id: wikimedia-foundation
+name: Wikimedia Foundation
+aka: []
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://wikimediafoundation.org/
+socials: {}
+status: active
+profile: >
+  The nonprofit organization behind Wikipedia, supporting the technology,
+  people, and policies that enable reliable information sharing globally,
+  including support for nearly 265,000 volunteers every month. Its homepage
+  does not detail specific grants programs.
+sources:
+  - https://wikimediafoundation.org/

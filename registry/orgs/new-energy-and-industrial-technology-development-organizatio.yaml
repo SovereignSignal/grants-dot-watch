@@ -1,0 +1,20 @@
+id: new-energy-and-industrial-technology-development-organizatio
+name: New Energy and Industrial Technology Development Organization (NEDO)
+aka: [NEDO]
+systems: [japan-public-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.nedo.go.jp/english/
+socials: {}
+status: active
+profile: >
+  NEDO, Japan's New Energy and Industrial Technology Development Organization,
+  is a government agency that funds research and development through
+  project-based mechanisms. Its target technology fields include hydrogen,
+  fuel cells, ammonia, and artificial intelligence, with initiatives such as
+  the Green Innovation Fund and the Moonshot Research and Development Program,
+  and international offices across Asia, Europe, and North America.
+sources:
+  - https://www.nedo.go.jp/english/
+  - https://www.nedo.go.jp/english/activities/activities_index.html

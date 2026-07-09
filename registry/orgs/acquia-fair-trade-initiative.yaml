@@ -1,0 +1,30 @@
+id: acquia-fair-trade-initiative
+name: Acquia Fair Trade Initiative
+aka:
+  - Acquia
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://www.acquia.com/partners/fair-trade-initiative
+socials:
+  x: https://x.com/acquia
+  github: https://github.com/acquia
+status: active
+profile: >
+  Acquia's Fair Trade Initiative is a structural funding commitment inside its partner
+  program — 2% of every eligible partner deal, credited to the partner, is automatically
+  directed to the Drupal Association to fund Drupal open-source infrastructure and
+  development. Launched in 2026 alongside Acquia's new partner program, it replaces ad-hoc
+  grants and sponsorships with revenue-tied support, with contributions tracked publicly and
+  recognized quarterly. There is no grant application process; funding flows from
+  commercial deals.
+funding:
+  focus:
+    - Drupal open-source infrastructure and development
+sources:
+  - https://www.acquia.com/partners/fair-trade-initiative
+  - https://dri.es

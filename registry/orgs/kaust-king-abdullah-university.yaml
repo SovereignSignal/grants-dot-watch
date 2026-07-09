@@ -1,0 +1,21 @@
+id: kaust-king-abdullah-university
+name: KAUST (King Abdullah University)
+aka:
+  - KAUST
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: government
+website: https://www.kaust.edu.sa/
+socials: {}
+status: active
+profile: >
+  KAUST is a graduate research university of science and technology located
+  in Thuwal, Saudi Arabia. It funds research through multiple mechanisms,
+  including research funding and services, postdoctoral support programs, and
+  research platforms, with dedicated offices managing grants and research
+  administration.
+sources:
+  - https://www.kaust.edu.sa/en/

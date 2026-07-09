@@ -1,0 +1,17 @@
+id: y-combinator-accelerator
+name: Y Combinator Accelerator
+org: y-combinator
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: incubator
+apply_url: https://www.ycombinator.com/apply
+summary: >
+  Y Combinator's core accelerator funds startups in batches with a $500k
+  investment per company, Demo Days, and extensive post-funding support through
+  the alumni network. Batches run continuously, with Requests for Startups
+  signaling priority areas (heavily AI in 2026); applications are taken through
+  the YC apply page.
+sources:
+  - https://www.ycombinator.com/apply

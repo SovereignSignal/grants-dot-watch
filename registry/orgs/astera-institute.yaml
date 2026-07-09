@@ -1,0 +1,28 @@
+id: astera-institute
+name: Astera Institute
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: foundation
+website: https://astera.org/
+socials:
+  x: https://x.com/AsteraInstitute
+status: active
+profile: >
+  Astera Institute is a philanthropic funder and operator working across Neuro-AI, life
+  sciences (its Radial program), and strategic investments, treating grants and investments
+  as a continuum for high-impact technical work. Its flagship Residency Program funds
+  scientists, engineers, and entrepreneurs with up to $1.5M over 12-18 months, alongside
+  fellow support, events, and ecosystem efforts. It has recently sharpened its focus on
+  reimagining funding models, competitions, and investments for ambitious AI and science
+  projects.
+funding:
+  focus:
+    - Neuro-AI
+    - life sciences
+sources:
+  - https://astera.org/
+  - https://astera.org/feed/

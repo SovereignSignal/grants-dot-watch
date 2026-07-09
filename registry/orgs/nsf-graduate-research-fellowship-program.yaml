@@ -1,0 +1,21 @@
+id: nsf-graduate-research-fellowship-program
+name: NSF Graduate Research Fellowship Program
+aka: ["GRFP", "NSF GRFP"]
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.nsfgrfp.org/
+socials:
+  x: https://x.com/NSF
+status: active
+profile: >
+  The NSF Graduate Research Fellowship Program (GRFP) is a U.S. government program
+  awarding roughly 2,500 fellowships annually to outstanding STEM graduate
+  students, providing three years of a $37k stipend plus a $16k education
+  allowance, usable over five years. It is administered centrally by NSF through a
+  dedicated GRFP Operations Center handling applications, reviews, and awards; the
+  2026 awards were announced in April 2026 from a pool of around 14,000
+  applicants.
+sources:
+  - https://www.nsfgrfp.org/

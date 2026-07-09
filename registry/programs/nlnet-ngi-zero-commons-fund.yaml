@@ -1,0 +1,36 @@
+id: nlnet-ngi-zero-commons-fund
+name: NGI Zero Commons Fund
+org: nlnet-foundation
+parent: null
+systems: [eu-public-rd, sovereign-tech]
+wires: [oss]
+status: active
+mechanism: grants
+apply_url: https://nlnet.nl/commonsfund/
+summary: >
+  An NLnet-managed fund within the EU Next Generation Internet initiative
+  awarding small-to-medium R&D grants (EUR 5,000-50,000 for first proposals)
+  to deliver, mature, and scale new internet commons across the full
+  technology stack, from libre silicon and P2P infrastructure to middleware
+  and end-user applications. Calls run on a rolling basis until the EUR 21.6
+  million programme budget (through 2027) is fully allocated.
+rounds:
+  - name: 6th call (April 2025)
+    status: deployed
+    source: https://nlnet.nl/news/2025/20251016-selection-NGI0CommonsFund.html
+  - name: 7th call (June 2025)
+    status: deployed
+    source: https://nlnet.nl/news/2025/20251127-45-NGI0-CommonsFund.html
+  - name: 8th call (August 2025)
+    status: deployed
+    source: https://nlnet.nl/news/2026/20260302-announce-commons-fund.html
+  - name: 9th call (October 2025)
+    status: deployed
+    source: https://nlnet.nl/news/2026/20260409-announce-commons-fund.html
+  - name: Open call (August 2026 deadline)
+    status: open
+    closes: "2026-08-01"
+    source: https://nlnet.nl/propose/
+sources:
+  - https://nlnet.nl/commonsfund/
+  - https://nlnet.nl/propose/

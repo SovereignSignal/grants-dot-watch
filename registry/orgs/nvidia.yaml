@@ -1,0 +1,30 @@
+id: nvidia
+name: NVIDIA
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: company
+website: https://www.nvidia.com/en-us/startups/
+socials:
+  x: https://x.com/nvidia
+  github: https://github.com/NVIDIA
+status: active
+profile: >
+  NVIDIA is the leading maker of GPUs and AI infrastructure. Its ecosystem funding runs
+  through the free Inception program for AI startups (co-marketing, tools, hardware pricing,
+  investor introductions) plus targeted grants and partnerships for academic research, K-12
+  AI education, and scientific computing. Public commitments include $25M pledged for K-12
+  AI content and a $150M+ open AI infrastructure partnership with the NSF, alongside
+  academic grants supported with compute.
+funding:
+  focus:
+    - AI startups
+    - academic research
+    - K-12 AI education
+    - scientific computing
+sources:
+  - https://www.nvidia.com/en-us/startups/
+  - https://blogs.nvidia.com/feed/

@@ -1,0 +1,22 @@
+id: compound-dao
+name: Compound DAO
+aka:
+  - Compound
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://compound.finance/
+socials:
+  x: https://x.com/compoundfinance
+  forum: https://www.comp.xyz/
+status: active
+profile: >
+  Compound is an EVM-compatible lending protocol in which users supply
+  crypto assets as collateral to borrow a base asset (USDC on Ethereum) or
+  earn interest by supplying the base asset. The protocol is governed by
+  the Compound DAO, with governance discussion hosted on the comp.xyz
+  forum. Protocol documentation was live and current as of 2026.
+sources:
+  - https://compound.finance/
+  - https://docs.compound.finance/

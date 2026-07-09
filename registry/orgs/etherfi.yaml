@@ -1,0 +1,22 @@
+id: etherfi
+name: EtherFi
+aka:
+  - ether.fi
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://ether.fi/
+socials:
+  x: https://x.com/ether_fi
+status: active
+profile: >
+  ether.fi is a decentralized, non-custodial liquid restaking protocol
+  built on Ethereum, offering products such as weETH (restaked ETH), eBTC,
+  eUSD, automated Liquid Vaults, and a non-custodial Cash card, with
+  around $3.11B in TVL at the time of checking. The protocol is governed
+  as a DAO through the ETHFI token with Snapshot voting and a governance
+  forum. The site was actively maintained with recent blog posts, listed
+  security audits, and a bug bounty program.
+sources:
+  - https://ether.fi/

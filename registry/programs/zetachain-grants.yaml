@@ -1,0 +1,17 @@
+id: zetachain-grants
+name: ZetaChain Ecosystem Grant Program
+org: zetachain-grant-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.zetachain.com/grants
+summary: >
+  Milestone-based grants with mentoring and technical resources for teams building
+  omnichain dApps on ZetaChain, run directly by the ZetaChain team; 40+ projects funded to
+  date, with applications accepted on a rolling basis.
+rounds: []
+sources:
+  - https://www.zetachain.com/grants

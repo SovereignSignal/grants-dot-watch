@@ -1,0 +1,24 @@
+id: uk-ai-security-institute-aisi
+name: UK AI Security Institute (AISI)
+aka:
+  - UK AI Security Institute
+  - AISI
+  - AI Safety Institute
+systems:
+  - ai-safety
+  - uk-public-rd
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.gov.uk/government/organisations/ai-safety-institute
+socials: {}
+status: active
+profile: >
+  UK government organisation (formerly the AI Safety Institute) under the
+  Department for Science, Innovation and Technology, with a stated mission to
+  minimise surprise to the UK and humanity from rapid and unexpected advances
+  in AI. It conducts AI safety research, publishes scientific reports, and
+  collaborates internationally, including with Canada and the US. Its gov.uk
+  page does not name external grant programs it administers.
+sources:
+  - https://www.gov.uk/government/organisations/ai-safety-institute

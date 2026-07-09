@@ -1,0 +1,18 @@
+id: thinking-machines-lab
+name: Thinking Machines Lab
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://thinkingmachines.ai/
+socials:
+  x: https://x.com/thinkymachines
+status: active
+profile: >
+  AI research and product company focused on making AI systems more widely
+  understood, customizable, and generally capable; its team has contributed to
+  major AI products such as ChatGPT and open-source projects such as PyTorch.
+  Its website does not mention any grants or external funding programs.
+sources:
+  - https://thinkingmachines.ai/

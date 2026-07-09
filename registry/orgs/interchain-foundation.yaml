@@ -1,0 +1,33 @@
+id: interchain-foundation
+name: Interchain Foundation
+aka:
+  - Interchain Foundation (Cosmos)
+  - ICF
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: foundation
+website: https://interchain.io/
+socials:
+  x: https://x.com/interchain_io
+  github: https://github.com/interchainio
+  forum: https://forum.cosmos.network/
+status: active
+profile: >
+  The Interchain Foundation (ICF) stewards the Cosmos ecosystem, funding development and
+  adoption of the Interchain Stack (IBC, the Cosmos SDK) through a dedicated Funding
+  Program and a restarted Grants Program. It earmarked $26.4M for 2024 funding across
+  development, adoption, and public goods, and has formed Cosmos Labs (a rebrand of
+  Interchain Labs) to consolidate product, growth, and development efforts. Its funding
+  blends grants, investments, and ecosystem stewardship focused on interoperability and
+  sustainability.
+funding:
+  focus:
+    - Interchain Stack development
+    - ecosystem adoption
+    - public goods
+sources:
+  - https://interchain.io/
+  - https://medium.com/feed/the-interchain-foundation

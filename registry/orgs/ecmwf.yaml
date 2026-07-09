@@ -1,0 +1,24 @@
+id: ecmwf
+name: ECMWF
+aka:
+  - European Centre for Medium-Range Weather Forecasts
+systems: [eu-public-rd]
+wires: [oss]
+roles: [funder]
+org_type: government
+website: https://www.ecmwf.int
+socials:
+  x: https://x.com/ECMWF
+  github: https://github.com/ecmwf
+status: active
+profile: >
+  ECMWF (European Centre for Medium-Range Weather Forecasts) is an
+  intergovernmental organization providing global medium-range weather
+  forecasts, atmospheric monitoring, and data services under EU programs
+  like Copernicus and Destination Earth. It runs open innovation through
+  Code for Earth and Summer of Weather Code challenges to drive open source
+  development and partnerships, but has no traditional grant funding
+  programs, focusing instead on data licensing, workshops, and
+  collaborative research with member states, WMO, and scientists.
+sources:
+  - https://www.ecmwf.int

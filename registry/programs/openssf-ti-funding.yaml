@@ -1,0 +1,18 @@
+id: openssf-ti-funding
+name: OpenSSF Technical Initiative Funding
+org: openssf-technical-initiative-funding
+parent: null
+systems: [oss-sustainability]
+wires: [oss]
+status: active
+mechanism: grants
+apply_url: https://openssf.org/community/technical-initiatives/
+summary: >
+  The funding channel through which OpenSSF allocates resources — audits,
+  technical writers, interns, and other needs — to its technical initiatives,
+  working groups, and projects, following a defined request process with tiers up
+  to $70k-$150k. OpenSSF recently announced $12.5M in new grants from industry
+  backers including AWS, Google, Microsoft, and OpenAI, managed with Alpha-Omega,
+  for sustainable security work on critical open source infrastructure.
+sources:
+  - https://openssf.org/community/technical-initiatives/

@@ -1,0 +1,20 @@
+id: institute-for-security-and-technology
+name: Institute for Security and Technology
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://securityandtechnology.org/
+socials:
+  x: https://x.com/IST_org
+status: active
+profile: >
+  The Institute for Security and Technology (IST) is a 501(c)(3) think tank uniting policy,
+  technology, and industry leaders on digital security, catastrophic risk (including AI), and
+  the geopolitics of technology. It runs events, working groups, and simulations (e.g. on
+  ransomware), issues policy recommendations and memos on topics like AI transparency and
+  loss-of-control risk, and publishes reports. It is funded by foundations, government, and
+  individuals, with no major external grantmaking programs visible.
+sources:
+  - https://securityandtechnology.org/

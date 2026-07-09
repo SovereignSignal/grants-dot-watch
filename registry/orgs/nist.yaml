@@ -1,0 +1,22 @@
+id: nist
+name: NIST
+aka:
+  - National Institute of Standards and Technology
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.nist.gov
+status: active
+profile: >
+  The National Institute of Standards and Technology (NIST) is the US national
+  metrology institute, working on measurement science and standards across
+  fields including AI, cybersecurity, energy, and quantum science. Its Office
+  of Advanced Manufacturing offers cost-shared funding for manufacturing
+  technology R&D through open, merit-based competitions, including Manufacturing
+  USA institute competitions and SBIR initiatives, with solicitations posted on
+  grants.gov. Eligible applicants include manufacturers, universities,
+  suppliers, and national labs.
+sources:
+  - https://www.nist.gov
+  - https://www.nist.gov/oam/funding-opportunities

@@ -1,0 +1,21 @@
+id: obol
+name: Obol
+aka: []
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://obol.org/
+socials:
+  x: https://x.com/Obol_Collective
+  github: https://github.com/obolnetwork
+status: active
+profile: >
+  Obol builds distributed validator infrastructure for Ethereum, including the
+  Charon middleware and the Obol Stack for decentralized operators and
+  applications, securing billions in staked value. It runs ecosystem incentives
+  through the OBOL token for TVL growth and rewards, plus a grants program,
+  launched in late 2025, to support contributions to the collective's growth
+  through community and DAO mechanisms.
+sources:
+  - https://obol.org/

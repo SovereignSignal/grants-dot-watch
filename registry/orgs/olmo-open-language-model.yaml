@@ -1,0 +1,17 @@
+id: olmo-open-language-model
+name: OLMo (Open Language Model)
+aka:
+  - Allen Institute for AI (AI2)
+systems: [open-source-ai]
+wires: [ai, oss]
+roles: [funder]
+org_type: foundation
+website: https://allenai.org/olmo
+status: active
+profile: >
+  OLMo is the fully open language model family from Ai2 (Allen Institute for
+  AI), released with a complete model flow in variants including 7B and 32B
+  base, instruct, and thinking models. The OLMo page does not describe a grants
+  or funding program of its own.
+sources:
+  - https://allenai.org/olmo

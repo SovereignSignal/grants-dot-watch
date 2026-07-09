@@ -1,0 +1,19 @@
+id: bill-and-melinda-gates-foundation
+name: Bill and Melinda Gates Foundation
+aka:
+  - Gates Foundation
+systems:
+  - global-health
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.gatesfoundation.org/
+status: active
+profile: >
+  The Gates Foundation is a nonprofit fighting poverty, disease, and inequity
+  around the world, with major work in maternal and child health, infectious
+  diseases, and economic opportunity. Its site reports 2,506 grants across 51
+  program strategies and $8.5 billion in charitable support to 1,472
+  grantees, made with partners around the world.
+sources:
+  - https://www.gatesfoundation.org/

@@ -1,0 +1,31 @@
+id: cisco-foundation
+name: Cisco Foundation
+aka:
+  - Cisco Gives
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://www.cisco.com/site/us/en/about/purpose/community-resilience/cisco-foundation/index.html
+socials: {}
+status: active
+profile: >
+  The Cisco Foundation is the corporate giving arm of Cisco. Through Cisco
+  Global Impact Cash Grants it funds nonprofits and NGOs working on access
+  to education, economic empowerment, crisis response, and climate
+  regeneration. In 2021 it committed $100 million over ten years to climate
+  grants and impact investments, with a portfolio spanning nature
+  preservation and restoration, regenerative agriculture, climate finance,
+  and climate education; a four-year review of that portfolio was published
+  in late 2025.
+funding:
+  focus:
+    - access to education
+    - economic empowerment
+    - crisis response
+    - climate regeneration
+sources:
+  - https://www.cisco.com/site/us/en/about/purpose/community-resilience/cisco-foundation/index.html
+  - https://www.cisco.com/site/us/en/about/purpose/community-resilience/social-impact-investments/global-impact-cash-grants.html
+  - https://blogs.cisco.com/our-corporate-purpose/four-years-in-lessons-from-cisco-foundations-climate-resilience-grants
+  - https://www.cisco.com/c/en/us/about/cisco-gives

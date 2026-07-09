@@ -1,0 +1,21 @@
+id: cardano-foundation
+name: Cardano Foundation
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://cardanofoundation.org/
+socials:
+  x: https://x.com/Cardano_CF
+  github: https://github.com/IntersectMBO
+  forum: https://forum.cardano.org/
+status: active
+profile: >
+  The Cardano Foundation is a foundation supporting the Cardano blockchain
+  and its ecosystem. It publishes updates through its blog, hosts the Cardano
+  community forum at forum.cardano.org, and its listed GitHub presence is the
+  IntersectMBO organization. The community forum is live and active.
+sources:
+  - https://cardanofoundation.org/
+  - https://forum.cardano.org/

@@ -1,0 +1,22 @@
+id: open-compute-project
+name: Open Compute Project
+aka: ["OCP"]
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.opencompute.org/
+socials:
+  x: https://x.com/OpenComputePrj
+  github: https://github.com/opencomputeproject
+status: active
+profile: >
+  The Open Compute Project (OCP) is an open collaboration community and foundation
+  for sharing data center hardware, firmware, and infrastructure designs (servers,
+  storage, AI/HPC, sustainability) among hyperscalers and vendors. It operates
+  through community projects, incubation initiatives, a startup program, and a
+  membership model rather than traditional grants; funding comes from membership,
+  sponsorships, and foundation support to drive standards and ecosystem
+  collaboration.
+sources:
+  - https://www.opencompute.org/

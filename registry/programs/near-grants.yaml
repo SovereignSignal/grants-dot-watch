@@ -1,0 +1,19 @@
+id: near-grants
+name: NEAR Foundation Grants Program
+org: near-foundation
+parent: null
+systems: []
+wires: [crypto]
+status: unknown
+mechanism: grants
+apply_url: https://www.near.org/funding
+summary: >
+  The NEAR Foundation's grants program funded builders on NEAR Protocol
+  across tiers (Small Builder, Builder, Advanced Builder, Activation,
+  Partner), with historic awards in the $10-100k range. The foundation has
+  since restructured its funding strategy toward a set of ecosystem programs
+  listed on near.org/funding.
+sources:
+  - https://medium.com/nearprotocol/near-foundation-funding-team-report-september-2022-c56ef822dc27
+  - https://medium.com/nearprotocol/near-funding-updates-funding-beyond-grants-7f3721b14992
+  - https://www.near.org/funding

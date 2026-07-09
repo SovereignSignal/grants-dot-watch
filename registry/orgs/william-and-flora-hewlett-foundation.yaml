@@ -1,0 +1,21 @@
+id: william-and-flora-hewlett-foundation
+name: William and Flora Hewlett Foundation
+aka:
+  - Hewlett Foundation
+systems: []
+wires: [ai, oss]
+roles: [funder]
+org_type: nonprofit
+website: https://hewlett.org
+socials: {}
+status: active
+profile: >
+  Nonpartisan philanthropy that awards grants across programs including
+  democracy, education, climate change, performing arts, and gender equity.
+  Most grants go to organizations identified by the foundation itself, though
+  it occasionally opens opportunities such as the Hewlett 50 Arts Commissions.
+  It prioritizes long-term, flexible operating support, which accounted for
+  nearly three-fourths of its grants in 2024.
+sources:
+  - https://hewlett.org
+  - https://hewlett.org/grantmaking-faq/

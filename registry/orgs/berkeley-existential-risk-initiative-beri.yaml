@@ -1,0 +1,22 @@
+id: berkeley-existential-risk-initiative-beri
+name: Berkeley Existential Risk Initiative (BERI)
+aka:
+  - Berkeley Existential Risk Initiative
+  - BERI
+systems:
+  - ai-safety
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://www.existence.org
+status: active
+profile: >
+  BERI is an independent 501(c)(3) public charity focused on reducing
+  existential risk and advancing AI safety. It operates as an operational
+  intermediary, supporting more than 150 groups through university
+  collaborations and fiscal sponsorship — providing financial management, HR
+  support, and grant administration so researchers can focus on substantive
+  work. Since its 2017 founding it has deployed over $33 million across
+  roughly 115 research groups.
+sources:
+  - https://www.existence.org

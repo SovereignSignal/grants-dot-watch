@@ -1,0 +1,19 @@
+id: baidu-apollo
+name: Baidu Apollo
+aka: []
+systems: []
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://apollo.baidu.com/
+status: active
+profile: >
+  Baidu Apollo is Baidu's open autonomous-driving platform, providing
+  cloud-based tools and simulation environments for developers building
+  self-driving systems. It runs ecosystem support programs including the
+  Spark Plan for education and partnerships, a co-creation membership
+  ecosystem, and the Apollo X enterprise initiative; the site does not
+  describe a monetary grant program.
+sources:
+  - https://apollo.baidu.com/
+  - https://apollo.baidu.com/community/news

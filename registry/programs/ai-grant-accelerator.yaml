@@ -1,0 +1,18 @@
+id: ai-grant-accelerator
+name: AI Grant
+org: ai-grant
+parent: null
+systems:
+  - open-source-ai
+wires:
+  - ai
+status: active
+mechanism: incubator
+apply_url: https://aigrant.com/
+summary: >
+  Batch-based accelerator for seed-stage AI startups investing $250,000 on an uncapped SAFE
+  plus large compute and tooling credit packages. Four batches totaling 92 funded companies
+  to date; applications for Batch 4 are closed.
+rounds: []
+sources:
+  - https://aigrant.com/

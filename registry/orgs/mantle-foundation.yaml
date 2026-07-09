@@ -1,0 +1,21 @@
+id: mantle-foundation
+name: Mantle Foundation
+aka: [Mantle]
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.mantle.xyz/
+socials:
+  x: https://x.com/Mantle_Official
+  github: https://github.com/mantlenetworkio
+  forum: https://forum.mantle.xyz/
+status: active
+profile: >
+  Mantle is an Ethereum Layer 2 network using zero-knowledge validity proofs,
+  with a token-holder-governed roadmap and native assets including mETH
+  (liquid staking) and fBTC (wrapped Bitcoin). Its site describes the EcoFund,
+  a $200M catalyzed capital pool that funds ecosystem projects in partnership
+  with venture capital firms.
+sources:
+  - https://www.mantle.xyz/

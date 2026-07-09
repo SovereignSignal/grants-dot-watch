@@ -1,0 +1,18 @@
+id: openstreetmap-foundation
+name: OpenStreetMap Foundation
+aka: []
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://osmfoundation.org/
+status: active
+profile: >
+  The OpenStreetMap Foundation is an international not-for-profit that
+  supports, but does not control, the OpenStreetMap project and the
+  distribution of its free geospatial data. Its governance structures include
+  a Microgrants committee, indicating it administers community microgrant
+  funding.
+sources:
+  - https://osmfoundation.org/
+  - https://blog.openstreetmap.org/

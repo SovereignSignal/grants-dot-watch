@@ -1,0 +1,23 @@
+id: eu-horizon-web4-open-internet-stack
+name: Horizon Europe — Web 4.0 Architectural Framework and Open Internet Stack
+org: eu-horizon-europe
+parent: null
+systems:
+  - eu-public-rd
+wires:
+  - ai
+  - oss
+status: unknown
+mechanism: rfp
+apply_url: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-04-HUMAN-02
+summary: >
+  Horizon Europe call topic (HORIZON-CL4-2026-04-HUMAN-02) funding work on a Web 4.0
+  architectural framework and an open internet stack, run through the EU Funding and
+  Tenders portal. The call deadline was April 15, 2026.
+rounds:
+  - name: HORIZON-CL4-2026-04-HUMAN-02
+    status: closed
+    closes: "2026-04-15"
+    source: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-04-HUMAN-02
+sources:
+  - https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-04-HUMAN-02

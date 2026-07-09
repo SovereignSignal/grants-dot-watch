@@ -1,0 +1,20 @@
+id: the-rockefeller-foundation
+name: The Rockefeller Foundation
+aka:
+  - Rockefeller Foundation
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.rockefellerfoundation.org
+socials: {}
+status: active
+profile: >
+  Philanthropic foundation established in 1913 that promotes the well-being of
+  humanity through strategic grantmaking in health, food systems, energy
+  access, and economic opportunity, in the United States and globally. It does
+  not accept unsolicited proposals; instead it works proactively, identifying
+  problems and partners itself rather than running open calls.
+sources:
+  - https://www.rockefellerfoundation.org
+  - https://www.rockefellerfoundation.org/grants/

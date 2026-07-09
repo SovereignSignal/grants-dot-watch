@@ -1,0 +1,21 @@
+id: wisconsin-department-of-workforce-development
+name: Wisconsin Department of Workforce Development
+aka:
+  - DWD
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://dwd.wisconsin.gov/
+socials: {}
+status: active
+profile: >
+  Wisconsin's state workforce agency, covering unemployment insurance, worker
+  rights, and employment and training programs. As a funder it runs WisTRAIN
+  (Wisconsin Training for Resilient Advanced Industry Needs), an employer-led
+  workforce training grant program focused on advanced manufacturing and
+  artificial intelligence, with grants of up to $330,000 per grantee or
+  consortium, open to employers of any size operating in Wisconsin.
+sources:
+  - https://dwd.wisconsin.gov/
+  - https://dwd.wisconsin.gov/wistrain/

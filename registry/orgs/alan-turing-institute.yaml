@@ -1,0 +1,30 @@
+id: alan-turing-institute
+name: Alan Turing Institute
+aka: []
+systems:
+  - uk-public-rd
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.turing.ac.uk/
+socials:
+  x: https://x.com/turinginst
+  github: https://github.com/alan-turing-institute
+status: active
+profile: >
+  The Alan Turing Institute is the UK's national institute for data science and artificial
+  intelligence, partnering with government, industry, and academia. It runs research funding
+  calls and fellowships — including Turing AI fellowships delivered through UKRI
+  partnerships — on primarily government-backed, annual or recurring cycles; a recent
+  example is an August 2025 call on knowledge graph and ontology research. Recent UK
+  government direction has shifted part of its focus toward defence and national security
+  applications.
+funding:
+  focus:
+    - data science
+    - artificial intelligence
+  cadence: annual or recurring calls
+sources:
+  - https://www.turing.ac.uk/

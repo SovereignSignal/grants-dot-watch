@@ -1,0 +1,38 @@
+id: foresight-institute
+name: Foresight Institute
+aka: []
+systems: [ai-safety]
+wires: [ai]
+roles: [funder, grantee]
+org_type: foundation
+website: https://foresight.org/
+socials:
+  x: https://x.com/foresightinst
+status: active
+profile: >
+  A long-running foundation advancing frontier technologies -- nanotech,
+  longevity, AI safety, neurotech -- through grants (~$3M annual pool,
+  $10k-$100k typical), fellowships, prizes, workshops, and physical AI Nodes
+  hubs in San Francisco and Berlin (launching early 2026) that provide
+  funding, office space, and compute. Its AI for Science & Safety grants have
+  monthly deadlines and prioritize safety, with a strong emphasis on
+  early-career researchers and high-impact projects.
+funding:
+  focus:
+    - AI safety
+    - AI for security
+    - private AI
+    - decentralized & cooperative AI
+    - AI for science & epistemics
+    - neurotech / brain-computer interfaces
+    - longevity biotech
+    - molecular nanotechnology
+  typical_size: >
+    $10,000 to $100,000 (higher amounts to AI safety-oriented areas); ~$3M
+    awarded in total annually
+  cadence: Rolling, reviewed monthly until nodes are at capacity; deadline the last day of every month.
+  apply_url: https://airtable.com/appyVXc5SMPAvIKpP/pagzBRWeiG3HjH6Qn/form
+sources:
+  - https://foresight.org/
+  - https://airtable.com/appyVXc5SMPAvIKpP/pagzBRWeiG3HjH6Qn/form
+  - https://foresight.org/grants/grants-ai-for-science-safety/

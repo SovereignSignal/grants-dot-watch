@@ -1,0 +1,22 @@
+id: nsf-sbir-sttr
+name: NSF SBIR / STTR
+aka: ["America's Seed Fund"]
+systems: [us-federal-rd]
+wires: [crypto]
+roles: [funder]
+org_type: government
+website: https://seedfund.nsf.gov/
+socials:
+  x: https://x.com/NSF
+status: active
+profile: >
+  NSF SBIR/STTR (America's Seed Fund) is a congressionally mandated program within
+  the National Science Foundation's TIP Directorate that awards non-dilutive R&D
+  grants (Phase I up to $305k, Phase II up to $1.25M, with Fast-Track options) to
+  roughly 400 U.S. deep-tech startups annually, deploying over $200M per year. Its
+  Distributed Ledger topic explicitly covers blockchain, DAGs, cryptography, smart
+  contracts, and related web3 innovation across industries. Applications run
+  through a Project Pitch, invitation, and full proposal process with merit review
+  by program directors.
+sources:
+  - https://seedfund.nsf.gov/

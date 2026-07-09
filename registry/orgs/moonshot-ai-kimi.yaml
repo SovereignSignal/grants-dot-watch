@@ -1,0 +1,18 @@
+id: moonshot-ai-kimi
+name: Moonshot AI / Kimi
+aka: [Moonshot AI, Kimi]
+systems: [open-source-ai]
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://www.kimi.com/
+socials: {}
+status: active
+profile: >
+  Moonshot AI builds Kimi, an AI assistant platform focused on coding, agents,
+  deep research, and document analysis. The company's blog surface covers its
+  Kimi-K2 model. The kimi.com site does not describe a grants or funding
+  program.
+sources:
+  - https://www.kimi.com/
+  - https://moonshotai.github.io/Kimi-K2/

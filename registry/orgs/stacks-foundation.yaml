@@ -1,0 +1,24 @@
+id: stacks-foundation
+name: Stacks Foundation
+aka: []
+systems:
+  - stacks
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://stacks.org/
+socials:
+  x: https://x.com/StacksOrg
+  github: https://github.com/stacks-network
+status: active
+profile: >
+  Delaware nonprofit supporting builders working toward a safer, more open
+  internet powered by Bitcoin via the Stacks ecosystem. Its grants page lists
+  several funding pathways: Stacks Endowment Grants (with Getting Started,
+  Builders, and Community DeGrants tracks) plus community bounty programs
+  including Immunefi security bounties and Hiro Bounties, with bounties ranging
+  roughly $400-$150,000. Application processes vary by program. Note:
+  stacks.org/grants now redirects to stacks.foundation/grants.
+sources:
+  - https://stacks.org/
+  - https://stacks.foundation/grants

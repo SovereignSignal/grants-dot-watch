@@ -1,0 +1,19 @@
+id: silicon-catalyst
+name: Silicon Catalyst
+aka: []
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.siliconcatalyst.com/
+status: active
+profile: >
+  Silicon Catalyst is a semiconductor-focused accelerator and incubator
+  supporting early-stage startups working on chips, chiplets, materials, and
+  related technologies. It provides over $150 million in in-kind goods and
+  services through partnerships with companies such as TSMC and Synopsys,
+  access to a network of more than 500 industry advisors and investors, and a
+  24-month program, with franchised operations across the UK, EU, Israel,
+  Japan, Australia, and Malaysia.
+sources:
+  - https://www.siliconcatalyst.com/

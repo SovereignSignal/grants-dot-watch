@@ -1,0 +1,38 @@
+id: stellar-community-fund
+name: Stellar Community Fund
+aka:
+  - SCF
+  - stellar community
+systems: [stellar]
+wires: [crypto]
+roles: [funder]
+website: https://communityfund.stellar.org/
+status: active
+profile: >
+  A community-driven grants program run by the Stellar Development Foundation
+  that funds and supports teams building on the Stellar network from ideation
+  through launch and growth. Its primary vehicle is the Build Award (Open,
+  Integration, and RFP tracks) of up to $150,000 in XLM per project, alongside
+  supporting programs like Audit Bank and Growth Hack; it runs in numbered
+  rounds (e.g. SCF #41) with interest forms reviewed on a rolling basis.
+funding:
+  focus:
+    - Stellar ecosystem development
+    - Web3 / blockchain applications
+    - developer tooling
+    - ecosystem integrations
+    - DeFi / payments
+    - public goods
+    - smart contracts (Soroban)
+  typical_size: >
+    Up to $150,000 in XLM per project (lifetime cap of $150,000 across all
+    awards; case-by-case up to $300,000)
+  cadence: >
+    Runs in numbered rounds (e.g. SCF #41); interest forms reviewed on a
+    rolling basis, after which eligible teams are invited into an open round
+    and given that round's deadline by email.
+  apply_url: https://communityfund.stellar.org/
+sources:
+  - https://communityfund.stellar.org/
+  - https://medium.com/stellar-community/scf-39-round-recap-e211cdd5eb80
+  - https://medium.com/stellar-community/scf-34-round-recap-ea0ea6564d3a

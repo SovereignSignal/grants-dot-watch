@@ -1,0 +1,24 @@
+id: hashkey
+name: HashKey
+aka: []
+systems: []
+wires:
+  - crypto
+  - ai
+roles:
+  - funder
+org_type: company
+website: https://hashkey.capital/
+socials:
+  x: https://x.com/HashKeyGroup
+status: active
+profile: >
+  HashKey is a Hong Kong-based digital asset group operating licensed exchange, asset
+  management, and venture capital arms across blockchain, fintech, and AI. It funds the
+  ecosystem primarily through venture investment from multi-strategy funds (Fund IV first
+  close of $250M, targeting $500M; 400+ projects backed) rather than a traditional grant
+  program. It also runs builder events such as the HashKey Chain Horizon Hackathon, a global
+  online hackathon on HashKey Chain with DeFi, PayFi, AI, and ZKID tracks.
+sources:
+  - https://hashkey.capital/
+  - https://dorahacks.io/hackathon/2045/detail

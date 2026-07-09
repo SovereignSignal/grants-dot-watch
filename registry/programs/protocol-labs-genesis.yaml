@@ -1,0 +1,24 @@
+id: protocol-labs-genesis
+name: PL Genesis
+org: protocol-labs
+parent: null
+systems: []
+wires: [crypto]
+status: active
+mechanism: prize
+apply_url: https://www.plgenesis.com/
+summary: >
+  PL Genesis is Protocol Labs' global builder series: hackathons surface promising
+  projects in decentralized infrastructure, AI, and internet primitives, top teams
+  can move into the Founders Forge accelerator, and the wider Protocol Labs
+  ecosystem supports long-term founders. Across two completed seasons it counts
+  4,300+ builders, 744+ projects submitted, and $400k+ distributed in prizes;
+  listed seasons include the Modular Worlds global hackathon (Summer 2025) and
+  Frontiers of Collaboration (Spring 2026).
+rounds:
+  - name: "Modular Worlds Global Hackathon (Summer 2025)"
+    status: closed
+    source: https://www.plgenesis.com/
+sources:
+  - https://www.plgenesis.com/
+  - https://www.protocol.ai/

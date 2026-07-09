@@ -1,0 +1,34 @@
+id: responsible-technology-youth-power-fund
+name: Responsible Technology Youth Power Fund
+aka:
+  - responsible technology youth power
+systems: []
+wires: []
+roles: [funder]
+website: https://www.rtyouthpower.org/
+socials: {}
+status: active
+profile: >
+  The Responsible Technology Youth Power Fund makes one-year grants
+  ($50,000-$100,000; new grantees up to $75,000, returning grantees up to
+  $100,000) to youth-led or intergenerationally-led U.S. organizations
+  building a safer, more equitable digital ecosystem, using a power-sharing
+  grantmaking model that puts young leaders in funding-decision roles. It
+  runs annual cohorts: the third cohort was announced in April 2026 and
+  Fund 4 applications are expected to open in Fall 2026.
+funding:
+  focus:
+    - responsible AI
+    - tech accountability
+    - youth mental health and well-being
+    - technology-based climate solutions
+    - digital equity
+    - youth-led civic/tech organizing
+  typical_size: "$50,000-$100,000 one-year grants (new grantees up to $75,000; returning grantees up to $100,000)"
+  cadence: "Annual funding rounds (cohorts/'Funds'); the third cohort was announced April 2026 and Fund 4 applications are expected to open in Fall 2026."
+  apply_url: https://www.rtyouthpower.org/apply
+sources:
+  - https://www.rtyouthpower.org/
+  - https://www.rtyouthpower.org/apply
+  - https://omidyar.com/update/young-leaders-in-technology-granted-2-million-to-create-safe-and-inclusive-online-spaces/
+  - https://omidyar.com/update/responsible-tech-youth-power-fund-chooses-next-generation-of-leaders-to-transform-responsible-technology-landscape/

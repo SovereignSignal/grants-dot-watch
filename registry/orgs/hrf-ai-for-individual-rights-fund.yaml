@@ -1,0 +1,20 @@
+id: hrf-ai-for-individual-rights-fund
+name: HRF AI for Individual Rights Fund
+aka:
+  - Human Rights Foundation
+systems: [internet-freedom]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://hrf.org/program/ai-for-individual-rights/
+socials:
+  x: https://x.com/HRF
+status: active
+profile: >
+  The Human Rights Foundation (HRF) runs the AI for Individual Rights Fund, which provides
+  grants to activists, researchers, and open-source developers building privacy-preserving and
+  open AI tools while exposing authoritarian uses of AI. Funding moves through direct grants,
+  hackathons such as AI Hack for Freedom, and events. The program is actively growing, with
+  frequent awards and new cohorts.
+sources:
+  - https://hrf.org/program/ai-for-individual-rights/

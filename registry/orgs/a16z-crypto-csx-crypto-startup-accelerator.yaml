@@ -1,0 +1,37 @@
+id: a16z-crypto-csx-crypto-startup-accelerator
+name: a16z crypto (CSX / Crypto Startup Accelerator)
+aka:
+  - CSX
+  - a16z crypto
+  - a16z crypto csx crypto startup accelerator
+systems: []
+wires: [crypto]
+roles: [funder]
+website: https://a16zcrypto.com/accelerator/
+status: active
+profile: >
+  CSX is a16z crypto's intensive, in-person accelerator for early-stage
+  crypto and web3 startups, investing $500,000 for 7% equity and providing
+  mentorship, workshops, and access to the a16z network, culminating in a
+  Demo Day. It runs two cohorts per year (Spring and Fall) in rotating cities
+  such as San Francisco, New York City, and London; teams apply globally but
+  founders must commit to the in-person program for its ~10-12 week duration.
+funding:
+  focus:
+    - crypto
+    - web3
+    - blockchain
+    - decentralization
+    - tokenization
+    - early-stage startups
+  typical_size: >
+    $500,000 investment for 7% equity (plus standard investor rights)
+  cadence: >
+    Two cohorts per year (Spring and Fall), in rotating cities (e.g., San
+    Francisco, New York City).
+  apply_url: https://apply.a16zcrypto.com/
+sources:
+  - https://a16zcrypto.com/accelerator/
+  - https://apply.a16zcrypto.com/
+  - https://a16zcrypto.com/posts/article/crypto-startup-accelerator-csx-spring-2024-cohort/
+  - https://a16zcrypto.com/posts/article/announcing-the-csx-04-cohort-in-san-francisco/

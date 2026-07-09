@@ -1,0 +1,23 @@
+id: gavi-the-vaccine-alliance
+name: Gavi, the Vaccine Alliance
+aka:
+  - Gavi
+systems:
+  - global-health
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.gavi.org/
+socials: {}
+status: active
+profile: >
+  Gavi is a public-private partnership that helps vaccinate more than half the
+  world's children against some of the world's deadliest diseases. It provides
+  financial and technical support for immunization programs in lower-income
+  countries, including vaccine support, health systems strengthening, and
+  grants to civil society organizations; since 2000 it has helped immunize
+  over 1.2 billion children.
+sources:
+  - https://www.gavi.org/

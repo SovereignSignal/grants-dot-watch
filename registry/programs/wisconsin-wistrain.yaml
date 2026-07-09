@@ -1,0 +1,24 @@
+id: wisconsin-wistrain
+name: Wisconsin Training for Resilient Advanced Industry Needs (WisTRAIN)
+org: wisconsin-department-of-workforce-development
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://dwd.wisconsin.gov/wistrain/
+summary: >
+  Employer-led workforce training grant program from the Wisconsin Department
+  of Workforce Development, focused on advanced manufacturing and artificial
+  intelligence. Grants of up to $330,000 per grantee or consortium fund
+  employer-driven occupational training, open to employers of any size
+  operating in Wisconsin; after the initial deadline, applications may be
+  reviewed on a rolling basis until funds are awarded.
+rounds:
+  - name: Initial funding round
+    status: open
+    closes: "2026-07-13"
+    size: Up to $330,000 per grantee or consortium
+    source: https://dwd.wisconsin.gov/wistrain/
+sources:
+  - https://dwd.wisconsin.gov/wistrain/

@@ -1,0 +1,23 @@
+id: adobe-india-ai-research-fellowship
+name: Adobe India AI Research Fellowship
+org: adobe-research
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: fellowship
+apply_url: https://research.adobe.com/india-ai-research-fellowship/
+summary: >
+  A 12-month fellowship from Adobe Research for full-time PhD candidates enrolled
+  at recognized universities in India with at least 12 months remaining in their
+  PhD, working in AI-related fields such as computer vision, NLP, machine
+  learning, and human-computer interaction. It awards a ₹12,00,000 stipend
+  disbursed upfront, one year of Adobe Express Premium, Creative Cloud, and
+  Firefly access, and optional mentorship from Adobe researchers; the 2026
+  recipients have been selected and applications are currently closed.
+rounds:
+  - name: "2026 fellowship"
+    status: deployed
+    source: https://research.adobe.com/india-ai-research-fellowship/
+sources:
+  - https://research.adobe.com/india-ai-research-fellowship/

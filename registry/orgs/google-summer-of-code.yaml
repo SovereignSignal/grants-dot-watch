@@ -1,0 +1,20 @@
+id: google-summer-of-code
+name: Google Summer of Code
+aka: []
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://summerofcode.withgoogle.com
+socials: {}
+status: active
+profile: >
+  Google Summer of Code is a global, online program run by Google that brings
+  new contributors into open-source software development. Participants work
+  on 12+ week projects under the guidance of experienced mentors from over
+  1,000 participating open-source mentoring organizations.
+sources:
+  - https://summerofcode.withgoogle.com

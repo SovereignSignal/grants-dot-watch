@@ -1,0 +1,20 @@
+id: national-research-foundation-nrf-singapore
+name: National Research Foundation (NRF) Singapore
+aka: [NRF Singapore, National Research Foundation Singapore]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.nrf.gov.sg/
+socials: {}
+status: active
+profile: >
+  The National Research Foundation (NRF) is a Singapore government agency that
+  aims to build a dynamic RIE (research, innovation, and enterprise) ecosystem
+  advancing Singapore's competitiveness. It distributes research funding
+  through schemes including the NRF Fellowship for early-career researchers,
+  the Competitive Research Programme for multidisciplinary teams, the Central
+  Gap Fund for translating research into products and services, the NRF
+  Investigatorship, and the Returning Singaporean Scientists Scheme.
+sources:
+  - https://www.nrf.gov.sg/

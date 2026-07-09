@@ -1,0 +1,24 @@
+id: interledger-fellowship-program
+name: Interledger Fellowship Program
+aka:
+  - Interledger Foundation
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://interledger.org/
+socials:
+  x: https://x.com/Interledger
+status: active
+profile: >
+  The Interledger Foundation is a global nonprofit grantmaking organization advancing open
+  payments and financial inclusion via the Interledger Protocol. Its Fellowship Program is a
+  12-month funded initiative — up to a $72k stipend plus a $20k project budget per fellow —
+  supporting researchers, developers, advocates, and creators building solutions for digital
+  financial inclusion. Applications for the 2026 cohort closed in June, with fellows starting
+  September 2026; the program builds on prior ambassadorship efforts and runs as an annual
+  cycle.
+sources:
+  - https://interledger.org/
+  - https://interledger.org/grant/fellowship
+  - https://submit.interledger.org/

@@ -1,0 +1,19 @@
+id: renaissance-philanthropy
+name: Renaissance Philanthropy
+aka: []
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.renaissancephilanthropy.org/
+status: active
+profile: >
+  Renaissance Philanthropy is a 501(c)(3) that builds time-bound,
+  thesis-driven philanthropic funds, enabling philanthropists to support
+  science, technology, and innovation without establishing large internal
+  teams. It reports catalyzing $533 million in philanthropic capital in its
+  first two years, $268 million raised directly and $265 million through
+  matchmaking.
+sources:
+  - https://www.renaissancephilanthropy.org/
+  - https://www.renaissancephilanthropy.org/insights

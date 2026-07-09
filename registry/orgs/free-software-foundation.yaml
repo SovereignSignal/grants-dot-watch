@@ -1,0 +1,22 @@
+id: free-software-foundation
+name: Free Software Foundation
+aka:
+  - FSF
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.fsf.org
+socials: {}
+status: active
+profile: >
+  The Free Software Foundation is a nonprofit that works globally to advance
+  computer user freedom by promoting and defending free software. It funds and
+  supports the GNU operating system, the Free Software Directory, LibrePlanet,
+  and its Licensing and Compliance Lab, alongside campaigns on digital
+  restrictions, software patents, and surveillance.
+sources:
+  - https://www.fsf.org

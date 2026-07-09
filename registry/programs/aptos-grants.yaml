@@ -1,0 +1,18 @@
+id: aptos-grants
+name: Aptos Foundation Grant Program
+org: aptos-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://aptosnetwork.com/grants
+summary: >
+  Non-dilutive, milestone-based grants of $5K-$50K from the Aptos Foundation for MVP-stage
+  and beyond builders, with tracks for ecosystem grants (tools, apps, public goods),
+  developer tooling, payments, and vertical applications; open to global teams with
+  emphasis on open-source value to the Aptos network.
+rounds: []
+sources:
+  - https://aptosnetwork.com/grants

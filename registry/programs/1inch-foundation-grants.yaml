@@ -1,0 +1,20 @@
+id: 1inch-foundation-grants
+name: 1inch Foundation Grants
+org: 1inch-network
+parent: null
+systems: [ethereum]
+wires: [crypto]
+status: active
+mechanism: grants
+summary: >
+  Grants from the 1inch Foundation for developers, teams, or individuals working
+  on tools, products, or content that benefit the 1inch ecosystem, including
+  community engagement, protocol integrations, research and analytics, education,
+  and events. Grants are non-dilutive, no intellectual property rights are
+  claimed, contributions are expected to be open source, and payment is in 1INCH
+  tokens or other agreed currencies, typically aligned with project milestones;
+  the foundation directs interested parties to its governance forum rather than a
+  direct application form.
+sources:
+  - https://1inch.network/foundation
+  - https://gov.1inch.network/

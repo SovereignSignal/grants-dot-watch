@@ -1,0 +1,19 @@
+id: open-society-foundations
+name: Open Society Foundations
+aka: []
+systems: [internet-freedom]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.opensocietyfoundations.org
+status: active
+profile: >
+  Open Society Foundations is a philanthropic network that awards grants and
+  fellowships to organizations and individuals. Most of its grants go to
+  organizations it approaches directly, with a small number of open
+  opportunities listed on its grants page; as of mid-2026 that page shows no
+  open calls. Applicants can subscribe for notification of future
+  opportunities.
+sources:
+  - https://www.opensocietyfoundations.org
+  - https://www.opensocietyfoundations.org/grants

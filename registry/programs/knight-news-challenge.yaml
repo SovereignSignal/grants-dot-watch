@@ -1,0 +1,30 @@
+id: knight-news-challenge
+name: Knight News Challenge
+org: knight-foundation
+parent: null
+systems: []
+wires: []
+status: concluded
+mechanism: prize
+apply_url: https://knightfoundation.org/apply/
+summary: >
+  A Knight Foundation challenge series that funded ideas at the intersection
+  of journalism, technology, and civic information, with themed editions
+  including Libraries, Data, and Open Gov. Each edition selected full-award
+  winners alongside smaller Prototype Fund awards; software developed with
+  News Challenge grant funds had to be released open source. Sources for its
+  editions now live on the foundation's legacy site.
+rounds:
+  - name: "Knight News Challenge: Libraries"
+    status: deployed
+    source: https://legacy.knightfoundation.org/articles/22-projects-win-knight-news-challenge-libraries/
+  - name: Knight News Challenge on Data
+    status: deployed
+    source: https://legacy.knightfoundation.org/articles/17-ideas-win-knight-news-challenge-data/
+  - name: "Knight News Challenge: Open Gov"
+    status: deployed
+    source: https://legacy.knightfoundation.org/articles/announcing-winners-knight-news-challenge-open-gov/
+sources:
+  - https://legacy.knightfoundation.org/articles/22-projects-win-knight-news-challenge-libraries/
+  - https://legacy.knightfoundation.org/articles/17-ideas-win-knight-news-challenge-data/
+  - https://legacy.knightfoundation.org/articles/announcing-winners-knight-news-challenge-open-gov/

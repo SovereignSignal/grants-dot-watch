@@ -1,0 +1,21 @@
+id: cloud-native-computing-foundation
+name: Cloud Native Computing Foundation
+aka:
+  - CNCF
+systems: [oss-sustainability]
+wires: [oss, ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.cncf.io/
+socials: {}
+status: active
+profile: >
+  The Cloud Native Computing Foundation, part of the Linux Foundation,
+  provides support, oversight and direction for cloud native open source
+  projects such as Kubernetes, Envoy and Prometheus, hosting 36 graduated,
+  38 incubating and 152 sandbox projects. It supports the ecosystem through
+  project services (marketing, legal), training and certification,
+  mentorship programs, and community events like KubeCon + CloudNativeCon.
+  The site was active with content dated July 2026.
+sources:
+  - https://www.cncf.io/

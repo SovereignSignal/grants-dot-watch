@@ -1,0 +1,19 @@
+id: mlcommons
+name: MLCommons
+aka: []
+systems: []
+wires: [ai, oss]
+roles: [funder]
+org_type: nonprofit
+website: https://mlcommons.org/
+socials: {}
+status: active
+profile: >
+  MLCommons is a member-driven consortium of more than 125 organizations that
+  builds industry-standard tools for measuring AI systems. Its work spans
+  performance benchmarks for AI accuracy, speed, and efficiency, an AI risk
+  and reliability working group, and open datasets and standards such as the
+  Croissant metadata vocabulary. It describes itself as community-driven and
+  funded.
+sources:
+  - https://mlcommons.org/

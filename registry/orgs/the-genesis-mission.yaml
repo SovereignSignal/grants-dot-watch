@@ -1,0 +1,29 @@
+id: the-genesis-mission
+name: The Genesis Mission
+aka:
+  - DOE Office of Science
+systems:
+  - us-federal-rd
+wires:
+  - ai
+roles:
+  - funder
+org_type: government
+website: https://www.energy.gov/
+socials:
+  x: https://x.com/GenesisMission_
+status: active
+profile: >
+  The Genesis Mission is a White House-led U.S. Department of Energy initiative, launched
+  in 2025, to integrate AI with federal scientific datasets and accelerate discovery in
+  energy, nuclear, environmental, and national security challenges. It deploys large-scale
+  funding through research funding announcements — including $293M+ in grants for
+  interdisciplinary teams across 20+ challenges, with phased awards from $500k to
+  multimillion — coordinated across DOE offices, national labs, academia, and industry.
+  Applications and webinars continue into 2026 on compressed Phase I/II timelines.
+funding:
+  typical_size: "$500k to multimillion, phased"
+  apply_url: https://science.osti.gov/grants/FOAs/Open
+sources:
+  - https://www.energy.gov/
+  - https://science.osti.gov/grants/FOAs/Open

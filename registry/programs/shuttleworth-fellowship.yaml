@@ -1,0 +1,19 @@
+id: shuttleworth-fellowship
+name: Shuttleworth Foundation Fellowship Programme
+org: shuttleworth-foundation
+parent: null
+systems: []
+wires: [ai, oss]
+status: unknown
+mechanism: fellowship
+apply_url: https://shuttleworthfoundation.org/funding/fellowship-programme
+summary: >
+  A fellowship funding individuals implementing an innovative idea for social
+  change around openness, technology, knowledge, and learning. Fellows receive
+  annual salary-equivalent funding, expense contributions, a travel allowance,
+  and project funding matched at a 10:1 ratio. The programme page carries
+  2014-era content and does not state whether fellowships are currently being
+  awarded.
+rounds: []
+sources:
+  - https://shuttleworthfoundation.org/funding/fellowship-programme

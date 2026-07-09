@@ -1,0 +1,21 @@
+id: open-philanthropy-navigating-transformative-ai
+name: Navigating Transformative AI
+org: open-philanthropy
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://coefficientgiving.org/apply-for-funding/
+summary: >
+  Coefficient Giving's (formerly Open Philanthropy) fund supporting technical
+  AI safety research, AI governance and policy, and capacity-building to grow
+  the field. Published grants include general support for organizations,
+  compute funds for AI safety research, and individual research projects such
+  as studies on model organisms of reward-hacking, chain-of-thought
+  faithfulness, latent adversarial training, and software formal
+  verification.
+rounds: []
+sources:
+  - https://coefficientgiving.org/funds/navigating-transformative-ai/
+  - https://coefficientgiving.org/apply-for-funding/

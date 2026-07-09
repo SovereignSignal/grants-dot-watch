@@ -1,0 +1,23 @@
+id: y-combinator
+name: Y Combinator
+aka: ["Y Combinator Nonprofits"]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://www.ycombinator.com/
+socials:
+  x: https://x.com/ycombinator
+  forum: https://news.ycombinator.com/
+status: active
+profile: >
+  Y Combinator is a startup accelerator and seed investor that has funded
+  thousands of companies, with a heavy AI focus, investing $500k per company per
+  batch and providing extensive post-funding support through its alumni network.
+  Rather than traditional grants, its funding runs through accelerator batches,
+  Requests for Startups (heavily AI-oriented in 2026), Demo Days, and ecosystem
+  partnerships; batches run continuously and it is actively recruiting through its
+  apply page.
+sources:
+  - https://www.ycombinator.com/
+  - https://www.ycombinator.com/apply

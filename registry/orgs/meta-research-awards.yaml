@@ -1,0 +1,18 @@
+id: meta-research-awards
+name: Meta Research Awards
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://research.facebook.com
+socials: {}
+status: active
+profile: >
+  Meta Research Awards are Meta's collaborative funding opportunities for
+  academic research, operated through a requests-for-proposals (RFP)
+  mechanism. The research.facebook.com site links research award opportunities
+  and publishes lists of research award recipients.
+sources:
+  - https://research.facebook.com
+  - https://research.facebook.com/programs/research-awards/

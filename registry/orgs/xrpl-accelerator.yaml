@@ -1,0 +1,34 @@
+id: xrpl-accelerator
+name: XRPL Accelerator
+aka: []
+systems:
+  - xrpl
+wires:
+  - crypto
+roles:
+  - funder
+org_type: company
+website: https://xrplgrants.org/
+socials:
+  x: https://x.com/Ripple
+  github: https://github.com/XRPLF
+status: active
+profile: >
+  The XRPL Accelerator, run by Ripple, is a 12-week hybrid program offering up to $200k in
+  non-dilutive grants plus mentorship and investor access to startups building on the XRP
+  Ledger, with focus areas in DeFi, real-world assets, payments, and AI. It evolved from the
+  XRPL Grants program, which funded 140+ projects since 2021, and runs multiple cohorts per
+  year through a unified application, prioritizing measurable traction and partnering on
+  venture pathways.
+funding:
+  focus:
+    - DeFi
+    - real-world assets
+    - payments
+    - AI
+  typical_size: "up to $200k non-dilutive"
+  cadence: multiple cohorts annually
+  apply_url: https://xrplgrants.org/accelerator
+sources:
+  - https://xrplgrants.org/
+  - https://xrplgrants.org/accelerator

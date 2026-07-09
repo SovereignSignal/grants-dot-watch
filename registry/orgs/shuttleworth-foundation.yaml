@@ -1,0 +1,19 @@
+id: shuttleworth-foundation
+name: Shuttleworth Foundation
+aka: []
+systems: []
+wires: [ai, oss]
+roles: [funder]
+org_type: nonprofit
+website: https://shuttleworthfoundation.org
+status: unknown
+profile: >
+  The Shuttleworth Foundation has run a fellowship programme funding
+  individuals with an innovative idea for social change around openness,
+  technology, knowledge, and learning, providing salary-equivalent funding,
+  expense contributions, and project funding matched at a 10:1 ratio. The
+  fellowship page carries 2014-era content and does not state whether the
+  programme is currently awarding fellowships, so current status is unclear.
+sources:
+  - https://shuttleworthfoundation.org
+  - https://shuttleworthfoundation.org/funding/fellowship-programme

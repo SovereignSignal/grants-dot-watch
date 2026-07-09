@@ -1,0 +1,21 @@
+id: effective-ventures
+name: Effective Ventures
+aka:
+  - EV
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://ev.org/
+socials: {}
+status: active
+profile: >
+  Effective Ventures describes itself as a federation of organisations and
+  projects working to have a large positive impact in the world, operating
+  as registered charities in England and Wales, the Netherlands, and the
+  USA. It primarily provides operational support and infrastructure to its
+  constituent organizations, which include the Centre for Effective
+  Altruism and Effective Altruism Funds, rather than making direct grants
+  itself. The site appeared current as of 2025-2026.
+sources:
+  - https://ev.org/

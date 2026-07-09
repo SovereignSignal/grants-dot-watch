@@ -1,0 +1,20 @@
+id: alibaba-qwen
+name: Alibaba Qwen
+aka:
+  - Qwen
+systems:
+  - open-source-ai
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://qwenlm.github.io/
+status: active
+profile: >
+  Qwen is Alibaba's AI research organization, developing open large language
+  models and specialized systems such as Qwen3Guard for safety classification
+  and Qwen-MT for machine translation across 92 languages. Its site and blog
+  carry ongoing model release announcements. No grant or funding program is
+  described on the site.
+sources:
+  - https://qwenlm.github.io/
+  - https://qwenlm.github.io/blog/

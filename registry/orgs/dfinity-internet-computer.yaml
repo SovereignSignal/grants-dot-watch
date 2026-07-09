@@ -1,0 +1,24 @@
+id: dfinity-internet-computer
+name: DFINITY / Internet Computer
+aka:
+  - DFINITY
+  - DFINITY Foundation
+  - Internet Computer
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://internetcomputer.org
+socials:
+  x: https://x.com/dfinity
+status: active
+profile: >
+  The DFINITY Foundation, established in October 2016, develops the
+  Internet Computer, a decentralized cloud platform backed by independent
+  hardware operators that runs tamperproof, always-on software built in
+  WebAssembly or Motoko. The project emphasizes AI-native development with
+  developer tooling such as Caffeine.ai and the ICP Ninja browser IDE. The
+  site was current as of 2026, with live network metrics and recent
+  partnership news.
+sources:
+  - https://internetcomputer.org

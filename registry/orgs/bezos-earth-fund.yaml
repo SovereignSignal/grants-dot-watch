@@ -1,0 +1,22 @@
+id: bezos-earth-fund
+name: Bezos Earth Fund
+aka: []
+systems:
+  - climate
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.bezosearthfund.org
+status: active
+profile: >
+  The Bezos Earth Fund is a philanthropic fund working to protect nature and
+  combat climate change, with a $10 billion total commitment and $2.4 billion
+  granted across 371 grants to date. It makes grants through seven program
+  areas including nature conservation, food systems, environmental justice,
+  clean energy, and climate monitoring technologies. Its AI for Climate and
+  Nature Grand Challenge is a $100 million initiative funding AI applications
+  for sustainable proteins, power grid optimization, and biodiversity
+  conservation.
+sources:
+  - https://www.bezosearthfund.org
+  - https://aiforclimateandnature.org

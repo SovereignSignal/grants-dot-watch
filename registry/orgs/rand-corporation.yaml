@@ -1,0 +1,14 @@
+id: rand-corporation
+name: RAND Corporation
+aka: []
+systems: []
+wires: [ai]
+roles: [funder, grantee]
+org_type: nonprofit
+website: https://www.rand.org/
+status: unknown
+profile: >
+  RAND Corporation is a nonprofit organization active on AI topics. In funding
+  data it appears both as a funder and as a recipient of funding.
+sources:
+  - https://www.rand.org/

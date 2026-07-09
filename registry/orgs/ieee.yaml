@@ -1,0 +1,19 @@
+id: ieee
+name: IEEE
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.ieee.org/
+socials: {}
+status: active
+profile: >
+  IEEE is a non-profit organization tracked as a funder on the open-source
+  wire of this registry. Its website (ieee.org) is live but blocks automated
+  content access, so its funding programs have not yet been profiled here
+  beyond the source data.
+sources:
+  - https://www.ieee.org/

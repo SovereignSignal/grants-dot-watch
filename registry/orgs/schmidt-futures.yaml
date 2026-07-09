@@ -1,0 +1,20 @@
+id: schmidt-futures
+name: Schmidt Futures
+aka:
+  - Schmidt Sciences
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://www.schmidtfutures.org
+status: active
+profile: >
+  Schmidt Futures' website now redirects to Schmidt Sciences, a philanthropic
+  organization founded in 2024 by Eric and Wendy Schmidt that supports
+  scientific research across five centers: AI & Advanced Computing,
+  Astrophysics & Space, Biosciences, Climate, and Science Systems. Named
+  programs include the AI2050 Fellows program, which awarded $18 million in
+  2025, and the Virtual Institute on Feedstocks of the Future.
+sources:
+  - https://www.schmidtfutures.org
+  - https://www.schmidtsciences.org/

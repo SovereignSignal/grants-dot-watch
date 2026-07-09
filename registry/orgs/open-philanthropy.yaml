@@ -1,0 +1,44 @@
+id: open-philanthropy
+name: Open Philanthropy
+aka:
+  - Coefficient Giving
+  - Open Philanthropy / Coefficient Giving
+  - open philanthropy coefficient giving
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://coefficientgiving.org/
+socials:
+  x: https://x.com/OpenPhil
+status: active
+profile: >
+  Open Philanthropy, now rebranded as Coefficient Giving, is a major
+  philanthropic organization making large grants in AI safety and governance,
+  global health, scientific research, and effective-giving causes, directing
+  over $1B in 2025. Grantmaking is mostly proactive outreach plus open
+  application forms and periodic RFPs; first-time funding for a project or
+  organization typically starts around $200k-$2M per year over 1-2 years. Its
+  Navigating Transformative AI fund supports technical AI safety research, AI
+  governance and policy, and capacity-building to grow the field.
+funding:
+  focus:
+    - AI safety
+    - technical AI safety research
+    - AI governance & policy
+    - capacity building for transformative AI
+    - global catastrophic risks
+    - biosecurity & pandemic preparedness
+    - effective giving
+  typical_size: >
+    When funding a project/organization for the first time, typically (but not
+    always) begins with a grant of $200k-$2M/yr over 1-2 years; projects under
+    $200k/yr are ideally funded by others
+  cadence: >
+    Rolling; mostly proactive outreach to grantees, plus open application
+    forms and periodic Requests for Proposals (RFPs).
+  apply_url: https://coefficientgiving.org/apply-for-funding/
+sources:
+  - https://coefficientgiving.org/
+  - https://coefficientgiving.org/apply-for-funding/
+  - https://coefficientgiving.org/funds/navigating-transformative-ai/

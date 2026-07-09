@@ -1,0 +1,23 @@
+id: darpa-dice
+name: DARPA DICE
+aka:
+  - Defense Advanced Research Projects Agency (DARPA)
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence
+socials:
+  x: https://x.com/DARPA
+  github: https://github.com/darpa-i2o
+status: active
+profile: >
+  DICE (Decentralized Artificial Intelligence through Controlled Emergence) is a DARPA research
+  program funding development of theory, algorithms, and multi-agent systems for scalable,
+  resilient decentralized AI collectives that remain under human control. Funding flows through
+  Broad Agency Announcements (BAAs) and contract-style awards rather than traditional grants,
+  covering proposals in AI, control theory, and game theory. The program is actively soliciting
+  research as part of the broader DARPA portfolio.
+sources:
+  - https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence
+  - https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view

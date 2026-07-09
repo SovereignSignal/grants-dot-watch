@@ -1,0 +1,21 @@
+id: skale-network
+name: SKALE Network
+aka:
+  - SKALE
+systems:
+  - ethereum
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.skale.space/
+socials:
+  x: https://x.com/SkaleNetwork
+status: unknown
+profile: >
+  SKALE Network is a crypto foundation/lab tracked as a funder in the Ethereum
+  ecosystem. Its funding-related announcements are published through its blog,
+  which serves as its grants surface. The website could not be fetched at draft
+  time (bot-protection checkpoint), so current activity is unconfirmed.
+sources:
+  - https://www.skale.space/
+  - https://blog.skale.space/

@@ -1,0 +1,41 @@
+id: gitcoin
+name: Gitcoin
+aka:
+  - Gitcoin Grants
+systems: [ethereum, web3-public-goods]
+wires: [crypto]
+roles: [funder]
+org_type: nonprofit
+website: https://gitcoin.co/
+socials:
+  x: https://x.com/gitcoin
+  github: https://github.com/gitcoinco
+  forum: https://gov.gitcoin.co/
+status: active
+profile: >
+  Gitcoin is a nonprofit building public goods funding infrastructure for
+  Ethereum and beyond. It historically ran quadratic funding rounds via Grants
+  Stack (sunset May 2025) and is evolving to community-operated models under
+  Gitcoin 3.0, with focus on open-source software and retroactive funding.
+  The core Gitcoin Grants program has run quarterly since 2019 and continues
+  seasonally amid significant restructuring, with recent rounds using a Domain
+  Allocator model where each domain sets its own dates.
+funding:
+  focus:
+    - public goods
+    - open-source software
+    - developer tooling & infrastructure
+    - Ethereum / interop & multi-chain
+    - onchain privacy
+    - crypto policy advocacy
+    - public goods R&D
+  cadence: >
+    Quarterly rounds (the Gitcoin Grants program has run quarterly since
+    2019); recent rounds use a Domain Allocator model where each domain sets
+    its own dates.
+  apply_url: https://builder.gitcoin.co
+sources:
+  - https://gitcoin.co/
+  - https://builder.gitcoin.co
+  - https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
+  - https://www.gitcoin.co/blog/top-30-builders-in-gitcoins-retro-round-funding-proven-impact

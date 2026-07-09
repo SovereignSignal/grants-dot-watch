@@ -1,0 +1,31 @@
+id: aptos-foundation
+name: Aptos Foundation
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: foundation
+website: https://aptosnetwork.com/grants
+socials:
+  x: https://x.com/Aptos
+  github: https://github.com/aptos-foundation
+status: active
+profile: >
+  Aptos Foundation runs a non-dilutive grant program for builders on the Aptos network,
+  with tracks covering ecosystem grants (tools, apps, public goods), developer tooling,
+  payments, and vertical applications. Grants are milestone-based and typically range
+  $5K-$50K, open to global teams at MVP stage and beyond, with emphasis on open-source
+  value to the Aptos network.
+funding:
+  focus:
+    - developer tools
+    - apps
+    - public goods
+    - payments
+  typical_size: "$5K-$50K, milestone-based"
+  apply_url: https://aptosnetwork.com/grants
+sources:
+  - https://aptosnetwork.com/grants
+  - https://aptosfoundation.org/currents

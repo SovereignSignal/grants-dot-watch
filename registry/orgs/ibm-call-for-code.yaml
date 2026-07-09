@@ -1,0 +1,21 @@
+id: ibm-call-for-code
+name: IBM Call for Code
+aka:
+  - Call for Code
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://callforcode.org/
+socials: {}
+status: active
+profile: >
+  Call for Code is a global challenge platform that mobilizes developers to
+  build AI solutions addressing urgent global issues, run in partnership with
+  UN Human Rights and The Linux Foundation. Winning solutions are recognized
+  at the United Nations and supported through deployment in communities
+  worldwide; a 2026 challenge is active.
+sources:
+  - https://callforcode.org/

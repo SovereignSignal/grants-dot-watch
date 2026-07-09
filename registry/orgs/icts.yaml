@@ -1,0 +1,21 @@
+id: icts
+name: ICTS
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: education
+website: https://www.icts.res.in/
+socials:
+  x: https://x.com/ictstifr
+status: active
+profile: >
+  ICTS (International Centre for Theoretical Sciences, TIFR Bengaluru) is a research institute
+  advancing theoretical sciences through programs, schools, and collaborations in mathematics,
+  physics, and related fields. Its funding takes the form of postdoctoral fellowships, summer
+  and winter schools, discussion meetings, and support for individual researcher grants and
+  fellowships (e.g., Simons Foundation, Murty Science Fellowship) rather than a broad ecosystem
+  grant program; money flows via institutional budgets, external grants, and targeted positions.
+  Operations are stable, with ongoing calls for postdocs and events.
+sources:
+  - https://www.icts.res.in/

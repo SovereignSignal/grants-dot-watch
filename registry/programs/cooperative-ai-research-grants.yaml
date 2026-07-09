@@ -1,0 +1,20 @@
+id: cooperative-ai-research-grants
+name: CAIF Research Grants
+org: cooperative-ai-foundation
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://www.cooperativeai.com/foundation#Funding-Applications
+summary: >
+  The Cooperative AI Foundation's research grants fund work that improves the
+  cooperative intelligence of advanced AI, addressing multi-agent and
+  cooperation problems among AI systems and between AI and humans. Grants run
+  GBP 10,000-385,000 (median ~GBP 150,000, Early-Career Track up to GBP
+  100,000) in periodic rounds via a two-stage pre-proposal and full-proposal
+  process; projects run up to 2 years with indirect costs capped at 10%.
+rounds: []
+sources:
+  - https://www.cooperativeai.com/post/grant-summaries
+  - https://www.cooperativeai.com/grants/2025

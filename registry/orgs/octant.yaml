@@ -1,0 +1,26 @@
+id: octant
+name: Octant
+aka: []
+systems:
+  - ethereum
+  - web3-public-goods
+wires:
+  - crypto
+roles:
+  - funder
+org_type: foundation
+website: https://octant.build/
+socials:
+  x: https://x.com/OctantApp
+  forum: https://discuss.octant.app/
+status: active
+profile: >
+  Octant is an Ethereum-ecosystem funder that allocates capital to public goods through
+  epoch-based community allocation. Recent tracked activity includes ecosystem funding
+  deployments to projects such as Shutter Network and a proposed yield-powered matching
+  collaboration with Gitcoin for the GG25 round. Community discussion runs on its public
+  forum at discuss.octant.app.
+sources:
+  - https://octant.build/
+  - https://x.com/ShutterNetwork/status/2036077585143406691
+  - https://gov.gitcoin.co/t/proposal-gitcoin-x-octant-yield-powered-matching-for-gg25/24977

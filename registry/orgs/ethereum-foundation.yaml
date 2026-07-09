@@ -1,0 +1,41 @@
+id: ethereum-foundation
+name: Ethereum Foundation
+aka:
+  - Ethereum Foundation ESP
+  - ethereum esp
+systems: [ethereum]
+wires: [crypto, oss]
+roles: [funder]
+org_type: foundation
+website: https://esp.ethereum.foundation/
+socials:
+  x: https://x.com/ethereumfndn
+  github: https://github.com/ethereum
+  forum: https://ethereum-magicians.org/
+status: active
+profile: >
+  Nonprofit supporting Ethereum protocol development, primarily through the
+  Ecosystem Support Program (ESP), which runs targeted grants, academic rounds,
+  PhD fellowships, and RFPs for infrastructure, research, and public goods,
+  funding hundreds of projects annually. It paused its open grants program in
+  2025 due to high application volume and is redirecting toward more strategic
+  allocation, while focused rounds such as the 2026 PhD Fellowship and academic
+  grants continue.
+funding:
+  focus:
+    - builder tools
+    - infrastructure
+    - protocol research
+    - cryptography
+    - zero-knowledge proofs
+    - security audits
+    - public goods
+  cadence: >
+    Rolling; new Wishlist items and RFPs are added over time based on evolving
+    ecosystem needs, with applications reviewed within roughly 3-6 weeks.
+  apply_url: https://esp.ethereum.foundation/applicants
+sources:
+  - https://esp.ethereum.foundation/
+  - https://esp.ethereum.foundation/applicants
+  - https://blog.ethereum.org/2026/04/29/allocation-q1-26
+  - https://blog.ethereum.org/2025/12/02/allocation-q3-25

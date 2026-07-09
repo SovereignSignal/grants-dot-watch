@@ -1,0 +1,25 @@
+id: subspace-foundation-autonomys-network
+name: Subspace Foundation / Autonomys Network
+aka:
+  - Subspace Foundation
+  - Autonomys Network
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://subspace.foundation/
+socials:
+  x: https://x.com/SubspaceFDN
+  github: https://github.com/autonomys
+  forum: https://forum.autonomys.xyz/
+status: active
+profile: >
+  Foundation supporting the growth of decentralized AI (deAI) on the Autonomys
+  Network. Its grants program allocates up to 10% of the $AI3 token supply
+  across five tracks — infrastructure, AI-powered dApps, research, community,
+  and integration — with milestone-based funding and applications submitted
+  through an official form after reviewing grant agreements and terms.
+sources:
+  - https://subspace.foundation/
+  - https://subspace.foundation/grants
+  - https://subspace.foundation/grants/application-process

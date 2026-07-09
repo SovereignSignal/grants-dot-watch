@@ -1,0 +1,21 @@
+id: percona
+name: Percona
+aka: []
+systems: []
+wires: [oss]
+roles: [funder]
+org_type: company
+website: https://www.percona.com
+socials:
+  forum: https://forums.percona.com/
+status: active
+profile: >
+  Percona is a company providing open source database software, support, and
+  services for MySQL, PostgreSQL, MongoDB, and Valkey/Redis across
+  on-premises, cloud, and Kubernetes environments. It states a commitment to
+  keeping databases open source and free of proprietary licensing and to
+  building in the open, contributing code and tooling to the communities it
+  works in; its site does not describe a formal grants program.
+sources:
+  - https://www.percona.com
+  - https://www.percona.com/blog

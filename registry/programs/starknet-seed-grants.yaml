@@ -1,0 +1,18 @@
+id: starknet-seed-grants
+name: Starknet Seed Grants
+org: starknet-foundation
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.starknet.io/grants/seed-grants/
+summary: >
+  Early-stage grants from the Starknet Foundation of up to $25k in STRK for teams with an
+  MVP building on Starknet, providing non-dilutive funding plus guidance.
+rounds: []
+sources:
+  - https://www.starknet.io/grants/seed-grants/
+  - https://www.starknet.io/grants/

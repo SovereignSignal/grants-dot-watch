@@ -1,0 +1,19 @@
+id: php-foundation
+name: PHP Foundation
+aka: []
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://thephp.foundation
+status: active
+profile: >
+  The PHP Foundation exists to ensure the long-term prosperity of the PHP
+  language by financially supporting the developers who maintain it. Funded by
+  sponsors including JetBrains and Automattic, it contracts roughly ten
+  part-time and full-time developers who contribute commits, code reviews, RFC
+  proposals, and infrastructure maintenance, reporting 1,976 commits and 1,278
+  code reviews in 2024.
+sources:
+  - https://thephp.foundation
+  - https://thephp.foundation/blog

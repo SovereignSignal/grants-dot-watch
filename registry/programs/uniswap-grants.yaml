@@ -1,0 +1,21 @@
+id: uniswap-grants
+name: Uniswap Foundation Grants
+org: uniswap-foundation
+parent: null
+systems: [ethereum]
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://share.hsforms.com/1fxQjPQTgTYmPwlYxxKlSGQsdca9
+summary: >
+  Provides grants and support to teams building the Uniswap Protocol and the
+  broader DeFi/onchain economy, funding projects across protocols, tooling,
+  research, governance, security, and community initiatives. Published grants
+  include governance upgrade audits, the Uniswap Hook Incubator, the v4 Hooks
+  Registry, developer docs, a security fund, and research on incentive
+  optimization and optimal routing; funding is scoped to project needs, with
+  technical and ecosystem support provided alongside.
+rounds: []
+sources:
+  - https://www.uniswapfoundation.org/grants
+  - https://share.hsforms.com/1fxQjPQTgTYmPwlYxxKlSGQsdca9

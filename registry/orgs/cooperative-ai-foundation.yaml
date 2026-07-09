@@ -1,0 +1,40 @@
+id: cooperative-ai-foundation
+name: Cooperative AI Foundation
+aka:
+  - CAIF
+  - cooperative ai
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.cooperativeai.com/foundation
+status: active
+profile: >
+  CAIF funds research that improves the cooperative intelligence of advanced
+  AI -- addressing multi-agent and cooperation problems among AI systems and
+  between AI and humans -- alongside PhD fellowships, conference workshops,
+  seminars, and prizes. Research grants run in periodic rounds (typically GBP
+  10,000-385,000, median ~GBP 150,000) via a two-stage pre-proposal and
+  full-proposal process, open to applicants globally, including disciplines
+  outside computer science.
+funding:
+  focus:
+    - cooperative AI
+    - multi-agent systems
+    - AI safety
+    - AI alignment
+    - cooperation
+    - multi-agent security
+    - collusion prevention
+  typical_size: >
+    GBP 10,000-385,000 (median ~GBP 150,000); Early-Career Track up to GBP
+    100,000
+  cadence: >
+    Periodic research grant rounds (e.g., the 2025 round); future deadlines
+    TBC.
+  apply_url: https://www.cooperativeai.com/foundation#Funding-Applications
+sources:
+  - https://www.cooperativeai.com/foundation
+  - https://www.cooperativeai.com/foundation#Funding-Applications
+  - https://www.cooperativeai.com/post/grant-summaries
+  - https://www.cooperativeai.com/post/announcing-the-2026-cooperative-ai-phd-fellows

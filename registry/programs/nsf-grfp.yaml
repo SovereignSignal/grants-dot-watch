@@ -1,0 +1,22 @@
+id: nsf-grfp
+name: NSF Graduate Research Fellowship Program
+org: nsf-graduate-research-fellowship-program
+parent: null
+systems: [us-federal-rd]
+wires: [ai]
+status: active
+mechanism: fellowship
+apply_url: https://www.nsfgrfp.org/
+summary: >
+  Annual U.S. National Science Foundation competition awarding roughly 2,500
+  fellowships per year to outstanding STEM graduate students, providing three
+  years of a $37k stipend plus a $16k education allowance, usable over five years.
+  Applications, reviews, and awards are handled by a dedicated GRFP Operations
+  Center; the 2026 awards were announced in April 2026 from around 14,000
+  applicants.
+rounds:
+  - name: "2026 competition"
+    status: deployed
+    source: https://www.nsfgrfp.org/
+sources:
+  - https://www.nsfgrfp.org/

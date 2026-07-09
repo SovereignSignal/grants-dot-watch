@@ -1,0 +1,19 @@
+id: microsoft-foss-fund
+name: Microsoft FOSS Fund
+aka: []
+systems: [oss-sustainability]
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://opensource.microsoft.com
+socials: {}
+status: unknown
+profile: >
+  The Microsoft FOSS Fund is tracked as Microsoft's funding vehicle for open
+  source projects, hosted under opensource.microsoft.com. The Microsoft Open
+  Source site is live and showcases the company's open source projects and
+  community resources, but its current pages do not mention the FOSS Fund or
+  any specific funding mechanism, so the fund's present status could not be
+  confirmed from the site.
+sources:
+  - https://opensource.microsoft.com

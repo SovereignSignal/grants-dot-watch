@@ -1,0 +1,17 @@
+id: partnership-on-ai
+name: Partnership on AI
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://partnershiponai.org/
+status: active
+profile: >
+  Partnership on AI is an independent nonprofit that convenes a community of
+  technology companies, civil society organizations, and academic institutions
+  to address questions about AI. It conducts research collaborations, develops
+  industry guidelines, hosts international forums, and educates policymakers;
+  its website does not describe a grantmaking program of its own.
+sources:
+  - https://partnershiponai.org/

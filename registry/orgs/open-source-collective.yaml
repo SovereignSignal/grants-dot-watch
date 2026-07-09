@@ -1,0 +1,18 @@
+id: open-source-collective
+name: Open Source Collective
+aka: []
+systems: [oss-sustainability]
+wires: [ai, oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.oscollective.org
+status: active
+profile: >
+  Open Source Collective is a 501(c)(6) nonprofit fiscal host that provides
+  financial and legal infrastructure for open source projects, including
+  accounting, tax administration, expense processing, employment support, and
+  legal compliance. It hosts more than 3,500 projects and manages their
+  fundraising through the Open Collective platform. Projects apply through its
+  website to join the fiscal hosting program.
+sources:
+  - https://www.oscollective.org

@@ -1,0 +1,20 @@
+id: somnia
+name: Somnia
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://somnia.network/
+socials:
+  x: https://x.com/Somnia_Network
+status: active
+profile: >
+  Somnia is a high-performance EVM L1 blockchain advertising 1M+ TPS and
+  sub-second finality, purpose-built for AI agents, real-time decentralized apps,
+  gaming, and social. It operates an active ecosystem grants program, previously
+  referenced as a $10M pool, providing funding, mentorship, and technical support
+  to teams building on the network, tied to mainnet growth and ecosystem
+  development initiatives.
+sources:
+  - https://somnia.network/

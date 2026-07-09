@@ -1,0 +1,23 @@
+id: cooperative-ai-phd-fellowship
+name: Cooperative AI PhD Fellowship
+org: cooperative-ai-foundation
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: fellowship
+apply_url: https://www.cooperativeai.com/foundation
+summary: >
+  The Cooperative AI Foundation's recurring PhD fellowship supporting
+  doctoral researchers working on cooperative AI, with cohorts announced for
+  2025 (16 scholars) and 2026 (14 fellows).
+rounds:
+  - name: 2025 PhD Fellowship
+    status: deployed
+    source: https://www.cooperativeai.com/post/announcing-the-2025-cooperative-ai-phd-scholars
+  - name: 2026 PhD Fellowship
+    status: deployed
+    source: https://www.cooperativeai.com/post/announcing-the-2026-cooperative-ai-phd-fellows
+sources:
+  - https://www.cooperativeai.com/post/announcing-the-2025-cooperative-ai-phd-scholars
+  - https://www.cooperativeai.com/post/announcing-the-2026-cooperative-ai-phd-fellows

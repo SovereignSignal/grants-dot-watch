@@ -1,0 +1,22 @@
+id: ton-foundation
+name: TON Foundation
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://ton.foundation/
+socials:
+  x: https://x.com/ton_blockchain
+  github: https://github.com/ton-blockchain
+status: active
+profile: >
+  The Open Network (TON) Foundation is a Swiss non-profit, established in 2023 and funded by
+  community contributions, that coordinates support and grants for community-driven initiatives
+  in the TON ecosystem integrated with Telegram. It previously ran a grants and bounties program
+  through the ton-society GitHub, but that program was paused around May 2026 with new submissions
+  closed while the foundation reviews its structure and priorities; as of mid-2026 its website
+  lists the grants program as "coming soon." The organization itself remains operational with
+  named leadership and an active site.
+sources:
+  - https://ton.foundation/

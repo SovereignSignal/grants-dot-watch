@@ -1,0 +1,24 @@
+id: hugging-face
+name: Hugging Face
+aka: []
+systems:
+  - open-source-ai
+wires:
+  - ai
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://huggingface.co/
+socials:
+  forum: https://discuss.huggingface.co/
+status: active
+profile: >
+  Hugging Face operates the platform where the machine learning community
+  collaborates on models, datasets, and applications, hosting over 2 million
+  models and 500k datasets. The company also sells paid compute and enterprise
+  offerings for deploying AI applications. Its homepage does not describe a
+  grants program.
+sources:
+  - https://huggingface.co/
+  - https://discuss.huggingface.co/

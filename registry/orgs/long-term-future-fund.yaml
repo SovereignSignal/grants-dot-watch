@@ -1,0 +1,43 @@
+id: long-term-future-fund
+name: Long-Term Future Fund
+aka:
+  - Long-Term Future Fund (EA Funds)
+  - LTFF
+  - long term future ea funds
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://funds.effectivealtruism.org/funds/far-future
+socials:
+  x: https://x.com/LTFFund
+  forum: https://forum.effectivealtruism.org
+status: active
+profile: >
+  The Long-Term Future Fund (LTFF) is an Effective Altruism regranting fund
+  making grants to individuals and projects addressing global catastrophic
+  risks, with emphasis on advanced AI safety, biosecurity, and longtermist
+  infrastructure. It has distributed more than $20M since 2017 across hundreds
+  of early-stage researchers and seeded organizations; applications are
+  reviewed by expert fund managers, and it is particularly interested in small
+  teams and individuals getting projects off the ground.
+funding:
+  focus:
+    - AI safety
+    - AI governance & policy
+    - biosecurity & pandemic preparedness
+    - global catastrophic risk reduction
+    - longtermism
+    - existential risk research
+    - field-building / talent pipeline
+  typical_size: >
+    $1,000 to over $500,000 (recent grants roughly $6k-$175k)
+  cadence: >
+    Focused grant rounds plus an always-open application; off-deadline
+    applications are evaluated in the next round.
+  apply_url: https://av20jp3z.paperform.co/?fund=Long-Term%20Future%20Fund
+sources:
+  - https://funds.effectivealtruism.org/funds/far-future
+  - https://av20jp3z.paperform.co/?fund=Long-Term%20Future%20Fund
+  - https://forum.effectivealtruism.org/posts/pJyCWzevPHsycj4oQ/long-term-future-fund-may-2023-to-march-2024-payout
+  - https://funds.effectivealtruism.org/grants?fund=Long-Term+Future+Fund

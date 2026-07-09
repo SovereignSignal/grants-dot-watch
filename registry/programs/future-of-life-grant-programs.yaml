@@ -1,0 +1,38 @@
+id: future-of-life-grant-programs
+name: FLI Grant Programs
+org: future-of-life-institute-fli
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: rfp
+apply_url: https://futureoflife.org/our-work/grantmaking-work/
+summary: >
+  The Future of Life Institute's grantmaking, which funds research and
+  projects reducing large-scale risks from powerful technologies -- advanced
+  AI safety and governance, biotechnology/bio-risk, and nuclear weapons --
+  via targeted Requests for Proposals and Contests published on a regular but
+  irregular basis. FLI does not accept unsolicited requests; applicants must
+  respond to an open RFP, Contest, or fellowship call.
+rounds:
+  - name: 2018 AGI Safety Grant Program
+    status: deployed
+    source: https://futureoflife.org/grant-program/2018-grant-program/
+  - name: 2021 Grants
+    status: deployed
+    source: https://futureoflife.org/grant-program/2021-grants/
+  - name: 2022 Grants
+    status: deployed
+    source: https://futureoflife.org/grant-program/2022-grants/
+  - name: 2023 Grants
+    status: deployed
+    source: https://futureoflife.org/grant-program/2023-grants/
+  - name: 2024 Grants (Institutional Grants)
+    status: deployed
+    source: https://futureoflife.org/grant-program/2024-grants/
+  - name: 2024 Grants for Problem-Solving AI
+    status: deployed
+    source: https://futureoflife.org/press-release/fli-announces-16-grants-for-problem-solving-ai/
+sources:
+  - https://futureoflife.org/our-work/grantmaking-work/
+  - https://futureoflife.org/grant-program/2023-grants/

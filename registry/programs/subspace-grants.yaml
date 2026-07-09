@@ -1,0 +1,19 @@
+id: subspace-grants
+name: Subspace Foundation Grants Program
+org: subspace-foundation-autonomys-network
+parent: null
+systems: []
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://subspace.foundation/grants/application-process
+summary: >
+  Grants from the Subspace Foundation for builders of decentralized AI on the
+  Autonomys Network, allocating up to 10% of the $AI3 token supply across five
+  tracks — infrastructure, AI-powered dApps, research, community, and
+  integration. Funding is milestone-based, with applications submitted through
+  the foundation's official form.
+rounds: []
+sources:
+  - https://subspace.foundation/grants
+  - https://subspace.foundation/grants/application-process

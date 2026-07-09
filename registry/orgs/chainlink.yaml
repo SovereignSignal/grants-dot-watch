@@ -1,0 +1,23 @@
+id: chainlink
+name: Chainlink
+aka: []
+systems: []
+wires: [crypto, ai]
+roles: [funder]
+org_type: foundation
+website: https://chain.link/
+socials:
+  x: https://x.com/chainlink
+  github: https://github.com/smartcontractkit
+status: active
+profile: >
+  Chainlink is a decentralized oracle network connecting blockchains to
+  real-world data and offchain systems, underpinning decentralized finance
+  and tokenized assets. Its Community Grant Program has funded developer
+  teams, researchers, integrations, tooling, data feeds, bug bounties, and
+  social impact projects to expand the smart contract economy, with
+  recipients including Protofire, ChainSafe, Gitcoin rounds, and Immunefi.
+  The grant program is not referenced on the current homepage.
+sources:
+  - https://chain.link/
+  - https://blog.chain.link/

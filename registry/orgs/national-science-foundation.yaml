@@ -1,0 +1,32 @@
+id: national-science-foundation
+name: National Science Foundation
+aka:
+  - NSF
+  - NSF TechAccess
+  - NSF X Labs
+  - NSF POSE Program (nsf.gov)
+systems:
+  - us-federal-rd
+wires:
+  - crypto
+  - ai
+  - oss
+roles:
+  - funder
+org_type: government
+website: https://www.nsf.gov/
+socials:
+  x: https://x.com/nsf
+status: active
+profile: >
+  The U.S. National Science Foundation is a federal agency awarding billions of
+  dollars in grants each year for fundamental research. It runs targeted
+  solicitations across fields including AI, open-source security, and emerging
+  technology, spanning programs such as POSE (Pathways to Enable Open-Source
+  Ecosystems) and SBIR, plus supplemental funding for AI education and large
+  infrastructure awards for open AI ecosystems. Its programs are mature and
+  continuously funded, with expanding AI priorities.
+sources:
+  - https://www.nsf.gov/
+  - https://www.nsf.gov/funding/
+  - https://new.nsf.gov/funding/opportunities/pose

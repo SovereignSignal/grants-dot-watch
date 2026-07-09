@@ -1,0 +1,19 @@
+id: afwerx
+name: AFWERX
+aka: []
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://afwerx.com
+socials:
+  x: https://x.com/afwerx
+status: active
+profile: >
+  AFWERX is the innovation arm of the U.S. Department of the Air Force and manages its SBIR/STTR
+  program, with roughly 10,400 contracts worth over $7.24B awarded to small businesses and
+  researchers since 2019. It funds dual-use technologies, including AI, through open-topic and
+  specific-topic solicitations plus STRATFI/TACFI scale-up pathways, running frequent
+  solicitations and webinars on continuous funding cycles.
+sources:
+  - https://afwerx.com

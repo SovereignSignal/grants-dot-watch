@@ -1,0 +1,24 @@
+id: stellar-development-foundation
+name: Stellar Development Foundation
+aka: []
+systems:
+  - stellar
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://stellar.org/
+socials:
+  x: https://x.com/StellarOrg
+  github: https://github.com/stellar
+status: active
+profile: >
+  Foundation funding projects that build on the Stellar network and the Soroban
+  smart contracts platform. Its grants-and-funding page lists several distinct
+  programs: the Stellar Community Fund (Build Award up to $150,000 in XLM, plus
+  a Grow Award for post-launch support), a Bug Bounty Program (up to $250,000
+  XLM), a Matching Fund (up to $500,000 USD for pre-seed to Series B
+  companies), Academic Research Grants (up to $150,000 USD), and Marketing
+  Grants, alongside non-application programs such as the Enterprise Fund.
+sources:
+  - https://stellar.org/
+  - https://stellar.org/grants-and-funding

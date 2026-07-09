@@ -1,0 +1,24 @@
+id: kelpdao
+name: KelpDAO
+aka:
+  - Kelp
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://kelpdao.xyz/
+socials:
+  x: https://x.com/KelpDAO
+status: active
+profile: >
+  Kelp is a liquid restaking protocol that lets users restake Ethereum and
+  stay liquid, accepting deposits of ETH and major liquid staking tokens with
+  rewards across multiple networks. Its site now redirects to kerneldao.com,
+  where Kelp is presented as part of KernelDAO. The product homepage does not
+  mention a grants or ecosystem funding program.
+sources:
+  - https://kelpdao.xyz/
+  - https://kerneldao.com/kelp/

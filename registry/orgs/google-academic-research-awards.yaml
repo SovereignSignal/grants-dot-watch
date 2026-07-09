@@ -1,0 +1,21 @@
+id: google-academic-research-awards
+name: Google Academic Research Awards
+aka:
+  - Google Research Scholar Program
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: company
+website: https://research.google/programs-and-events/
+socials: {}
+status: active
+profile: >
+  Registry entry for Google's academic research funding, listed on the Google
+  Research programs and events page. Programs listed there include the CS
+  Research Mentorship Program (CSRMP), the Award for Inclusion Research
+  Program (AIR), and the CAHSI-Google Institutional Research Program, plus
+  unrestricted grants supporting Trust & Safety research.
+sources:
+  - https://research.google/programs-and-events/

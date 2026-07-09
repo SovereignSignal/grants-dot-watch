@@ -1,0 +1,39 @@
+id: optimism-retro-funding-retropgf
+name: Optimism Retro Funding (RetroPGF)
+aka:
+  - Optimism Retro Funding
+  - RetroPGF
+  - optimism retro funding retropgf
+systems: [optimism, web3-public-goods]
+wires: [crypto]
+roles: [funder]
+website: https://atlas.optimism.io/
+status: active
+profile: >
+  Optimism's retroactive public goods funding program rewards contributors
+  with OP tokens for work that has already delivered measurable impact to the
+  Optimism Collective and Superchain ecosystem. Since 2025 it has operated as
+  ongoing Retro Funding Missions (such as Dev Tooling and Onchain Builders)
+  with rolling application windows and metrics-driven evaluation rather than
+  annual proposal rounds; Dev Tooling distributed up to 8M OP in H1 2025.
+funding:
+  focus:
+    - public goods
+    - developer tooling
+    - onchain applications
+    - Ethereum / OP Stack core development
+    - blockchain infrastructure
+    - Superchain ecosystem growth
+  typical_size: >
+    Rewards paid in OP tokens; Dev Tooling distributed up to 8M OP in H1 2025
+    (no fixed per-project amount stated)
+  cadence: >
+    Ongoing as of 2025 -- rolling application windows with regular reward
+    distributions (quarterly/monthly/weekly), organized into Missions such as
+    Dev Tooling, Onchain Builders, and OP Stack.
+  apply_url: https://atlas.optimism.io/missions
+sources:
+  - https://atlas.optimism.io/
+  - https://atlas.optimism.io/missions
+  - https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/onchain__results.json
+  - https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/devtooling__results.json

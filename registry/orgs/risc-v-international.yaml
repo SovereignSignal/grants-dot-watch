@@ -1,0 +1,19 @@
+id: risc-v-international
+name: RISC-V International
+aka: []
+systems: []
+wires: [oss, ai]
+roles: [funder]
+org_type: nonprofit
+website: https://riscv.org/
+status: active
+profile: >
+  RISC-V International is the organization that develops and maintains the
+  open, royalty-free RISC-V instruction set architecture, with members
+  collaborating in technical working groups to create specifications. It runs
+  summits, training, and certification programs across industries including
+  automotive, AI, and HPC; its website does not describe a grants program it
+  administers.
+sources:
+  - https://riscv.org/
+  - https://riscv.org/blog/

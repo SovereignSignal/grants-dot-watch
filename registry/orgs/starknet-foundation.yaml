@@ -1,0 +1,33 @@
+id: starknet-foundation
+name: Starknet Foundation
+aka: []
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
+org_type: foundation
+website: https://www.starknet.io/grants/
+socials:
+  x: https://x.com/StarknetFndn
+  github: https://github.com/starknet-io
+  forum: https://community.starknet.io/
+status: active
+profile: >
+  Starknet Foundation runs the grant programs for the Starknet ecosystem. Seed Grants offer
+  up to $25k in STRK for early teams with an MVP, and Growth Grants up to $1M for projects
+  with traction, alongside gas sponsorships, accelerator support, and follow-on investor
+  introductions. Funding is non-dilutive and focused on open-source tooling, applications,
+  and infrastructure that grow the ecosystem.
+funding:
+  focus:
+    - open-source tooling
+    - applications
+    - infrastructure
+  typical_size: "up to $25k STRK (Seed) / up to $1M (Growth)"
+  apply_url: https://www.starknet.io/grants/
+sources:
+  - https://www.starknet.io/grants/
+  - https://www.starknet.io/grants/seed-grants/
+  - https://www.starknet.io/grants/growth-grants/

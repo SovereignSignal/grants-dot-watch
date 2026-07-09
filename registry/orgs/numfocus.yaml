@@ -1,0 +1,17 @@
+id: numfocus
+name: NumFOCUS
+aka: []
+systems: [oss-sustainability]
+wires: [oss, ai]
+roles: [funder]
+org_type: nonprofit
+website: https://numfocus.org/
+status: active
+profile: >
+  NumFOCUS is a nonprofit that supports open-source scientific computing
+  projects through fiscal sponsorship. It also runs funding and community
+  initiatives including Small Development Grants, the PyData program, and
+  Google Summer of Code partnerships. Projects apply for sponsorship via its
+  projects overview page.
+sources:
+  - https://numfocus.org/

@@ -1,0 +1,22 @@
+id: far-ai
+name: FAR AI
+aka:
+  - FAR.AI
+systems: [ai-safety]
+wires: [ai]
+roles: [funder, grantee]
+org_type: nonprofit
+website: https://far.ai/
+socials: {}
+status: active
+profile: >
+  FAR.AI is a research and education non-profit working to ensure advanced
+  AI is safe and beneficial, with technical research spanning deception
+  detection, robustness, interpretability, and red-teaming. Beyond its own
+  research it runs targeted grants for academics and independent
+  researchers, operates FAR.Labs (a collaborative co-working space in
+  Berkeley for AI safety researchers), and hosts events including alignment
+  workshops and ControlConf. The site was active with events scheduled into
+  2026.
+sources:
+  - https://far.ai/

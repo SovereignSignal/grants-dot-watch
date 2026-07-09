@@ -1,0 +1,21 @@
+id: pacifica
+name: Pacifica
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: company
+website: https://pacifica.fi/
+socials:
+  x: https://x.com/pacifica_fi
+status: active
+profile: >
+  Pacifica is a hybrid perpetuals exchange on Solana combining CEX-grade execution
+  with on-chain transparency, founded in 2025 by former FTX, Binance, Jane Street,
+  and OpenAI staff; it is self-funded and tokenless. It has grown rapidly to a top
+  Solana perps DEX by volume, focusing on AI-powered trading tools, speed, and UX.
+  There is no evidence it operates external grant, ecosystem fund, or builder
+  programs; its primary activity is product development and trading
+  infrastructure.
+sources:
+  - https://pacifica.fi/

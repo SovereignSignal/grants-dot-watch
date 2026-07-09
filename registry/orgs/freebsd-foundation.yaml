@@ -1,0 +1,22 @@
+id: freebsd-foundation
+name: FreeBSD Foundation
+aka: []
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://freebsdfoundation.org/
+socials: {}
+status: active
+profile: >
+  The FreeBSD Foundation supports the FreeBSD operating system project. It
+  funds development work directly (for example laptop sleep handling and
+  userland development projects) and administers grants, inviting proposals
+  through an open "Apply for a Grant" process and offering travel grants such
+  as the EuroBSDCon 2026 travel grant.
+sources:
+  - https://freebsdfoundation.org/
+  - https://freebsdfoundation.org/blog/

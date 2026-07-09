@@ -1,0 +1,21 @@
+id: tron-dao
+name: TRON DAO
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://trondao.org/
+socials:
+  x: https://x.com/trondao
+  forum: https://forum.trondao.org/
+status: active
+profile: >
+  TRON DAO stewards the TRON public blockchain, which operates as an inclusive DAO governed by
+  its community of users based on the network's open-source protocol. Its ecosystem initiatives
+  include the TRON Builders League, an incubator helping builders on TRON scale through funding,
+  mentorship, and ecosystem support, alongside TRON Academy for universities and community
+  events. The organization is active, with a steady stream of press releases and events through
+  mid-2026.
+sources:
+  - https://trondao.org/

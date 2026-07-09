@@ -1,0 +1,43 @@
+id: arbitrum-foundation
+name: Arbitrum Foundation
+aka:
+  - Arbitrum
+  - Arbitrum Foundation grants - Questbook
+  - arbitrum questbook
+systems: [arbitrum]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://arbitrum.foundation/
+socials:
+  x: https://x.com/arbitrum
+  github: https://github.com/ArbitrumFoundation
+  forum: https://forum.arbitrum.foundation/
+status: active
+profile: >
+  The Arbitrum Foundation stewards the Arbitrum DAO and L2 ecosystem on
+  Ethereum, operating a milestone-based grant program (typical awards
+  $20k-$150k in ARB) alongside specialized initiatives like Trailblazer,
+  Audit Subsidy, Arbifuel, and DRIP to drive adoption, infrastructure, and
+  community growth. Community-elected domain allocators also distribute
+  milestone-based grants via Questbook across domains such as developer
+  tooling, education, gaming, and new protocols. Programs are active and
+  expanding, including a $16M funding proposal in May 2026.
+funding:
+  focus:
+    - developer tooling & infrastructure
+    - education
+    - gaming
+    - new protocols & ideas
+    - community growth
+    - ecosystem adoption on Arbitrum
+  cadence: >
+    Quarterly; domain allocators are elected by the community, and at the end
+    of each quarter the community can vote to replace or continue allocators
+    and adjust budgets. Funding is milestone-based and approved on a rolling
+    basis within a domain.
+  apply_url: https://arbitrum.questbook.app/
+sources:
+  - https://arbitrum.foundation/
+  - https://arbitrum.questbook.app/
+  - https://www.arbitrumhub.io/ecosystem-hub/grant-projects/quest-book/

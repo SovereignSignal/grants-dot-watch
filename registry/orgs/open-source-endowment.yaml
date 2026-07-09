@@ -1,0 +1,29 @@
+id: open-source-endowment
+name: Open Source Endowment
+aka: []
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://endowment.dev/
+socials:
+  github: https://github.com/osendowment
+status: active
+profile: >
+  The Open Source Endowment is a US 501(c)(3) community-driven nonprofit, launched in
+  February 2026, that funds critical open-source software through an endowment model —
+  donations build a permanent principal, invested conservatively, with only the returns
+  (around 5%) disbursed as grants to maintainers based on data-driven nominations. It has
+  raised roughly $785K from 117 donors, including founders of HashiCorp and Elastic, and is
+  governed by its members (donors of $1K or more hold decision rights) with open,
+  transparent processes. Grant selection is still being designed as the donor base and
+  membership grow.
+funding:
+  focus:
+    - open-source maintainers
+sources:
+  - https://endowment.dev/
+  - https://github.com/osendowment

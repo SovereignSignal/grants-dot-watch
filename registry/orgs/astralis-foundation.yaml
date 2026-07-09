@@ -1,0 +1,18 @@
+id: astralis-foundation
+name: Astralis Foundation
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://astralisfoundation.org
+status: active
+profile: >
+  The Astralis Foundation is a philanthropic organization focused on ensuring
+  AI develops safely and benefits humanity. It supports initiatives in three
+  areas: building bridges between the West and Asia, advancing European AI
+  safety, and communicating about AI risks and opportunities. It does not
+  accept unsolicited grant applications, instead working with aligned funders
+  and providing strategic support to philanthropists.
+sources:
+  - https://astralisfoundation.org

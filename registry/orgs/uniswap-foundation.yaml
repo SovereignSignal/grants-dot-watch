@@ -1,0 +1,35 @@
+id: uniswap-foundation
+name: Uniswap Foundation
+aka:
+  - uniswap
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://uniswapfoundation.org/
+socials:
+  x: https://x.com/UniswapFND
+  github: https://github.com/Uniswap
+  forum: https://gov.uniswap.org/
+status: active
+profile: >
+  Nonprofit steward supporting the Uniswap protocol, Unichain, v4 hooks,
+  research, and governance. It runs protocol grants, ecosystem grants, a hook
+  incubator, audit subsidies, and research programs; it committed $26M in new
+  grants and disbursed $11M in FY2025, with $106M earmarked overall.
+  Additional funding has been approved via governance; the foundation plans
+  to close operations after deploying its remaining (~$100M) grants budget.
+funding:
+  focus:
+    - DeFi protocols
+    - developer tooling
+    - research
+    - security/audits
+    - governance
+    - community
+    - Unichain
+  apply_url: https://share.hsforms.com/1fxQjPQTgTYmPwlYxxKlSGQsdca9
+sources:
+  - https://uniswapfoundation.org/
+  - https://share.hsforms.com/1fxQjPQTgTYmPwlYxxKlSGQsdca9
+  - https://www.uniswapfoundation.org/grants

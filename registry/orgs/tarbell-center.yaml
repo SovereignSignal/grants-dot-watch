@@ -1,0 +1,21 @@
+id: tarbell-center
+name: Tarbell Center
+aka: ["Tarbell Center for AI Journalism"]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.tarbellcenter.org/
+socials:
+  x: https://x.com/tarbellcenter
+status: active
+profile: >
+  The Tarbell Center for AI Journalism is a nonprofit supporting high-quality
+  investigative reporting on AI. It makes grants of $1k-$20k for original stories
+  published in established outlets, runs a flagship one-year Fellowship combining
+  training with nine-month newsroom placements, and offers residencies for senior
+  journalists. Programs run with judging panels and partner newsrooms such as
+  Bloomberg and the Guardian; 2025 fellows have been announced and 2026
+  applications are open.
+sources:
+  - https://www.tarbellcenter.org/

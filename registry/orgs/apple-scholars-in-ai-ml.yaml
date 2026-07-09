@@ -1,0 +1,21 @@
+id: apple-scholars-in-ai-ml
+name: Apple Scholars in AI/ML
+aka:
+  - Apple Scholars in AIML
+  - Apple Scholars
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://machinelearning.apple.com/
+status: active
+profile: >
+  Apple Scholars in AI/ML is Apple's PhD fellowship program, providing
+  funding, mentorship with Apple researchers, and internship opportunities to
+  emerging researchers in artificial intelligence and machine learning.
+  Candidates are nominated by their universities and selected on research,
+  leadership, and field impact. As of its 2025 cohort (the program's sixth
+  year) it had supported over 100 graduate-level researchers.
+sources:
+  - https://machinelearning.apple.com/
+  - https://machinelearning.apple.com/updates/apple-scholars-aiml-2025

@@ -1,0 +1,20 @@
+id: eleutherai
+name: EleutherAI
+aka: []
+systems: [open-source-ai]
+wires: [ai, oss]
+roles: [funder]
+org_type: foundation
+website: https://www.eleuther.ai/
+socials: {}
+status: active
+profile: >
+  EleutherAI is an open source AI research organization that has trained
+  and released many powerful open source large language models, with
+  research spanning language model development, interpretability, AI
+  alignment, and other modalities. It facilitates open research
+  collaboration through public code repositories, a community Discord, and
+  initiatives like its Summer of Open Science program. The site was active
+  with publications dated through February 2026.
+sources:
+  - https://www.eleuther.ai/

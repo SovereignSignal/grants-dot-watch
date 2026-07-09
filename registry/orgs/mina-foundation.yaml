@@ -1,0 +1,22 @@
+id: mina-foundation
+name: Mina Foundation
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.minafoundation.com/
+socials:
+  x: https://x.com/MinaFoundation
+  github: https://github.com/MinaProtocol
+status: active
+profile: >
+  The Mina Foundation is a Switzerland-based nonprofit supporting the Mina
+  Protocol community and accessible, secure, decentralized blockchain
+  infrastructure. It reports 43M+ MINA in total token grants awarded to
+  ecosystem contributors and runs a delegation program, and it publishes
+  quarterly transparency reports (most recently Q1 2026) while shifting focus
+  toward building a decentralized treasury.
+sources:
+  - https://www.minafoundation.com/
+  - https://minafoundation.com/blog

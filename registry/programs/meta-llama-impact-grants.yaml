@@ -1,0 +1,18 @@
+id: meta-llama-impact-grants
+name: Llama Impact Grants
+org: meta-llama-impact-grants
+parent: null
+systems: [open-source-ai]
+wires: [ai, oss]
+status: unknown
+mechanism: grants
+apply_url: https://ai.meta.com/llama/llama-impact-grants/
+summary: >
+  Meta grant program tied to its Llama open AI models. The application page is
+  tracked at ai.meta.com/llama/llama-impact-grants/ and now redirects to
+  developer.meta.com; the fetched pages rendered only minimal content, so
+  current round details could not be confirmed from the site.
+rounds: []
+sources:
+  - https://ai.meta.com/llama/llama-impact-grants/
+  - https://developer.meta.com/ai/llama-impact-grants/

@@ -1,0 +1,21 @@
+id: bluedot-impact
+name: BlueDot Impact
+aka: []
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://bluedot.org/
+socials:
+  x: https://x.com/BlueDotImpact
+  github: https://github.com/bluedotimpact
+status: active
+profile: >
+  BlueDot Impact is a London/SF-based nonprofit talent accelerator focused on AI safety,
+  biosecurity, and positive AI impact. Alongside its courses it runs a Rapid Grants program
+  ($823k deployed across 407 projects for community work and events) and Career Transition
+  Grants ($2.3M across 38 awards supporting full-time moves into the field). Both programs are
+  active, with significant capital already allocated through community-driven funding
+  mechanisms.
+sources:
+  - https://bluedot.org/

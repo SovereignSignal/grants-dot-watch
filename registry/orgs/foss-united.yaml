@@ -1,0 +1,21 @@
+id: foss-united
+name: FOSS United
+aka: []
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://fossunited.org/
+socials:
+  x: https://x.com/FOSSUnited
+  github: https://github.com/fossunited
+status: active
+profile: >
+  FOSS United is an Indian non-profit foundation promoting free and open source software through
+  community events such as IndiaFOSS, incubation, and a grants program. It operates Project,
+  Event, and Fellowship grants — more than INR 3 crore disbursed in total — funded by industry
+  sponsorships, donations, and co-sponsoring, with applications reviewed by an internal team.
+  The program is active and expanding, with dozens of awards across categories in 2026.
+sources:
+  - https://fossunited.org/
+  - https://www.fossunited.org/grants

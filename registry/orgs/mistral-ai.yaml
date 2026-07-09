@@ -1,0 +1,19 @@
+id: mistral-ai
+name: Mistral AI
+aka: [Mistral]
+systems: [open-source-ai]
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://mistral.ai/
+socials: {}
+status: active
+profile: >
+  Mistral AI is a company building frontier large language models and an
+  integrated AI product suite, including Vibe (an autonomous AI agent), Studio
+  (for building and deploying AI applications), Forge (custom model training),
+  and Compute (training and inference infrastructure). Its homepage does not
+  describe a grants or funding program.
+sources:
+  - https://mistral.ai/
+  - https://mistral.ai/news

@@ -1,0 +1,21 @@
+id: tor-project
+name: Tor Project
+aka: []
+systems:
+  - internet-freedom
+wires: [crypto]
+roles: [funder, grantee]
+org_type: nonprofit
+website: https://www.torproject.org/
+socials:
+  x: https://x.com/torproject
+status: unknown
+profile: >
+  Nonprofit tracked as both a funder and a grantee in the internet-freedom
+  funding domain. Its funding application surface is
+  internetfreedom.torproject.org. The site could not be reached from the
+  drafting environment (network-level block), so current activity is
+  unconfirmed here.
+sources:
+  - https://www.torproject.org/
+  - https://internetfreedom.torproject.org/

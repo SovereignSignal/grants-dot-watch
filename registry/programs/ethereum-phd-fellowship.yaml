@@ -1,0 +1,21 @@
+id: ethereum-phd-fellowship
+name: Ethereum Foundation ESP PhD Fellowship
+org: ethereum-foundation
+parent: ethereum-esp
+systems: [ethereum]
+wires: [crypto]
+status: active
+mechanism: fellowship
+apply_url: https://esp.ethereum.foundation/rounds/phdfp26
+summary: >
+  ESP fellowship round funding PhD-level research in areas relevant to
+  Ethereum, including blockchain, AI, and economics; the 2026 round offered
+  $24,000 grants to current PhD students conducting research in these areas.
+rounds:
+  - name: 2026 PhD Fellowship
+    status: closed
+    closes: "2026-04-01"
+    source: https://esp.ethereum.foundation/rounds/phdfp26
+sources:
+  - https://esp.ethereum.foundation/rounds/phdfp26
+  - https://opportunitiesforyouth.org/2026/03/27/ethereum-foundation-phd-fellowship-2026-24000-grant-for-cutting-edge-research-in-blockchain-ai-economics-more/

@@ -1,0 +1,19 @@
+id: amazon-web-services-cloud-credit-for-research
+name: AWS Cloud Credit for Research
+org: amazon-web-services-aws
+parent: null
+systems: []
+wires: [ai, oss]
+status: active
+mechanism: grants
+apply_url: https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/
+summary: >
+  Awards AWS Promotional Credit to researchers building cloud-hosted tools,
+  running proof-of-concept tests, or training communities on cloud research
+  workloads. Open to full-time faculty and enrolled graduate or PhD students
+  at accredited research institutions; applications are reviewed on a rolling
+  90-120 day cycle, with student awards capped at $5,000 and faculty/staff
+  awards uncapped.
+rounds: []
+sources:
+  - https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/

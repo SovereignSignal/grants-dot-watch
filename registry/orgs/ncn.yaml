@@ -1,0 +1,17 @@
+id: ncn
+name: NCN
+aka: ["NeurochainAI", "NCN Chain"]
+systems: []
+wires: [ai]
+roles: [funder]
+website: https://neurochain.ai/
+socials:
+  x: https://x.com/NeurochainAI
+status: active
+profile: >
+  NCN (NeurochainAI) is an AI-focused L3 blockchain and decentralized inference
+  network with GPU sharing, staking, and on-chain AI services. It runs incentive
+  programs including training rewards, validator nodes, and earning NCN tokens by
+  contributing compute, oriented toward decentralized AI applications.
+sources:
+  - https://neurochain.ai/

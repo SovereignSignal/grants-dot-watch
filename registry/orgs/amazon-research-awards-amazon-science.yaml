@@ -1,0 +1,19 @@
+id: amazon-research-awards-amazon-science
+name: Amazon Research Awards (amazon.science)
+aka:
+  - Amazon Research Awards
+  - ARA
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://www.amazon.science/research-awards
+status: active
+profile: >
+  Amazon Research Awards (ARA) is Amazon's academic funding program, offering
+  unrestricted funds and AWS Promotional Credits to support research at
+  academic institutions and non-profit organizations. Funded domains include
+  machine learning, robotics, sustainability, and security. Applications run
+  through calls for proposals published on the program page.
+sources:
+  - https://www.amazon.science/research-awards

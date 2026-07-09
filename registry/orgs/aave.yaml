@@ -1,0 +1,30 @@
+id: aave
+name: Aave
+aka:
+  - Aave Grants DAO
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://aavegrants.org/
+socials:
+  x: https://x.com/aave
+  github: https://github.com/aave
+  forum: https://governance.aave.com/
+status: active
+profile: >
+  Aave is a DeFi lending protocol governed by Aave DAO. Ecosystem grants flow
+  through Aave Grants, a community sub-DAO funded through the Aave DAO governance
+  process, which accepts rolling applications with no deadlines and announces new
+  grantees monthly across categories including applications and integrations,
+  code audits, developer tooling, community, events and hackathons, and protocol
+  development; it has awarded more than $4M historically. In April 2026 the DAO
+  additionally approved a $25M funding grant to Aave Labs in a binding governance
+  vote.
+sources:
+  - https://aavegrants.org/
+  - https://governance.aave.com/
+  - https://www.theblock.co/post/397138/aave-dao-approves-25-million-aave-labs-funding-grant-in-binding-aave-will-win-vote

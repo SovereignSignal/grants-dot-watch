@@ -1,0 +1,19 @@
+id: icann
+name: ICANN
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.icann.org/
+socials: {}
+status: unknown
+profile: >
+  ICANN is a non-profit organization tracked as a funder on the open-source
+  wire of this registry. Its website (icann.org) refused automated fetching,
+  so its current activity and funding programs have not yet been confirmed or
+  profiled here.
+sources:
+  - https://www.icann.org/

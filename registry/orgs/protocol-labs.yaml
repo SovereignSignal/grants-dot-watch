@@ -1,0 +1,24 @@
+id: protocol-labs
+name: Protocol Labs
+aka: []
+systems: [filecoin]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.protocol.ai/
+socials:
+  x: https://x.com/protocollabs
+  github: https://github.com/protocol
+status: active
+profile: >
+  Protocol Labs is an R&D lab and innovation network advancing decentralized
+  technologies such as IPFS and Filecoin while connecting startups, funds, and
+  open source projects. Its historically broad Research Grants program (RFPs, open
+  grants, and implementation awards up to $300k) has been indefinitely paused to
+  new applications, while targeted ecosystem efforts continue, including Filecoin
+  onboarding innovation grants via partnerships and the PL Genesis global builder
+  series, whose hackathons have distributed $400k+ in prizes and feed a Founders
+  Forge accelerator.
+sources:
+  - https://www.protocol.ai/
+  - https://www.plgenesis.com/

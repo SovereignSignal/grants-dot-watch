@@ -1,0 +1,18 @@
+id: overture-maps-foundation
+name: Overture Maps Foundation
+aka: []
+systems: []
+wires: [oss, ai]
+roles: [funder]
+org_type: nonprofit
+website: https://overturemaps.org/
+status: active
+profile: >
+  Overture Maps Foundation brings together tech companies, mapping
+  organizations, government agencies, open data communities, and researchers
+  to build open, reliable, and interoperable map data infrastructure. Its
+  website invites organizations to join as members and does not describe an
+  open grants program.
+sources:
+  - https://overturemaps.org/
+  - https://overturemaps.org/blog/

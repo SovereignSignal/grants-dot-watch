@@ -1,0 +1,21 @@
+id: algorand-xgov
+name: Algorand xGov
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://governance.algorand.foundation/
+socials:
+  x: https://x.com/AlgoFoundation
+  github: https://github.com/algorandfoundation/xGov
+status: active
+profile: >
+  Algorand xGov is a community-driven governance layer where elected xGov Council members (node
+  runners) review, vote on, and allocate on-chain funding for ecosystem grants, open-source
+  tools, SDKs, and retroactive proposals. It evolved from a 2023-2024 pilot and relaunched in
+  2025 with updated qualification requirements tied to consensus participation; it runs in
+  parallel with staking, focuses on adoption-driving projects, and is actively accepting
+  proposals with community forum oversight.
+sources:
+  - https://governance.algorand.foundation/

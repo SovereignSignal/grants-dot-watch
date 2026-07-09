@@ -1,0 +1,22 @@
+id: software-freedom-conservancy
+name: Software Freedom Conservancy
+aka: []
+systems:
+  - oss-sustainability
+wires: [oss]
+roles: [funder, grantee]
+org_type: foundation
+website: https://sfconservancy.org
+socials: {}
+status: active
+profile: >
+  501(c)(3) nonprofit that provides fiscal sponsorship and infrastructure to
+  free and open-source software projects, and does copyleft compliance work and
+  litigation to defend software freedom. FOSS projects licensed under
+  OSI-approved licenses can apply for membership by emailing a brief inquiry;
+  member projects receive copyright management, donation facilitation, and
+  administrative support (Conservancy retains 10% of processed revenue). It
+  also runs the Outreachy internship program and the FOSSY conference.
+sources:
+  - https://sfconservancy.org
+  - https://sfconservancy.org/projects/apply/

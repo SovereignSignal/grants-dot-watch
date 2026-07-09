@@ -1,0 +1,24 @@
+id: zhipu-ai-glm
+name: Zhipu AI / GLM
+aka:
+  - Zhipu AI
+  - GLM
+  - Z.ai
+systems:
+  - open-source-ai
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://z.ai/
+socials: {}
+status: active
+profile: >
+  AI company offering access to large language and multimodal models through
+  APIs and SDKs on its Z.ai platform, with models including GLM-5.2 (a coding
+  model supporting up to 1M context), GLM-5V-Turbo for multimodal tasks,
+  GLM-Image, and CogVideoX-3 for video generation, plus a GLM Coding Plan
+  subscription. Its developer platform also runs at open.bigmodel.cn. Its
+  documentation site does not mention grants or developer funding programs.
+sources:
+  - https://z.ai/
+  - https://docs.z.ai/

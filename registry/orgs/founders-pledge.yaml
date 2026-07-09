@@ -1,0 +1,22 @@
+id: founders-pledge
+name: Founders Pledge
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.founderspledge.com/
+socials: {}
+status: active
+profile: >
+  Founders Pledge is a nonprofit that connects entrepreneurs with
+  high-impact charitable giving: members pledge a percentage of their
+  current or future wealth to charity, and the organization's research team
+  evaluates global problems and charity effectiveness to guide donations.
+  It operates managed funds in specific cause areas, including a climate
+  fund and a global catastrophic risks fund, plus donor-advised fund and
+  advisory services. As of June 2026 it reported 2,314 members from 45+
+  countries with $13.6 billion pledged and $1.9 billion moved to the
+  charitable sector.
+sources:
+  - https://www.founderspledge.com/

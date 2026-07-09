@@ -1,0 +1,20 @@
+id: national-institutes-of-health
+name: National Institutes of Health
+aka: [NIH]
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.nih.gov/
+socials: {}
+status: active
+profile: >
+  The National Institutes of Health is a US government agency and the largest
+  public funder of biomedical research in the world. It supports research
+  through grants, contracts, and loan repayment programs; its Grants & Funding
+  site (grants.nih.gov) guides applicants through the full funding process,
+  from finding opportunities and writing applications to peer review, award,
+  and post-award reporting.
+sources:
+  - https://www.nih.gov/
+  - https://grants.nih.gov/

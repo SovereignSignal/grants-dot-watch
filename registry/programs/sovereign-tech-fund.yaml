@@ -1,0 +1,22 @@
+id: sovereign-tech-fund
+name: Sovereign Tech Fund
+org: sovereign-tech-agency
+parent: null
+systems: [sovereign-tech]
+wires: [oss]
+status: active
+mechanism: grants
+apply_url: https://www.sovereign.tech/programs/fund
+summary: >
+  The Sovereign Tech Agency's core investment program for open digital base
+  technologies that are widely used and benefit society or critical sectors:
+  libraries, package managers, communication protocols, developer tooling,
+  and encryption. Applicants must demonstrate the knowledge and technical
+  skills to do the proposed work; prototype development and user-facing
+  applications are not funded. Applications go through a multistep review of
+  up to ~10 weeks, with published investments ranging from ~EUR 99,060
+  (coreutils) to ~EUR 1,436,729 (Prossimo/Rustls).
+rounds: []
+sources:
+  - https://www.sovereign.tech/programs/fund
+  - https://www.sovereign.tech/

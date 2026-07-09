@@ -1,0 +1,19 @@
+id: starknet-growth-grants
+name: Starknet Growth Grants
+org: starknet-foundation
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.starknet.io/grants/growth-grants/
+summary: >
+  Later-stage grants from the Starknet Foundation of up to $1M for traction-stage projects
+  on Starknet, alongside gas sponsorships, accelerator support, and follow-on investor
+  introductions.
+rounds: []
+sources:
+  - https://www.starknet.io/grants/growth-grants/
+  - https://www.starknet.io/grants/

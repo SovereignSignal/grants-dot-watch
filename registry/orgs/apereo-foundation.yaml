@@ -1,0 +1,19 @@
+id: apereo-foundation
+name: Apereo Foundation
+aka: []
+systems:
+  - oss-sustainability
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.apereo.org
+status: active
+profile: >
+  The Apereo Foundation is a membership nonprofit that develops and sustains
+  open-source software used by educational institutions worldwide, including
+  Sakai LMS, uPortal, and CAS. It is funded through membership tiers and
+  donations and coordinates community resources across its projects; its site
+  does not describe a formal grant program beyond these structures.
+sources:
+  - https://www.apereo.org
+  - https://www.apereo.org/programs/community-resources

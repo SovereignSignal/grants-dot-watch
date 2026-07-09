@@ -1,0 +1,17 @@
+id: pharos-phase1-hackathon
+name: Pharos Hackathon (Phase 1)
+org: pharos-network
+parent: null
+systems: []
+wires: [crypto]
+status: unknown
+mechanism: prize
+apply_url: https://dorahacks.io/hackathon/pharos-phase1
+summary: >
+  A hackathon for developers building on Pharos Network, hosted on the
+  DoraHacks platform (listing slug pharos-phase1). It is the application route
+  listed for Pharos builder funding; the listing page could not be fetched for
+  further detail, so dates and prize pool are not recorded here.
+rounds: []
+sources:
+  - https://dorahacks.io/hackathon/pharos-phase1

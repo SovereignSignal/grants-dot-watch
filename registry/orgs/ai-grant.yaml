@@ -1,0 +1,29 @@
+id: ai-grant
+name: AI Grant
+aka: []
+systems:
+  - open-source-ai
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://aigrant.com/
+socials:
+  x: https://x.com/aigrant
+status: active
+profile: >
+  AI Grant is an accelerator-style fund for seed-stage AI startups, run by Hersh Desai and
+  Lenny Bogdonoff and backed by Nat Friedman and Daniel Gross with a $10M commitment. It
+  invests $250,000 on an uncapped SAFE plus large compute and tooling credit packages
+  (including $350,000 in Azure credits), and has funded 92 companies across four batches.
+  It also maintains a separate grant track for open-source AI projects.
+funding:
+  focus:
+    - seed-stage AI startups
+    - open-source AI projects
+  typical_size: "$250k uncapped SAFE plus credits"
+  cadence: batches
+  apply_url: https://aigrant.com/
+sources:
+  - https://aigrant.com/

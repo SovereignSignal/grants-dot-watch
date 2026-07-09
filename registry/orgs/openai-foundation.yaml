@@ -1,0 +1,19 @@
+id: openai-foundation
+name: OpenAI Foundation
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://openaifoundation.org/
+status: active
+profile: >
+  The OpenAI Foundation is OpenAI's philanthropic arm, with a stated initial
+  commitment of $25 billion across life sciences and AI resilience programs.
+  It runs the People-First AI Fund, a $50 million fund for 2026 making
+  unrestricted one-time grants to US 501(c)(3) nonprofits in community support
+  services, community arts and culture, and community journalism; grants do
+  not require use of OpenAI products.
+sources:
+  - https://openaifoundation.org/
+  - https://openaifoundation.org/news/2026-people-first-ai-fund

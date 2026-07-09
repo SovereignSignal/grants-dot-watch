@@ -1,0 +1,22 @@
+id: amazon-web-services-aws
+name: Amazon Web Services (AWS)
+aka:
+  - Amazon Web Services
+  - AWS
+systems: []
+wires: [ai, oss]
+roles: [funder]
+org_type: company
+website: https://aws.amazon.com/research-credits
+status: active
+profile: >
+  Amazon Web Services funds research with cloud credits rather than cash. Its
+  Cloud Credit for Research program awards AWS Promotional Credit to full-time
+  faculty and enrolled graduate or PhD students at accredited research
+  institutions for building cloud-hosted tools, proof-of-concept tests, and
+  training communities on cloud research workloads. Applications are reviewed
+  on a rolling 90-120 day cycle; student awards are capped at $5,000 while
+  faculty and staff awards are uncapped.
+sources:
+  - https://aws.amazon.com/research-credits
+  - https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/

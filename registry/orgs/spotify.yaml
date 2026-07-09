@@ -1,0 +1,27 @@
+id: spotify
+name: Spotify
+aka: []
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://open.spotify.com/
+socials:
+  x: https://x.com/Spotify
+  github: https://github.com/spotify
+status: active
+profile: >
+  Spotify, the music streaming company, maintains an open source program office that
+  releases internal tools and supports the wider open-source ecosystem. Its Spotify FOSS
+  Fund, launched in 2022, directly funds maintainers of critical independent open-source
+  projects that Spotify's engineers rely on, with recipients selected through internal
+  nomination processes and announced in periodic funding rounds.
+funding:
+  focus:
+    - maintainers of critical independent open-source projects
+sources:
+  - https://open.spotify.com/
+  - https://github.com/spotify

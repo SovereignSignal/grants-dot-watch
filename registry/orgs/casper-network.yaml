@@ -1,0 +1,19 @@
+id: casper-network
+name: Casper Network
+aka: []
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.casper.network
+status: active
+profile: >
+  Casper Network is a layer-1 blockchain focused on real-world assets and
+  applications such as real estate and financial assets, featuring instant
+  finality, native access controls, and upgradable smart contracts. Its grant
+  program is currently suspended; ecosystem funding continues through events
+  such as the Casper Agentic Buildathon 2026, which offers $150,000 in
+  rewards.
+sources:
+  - https://www.casper.network
+  - https://www.casper.network/ai

@@ -1,0 +1,21 @@
+id: lido
+name: Lido
+aka: [Lido Finance]
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: dao
+website: https://lido.fi/
+socials:
+  x: https://x.com/LidoFinance
+  forum: https://research.lido.fi/
+status: active
+profile: >
+  Lido is a liquid staking protocol for Ethereum: users stake ETH and receive
+  stETH while keeping liquidity, with 100+ integrations across DeFi. The
+  protocol is governed by Lido DAO, whose governance framework includes LEGO
+  grants for ecosystem contributors; governance discussion happens on the
+  research.lido.fi forum.
+sources:
+  - https://lido.fi/
+  - https://research.lido.fi/

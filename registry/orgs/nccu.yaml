@@ -1,0 +1,20 @@
+id: nccu
+name: NCCU
+aka: ["North Carolina Central University"]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: education
+website: https://www.nccu.edu/
+socials:
+  x: https://x.com/NCCU
+status: active
+profile: >
+  North Carolina Central University (NCCU) is an HBCU whose Institute for
+  Artificial Intelligence and Emerging Research (IAIER) focuses on AI research,
+  education, and workforce development. Through the IAIER Seed Grant Program,
+  launched around 2025 in partnership with the School of Graduate Studies, it
+  awards up to $10k per project to faculty, postdocs, and students for early-stage
+  AI pilots across disciplines; 11 projects were funded in the 2025-2026 cohort.
+sources:
+  - https://www.nccu.edu/

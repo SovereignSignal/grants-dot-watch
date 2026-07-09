@@ -1,0 +1,37 @@
+id: survival-and-flourishing-fund-sff
+name: Survival and Flourishing Fund
+aka:
+  - Survival and Flourishing Fund (SFF)
+  - SFF
+  - survival flourishing sff
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://survivalandflourishing.fund/
+status: active
+profile: >
+  A fund organizing the collection and evaluation of donation applications for
+  organizations working to improve humanity's long-term prospects for survival
+  and flourishing, including reducing global catastrophic and existential
+  risks. Grants are produced via the recurring S-Process algorithm and meeting
+  procedure, run once or twice per year, plus faster rolling Speculation
+  Grants. Both non-profit and for-profit entities may apply, with for-profit
+  grants administered through Survival and Flourishing Corp.
+funding:
+  focus:
+    - existential risk reduction
+    - AI safety
+    - long-term survival of sentient life
+    - global catastrophic risk
+    - longtermism
+    - civilizational flourishing
+  cadence: >
+    S-Process grant rounds run once or twice per year (sometimes labeled
+    H1/H2); a rolling Speculation Grant application is open continuously,
+    including when no S-Process round is open.
+  apply_url: https://docs.google.com/forms/d/e/1FAIpQLSd447GiP5BkyvHAKrybC-4jRcmIH2kHH2n86o4ruJb1TSfmKQ/viewform
+sources:
+  - https://survivalandflourishing.fund/
+  - https://survivalandflourishing.fund/2025/recommendations
+  - https://survivalandflourishing.fund/2024/recommendations

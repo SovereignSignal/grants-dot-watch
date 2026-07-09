@@ -1,0 +1,20 @@
+id: arbitrum-questbook-dda
+name: Arbitrum DAO Domain Allocator Grants (Questbook)
+org: arbitrum-foundation
+parent: null
+systems: [arbitrum]
+wires: [crypto]
+status: active
+mechanism: grants
+apply_url: https://arbitrum.questbook.app/
+summary: >
+  An Arbitrum DAO grants program administered via Questbook in which
+  community-elected domain allocators distribute milestone-based grants to
+  projects building on Arbitrum across domains such as developer tooling,
+  education, gaming, and new protocols and ideas. Allocators are elected
+  quarterly and funding is approved on a rolling basis within each domain;
+  later rounds run as Arbitrum DDA seasons on Questbook.
+rounds: []
+sources:
+  - https://arbitrum.questbook.app/
+  - https://www.arbitrumhub.io/ecosystem-hub/grant-projects/quest-book/

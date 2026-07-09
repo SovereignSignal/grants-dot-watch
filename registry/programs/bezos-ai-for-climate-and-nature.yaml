@@ -1,0 +1,26 @@
+id: bezos-ai-for-climate-and-nature
+name: AI for Climate and Nature Grand Challenge
+org: bezos-earth-fund
+parent: null
+systems:
+  - climate
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://aiforclimateandnature.org
+summary: >
+  A $100 million Bezos Earth Fund initiative funding projects that apply AI
+  to sustainable proteins, power grid optimization, and biodiversity
+  conservation. It runs in two phases: Phase I seed grants of $50,000 to up
+  to 30 grantees (submissions closed August 13, 2024), followed by Phase II
+  implementation grants of up to $2 million to 15 grantees. Eligible
+  applicants include US-based 501(c)(3) nonprofits and academic institutions
+  globally.
+rounds:
+  - name: Phase I
+    status: deployed
+    closes: "2024-08-13"
+    size: "$50,000 seed grants to up to 30 grantees"
+    source: https://aiforclimateandnature.org
+sources:
+  - https://aiforclimateandnature.org

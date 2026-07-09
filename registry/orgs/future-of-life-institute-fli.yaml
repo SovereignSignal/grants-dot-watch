@@ -1,0 +1,37 @@
+id: future-of-life-institute-fli
+name: Future of Life Institute
+aka:
+  - Future of Life Institute (FLI)
+  - FLI
+  - future life institute fli
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://futureoflife.org/our-work/grantmaking-work/
+status: active
+profile: >
+  The Future of Life Institute funds research and projects that reduce
+  large-scale risks from powerful technologies, primarily advanced AI
+  (safety, governance, power concentration), plus biotechnology/bio-risk and
+  nuclear weapons. It does not accept unsolicited requests; funding flows
+  through targeted RFPs, contests, collaborations, and recurring PhD and
+  postdoctoral fellowships, with deadlines set per program.
+funding:
+  focus:
+    - AI safety / existential safety
+    - AI governance
+    - AI-driven power concentration
+    - biotechnology / bio-risk
+    - nuclear weapons risk
+    - militarized / autonomous weapons
+    - AI and the UN Sustainable Development Goals
+  cadence: >
+    Not a rolling open call. FLI publishes Requests for Proposals (RFPs) and
+    Contests on a regular but irregular basis, plus recurring
+    PhD/postdoctoral fellowships.
+  apply_url: https://futureoflife.org/our-work/grantmaking-work/
+sources:
+  - https://futureoflife.org/our-work/grantmaking-work/
+  - https://futureoflife.org/grant-program/2023-grants/
+  - https://futureoflife.org/grant-program/phd-fellowships/

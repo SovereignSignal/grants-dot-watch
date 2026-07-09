@@ -1,0 +1,24 @@
+id: digital-freedom-fund
+name: Digital Freedom Fund
+aka:
+  - DFF
+systems: [internet-freedom]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://digitalfreedomfund.org
+socials: {}
+status: active
+profile: >
+  The Digital Freedom Fund financially supports strategic litigation in
+  Council of Europe member states that advances human rights in digital
+  contexts, covering issues like facial recognition, algorithmic
+  discrimination, surveillance, and online censorship. It offers two grant
+  tracks: litigation track support (average around EUR 45,000) and
+  pre-litigation research (average around EUR 25,000). Since 2018 it has
+  approved nearly 150 grants totaling over EUR 5 million to roughly 90
+  organizations in 30 countries; its most recent call ran December 2025 to
+  February 2026 with the next expected in late 2026.
+sources:
+  - https://digitalfreedomfund.org
+  - https://digitalfreedomfund.org/grants/

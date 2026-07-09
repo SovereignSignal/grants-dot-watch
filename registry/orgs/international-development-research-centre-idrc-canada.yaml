@@ -1,0 +1,21 @@
+id: international-development-research-centre-idrc-canada
+name: International Development Research Centre
+aka:
+  - International Development Research Centre (IDRC) Canada
+  - IDRC
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: government
+website: https://idrc.ca/
+socials: {}
+status: unknown
+profile: >
+  The International Development Research Centre (IDRC) is a Canadian
+  government organization tracked as a research funder in this registry. Its
+  website (idrc.ca) could not be reached for automated profiling, so current
+  activity and program details have not yet been confirmed here.
+sources:
+  - https://idrc.ca/

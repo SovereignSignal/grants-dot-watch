@@ -1,0 +1,27 @@
+id: zetachain-grant-program
+name: ZetaChain Grant Program
+aka:
+  - ZetaChain Grants
+  - ZetaChain
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://www.zetachain.com/grants
+socials:
+  x: https://x.com/zetachain
+  github: https://github.com/zeta-chain
+status: active
+profile: >
+  ZetaChain runs a milestone-based Ecosystem Grant Program that provides funding, mentoring,
+  and technical resources to teams building omnichain dApps, with 40+ projects funded to
+  date. The program is run directly by the ZetaChain team through an open application form
+  and sits within broader developer incentives that earmark 5% of ZETA supply for builders.
+  Applications are accepted on a rolling basis.
+funding:
+  cadence: rolling
+  apply_url: https://www.zetachain.com/grants
+sources:
+  - https://www.zetachain.com/grants

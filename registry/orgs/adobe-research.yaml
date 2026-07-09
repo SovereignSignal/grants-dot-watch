@@ -1,0 +1,23 @@
+id: adobe-research
+name: Adobe Research
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://research.adobe.com/
+socials: {}
+status: active
+profile: >
+  Adobe Research is Adobe's research division focused on advancing artificial
+  intelligence and creative technologies. It runs fellowship programs for PhD
+  researchers, including the Adobe India AI Research Fellowship, a 12-month
+  program awarding a ₹12,00,000 stipend disbursed upfront, one year of Adobe
+  Express Premium, Creative Cloud, and Firefly access, and optional mentorship to
+  full-time PhD candidates enrolled at Indian universities and working in
+  AI-related fields. The 2026 recipients, three researchers from IIT Delhi, IIT
+  BHU, and IISc Bangalore, have been selected and applications are currently
+  closed.
+sources:
+  - https://research.adobe.com/
+  - https://research.adobe.com/india-ai-research-fellowship/

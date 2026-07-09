@@ -1,0 +1,21 @@
+id: institute-for-progress-ifp
+name: Institute for Progress (IFP)
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://ifp.org/
+socials:
+  x: https://x.com/IFP
+status: active
+profile: >
+  The Institute for Progress (IFP) is a think tank working to accelerate scientific,
+  technological, and industrial progress through policy research, idea development, and targeted
+  funding of high-impact projects, especially in AI resilience, AI-for-science, and
+  institutional adaptation. It operates the Launch Sequence RFP, offering $10k honoraria for
+  published proposals, and connects ideas to major funders; it runs on philanthropic support
+  with active pitching and matchmaking, and its programs are expanding in the AI policy and
+  funding-coordination space.
+sources:
+  - https://ifp.org/

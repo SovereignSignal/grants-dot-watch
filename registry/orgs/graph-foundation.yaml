@@ -1,0 +1,22 @@
+id: graph-foundation
+name: Graph Foundation
+aka: []
+systems: [ethereum]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://thegraph.com/grants/
+socials:
+  x: https://x.com/graphprotocol
+  github: https://github.com/graphprotocol
+  forum: https://forum.thegraph.com/
+status: active
+profile: >
+  The Graph Foundation is the non-profit advancing The Graph, open-source technology for
+  indexing and querying web3 data. It operates the Graph Grants program, funding protocol
+  development, tooling, subgraphs, dApps, and growth initiatives from the community treasury,
+  overseen by the Foundation and The Graph Council with domain-expert input. No RFPs are
+  currently open, but the program remains active with past large allocations, and its 2024
+  Annual Grants Report highlighted ecosystem impact.
+sources:
+  - https://thegraph.com/grants/

@@ -1,0 +1,19 @@
+id: stripe-climate
+name: Stripe Climate
+aka: []
+systems:
+  - climate
+wires: [ai]
+roles: [funder]
+org_type: company
+website: https://stripe.com/climate
+socials: {}
+status: active
+profile: >
+  Stripe Climate lets businesses on Stripe direct a percentage of their revenue
+  toward permanent carbon removal. Purchases are facilitated by Frontier, an
+  advance market commitment to buy over $1B of permanent carbon removal by
+  2030, with funding flowing to early-stage carbon removal companies in
+  Frontier's portfolio.
+sources:
+  - https://stripe.com/climate

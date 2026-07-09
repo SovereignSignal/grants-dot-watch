@@ -1,0 +1,23 @@
+id: lacuna-fund
+name: Lacuna Fund
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://lacunafund.org/
+socials: {}
+status: active
+profile: >
+  Lacuna Fund is a multi-funder, multi-stakeholder collaboration formed in
+  2020 to fill gaps in the data used to train machine learning models, making
+  ML and AI more representative, accurate, equitable, and accessible to
+  underserved communities. It has enabled the creation of over 75 new ML
+  datasets in agriculture, climate, health, and low-resource languages via
+  requests for proposals. In July 2025 it announced the transfer of its
+  leadership and management to partner institutions in Africa and Latin
+  America.
+sources:
+  - https://lacunafund.org/

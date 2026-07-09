@@ -1,0 +1,21 @@
+id: manifund-regranting
+name: Manifund AI Safety Regranting
+org: manifund-ai-safety-regranting
+parent: null
+systems: [ai-safety]
+wires: [ai]
+status: active
+mechanism: other
+apply_url: https://manifund.org/about/regranting
+summary: >
+  A regranting program that gives independent budgets ($100k+) to expert
+  regrantors in AI safety, who recommend fast, small grants ($5k-$50k) to
+  seed early-stage projects; applicants can also post projects publicly on
+  the Manifund platform for donors and regrantors to fund. Regrants can go to
+  registered charities and individuals, with for-profits eligible pending due
+  diligence.
+rounds: []
+sources:
+  - https://manifund.org/about/regranting
+  - https://manifund.org/NeelNanda
+  - https://manifund.org/RyanKidd

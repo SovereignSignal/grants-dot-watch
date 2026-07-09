@@ -1,0 +1,34 @@
+id: coefficient-giving
+name: Coefficient Giving
+aka:
+  - Open Philanthropy
+  - Open Philanthropy Project
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: foundation
+website: https://coefficientgiving.org/
+socials: {}
+status: active
+profile: >
+  Coefficient Giving is a San Francisco-based philanthropic advising and
+  funding organization, known as Open Philanthropy until its November 2025
+  rename, which signaled a shift to operating multi-donor funds. Founded in
+  2011 out of a partnership between Good Ventures and GiveWell, it has
+  directed more than $4 billion in grants, including over $650 million in
+  2024. Its 13 funds span global health, scientific research, biosecurity,
+  farm animal welfare, and AI, where its Navigating Transformative AI Fund
+  supports AI alignment and other work aimed at reducing risk from advanced
+  AI.
+funding:
+  focus:
+    - global health
+    - scientific research
+    - biosecurity and pandemic preparedness
+    - farm animal welfare
+    - risks from advanced AI
+sources:
+  - https://coefficientgiving.org/
+  - https://coefficientgiving.org/research/press-release-open-philanthropy-becomes-coefficient-giving-expanding-work-with-multiple-donors/
+  - https://en.wikipedia.org/wiki/Coefficient_Giving
+  - https://www.coefficientgiving.com/

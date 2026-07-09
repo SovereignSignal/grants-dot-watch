@@ -1,0 +1,37 @@
+id: near-foundation
+name: NEAR Foundation
+aka:
+  - near
+systems: []
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://near.foundation/
+socials:
+  x: https://x.com/NEARFoundation
+  github: https://github.com/near
+status: active
+profile: >
+  NEAR Foundation is a Swiss nonprofit that supports and grows the NEAR
+  Protocol ecosystem. It funds projects through a set of ecosystem programs
+  (Protocol Rewards, DevHub Grants, Potlock community rounds, Meta Pool
+  Grants) rather than a single grants fund, with applications accepted on a
+  rolling basis. Its historic grants program made awards in the $10-100k
+  range across AI, DeFi, and infrastructure, and in 2025 the foundation
+  announced a $20M AI Agent Fund.
+funding:
+  focus:
+    - web3 / blockchain
+    - developer tooling
+    - DeFi
+    - ecosystem growth
+    - public goods
+    - decentralization
+    - user onboarding (web2 to web3)
+  cadence: "rolling (multiple ecosystem programs accept applications on an ongoing basis)"
+  apply_url: https://www.near.org/funding
+sources:
+  - https://near.foundation/
+  - https://www.near.org/funding
+  - https://medium.com/nearprotocol/near-foundation-funding-team-report-september-2022-c56ef822dc27
+  - https://medium.com/nearprotocol/near-funding-updates-funding-beyond-grants-7f3721b14992

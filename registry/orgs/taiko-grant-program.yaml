@@ -1,0 +1,27 @@
+id: taiko-grant-program
+name: Taiko Grant Program
+aka:
+  - Taiko
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://taiko.xyz/grant-program
+socials:
+  x: https://x.com/taikoxyz
+  github: https://github.com/taikoxyz/grants
+  forum: https://community.taiko.xyz/
+status: active
+profile: >
+  Taiko is a based Ethereum ZK-rollup with an active community grants program
+  funding builders in DeFi, AI, RWA, SocialFi, gaming, and core ecosystem
+  projects. Grants are milestone-based and non-dilutive, with a $25M fund and
+  rolling applications submitted via GitHub or the program portal. Earlier
+  iterations ran in multi-cycle programs (e.g. Cycle 2 in 2023), and the current
+  program integrates with the Taiko Takeoff accelerator.
+sources:
+  - https://taiko.xyz/grant-program
+  - https://github.com/taikoxyz/grants

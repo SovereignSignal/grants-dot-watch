@@ -1,0 +1,26 @@
+id: openai-people-first-ai-fund
+name: People-First AI Fund
+org: openai-foundation
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: grants
+apply_url: https://openaifoundation.org/news/2026-people-first-ai-fund
+summary: >
+  A $50 million fund for 2026 from the OpenAI Foundation making unrestricted,
+  one-time grants to US 501(c)(3) nonprofits with annual budgets between
+  $500,000 and $10 million (priority $1-8 million; select regranters under
+  $15 million), across community support services, community arts and
+  cultural organizations, and community journalism and media. Grants run up
+  to 10% of an organization's annual budget with light-touch reporting, and
+  do not require use of OpenAI products.
+rounds:
+  - name: 2026 People-First AI Fund
+    status: open
+    closes: "2026-07-15"
+    size: $50 million
+    source: https://openaifoundation.org/news/2026-people-first-ai-fund
+sources:
+  - https://openaifoundation.org/news/2026-people-first-ai-fund
+  - https://openaifoundation.org/

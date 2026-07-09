@@ -1,0 +1,24 @@
+id: john-and-catherine-t-macarthur-foundation
+name: John D. and Catherine T. MacArthur Foundation
+aka:
+  - John and Catherine T. MacArthur Foundation
+  - MacArthur Foundation
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.macfound.org
+socials: {}
+status: active
+profile: >
+  The John D. and Catherine T. MacArthur Foundation invests in creative
+  solutions to critical challenges across focus areas including climate
+  solutions, criminal justice reform, local news, AI opportunity, and
+  journalism and media. It also awards MacArthur Fellowships and funds the
+  100&Change prize, supporting organizations and individuals working on
+  social impact globally. Applications run through a Fluxx grantee portal.
+sources:
+  - https://www.macfound.org
+  - https://macfound.fluxx.io/user_sessions/new

@@ -1,0 +1,39 @@
+id: sovereign-tech-agency
+name: Sovereign Tech Agency
+aka:
+  - Sovereign Tech Fund / Agency
+  - Sovereign Tech Fund
+systems: [sovereign-tech]
+wires: [oss]
+roles: [funder]
+org_type: government
+website: https://www.sovereign.tech/
+socials:
+  x: https://x.com/sovtechfund
+status: active
+profile: >
+  A German public entity (subsidiary of SPRIND) administering the Sovereign
+  Tech Fund, which makes strategic investments in foundational open-source
+  software components critical to digital infrastructure, security, and
+  innovation. It runs multiple funding programs including direct investments,
+  resilience/bug bounties, fellowships, standards support, and challenges,
+  and has deployed over EUR 24M to 60+ projects globally since 2022,
+  operating under public procurement rules with a focus on open-source
+  sustainability.
+funding:
+  focus:
+    - open source software
+    - digital infrastructure / base technologies
+    - programming-language libraries
+    - package managers
+    - communication protocols
+    - developer tooling
+    - encryption / security
+    - maintenance & sustainability
+  typical_size: >
+    Varies widely by project; published examples range from ~EUR 99,060
+    (coreutils) to ~EUR 1,436,729 (Prossimo/Rustls)
+  apply_url: https://www.sovereign.tech/programs/fund
+sources:
+  - https://www.sovereign.tech/
+  - https://www.sovereign.tech/programs/fund

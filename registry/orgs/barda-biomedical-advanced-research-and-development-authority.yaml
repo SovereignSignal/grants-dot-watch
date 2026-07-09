@@ -1,0 +1,23 @@
+id: barda-biomedical-advanced-research-and-development-authority
+name: BARDA (Biomedical Advanced Research and Development Authority)
+aka:
+  - BARDA
+  - Biomedical Advanced Research and Development Authority
+systems:
+  - us-federal-rd
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.aspr.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx
+status: active
+profile: >
+  BARDA is a US federal authority within HHS's Administration for Strategic
+  Preparedness and Response that funds the development of vaccines, drugs,
+  therapies, and diagnostic tools for public health emergencies, including
+  CBRN incidents and pandemic threats. It awards funding through industry
+  partnerships and mechanisms such as broad agency announcements and
+  TechWatch meetings, in areas like influenza, emerging infectious diseases,
+  and pharmaceutical infrastructure.
+sources:
+  - https://aspr.hhs.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx
+  - https://www.aspr.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx

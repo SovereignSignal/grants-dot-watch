@@ -1,0 +1,24 @@
+id: cifar-pan-canadian-ai-strategy
+name: CIFAR - Pan-Canadian AI Strategy
+aka:
+  - CIFAR
+  - Pan-Canadian AI Strategy
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://cifar.ca
+socials: {}
+status: active
+profile: >
+  CIFAR leads the Pan-Canadian AI Strategy, launched in 2017 as the first
+  national AI strategy in the world, funding AI research and talent
+  development in Canada. It supports three national AI institutes (Amii,
+  Mila, and the Vector Institute), the Canada CIFAR AI Chairs program
+  backing more than 125 researchers, AI Catalyst Grants for short-term
+  interdisciplinary machine-learning research, and training programs from
+  high school through postdoctoral levels. The site showed active updates
+  through June 2026.
+sources:
+  - https://cifar.ca
+  - https://cifar.ca/ai/

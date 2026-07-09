@@ -1,0 +1,16 @@
+id: meta-research-awards
+name: Meta Research Awards
+org: meta-research-awards
+parent: null
+systems: []
+wires: [ai]
+status: active
+mechanism: rfp
+apply_url: https://research.facebook.com/programs/research-awards/
+summary: >
+  Meta funds academic research through a requests-for-proposals (RFP)
+  mechanism; the research.facebook.com site links research award opportunities
+  and publishes lists of past research award recipients.
+rounds: []
+sources:
+  - https://research.facebook.com/programs/research-awards/

@@ -1,0 +1,20 @@
+id: entropy-advisors
+name: Entropy Advisors
+aka: []
+systems: [arbitrum]
+wires: [crypto]
+roles: [funder]
+org_type: company
+website: https://entropyadvisors.com/
+socials:
+  x: https://x.com/EntropyAdvisors
+status: active
+profile: >
+  Entropy Advisors is a strategic consulting firm specializing in onchain businesses, data
+  analytics, incentive programs, treasury management, and DAO governance. It works exclusively
+  with Arbitrum DAO (a multi-year engagement) to help design and execute incentive programs,
+  multisig services, revenue strategies, and governance improvements, and has facilitated
+  millions in deployments and dashboard launches. It operates funding programs on the DAO's
+  behalf rather than running public grant programs of its own.
+sources:
+  - https://entropyadvisors.com/

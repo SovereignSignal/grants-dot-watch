@@ -1,0 +1,20 @@
+id: the-perl-raku-foundation
+name: The Perl & Raku Foundation
+aka:
+  - TPRF
+systems:
+  - oss-sustainability
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.perlfoundation.org/
+socials: {}
+status: active
+profile: >
+  Nonprofit dedicated to the advancement of the Perl and Raku programming
+  languages through open discussion, collaboration, design, and code. It funds
+  developers maintaining these languages via donation-funded grant initiatives,
+  including the Perl Core Development Fund, the Raku Development Fund, and
+  general grant programs benefiting the broader community.
+sources:
+  - https://www.perlfoundation.org/

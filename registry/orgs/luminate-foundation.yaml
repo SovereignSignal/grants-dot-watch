@@ -1,0 +1,20 @@
+id: luminate-foundation
+name: Luminate Foundation
+aka: [Luminate]
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://luminategroup.com
+socials: {}
+status: active
+profile: >
+  Luminate is a funding organization working toward a more equitable digital
+  age, partnering with organizations working on technology and social justice.
+  It reports $370m distributed to 500+ partners since 2018, with regional
+  programs across Africa, Asia, Europe, Latin America, and Global Ecosystems,
+  focused on digital rights, tech regulation, and challenging corporate power
+  over technology.
+sources:
+  - https://luminategroup.com
+  - https://luminategroup.com/funding

@@ -1,0 +1,19 @@
+id: chan-zuckerberg-initiative
+name: Chan Zuckerberg Initiative
+aka: []
+systems:
+  - oss-sustainability
+wires: [ai, oss]
+roles: [funder]
+org_type: nonprofit
+website: https://chanzuckerberg.com
+status: active
+profile: >
+  The Chan Zuckerberg Initiative, founded in 2015 by Priscilla Chan and Mark
+  Zuckerberg, funds work across science, education, and community initiatives
+  through grantmaking and venture investments, and has awarded approximately
+  $7.22 billion in grants since inception. Open funding opportunities are
+  published as requests for applications (RFAs) on its site.
+sources:
+  - https://chanzuckerberg.com
+  - https://chanzuckerberg.com/rfa/

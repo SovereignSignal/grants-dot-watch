@@ -1,0 +1,40 @@
+id: knight-foundation
+name: Knight Foundation
+aka:
+  - knight
+systems: []
+wires: []
+roles: [funder]
+org_type: nonprofit
+website: https://knightfoundation.org/
+status: active
+profile: >
+  A U.S. national foundation investing in healthier, more informed communities
+  across journalism, local news, the arts, and civic and information
+  ecosystems. Ideas can be submitted year-round via an online letter of
+  inquiry, program directors make local grants year-round, and specific
+  challenges and RFPs run on fixed windows -- for example the Knight Cities
+  Challenge, which invests up to $200,000 per selected project. Software
+  developed with Knight News Challenge grant funds must be released open
+  source.
+funding:
+  focus:
+    - journalism
+    - local news & information
+    - arts & culture
+    - community impact
+    - economic mobility
+    - information ecosystems
+    - civic technology
+  typical_size: >
+    Varies by program; the Knight Cities Challenge invests up to $200,000 per
+    selected project (one-year projects)
+  cadence: >
+    Year-round letter of inquiry (LOI); program directors make local grants
+    year-round; specific challenges/RFPs have fixed windows.
+  apply_url: https://knightfoundation.org/apply/
+sources:
+  - https://knightfoundation.org/
+  - https://knightfoundation.org/apply/
+  - https://legacy.knightfoundation.org/articles/22-projects-win-knight-news-challenge-libraries/
+  - https://legacy.knightfoundation.org/articles/17-ideas-win-knight-news-challenge-data/

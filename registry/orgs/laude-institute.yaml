@@ -1,0 +1,22 @@
+id: laude-institute
+name: Laude Institute
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: education
+website: https://laude.org/
+socials: {}
+status: active
+profile: >
+  Laude Institute is built by and for impact researchers and operates at the
+  intersection of academia and industry to catalyze computer science research
+  that reaches people's hands. It runs two grant mechanisms: Slingshots, fast
+  low-friction grants and hands-on support for computer scientists turning
+  new research into startups or open-source infrastructure, and Moonshots,
+  seed funding and multi-year labs for proven academic researchers using AI
+  on species-level challenges.
+sources:
+  - https://laude.org/

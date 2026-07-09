@@ -1,0 +1,22 @@
+id: apache-software-foundation
+name: Apache Software Foundation
+aka: []
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://www.apache.org/
+socials:
+  x: https://x.com/TheASF
+  github: https://github.com/apache
+status: active
+profile: >
+  The Apache Software Foundation (ASF) stewards hundreds of open source projects (HTTP Server,
+  Hadoop, Kafka, Spark, and more), providing legal, financial, and governance infrastructure for
+  global volunteer-driven communities. Its funding side runs a layered sponsorship program
+  (Foundation, Targeted, Initiatives) plus donations that support operations, project support,
+  and targeted efforts. In March 2025 it launched a Tooling Initiative, and in April 2026 a $10M
+  Responsible AI Initiative seeded with $1.75M from Anthropic and Alpha-Omega.
+sources:
+  - https://www.apache.org/
+  - https://www.apache.org/foundation/grants.html

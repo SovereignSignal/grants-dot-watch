@@ -1,0 +1,20 @@
+id: ai-security-institute
+name: AI Security Institute
+aka: []
+systems: [ai-safety, uk-public-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.aisi.gov.uk/
+socials:
+  x: https://x.com/AISecurityInst
+status: active
+profile: >
+  The AI Security Institute (AISI) is a UK government research organization under the Department
+  for Science, Innovation and Technology that conducts frontier AI testing, risk assessment, and
+  mitigation development to inform policy. It runs with a startup-like structure of 100+ staff,
+  publishes reports such as Frontier AI Trends, forms partnerships including an expanded MOU with
+  Google DeepMind, and gets pre-release access to models. Its focus is internal research, testing
+  infrastructure, and government advising rather than public grantmaking to external projects.
+sources:
+  - https://www.aisi.gov.uk/

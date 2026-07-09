@@ -1,0 +1,23 @@
+id: falcon-foundation-technology-innovation-institute-uae
+name: Falcon Foundation (Technology Innovation Institute UAE)
+aka:
+  - Falcon Foundation
+  - Technology Innovation Institute
+  - TII
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://falconfoundation.ai
+socials: {}
+status: active
+profile: >
+  The Falcon Foundation is an initiative by the UAE's Technology Innovation
+  Institute (TII) dedicated to advancing open source generative AI. It
+  champions the open-sourcing of generative AI models, releasing the Falcon
+  family of large language models (including Falcon 40B and Falcon 180B)
+  with publicly available weights for research and commercial use, along
+  with the RefinedWeb dataset. The site was active with press releases
+  dated May 2025 announcing Falcon Arabic and Falcon-H1.
+sources:
+  - https://falconfoundation.ai

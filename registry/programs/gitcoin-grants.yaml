@@ -1,0 +1,36 @@
+id: gitcoin-grants
+name: Gitcoin Grants
+org: gitcoin
+parent: null
+systems: [ethereum, web3-public-goods]
+wires: [crypto]
+status: active
+mechanism: quadratic
+apply_url: https://builder.gitcoin.co
+summary: >
+  A quarterly public-goods funding program (running since 2019) that lets the
+  crypto community fund open-source and ecosystem projects, using Quadratic
+  Funding to amplify many small donations from a matching pool. Recent rounds
+  organize funding into domains -- developer tooling, interop standards,
+  public goods R&D, privacy -- under a Domain Allocator model, alongside
+  retro rounds for mature builders.
+rounds:
+  - name: GG23 Mature Builders Retro Round
+    status: deployed
+    source: https://www.gitcoin.co/blog/top-30-builders-in-gitcoins-retro-round-funding-proven-impact
+  - name: GG24 OSS QF (Developer Tooling & Infrastructure)
+    status: deployed
+    source: https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
+  - name: GG24 OSS QF (Interop Standards, Infra & Analytics)
+    status: deployed
+    source: https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
+  - name: GG24 Solutions Development Grants
+    status: deployed
+    source: https://gov.gitcoin.co/t/gg24-solutions-development-grants-retrospective/24894
+  - name: GG24 Public Goods Tooling Development Round
+    status: deployed
+    source: https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276
+sources:
+  - https://builder.gitcoin.co
+  - https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
+  - https://www.gitcoin.co/blog/top-30-builders-in-gitcoins-retro-round-funding-proven-impact
