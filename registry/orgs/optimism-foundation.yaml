@@ -1,0 +1,38 @@
+id: optimism-foundation
+name: Optimism Foundation
+aka:
+  - Optimism
+  - Optimism Collective
+  - OP Foundation
+  - Optimism Retro Funding (RetroPGF)
+  - RetroPGF
+  - optimism retro funding retropgf
+systems: [optimism, web3-public-goods]
+wires: [crypto]
+roles: [funder]
+org_type: foundation
+website: https://www.optimism.io/
+socials:
+  x: https://x.com/Optimism
+  github: https://github.com/ethereum-optimism
+  forum: https://gov.optimism.io/
+status: active
+profile: >
+  The Optimism Foundation stewards the Optimism Collective, the governance and
+  funding body of the OP Stack and Superchain ecosystem. It deploys OP tokens
+  through two main channels: Grants Council programs (growth and builder
+  grants) and Retro Funding, which rewards contributors retroactively for
+  measurable impact. Since 2025 Retro Funding operates as ongoing Missions
+  (such as Dev Tooling and Onchain Builders) with rolling application windows
+  and metrics-driven evaluation rather than annual rounds.
+funding:
+  focus:
+    - public goods
+    - developer tooling
+    - onchain applications
+    - Ethereum / OP Stack core development
+  cadence: rolling missions and seasonal grants council cycles
+sources:
+  - https://www.optimism.io/
+  - https://atlas.optimism.io/
+  - https://gov.optimism.io/

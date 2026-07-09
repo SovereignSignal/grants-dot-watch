@@ -1,7 +1,7 @@
 id: cardano-foundation
 name: Cardano Foundation
 aka: []
-systems: []
+systems: [cardano]
 wires: [crypto]
 roles: [funder]
 org_type: foundation

@@ -1,0 +1,17 @@
+id: cardano
+name: Cardano
+kind: protocol-ecosystem
+part_of: []
+wires: [crypto]
+summary: >
+  Cardano is a proof-of-stake layer-1 blockchain whose ecosystem funding is spread
+  across several bodies rather than one foundation: the Cardano Foundation (standards
+  and community stewardship), Input Output Global/IOG (the founding engineering firm),
+  Intersect (the member-based organization now stewarding protocol development), and
+  Project Catalyst, Cardano's on-chain treasury system that has distributed ada from
+  the protocol treasury to community-proposed projects through recurring quarterly
+  funding rounds since 2020.
+funding_channels: []
+sources:
+  - https://cardanofoundation.org/
+  - https://projectcatalyst.io/

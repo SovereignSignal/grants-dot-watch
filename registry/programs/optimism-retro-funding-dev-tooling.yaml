@@ -1,6 +1,6 @@
 id: optimism-retro-funding-dev-tooling
 name: "Retro Funding: Dev Tooling"
-org: optimism-retro-funding-retropgf
+org: optimism-foundation
 parent: null
 systems: [optimism, web3-public-goods]
 wires: [crypto]

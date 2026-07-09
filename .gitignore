@@ -7,3 +7,7 @@ node_modules/
 /seed/
 .data/
 tsconfig.tsbuildinfo
+
+# Desk day-one queue rides with the repo (registry data is public-shaped; repo is private)
+!/seed/proposals-batch-*.json
+!/seed/resolution_report.json
