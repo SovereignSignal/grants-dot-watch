@@ -7,6 +7,10 @@ import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
 
+// Reads the desk store (Postgres in prod) — must never prerender at build time,
+// where the DB's private network is unreachable.
+export const dynamic = 'force-dynamic';
+
 interface DeskSummary {
   pending: number;
   decided: number;
