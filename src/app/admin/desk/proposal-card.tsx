@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Card, WireBadge } from '@/components/ui';
 import type { Proposal, Verdict } from '@/lib/types';
 import { TYPE_LABEL } from '@/proposal-lanes';
+import { useAdminAuth } from '../admin-auth';
 import { shortUrl, timeAgo } from './desk-format';
 
 interface PreviewChange {
@@ -25,6 +26,7 @@ export function ProposalCard({
   proposal: Proposal;
   onDecided: (id: string, decision: 'approved' | 'rejected', verdict: Verdict) => void;
 }) {
+  const { getAuthHeaders } = useAdminAuth();
   const [busy, setBusy] = useState<'approved' | 'rejected' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<PreviewPayload | null>(null);
@@ -39,7 +41,8 @@ export function ProposalCard({
     }
     setPreviewLoading(true);
     try {
-      const res = await fetch(`/api/desk/preview?id=${encodeURIComponent(proposal.id)}`);
+      const headers = await getAuthHeaders();
+      const res = await fetch(`/api/desk/preview?id=${encodeURIComponent(proposal.id)}`, { headers });
       const json = await res.json();
       if (res.ok) {
         setPreview(json);
@@ -58,9 +61,10 @@ export function ProposalCard({
     setBusy(decision);
     setError(null);
     try {
+      const headers = await getAuthHeaders();
       const res = await fetch('/api/desk/decide', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...headers },
         body: JSON.stringify({ id: proposal.id, decision }),
       });
       const json = await res.json();

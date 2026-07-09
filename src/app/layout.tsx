@@ -19,7 +19,7 @@ const NAV = [
   { href: '/programs', label: 'Programs' },
   { href: '/awards', label: 'Awards' },
   { href: '/galaxy', label: 'Galaxy' },
-  { href: '/desk', label: 'The Desk' },
+  { href: '/admin/desk', label: 'The Desk' },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,19 +28,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-dvh flex flex-col">
         <header className="border-b border-line bg-deep/80 backdrop-blur sticky top-0 z-40">
-          <div className="mx-auto max-w-6xl px-4 flex items-baseline gap-6 h-14">
-            <Link href="/" className="display text-lg font-semibold tracking-tight shrink-0">
+          <div className="mx-auto max-w-6xl px-4 flex flex-wrap items-center gap-x-4 gap-y-2 py-3 md:flex-nowrap md:items-baseline md:gap-6 md:gap-y-0 md:py-0 md:h-14">
+            <Link href="/" className="display order-1 text-lg font-semibold tracking-tight shrink-0">
               grants<span className="text-signal">.</span>watch
             </Link>
-            <nav aria-label="Primary" className="flex gap-4 overflow-x-auto text-sm text-dim self-center">
+            <nav
+              aria-label="Primary"
+              className="order-3 flex w-full gap-4 overflow-x-auto text-sm text-dim self-center md:order-2 md:w-auto"
+            >
               {NAV.map((n) => (
                 <Link key={n.href} href={n.href} className="hover:text-paper whitespace-nowrap transition-colors">
                   {n.label}
                 </Link>
               ))}
             </nav>
-            <Search />
-            <span className="coord ml-auto hidden md:block">
+            <Search className="order-2 md:order-3" />
+            <span className="coord ml-auto hidden md:order-4 md:block">
               {counts.funders} funders · {counts.programs} programs · {counts.awards} awards
             </span>
           </div>
