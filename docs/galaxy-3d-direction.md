@@ -11,3 +11,9 @@ Direction:
 - Keep 2D field as home hero ambience; /galaxy becomes the 3D model. Performance target 60fps @ ~500 nodes/2k edges.
 
 DECISION (Sov, 2026-07-09): if the 3D galaxy looks great, it TAKES THE HERO on home too — current 2D field hero rated "not that great". Build 3D first, then replace hero with an embedded/teaser view of it.
+
+## Graph v2 spec (data-grounded, 2026-07-09)
+Direct co-funding is sparse in the ledger (34 pairs even at >=1 shared grantee). The web comes from FLOWS:
+- Nodes: 230 funders (sized by activity) + 66 multi-funder grantees (the bridges, medium, distinct shape/tone) + top ~150 single-funder grantees by USD (small, dim satellites) ≈ 450 nodes.
+- Edges: funder→grantee award edges (weight = award count/USD; ~500-600 shown) + the 34 co-funding accent links (brighter) + system hub links (structure, near-invisible).
+- Result: funders connect THROUGH shared grantees — the truthful version of mapofzones' zones-and-channels.

@@ -1,16 +1,18 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { Coord, Empty, PageHeader, Stat } from '@/components/ui';
-import type { Proposal, Verdict } from '@/lib/types';
+import { Empty, PageHeader, Stat } from '@/components/ui';
+import type { Verdict } from '@/lib/types';
 import { useAdminAuth } from '../admin-auth';
-import { timeAgo } from './desk-format';
+import { commitUrl, timeAgo } from './desk-format';
+import type { QueueProposal } from './desk-types';
 import { ProposalCard } from './proposal-card';
+import { QueueExplainer } from './queue-explainer';
 
 type Tab = 'judgment' | 'fact' | 'log';
 
 interface QueuePayload {
-  proposals: Proposal[];
+  proposals: QueueProposal[];
   counts: { pendingJudgment: number; pendingFact: number; decidedToday: number; total: number };
   verdicts: Verdict[];
   dev: boolean;
@@ -117,6 +119,8 @@ export default function DeskPage() {
         )}
         {seedMsg && <p className="coord mb-6">{seedMsg}</p>}
 
+        <QueueExplainer />
+
         <div className="mb-8 grid grid-cols-3 gap-3 sm:gap-4">
           <Stat label="Pending judgment" value={data.counts.pendingJudgment} />
           <Stat label="Pending facts" value={data.counts.pendingFact} />
@@ -176,15 +180,32 @@ export default function DeskPage() {
             <div className="flex flex-col divide-y divide-line rounded-md border border-line bg-surface">
               {data.verdicts.map((v, i) => {
                 const proposal = data.proposals.find((p) => p.id === v.proposal_id);
+                const destination = v.decision === 'approved' ? proposal?.destination : null;
                 return (
-                  <div key={`${v.proposal_id}-${i}`} className="flex items-center gap-3 px-4 py-2.5 text-sm">
-                    <span className={v.decision === 'approved' ? 'text-live' : 'text-dim'}>
-                      {v.decision === 'approved' ? 'Approved' : 'Rejected'}
-                    </span>
-                    <span className="flex-1 truncate text-paper">{proposal?.title || v.proposal_id}</span>
-                    {v.note && <span className="hidden max-w-xs truncate text-xs text-faint md:inline">{v.note}</span>}
-                    <span className="coord shrink-0">{v.commit || 'ledgered'}</span>
-                    <span className="coord hidden shrink-0 sm:inline">{timeAgo(v.at)}</span>
+                  <div key={`${v.proposal_id}-${i}`} className="flex flex-col gap-1 px-4 py-2.5 text-sm">
+                    <div className="flex items-center gap-3">
+                      <span className={v.decision === 'approved' ? 'text-live' : 'text-dim'}>
+                        {v.decision === 'approved' ? 'Approved' : 'Rejected'}
+                      </span>
+                      <span className="flex-1 truncate text-paper">{proposal?.title || v.proposal_id}</span>
+                      {v.note && <span className="hidden max-w-xs truncate text-xs text-faint md:inline">{v.note}</span>}
+                      {v.commit ? (
+                        <a
+                          href={commitUrl(v.commit)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="coord shrink-0 hover:text-dim"
+                        >
+                          {v.commit}
+                        </a>
+                      ) : (
+                        <span className="coord shrink-0">ledgered</span>
+                      )}
+                      <span className="coord hidden shrink-0 sm:inline">{timeAgo(v.at)}</span>
+                    </div>
+                    {destination && destination.length > 0 && (
+                      <div className="coord pl-0">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
+                    )}
                   </div>
                 );
               })}

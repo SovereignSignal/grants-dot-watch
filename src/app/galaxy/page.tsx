@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
-import { loadRegistry } from '@/lib/registry';
-import { buildStarmap } from '@/lib/starmap';
-import GalaxyCanvas from '@/components/galaxy/GalaxyCanvas';
 import GalaxyFallbackList from '@/components/galaxy/GalaxyFallbackList';
-import type { GalaxyMeta } from '@/components/galaxy/types';
+import Galaxy3DClient from '@/components/galaxy/Galaxy3DClient';
 
 export const metadata: Metadata = {
   title: 'Galaxy',
-  description: 'The full register as a map: systems as clusters, organizations as stars.',
+  description: 'The full register as a relational map: funders as stars, systems as hubs, co-funding as the edges between them.',
 };
 
 function firstParam(v: string | string[] | undefined): string | null {
@@ -19,26 +16,13 @@ export default async function GalaxyPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { systems, orgs, orgStats } = loadRegistry();
-  const map = buildStarmap(systems, orgs, orgStats);
-
-  const awardsByOrg: Record<string, number> = {};
-  for (const [id, stats] of orgStats) awardsByOrg[id] = stats.awards_given;
-
-  const meta: GalaxyMeta = {
-    starCount: map.stars.length,
-    clusterCount: map.clusters.length,
-    orgCount: orgs.length,
-    awardsByOrg,
-  };
-
   const sp = await searchParams;
   const focusOrgId = firstParam(sp.focus);
 
   return (
-    <div className="relative h-[calc(100dvh-56px)] w-full overflow-hidden">
+    <div className="relative h-[calc(100dvh-56px)] w-full overflow-hidden bg-void">
       <GalaxyFallbackList />
-      <GalaxyCanvas map={map} meta={meta} focusOrgId={focusOrgId} />
+      <Galaxy3DClient focusOrgId={focusOrgId} />
     </div>
   );
 }

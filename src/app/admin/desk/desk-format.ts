@@ -25,3 +25,26 @@ export function shortUrl(url: string | null | undefined): string {
     return url.slice(0, 60);
   }
 }
+
+/** Absolute short date for evidence "seen" timestamps — timeAgo() is for
+ *  recency at a glance, this is for "what date did I actually see this". */
+export function dateShortIso(iso: string | undefined | null): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+/** Collapses multi-line text to the first N lines, reporting whether there
+ *  was more — the ~10-line collapsed-by-default rule for change previews. */
+export function clampLines(text: string, maxLines: number): { visible: string; truncated: boolean; totalLines: number } {
+  const lines = text.split('\n');
+  if (lines.length <= maxLines) return { visible: text, truncated: false, totalLines: lines.length };
+  return { visible: lines.slice(0, maxLines).join('\n'), truncated: true, totalLines: lines.length };
+}
+
+export const GITHUB_REPO = 'SovereignSignal/grants-dot-watch';
+
+export function commitUrl(sha: string): string {
+  return `https://github.com/${GITHUB_REPO}/commit/${sha}`;
+}

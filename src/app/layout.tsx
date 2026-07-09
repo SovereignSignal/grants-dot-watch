@@ -7,11 +7,18 @@ import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
 import { loadRegistry } from '@/lib/registry';
 import Search from '@/components/search';
+import ThemeToggle from '@/components/theme-toggle';
 
 export const metadata: Metadata = {
   title: { default: 'grants.watch', template: '%s · grants.watch' },
   description: 'The registry of the funding world: systems, organizations, programs, and awards across crypto, AI, and open source.',
 };
+
+// Pre-paint theme script — reads the stored choice (or prefers-color-scheme
+// on first visit) and sets data-theme on <html> before first paint, so
+// there's no light/dark flash. Dark is the default: we only ever write
+// data-theme="light".
+const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('gw-theme');var light=s?s==='light':window.matchMedia('(prefers-color-scheme: light)').matches;if(light){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
 
 const NAV = [
   { href: '/systems', label: 'Systems' },
@@ -26,6 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const { counts } = loadRegistry();
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-dvh flex flex-col">
         <header className="border-b border-line bg-deep/80 backdrop-blur sticky top-0 z-40">
           <div className="mx-auto max-w-6xl px-4 flex flex-wrap items-center gap-x-4 gap-y-2 py-3 md:flex-nowrap md:items-baseline md:gap-6 md:gap-y-0 md:py-0 md:h-14">
@@ -42,8 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
             </nav>
-            <Search className="order-2 md:order-3" />
-            <span className="coord ml-auto hidden md:order-4 md:block">
+            <Search className="order-2 md:order-4" />
+            <ThemeToggle className="order-2 md:order-5" />
+            <span className="coord ml-auto hidden md:order-6 md:block">
               {counts.funders} funders · {counts.programs} programs · {counts.awards} awards
             </span>
           </div>

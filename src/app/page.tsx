@@ -59,7 +59,31 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative">
+      {/* The field hero stays a dark observatory viewport in both themes — the
+          canvas itself never repaints light. That means every token this
+          section (and Field's own hover tooltip, rendered inside it) reads
+          must stay pinned to its dark-theme value too, or light-theme text
+          tokens (paper → ink, etc.) would flip to near-invisible over the
+          still-dark canvas. Pinning the CSS custom properties here, scoped
+          to just this <section>, hardcodes the dark equivalents for every
+          descendant while leaving the rest of the app themable normally. */}
+      <section
+        className="relative"
+        style={
+          {
+            '--color-void': '#0b0e1a',
+            '--color-surface': '#131829',
+            '--color-raised': '#1a2033',
+            '--color-line': '#232a40',
+            '--color-paper': '#e8e6df',
+            '--color-dim': '#9094a8',
+            '--color-faint': '#5b5f73',
+            '--color-live': '#4fbf7e',
+            '--color-closing': '#d9a13f',
+            '--color-signal': '#e8b44f',
+          } as React.CSSProperties
+        }
+      >
         <Field map={map} />
         <div className="pointer-events-none absolute inset-0 flex items-center">
           <div className="mx-auto w-full max-w-6xl px-4">

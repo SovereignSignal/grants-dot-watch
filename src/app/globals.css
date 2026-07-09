@@ -3,7 +3,10 @@
 /* ── grants.watch: the observatory ledger ─────────────────────────────
    Deep-field indigo, warm starlight ink, three validated wire hues
    (dark-surface validated: #BC7E1E / #9B7BF7 / #1FA3B5), gold reserved
-   for capital in motion. Committed dark. */
+   for capital in motion. Dark is the default surface; a light surface
+   (validated separately, see the html[data-theme="light"] block below)
+   is available via the header toggle. The field hero and galaxy canvases
+   stay dark in both themes — they're instruments, not chrome. */
 
 @theme {
   --color-void: #0b0e1a;
@@ -30,6 +33,31 @@
 
 :root {
   color-scheme: dark;
+}
+
+/* Light theme — same token NAMES, validated light values. Dark stays the
+   default (no attribute on <html>); this block only applies when the
+   pre-paint script (see layout.tsx) or the theme toggle sets
+   data-theme="light" on the root element. */
+html[data-theme='light'] {
+  color-scheme: light;
+
+  --color-void: #f2f1ea;
+  --color-deep: #eceade;
+  --color-surface: #faf9f4;
+  --color-raised: #f4f2ea;
+  --color-line: #d9d6c8;
+  --color-paper: #1d2130;
+  --color-dim: #565b6e;
+  --color-faint: #8b8fa0;
+
+  --color-crypto: #96660f;
+  --color-ai: #6847d8;
+  --color-oss: #0983a1;
+
+  --color-live: #1e7d4d;
+  --color-closing: #8a6414;
+  --color-signal: #8a6414;
 }
 
 html {

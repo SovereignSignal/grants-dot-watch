@@ -1,61 +1,53 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, WireBadge } from '@/components/ui';
-import type { Proposal, Verdict } from '@/lib/types';
+import type { Verdict } from '@/lib/types';
 import { TYPE_LABEL } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
-import { shortUrl, timeAgo } from './desk-format';
+import { ChangePreview } from './change-preview';
+import { commitUrl, timeAgo } from './desk-format';
+import type { PreviewPayload, QueueProposal } from './desk-types';
+import { EvidenceBlock } from './evidence-block';
 
-interface PreviewChange {
-  path: string;
-  content: string;
-  op: 'create' | 'update' | 'append';
-}
-
-interface PreviewPayload {
-  changes: PreviewChange[];
-  notes: string[];
-}
-
+/** Three questions, answered on every card without a click: WHAT (change
+ *  preview, loaded on mount, collapsed to ~10 lines), VALIDATE (the wire
+ *  signal behind it), WHERE (the destination path, already computed by the
+ *  queue). Only "see the rest of a long diff" needs an interaction. */
 export function ProposalCard({
   proposal,
   onDecided,
 }: {
-  proposal: Proposal;
+  proposal: QueueProposal;
   onDecided: (id: string, decision: 'approved' | 'rejected', verdict: Verdict) => void;
 }) {
   const { getAuthHeaders } = useAdminAuth();
   const [busy, setBusy] = useState<'approved' | 'rejected' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<PreviewPayload | null>(null);
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewLoading, setPreviewLoading] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
   const [result, setResult] = useState<{ decision: 'approved' | 'rejected'; commit: string | null } | null>(null);
 
-  async function togglePreview() {
-    if (preview) {
-      setPreviewOpen((v) => !v);
-      return;
-    }
-    setPreviewLoading(true);
-    try {
-      const headers = await getAuthHeaders();
-      const res = await fetch(`/api/desk/preview?id=${encodeURIComponent(proposal.id)}`, { headers });
-      const json = await res.json();
-      if (res.ok) {
-        setPreview(json);
-        setPreviewOpen(true);
-      } else {
-        setError(json.error || 'Preview failed.');
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const headers = await getAuthHeaders();
+        const res = await fetch(`/api/desk/preview?id=${encodeURIComponent(proposal.id)}`, { headers });
+        const json = await res.json();
+        if (cancelled) return;
+        if (res.ok) setPreview(json);
+        else setPreviewError(json.error || 'Preview failed.');
+      } catch {
+        if (!cancelled) setPreviewError('Preview failed.');
       }
-    } catch {
-      setError('Preview failed.');
-    } finally {
-      setPreviewLoading(false);
-    }
-  }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proposal.id]);
 
   async function decide(decision: 'approved' | 'rejected') {
     setBusy(decision);
@@ -81,14 +73,36 @@ export function ProposalCard({
     }
   }
 
+  const destination = proposal.destination;
+
   if (result) {
     return (
-      <div className="flex items-center gap-3 rounded-md border border-line bg-surface px-4 py-3 text-sm">
-        <span className={result.decision === 'approved' ? 'text-live' : 'text-dim'}>
-          {result.decision === 'approved' ? 'Approved' : 'Rejected'}
-        </span>
-        <span className="flex-1 truncate text-paper">{proposal.title}</span>
-        <span className="coord shrink-0">{result.commit || 'ledgered'}</span>
+      <div className="flex flex-col gap-1.5 rounded-md border border-line bg-surface px-4 py-3 text-sm">
+        <div className="flex items-center gap-3">
+          <span className={result.decision === 'approved' ? 'text-live' : 'text-dim'}>
+            {result.decision === 'approved' ? 'Approved' : 'Rejected'}
+          </span>
+          <span className="flex-1 truncate text-paper">{proposal.title}</span>
+          {result.commit ? (
+            <a
+              href={commitUrl(result.commit)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="coord shrink-0 hover:text-dim"
+            >
+              {result.commit}
+            </a>
+          ) : (
+            <span className="coord shrink-0">ledgered</span>
+          )}
+        </div>
+        {result.decision === 'approved' && destination && destination.length > 0 && (
+          <div className="coord">
+            {destination.map((p) => (
+              <div key={p}>→ {p}</div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
@@ -97,7 +111,7 @@ export function ProposalCard({
     <Card className="flex flex-col gap-3">
       <div className="flex items-start justify-between gap-3">
         <span className="coord rounded border border-line px-1.5 py-0.5">{TYPE_LABEL[proposal.type]}</span>
-        {proposal.confidence != null && <span className="font-mono text-xs text-faint">{proposal.confidence}%</span>}
+        <span className="coord shrink-0">{timeAgo(proposal.created_at)}</span>
       </div>
 
       <div>
@@ -112,37 +126,33 @@ export function ProposalCard({
             {proposal.org_name || proposal.org}
           </Link>
         )}
-        {proposal.evidence_url && (
-          <a
-            href={proposal.evidence_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-dim underline decoration-line hover:text-paper"
-          >
-            {shortUrl(proposal.evidence_url)}
-          </a>
+      </div>
+
+      <EvidenceBlock proposal={proposal} />
+
+      <div>
+        <div className="coord mb-1.5">Where</div>
+        {destination === null ? (
+          <p className="text-xs text-closing">{proposal.destination_error || 'Destination could not be resolved.'}</p>
+        ) : destination.length === 0 ? (
+          <p className="text-xs text-faint">No files change — recorded as a decision only.</p>
+        ) : (
+          <div className="coord">
+            {destination.map((p) => (
+              <div key={p}>→ {p}</div>
+            ))}
+          </div>
         )}
-        <span className="coord ml-auto shrink-0">{timeAgo(proposal.created_at)}</span>
       </div>
 
       <div>
-        <button type="button" onClick={togglePreview} className="coord hover:text-dim">
-          {previewLoading ? 'Loading preview…' : previewOpen ? 'Hide change preview' : 'Show change preview'}
-        </button>
-        {previewOpen && preview && (
-          <div className="mt-2 flex flex-col gap-2">
-            {preview.changes.length === 0 && (
-              <p className="text-xs text-faint">{preview.notes[0] || 'No file changes.'}</p>
-            )}
-            {preview.changes.map((c) => (
-              <div key={c.path}>
-                <div className="coord mb-1">
-                  {c.op} · {c.path}
-                </div>
-                <pre className="max-h-64 overflow-auto rounded bg-deep p-3 font-mono text-xs text-dim">{c.content}</pre>
-              </div>
-            ))}
-          </div>
+        <div className="coord mb-1.5">What</div>
+        {previewError ? (
+          <p className="text-xs text-closing">{previewError}</p>
+        ) : preview ? (
+          <ChangePreview changes={preview.changes} notes={preview.notes} />
+        ) : (
+          <p className="text-xs text-faint">Loading preview…</p>
         )}
       </div>
 
