@@ -41,7 +41,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "postcss": "^8.5.16",
     "tailwindcss": "^4.3.2",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": "^20.9.0 || >=22.0.0"
