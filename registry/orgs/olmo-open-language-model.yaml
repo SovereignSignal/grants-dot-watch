@@ -7,6 +7,9 @@ wires: [ai, oss]
 roles: [funder]
 org_type: foundation
 website: https://allenai.org/olmo
+socials:
+  x: https://x.com/allen_ai
+  github: https://github.com/allenai
 status: active
 profile: >
   OLMo is the fully open language model family from Ai2 (Allen Institute for

@@ -8,6 +8,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.cooperativeai.com/foundation
+socials:
+  x: https://x.com/coop_ai
 status: active
 profile: >
   CAIF funds research that improves the cooperative intelligence of advanced

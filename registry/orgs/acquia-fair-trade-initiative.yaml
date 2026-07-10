@@ -25,6 +25,10 @@ profile: >
 funding:
   focus:
     - Drupal open-source infrastructure and development
+  cadence: >
+    Automatic and continuous — 2% of every closed eligible partner deal is
+    directed to the Drupal Association, with contributions recognized
+    quarterly; there is no separate application cycle.
 sources:
   - https://www.acquia.com/partners/fair-trade-initiative
   - https://dri.es

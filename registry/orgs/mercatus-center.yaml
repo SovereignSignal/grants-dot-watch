@@ -6,7 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: education
 website: https://www.mercatus.org/
-socials: {}
+socials:
+  x: https://twitter.com/Mercatus
 status: active
 profile: >
   The Mercatus Center at George Mason University is a classical liberal
@@ -15,5 +16,12 @@ profile: >
   low-overhead fellowship and grant program supporting entrepreneurs with
   scalable ideas, plus academic fellowships and initiatives such as The 1991
   Project and Marginal Revolution University.
+funding:
+  focus:
+    - zero-to-one ideas for social improvement
+    - India, Africa, Caribbean & Ukraine-focused tracks
+    - COVID-19 science (via Fast Grants)
+  apply_url: https://mercatus.tfaforms.net/5099527
 sources:
   - https://www.mercatus.org/
+  - https://www.mercatus.org/emergent-ventures

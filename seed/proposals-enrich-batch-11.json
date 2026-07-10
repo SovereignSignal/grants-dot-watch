@@ -1,0 +1,297 @@
+[
+  {
+    "type": "new_program",
+    "org": "astera-institute",
+    "org_name": null,
+    "program": "Astera Residency Program",
+    "title": "Astera Institute's Residency Program is missing from registry/programs",
+    "summary": "Astera Institute's own residency page describes a 12-18 month fully funded residency ($125k-$250k/yr salary plus $0-$1.5M per-project budget) for scientists, engineers, and entrepreneurs across Neuro-AI, AI-enabled life sciences, open science, and public-goods infrastructure. Application cycles run about twice a year, with no fixed deadline published. This is Astera's flagship funding vehicle and has no program file yet.",
+    "evidence_url": "https://astera.org/residency/",
+    "proposed_change": {
+      "programs/astera-residency-program.yaml": {
+        "id": "astera-residency-program",
+        "name": "Astera Residency Program",
+        "org": "astera-institute",
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "summary": "12-18 month fully funded residency for scientists, engineers, and entrepreneurs across Neuro-AI, AI-enabled life sciences, open science, and public-goods infrastructure; $125k-$250k/yr salary plus $0-$1.5M per-project budget. Application cycles run about twice a year.",
+        "sources": ["https://astera.org/residency/"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "casper-network",
+    "org_name": null,
+    "program": "Casper Agentic Buildathon 2026",
+    "title": "Casper Agentic Buildathon 2026 ($150k) is the network's active funding vehicle while its Accelerate Grant Program stays suspended",
+    "summary": "Casper's own site shows the standing Accelerate Grant Program is suspended, but is running the Casper Agentic Buildathon 2026 (June 1 - July 31, 2026) via DoraHacks, offering $150,000 in cash and in-kind rewards for AI-native applications for autonomous systems and machine-to-machine economies, open to builders with no prior Web3 experience.",
+    "evidence_url": "https://dorahacks.io/hackathon/2202/detail",
+    "proposed_change": {
+      "programs/casper-agentic-buildathon-2026.yaml": {
+        "id": "casper-agentic-buildathon-2026",
+        "name": "Casper Agentic Buildathon 2026",
+        "org": "casper-network",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "prize",
+        "apply_url": "https://dorahacks.io/hackathon/2202/detail",
+        "summary": "Buildathon for AI-native applications for autonomous systems and machine-to-machine economies on Casper; no prior Web3 experience required. Casper's standing Accelerate Grant Program is currently suspended, making this the network's active funding vehicle.",
+        "rounds": [
+          {
+            "name": "2026 Buildathon",
+            "status": "open",
+            "opens": "2026-06-01",
+            "closes": "2026-07-31",
+            "size": "$150,000 (cash + in-kind)",
+            "source": "https://dorahacks.io/hackathon/2202/detail"
+          }
+        ],
+        "sources": ["https://www.casper.network", "https://dorahacks.io/hackathon/2202/detail"]
+      }
+    },
+    "confidence": 68,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "flow",
+    "org_name": null,
+    "program": "Flow GrantDAO",
+    "title": "Flow GrantDAO (community MACI-voted fund) is missing from registry/programs",
+    "summary": "Flow's own ecosystem/grants page describes GrantDAO, a community-voted fund (MACI voting on DoraHacks) for pre-startup and hackathon-stage builders, allocating at least 50k FLOW per round. Round 1 closed 2025-08-16; Round 2 timing is not yet announced. No program file currently exists for this or Flow's parallel Ecosystem Grants track (see companion proposal).",
+    "evidence_url": "https://developers.flow.com/ecosystem/grants",
+    "proposed_change": {
+      "programs/flow-grantdao.yaml": {
+        "id": "flow-grantdao",
+        "name": "Flow GrantDAO",
+        "org": "flow",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "quadratic",
+        "apply_url": "https://dorahacks.io/flow",
+        "summary": "Community-voted fund (MACI voting on DoraHacks) for pre-startup and hackathon-stage builders on Flow; at least 50k FLOW prize pool per round, with advisory and fundraising support for standout teams.",
+        "rounds": [
+          {
+            "name": "Round 1",
+            "status": "closed",
+            "closes": "2025-08-16",
+            "size": "≥50k FLOW",
+            "source": "https://developers.flow.com/ecosystem/grants"
+          }
+        ],
+        "sources": ["https://developers.flow.com/ecosystem/grants"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "flow",
+    "org_name": null,
+    "program": "Flow Ecosystem Grants",
+    "title": "Flow Ecosystem Grants (top-down growth-stage track) is missing from registry/programs",
+    "summary": "Flow's ecosystem/grants page describes Ecosystem Grants, a top-down programme where the Flow Foundation directly reviews milestone-based proposals from growth-stage teams (submitted to bd@flowfoundation.org). Grant size and round schedule are not published. Companion program to Flow GrantDAO (see separate proposal); neither currently has a registry file.",
+    "evidence_url": "https://developers.flow.com/ecosystem/grants",
+    "proposed_change": {
+      "programs/flow-ecosystem-grants.yaml": {
+        "id": "flow-ecosystem-grants",
+        "name": "Flow Ecosystem Grants",
+        "org": "flow",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Top-down grant track for growth-stage teams building on Flow; milestone-based proposals (roadmap, funding request per milestone, budget justification, success metrics) reviewed internally by the Flow Foundation. Size and round schedule not published.",
+        "sources": ["https://developers.flow.com/ecosystem/grants"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "gavi-the-vaccine-alliance",
+    "org_name": null,
+    "program": "Gavi Civil Society Organization (CSO) Funding",
+    "title": "Gavi's CSO funding mechanism is missing from registry/programs",
+    "summary": "Gavi's own funding pages describe a distinct CSO funding mechanism: country-specific calls for proposals (plus government-approved single-source funding) targeting zero-dose/under-immunised children, HPV vaccine rollout, and COVID-19 vaccine integration, run through the Grantelope online grant system by MannionDaniels/Oxford Policy Management on Gavi's behalf. No registry program file exists for it.",
+    "evidence_url": "https://www.gavi.org/our-work/funding-civil-society-organisations",
+    "proposed_change": {
+      "programs/gavi-cso-funding.yaml": {
+        "id": "gavi-cso-funding",
+        "name": "Gavi Civil Society Organization (CSO) Funding",
+        "org": "gavi-the-vaccine-alliance",
+        "systems": ["global-health"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance",
+        "summary": "Grants to civil society organizations working to reach zero-dose and under-immunised children, expand HPV vaccine rollout, and integrate COVID-19 vaccination into routine immunisation. Delivered via country-specific calls for proposals through the Grantelope grant management system, administered by MannionDaniels/Oxford Policy Management on Gavi's behalf.",
+        "sources": [
+          "https://www.gavi.org/our-work/funding-civil-society-organisations",
+          "https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance"
+        ]
+      }
+    },
+    "confidence": 62,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "hedera",
+    "org_name": null,
+    "program": null,
+    "title": "hedera.com now points builders to a 'Hedera Foundation' (hedera.foundation) distinct from the profile's stated 'Hashgraph Association'",
+    "summary": "The registry profile for Hedera says ecosystem funding flows primarily through the independent Hashgraph Association. Hedera's own homepage now links its funding/investment activity to 'Hedera Foundation' at hedera.foundation, which describes backing DeFi/enterprise projects and cites an investment in a Fidelity International tokenized fund via Archax — a different kind of activity (treasury investment, not grants). Unclear if this is a rename, a second funding arm, or a different entity; worth Sov confirming before the profile is edited.",
+    "evidence_url": "https://hedera.foundation/",
+    "proposed_change": {
+      "orgs/hedera.yaml": {
+        "profile_note": "hedera.com's funding/backing links now point to 'Hedera Foundation' (hedera.foundation), described as backing DeFi and enterprise projects and investments (e.g. a tokenized Fidelity International money-market fund via Archax) — distinct in character from the grant-making 'Hashgraph Association' described in the current profile. Recommend confirming whether these are the same body, a rename, or two parallel funding arms before editing the profile."
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "linux-foundation",
+    "org_name": null,
+    "program": "Alpha-Omega",
+    "title": "Alpha-Omega (open-source security grants) is missing from registry/programs despite being named in the org profile",
+    "summary": "The Linux Foundation's org profile already names Alpha-Omega as its channel for corporate-backed open-source-security funding, but no program file exists. Alpha-Omega's own site confirms an annual budget of over $7M, backing from Anthropic, AWS, Citi, GitHub, Google, Microsoft, and OpenAI, and a documented apply process (grant submission form -> proposal/SOW discussion), funding everything from the largest global projects to individually-maintained components.",
+    "evidence_url": "https://alpha-omega.dev/grants/how-to-apply/",
+    "proposed_change": {
+      "programs/alpha-omega.yaml": {
+        "id": "alpha-omega",
+        "name": "Alpha-Omega",
+        "org": "linux-foundation",
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://alpha-omega.dev/grants/how-to-apply/",
+        "summary": "OpenSSF-backed initiative (funders include Anthropic, AWS, Citi, GitHub, Google, Microsoft, OpenAI) funding open-source supply-chain security, from the largest global projects to essential components maintained by individuals; ~$7M annual budget. Applicants submit a grant form and, if aligned, move to a proposal/SOW discussion; grantees give monthly public reports and join monthly strategy roundtables.",
+        "sources": ["https://alpha-omega.dev/", "https://alpha-omega.dev/grants/how-to-apply/"]
+      }
+    },
+    "confidence": 72,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "new-energy-and-industrial-technology-development-organizatio",
+    "org_name": null,
+    "program": "NEDO Green Innovation Fund",
+    "title": "NEDO's Green Innovation Fund is a named funding vehicle with no program file — but terms are unconfirmed",
+    "summary": "NEDO's English site names the Green Innovation Fund as a project it established toward carbon neutrality, with a dedicated sub-site. No grant size, cadence, or direct application URL could be confirmed from the pages fetched. Flagged as a lead, not a fully sourced program — low confidence, worth a follow-up fetch of green-innovation.nedo.go.jp before promoting.",
+    "evidence_url": "https://www.nedo.go.jp/english/",
+    "proposed_change": {
+      "programs/nedo-green-innovation-fund.yaml": {
+        "id": "nedo-green-innovation-fund",
+        "name": "NEDO Green Innovation Fund",
+        "org": "new-energy-and-industrial-technology-development-organizatio",
+        "systems": ["japan-public-rd"],
+        "wires": [],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Japanese government fund established by NEDO to support carbon-neutrality and decarbonization R&D projects. Grant sizes, cadence, and a direct application URL were not confirmed from NEDO's English-language pages.",
+        "sources": ["https://www.nedo.go.jp/english/"]
+      }
+    },
+    "confidence": 38,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "schmidt-futures",
+    "org_name": null,
+    "program": null,
+    "title": "schmidt-futures.yaml and schmidt-sciences.yaml are duplicate org files for the same organization",
+    "summary": "schmidt-futures.yaml's own profile states its website 'now redirects to Schmidt Sciences' and lists Schmidt Sciences programs (AI2050, five research centers). A separate, fuller org file already exists at schmidt-sciences.yaml (website schmidtsciences.org, funding block filled, owns the schmidt-sciences-trustworthy-ai program). These look like the same funder under an old name and a new name, not two organizations. Recommend Sov decide which id to keep canonical and merge/retire the other (schmidt-futures' aka already lists 'Schmidt Sciences', supporting a merge into schmidt-sciences with schmidt-futures kept only as an aka).",
+    "evidence_url": "https://www.schmidtsciences.org/",
+    "proposed_change": {
+      "action": "flag_possible_duplicate",
+      "orgs/schmidt-futures.yaml": {
+        "profile_note": "Likely a duplicate of orgs/schmidt-sciences.yaml (same organization, old name -> new name). schmidt-sciences.yaml is the fuller record and owns programs/schmidt-sciences-trustworthy-ai.yaml. Owner call needed on which id is canonical before merging."
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "round_update",
+    "org": "schmidt-sciences",
+    "org_name": null,
+    "program": "schmidt-sciences-trustworthy-ai",
+    "title": "Schmidt Sciences opened a new Trustworthy AI call: 'Scaling AI Safety for a Multi-Agent World'",
+    "summary": "Schmidt Sciences' own opportunities page lists a currently open call, 'Scaling AI Safety for a Multi-Agent World,' under the Science of Trustworthy AI program, with its own application portal. This is a new round beyond the '2026 Science of Trustworthy AI RFP' already on file (which closed 2026-05-17); size and deadline were not stated on the pages fetched.",
+    "evidence_url": "https://www.schmidtsciences.org/opportunities/",
+    "proposed_change": {
+      "programs/schmidt-sciences-trustworthy-ai.yaml": {
+        "rounds_add": [
+          {
+            "name": "Scaling AI Safety for a Multi-Agent World",
+            "status": "open",
+            "source": "https://schmidtsciences.smapply.io/prog/scaling_ai_safety_for_a_multi_agent_world/"
+          }
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "spotify",
+    "org_name": null,
+    "program": "Spotify FOSS Fund",
+    "title": "Spotify FOSS Fund has no program file despite being the org's named flagship funding vehicle",
+    "summary": "Spotify's own engineering blog describes the FOSS Fund (established 2022 at €100,000) and its 2025 cohort: FFmpeg (€30k), Xiph.Org (€25k), and MSW (€15k). There is no external application — Spotify's internal engineers nominate projects (informed by internal dependency data) and a fund committee selects recipients. No program file currently exists for it.",
+    "evidence_url": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund",
+    "proposed_change": {
+      "programs/spotify-foss-fund.yaml": {
+        "id": "spotify-foss-fund",
+        "name": "Spotify FOSS Fund",
+        "org": "spotify",
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Annual fund (established at €100,000 in 2022) paying maintainers of critical independent open-source projects Spotify depends on. No external application: Spotify's internal engineers nominate projects, informed by internal dependency data, and a fund committee selects recipients.",
+        "rounds": [
+          {
+            "name": "2025 cohort",
+            "status": "closed",
+            "size": "FFmpeg €30k, Xiph.Org €25k, MSW €15k",
+            "source": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund"
+          }
+        ],
+        "sources": [
+          "https://engineering.atspotify.com/2022/04/announcing-the-spotify-foss-fund",
+          "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund"
+        ]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

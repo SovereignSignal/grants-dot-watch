@@ -6,6 +6,8 @@ wires: [ai]
 roles: [funder, grantee]
 org_type: nonprofit
 website: https://www.rand.org/
+socials:
+  x: https://x.com/RANDCorporation
 status: unknown
 profile: >
   RAND Corporation is a nonprofit organization active on AI topics. In funding

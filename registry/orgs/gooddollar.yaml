@@ -17,5 +17,9 @@ profile: >
   apply via form to a grant committee for funding and mentorship to grow G$ utility and
   real-world impact, including matching funds and incentives. Programs are active with
   community-driven initiatives and ongoing applications.
+funding:
+  apply_url: https://gooddollar.typeform.com/to/z7xUuBe3
+  cadence: >
+    Rolling — apply via form, reviewed by a grant committee.
 sources:
   - https://www.gooddollar.org/

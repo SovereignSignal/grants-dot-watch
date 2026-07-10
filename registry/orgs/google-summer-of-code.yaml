@@ -16,5 +16,11 @@ profile: >
   new contributors into open-source software development. Participants work
   on 12+ week projects under the guidance of experienced mentors from over
   1,000 participating open-source mentoring organizations.
+funding:
+  typical_size: "$750–$6,600 stipend, PPP-adjusted (small/medium/large project tiers)"
+  cadence: "Annual; 2026 mentor org applications Jan 19–Feb 3, contributor applications Mar 16–31, coding May 25–Aug 31 (extendable to Nov)"
+  apply_url: https://summerofcode.withgoogle.com/get-started
 sources:
   - https://summerofcode.withgoogle.com
+  - https://developers.google.com/open-source/gsoc/timeline
+  - https://developers.google.com/open-source/gsoc/help/student-stipends

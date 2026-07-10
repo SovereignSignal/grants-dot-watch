@@ -14,5 +14,10 @@ profile: >
   safety, and communicating about AI risks and opportunities. It does not
   accept unsolicited grant applications, instead working with aligned funders
   and providing strategic support to philanthropists.
+funding:
+  focus:
+    - West-Asia AI governance bridge-building
+    - European AI safety
+    - AI risk and opportunity communications
 sources:
   - https://astralisfoundation.org

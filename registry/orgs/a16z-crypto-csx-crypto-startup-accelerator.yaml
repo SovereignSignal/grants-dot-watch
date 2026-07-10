@@ -8,6 +8,9 @@ systems: []
 wires: [crypto]
 roles: [funder]
 website: https://a16zcrypto.com/accelerator/
+socials:
+  x: https://twitter.com/a16zcrypto
+  github: https://github.com/a16z
 status: active
 profile: >
   CSX is a16z crypto's intensive, in-person accelerator for early-stage

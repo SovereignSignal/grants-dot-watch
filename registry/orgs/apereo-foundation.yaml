@@ -7,6 +7,8 @@ wires: [oss]
 roles: [funder]
 org_type: nonprofit
 website: https://www.apereo.org
+socials:
+  x: https://x.com/Apereo
 status: active
 profile: >
   The Apereo Foundation is a membership nonprofit that develops and sustains

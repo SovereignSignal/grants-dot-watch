@@ -14,5 +14,13 @@ profile: >
   human brain data for building foundational models of intelligent behavior. It funds research
   grants, data acquisition, and interdisciplinary work across neuroscience, AI, and medicine,
   and recently launched with calls for participants, tasks, and data contributions.
+funding:
+  focus:
+    - neuroscience-AI data acquisition
+    - cognitive/reasoning task protocols
+    - foundational models of intelligent behavior
+  typical_size: "up to $500,000 per team over 36 months"
+  apply_url: https://digitalbrainproject.org/apply.html
 sources:
   - https://digitalbrainproject.org/
+  - https://digitalbrainproject.org/apply.html

@@ -11,6 +11,7 @@ org_type: nonprofit
 website: https://endowment.dev/
 socials:
   github: https://github.com/osendowment
+  x: https://x.com/osendowment
 status: active
 profile: >
   The Open Source Endowment is a US 501(c)(3) community-driven nonprofit, launched in
@@ -24,6 +25,9 @@ profile: >
 funding:
   focus:
     - open-source maintainers
+  typical_size: "~$5,000 microgrants"
+  cadence: "First distribution round planned for Q2 2026 (inaugural round)"
+  apply_url: https://endowment.dev/funding
 sources:
   - https://endowment.dev/
   - https://github.com/osendowment

@@ -9,6 +9,8 @@ org_type: dao
 website: https://ether.fi/
 socials:
   x: https://x.com/ether_fi
+  github: https://github.com/etherfi-protocol
+  forum: https://governance.ether.fi
 status: active
 profile: >
   ether.fi is a decentralized, non-custodial liquid restaking protocol

@@ -9,7 +9,8 @@ roles:
   - funder
 org_type: nonprofit
 website: https://freebsdfoundation.org/
-socials: {}
+socials:
+  x: https://twitter.com/freebsdfndation
 status: active
 profile: >
   The FreeBSD Foundation supports the FreeBSD operating system project. It
@@ -17,6 +18,14 @@ profile: >
   userland development projects) and administers grants, inviting proposals
   through an open "Apply for a Grant" process and offering travel grants such
   as the EuroBSDCon 2026 travel grant.
+funding:
+  focus:
+    - FreeBSD software development
+    - travel grants
+    - conference sponsorship
+    - equipment for developers
+  apply_url: https://freebsdfoundation.org/our-work/grants/
 sources:
   - https://freebsdfoundation.org/
   - https://freebsdfoundation.org/blog/
+  - https://freebsdfoundation.org/our-work/grants/

@@ -7,7 +7,8 @@ wires: []
 roles: [funder]
 org_type: nonprofit
 website: https://www.rtyouthpower.org/
-socials: {}
+socials:
+  x: https://twitter.com/RTyouthpower
 status: active
 profile: >
   The Responsible Technology Youth Power Fund makes one-year grants

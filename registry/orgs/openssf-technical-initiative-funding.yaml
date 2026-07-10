@@ -18,6 +18,15 @@ profile: >
   $70k-$150k. It recently announced $12.5M in new grants from industry backers
   including AWS, Google, Microsoft, and OpenAI, managed with Alpha-Omega, for
   sustainable security work on critical open source infrastructure.
+funding:
+  focus:
+    - open source security
+    - security audits
+    - technical writers
+    - internships
+    - working group / technical initiative support
+  cadence: Technical Advisory Council reviews funding requests bi-monthly.
+  apply_url: https://openssf.org/about/tac/technical-initiative-funding/
 sources:
   - https://openssf.org/
-  - https://openssf.org/community/technical-initiatives/
+  - https://openssf.org/about/tac/technical-initiative-funding/

@@ -8,7 +8,8 @@ wires: [oss]
 roles: [funder]
 org_type: nonprofit
 website: https://sloan.org
-socials: {}
+socials:
+  x: https://x.com/SloanFoundation
 status: active
 profile: >
   The Alfred P. Sloan Foundation is a longstanding U.S. philanthropic foundation

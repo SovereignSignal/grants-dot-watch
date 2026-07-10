@@ -16,5 +16,14 @@ profile: >
   launched around 2025 in partnership with the School of Graduate Studies, it
   awards up to $10k per project to faculty, postdocs, and students for early-stage
   AI pilots across disciplines; 11 projects were funded in the 2025-2026 cohort.
+funding:
+  focus:
+    - AI research and technologies
+    - interdisciplinary AI applications in healthcare, education, and law
+    - early-stage and pilot projects
+  typical_size: "up to $10,000 per award"
+  cadence: "Annual cycle (2026-2027 cycle referenced); administered via Graduate Studies FRAP"
+  apply_url: https://www.nccu.edu/form/frap-application
 sources:
   - https://www.nccu.edu/
+  - https://www.nccu.edu/research/institutes-and-special-facilities/iaier/seed-grant-program

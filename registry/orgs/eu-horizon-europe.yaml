@@ -10,7 +10,7 @@ wires:
 roles:
   - funder
 org_type: government
-website: https://ec.europa.eu/programmes/horizon2020/
+website: https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en
 socials: {}
 status: active
 profile: >
@@ -25,3 +25,4 @@ sources:
   - https://ec.europa.eu/programmes/horizon2020/
   - https://ec.europa.eu/info/funding-tenders/opportunities/portal/
   - https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-04-HUMAN-02
+  - https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en

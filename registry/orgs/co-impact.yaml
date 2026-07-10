@@ -6,7 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: foundation
 website: https://co-impact.org/
-socials: {}
+socials:
+  x: https://x.com/coimpactcollab
 status: active
 profile: >
   Co-Impact is a global collaborative that pools funding from multiple
@@ -16,5 +17,13 @@ profile: >
   initiatives, supporting locally rooted organizations across Africa, Asia,
   and Latin America with flexible long-term funding and strategic support.
   The site was active with news dated June 2026.
+funding:
+  focus:
+    - health systems strengthening
+    - education systems
+    - economic opportunity
+    - gender equality and women's leadership
+  cadence: "Invitation-only / regionally-led sourcing; does not accept unsolicited proposals"
 sources:
   - https://co-impact.org/
+  - https://co-impact.org/about-us/what-we-fund/

@@ -8,7 +8,8 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.givewell.org/
-socials: {}
+socials:
+  x: https://twitter.com/GiveWell
 status: active
 profile: >
   GiveWell is an independent nonprofit focused on helping people do as much
@@ -16,5 +17,10 @@ profile: >
   charities working primarily in global health and poverty alleviation, and
   directs donor funding to those recommended organizations; donors have given
   over $2.6 billion to organizations it recommends since 2011.
+funding:
+  focus:
+    - global health
+    - poverty alleviation
+  apply_url: https://www.givewell.org/apply-for-consideration
 sources:
   - https://www.givewell.org/

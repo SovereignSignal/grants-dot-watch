@@ -12,6 +12,21 @@ profile: >
   The nonprofit organization behind Wikipedia, supporting the technology,
   people, and policies that enable reliable information sharing globally,
   including support for nearly 265,000 volunteers every month. Its homepage
-  does not detail specific grants programs.
+  does not detail specific grants programs; grantmaking runs through the
+  Wikimedia Community Fund, documented on Wikimedia's own Meta-Wiki.
+funding:
+  focus:
+    - knowledge equity
+    - community initiatives
+    - Wikimedia movement organizations and individuals
+  typical_size: >
+    $500-$5,000 average (Rapid Fund); larger multi-year support up to 3 years
+    via the General Support Fund.
+  cadence: >
+    Rapid Fund reviewed in ~2 months; General Support Fund in ~3 months;
+    annual round timelines published (e.g. July 2026-June 2027 timeline
+    published 2026-06-09).
+  apply_url: https://meta.wikimedia.org/wiki/Grants:Start
 sources:
   - https://wikimediafoundation.org/
+  - https://meta.wikimedia.org/wiki/Grants:Start

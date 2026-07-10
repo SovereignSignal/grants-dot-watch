@@ -6,7 +6,8 @@ wires: [crypto]
 roles: [funder]
 org_type: company
 website: https://www.circle.com
-socials: {}
+socials:
+  x: https://twitter.com/circle
 status: active
 profile: >
   Circle is the operator of the USDC stablecoin and a regulated digital-

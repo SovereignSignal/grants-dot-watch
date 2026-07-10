@@ -25,5 +25,8 @@ funding:
     - NFTs
     - gaming
   apply_url: https://developers.flow.com/
+  typical_size: "GrantDAO: at least 50k FLOW prize pool per round; Ecosystem Grants: milestone-based, size not published"
+  cadence: "GrantDAO: periodic rounds via DoraHacks (Round 1 closed 2025-08-16, Round 2 date TBA); Ecosystem Grants: rolling applications to bd@flowfoundation.org"
 sources:
   - https://developers.flow.com/
+  - https://developers.flow.com/ecosystem/grants

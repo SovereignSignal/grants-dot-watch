@@ -19,5 +19,13 @@ profile: >
   countries, including vaccine support, health systems strengthening, and
   grants to civil society organizations; since 2000 it has helped immunize
   over 1.2 billion children.
+funding:
+  focus:
+    - immunisation coverage for zero-dose and under-immunised children
+    - HPV vaccine rollout expansion
+    - COVID-19 vaccine integration into routine immunisation
+  cadence: "Country-specific calls for proposals, plus single-source funding driven by countries and approved by governments"
+  apply_url: https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance
 sources:
   - https://www.gavi.org/
+  - https://www.gavi.org/our-work/funding-civil-society-organisations

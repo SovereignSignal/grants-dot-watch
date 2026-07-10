@@ -19,6 +19,13 @@ profile: >
   interdisciplinary machine-learning research, and training programs from
   high school through postdoctoral levels. The site showed active updates
   through June 2026.
+funding:
+  focus:
+    - AI research chairs
+    - interdisciplinary machine-learning research
+    - AI safety
+    - AI talent training
 sources:
   - https://cifar.ca
   - https://cifar.ca/ai/
+  - https://cifar.ca/ai/cifar-ai-catalyst-grants/

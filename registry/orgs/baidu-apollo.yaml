@@ -6,6 +6,8 @@ wires: [ai, oss]
 roles: [funder]
 org_type: company
 website: https://apollo.baidu.com/
+socials:
+  github: https://github.com/ApolloAuto/apollo
 status: active
 profile: >
   Baidu Apollo is Baidu's open autonomous-driving platform, providing

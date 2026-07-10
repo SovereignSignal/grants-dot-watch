@@ -8,7 +8,8 @@ wires: [ai]
 roles: [funder]
 org_type: government
 website: https://www.eurohpc-ju.europa.eu/
-socials: {}
+socials:
+  x: https://x.com/eurohpc_ju
 status: active
 profile: >
   The European High Performance Computing Joint Undertaking (EuroHPC JU) is
@@ -21,3 +22,4 @@ profile: >
 sources:
   - https://www.eurohpc-ju.europa.eu/
   - https://www.eurohpc-ju.europa.eu/research-innovation_en
+  - https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en

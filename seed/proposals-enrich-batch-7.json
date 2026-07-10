@@ -1,0 +1,470 @@
+[
+  {
+    "type": "new_program",
+    "org": "afwerx",
+    "org_name": "AFWERX",
+    "program": "AFWERX SBIR/STTR",
+    "title": "New program: AFWERX SBIR/STTR (Open Topic / Specific Topic / STRATFI-TACFI)",
+    "summary": "AFWERX's own site describes its core funding mechanism as continuous numbered SBIR/STTR solicitation releases (Open Topic, Specific Topic, STRATFI/TACFI, Phase III), not currently tracked as a program file. Current release visible on the homepage: \"26.BZ Release 3 Specific Topic\" open, submit by July 22, 2026; \"26.BZ Release 4 Specific Topic\" in pre-release.",
+    "evidence_url": "https://afwerx.com",
+    "proposed_change": {
+      "programs/afwerx-sbir-sttr.yaml": {
+        "id": "afwerx-sbir-sttr",
+        "name": "AFWERX SBIR/STTR",
+        "org": "afwerx",
+        "systems": ["us-federal-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.dodsbirsttr.mil/submissions/login",
+        "summary": "AFWERX's SBIR/STTR program funds dual-use technology for the U.S. Air Force through Open Topic, Specific Topic, and STRATFI/TACFI scale-up solicitation tracks, released as continuous numbered cycles (e.g. \"26.BZ\").",
+        "rounds": [
+          {"name": "26.BZ Release 3 Specific Topic", "status": "open", "closes": "2026-07-22", "source": "https://afwerx.com"},
+          {"name": "26.BZ Release 4 Specific Topic", "status": "announced", "source": "https://afwerx.com"}
+        ],
+        "sources": ["https://afwerx.com"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Arbitrum Audit Program",
+    "title": "New program: Arbitrum Audit Program ($10M in ARB)",
+    "summary": "arbitrum.io/grants lists an active \"Arbitrum Audit Program\" offering \"$10M in ARB over 12 months\", not currently in the registry (only STIP Round 1, STIP Bridge, and the Questbook DDA program are tracked).",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-audit-program.yaml": {
+        "id": "arbitrum-audit-program",
+        "name": "Arbitrum Audit Program",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "An Arbitrum Foundation program subsidizing security audits for ecosystem protocols, with $10M in ARB earmarked over a 12-month window.",
+        "rounds": [
+          {"name": "Audit Program (12-month)", "status": "open", "size": "$10M in ARB over 12 months", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "ArbiFuel",
+    "title": "New program: ArbiFuel gas-fee sponsorship",
+    "summary": "arbitrum.io/grants lists \"ArbiFuel\" as an active \"Gas Fee Sponsorship Program to help early-stage teams ship faster\" on Arbitrum; not currently in the registry.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-arbifuel.yaml": {
+        "id": "arbitrum-arbifuel",
+        "name": "ArbiFuel",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "other",
+        "summary": "Gas fee sponsorship program from the Arbitrum Foundation intended to help early-stage teams ship faster on Arbitrum by covering onboarding gas costs.",
+        "rounds": [],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Alchemy-Arbitrum Grant Program",
+    "title": "New program: Alchemy-Arbitrum Grant Program ($10M + $500K infra credits)",
+    "summary": "arbitrum.io/grants lists an active co-branded \"Alchemy-Arbitrum Grant Program\": \"$10M grant program\" with \"up to $500K in Alchemy infrastructure credits\"; not currently in the registry.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/alchemy-arbitrum-grant-program.yaml": {
+        "id": "alchemy-arbitrum-grant-program",
+        "name": "Alchemy-Arbitrum Grant Program",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "A co-branded grant program between Alchemy and the Arbitrum Foundation, combining a $10M grant pool with up to $500K in Alchemy infrastructure credits for builders on Arbitrum.",
+        "rounds": [
+          {"name": "Alchemy-Arbitrum Grant Program", "status": "open", "size": "$10M grants + up to $500K Alchemy infra credits", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Arbitrum Gaming Ventures",
+    "title": "New program: Arbitrum Gaming Ventures",
+    "summary": "arbitrum.io/grants lists \"Arbitrum Gaming Ventures\" as an active program; the fetched page did not surface a specific award size. Missing from the registry (which has no gaming-specific Arbitrum program).",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-gaming-ventures.yaml": {
+        "id": "arbitrum-gaming-ventures",
+        "name": "Arbitrum Gaming Ventures",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "An Arbitrum Foundation initiative funding gaming projects building on Arbitrum; award size not confirmed from the page fetched.",
+        "rounds": [],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Arbitrum Trailblazer 2.0",
+    "title": "New program (concluded): Arbitrum Trailblazer 2.0 ($1M)",
+    "summary": "arbitrum.io/grants marks \"Trailblazer 2.0\" ($1M funding program) as \"Program Complete\". Not currently in the registry; adding as a concluded historical program.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-trailblazer-2.yaml": {
+        "id": "arbitrum-trailblazer-2",
+        "name": "Arbitrum Trailblazer 2.0",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "concluded",
+        "mechanism": "grants",
+        "summary": "A concluded $1M Arbitrum Foundation funding program for ecosystem builders, marked \"Program Complete\" on the Foundation's grants page.",
+        "rounds": [
+          {"name": "Trailblazer 2.0", "status": "closed", "size": "$1M funding program", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Arbitrum Trailblazer AI",
+    "title": "New program (concluded): Arbitrum Trailblazer AI ($1M)",
+    "summary": "arbitrum.io/grants marks \"Trailblazer AI\" (\"$1,000,000 initiative\") as \"Program Complete\". Not currently in the registry; adding as a concluded historical program.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-trailblazer-ai.yaml": {
+        "id": "arbitrum-trailblazer-ai",
+        "name": "Arbitrum Trailblazer AI",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto", "ai"],
+        "status": "concluded",
+        "mechanism": "grants",
+        "summary": "A concluded $1,000,000 Arbitrum Foundation initiative funding AI-related projects on Arbitrum, marked \"Program Complete\" on the Foundation's grants page.",
+        "rounds": [
+          {"name": "Trailblazer AI", "status": "closed", "size": "$1,000,000 initiative", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Arbitrum Stylus Sprint",
+    "title": "New program (concluded): Arbitrum Stylus Sprint (5M ARB)",
+    "summary": "arbitrum.io/grants marks \"Stylus Sprint\" (\"5M ARB worth of grants\") as \"Program Complete\"; the Questbook Arbitrum grants dashboard also lists a \"Stylus Sprint\" track. Not currently in the registry.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/arbitrum-stylus-sprint.yaml": {
+        "id": "arbitrum-stylus-sprint",
+        "name": "Arbitrum Stylus Sprint",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum"],
+        "wires": ["crypto"],
+        "status": "concluded",
+        "mechanism": "grants",
+        "summary": "A concluded Arbitrum Foundation program distributing 5M ARB worth of grants to projects building with Stylus, marked \"Program Complete\" on the Foundation's grants page.",
+        "rounds": [
+          {"name": "Stylus Sprint", "status": "closed", "size": "5M ARB worth of grants", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "arbitrum-foundation",
+    "org_name": "Arbitrum Foundation",
+    "program": "Uniswap-Arbitrum Grant Program",
+    "title": "New program (concluded): Uniswap-Arbitrum grant program ($50K-$250K ARB)",
+    "summary": "arbitrum.io/grants marks a co-branded \"Uniswap-Arbitrum\" program granting \"$50,000 to $250,000 in ARB tokens\" as \"Program Complete\". Not currently in the registry.",
+    "evidence_url": "https://arbitrum.io/grants",
+    "proposed_change": {
+      "programs/uniswap-arbitrum-grant-program.yaml": {
+        "id": "uniswap-arbitrum-grant-program",
+        "name": "Uniswap-Arbitrum Grant Program",
+        "org": "arbitrum-foundation",
+        "systems": ["arbitrum", "ethereum"],
+        "wires": ["crypto"],
+        "status": "concluded",
+        "mechanism": "grants",
+        "summary": "A concluded co-branded grant program between Uniswap and the Arbitrum Foundation, awarding $50,000-$250,000 in ARB tokens to protocols, marked \"Program Complete\" on the Foundation's grants page.",
+        "rounds": [
+          {"name": "Uniswap-Arbitrum Grant Program", "status": "closed", "size": "$50,000-$250,000 in ARB tokens", "source": "https://arbitrum.io/grants"}
+        ],
+        "sources": ["https://arbitrum.io/grants"]
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "sui-foundation",
+    "org_name": "Sui Foundation",
+    "program": "Hydropower",
+    "title": "New program: Sui Hydropower accelerator",
+    "summary": "sui.io/programs-funding describes \"Hydropower\" as \"Sui Foundation's official accelerator, offering hands-on support, mentorship, and connections to capital\" (no equity taken). None of Sui Foundation's funding mechanisms currently have program files in the registry, despite the org profile summarizing all of them.",
+    "evidence_url": "https://www.sui.io/programs-funding",
+    "proposed_change": {
+      "programs/sui-hydropower.yaml": {
+        "id": "sui-hydropower",
+        "name": "Hydropower",
+        "org": "sui-foundation",
+        "systems": ["sui"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "incubator",
+        "apply_url": "https://www.sui.io/programs-funding",
+        "summary": "Sui Foundation's official non-dilutive accelerator, offering hands-on mentorship and connections to capital for teams building on Sui.",
+        "rounds": [],
+        "sources": ["https://www.sui.io/programs-funding"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "sui-foundation",
+    "org_name": "Sui Foundation",
+    "program": "DeFi Moonshots",
+    "title": "New program: Sui DeFi Moonshots (up to $500K liquidity incentives)",
+    "summary": "sui.io/programs-funding describes \"DeFi Moonshots\" as offering \"up to $500k in liquidity incentives\" to top DeFi protocol builders on Sui. Missing from registry/programs.",
+    "evidence_url": "https://www.sui.io/programs-funding",
+    "proposed_change": {
+      "programs/sui-defi-moonshots.yaml": {
+        "id": "sui-defi-moonshots",
+        "name": "DeFi Moonshots",
+        "org": "sui-foundation",
+        "systems": ["sui"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.sui.io/programs-funding",
+        "summary": "A Sui Foundation program offering up to $500,000 in liquidity incentives to top DeFi protocol builders on Sui.",
+        "rounds": [
+          {"name": "DeFi Moonshots", "status": "open", "size": "up to $500,000 in liquidity incentives", "source": "https://www.sui.io/programs-funding"}
+        ],
+        "sources": ["https://www.sui.io/programs-funding"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "sui-foundation",
+    "org_name": "Sui Foundation",
+    "program": "Academic Research Awards",
+    "title": "New program: Sui Academic Research Awards (~$25K)",
+    "summary": "sui.io/programs-funding confirms Academic Research Awards fund blockchain science/security research at \"~$25,000 per award\" (links out to a Notion application form). Missing from registry/programs.",
+    "evidence_url": "https://www.sui.io/programs-funding",
+    "proposed_change": {
+      "programs/sui-academic-research-awards.yaml": {
+        "id": "sui-academic-research-awards",
+        "name": "Academic Research Awards",
+        "org": "sui-foundation",
+        "systems": ["sui"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Sui Foundation awards of roughly $25,000 for academic blockchain science and security research, applied for via an external form.",
+        "rounds": [
+          {"name": "Academic Research Awards", "status": "open", "size": "~$25,000 per award", "source": "https://www.sui.io/programs-funding"}
+        ],
+        "sources": ["https://www.sui.io/programs-funding"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "sui-foundation",
+    "org_name": "Sui Foundation",
+    "program": "Requests for Proposals",
+    "title": "New program: Sui Requests for Proposals (RFPs)",
+    "summary": "sui.io/programs-funding lists a standing RFP mechanism targeting specific technical/ecosystem challenges on Sui. Missing from registry/programs.",
+    "evidence_url": "https://www.sui.io/programs-funding",
+    "proposed_change": {
+      "programs/sui-requests-for-proposals.yaml": {
+        "id": "sui-requests-for-proposals",
+        "name": "Sui Requests for Proposals",
+        "org": "sui-foundation",
+        "systems": ["sui"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://www.sui.io/request-for-proposals",
+        "summary": "Sui Foundation Requests for Proposals targeting specific technical or ecosystem challenges the Foundation wants solved.",
+        "rounds": [],
+        "sources": ["https://www.sui.io/programs-funding", "https://www.sui.io/request-for-proposals"]
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "tron-dao",
+    "org_name": "TRON DAO",
+    "program": "TRON Builders League",
+    "title": "New program: TRON Builders League (up to $5M funding)",
+    "summary": "trondao.org/tron-builders-league states \"Up to $5,000,000 in Funding\" for a long-term, milestone-based funding and incubation program for projects building on TRON/BTTC, across 8 tracks (Infrastructure & Security, Gaming, Cross-Chain, Consumer/Social, Payments & DeFi, AI & Automation, DePin/RWA, Memes). Missing from registry/programs.",
+    "evidence_url": "https://trondao.org/tron-builders-league",
+    "proposed_change": {
+      "programs/tron-builders-league.yaml": {
+        "id": "tron-builders-league",
+        "name": "TRON Builders League",
+        "org": "tron-dao",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "incubator",
+        "apply_url": "https://trondao.org/tron-builders-league",
+        "summary": "A long-term, milestone-based TRON DAO funding and incubation program (up to $5M) for projects building on TRON and BTTC, spanning tracks including infrastructure/security, gaming, cross-chain, payments/DeFi, and AI & automation.",
+        "rounds": [
+          {"name": "TRON Builders League", "status": "open", "size": "Up to $5,000,000 in funding", "source": "https://trondao.org/tron-builders-league"}
+        ],
+        "sources": ["https://trondao.org/tron-builders-league"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "freebsd-foundation",
+    "org_name": "FreeBSD Foundation",
+    "program": "FreeBSD Foundation Grants",
+    "title": "New program: FreeBSD Foundation Grants (Community + Travel)",
+    "summary": "freebsdfoundation.org/our-work/grants/ describes an open \"Apply for a Grant\" process covering Travel Grants (conference attendance) and Community Grants (software development, equipment, conference sponsorship); a EuroBSDCon 2026 Travel Grant opened June 30, 2026. No program file exists for the FreeBSD Foundation yet.",
+    "evidence_url": "https://freebsdfoundation.org/our-work/grants/",
+    "proposed_change": {
+      "programs/freebsd-foundation-grants.yaml": {
+        "id": "freebsd-foundation-grants",
+        "name": "FreeBSD Foundation Grants",
+        "org": "freebsd-foundation",
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://freebsdfoundation.org/our-work/grants/",
+        "summary": "The FreeBSD Foundation's standing grant process: Travel Grants for conference attendance and Community Grants for software development, equipment, and conference sponsorship benefiting the FreeBSD project.",
+        "rounds": [
+          {"name": "EuroBSDCon 2026 Travel Grant", "status": "open", "opens": "2026-06-30", "source": "https://freebsdfoundation.org/our-work/grants/"}
+        ],
+        "sources": ["https://freebsdfoundation.org/our-work/grants/"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "round_update",
+    "org": "google-chrome",
+    "org_name": "Google Chrome",
+    "program": "google-chrome-web-framework-tools-performance-fund",
+    "title": "Round update: Web Framework & Tools Performance Fund submissions in review",
+    "summary": "opencollective.com/chrome states \"Submissions to the fund are now in review. Watch out for projects we'll be approving for funding!\" — a status beyond the existing \"Ongoing disbursements\" round.",
+    "evidence_url": "https://opencollective.com/chrome",
+    "proposed_change": {
+      "programs/google-chrome-web-framework-tools-performance-fund.yaml": {
+        "rounds": [
+          {"name": "2026 submission batch", "status": "reviewing", "source": "https://opencollective.com/chrome"}
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "software-freedom-conservancy",
+    "org_name": "Software Freedom Conservancy",
+    "program": "Outreachy",
+    "title": "New program: Outreachy internship ($7,000 stipend, 2 rounds/year)",
+    "summary": "sfconservancy.org links to outreachy.org and names Outreachy as a program it runs; outreachy.org itself confirms a $7,000 USD stipend, two annual internship rounds (May-August and December-March), and an apply URL. Missing from registry/programs.",
+    "evidence_url": "https://www.outreachy.org/",
+    "proposed_change": {
+      "programs/outreachy.yaml": {
+        "id": "outreachy",
+        "name": "Outreachy",
+        "org": "software-freedom-conservancy",
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://www.outreachy.org/apply/",
+        "summary": "Outreachy is a paid open-source internship program (administered with Software Freedom Conservancy support) offering $7,000 USD stipends, running two rounds a year: May-August and December-March.",
+        "rounds": [
+          {"name": "May 2026 internships", "status": "announced", "opens": "2026-02-06", "closes": "2026-02-13", "size": "$7,000 USD stipend", "source": "https://www.outreachy.org/"},
+          {"name": "December 2026 internships", "status": "announced", "size": "$7,000 USD stipend", "source": "https://www.outreachy.org/"}
+        ],
+        "sources": ["https://sfconservancy.org", "https://www.outreachy.org/"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

@@ -9,6 +9,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://cepi.net/
+socials:
+  x: https://x.com/CEPIvaccines
 status: active
 profile: >
   CEPI is a global partnership working to accelerate the development of
@@ -16,5 +18,15 @@ profile: >
   threats. It funds vaccine research and manufacturing capacity through
   competitive Calls for Proposals under its scientific programmes, open to
   innovators worldwide.
+funding:
+  focus:
+    - priority pathogen R&D
+    - process development and manufacturing
+    - enabling science and vaccine technology
+    - AI applications for vaccine development
+    - biosecurity
+  cadence: >
+    Open Calls for Proposals published on a rolling basis.
+  apply_url: https://cepi.my.site.com/call-for-proposal
 sources:
   - https://cepi.net/

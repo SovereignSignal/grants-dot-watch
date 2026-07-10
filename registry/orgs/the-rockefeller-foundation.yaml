@@ -7,7 +7,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.rockefellerfoundation.org
-socials: {}
+socials:
+  x: https://x.com/rockefellerfdn
 status: active
 profile: >
   Philanthropic foundation established in 1913 that promotes the well-being of
@@ -15,6 +16,17 @@ profile: >
   access, and economic opportunity, in the United States and globally. It does
   not accept unsolicited proposals; instead it works proactively, identifying
   problems and partners itself rather than running open calls.
+funding:
+  focus:
+    - food
+    - health
+    - innovation
+    - innovative finance
+    - power (energy access)
+    - economic opportunity
+  cadence: >
+    Does not accept unsolicited proposals; identifies problems and reaches out
+    to potential partners directly.
 sources:
   - https://www.rockefellerfoundation.org
   - https://www.rockefellerfoundation.org/grants/

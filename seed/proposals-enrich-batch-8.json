@@ -1,0 +1,349 @@
+[
+  {
+    "type": "new_program",
+    "org": "ai-grant",
+    "org_name": null,
+    "program": "AI Grant (Open Source Track)",
+    "title": "AI Grant runs a separate $5k-$50k open-source AI grant track at aigrant.org",
+    "summary": "Distinct from the $250k accelerator at aigrant.com, AI Grant's aigrant.org site offers $5,000-$50,000 no-strings grants (compute or cash) for open-source AI/ML projects — libraries, file formats, model efficiency, scientific and medical applications. No listed apply portal or deadline; the org's own profile already alludes to 'a separate grant track for open-source AI projects' but the registry has no program file for it.",
+    "evidence_url": "https://aigrant.org",
+    "proposed_change": {
+      "programs/ai-grant-open-source.yaml": {
+        "id": "ai-grant-open-source",
+        "name": "AI Grant (Open Source Track)",
+        "org": "ai-grant",
+        "parent": null,
+        "systems": ["open-source-ai"],
+        "wires": ["ai", "oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://aigrant.org",
+        "summary": "No-strings grants of $5,000-$50,000 (compute or cash) for open-source AI/ML projects, distinct from AI Grant's main $250k accelerator.",
+        "rounds": [],
+        "sources": ["https://aigrant.org"]
+      }
+    },
+    "confidence": 78,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "digital-brain-project",
+    "org_name": null,
+    "program": "Digital Brain Project 2026 Research Call",
+    "title": "Digital Brain Project's 2026 team-application call closed May 15, selection announced May 31",
+    "summary": "The org's apply page describes a 2026 call for PI-led teams (up to $500k per team over 36 months) to acquire neuroimaging data during cognitive/gameplay tasks. Call opened April 15, 2026 and closed May 15, 2026, with selection May 31, 2026 — both dates now in the past, so this round is concluded. No program file exists in the registry yet for this org.",
+    "evidence_url": "https://digitalbrainproject.org/apply.html",
+    "proposed_change": {
+      "programs/digital-brain-project-2026-call.yaml": {
+        "id": "digital-brain-project-2026-call",
+        "name": "Digital Brain Project 2026 Research Call",
+        "org": "digital-brain-project",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "concluded",
+        "mechanism": "grants",
+        "apply_url": "https://digitalbrainproject.org/apply.html",
+        "summary": "Funds PI-led teams at accredited institutions up to $500,000 over 36 months to acquire and share neuroimaging data for foundational models of intelligent behavior.",
+        "rounds": [
+          {
+            "name": "2026 Call",
+            "status": "closed",
+            "opens": "2026-04-15",
+            "closes": "2026-05-15",
+            "size": "up to $500,000 per team",
+            "source": "https://digitalbrainproject.org/apply.html"
+          }
+        ],
+        "sources": ["https://digitalbrainproject.org/apply.html"]
+      }
+    },
+    "confidence": 82,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "freecad-project-association",
+    "org_name": null,
+    "program": "FPA Development Fund",
+    "title": "FPA Development Fund runs quarterly grant rounds; Q3 2026 open (closes Sep 1), Q4 announced (closes Nov 15)",
+    "summary": "The FPA's Development Fund accelerates FreeCAD development with EUR 1,500-5,000 grants (EUR 40,000 reserved for 2026, distributed quarterly). Applications go through a public GitHub repo. Q1 (Mar 10) and Q2 (Jun 1) 2026 deadlines have passed; Q3 (Sep 1) is the current open window and Q4 (Nov 15) is announced. No program file exists yet for this fund.",
+    "evidence_url": "https://fpa.freecad.org/programs.html",
+    "proposed_change": {
+      "programs/freecad-development-fund.yaml": {
+        "id": "freecad-development-fund",
+        "name": "FPA Development Fund",
+        "org": "freecad-project-association",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://github.com/FreeCAD/FPA-grant-proposals",
+        "summary": "Quarterly grants (EUR 1,500-5,000, EUR 40,000 reserved for 2026) to accelerate FreeCAD development, prioritizing documentation, testing, release-cycle work, and ecosystem infrastructure.",
+        "rounds": [
+          {
+            "name": "Q3 2026",
+            "status": "open",
+            "closes": "2026-09-01",
+            "size": "EUR 1,500-5,000 per grant",
+            "source": "https://fpa.freecad.org/programs.html"
+          },
+          {
+            "name": "Q4 2026",
+            "status": "announced",
+            "closes": "2026-11-15",
+            "source": "https://fpa.freecad.org/programs.html"
+          }
+        ],
+        "sources": ["https://fpa.freecad.org/programs.html", "https://fpa.freecad.org/programs/fpadf-announcement"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "far-ai",
+    "org_name": null,
+    "program": "FAR.AI Grantmaking Program",
+    "title": "FAR.AI's $12M grantmaking program is currently nomination-only, public RFPs 'coming soon'",
+    "summary": "FAR.AI's grantmaking program for academics and independent researchers on critical AI risks is funded by a $12M grant from Coefficient Giving. The programs page states that, due to limited evaluation capacity, it currently only considers researchers nominated by experts with a strong track record, with public RFPs planned but not yet live. No program file exists in the registry for this.",
+    "evidence_url": "https://far.ai/programs/grantmaking",
+    "proposed_change": {
+      "programs/far-ai-grantmaking.yaml": {
+        "id": "far-ai-grantmaking",
+        "name": "FAR.AI Grantmaking Program",
+        "org": "far-ai",
+        "parent": null,
+        "systems": ["ai-safety"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://far.ai/programs/grantmaking",
+        "summary": "$12M grantmaking program (funded by Coefficient Giving) for academics and independent researchers on deception, robustness, interpretability, red-teaming, and alignment. Currently nomination-only pending limited evaluation capacity; public RFPs planned.",
+        "rounds": [],
+        "sources": ["https://far.ai/programs/grantmaking"]
+      }
+    },
+    "confidence": 72,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "google-summer-of-code",
+    "org_name": null,
+    "program": "Google Summer of Code 2026",
+    "title": "GSoC 2026 contributor applications closed Mar 31; coding period runs through Aug 31 (ext. Nov)",
+    "summary": "GSoC's own timeline page gives the full 2026 cycle: mentor org applications Jan 19-Feb 3, contributor applications Mar 16-31 (now closed), acceptances Apr 30, community bonding May 1-24, coding May 25 through Aug 31 (or Nov 2-9 for the extended track). Stipends are PPP-adjusted, $750-$6,600 across small/medium/large project tiers. No program file exists yet distinct from the org file.",
+    "evidence_url": "https://developers.google.com/open-source/gsoc/timeline",
+    "proposed_change": {
+      "programs/google-summer-of-code-2026.yaml": {
+        "id": "google-summer-of-code-2026",
+        "name": "Google Summer of Code 2026",
+        "org": "google-summer-of-code",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://summerofcode.withgoogle.com/get-started",
+        "summary": "Annual global program pairing new open-source contributors with mentoring organizations for 12+ week projects, with PPP-adjusted stipends of $750-$6,600.",
+        "rounds": [
+          {
+            "name": "GSoC 2026 contributor applications",
+            "status": "closed",
+            "opens": "2026-03-16",
+            "closes": "2026-03-31",
+            "size": "$750-$6,600 PPP-adjusted stipend",
+            "source": "https://developers.google.com/open-source/gsoc/timeline"
+          }
+        ],
+        "sources": ["https://developers.google.com/open-source/gsoc/timeline", "https://developers.google.com/open-source/gsoc/help/student-stipends"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "nccu",
+    "org_name": null,
+    "program": "IAIER Seed Grant Program",
+    "title": "NCCU's IAIER Seed Grant Program has its own page and apply form, missing as a program file",
+    "summary": "NCCU's Institute for Artificial Intelligence and Emerging Research runs the Seed Grant Program (up to $10k per award, administered via Graduate Studies' Faculty Research Award Program) with a dedicated page and application form. The org file already describes it in prose but no registry/programs file exists.",
+    "evidence_url": "https://www.nccu.edu/research/institutes-and-special-facilities/iaier/seed-grant-program",
+    "proposed_change": {
+      "programs/nccu-iaier-seed-grant.yaml": {
+        "id": "nccu-iaier-seed-grant",
+        "name": "IAIER Seed Grant Program",
+        "org": "nccu",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.nccu.edu/form/frap-application",
+        "summary": "Up to $10,000 per award for NCCU faculty, postdocs, and students to jumpstart early-stage AI pilot projects, administered via Graduate Studies' Faculty Research Award Program.",
+        "rounds": [],
+        "sources": ["https://www.nccu.edu/research/institutes-and-special-facilities/iaier/seed-grant-program"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "pacifica",
+    "org_name": null,
+    "program": "Pacifica Builder Program",
+    "title": "Pacifica runs a points-based Builder Program (Volume Two ran Mar 12-Jun 12, 2026) not yet in the registry",
+    "summary": "Pacifica's docs describe a Builder Program rewarding developers who contribute significantly to the platform, with up to 10,000,000 points allocated for 'Volume Two' (Mar 12-Jun 12, 2026, now closed). Onboarding is by direct contact (email/Discord/Telegram), not a self-service application. This contradicts the org profile's current line that there's 'no evidence' of a builder program — see accompanying profile_note.",
+    "evidence_url": "https://pacifica.gitbook.io/docs/programs/builder-program",
+    "proposed_change": {
+      "programs/pacifica-builder-program.yaml": {
+        "id": "pacifica-builder-program",
+        "name": "Pacifica Builder Program",
+        "org": "pacifica",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "other",
+        "apply_url": null,
+        "summary": "Points-based rewards program for developers making significant contributions to Pacifica's platform; onboarding via direct contact rather than a self-service form.",
+        "rounds": [
+          {
+            "name": "Volume Two",
+            "status": "closed",
+            "opens": "2026-03-12",
+            "closes": "2026-06-12",
+            "size": "up to 10,000,000 points (total pool)",
+            "source": "https://pacifica.gitbook.io/docs/programs/builder-program"
+          }
+        ],
+        "sources": ["https://pacifica.gitbook.io/docs/programs/builder-program"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "round_update",
+    "org": "survival-and-flourishing-fund-sff",
+    "org_name": null,
+    "program": "SFF S-Process Grant Rounds",
+    "title": "SFF-2026 adds three themed S-Process tracks (Climate Change, Animal Welfare, HSEE) alongside Main",
+    "summary": "The existing SFF-2026 round in the registry only lists the Main/Freedom/Fairness tracks (closed Apr 22, 2026). SFF's own 2026 application page shows three additional themed rounds not yet in the registry: Climate Change (closed Jun 10), Animal Welfare (closed Jun 24), and Human Self-Enhancement and Empowerment/HSEE (closed Jul 8) — each with $2-4MM estimated funding, all now past their application deadlines and moving into review. Total across all 2026 rounds is estimated at $20-40MM+.",
+    "evidence_url": "https://survivalandflourishing.fund/2026/application",
+    "proposed_change": {
+      "rounds": [
+        {
+          "name": "SFF-2026 S-Process — Climate Change track",
+          "status": "reviewing",
+          "closes": "2026-06-10",
+          "size": "$2-4MM",
+          "source": "https://survivalandflourishing.fund/2026/application"
+        },
+        {
+          "name": "SFF-2026 S-Process — Animal Welfare track",
+          "status": "reviewing",
+          "closes": "2026-06-24",
+          "size": "$2-4MM",
+          "source": "https://survivalandflourishing.fund/2026/application"
+        },
+        {
+          "name": "SFF-2026 S-Process — Human Self-Enhancement and Empowerment (HSEE) track",
+          "status": "reviewing",
+          "closes": "2026-07-08",
+          "size": "$2-4MM",
+          "source": "https://survivalandflourishing.fund/2026/application"
+        }
+      ]
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "pacifica",
+    "org_name": null,
+    "program": null,
+    "title": "Pacifica profile's 'no evidence of builder programs' claim is now outdated",
+    "summary": "The current org profile states 'There is no evidence it operates external grant, ecosystem fund, or builder programs.' Pacifica's own docs describe a points-based Builder Program (Volume Two, Mar 12-Jun 12, 2026) — see the accompanying new_program proposal. The profile sentence should be revised to reflect this rather than deleted outright, since it's still true that Pacifica runs no traditional dollar-denominated grant fund.",
+    "evidence_url": "https://pacifica.gitbook.io/docs/programs/builder-program",
+    "proposed_change": {
+      "orgs/pacifica.yaml": {
+        "profile_correction": "Remove or qualify the sentence 'There is no evidence it operates external grant, ecosystem fund, or builder programs' — a points-based Builder Program exists (see new_program proposal), even though there's still no traditional cash grant fund."
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "xprize-foundation",
+    "org_name": null,
+    "program": "XPRIZE Water Scarcity",
+    "title": "XPRIZE Water Scarcity ($119M) is an active named competition missing from registry/programs",
+    "summary": "XPRIZE's competitions page names an active $119 million Water Scarcity competition among its current prize slate. No dedicated program file exists; deadline/round-level detail wasn't available on the fetched pages, so this is name + prize amount only.",
+    "evidence_url": "https://xprize.org/competitions",
+    "proposed_change": {
+      "programs/xprize-water-scarcity.yaml": {
+        "id": "xprize-water-scarcity",
+        "name": "XPRIZE Water Scarcity",
+        "org": "xprize-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "prize",
+        "apply_url": "https://xprize.org/competitions",
+        "summary": "$119 million incentive prize competition for breakthrough water scarcity solutions.",
+        "rounds": [],
+        "sources": ["https://xprize.org/competitions"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "xprize-foundation",
+    "org_name": null,
+    "program": "XPRIZE Wildfire",
+    "title": "XPRIZE Wildfire ($11M) is an active named competition missing from registry/programs",
+    "summary": "XPRIZE's competitions page names an active $11 million Wildfire competition among its current prize slate. No dedicated program file exists; deadline/round-level detail wasn't available on the fetched pages, so this is name + prize amount only.",
+    "evidence_url": "https://xprize.org/competitions",
+    "proposed_change": {
+      "programs/xprize-wildfire.yaml": {
+        "id": "xprize-wildfire",
+        "name": "XPRIZE Wildfire",
+        "org": "xprize-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "prize",
+        "apply_url": "https://xprize.org/competitions",
+        "summary": "$11 million incentive prize competition for breakthrough wildfire detection/suppression solutions.",
+        "rounds": [],
+        "sources": ["https://xprize.org/competitions"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  }
+]

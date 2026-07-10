@@ -9,6 +9,8 @@ org_type: nonprofit
 website: https://interledger.org/
 socials:
   x: https://x.com/Interledger
+  github: https://github.com/interledger
+  forum: https://community.interledger.org/
 status: active
 profile: >
   The Interledger Foundation is a global nonprofit grantmaking organization advancing open
@@ -18,7 +20,17 @@ profile: >
   financial inclusion. Applications for the 2026 cohort closed in June, with fellows starting
   September 2026; the program builds on prior ambassadorship efforts and runs as an annual
   cycle.
+funding:
+  focus:
+    - open payments
+    - interoperability
+    - digital financial inclusion
+    - digital access
+  typical_size: "$72,000 personal stipend plus $20,000 project budget over 12 months"
+  cadence: "Annual cohort; 2026 applications accepted Apr 1-Jun 15 2026 (now closed), fellows start Sep 2026"
+  apply_url: https://submit.interledger.org/submit/352640/2026-interledger-fellowship/eligibility
 sources:
   - https://interledger.org/
   - https://interledger.org/grant/fellowship
   - https://submit.interledger.org/
+  - https://submit.interledger.org/submit/352640/2026-interledger-fellowship/eligibility

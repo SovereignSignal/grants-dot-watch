@@ -18,6 +18,10 @@ profile: >
   Requests for Startups (heavily AI-oriented in 2026), Demo Days, and ecosystem
   partnerships; batches run continuously and it is actively recruiting through its
   apply page.
+funding:
+  typical_size: "$500,000 per company per batch"
+  cadence: "Continuous — batches run ~4x per year"
+  apply_url: https://www.ycombinator.com/apply
 sources:
   - https://www.ycombinator.com/
   - https://www.ycombinator.com/apply

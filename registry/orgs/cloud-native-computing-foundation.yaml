@@ -7,7 +7,9 @@ wires: [oss, ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.cncf.io/
-socials: {}
+socials:
+  x: https://x.com/cloudnativefdn
+  github: https://github.com/cncf
 status: active
 profile: >
   The Cloud Native Computing Foundation, part of the Linux Foundation,

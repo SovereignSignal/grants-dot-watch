@@ -3,14 +3,16 @@ name: International Development Research Centre
 aka:
   - International Development Research Centre (IDRC) Canada
   - IDRC
+  - idrc.ca (former domain, now redirects)
 systems: []
 wires:
   - ai
 roles:
   - funder
 org_type: government
-website: https://idrc.ca/
-socials: {}
+website: https://idrc-crdi.ca/en
+socials:
+  x: https://x.com/Idrc_crdi
 status: active
 profile: >
   The International Development Research Centre (IDRC) is a Canadian
@@ -23,3 +25,4 @@ profile: >
 sources:
   - https://idrc.ca/
   - https://idrc-crdi.ca/
+  - https://idrc-crdi.ca/en

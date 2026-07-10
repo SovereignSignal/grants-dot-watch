@@ -8,7 +8,9 @@ wires: [oss]
 roles: [funder]
 org_type: company
 website: https://developer.chrome.com/
-socials: {}
+socials:
+  x: https://twitter.com/googlechrome
+  github: https://github.com/googlechrome
 status: active
 profile: >
   The Google Chrome team funds open-source web-platform work through

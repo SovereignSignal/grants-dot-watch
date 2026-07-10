@@ -16,5 +16,13 @@ profile: >
   open AI tools while exposing authoritarian uses of AI. Funding moves through direct grants,
   hackathons such as AI Hack for Freedom, and events. The program is actively growing, with
   frequent awards and new cohorts.
+funding:
+  focus:
+    - open-source privacy-preserving AI tools
+    - research exposing authoritarian AI abuses
+    - freedom-enhancing digital tools built by activists and developers
+    - hardware for local/offline AI inference
+  apply_url: https://hrf.org/program/ai-for-individual-rights/ai-grants/
 sources:
   - https://hrf.org/program/ai-for-individual-rights/
+  - https://hrf.org/program/ai-for-individual-rights/ai-grants/

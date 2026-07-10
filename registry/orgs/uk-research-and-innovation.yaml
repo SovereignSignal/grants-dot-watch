@@ -18,6 +18,11 @@ profile: >
   Research England, and Innovate UK. Funding is distributed via competitive
   open calls through its funding finder, with innovation funding applications
   handled at apply-for-innovation-funding.service.gov.uk.
+funding:
+  typical_size: "Ranges widely by scheme, from roughly £2,500 up to £7M+ per award"
+  cadence: "Rolling; ~120 open opportunities at a time via the Funding Finder, competitive open calls"
+  apply_url: https://www.ukri.org/opportunity/
 sources:
   - https://www.ukri.org/
   - https://apply-for-innovation-funding.service.gov.uk/
+  - https://www.ukri.org/opportunity/

@@ -16,5 +16,13 @@ profile: >
   to teams building AI, cloud gaming, and Web3 projects on its stack. The fund runs multiple
   tracks and partner programs (including with XPLA, xAI, NEAR, Oasis, Polyhedra, and WeatherXM)
   and is reviewed by an internal grant committee, with applications open.
+funding:
+  focus:
+    - AI applications
+    - cloud gaming
+    - AI-integrated gaming
+    - enterprise AI workloads
+  typical_size: "$5,000-$500,000 per project"
+  apply_url: https://share.hsforms.com/1pUR3bv2jSyiKE3CwvpaxNAq8ovb
 sources:
   - https://aethir.com/ecosystem-fund

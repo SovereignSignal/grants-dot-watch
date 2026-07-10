@@ -17,6 +17,21 @@ profile: >
   shipping, food and agriculture, industry and power, and sustainable
   finance. The site was actively maintained as of 2026 with recent
   funding announcements.
+funding:
+  focus:
+    - adaptation & resilience
+    - aviation
+    - carbon dioxide removal
+    - cooling
+    - food & agriculture
+    - forests & land use
+    - industry
+    - just transition
+    - maritime shipping
+    - power
+    - road transportation
+    - sustainable finance
+    - minerals for transition
 sources:
   - https://www.climateworks.org
   - https://www.climateworks.org/programs/

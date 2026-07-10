@@ -8,7 +8,8 @@ wires: [ai]
 roles: [funder]
 org_type: foundation
 website: https://cohere.com/research
-socials: {}
+socials:
+  x: https://x.com/Cohere_Labs
 status: active
 profile: >
   Cohere For AI, renamed Cohere Labs in April 2025, is Cohere's dedicated
@@ -19,5 +20,14 @@ profile: >
   countries, and Catalyst Grants providing free API access to academic
   partners and impact-focused organizations. Known projects include the Aya
   multilingual model family and the Global MMLU benchmark.
+funding:
+  focus:
+    - education
+    - healthcare
+    - climate change
+    - sustainability
+  cadence: Rolling; no fixed deadline
+  apply_url: https://cohere.com/research/grants
 sources:
   - https://cohere.com/research
+  - https://cohere.com/research/grants

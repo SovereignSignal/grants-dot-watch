@@ -18,5 +18,13 @@ profile: >
   overseen by the Foundation and The Graph Council with domain-expert input. No RFPs are
   currently open, but the program remains active with past large allocations, and its 2024
   Annual Grants Report highlighted ecosystem impact.
+funding:
+  focus:
+    - protocol (smart contracts, network operations, Graph Node development)
+    - tooling (subgraph and indexer tools)
+    - data services (subgraphs and Substreams)
+    - community (education, events, developer support)
+  cadence: "No open RFPs at time of check; historically distributed in numbered waves (e.g. Wave 3-5)"
+  apply_url: https://thegraph.typeform.com/applynow
 sources:
   - https://thegraph.com/grants/

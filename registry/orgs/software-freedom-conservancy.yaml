@@ -7,7 +7,8 @@ wires: [oss]
 roles: [funder, grantee]
 org_type: foundation
 website: https://sfconservancy.org
-socials: {}
+socials:
+  x: https://twitter.com/conservancy
 status: active
 profile: >
   501(c)(3) nonprofit that provides fiscal sponsorship and infrastructure to

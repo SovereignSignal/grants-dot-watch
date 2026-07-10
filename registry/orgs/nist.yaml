@@ -17,6 +17,13 @@ profile: >
   USA institute competitions and SBIR initiatives, with solicitations posted on
   grants.gov. Eligible applicants include manufacturers, universities,
   suppliers, and national labs.
+funding:
+  focus:
+    - manufacturing technology R&D
+    - energy efficiency in manufacturing
+    - collaborative partnerships among manufacturers, universities, suppliers, and national labs
+  cadence: "Open, merit-based competitions posted on grants.gov on a rolling basis"
+  apply_url: https://www.grants.gov/
 sources:
   - https://www.nist.gov
   - https://www.nist.gov/oam/funding-opportunities

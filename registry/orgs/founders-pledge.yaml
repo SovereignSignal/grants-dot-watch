@@ -6,7 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.founderspledge.com/
-socials: {}
+socials:
+  x: https://x.com/founderspledge
 status: active
 profile: >
   Founders Pledge is a nonprofit that connects entrepreneurs with
@@ -18,5 +19,16 @@ profile: >
   advisory services. As of June 2026 it reported 2,314 members from 45+
   countries with $13.6 billion pledged and $1.9 billion moved to the
   charitable sector.
+funding:
+  focus:
+    - climate change
+    - global catastrophic risks
+    - global health & development
+    - long-term / patient philanthropy
+  cadence: >
+    Rolling — donations are granted out to recipients based on fund balance
+    and availability of high-impact opportunities, often within the year.
+  apply_url: https://www.founderspledge.com/requests-for-funding
 sources:
   - https://www.founderspledge.com/
+  - https://www.founderspledge.com/funds

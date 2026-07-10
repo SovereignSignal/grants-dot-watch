@@ -9,6 +9,8 @@ wires: [ai]
 roles: [funder]
 org_type: government
 website: https://www.aspr.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx
+socials:
+  x: https://twitter.com/BARDA
 status: active
 profile: >
   BARDA is a US federal authority within HHS's Administration for Strategic
@@ -18,6 +20,15 @@ profile: >
   partnerships and mechanisms such as broad agency announcements and
   TechWatch meetings, in areas like influenza, emerging infectious diseases,
   and pharmaceutical infrastructure.
+funding:
+  focus:
+    - CBRN countermeasures
+    - influenza and emerging infectious diseases
+    - detection, diagnostics and devices infrastructure
+    - pharmaceutical countermeasures infrastructure
+    - health security innovation (DRIVe)
+  apply_url: https://www.aspr.gov/about/centers/barda/doing-business-barda
 sources:
   - https://aspr.hhs.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx
   - https://www.aspr.gov/AboutASPR/ProgramOffices/BARDA/Pages/default.aspx
+  - https://www.aspr.gov/about/centers/barda/doing-business-barda

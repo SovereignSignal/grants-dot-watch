@@ -14,5 +14,8 @@ profile: >
   legal compliance. It hosts more than 3,500 projects and manages their
   fundraising through the Open Collective platform. Projects apply through its
   website to join the fiscal hosting program.
+funding:
+  apply_url: https://opencollective.com/opensource/apply
 sources:
   - https://www.oscollective.org
+  - https://opencollective.com/opensource/apply

@@ -25,6 +25,10 @@ funding:
     - payments
     - DeFi
     - agentic apps
+  typical_size: 1-5 ETH per Builder Grant (retroactive)
+  cadence: >
+    Rolling / retroactive — no fixed round schedule; projects apply after
+    shipping live on Base mainnet.
   apply_url: https://docs.base.org/get-started/get-funded
 sources:
   - https://base.org/

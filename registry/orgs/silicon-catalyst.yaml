@@ -15,5 +15,15 @@ profile: >
   access to a network of more than 500 industry advisors and investors, and a
   24-month program, with franchised operations across the UK, EU, Israel,
   Japan, Australia, and Malaysia.
+funding:
+  focus:
+    - semiconductor startups
+    - chips and chiplets
+    - materials
+    - silicon-fab-based photonics, MEMS, sensors
+    - life science
+    - quantum technologies
+  apply_url: https://siliconcatalyst.com/application
 sources:
   - https://www.siliconcatalyst.com/
+  - https://siliconcatalyst.com/application

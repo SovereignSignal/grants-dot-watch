@@ -17,5 +17,18 @@ profile: >
   fellowships (e.g., Simons Foundation, Murty Science Fellowship) rather than a broad ecosystem
   grant program; money flows via institutional budgets, external grants, and targeted positions.
   Operations are stable, with ongoing calls for postdocs and events.
+funding:
+  focus:
+    - theoretical physics
+    - mathematics
+    - complex systems
+    - string theory
+    - astrophysics and relativity
+    - dynamical systems
+  cadence: >
+    Postdoctoral fellowships: twice yearly (summer and fall application
+    cycles).
+  apply_url: https://www.icts.res.in/academic/postdoctoral-fellowships
 sources:
   - https://www.icts.res.in/
+  - https://www.icts.res.in/academic/postdoctoral-fellowships

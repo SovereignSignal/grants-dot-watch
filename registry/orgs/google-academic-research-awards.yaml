@@ -17,5 +17,11 @@ profile: >
   Research Mentorship Program (CSRMP), the Award for Inclusion Research
   Program (AIR), and the CAHSI-Google Institutional Research Program, plus
   unrestricted grants supporting Trust & Safety research.
+funding:
+  focus:
+    - CS Research Mentorship Program (CSRMP)
+    - Award for Inclusion Research Program (AIR)
+    - CAHSI-Google Institutional Research Program
+    - Trust & Safety research
 sources:
   - https://research.google/programs-and-events/

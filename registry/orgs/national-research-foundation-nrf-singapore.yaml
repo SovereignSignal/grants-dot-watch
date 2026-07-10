@@ -16,5 +16,7 @@ profile: >
   the Competitive Research Programme for multidisciplinary teams, the Central
   Gap Fund for translating research into products and services, the NRF
   Investigatorship, and the Returning Singaporean Scientists Scheme.
+funding:
+  apply_url: https://www.researchgrant.gov.sg
 sources:
   - https://www.nrf.gov.sg/

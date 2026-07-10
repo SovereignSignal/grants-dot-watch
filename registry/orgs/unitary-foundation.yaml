@@ -18,5 +18,12 @@ profile: >
   sensors, and more. It has awarded 100+ microgrants across 31+ countries, work
   that has yielded 420+ papers and 40+ software libraries, and continues with
   annual reports and a new advisory board in 2025.
+funding:
+  focus:
+    - open source quantum software
+    - quantum education and workshops
+    - quantum sensor prototypes
+  typical_size: "$4,000 flat cash grants"
+  apply_url: https://unitaryfund.typeform.com/to/j0kAOd?typeform-source=unitary.foundation
 sources:
   - https://unitary.foundation/

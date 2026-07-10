@@ -10,7 +10,9 @@ roles:
   - funder
 org_type: nonprofit
 website: https://fpa.freecad.org/
-socials: {}
+socials:
+  github: https://github.com/FreeCAD/FPA
+  forum: https://forum.freecad.org
 status: active
 profile: >
   The FreeCAD Project Association is an international non-profit association
@@ -18,6 +20,15 @@ profile: >
   seated in Belgium, with the goal of supporting and protecting the FreeCAD
   project. It offers grants to improve FreeCAD and its ecosystem and manages
   project donations.
+funding:
+  focus:
+    - documentation
+    - testing
+    - FreeCAD release cycle improvements
+    - ecosystem infrastructure and hard dependencies (OCCT, Coin3D)
+  cadence: "Quarterly review cycles (2026: Q1 Mar 10, Q2 Jun 1, Q3 Sep 1, Q4 Nov 15 deadlines)"
+  apply_url: https://github.com/FreeCAD/FPA-grant-proposals
 sources:
   - https://fpa.freecad.org/
   - https://fpa.freecad.org/programs/fpadf-announcement
+  - https://fpa.freecad.org/programs.html

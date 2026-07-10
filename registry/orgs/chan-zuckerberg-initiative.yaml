@@ -14,6 +14,13 @@ profile: >
   through grantmaking and venture investments, and has awarded approximately
   $7.22 billion in grants since inception. Open funding opportunities are
   published as requests for applications (RFAs) on its site.
+funding:
+  focus:
+    - Science
+    - Education
+    - Community
+  apply_url: https://chanzuckerberg.com/grants-ventures/
 sources:
   - https://chanzuckerberg.com
   - https://chanzuckerberg.com/rfa/
+  - https://chanzuckerberg.com/grants-ventures/

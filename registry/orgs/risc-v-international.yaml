@@ -6,6 +6,9 @@ wires: [oss, ai]
 roles: [funder]
 org_type: nonprofit
 website: https://riscv.org/
+socials:
+  x: https://twitter.com/risc_v
+  github: https://github.com/riscv/
 status: active
 profile: >
   RISC-V International is the organization that develops and maintains the

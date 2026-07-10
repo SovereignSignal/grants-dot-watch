@@ -16,5 +16,11 @@ profile: >
   developers maintaining these languages via donation-funded grant initiatives,
   including the Perl Core Development Fund, the Raku Development Fund, and
   general grant programs benefiting the broader community.
+funding:
+  focus:
+    - core language improvements
+    - documentation and tutorials
+  cadence: "Call for grant proposals opens every two months (two-week public feedback window before committee vote)"
+  apply_url: https://www.perlfoundation.org/grants.html
 sources:
   - https://www.perlfoundation.org/

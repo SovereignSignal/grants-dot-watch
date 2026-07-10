@@ -6,7 +6,8 @@ wires: [oss]
 roles: [funder]
 org_type: nonprofit
 website: https://www.drupal.org/association
-socials: {}
+socials:
+  forum: https://www.drupal.org/forum
 status: active
 profile: >
   The Drupal Association is the non-profit focused on accelerating the

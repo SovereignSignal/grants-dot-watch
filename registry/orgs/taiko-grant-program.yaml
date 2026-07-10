@@ -22,6 +22,15 @@ profile: >
   rolling applications submitted via GitHub or the program portal. Earlier
   iterations ran in multi-cycle programs (e.g. Cycle 2 in 2023), and the current
   program integrates with the Taiko Takeoff accelerator.
+funding:
+  focus:
+    - DeFi
+    - AI
+    - RWA (real-world asset tokenization)
+    - SocialFi
+    - gaming/NFTs
+    - core ecosystem projects
+  cadence: "Rolling applications, no fixed deadlines; reviewed continuously by the Grants Council"
 sources:
   - https://taiko.xyz/grant-program
   - https://github.com/taikoxyz/grants

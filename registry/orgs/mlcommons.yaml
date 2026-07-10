@@ -6,7 +6,9 @@ wires: [ai, oss]
 roles: [funder]
 org_type: nonprofit
 website: https://mlcommons.org/
-socials: {}
+socials:
+  x: https://twitter.com/MLCommons
+  github: https://github.com/mlcommons
 status: active
 profile: >
   MLCommons is a member-driven consortium of more than 125 organizations that

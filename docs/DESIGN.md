@@ -123,6 +123,15 @@ Next.js/TS on Railway (discuss.watch stack). Reads `registry/` into an index at 
 
 Worker with a per-field ownership map. Registry→Notion for every funder org: summary fields (systems, live programs, next deadline, last activity, registry link). Never touches Relationship/Action(s)/Contacts/Tier. Batched writes, 429 backoff, dry-run mode; **first real run only after Sov reviews the dry-run diff** (his CRM, his call).
 
+## Postgres layer
+
+`registry/` files are canonical; Postgres is a disposable index plus real operational state. Two migration files under `db/migrations/`:
+
+- **`001_registry_index.sql`** — `registry_systems`, `registry_orgs`, `registry_programs`, `registry_rounds` (programs' `rounds[]` unnested for querying), `registry_awards`: faithful relational mirrors of the YAML/JSONL schemas (text ids as PKs, `text[]` for arrays, `jsonb` for nested shapes and the full parsed doc, plus `loaded_at` + `content_hash` per row). **INDEX tables — DROP-and-rebuild safe**, never hand-edited; a `registry_awards` row's identity is its file `key`.
+- **`002_operational.sql`** — real Postgres state with no file equivalent: `org_sources` (every URL known for an org, with liveness tracking — `last_checked`/`http_status`/`dead` — seeded from the registry but never truncated, so that state survives reloads), `notion_map` (org ↔ Notion "Sov's Orgs" row for the mirror), `enrichment_runs` (a log of loader/enrichment passes). Desk tables (`desk_proposals`, `desk_verdicts`, `ingest_state`) already exist via `src/lib/desk-store.ts` and are untouched by this layer.
+
+**Loader:** `node scripts/load-registry-pg.mjs [--db-url <url>]` (or `DATABASE_URL` env). Idempotent: applies any unapplied migration (tracked in a `schema_migrations` ledger), then in one transaction `TRUNCATE`s + reloads the index tables from `registry/` (reusing `src/lib/registry.ts`'s parser when importable, falling back to direct YAML/JSONL parsing otherwise), then upserts `org_sources` from each org's `website`/`socials`/`funding.apply_url`/`sources` fields (`ON CONFLICT (org_id, url) DO NOTHING`, so liveness tracking on existing rows is never clobbered). Prints a file-count vs. db-count summary and exits non-zero on mismatch. Run it after any `registry/` change that should be queryable; safe to run as often as needed.
+
 ## Non-goals (v1)
 
 Public access, the full galaxy viz, people/contacts in the registry, writes into wire-room-ops or discuss.watch, X/Telegram direct ingestion (they reach `scan_entries` already), auto-BD/Opps creation, retiring any existing table (wire-room-ops keeps `watch_surfaces` etc.; the registry becomes upstream gradually).

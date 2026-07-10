@@ -17,5 +17,12 @@ profile: >
   (liquid staking) and fBTC (wrapped Bitcoin). Its site describes the EcoFund,
   a $200M catalyzed capital pool that funds ecosystem projects in partnership
   with venture capital firms.
+funding:
+  focus:
+    - DeFi
+    - gaming
+    - infrastructure
+    - Bitcoin restaking
 sources:
   - https://www.mantle.xyz/
+  - https://www.mantle.xyz/ecofund

@@ -16,5 +16,10 @@ profile: >
   and its economy. Its site describes an Ecosystem Council, a consortium of
   stewards that will distribute LINEA tokens toward builders, users, public
   goods, and Ethereum R&D.
+funding:
+  focus:
+    - builders
+    - public goods
+    - Ethereum R&D
 sources:
   - https://linea.build/

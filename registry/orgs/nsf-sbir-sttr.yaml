@@ -18,5 +18,17 @@ profile: >
   contracts, and related web3 innovation across industries. Applications run
   through a Project Pitch, invitation, and full proposal process with merit review
   by program directors.
+funding:
+  focus:
+    - artificial intelligence
+    - energy
+    - medical devices
+    - robotics
+    - semiconductors
+    - deep tech (discoveries in fundamental science and engineering)
+  typical_size: >
+    Up to $2M in total seed funding across phases.
+  apply_url: https://seedfund.nsf.gov/solicitation-proposal/
 sources:
   - https://seedfund.nsf.gov/
+  - https://seedfund.nsf.gov/solicitation-proposal/

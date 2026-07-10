@@ -14,6 +14,8 @@ profile: >
   opportunities listed on its grants page; as of mid-2026 that page shows no
   open calls. Applicants can subscribe for notification of future
   opportunities.
+funding:
+  cadence: "Most grants go to organizations approached directly; a small number of open calls are listed periodically on the grants page"
 sources:
   - https://www.opensocietyfoundations.org
   - https://www.opensocietyfoundations.org/grants

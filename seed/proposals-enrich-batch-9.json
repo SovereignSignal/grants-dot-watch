@@ -1,0 +1,154 @@
+[
+  {
+    "type": "new_program",
+    "org": "ai-security-institute",
+    "org_name": null,
+    "program": "AISI Alignment Project",
+    "title": "AI Security Institute ran a closed Alignment Project (up to £1M/project) — missing from registry/programs",
+    "summary": "AISI's own grants page lists a completed Alignment Project focused on preventing advanced AI systems from behaving dangerously (intentionally or accidentally), funding projects up to £1 million each. Status is closed with no open applications. Not currently represented in registry/programs.",
+    "evidence_url": "https://www.aisi.gov.uk/grants",
+    "proposed_change": {
+      "programs/aisi-alignment-project.yaml": {
+        "org": "ai-security-institute",
+        "mechanism": "grants",
+        "status": "concluded",
+        "summary": "AISI's Alignment Project funded research to prevent advanced AI systems from behaving dangerously, intentionally or accidentally, with awards up to £1 million per project. Part of over £15M AISI has committed across three grant programs; closed with no current open applications.",
+        "rounds": [
+          {
+            "name": "Alignment Project",
+            "status": "closed",
+            "size": "up to £1,000,000 per project",
+            "source": "https://alignmentproject.aisi.gov.uk/"
+          }
+        ],
+        "sources": ["https://www.aisi.gov.uk/grants", "https://alignmentproject.aisi.gov.uk/"]
+      }
+    },
+    "confidence": 82,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "ai-security-institute",
+    "org_name": null,
+    "program": "AISI Challenge Fund",
+    "title": "AI Security Institute ran a closed Challenge Fund (up to £200k/project) — missing from registry/programs",
+    "summary": "AISI's grants page also lists a completed Challenge Fund for UK and international academic institutions and non-profits, addressing risks from advanced AI (safeguards, control, alignment, societal resilience), with awards up to £200,000 per project. Status is closed. Not currently represented in registry/programs.",
+    "evidence_url": "https://www.aisi.gov.uk/grants",
+    "proposed_change": {
+      "programs/aisi-challenge-fund.yaml": {
+        "org": "ai-security-institute",
+        "mechanism": "grants",
+        "status": "concluded",
+        "summary": "AISI's Challenge Fund supported UK and international academic institutions and non-profit organizations researching safeguards, control, alignment, and societal resilience to advanced AI risk, with awards up to £200,000 per project. Closed with no current open applications.",
+        "rounds": [
+          {
+            "name": "Challenge Fund",
+            "status": "closed",
+            "size": "up to £200,000 per project",
+            "source": "https://www.aisi.gov.uk/grants"
+          }
+        ],
+        "sources": ["https://www.aisi.gov.uk/grants"]
+      }
+    },
+    "confidence": 78,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "lido",
+    "org_name": null,
+    "program": "LEGO (Lido Ecosystem Grants Organisation)",
+    "title": "Lido's LEGO grants program is missing from registry/programs",
+    "summary": "Lido's own site describes LEGO (Lido Ecosystem Grants Organisation), a tiered grants program funding individuals/projects that benefit the Lido protocol and broader Ethereum PoS/DeFi ecosystem: Sandgrain (up to $1k, single approver), Pebble (up to $10k, two members), Boulder (up to $100k, council vote), Mountain ($100k+, DAO vote). An 8-member LEGO Council runs domain tracks with ~15,000 LDO-equivalent quarterly capacity each; applicants pitch a committee member via Telegram, then proposals move to research.lido.fi for review. Not currently a registry/programs entry.",
+    "evidence_url": "https://lido.fi/lego",
+    "proposed_change": {
+      "programs/lido-lego.yaml": {
+        "org": "lido",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "LEGO (Lido Ecosystem Grants Organisation) funds individuals and projects benefiting the Lido protocol and broader Ethereum PoS/DeFi ecosystem, via a tiered structure (Sandgrain up to $1,000; Pebble up to $10,000; Boulder up to $100,000; Mountain $100,000+) overseen by an 8-member LEGO Council with domain-specific tracks. Applicants pitch a committee member directly rather than through an open-form apply page.",
+        "sources": ["https://lido.fi/lego", "https://lego.lido.fi/lego-quarterly-reporting"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "taiko-grant-program",
+    "org_name": null,
+    "program": "Taiko Grant Cycle 3",
+    "title": "Taiko's current $25M Grant Cycle 3 is missing a registry/programs entry with round detail",
+    "summary": "Taiko's grant page names its active funding round 'Taiko Grant Cycle 3: $25M to Support Community Builders and Partners', covering DeFi, AI, RWA, SocialFi, gaming/NFTs, and other categories, rolling applications via an Airtable form, milestone-based and non-dilutive. Applicants must complete legal/KYC agreements and open-source code (unless otherwise agreed). No dedicated program file exists yet even though the org file (taiko-grant-program) tracks the same funder; a program entry would let cycle-level rounds be tracked over time (Cycle 2 ran in 2023).",
+    "evidence_url": "https://taiko.xyz/grant-program",
+    "proposed_change": {
+      "programs/taiko-grants.yaml": {
+        "org": "taiko-grant-program",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://taiko.xyz/grant-program",
+        "summary": "Taiko's community grants program funds builders in DeFi, AI, RWA, SocialFi, gaming, and core ecosystem categories, milestone-based and non-dilutive. Current round is Grant Cycle 3 ($25M), rolling applications via GitHub or the program portal; prior rounds include Cycle 2 (2023).",
+        "rounds": [
+          {
+            "name": "Grant Cycle 3",
+            "status": "open",
+            "size": "$25,000,000 fund",
+            "source": "https://taiko.xyz/grant-program"
+          }
+        ],
+        "sources": ["https://taiko.xyz/grant-program", "https://github.com/taikoxyz/grants"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "round_update",
+    "org": "xrpl-accelerator",
+    "org_name": null,
+    "program": "XRPL Accelerator",
+    "title": "XRPL Accelerator's own site lists Cohort 5-7 dates/partners not yet in the registry program's rounds",
+    "summary": "The XRPL Accelerator page lists three named, dated cohorts (rounds list in the registry program is currently empty): Cohort 5 (Mar 10-May 16 2025, with a DIFC partnership), Cohort 6 (Jun 9-Aug 15 2025), and Cohort 7 (Sep-Nov 2025). All three are hybrid 12-week formats admitting 5-12 teams, up to $200k funding each. Given today's date, all three cohorts have concluded.",
+    "evidence_url": "https://xrplgrants.org/accelerator",
+    "proposed_change": {
+      "programs/xrpl-accelerator-program.yaml": {
+        "rounds": [
+          {
+            "name": "Cohort 5",
+            "status": "closed",
+            "opens": "2025-03-10",
+            "closes": "2025-05-16",
+            "size": "up to $200k, 5-12 teams",
+            "source": "https://xrplgrants.org/accelerator"
+          },
+          {
+            "name": "Cohort 6",
+            "status": "closed",
+            "opens": "2025-06-09",
+            "closes": "2025-08-15",
+            "size": "up to $200k, 5-12 teams",
+            "source": "https://xrplgrants.org/accelerator"
+          },
+          {
+            "name": "Cohort 7",
+            "status": "closed",
+            "opens": "2025-09-01",
+            "closes": "2025-11-30",
+            "size": "up to $200k, 5-12 teams",
+            "source": "https://xrplgrants.org/accelerator"
+          }
+        ],
+        "sources": ["https://xrplgrants.org/accelerator"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "crypto"
+  }
+]

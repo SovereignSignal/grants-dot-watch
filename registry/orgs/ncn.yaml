@@ -7,6 +7,7 @@ roles: [funder]
 website: https://neurochain.ai/
 socials:
   x: https://x.com/NeurochainAI
+  github: https://github.com/neurochainai
 status: active
 profile: >
   NCN (NeurochainAI) is an AI-focused L3 blockchain and decentralized inference

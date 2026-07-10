@@ -17,5 +17,8 @@ profile: >
   priorities, including $50M in one FIPSE competition, with formalized rules
   effective 2026; programs operate through federal processes with broad
   eligibility.
+funding:
+  apply_url: https://www.ed.gov/grants-and-programs/apply-grant/available-grants
 sources:
   - https://www.ed.gov
+  - https://www.ed.gov/grants-and-programs/apply-grant/available-grants

@@ -17,5 +17,10 @@ profile: >
   published proposals, and connects ideas to major funders; it runs on philanthropic support
   with active pitching and matchmaking, and its programs are expanding in the AI policy and
   funding-coordination space.
+funding:
+  apply_url: https://ifp.org/rfp-launch/
+  typical_size: "$10,000 honorarium per published proposal (plus $1,000 bounties for referrals or new ideas published)"
+  cadence: rolling
 sources:
   - https://ifp.org/
+  - https://ifp.org/the-launch-sequence/

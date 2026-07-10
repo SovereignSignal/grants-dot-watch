@@ -1,11 +1,11 @@
 id: 1inch-network
 name: 1inch Network
-aka: ["1inch", "1inch Foundation"]
+aka: ["1inch", "1inch Foundation", "1inch.io"]
 systems: [ethereum]
 wires: [crypto]
 roles: [funder]
 org_type: dao
-website: https://1inch.io/
+website: https://1inch.com/
 socials:
   x: https://x.com/1inch
   forum: https://gov.1inch.network/
@@ -17,6 +17,14 @@ profile: >
   community engagement, protocol integrations, research and analytics, education,
   and events, with non-dilutive grants paid in 1INCH tokens or other agreed
   currencies, structured around project milestones.
+funding:
+  focus:
+    - community engagement
+    - protocol integrations
+    - research & analytics
+    - education
+    - events
 sources:
   - https://1inch.io/
   - https://1inch.network/foundation
+  - https://1inch.com/

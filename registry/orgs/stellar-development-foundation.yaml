@@ -19,6 +19,18 @@ profile: >
   XLM), a Matching Fund (up to $500,000 USD for pre-seed to Series B
   companies), Academic Research Grants (up to $150,000 USD), and Marketing
   Grants, alongside non-application programs such as the Enterprise Fund.
+funding:
+  focus:
+    - Stellar / Soroban ecosystem development
+    - developer tooling
+    - academic research
+    - security (bug bounties)
+    - marketing and growth
+  typical_size: >
+    Varies by program: SCF Build Award up to $150k XLM, Bug Bounty up to
+    $250k XLM, Matching Fund up to $500k USD, Academic Research Grants up to
+    $150k USD, Marketing Grants up to $500k (USD/USDC/XLM).
+  apply_url: https://stellar.org/grants-and-funding
 sources:
   - https://stellar.org/
   - https://stellar.org/grants-and-funding

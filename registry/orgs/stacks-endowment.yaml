@@ -23,6 +23,7 @@ funding:
     - protocol treasuries
     - ecosystem grants
   typical_size: "Builder Grants up to $50,000; Getting Started Grants up to $10,000"
+  cadence: "Rolling across Builder, Getting Started, and community DeGrants tracks; cohorts announced periodically (2026 Q2 grantees pending)"
   apply_url: https://stacksendowment.co/grants
 sources:
   - https://stacksendowment.co/

@@ -16,6 +16,14 @@ profile: >
   Candidates are nominated by their universities and selected on research,
   leadership, and field impact. As of its 2025 cohort (the program's sixth
   year) it had supported over 100 graduate-level researchers.
+funding:
+  focus:
+    - AI
+    - machine learning
+    - PhD fellowship
+  cadence: >
+    Annual cohort; candidates are nominated by invited partner universities
+    (no public application; funding amount and deadlines are not disclosed).
 sources:
   - https://machinelearning.apple.com/
   - https://machinelearning.apple.com/updates/apple-scholars-aiml-2025

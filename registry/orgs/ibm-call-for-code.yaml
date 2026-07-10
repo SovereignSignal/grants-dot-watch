@@ -9,7 +9,8 @@ roles:
   - funder
 org_type: company
 website: https://callforcode.org/
-socials: {}
+socials:
+  x: https://twitter.com/CallforCode
 status: active
 profile: >
   Call for Code is a global challenge platform that mobilizes developers to
@@ -17,5 +18,13 @@ profile: >
   UN Human Rights and The Linux Foundation. Winning solutions are recognized
   at the United Nations and supported through deployment in communities
   worldwide; a 2026 challenge is active.
+funding:
+  focus:
+    - climate change
+    - public health
+    - justice and human rights
+    - human trafficking
+  cadence: "Annual Global Challenge"
+  apply_url: https://hackathon.austinaihub.org/
 sources:
   - https://callforcode.org/

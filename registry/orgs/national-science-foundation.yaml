@@ -26,6 +26,15 @@ profile: >
   Ecosystems) and SBIR, plus supplemental funding for AI education and large
   infrastructure awards for open AI ecosystems. Its programs are mature and
   continuously funded, with expanding AI priorities.
+funding:
+  focus:
+    - Artificial Intelligence
+    - computing research
+  cadence: >
+    Deadlines are set per program/solicitation rather than agency-wide (e.g. SBIR/STTR's
+    next required due date is July 27, 2026); some tracks like Transport Phenomena accept
+    proposals anytime.
+  apply_url: https://www.nsf.gov/funding/submitting-proposal
 sources:
   - https://www.nsf.gov/
   - https://www.nsf.gov/funding/

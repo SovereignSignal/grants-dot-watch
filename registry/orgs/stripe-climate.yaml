@@ -15,5 +15,13 @@ profile: >
   advance market commitment to buy over $1B of permanent carbon removal by
   2030, with funding flowing to early-stage carbon removal companies in
   Frontier's portfolio.
+funding:
+  focus:
+    - direct air capture
+    - biomass carbon removal and storage
+    - marine carbon removal
+    - field weathering
+    - mineralization
+  apply_url: https://github.com/frontierclimate/carbon-removal-source-materials/tree/main/Project%20Applications
 sources:
   - https://stripe.com/climate

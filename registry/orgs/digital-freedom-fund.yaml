@@ -7,7 +7,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://digitalfreedomfund.org
-socials: {}
+socials:
+  x: https://twitter.com/df_fund
 status: active
 profile: >
   The Digital Freedom Fund financially supports strategic litigation in
@@ -19,6 +20,14 @@ profile: >
   approved nearly 150 grants totaling over EUR 5 million to roughly 90
   organizations in 30 countries; its most recent call ran December 2025 to
   February 2026 with the next expected in late 2026.
+funding:
+  focus:
+    - strategic litigation (facial recognition, algorithmic discrimination, surveillance, online censorship)
+    - pre-litigation research
+  typical_size: "Litigation track ~EUR 45,000 avg (range EUR 3,000-100,000+); pre-litigation research ~EUR 25,000 avg; ~EUR 800,000 annual budget across ~20 approvals/year"
+  cadence: "Periodic calls; most recent cycle Dec 2025-Feb 2026, next expected late 2026"
+  apply_url: https://digitalfreedomfund.org/application-process/
 sources:
   - https://digitalfreedomfund.org
   - https://digitalfreedomfund.org/grants/
+  - https://digitalfreedomfund.org/application-process/

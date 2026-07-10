@@ -10,7 +10,8 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.macfound.org
-socials: {}
+socials:
+  x: https://x.com/macfound
 status: active
 profile: >
   The John D. and Catherine T. MacArthur Foundation invests in creative
@@ -19,6 +20,14 @@ profile: >
   journalism and media. It also awards MacArthur Fellowships and funds the
   100&Change prize, supporting organizations and individuals working on
   social impact globally. Applications run through a Fluxx grantee portal.
+funding:
+  focus:
+    - AI opportunity
+    - climate solutions
+    - criminal justice reform
+    - local news
+    - journalism & media
+  apply_url: https://macfound.fluxx.io/user_sessions/new
 sources:
   - https://www.macfound.org
   - https://macfound.fluxx.io/user_sessions/new

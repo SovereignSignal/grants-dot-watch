@@ -1,0 +1,213 @@
+[
+  {
+    "type": "status_change",
+    "org": "lumen-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "LUMEN Foundation's domain now resolves to a domain-marketplace listing",
+    "summary": "lumen.foundation 302-redirects to https://domains.atom.com/lpd/name/lumen.foundation, a domain-resale marketplace page, not an organization site. This is a stronger signal than a simple timeout — the domain appears to have lapsed or been surrendered. Registry currently carries status: unknown from a prior July 2026 check that found the same redirect; recommend moving to a firmer defunct/dead status now that it has been independently reconfirmed.",
+    "evidence_url": "https://domains.atom.com/lpd/name/lumen.foundation",
+    "proposed_change": {
+      "orgs/lumen-foundation.yaml": {
+        "status": "dead",
+        "profile_update": "LUMEN Foundation is tracked as a foundation funder on the AI wire. Its website (lumen.foundation) redirects to a domain-marketplace resale listing rather than an organization site (reconfirmed 2026-07), indicating the domain has lapsed; no current activity could be found.",
+        "sources_add": [
+          "https://domains.atom.com/lpd/name/lumen.foundation"
+        ]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "status_change",
+    "org": "foss-sustainability-fund",
+    "org_name": null,
+    "program": null,
+    "title": "FOSS Sustainability Fund domain no longer resolves (DNS failure)",
+    "summary": "fossfund.org fails to resolve (getaddrinfo ENOTFOUND / NXDOMAIN) as of 2026-07-10, a step beyond the prior 'did not resolve when checked' note already in the registry (which left status as unknown). A dead DNS record is a stronger defunct signal than a timed-out request; recommend moving to dead pending any evidence of a relaunch elsewhere.",
+    "evidence_url": "https://www.fossfund.org/",
+    "proposed_change": {
+      "orgs/foss-sustainability-fund.yaml": {
+        "status": "dead",
+        "profile_update": "The FOSS Sustainability Fund was listed as a funder supporting free and open source software sustainability. Its domain (fossfund.org) no longer resolves (DNS failure, reconfirmed 2026-07), so it is treated as defunct pending contrary evidence.",
+        "sources_add": []
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "center-for-civic-futures",
+    "org_name": null,
+    "program": "Public Benefit Innovation Fund",
+    "title": "Center for Civic Futures runs a $20M Public Benefit Innovation Fund, not yet in the registry",
+    "summary": "The Center for Civic Futures' own site describes a $20 million Public Benefit Innovation Fund supporting real-world AI experimentation in public services and knowledge-sharing across government agencies. No grant-size range, deadlines, or application URL are published on the homepage, so the program file should start thin (summary + total fund size) pending a deeper source.",
+    "evidence_url": "https://www.centerforcivicfutures.org/",
+    "proposed_change": {
+      "programs/center-for-civic-futures-public-benefit-innovation-fund.yaml": {
+        "id": "center-for-civic-futures-public-benefit-innovation-fund",
+        "name": "Public Benefit Innovation Fund",
+        "org": "center-for-civic-futures",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "A $20 million fund supporting real-world AI experimentation in public services and disseminating findings so other government jurisdictions can responsibly adopt the technology.",
+        "rounds": [],
+        "sources": [
+          "https://www.centerforcivicfutures.org/"
+        ]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "the-perl-raku-foundation",
+    "org_name": null,
+    "program": "Perl Core Development Fund",
+    "title": "Perl Core Development Fund is a named TPRF fund, not yet in the registry",
+    "summary": "The Perl & Raku Foundation's own site names the Perl Core Development Fund as a distinct funding initiative (dedicated page /perl-core-development-fund.html), alongside a general grants program that opens a call for proposals every two months (two-week public feedback window before committee vote). No typical grant size is published.",
+    "evidence_url": "https://www.perlfoundation.org/grants.html",
+    "proposed_change": {
+      "programs/perl-core-development-fund.yaml": {
+        "id": "perl-core-development-fund",
+        "name": "Perl Core Development Fund",
+        "org": "the-perl-raku-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "A donation-funded grant initiative of The Perl & Raku Foundation supporting development of the Perl core language. Proposals are reviewed on a bi-monthly cycle (call opens every two months, two-week public feedback window before committee vote).",
+        "rounds": [],
+        "sources": [
+          "https://www.perlfoundation.org/perl-core-development-fund.html",
+          "https://www.perlfoundation.org/grants.html"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "the-perl-raku-foundation",
+    "org_name": null,
+    "program": "Raku Development Fund",
+    "title": "Raku Development Fund is a named TPRF fund, not yet in the registry",
+    "summary": "The Perl & Raku Foundation's own site names the Raku Development Fund as a distinct funding initiative (dedicated page /raku-development-fund.html), supporting development of the Raku language on the same bi-monthly proposal cycle as the Perl Core Development Fund.",
+    "evidence_url": "https://www.perlfoundation.org/grants.html",
+    "proposed_change": {
+      "programs/raku-development-fund.yaml": {
+        "id": "raku-development-fund",
+        "name": "Raku Development Fund",
+        "org": "the-perl-raku-foundation",
+        "mechanism": "grants",
+        "status": "active",
+        "summary": "A donation-funded grant initiative of The Perl & Raku Foundation supporting development of the Raku language. Proposals are reviewed on a bi-monthly cycle (call opens every two months, two-week public feedback window before committee vote).",
+        "rounds": [],
+        "sources": [
+          "https://www.perlfoundation.org/raku-development-fund.html",
+          "https://www.perlfoundation.org/grants.html"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "walrus-foundation",
+    "org_name": null,
+    "program": "Walrus Grants & RFPs",
+    "title": "Walrus Foundation's Grants & RFPs program is not yet in the registry as its own program",
+    "summary": "walrus.xyz/rfp/ describes a two-track funding program: RFPs (single-award, milestone-tied funding for specific asks, reviewed ~2 weeks after opening, remain open until a team is selected) and Grants (smaller milestone-driven awards for well-scoped deliverables or MVP validation, informal application via active Discord/community participation rather than a form). Focus areas: AI, data markets, and DeFi applications using verifiable data. No dollar ranges published.",
+    "evidence_url": "https://www.walrus.xyz/rfp/",
+    "proposed_change": {
+      "programs/walrus-grants-rfps.yaml": {
+        "id": "walrus-grants-rfps",
+        "name": "Walrus Grants & RFPs",
+        "org": "walrus-foundation",
+        "mechanism": "rfp",
+        "status": "active",
+        "apply_url": "https://www.walrus.xyz/rfp/",
+        "summary": "Two-track funding from the Walrus Foundation: RFPs (single-award, milestone-tied funding for a specific ask, open until a team is selected) and smaller milestone-driven Grants for well-scoped deliverables or MVP validation. Focused on AI, data markets, and DeFi applications built on Walrus's verifiable data platform.",
+        "rounds": [],
+        "sources": [
+          "https://www.walrus.xyz/rfp/",
+          "https://www.walrus.xyz/"
+        ]
+      }
+    },
+    "confidence": 58,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "kaust-king-abdullah-university",
+    "org_name": null,
+    "program": "KAUST Research Funding and Services (RFS)",
+    "title": "KAUST's Research Funding and Services office runs its research grants, not yet in the registry",
+    "summary": "KAUST's own site names Research Funding and Services (RFS, rfs.kaust.edu.sa) as the dedicated office administering research funding across its four academic divisions (Biological & Environmental Science and Engineering; Biomedical Sciences; Computer, Electrical and Mathematical Science and Engineering; Physical Science and Engineering). No grant sizes, cadence, or application deadlines are visible on the homepage, so this should start thin.",
+    "evidence_url": "https://rfs.kaust.edu.sa/",
+    "proposed_change": {
+      "programs/kaust-research-funding-services.yaml": {
+        "id": "kaust-research-funding-services",
+        "name": "KAUST Research Funding and Services (RFS)",
+        "org": "kaust-king-abdullah-university",
+        "mechanism": "grants",
+        "status": "active",
+        "apply_url": "https://rfs.kaust.edu.sa/",
+        "summary": "KAUST's dedicated office administering research funding across its four academic divisions: Biological and Environmental Science and Engineering; Biomedical Sciences; Computer, Electrical and Mathematical Science and Engineering; and Physical Science and Engineering.",
+        "rounds": [],
+        "sources": [
+          "https://rfs.kaust.edu.sa/",
+          "https://www.kaust.edu.sa/en/"
+        ]
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "ibm-call-for-code",
+    "org_name": null,
+    "program": "Call for Code AI: United Against Trafficking",
+    "title": "Call for Code's active 2026 challenge (human trafficking) is not yet in the registry as a program/round",
+    "summary": "callforcode.org's current Global Challenge is 'Call for Code AI: United Against Trafficking' — registration open now, challenge launched 2026-06-11, winners recognized 2026-07-30 (UN World Day Against Trafficking in Persons). No prize/award dollar amounts are published; registration routes through a partner site (Austin AI Hub).",
+    "evidence_url": "https://callforcode.org/",
+    "proposed_change": {
+      "programs/call-for-code-global-challenge.yaml": {
+        "id": "call-for-code-global-challenge",
+        "name": "Call for Code Global Challenge",
+        "org": "ibm-call-for-code",
+        "mechanism": "prize",
+        "status": "active",
+        "apply_url": "https://hackathon.austinaihub.org/",
+        "summary": "Annual global challenge mobilizing developers to build AI solutions to urgent global issues (climate, public health, justice/human rights), run with UN Human Rights and The Linux Foundation. Winning solutions are recognized at the United Nations and supported through deployment in communities worldwide.",
+        "rounds": [
+          {
+            "name": "2026: United Against Trafficking",
+            "status": "open",
+            "opens": "2026-06-11",
+            "closes": "2026-07-30",
+            "source": "https://callforcode.org/"
+          }
+        ],
+        "sources": [
+          "https://callforcode.org/"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

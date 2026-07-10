@@ -11,6 +11,8 @@ roles:
 org_type: company
 website: https://huggingface.co/
 socials:
+  x: https://x.com/huggingface
+  github: https://github.com/huggingface
   forum: https://discuss.huggingface.co/
 status: active
 profile: >

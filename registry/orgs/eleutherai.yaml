@@ -6,7 +6,9 @@ wires: [ai, oss]
 roles: [funder]
 org_type: foundation
 website: https://www.eleuther.ai/
-socials: {}
+socials:
+  x: https://x.com/AiEleuther
+  github: https://github.com/EleutherAI
 status: active
 profile: >
   EleutherAI is an open source AI research organization that has trained

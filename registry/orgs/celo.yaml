@@ -23,7 +23,10 @@ funding:
     - public goods
     - real-world payments
     - ecosystem infrastructure
+  typical_size: "Prezenti Anchor/Frontier pools: $25,000+ per project"
+  cadence: "Prezenti Anchor/Frontier pools run in seasonal windows (Season 2 concluded; next round posted for Feb–Jun 2026), plus periodic CeloPG retroactive/QF rounds"
   apply_url: https://forum.celo.org/c/ecosystem/grants/27
 sources:
   - https://celo.org/
   - https://forum.celo.org/c/ecosystem/grants/27
+  - https://www.prezenti.xyz/

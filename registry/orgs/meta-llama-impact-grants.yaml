@@ -1,20 +1,22 @@
 id: meta-llama-impact-grants
 name: Meta Llama Impact Grants
-aka: [Llama Impact Grants]
+aka: [Llama Impact Grants, "www.llama.com/llama-ai-innovation"]
 systems: [open-source-ai]
 wires: [ai, oss]
 roles: [funder]
 org_type: company
-website: https://www.llama.com/llama-ai-innovation/
+website: https://developer.meta.com/ai/llama-ai-innovation/
 socials: {}
 status: unknown
 profile: >
   Meta's grant program tied to its Llama open AI models, tracked here as a
   funder record. Its pages have moved under developer.meta.com (titled "Open
-  Source AI: Driving AI Innovation and Economic Growth"); the fetched pages
-  rendered only minimal content, so current program status and round details
-  could not be confirmed from the site.
+  Source AI: Driving AI Innovation and Economic Growth"); the old llama.com
+  URL now 301-redirects there. The fetched pages rendered only minimal
+  content, so current program status and round details could not be
+  confirmed from the site.
 sources:
   - https://www.llama.com/llama-ai-innovation/
   - https://ai.meta.com/llama/llama-impact-grants/
   - https://developer.meta.com/ai/llama-impact-grants/
+  - https://developer.meta.com/ai/llama-ai-innovation/

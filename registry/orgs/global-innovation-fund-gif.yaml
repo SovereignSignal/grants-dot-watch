@@ -18,5 +18,15 @@ profile: >
   Africa and Asia. It provides flexible capital — grants, equity, and debt —
   along with strategic support to fund early-stage innovations focused on
   climate resilience and inclusive economic opportunity.
+funding:
+  focus:
+    - climate resilience
+    - inclusive economic opportunity
+    - agriculture and food security
+    - education
+    - health and wellbeing
+    - gender equality
+    - financial and social inclusion
+  apply_url: https://www.globalinnovation.fund/partnerships
 sources:
   - https://www.globalinnovation.fund/

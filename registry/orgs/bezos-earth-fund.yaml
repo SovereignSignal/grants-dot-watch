@@ -17,6 +17,15 @@ profile: >
   Nature Grand Challenge is a $100 million initiative funding AI applications
   for sustainable proteins, power grid optimization, and biodiversity
   conservation.
+funding:
+  focus:
+    - Conserving & Restoring Nature
+    - Future of Food
+    - Environmental Justice
+    - Decarbonizing Energy & Industry
+    - Economics, Finance, & Markets
+    - Next Technologies
+    - Monitoring, Data, & Accountability
 sources:
   - https://www.bezosearthfund.org
   - https://aiforclimateandnature.org

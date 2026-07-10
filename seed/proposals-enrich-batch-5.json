@@ -1,0 +1,218 @@
+[
+  {
+    "type": "new_program",
+    "org": "darpa-dice",
+    "org_name": null,
+    "program": "DICE Broad Agency Announcement HR001126S0010",
+    "title": "DARPA DICE opens BAA solicitation HR001126S0010, closes 2026-08-25",
+    "summary": "DARPA's DICE program (Decentralized Artificial Intelligence through Controlled Emergence) has an active Broad Agency Announcement, HR001126S0010, published 2026-06-10 on sam.gov with a proposal deadline of 2026-08-25. A Proposers Day was held with presentation materials posted; program manager is Susmit Jha. No program-level file currently exists for DICE beyond the org record.",
+    "evidence_url": "https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence",
+    "proposed_change": {
+      "programs/darpa-dice-baa-hr001126s0010.yaml": {
+        "id": "darpa-dice-baa-hr001126s0010",
+        "name": "DICE Broad Agency Announcement HR001126S0010",
+        "org": "darpa-dice",
+        "parent": null,
+        "systems": ["us-federal-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view",
+        "summary": "Broad Agency Announcement soliciting proposals for the DICE program's research into theory, algorithms, and multi-agent systems for scalable, resilient decentralized AI collectives under human control. Contract-style awards rather than traditional grants.",
+        "rounds": [
+          {
+            "name": "HR001126S0010",
+            "status": "open",
+            "opens": "2026-06-10",
+            "closes": "2026-08-25",
+            "source": "https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view"
+          }
+        ],
+        "sources": [
+          "https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence",
+          "https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view"
+        ]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "wikimedia-foundation",
+    "org_name": null,
+    "program": "Wikimedia Community Fund",
+    "title": "Wikimedia Community Fund (Rapid/General Support/Hub Funds) missing from registry",
+    "summary": "Wikimedia's grantmaking runs through the Wikimedia Community Fund, documented on Meta-Wiki: a Rapid Fund (avg. $500-$5,000, ~2 month turnaround), a General Support Fund (flexible multi-year operating support, up to 3 years, ~3 month turnaround), and a Hub Fund (multiple rounds/year). A July 2026-June 2027 General Support Fund round timeline was published 2026-06-09; a matching Rapid Fund cycle timeline was published 2026-04-15. No program file exists for this in the registry despite Wikimedia Foundation having a funder org record.",
+    "evidence_url": "https://meta.wikimedia.org/wiki/Grants:Start",
+    "proposed_change": {
+      "programs/wikimedia-community-fund.yaml": {
+        "id": "wikimedia-community-fund",
+        "name": "Wikimedia Community Fund",
+        "org": "wikimedia-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://meta.wikimedia.org/wiki/Grants:Start",
+        "summary": "Umbrella grantmaking program for the Wikimedia movement, comprising the Rapid Fund (avg. $500-$5,000, short-term projects), the General Support Fund (flexible multi-year operating support up to 3 years), and the Hub Fund (multiple rounds per year), open to individuals and organizations advancing knowledge equity.",
+        "sources": [
+          "https://meta.wikimedia.org/wiki/Grants:Start"
+        ]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "mantle-foundation",
+    "org_name": null,
+    "program": "Mantle EcoFund",
+    "title": "Mantle EcoFund ($200M ecosystem capital pool) missing from registry/programs",
+    "summary": "Mantle's own site describes the EcoFund, a $200M catalyzed capital pool backing early-stage projects seeking a long-term partnership with Mantle, run alongside 20+ venture partners (e.g. Polychain, Dragonfly) with 40+ portfolio companies across DeFi, gaming, infrastructure, and Bitcoin restaking. It is deal-based (fundraising/deal-structuring support, exchange-listing recommendations) rather than a fixed-round grants program; no award size, cadence, or formal application URL is published — interested teams are told to contact ecofund@mantle.xyz.",
+    "evidence_url": "https://www.mantle.xyz/ecofund",
+    "proposed_change": {
+      "programs/mantle-ecofund.yaml": {
+        "id": "mantle-ecofund",
+        "name": "Mantle EcoFund",
+        "org": "mantle-foundation",
+        "parent": null,
+        "systems": ["ethereum"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "other",
+        "summary": "A $200M catalyzed capital pool funding early-stage ecosystem projects in partnership with 20+ venture firms (incl. Polychain, Dragonfly), providing deal structuring, fundraising assistance, and exchange-listing support rather than fixed grant rounds. No published award size, cadence, or application form; contact is ecofund@mantle.xyz.",
+        "sources": [
+          "https://www.mantle.xyz/ecofund"
+        ]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "nvidia",
+    "org_name": null,
+    "program": "NVIDIA Inception",
+    "title": "NVIDIA Inception (startup program) missing from registry/programs",
+    "summary": "NVIDIA Inception is a free program for AI startups providing technical training, developer tools, preferred hardware/software pricing, and investor introductions via a VC Alliance — not direct cash funding. No fees, deadlines, or cohorts; rolling applications year-round via a dedicated application portal.",
+    "evidence_url": "https://www.nvidia.com/en-us/startups/",
+    "proposed_change": {
+      "programs/nvidia-inception.yaml": {
+        "id": "nvidia-inception",
+        "name": "NVIDIA Inception",
+        "org": "nvidia",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "incubator",
+        "apply_url": "https://programs.nvidia.com/phoenix/application",
+        "summary": "Free program guiding AI startups with training, developer tools, preferred hardware/software pricing, and investor introductions through a VC Alliance. No fees, deadlines, or cohorts — rolling applications.",
+        "sources": [
+          "https://www.nvidia.com/en-us/startups/"
+        ]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "nvidia",
+    "org_name": null,
+    "program": "NVIDIA Academic Grant Program",
+    "title": "NVIDIA Academic Grant Program is currently not accepting new applications",
+    "summary": "NVIDIA's Academic Grant Program (cloud/hardware/software grants for full-time faculty at accredited PhD-granting institutions, e.g. up to 30,000 H100 80GB hours or RTX PRO 6000 / DGX Spark hardware for simulation, AI training, or AI inference/agents research) is currently not accepting new applications, per its own program page. This is a distinct program from NVIDIA Inception and not currently represented in the registry.",
+    "evidence_url": "https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/",
+    "proposed_change": {
+      "programs/nvidia-academic-grant-program.yaml": {
+        "id": "nvidia-academic-grant-program",
+        "name": "NVIDIA Academic Grant Program",
+        "org": "nvidia",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "paused",
+        "mechanism": "grants",
+        "apply_url": "https://academicgrants.nvidia.com/academicgrantprogram/s/welcome",
+        "summary": "Cloud/hardware/software research grants (e.g. up to 30,000 H100 80GB GPU-hours, RTX PRO 6000, or DGX Spark units) for full-time faculty at accredited PhD-granting institutions, across simulation & modeling, AI training, and AI inference/agents/systems software. Currently not accepting new applications.",
+        "sources": [
+          "https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/"
+        ]
+      }
+    },
+    "confidence": 68,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "openstreetmap-foundation",
+    "org_name": null,
+    "program": "OSMF Microgrants",
+    "title": "OpenStreetMap Foundation runs a Microgrants committee/program (thin — no size or apply details found)",
+    "summary": "OSMF's governance pages reference a Microgrants committee 'enabling volunteers to do more by overcoming financial barriers,' with a Policy Framework, Committee page, and Timeline linked. No award size, cadence, or direct application URL could be confirmed from the pages fetched; recording as a name+url stub for later enrichment rather than guessing figures.",
+    "evidence_url": "https://osmfoundation.org/wiki/Microgrants",
+    "proposed_change": {
+      "programs/osmf-microgrants.yaml": {
+        "id": "osmf-microgrants",
+        "name": "OSMF Microgrants",
+        "org": "openstreetmap-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["oss"],
+        "status": "unknown",
+        "mechanism": "grants",
+        "summary": "OpenStreetMap Foundation microgrant program run by a dedicated Microgrants committee, intended to help volunteers overcome financial barriers to OSM contribution. Award size, cadence, and application process not yet confirmed from the org's own pages.",
+        "sources": [
+          "https://osmfoundation.org/wiki/Microgrants"
+        ]
+      }
+    },
+    "confidence": 40,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "status_change",
+    "org": "lacuna-fund",
+    "org_name": null,
+    "program": null,
+    "title": "Lacuna Fund's own site says it is no longer being updated; leadership transferred away",
+    "summary": "Lacuna Fund's homepage now leads with: \"Lacuna Fund Transitions to Partners in Africa and Latin America\" and states directly: \"Please note that this site is no longer being updated. The content reflects the state of Lacuna Fund's work in July 2025. This site will be available until a new online presence and data repository are established.\" Site navigation now shows only \"Past RFPs\" (no current/open RFPs). The registry currently lists status: active; this is the org's own confirmation that its original entity is not actively grantmaking and its site is frozen — status should move to winding-down (or the successor partner institutions tracked separately) pending Sov's call on how to represent the transition.",
+    "evidence_url": "https://lacunafund.org/",
+    "proposed_change": {
+      "orgs/lacuna-fund.yaml": {
+        "status": "winding-down"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "gooddollar",
+    "org_name": null,
+    "program": null,
+    "title": "GoodDollar profile names 'GoodBuilders' and 'Prosperity Grants' but current site shows only a generic grant form",
+    "summary": "The registry profile names two specific programs, GoodBuilders and Prosperity Grants. GoodDollar's current homepage and /build page (the latter now 404) show no reference to either name — only a generic \"Apply for a Grant\" call-to-action linking to a Typeform (gooddollar.typeform.com/to/z7xUuBe3) reviewed by \"a member of the grant committee.\" This could mean the named programs were folded into one generic intake, renamed, or simply moved off the pages checked; flagging as a possible profile drift rather than asserting the named programs are gone.",
+    "evidence_url": "https://www.gooddollar.org/",
+    "proposed_change": {
+      "orgs/gooddollar.yaml": {
+        "profile_note": "Current site (checked 2026-07-10) shows only a generic 'Apply for a Grant' intake (Typeform, reviewed by a grant committee) — GoodBuilders and Prosperity Grants are not named on the pages checked. Verify whether these are renamed, folded together, or just not surfaced on the current nav before next edit."
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "crypto"
+  }
+]

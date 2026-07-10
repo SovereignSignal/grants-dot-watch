@@ -1,0 +1,254 @@
+[
+  {
+    "type": "new_program",
+    "org": "obol",
+    "org_name": null,
+    "program": "Obol Grants Program",
+    "title": "Obol Grants Program exists but is currently paused",
+    "summary": "Obol's own governance docs describe a milestone-based Grants Program across three tracks (SQUAD Goals contributions, retroactive workshop/meetup funding via proof of attendance, and open research/technical contributions to distributed staking), paid in OBOL tokens at USD-equivalent value, applied for via Questbook. The docs page states directly: \"The Obol Grants Program is currently paused.\" No program file exists yet in the registry for this; proposing one with status reflecting the pause rather than active.",
+    "evidence_url": "https://docs.obol.org/community-and-governance/community/grants-program",
+    "proposed_change": {
+      "programs/obol-grants-program.yaml": {
+        "id": "obol-grants-program",
+        "name": "Obol Grants Program",
+        "org": "obol",
+        "parent": null,
+        "systems": ["ethereum"],
+        "wires": ["crypto"],
+        "status": "paused",
+        "mechanism": "grants",
+        "summary": "Milestone-based funding framework for the Obol Collective across three tracks: contributor work on Obol Collective SQUAD Goals, retroactive funding for community workshops/meetups/onboarding sessions (proof of attendance), and open research/technical contributions advancing distributed staking. Grants are issued in OBOL tokens negotiated at USD-equivalent value; applications went through Questbook with no fixed deadlines while live. Per Obol's own docs, the program is currently paused.",
+        "rounds": [],
+        "sources": ["https://docs.obol.org/community-and-governance/community/grants-program"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "cifar-pan-canadian-ai-strategy",
+    "org_name": null,
+    "program": "AI Catalyst Grants",
+    "title": "CIFAR AI Catalyst Grants missing from registry/programs",
+    "summary": "CIFAR runs a dedicated AI Catalyst Grants line with its own page, distinct from the Canada CIFAR AI Chairs program: short-term, flexible funding to catalyze new interdisciplinary machine-learning research collaborations, with awards shown across multiple years (2020 through 2026) including a recent AI-safety-focused Catalyst Grants call. No apply URL or award size was disclosed on the page; applicants are directed to contact CIFAR directly.",
+    "evidence_url": "https://cifar.ca/ai/cifar-ai-catalyst-grants/",
+    "proposed_change": {
+      "programs/cifar-ai-catalyst-grants.yaml": {
+        "id": "cifar-ai-catalyst-grants",
+        "name": "AI Catalyst Grants",
+        "org": "cifar-pan-canadian-ai-strategy",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "CIFAR program providing short-term, flexible funding to catalyze new interdisciplinary machine-learning research collaborations across domains including AI safety and alignment, misinformation/information integrity, trustworthy and interpretable LLMs, real-world deployed-system safety, AI auditing and fairness, and privacy-preserving techniques. Awards have run annually since at least 2020; a recent call funded the program's first AI-safety-specific Catalyst Grants under the national strategy. Apply by contacting CIFAR directly; no standing application URL found.",
+        "rounds": [],
+        "sources": ["https://cifar.ca/ai/cifar-ai-catalyst-grants/"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "renaissance-philanthropy",
+    "org_name": null,
+    "program": "Open Source for Science Fund",
+    "title": "Renaissance Philanthropy's Open Source for Science Fund missing from registry/programs",
+    "summary": "Renaissance Philanthropy administers the Open Source for Science Fund, a multi-donor pool (seeded with support from the Chan Zuckerberg Initiative, Biohub, and Wellcome Trust) that funds open-source software infrastructure for science: data representation/curation, large-scale data analysis and visualization, numerical computing and simulation, hardware acceleration, and workflow automation. It has its own domain and is actively accepting applications through a funding-opportunities portal.",
+    "evidence_url": "https://os4science.org",
+    "proposed_change": {
+      "programs/renaissance-open-source-for-science-fund.yaml": {
+        "id": "renaissance-open-source-for-science-fund",
+        "name": "Open Source for Science Fund",
+        "org": "renaissance-philanthropy",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://os4science.org/apply-for-funding/",
+        "summary": "Multi-donor fund administered by Renaissance Philanthropy, seeded with support from the Chan Zuckerberg Initiative, Biohub, and Wellcome Trust, funding open-source software infrastructure for science: data representation and curation, large-scale data analysis and visualization, numerical computing and simulation, hardware acceleration and scalability, and workflow automation. Actively accepting applications through its funding-opportunities portal.",
+        "rounds": [],
+        "sources": ["https://os4science.org", "https://os4science.org/apply-for-funding/"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "renaissance-philanthropy",
+    "org_name": null,
+    "program": "AI for Math Fund",
+    "title": "Renaissance Philanthropy's AI for Math Fund missing from registry/programs",
+    "summary": "Renaissance Philanthropy runs the AI for Math Fund, supporting AI/ML applied to mathematical research: new ML paradigms for mathematical discovery, tools/infrastructure for mathematicians, automated theorem proving, and open mathematical datasets/benchmarks, with a hard open-access requirement (code, datasets, and preprints must be public). The initial $9M round was expanded by an additional $13M announced March 2026; main grants run $100K-$1M for 12-24 months, alongside $20K-$30K summer fellowships and up to $100K seed grants. Abstract submission for the 2026 round closed March 30, 2026, with funding decisions expected August 2026 — still pending as of this check.",
+    "evidence_url": "https://www.renaissancephilanthropy.org/ai-for-math-fund",
+    "proposed_change": {
+      "programs/renaissance-ai-for-math-fund.yaml": {
+        "id": "renaissance-ai-for-math-fund",
+        "name": "AI for Math Fund",
+        "org": "renaissance-philanthropy",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Renaissance Philanthropy fund applying AI and machine learning to mathematical research: new ML paradigms for mathematical discovery, tools and infrastructure for mathematicians, automated theorem proving and AI-assisted proof development, and open mathematical datasets/benchmarks. All funded code, datasets, and research outputs must be open-access with preprints in public repositories. Initial $9M round expanded by $13M announced March 2026; main grants of $100K-$1M for 12-24 months, plus $20K-$30K summer fellowships and up to $100K seed grants for early-stage work.",
+        "rounds": [
+          {
+            "name": "2026 funding round",
+            "status": "reviewing",
+            "closes": "2026-03-30",
+            "size": "$100K-$1M grants ($9M initial pool + $13M added March 2026)",
+            "source": "https://www.renaissancephilanthropy.org/ai-for-math-fund"
+          }
+        ],
+        "sources": ["https://www.renaissancephilanthropy.org/ai-for-math-fund"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "european-high-performance-computing-joint-undertaking",
+    "org_name": null,
+    "program": "EuroHPC Research & Innovation Calls",
+    "title": "EuroHPC's Research & Innovation calls missing from registry/programs",
+    "summary": "EuroHPC JU's own Research & Innovation calls page lists four currently open calls, all quantum-focused: Large-Scale Photonic Quantum Computing Platform Technologies, Standards for Quantum Technologies, a Grand Challenge on Quantum Sensors for Inertial Navigation, and Quantum Machine Learning. The page did not surface specific deadlines or funding amounts for these calls in what was fetched.",
+    "evidence_url": "https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en",
+    "proposed_change": {
+      "programs/eurohpc-research-innovation-calls.yaml": {
+        "id": "eurohpc-research-innovation-calls",
+        "name": "EuroHPC Research & Innovation Calls",
+        "org": "european-high-performance-computing-joint-undertaking",
+        "parent": null,
+        "systems": ["eu-public-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "summary": "EuroHPC JU's competitive Research & Innovation calls funding HPC hardware, software, applications, and skills across Europe. Current open calls concentrate on quantum computing and quantum-enabled technologies.",
+        "rounds": [
+          {"name": "Large-Scale Photonic Quantum Computing Platform Technologies", "status": "open", "source": "https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en"},
+          {"name": "Standards for Quantum Technologies", "status": "open", "source": "https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en"},
+          {"name": "Grand Challenge on Quantum Sensors for Inertial Navigation", "status": "open", "source": "https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en"},
+          {"name": "Quantum Machine Learning", "status": "open", "source": "https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en"}
+        ],
+        "sources": ["https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en"]
+      }
+    },
+    "confidence": 60,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "mercatus-center",
+    "org_name": null,
+    "program": "Emergent Ventures",
+    "title": "Emergent Ventures missing as its own program file (already an org-level aka)",
+    "summary": "Emergent Ventures is listed as an aka on the Mercatus Center org file but has no program file of its own. It's Mercatus's low-overhead fellowship/grant program for 'zero to one' ideas for social improvement, administered by Tyler Cowen, with dedicated tracks for India, Africa, the Caribbean, and Ukraine, plus a COVID-19 science line via its Fast Grants spin-off. Rolling applications, minimum applicant age 13, apply form confirmed live.",
+    "evidence_url": "https://www.mercatus.org/emergent-ventures",
+    "proposed_change": {
+      "programs/mercatus-emergent-ventures.yaml": {
+        "id": "mercatus-emergent-ventures",
+        "name": "Emergent Ventures",
+        "org": "mercatus-center",
+        "parent": null,
+        "systems": [],
+        "wires": [],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://mercatus.tfaforms.net/5099527",
+        "summary": "Mercatus Center's low-overhead fellowship and grant program funding 'zero to one' ideas for social improvement, administered by Tyler Cowen since 2018. Runs dedicated geography tracks for India, Africa, the Caribbean, and Ukraine, and previously spun off Fast Grants for COVID-19 science funding. Rolling applications; minimum applicant age 13.",
+        "rounds": [],
+        "sources": ["https://www.mercatus.org/emergent-ventures"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "institute-for-progress-ifp",
+    "org_name": null,
+    "program": "The Launch Sequence",
+    "title": "IFP's Launch Sequence RFP missing from registry/programs",
+    "summary": "IFP's Launch Sequence is a rolling RFP: $10,000 honorarium for authors of published proposals, plus $1,000 bounties for successful referrals and $1,000 bounties for new ideas that get published. No fixed deadline. The org file already summarizes this in prose but there's no program record; the apply link (https://ifp.org/rfp-launch/) resolves live.",
+    "evidence_url": "https://ifp.org/the-launch-sequence/",
+    "proposed_change": {
+      "programs/ifp-launch-sequence.yaml": {
+        "id": "ifp-launch-sequence",
+        "name": "The Launch Sequence",
+        "org": "institute-for-progress-ifp",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://ifp.org/rfp-launch/",
+        "summary": "IFP's rolling request for proposals on high-impact projects in AI resilience, AI-for-science, and institutional adaptation. Pays a $10,000 honorarium to authors of published proposals, plus $1,000 bounties for successful referrals and for new ideas that get published. No fixed deadline; those without a specific idea can join IFP's talent database instead.",
+        "rounds": [],
+        "sources": ["https://ifp.org/the-launch-sequence/"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "national-research-foundation-nrf-singapore",
+    "org_name": null,
+    "program": "NRF Fellowship",
+    "title": "NRF Fellowship has an open round (Class of 2027) but no program file",
+    "summary": "NRF Singapore's own site states: \"Applications are now open for the 19th Singapore NRF Fellowship (Class of 2027).\" The Fellowship (a five-year independent-research award for early-career researchers) is named in the org profile but has no program file. Applications route through the shared researchgrant.gov.sg portal; no specific award amount or closing date was visible on the fetched page.",
+    "evidence_url": "https://www.nrf.gov.sg/",
+    "proposed_change": {
+      "programs/nrf-singapore-fellowship.yaml": {
+        "id": "nrf-singapore-fellowship",
+        "name": "NRF Fellowship",
+        "org": "national-research-foundation-nrf-singapore",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://www.researchgrant.gov.sg",
+        "summary": "NRF Singapore's flagship award giving early-career researchers independent research funding in Singapore over a five-year period.",
+        "rounds": [
+          {"name": "19th Singapore NRF Fellowship (Class of 2027)", "status": "open", "source": "https://www.nrf.gov.sg/"}
+        ],
+        "sources": ["https://www.nrf.gov.sg/"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "status_change",
+    "org": "william-and-flora-hewlett-foundation",
+    "org_name": null,
+    "program": null,
+    "title": "Hewlett 50 Arts Commissions appears concluded — org profile still cites it as a current example",
+    "summary": "The org profile names the Hewlett 50 Arts Commissions as an example of an opportunity the foundation 'occasionally opens.' The program's own page on hewlett.org now carries an archive banner: \"This page is archived content. It may refer to grants or grantmaking strategies that are no longer active.\" No open/closed status, deadline, or current award info is given — consistent with the initiative having concluded (its second round funded 10 Bay Area theater/spoken-word commissions). Suggest updating the org profile to stop citing it as a live example.",
+    "evidence_url": "https://hewlett.org/hewlett-50-arts-commissions/",
+    "proposed_change": {
+      "orgs/william-and-flora-hewlett-foundation.yaml": {
+        "profile_note": "Hewlett 50 Arts Commissions page is now marked archived ('This page is archived content. It may refer to grants or grantmaking strategies that are no longer active.'). Consider dropping it as the org profile's example of a currently-open opportunity."
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

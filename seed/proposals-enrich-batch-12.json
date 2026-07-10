@@ -1,0 +1,219 @@
+[
+  {
+    "type": "new_program",
+    "org": "celo",
+    "org_name": null,
+    "program": "Prezenti Grants",
+    "title": "Celo's Prezenti Grants runs three funding pools (Anchor, Boost, Frontier); $2M distributed to date",
+    "summary": "Prezenti operates Celo's builder grants program in partnership with the Celo Foundation, across three pools: Anchor (open application, $25,000+, for teams with real traction and revenue), Boost (invite-only, fast-tracking proven projects from other ecosystems, delivered with Celo Foundation DevRel), and Frontier (open application, $25,000+, for AI/agent-economy infrastructure on Celo). To date it has received 575+ applications, signed 120+ grant contracts, and distributed $2M. No program file exists yet for Celo despite this being its primary structured grants vehicle. Note: other batches have already flagged round-level detail on the Frontier pool (closed 2026-06-30, modeled there under a standalone \"prezenti\" org) and a status_change on the move to Tally intake -- this proposal instead creates the program under the existing celo org file and includes both open pools' close date so the Desk can reconcile modeling choices.",
+    "evidence_url": "https://www.prezenti.xyz/",
+    "proposed_change": {
+      "programs/celo-prezenti-grants.yaml": {
+        "id": "celo-prezenti-grants",
+        "name": "Prezenti Grants",
+        "org": "celo",
+        "systems": ["web3-public-goods"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.prezenti.xyz/",
+        "summary": "Three funding pools for Celo builders: Anchor (traction-stage, $25k+), Boost (invite-only, cross-ecosystem), and Frontier (AI/agent-economy infrastructure, $25k+). 575+ applications, 120+ contracts signed, $2M distributed to date.",
+        "rounds": [
+          {"name": "Anchor Pool", "status": "closed", "closes": "2026-06-30", "size": "$25,000+ per project", "source": "https://www.prezenti.xyz/"},
+          {"name": "Frontier Pool (AI & agent economy infra)", "status": "closed", "closes": "2026-06-30", "size": "$25,000+ per project", "source": "https://www.prezenti.xyz/"}
+        ],
+        "sources": ["https://www.prezenti.xyz/"]
+      }
+    },
+    "confidence": 66,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "stacks-endowment",
+    "org_name": null,
+    "program": "Stacks Endowment Grants (Builder + Getting Started)",
+    "title": "Stacks Endowment runs two structured grant tracks: Builder Grants and Getting Started Grants",
+    "summary": "Stacks Endowment's grants page describes two application tracks: Builder Grants for teams with proven traction/TVL/growth on Stacks (up to $50,000 per the org profile), and Getting Started Grants for early-stage, pre-product-market-fit teams with prototypes or specs (up to $10,000). The page notes '2026 Q2 Grantees to be announced soon' but does not publish specific per-round deadlines. No program file exists yet for Stacks Endowment despite the org having a well-developed grants page.",
+    "evidence_url": "https://stacksendowment.co/grants",
+    "proposed_change": {
+      "programs/stacks-endowment-grants.yaml": {
+        "id": "stacks-endowment-grants",
+        "name": "Stacks Endowment Grants",
+        "org": "stacks-endowment",
+        "systems": ["stacks"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://portal.stacksendowment.co/",
+        "summary": "Two tracks: Builder Grants (up to $50,000, for teams with proven traction) and Getting Started Grants (up to $10,000, for early prototypes).",
+        "sources": ["https://stacksendowment.co/grants"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "stacks-endowment",
+    "org_name": null,
+    "program": "Community DeGrants",
+    "title": "Stacks Endowment backs community-run DeGrants cohorts (Cohort 4 running mid-2026)",
+    "summary": "Community DeGrants is a community-governed grants track under the Stacks Endowment umbrella funding creative, inclusive, and educational projects, with the Endowment providing operational support while the community runs governance. Cohort 4 was in progress as of mid-2026 per the org profile.",
+    "evidence_url": "https://stacksendowment.co/grants",
+    "proposed_change": {
+      "programs/stacks-endowment-degrants.yaml": {
+        "id": "stacks-endowment-degrants",
+        "name": "Community DeGrants",
+        "org": "stacks-endowment",
+        "systems": ["stacks"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Community-run grants track for creative, inclusive, and educational Stacks projects, with Stacks Endowment providing operational support.",
+        "sources": ["https://stacksendowment.co/grants"]
+      }
+    },
+    "confidence": 58,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "tezos-foundation",
+    "org_name": null,
+    "program": "Tezos Foundation Grants",
+    "title": "Tezos Foundation runs a rolling grants program across seven verticals",
+    "summary": "The Tezos Foundation's rolling grants program covers core development, technical relations, infrastructure and tooling, arts and culture, DeFi, business development, and gaming, for both Tezos and Etherlink (its Smart Rollup L2). Applications are reviewed on a rolling basis, averaging about four weeks review plus roughly four more weeks of paperwork. No program file exists yet despite the org running this continuously.",
+    "evidence_url": "https://tezos.foundation/grants/",
+    "proposed_change": {
+      "programs/tezos-foundation-grants.yaml": {
+        "id": "tezos-foundation-grants",
+        "name": "Tezos Foundation Grants",
+        "org": "tezos-foundation",
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://tezos.foundation/grants/",
+        "summary": "Rolling grants across seven verticals (core dev, technical relations, infra & tooling, arts & culture, DeFi, business development, gaming) for Tezos and Etherlink. ~4 weeks review + ~4 weeks paperwork.",
+        "sources": ["https://tezos.foundation/grants/"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "unitary-foundation",
+    "org_name": null,
+    "program": "Unitary Foundation Microgrants",
+    "title": "Unitary Foundation runs an always-open $4k microgrant program for quantum open source",
+    "summary": "Separate from the UnitaryHACK bounty event (already tracked in another batch's proposal), Unitary Foundation runs a standing microgrant program: flat $4,000 cash grants for open-source quantum software, education, and sensor projects, with no organizational affiliation required -- a short form plus a two-minute video. 100+ microgrants awarded across 31+ countries to date per the org profile.",
+    "evidence_url": "https://unitary.foundation/",
+    "proposed_change": {
+      "programs/unitary-foundation-microgrants.yaml": {
+        "id": "unitary-foundation-microgrants",
+        "name": "Unitary Foundation Microgrants",
+        "org": "unitary-foundation",
+        "systems": ["oss-sustainability"],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://unitaryfund.typeform.com/to/j0kAOd?typeform-source=unitary.foundation",
+        "summary": "Always-open flat $4,000 cash microgrants for open-source quantum software, education, and sensor projects. No organizational affiliation required.",
+        "sources": ["https://unitary.foundation/"]
+      }
+    },
+    "confidence": 72,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "hrf-ai-for-individual-rights-fund",
+    "org_name": null,
+    "program": "AI for Individual Rights Fund",
+    "title": "HRF's AI for Individual Rights Fund has a dedicated apply page; AI Hack for Freedom II winners announced 2026-05-13",
+    "summary": "The Human Rights Foundation's AI for Individual Rights Fund has its own dedicated apply page, distinct from the program landing page already in the org's sources. It funds open-source privacy-preserving AI tools, research exposing authoritarian AI abuse, freedom-enhancing digital tools, and hardware for local/offline AI inference. A companion initiative, AI Hack for Freedom II, announced 10 winning projects on 2026-05-13. No program file exists yet even though the org card is effectively named after this single program.",
+    "evidence_url": "https://hrf.org/program/ai-for-individual-rights/ai-grants/",
+    "proposed_change": {
+      "programs/hrf-ai-for-individual-rights-grants.yaml": {
+        "id": "hrf-ai-for-individual-rights-grants",
+        "name": "AI for Individual Rights Fund",
+        "org": "hrf-ai-for-individual-rights-fund",
+        "systems": ["internet-freedom"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://hrf.org/program/ai-for-individual-rights/ai-grants/",
+        "summary": "Grants to activists, researchers, and open-source developers building privacy-preserving, freedom-enhancing AI tools and exposing authoritarian AI uses; also runs the AI Hack for Freedom hackathon series.",
+        "rounds": [
+          {"name": "AI Hack for Freedom II", "status": "deployed", "source": "https://hrf.org/program/ai-for-individual-rights/"}
+        ],
+        "sources": ["https://hrf.org/program/ai-for-individual-rights/ai-grants/"]
+      }
+    },
+    "confidence": 65,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "japan-science-and-technology-agency-jst",
+    "org_name": null,
+    "program": "CONCERT-Japan 13th Call (AI Robotics)",
+    "title": "JST's CONCERT-Japan 13th call funds real-world AI robotics collaboration, closes 2026-07-22",
+    "summary": "JST's English homepage lists an open CONCERT-Japan 13th call focused on real-world robotics applications using AI, deadline July 22, 2026. Award size not stated on the page; evidence is JST's own open-calls listing rather than a dedicated program URL, so confidence is moderate.",
+    "evidence_url": "https://www.jst.go.jp/EN/",
+    "proposed_change": {
+      "programs/jst-concert-japan-ai-robotics.yaml": {
+        "id": "jst-concert-japan-ai-robotics",
+        "name": "CONCERT-Japan 13th Call (AI Robotics)",
+        "org": "japan-science-and-technology-agency-jst",
+        "systems": ["japan-public-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "International collaborative-research call for real-world AI robotics applications, part of the CONCERT-Japan framework.",
+        "rounds": [
+          {"name": "13th Call", "status": "open", "closes": "2026-07-22", "source": "https://www.jst.go.jp/EN/"}
+        ],
+        "sources": ["https://www.jst.go.jp/EN/"]
+      }
+    },
+    "confidence": 52,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "japan-science-and-technology-agency-jst",
+    "org_name": null,
+    "program": "SICORP Japan-Canada Joint Research (AI/Agriculture)",
+    "title": "JST's SICORP Japan-Canada call funds AI for agricultural productivity, closes 2026-11-30",
+    "summary": "JST's English homepage lists an open SICORP Japan-Canada joint research call on AI solutions for agricultural productivity, deadline November 30, 2026. Award size not stated on the page; evidence is JST's own open-calls listing rather than a dedicated program URL, so confidence is moderate.",
+    "evidence_url": "https://www.jst.go.jp/EN/",
+    "proposed_change": {
+      "programs/jst-sicorp-japan-canada-ai-agriculture.yaml": {
+        "id": "jst-sicorp-japan-canada-ai-agriculture",
+        "name": "SICORP Japan-Canada Joint Research (AI/Agriculture)",
+        "org": "japan-science-and-technology-agency-jst",
+        "systems": ["japan-public-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "summary": "Joint Japan-Canada research call under JST's SICORP program, focused on AI solutions for agricultural productivity.",
+        "rounds": [
+          {"name": "2026 Japan-Canada call", "status": "open", "closes": "2026-11-30", "source": "https://www.jst.go.jp/EN/"}
+        ],
+        "sources": ["https://www.jst.go.jp/EN/"]
+      }
+    },
+    "confidence": 48,
+    "signal_id": null,
+    "wire": "ai"
+  }
+]

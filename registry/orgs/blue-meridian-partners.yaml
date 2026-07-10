@@ -6,6 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: foundation
 website: https://www.bluemeridian.org/
+socials:
+  x: https://x.com/bluemeridianp
 status: active
 profile: >
   Blue Meridian Partners is a philanthropic collaboration that brings
@@ -14,5 +16,11 @@ profile: >
   billion across four investment portfolios — Nationwide Solutions, Place
   Matters, The Studio @ Blue Meridian, and The Justice and Mobility Fund —
   and takes expressions of interest from grantseekers through its website.
+funding:
+  focus:
+    - economic and social mobility for young people and families in poverty
+    - criminal justice-impacted mobility
+  apply_url: https://www.bluemeridian.org/for-grantseekers/interest-survey/
 sources:
   - https://www.bluemeridian.org/
+  - https://www.bluemeridian.org/for-grantseekers/

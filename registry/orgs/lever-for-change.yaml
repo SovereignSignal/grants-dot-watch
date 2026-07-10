@@ -14,5 +14,17 @@ profile: >
   funding opportunities. Since 2019 its competitions have moved over $2.5 billion
   through 450+ grant awards to 500+ organizations, across areas including
   education, justice, healthcare, refugee support, and mental health.
+funding:
+  focus:
+    - education
+    - justice
+    - healthcare
+    - refugee support
+    - mental health
+    - indigenous communities
+    - environmental solutions
+  cadence: "Open calls (rolling launches; no calls were accepting new applications as of Jul 2026)"
+  apply_url: https://leverforchange.org/open-calls/
 sources:
   - https://leverforchange.org/
+  - https://leverforchange.org/open-calls/

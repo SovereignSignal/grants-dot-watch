@@ -17,5 +17,13 @@ profile: >
   journalists. Programs run with judging panels and partner newsrooms such as
   Bloomberg and the Guardian; 2025 fellows have been announced and 2026
   applications are open.
+funding:
+  focus:
+    - AI journalism
+    - investigative reporting on AI
+  typical_size: "$1,000-$20,000 (Grants); $60,000-$110,000 (Fellowship)"
+  apply_url: https://www.tarbellcenter.org/grants
 sources:
   - https://www.tarbellcenter.org/
+  - https://www.tarbellcenter.org/grants
+  - https://www.tarbellcenter.org/fellowship

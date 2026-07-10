@@ -13,5 +13,17 @@ profile: >
   initiatives including Small Development Grants, the PyData program, and
   Google Summer of Code partnerships. Projects apply for sponsorship via its
   projects overview page.
+funding:
+  focus:
+    - open-source scientific computing sustainability
+    - project usability improvements
+    - community growth
+    - release velocity
+  cadence: >
+    Small Development Grants: calls for proposals run 3 times per year,
+    limited to fiscally sponsored/affiliated projects; as of this check,
+    applications are temporarily closed while NumFOCUS updates its financial
+    and administrative systems.
 sources:
   - https://numfocus.org/
+  - https://numfocus.org/projects-overview

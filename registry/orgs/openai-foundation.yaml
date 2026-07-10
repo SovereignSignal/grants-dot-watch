@@ -14,6 +14,15 @@ profile: >
   unrestricted one-time grants to US 501(c)(3) nonprofits in community support
   services, community arts and culture, and community journalism; grants do
   not require use of OpenAI products.
+funding:
+  focus:
+    - community support services
+    - community arts and culture
+    - community journalism and media
+  typical_size: >
+    $50 million fund for 2026; individual grants up to 10% of a grantee
+    organization's annual budget.
+  apply_url: https://openaifoundation.org/news/2026-people-first-ai-fund
 sources:
   - https://openaifoundation.org/
   - https://openaifoundation.org/news/2026-people-first-ai-fund

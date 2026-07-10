@@ -20,6 +20,15 @@ profile: >
   It actively funds research through numerous open calls for proposals,
   including collaborative research programs with countries such as Canada,
   Thailand, and Indonesia, plus international exchange programs.
+funding:
+  focus:
+    - quantum research
+    - battery and green technologies
+    - advanced materials
+    - bioenergy
+    - AI and automation in agriculture
+    - AI-powered robotics
+  cadence: "Multiple concurrent programs with rolling, fiscal-year open calls throughout the year"
 sources:
   - https://www.jst.go.jp/EN/
   - https://jst.go.jp/kisoken/boshuu/

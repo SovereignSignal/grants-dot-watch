@@ -1,0 +1,289 @@
+[
+  {
+    "type": "new_program",
+    "org": "avalanche-foundation",
+    "org_name": null,
+    "program": "Retro9000",
+    "title": "Avalanche Foundation's Retro9000 runs monthly C-Chain rounds with a live deadline (Round 5 closes 2026-07-17)",
+    "summary": "Retro9000 is Avalanche Foundation's retroactive-funding program, distinct from Team1 Builder Grants, research grants, and the Blizzard Fund, and has no program file in the registry. The build.avax.network/grants page shows an active C-Chain Round 5 (submission deadline 2026-07-17 18:00 UTC) plus an L1s & Infrastructure Tooling track with a snapshot on 2026-07-14. Community voting is advisory only; the Foundation makes final disbursement decisions.",
+    "evidence_url": "https://retro9000.avax.network",
+    "proposed_change": {
+      "programs/avalanche-retro9000.yaml": {
+        "id": "avalanche-retro9000",
+        "name": "Retro9000",
+        "org": "avalanche-foundation",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "retro",
+        "apply_url": "https://retro9000.avax.network",
+        "summary": "Retroactive funding for projects built on Avalanche C-Chain and Avalanche L1s, run in recurring tracked rounds; community leaderboard voting is advisory, the Avalanche Foundation makes final award decisions.",
+        "rounds": [
+          {
+            "name": "C-Chain Round 5",
+            "status": "open",
+            "closes": "2026-07-17",
+            "source": "https://retro9000.avax.network"
+          },
+          {
+            "name": "L1s & Infrastructure Tooling snapshot",
+            "status": "open",
+            "closes": "2026-07-14",
+            "source": "https://retro9000.avax.network"
+          }
+        ],
+        "sources": ["https://retro9000.avax.network", "https://build.avax.network/grants"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "center-for-ai-safety",
+    "org_name": null,
+    "program": "AI and Society Fellowship",
+    "title": "CAIS runs a dedicated AI and Society Fellowship, currently unrepresented in the registry",
+    "summary": "safe.ai describes a three-month AI and Society Fellowship on societal impacts of advanced AI, institutional responses, and policy development, with its own application page and a deadline of March 24 (annual cycle, next date unconfirmed). This is CAIS's clearest funded program distinct from its open compute-cluster access and philosophy course.",
+    "evidence_url": "https://safe.ai/fellowship",
+    "proposed_change": {
+      "programs/center-for-ai-safety-fellowship.yaml": {
+        "id": "center-for-ai-safety-fellowship",
+        "name": "AI and Society Fellowship",
+        "org": "center-for-ai-safety",
+        "systems": ["ai-safety"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://safe.ai/fellowship",
+        "summary": "A three-month fellowship examining societal impacts of advanced AI, institutional responses, and policy development; application deadline historically March 24.",
+        "sources": ["https://safe.ai/", "https://safe.ai/fellowship"]
+      }
+    },
+    "confidence": 72,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "cohere-for-ai",
+    "org_name": null,
+    "program": "Catalyst Grants",
+    "title": "Cohere Labs' Catalyst Grants (free API access for academic/impact orgs) has no program file",
+    "summary": "Cohere Labs' Catalyst Grants gives academic partners, civic institutions, and impact-focused organizations free access to the Cohere API for projects in education, healthcare, climate change, and sustainability, plus language-model-safety and values-alignment work per the program FAQ. Applications are rolling with no fixed deadline; the program is distinct from the Research Scholars Program and Open Science community.",
+    "evidence_url": "https://cohere.com/research/grants",
+    "proposed_change": {
+      "programs/cohere-catalyst-grants.yaml": {
+        "id": "cohere-catalyst-grants",
+        "name": "Catalyst Grants",
+        "org": "cohere-for-ai",
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://cohere.com/research/grants",
+        "summary": "Free Cohere API access (not cash) for academic partners, civic institutions, and impact-focused organizations working on education, healthcare, climate, sustainability, LM safety, and values alignment; rolling applications.",
+        "sources": ["https://cohere.com/research", "https://cohere.com/research/grants"]
+      }
+    },
+    "confidence": 78,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "status_change",
+    "org": "nlnet-foundation",
+    "org_name": null,
+    "program": "NGI Zero Commons Fund",
+    "title": "NGI Zero Commons Fund's 13th and final call closed 2026-06-01 — no further applications",
+    "summary": "nlnet.nl/commonsfund states plainly: \"The thirteenth and final call of NGI Zero Commons Fund closed on June 1st 2026. No more new applications are sought for this fund.\" The registry currently lists this program as active with an open round through 2026-08-01, which is now stale — NLnet has moved new intake to NGI TALER and NGI Fediversity (see companion new_program proposals).",
+    "evidence_url": "https://nlnet.nl/commonsfund/",
+    "proposed_change": {
+      "programs/nlnet-ngi-zero-commons-fund.yaml": {
+        "status": "concluded",
+        "sources": ["https://nlnet.nl/commonsfund/"]
+      }
+    },
+    "confidence": 92,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "nlnet-foundation",
+    "org_name": null,
+    "program": "NGI TALER",
+    "title": "NLnet opens NGI TALER call (privacy-preserving payments), deadline 2026-08-01",
+    "summary": "NLnet's nlnet.nl/taler/ page lists NGI TALER as a currently open call funding free/open-source work on GNU Taler and related privacy-preserving digital payment infrastructure. Grants run EUR 5,000–50,000 (at least EUR 676,000 total available for this call), deadline August 1, 2026, noon CEST. This appears to be one of the successor funds to the now-concluded NGI Zero Commons Fund.",
+    "evidence_url": "https://nlnet.nl/taler/",
+    "proposed_change": {
+      "programs/nlnet-ngi-taler.yaml": {
+        "id": "nlnet-ngi-taler",
+        "name": "NGI TALER",
+        "org": "nlnet-foundation",
+        "systems": ["eu-public-rd", "sovereign-tech"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://nlnet.nl/propose/",
+        "summary": "NLnet-run fund supporting free/open-source privacy-preserving digital payment infrastructure built on GNU Taler; grants typically EUR 5,000-50,000, at least EUR 676,000 available this call.",
+        "rounds": [
+          {
+            "name": "2026 open call",
+            "status": "open",
+            "closes": "2026-08-01",
+            "size": "EUR 5,000-50,000 per project; EUR 676,000+ total",
+            "source": "https://nlnet.nl/taler/"
+          }
+        ],
+        "sources": ["https://nlnet.nl/", "https://nlnet.nl/taler/"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "nlnet-foundation",
+    "org_name": null,
+    "program": "NGI Fediversity",
+    "title": "NLnet opens NGI Fediversity call (fediverse/hosted cloud services), deadline 2026-08-01",
+    "summary": "NLnet's nlnet.nl/fediversity/ page lists NGI Fediversity as a currently open call funding service portability and personal freedom in hosted cloud/fediverse services (PeerTube, Mastodon, email, VPN, private cloud on NixOS). Grants run EUR 5,000–50,000 (EUR 450,000 total for this call), deadline August 1, 2026, noon CEST; the program runs through November 2027.",
+    "evidence_url": "https://nlnet.nl/fediversity/",
+    "proposed_change": {
+      "programs/nlnet-ngi-fediversity.yaml": {
+        "id": "nlnet-ngi-fediversity",
+        "name": "NGI Fediversity",
+        "org": "nlnet-foundation",
+        "systems": ["eu-public-rd", "sovereign-tech"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://nlnet.nl/propose/",
+        "summary": "NLnet-run fund supporting service portability and personal freedom in hosted cloud/fediverse services (e.g. PeerTube, Mastodon, email, VPN, private cloud on NixOS); grants typically EUR 5,000-50,000, EUR 450,000 available this call, program runs through November 2027.",
+        "rounds": [
+          {
+            "name": "2026 open call",
+            "status": "open",
+            "closes": "2026-08-01",
+            "size": "EUR 5,000-50,000 per project; EUR 450,000 total",
+            "source": "https://nlnet.nl/fediversity/"
+          }
+        ],
+        "sources": ["https://nlnet.nl/", "https://nlnet.nl/fediversity/"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_program",
+    "org": "the-genesis-mission",
+    "org_name": null,
+    "program": "The Genesis Mission: Transforming Science and Energy with AI (DE-FOA-0003612)",
+    "title": "DOE's Genesis Mission FOA (DE-FOA-0003612) has concrete phased deadlines through Dec 2026, no program file exists",
+    "summary": "science.osti.gov lists open FOA DE-FOA-0003612, \"The Genesis Mission: Transforming Science and Energy with AI,\" updated 2026-04-20. Phase I applications and Phase II letters of intent were due 2026-05-01, Phase II applications 2026-05-19, with a final Phase II deadline of 2026-12-17. This is the org's primary named funding vehicle and currently has no program file in the registry.",
+    "evidence_url": "https://science.osti.gov/grants/FOAs/Open",
+    "proposed_change": {
+      "programs/genesis-mission-foa-0003612.yaml": {
+        "id": "genesis-mission-foa-0003612",
+        "name": "The Genesis Mission: Transforming Science and Energy with AI (DE-FOA-0003612)",
+        "org": "the-genesis-mission",
+        "systems": ["us-federal-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://science.osti.gov/grants/FOAs/Open",
+        "summary": "DOE Office of Science funding opportunity announcement DE-FOA-0003612 for interdisciplinary teams applying AI to energy, nuclear, environmental, and national-security science; phased Phase I/II review with a final Phase II application deadline of 2026-12-17.",
+        "rounds": [
+          {
+            "name": "Phase I applications / Phase II letters of intent",
+            "status": "closed",
+            "closes": "2026-05-01",
+            "source": "https://science.osti.gov/grants/FOAs/Open"
+          },
+          {
+            "name": "Phase II applications",
+            "status": "closed",
+            "closes": "2026-05-19",
+            "source": "https://science.osti.gov/grants/FOAs/Open"
+          },
+          {
+            "name": "Final Phase II deadline",
+            "status": "open",
+            "closes": "2026-12-17",
+            "source": "https://science.osti.gov/grants/FOAs/Open"
+          }
+        ],
+        "sources": ["https://www.energy.gov/", "https://science.osti.gov/grants/FOAs/Open"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "status_change",
+    "org": "pharos-network",
+    "org_name": null,
+    "program": null,
+    "title": "Pharos Network is clearly active, not \"unknown\" — $44M Series A (Apr 2026), mainnet launch, new $20M grant program",
+    "summary": "The registry currently carries pharos-network at status: unknown because buildonpharos.com stopped resolving. Web search shows the org moved to pharos.xyz, raised a $44M Series A in April 2026 (total $52M, investors including Sumitomo Corporation), launched its Pacific Ocean mainnet and $PROS token the same month with 50+ live dApps, and is running an active $10M RealFi/RWA builder incubator (Pharos Builder Base Camp, with HackQuest) plus a newly announced $20M Ecosystem Grant Program. This is a live, well-funded network, not dormant — recommend status: active.",
+    "evidence_url": "https://www.pharos.xyz/",
+    "proposed_change": {
+      "orgs/pharos-network.yaml": {
+        "status": "active"
+      }
+    },
+    "confidence": 82,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "pharos-network",
+    "org_name": null,
+    "program": "Pharos Ecosystem Grant Program",
+    "title": "Pharos Network launched a $20M Ecosystem Grant Program at its new pharos.xyz domain",
+    "summary": "Search results (LinkedIn, pharos.xyz/blog) describe Pharos Network launching a $20M Ecosystem Grant Program, applied for via pharos.xyz/ecosystem, alongside a separate $10M RealFi/RWA builder incubator (Pharos Builder Base Camp, run with HackQuest). The specific blog post URL 404'd on direct fetch and pharos.xyz blocks automated fetches (403), so this is sourced from search-engine summaries of the org's own domain rather than a directly rendered page — verify before promoting. This supersedes the stale pharos-phase1-hackathon program on the dead buildonpharos.com/DoraHacks listing.",
+    "evidence_url": "https://www.pharos.xyz/ecosystem",
+    "proposed_change": {
+      "programs/pharos-ecosystem-grant-program.yaml": {
+        "id": "pharos-ecosystem-grant-program",
+        "name": "Pharos Ecosystem Grant Program",
+        "org": "pharos-network",
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.pharos.xyz/ecosystem",
+        "summary": "A $20M ecosystem grant program for builders on Pharos Network (RWA tokenization, decentralized payments, DeFi, tooling/infrastructure), applied for at pharos.xyz/ecosystem; run alongside a separate $10M RealFi/RWA incubator (Builder Base Camp, with HackQuest).",
+        "sources": ["https://www.pharos.xyz/ecosystem"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "foresight-institute",
+    "org_name": null,
+    "program": "AI for Science & Safety Nodes",
+    "title": "Foresight's own program page now says quarterly deadlines (next Sept 30), registry says monthly",
+    "summary": "The registry's foresight-ai-science-safety-nodes program and foresight-institute org profile both state deadlines fall \"on the last day of every month.\" Fetching the program page directly today returned: \"Application deadlines are on the last day of every quarter,\" with the next deadline given as September 30. This may reflect a real cadence change (monthly → quarterly) or a discrepancy between page sections; flagging rather than auto-editing since the existing cadence field is not empty.",
+    "evidence_url": "https://foresight.org/grants/grants-ai-for-science-safety/",
+    "proposed_change": {
+      "programs/foresight-ai-science-safety-nodes.yaml": {
+        "cadence_check": "Site currently states quarterly deadlines (next: Sept 30), not monthly as recorded — verify and correct cadence text in both the program and org profile if confirmed.",
+        "sources": ["https://foresight.org/grants/grants-ai-for-science-safety/"]
+      }
+    },
+    "confidence": 58,
+    "signal_id": null,
+    "wire": "ai"
+  }
+]

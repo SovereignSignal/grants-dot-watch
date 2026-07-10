@@ -6,7 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: company
 website: https://research.adobe.com/
-socials: {}
+socials:
+  x: https://x.com/AdobeResearch
 status: active
 profile: >
   Adobe Research is Adobe's research division focused on advancing artificial
@@ -21,3 +22,4 @@ profile: >
 sources:
   - https://research.adobe.com/
   - https://research.adobe.com/india-ai-research-fellowship/
+  - https://twitter.com/AdobeResearch

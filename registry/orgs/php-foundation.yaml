@@ -6,6 +6,9 @@ wires: [oss]
 roles: [funder]
 org_type: nonprofit
 website: https://thephp.foundation
+socials:
+  x: https://twitter.com/thephpf
+  github: https://github.com/ThePHPF/thephp.foundation
 status: active
 profile: >
   The PHP Foundation exists to ensure the long-term prosperity of the PHP

@@ -72,7 +72,8 @@ interface ResolutionReport {
   merge_candidates?: { a: string; b: string; domain: string }[];
 }
 
-/** Reads seed/proposals-batch-*.json (miner output) and resolution_report.json
+/** Reads seed/proposals-batch-*.json and seed/proposals-enrich-batch-*.json
+ *  (miner + enrichment-sweep output) and resolution_report.json
  *  merge_candidates, skipping anything already covered by existingKeys
  *  (mutated in place as new keys are claimed, so within-call dupes also
  *  skip). Storage-agnostic: returns proposals to insert, doesn't write
@@ -86,7 +87,7 @@ function collectSeedProposals(
 
   const batchFiles = existsSync(SEED_DIR)
     ? readdirSync(SEED_DIR)
-        .filter((f) => /^proposals-batch-.*\.json$/.test(f))
+        .filter((f) => /^proposals-.*batch-\d+\.json$/.test(f))
         .sort()
     : [];
 
@@ -450,9 +451,10 @@ async function recordVerdictPg(
 // Exported interface — same shape regardless of backend
 // ============================================================
 
-/** Idempotently import proposals-batch-*.json (miner output) and
- *  resolution_report.json merge_candidates into the store. Safe to call
- *  repeatedly — already-imported items are skipped by dedupe key. */
+/** Idempotently import proposals-batch-*.json and proposals-enrich-batch-*.json
+ *  (miner + enrichment-sweep output) and resolution_report.json merge_candidates
+ *  into the store. Safe to call repeatedly — already-imported items are skipped
+ *  by dedupe key. */
 export async function seedFromFiles(): Promise<{ imported: number; skipped: number }> {
   return DATABASE_URL ? seedFromFilesPg() : seedFromFilesLocal();
 }

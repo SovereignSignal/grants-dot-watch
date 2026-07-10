@@ -1,0 +1,107 @@
+[
+  {
+    "type": "profile_note",
+    "org": "kelpdao",
+    "org_name": "KelpDAO",
+    "program": null,
+    "title": "KelpDAO/Kelp shows no grants or ecosystem-funding program on either domain — reconsider funder role",
+    "summary": "Kelp's site now lives at kerneldao.com/kelp/ (kelpdao.xyz 301-redirects there, confirmed via curl and WebFetch). Fetching that page directly, the only funding-shaped mechanism found is a security bug bounty ('Secure Kelp, earn up to $250K') — not a grants or ecosystem-funding program. The org file currently tags roles:[funder] on the strength of an earlier pass; two independent fetches this round (old and new domain) found nothing that would qualify. Recommend the owner review whether KelpDAO should carry roles:[funder] at all, or be downgraded/removed pending evidence of an actual grants program.",
+    "evidence_url": "https://kerneldao.com/kelp/",
+    "proposed_change": {
+      "orgs/kelpdao.yaml": {
+        "roles_flag": "no grants/funding program found on kerneldao.com/kelp/ or kelpdao.xyz; only a security bug bounty. Owner review requested on roles:[funder]."
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "cepi-coalition-for-epidemic-preparedness-innovations",
+    "org_name": "CEPI (Coalition for Epidemic Preparedness Innovations)",
+    "program": null,
+    "title": "CEPI runs an open Calls for Proposals mechanism, missing from registry/programs",
+    "summary": "CEPI's own site names a live application channel — 'Calls for Proposals' — with a dedicated portal, and lists at least one currently active call (Bundibugyo virus vaccines) as of this check. No program file exists yet for this. Recommend a programs/cepi-calls-for-proposals.yaml (mechanism: rfp, org: cepi-coalition-for-epidemic-preparedness-innovations) once the owner confirms scope — CEPI runs multiple named calls under this umbrella rather than one fixed vehicle, so the owner may prefer per-call program files instead of one umbrella file.",
+    "evidence_url": "https://cepi.my.site.com/call-for-proposal",
+    "proposed_change": {
+      "action": "new_program_candidate",
+      "programs/cepi-calls-for-proposals.yaml": {
+        "id": "cepi-calls-for-proposals",
+        "name": "CEPI Calls for Proposals",
+        "org": "cepi-coalition-for-epidemic-preparedness-innovations",
+        "parent": null,
+        "systems": ["global-health"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://cepi.my.site.com/call-for-proposal",
+        "summary": "CEPI's standing channel for competitive Calls for Proposals under its scientific programmes, open to innovators worldwide; individual calls (e.g. Bundibugyo virus vaccines) are announced and closed on a rolling basis.",
+        "sources": ["https://cepi.net/", "https://cepi.my.site.com/call-for-proposal"]
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "polygon",
+    "org_name": "Polygon",
+    "program": "polygon-community-grants-season-2",
+    "title": "polygon.technology/grow now redirects to an unrelated third-party site — dead source on the Season 2 program file",
+    "summary": "registry/programs/polygon-community-grants-season-2.yaml cites https://polygon.technology/grow as a source. That path now 301-redirects to https://hadronfc.com/, an unrelated business with no evident connection to Polygon — looks like an expired/squatted path rather than a legitimate migration target, so it should not be treated as a 'dead website -> live redirect' fact-lane fix. Separately, polygon.technology's current homepage and nav no longer surface any dedicated grants/funding page at all (only docs, resources, and an early-access contact form), which may mean the Community Grants Program has gone fully dormant since Season 2 concluded rather than continuing under a new season. Recommend the owner verify whether a Season 3 exists anywhere (e.g. Polygon forum/Questbook) and, if not, drop the dead /grow citation and consider whether polygon's org-level funding.apply_url (questbook) is still current.",
+    "evidence_url": "https://polygon.technology/",
+    "proposed_change": {
+      "programs/polygon-community-grants-season-2.yaml": {
+        "sources_flag": "https://polygon.technology/grow now redirects to https://hadronfc.com/ (unrelated site) — remove or replace this source"
+      }
+    },
+    "confidence": 50,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "web3-foundation",
+    "org_name": "Web3 Foundation",
+    "program": "web3-foundation-grants-program",
+    "title": "Web3 Foundation's grants hub now redirects to /funding-support; registry apply_url still points at the discontinued GitHub repo",
+    "summary": "web3.foundation/grants/ 301s to grants.web3.foundation, which 301s again to web3.foundation/funding-support — the site's own current pointer for 'how funding works now', consistent with the already-recorded shift from the open Grants Program to Targeted Strategic Funding / Decentralized Futures. The registry's web3-foundation-grants-program.yaml (status: concluded, correctly) still lists apply_url as the old github.com/w3f/Grants-Program repo. Recommend the owner decide whether to add web3.foundation/funding-support as the org-level or a new program's live funding pointer, since the old program file's apply_url documents history rather than a current channel.",
+    "evidence_url": "https://web3.foundation/funding-support",
+    "proposed_change": {
+      "programs/web3-foundation-grants-program.yaml": {
+        "apply_url_flag": "current site funnels funding inquiries through https://web3.foundation/funding-support, not the archived github.com/w3f/Grants-Program repo — owner call on whether to add a successor program file or update this one's framing"
+      }
+    },
+    "confidence": 40,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "shuttleworth-foundation",
+    "org_name": "Shuttleworth Foundation",
+    "program": "shuttleworth-fellowship",
+    "title": "Fellowship page states concrete current-looking intake dates, but its own linked application documents are dated 2013",
+    "summary": "shuttleworthfoundation.org/funding/fellowship-programme states two annual intakes (March 1 start, applications close November 1; September 1 start, applications close May 1) as if live. However the application form and instructions documents linked from that same page are dated 2013, and org status is already flagged 'unknown' in the registry pending confirmation of whether the fellowship is currently awarding. This pass found nothing to resolve that uncertainty one way or the other — recommend the owner attempt direct contact (fellowship@shuttleworthfoundation.org per the page) before treating the intake dates as reliably current.",
+    "evidence_url": "https://shuttleworthfoundation.org/funding/fellowship-programme",
+    "proposed_change": {},
+    "confidence": 35,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "apache-software-foundation",
+    "org_name": "Apache Software Foundation",
+    "program": null,
+    "title": "Source cited for ASF's Responsible AI / Tooling Initiative claims (apache.org/foundation/grants.html) now 404s",
+    "summary": "The org profile describes a March 2025 Tooling Initiative and an April 2026 $10M Responsible AI Initiative (seeded with $1.75M from Anthropic and Alpha-Omega), sourced from apache.org/foundation/grants.html. That URL now returns 404. The parent page (apache.org/foundation/) and the governance page (how-it-works.html) that were checked this round describe ASF's structure and sponsorship model but do not restate the initiative details, so this pass could not reverify or refresh those specific funding-program claims. Recommend the owner locate a current source (ASF blog/news) for the Responsible AI and Tooling Initiatives before the next audit, or soften the profile if the page is confirmed gone rather than moved.",
+    "evidence_url": "https://www.apache.org/foundation/",
+    "proposed_change": {},
+    "confidence": 40,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

@@ -17,6 +17,17 @@ profile: >
   relations, infrastructure and tooling, arts and culture, DeFi, business
   development, and gaming. Applications are reviewed on a rolling basis, with
   review averaging about four weeks plus roughly four more weeks of paperwork.
+funding:
+  focus:
+    - core development
+    - technical relations
+    - infrastructure and tooling
+    - arts and culture
+    - DeFi
+    - business development
+    - gaming
+  cadence: "Rolling applications; ~4 weeks review plus ~4 weeks paperwork"
+  apply_url: https://tezos.foundation/grants/
 sources:
   - https://tezos.foundation/
   - https://tezos.foundation/grants/

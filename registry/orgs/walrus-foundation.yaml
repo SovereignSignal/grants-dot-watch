@@ -8,7 +8,9 @@ wires: [crypto]
 roles: [funder]
 org_type: foundation
 website: https://www.walrus.xyz/
-socials: {}
+socials:
+  x: https://x.com/walrusprotocol
+  github: https://github.com/MystenLabs/walrus
 status: active
 profile: >
   Foundation behind Walrus, a verifiable data platform created by Mysten Labs
@@ -16,6 +18,13 @@ profile: >
   with emphasis on data availability, programmability, verifiability, and
   privacy. Its site invites developers to apply for grants and RFPs to get
   support building on the platform.
+funding:
+  focus:
+    - AI
+    - data markets
+    - DeFi applications using verifiable data
+  cadence: "RFPs reviewed ~2 weeks after opening; remain open until a team is selected"
+  apply_url: https://www.walrus.xyz/rfp/
 sources:
   - https://www.walrus.xyz/
   - https://thewalrussessions.wal.app/

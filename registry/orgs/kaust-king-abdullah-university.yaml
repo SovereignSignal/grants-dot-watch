@@ -9,7 +9,8 @@ roles:
   - funder
 org_type: government
 website: https://www.kaust.edu.sa/
-socials: {}
+socials:
+  x: https://x.com/KAUST_News
 status: active
 profile: >
   KAUST is a graduate research university of science and technology located
@@ -17,5 +18,11 @@ profile: >
   including research funding and services, postdoctoral support programs, and
   research platforms, with dedicated offices managing grants and research
   administration.
+funding:
+  focus:
+    - biological and environmental science and engineering
+    - biomedical sciences
+    - computer, electrical and mathematical science and engineering
+    - physical science and engineering
 sources:
   - https://www.kaust.edu.sa/en/

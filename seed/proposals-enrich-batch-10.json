@@ -1,0 +1,350 @@
+[
+  {
+    "type": "new_program",
+    "org": "arpa-h-advanced-research-projects-agency-for-health",
+    "org_name": null,
+    "program": "ARPA-H Open Funding Opportunities",
+    "title": "ARPA-H's own funding-opportunities page lists 5+ open solicitations with no matching registry program",
+    "summary": "ARPA-H's Open Funding Opportunities page lists three open Innovative Solutions Openings (HEARING — Hearing Enhancement through ARtificially Intelligent Neurotechnology; IGoR — Intelligent Generator of Research; REST — Restorative & health-Enhancing Sleep Time) plus two exploratory topics (TIGAR, BRAINS), all marked open with no registry/programs file capturing them. Individual deadlines/award sizes are not published on the listing page itself (buried in per-solicitation PDFs), so rounds are recorded as 'open' with no dates rather than guessed.",
+    "evidence_url": "https://arpa-h.gov/explore-funding/open-funding-opportunities",
+    "proposed_change": {
+      "programs/arpa-h-open-funding-opportunities.yaml": {
+        "id": "arpa-h-open-funding-opportunities",
+        "name": "ARPA-H Open Funding Opportunities",
+        "org": "arpa-h-advanced-research-projects-agency-for-health",
+        "parent": null,
+        "systems": ["us-federal-rd"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "rfp",
+        "apply_url": "https://arpa-h.gov/explore-funding/open-funding-opportunities",
+        "summary": "ARPA-H's standing list of open Innovative Solutions Openings (ISOs) and exploratory topics across its four mission offices (Health Science Futures, Scalable Solutions, Proactive Health, Resilient Systems); solicitations rotate on a rolling basis.",
+        "rounds": [
+          {"name": "HEARING (Hearing Enhancement through ARtificially Intelligent Neurotechnology)", "status": "open", "source": "https://arpa-h.gov/explore-funding/open-funding-opportunities"},
+          {"name": "IGoR (Intelligent Generator of Research)", "status": "open", "source": "https://arpa-h.gov/explore-funding/open-funding-opportunities"},
+          {"name": "REST (Restorative & health-Enhancing Sleep Time)", "status": "open", "source": "https://arpa-h.gov/explore-funding/open-funding-opportunities"},
+          {"name": "TIGAR Exploratory Topic", "status": "open", "source": "https://arpa-h.gov/explore-funding/open-funding-opportunities"},
+          {"name": "BRAINS Exploratory Topic", "status": "open", "source": "https://arpa-h.gov/explore-funding/open-funding-opportunities"}
+        ],
+        "sources": ["https://arpa-h.gov/explore-funding/open-funding-opportunities"]
+      }
+    },
+    "confidence": 75,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "future-of-life-institute-fli",
+    "org_name": null,
+    "program": "US-China AI Governance PhD Fellowship",
+    "title": "FLI runs a distinct US-China AI Governance PhD Fellowship not represented in the registry",
+    "summary": "FLI's grantmaking page lists a 'US-China AI Governance PhD Fellowships' program at its own dedicated URL, separate from the registry's existing 'Vitalik Buterin PhD Fellowship in AI Existential Safety' (technical safety track). Status shown as closed for submissions, deadline November 21, 2025.",
+    "evidence_url": "https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/",
+    "proposed_change": {
+      "programs/future-of-life-us-china-ai-governance-phd-fellowship.yaml": {
+        "id": "future-of-life-us-china-ai-governance-phd-fellowship",
+        "name": "US-China AI Governance PhD Fellowship",
+        "org": "future-of-life-institute-fli",
+        "parent": null,
+        "systems": ["ai-safety"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/",
+        "summary": "FLI's PhD fellowship for doctoral research on US-China AI governance dynamics, distinct from FLI's technical AI-safety PhD fellowship track.",
+        "rounds": [
+          {"name": "2025-26 cohort applications", "status": "closed", "closes": "2025-11-21", "source": "https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/"}
+        ],
+        "sources": ["https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "future-of-life-institute-fli",
+    "org_name": null,
+    "program": "Technical Postdoctoral Fellowships",
+    "title": "FLI's Technical Postdoctoral Fellowship has its own page, not yet a registry program",
+    "summary": "FLI's grantmaking page lists 'Technical Postdoctoral Fellowships' (AI existential safety research) at a dedicated URL, distinct from the PhD-level fellowship already in the registry. Status shown as closed for submissions, deadline January 5, 2026.",
+    "evidence_url": "https://futureoflife.org/grant-program/postdoctoral-fellowships/",
+    "proposed_change": {
+      "programs/future-of-life-postdoctoral-fellowship.yaml": {
+        "id": "future-of-life-postdoctoral-fellowship",
+        "name": "FLI Technical Postdoctoral Fellowship",
+        "org": "future-of-life-institute-fli",
+        "parent": null,
+        "systems": ["ai-safety"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://futureoflife.org/grant-program/postdoctoral-fellowships/",
+        "summary": "FLI's recurring postdoctoral fellowship supporting technical research on AI existential safety.",
+        "rounds": [
+          {"name": "Current cycle", "status": "closed", "closes": "2026-01-05", "source": "https://futureoflife.org/grant-program/postdoctoral-fellowships/"}
+        ],
+        "sources": ["https://futureoflife.org/grant-program/postdoctoral-fellowships/"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "near-foundation",
+    "org_name": null,
+    "program": "NEAR Protocol Rewards",
+    "title": "near.org/funding lists Protocol Rewards as a standing program, no registry file yet",
+    "summary": "NEAR's official funding page (near.org/funding) lists 'Protocol Rewards' as one of its current ecosystem funding channels, described as a metrics-based rewards system tying incentives directly to development activity and user adoption, hosted at its own domain nearprotocolrewards.com. No award-size or deadline data published on the listing page.",
+    "evidence_url": "https://www.near.org/funding",
+    "proposed_change": {
+      "programs/near-protocol-rewards.yaml": {
+        "id": "near-protocol-rewards",
+        "name": "NEAR Protocol Rewards",
+        "org": "near-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "other",
+        "apply_url": "https://www.nearprotocolrewards.com",
+        "summary": "Metrics-based rewards system for NEAR projects that ties funding directly to on-chain development activity and user adoption metrics, rather than a discretionary grants review.",
+        "rounds": [],
+        "sources": ["https://www.near.org/funding", "https://www.nearprotocolrewards.com"]
+      }
+    },
+    "confidence": 72,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "near-foundation",
+    "org_name": null,
+    "program": "NEAR DevHub Grants",
+    "title": "near.org/funding lists DevHub Grants as a standing program, no registry file yet",
+    "summary": "NEAR's official funding page lists 'Devhub Grants' as an ecosystem funding channel for infrastructure and tooling support, hosted at nearn.io/devhub/. No award-size or deadline data published on the listing page.",
+    "evidence_url": "https://www.near.org/funding",
+    "proposed_change": {
+      "programs/near-devhub-grants.yaml": {
+        "id": "near-devhub-grants",
+        "name": "NEAR DevHub Grants",
+        "org": "near-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://nearn.io/devhub/",
+        "summary": "Community-run grants program funding infrastructure and developer tooling on NEAR, run through NEAR's DevHub.",
+        "rounds": [],
+        "sources": ["https://www.near.org/funding", "https://nearn.io/devhub/"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "near-foundation",
+    "org_name": null,
+    "program": "Potlock",
+    "title": "near.org/funding lists Potlock community rounds as a standing program, no registry file yet",
+    "summary": "NEAR's official funding page lists 'Potlock' as an ecosystem funding channel for impact-project discovery and community funding rounds, hosted at app.potlock.org. Potlock is publicly known to run quadratic-funding-style community rounds; no award-size or deadline data was published on the near.org listing page itself.",
+    "evidence_url": "https://www.near.org/funding",
+    "proposed_change": {
+      "programs/near-potlock.yaml": {
+        "id": "near-potlock",
+        "name": "Potlock",
+        "org": "near-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "quadratic",
+        "apply_url": "https://app.potlock.org/",
+        "summary": "Community funding platform on NEAR for public-goods and impact projects, running discovery listings and periodic quadratic-style community funding rounds.",
+        "rounds": [],
+        "sources": ["https://www.near.org/funding", "https://app.potlock.org/"]
+      }
+    },
+    "confidence": 68,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "near-foundation",
+    "org_name": null,
+    "program": "Meta Pool Grants",
+    "title": "near.org/funding lists Meta Pool Grants as a standing program, no registry file yet",
+    "summary": "NEAR's official funding page lists 'Meta Pool Grants' as an ecosystem funding channel targeting growth initiatives in DeFi, education, TVL generation, and brand awareness, documented at docs.metapool.app. No award-size or deadline data published on the listing page.",
+    "evidence_url": "https://www.near.org/funding",
+    "proposed_change": {
+      "programs/near-meta-pool-grants.yaml": {
+        "id": "near-meta-pool-grants",
+        "name": "Meta Pool Grants",
+        "org": "near-foundation",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://docs.metapool.app/master/meta-pool-ecosystem/vote-governance/grants",
+        "summary": "Meta Pool's grants program funding DeFi, education, and TVL-growth initiatives in the NEAR ecosystem.",
+        "rounds": [],
+        "sources": ["https://www.near.org/funding", "https://docs.metapool.app/master/meta-pool-ecosystem/vote-governance/grants"]
+      }
+    },
+    "confidence": 68,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "tarbell-center",
+    "org_name": null,
+    "program": "Tarbell Fellowship",
+    "title": "Tarbell Center's Fellowship has a dedicated apply page and concrete award sizes, no registry program yet",
+    "summary": "Tarbell Center's own site lists a one-year Fellowship at its own apply URL, combining AI training with nine-month newsroom placements. Stipends: $60,000-$80,000 for early-career fellows, $90,000-$110,000 for senior fellows. No registry/programs file exists for it (org profile mentions it narratively but the org has zero program files).",
+    "evidence_url": "https://www.tarbellcenter.org/fellowship",
+    "proposed_change": {
+      "programs/tarbell-fellowship.yaml": {
+        "id": "tarbell-fellowship",
+        "name": "Tarbell Fellowship",
+        "org": "tarbell-center",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://www.tarbellcenter.org/fellowship",
+        "summary": "One-year fellowship combining AI training with nine-month newsroom placements for journalists covering AI; $60,000-$80,000 stipend for early-career fellows, $90,000-$110,000 for senior fellows.",
+        "rounds": [],
+        "sources": ["https://www.tarbellcenter.org/fellowship"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "tarbell-center",
+    "org_name": null,
+    "program": "Tarbell Grants",
+    "title": "Tarbell Center's story grants have a dedicated apply page, no registry program yet",
+    "summary": "Tarbell Center's own site lists a Grants program of $1,000-$20,000 for forward-looking stories on AI impacts, open to freelancers, staff reporters, and newsroom teams, at its own apply URL. No registry/programs file exists for it.",
+    "evidence_url": "https://www.tarbellcenter.org/grants",
+    "proposed_change": {
+      "programs/tarbell-grants.yaml": {
+        "id": "tarbell-grants",
+        "name": "Tarbell Grants",
+        "org": "tarbell-center",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.tarbellcenter.org/grants",
+        "summary": "Story grants of $1,000-$20,000 for original, forward-looking journalism on AI impacts, published in established outlets. Open to freelancers, staff reporters, and newsroom teams.",
+        "rounds": [],
+        "sources": ["https://www.tarbellcenter.org/grants"]
+      }
+    },
+    "confidence": 85,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "tarbell-center",
+    "org_name": null,
+    "program": "Tarbell Residencies",
+    "title": "Tarbell Center's Residencies have a dedicated apply page, no registry program yet",
+    "summary": "Tarbell Center's own site lists Residencies for senior journalists and experienced editors doing in-depth AI reporting, with an $80,000+ stipend plus upskilling opportunity, at its own apply URL. No registry/programs file exists for it.",
+    "evidence_url": "https://www.tarbellcenter.org/residencies",
+    "proposed_change": {
+      "programs/tarbell-residencies.yaml": {
+        "id": "tarbell-residencies",
+        "name": "Tarbell Residencies",
+        "org": "tarbell-center",
+        "parent": null,
+        "systems": [],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "fellowship",
+        "apply_url": "https://www.tarbellcenter.org/residencies",
+        "summary": "Residency program for senior journalists and experienced editors doing in-depth AI reporting; $80,000+ stipend plus an upskilling component.",
+        "rounds": [],
+        "sources": ["https://www.tarbellcenter.org/residencies"]
+      }
+    },
+    "confidence": 82,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "unicef",
+    "org_name": null,
+    "program": "UNICEF Venture Fund — Blockchain Ventures",
+    "title": "UNICEF's Blockchain Ventures cohort has a live call with a March 2026 deadline, no registry program exists for UNICEF",
+    "summary": "UNICEF's own equity-free-funding page describes the Venture Fund's 'Blockchain Ventures' cohort: early-stage startups in emerging markets get up to US$100,000 in ETH/BTC/USDC plus mentorship over a 12-18 month investment period, targeting accountability/financing and open-source blockchain solutions for children. Application deadline quoted on the page: 10 March 2026 (now past, so the round is recorded closed). No registry/programs file exists for UNICEF at all.",
+    "evidence_url": "https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions",
+    "proposed_change": {
+      "programs/unicef-venture-fund-blockchain-ventures.yaml": {
+        "id": "unicef-venture-fund-blockchain-ventures",
+        "name": "UNICEF Venture Fund — Blockchain Ventures",
+        "org": "unicef",
+        "parent": null,
+        "systems": [],
+        "wires": ["crypto", "ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions",
+        "summary": "UNICEF Venture Fund's equity-free cohort for early-stage, open-source blockchain startups in emerging markets, funding accountability/financing use cases for children; up to US$100,000 in ETH/BTC/USDC plus mentorship over 12-18 months.",
+        "rounds": [
+          {"name": "Blockchain Ventures cohort", "status": "closed", "closes": "2026-03-10", "size": "up to $100,000 in ETH/BTC/USDC", "source": "https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions"}
+        ],
+        "sources": ["https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions"]
+      }
+    },
+    "confidence": 87,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_program",
+    "org": "patch-the-planet",
+    "org_name": null,
+    "program": "Patch the Planet",
+    "title": "Patch the Planet's own page describes the program mechanics but no registry program file exists under the org",
+    "summary": "The patch-the-planet org file exists but has zero linked programs. Trail of Bits' own page describes the program mechanics: security engineers pair with critical open-source projects (cURL, Python, Sigstore) for a dedicated review week producing patches and disclosures, and selected maintainers get six months of ChatGPT Pro/Codex access. No monetary award size or fixed deadline is published; application is via an in-page form.",
+    "evidence_url": "https://trailofbits.com/patch-the-planet/",
+    "proposed_change": {
+      "programs/patch-the-planet-security-review.yaml": {
+        "id": "patch-the-planet-security-review",
+        "name": "Patch the Planet",
+        "org": "patch-the-planet",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["oss"],
+        "status": "active",
+        "mechanism": "other",
+        "apply_url": "https://trailofbits.com/patch-the-planet/",
+        "summary": "In-kind security-engineering support for critical open source projects: a dedicated Trail of Bits review week producing patches, tooling improvements, and coordinated disclosures, plus six months of ChatGPT Pro/Codex access for selected maintainers. No cash grant.",
+        "rounds": [],
+        "sources": ["https://trailofbits.com/patch-the-planet/"]
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  }
+]

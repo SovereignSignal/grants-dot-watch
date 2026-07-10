@@ -15,6 +15,13 @@ profile: >
   breakthrough solutions across five focus areas. Active competitions listed on
   its site include XPRIZE Wildfire ($11 million), XPRIZE Water Scarcity
   ($119 million), XPRIZE Healthspan, and XPRIZE Quantum Applications.
+funding:
+  focus:
+    - wildfire suppression
+    - water scarcity
+    - healthspan
+    - quantum applications
+  apply_url: https://xprize.org/competitions
 sources:
   - https://xprize.org
   - https://xprize.org/competitions

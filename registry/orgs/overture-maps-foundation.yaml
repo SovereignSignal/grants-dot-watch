@@ -6,6 +6,9 @@ wires: [oss, ai]
 roles: [funder]
 org_type: nonprofit
 website: https://overturemaps.org/
+socials:
+  x: https://twitter.com/OvertureMaps
+  github: https://github.com/OvertureMaps
 status: active
 profile: >
   Overture Maps Foundation brings together tech companies, mapping

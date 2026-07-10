@@ -1,19 +1,22 @@
 id: pharos-network
 name: Pharos Network
-aka: []
+aka: ["buildonpharos.com"]
 systems: []
 wires: [crypto]
 roles: [funder]
 org_type: foundation
-website: https://www.buildonpharos.com/
+website: https://www.pharos.xyz/
 socials:
   github: https://github.com/PharosNetwork
+  x: https://x.com/pharos_network
 status: unknown
 profile: >
   Pharos Network is a crypto network whose listed builder-funding route is a
-  hackathon hosted on DoraHacks (listing slug pharos-phase1). Its listed
-  website at buildonpharos.com did not resolve when checked in July 2026, so
-  the organization's current status is unclear.
+  hackathon hosted on DoraHacks (listing slug pharos-phase1). Its former
+  website at buildonpharos.com did not resolve when checked in July 2026; the
+  org now publishes at pharos.xyz. See open status_change proposal for
+  evidence the network is in fact active (Series A, mainnet launch).
 sources:
   - https://www.buildonpharos.com/
   - https://dorahacks.io/hackathon/pharos-phase1
+  - https://www.pharos.xyz/

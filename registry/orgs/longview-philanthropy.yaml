@@ -15,6 +15,11 @@ profile: >
   transform the world in the decades ahead, such as nuclear conflict,
   engineered pandemics, and misuse of artificial intelligence. Donors can make
   direct grants or contribute to Longview funds.
+funding:
+  focus:
+    - nuclear conflict risk reduction
+    - engineered pandemic prevention
+    - misuse of artificial intelligence
 sources:
   - https://longview.org
   - https://longview.org/contact

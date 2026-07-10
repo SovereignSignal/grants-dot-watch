@@ -8,6 +8,9 @@ wires: [ai]
 roles: [funder]
 org_type: company
 website: https://www.amazon.science/research-awards
+socials:
+  x: https://x.com/AmazonScience
+  github: https://github.com/amazon-science
 status: active
 profile: >
   Amazon Research Awards (ARA) is Amazon's academic funding program, offering
@@ -15,5 +18,19 @@ profile: >
   academic institutions and non-profit organizations. Funded domains include
   machine learning, robotics, sustainability, and security. Applications run
   through calls for proposals published on the program page.
+funding:
+  focus:
+    - machine learning
+    - robotics
+    - sustainability
+    - security
+    - cloud and systems
+    - computer vision
+    - conversational AI
+    - economics
+    - operations research
+    - quantum technologies
+  apply_url: https://www.amazon.science/research-awards/call-for-proposals
 sources:
   - https://www.amazon.science/research-awards
+  - https://www.amazon.science/research-awards/call-for-proposals

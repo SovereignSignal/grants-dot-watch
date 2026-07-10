@@ -14,5 +14,9 @@ profile: >
   Innovation Fund supporting real-world AI experimentation in public
   services, and runs programs like the AI Readiness Project to prepare
   government leaders for technological change.
+funding:
+  focus:
+    - AI adoption in government and public benefits delivery
+    - public service delivery innovation
 sources:
   - https://www.centerforcivicfutures.org/

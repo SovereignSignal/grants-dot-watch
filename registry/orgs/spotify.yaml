@@ -22,6 +22,10 @@ profile: >
 funding:
   focus:
     - maintainers of critical independent open-source projects
+  typical_size: "~€15,000-€30,000 per project (2025 cohort: FFmpeg €30k, Xiph.Org €25k, MSW €15k); fund established at €100,000 total in 2022"
+  cadence: "Annual; no external application — Spotify's internal R&D community nominates projects, a fund committee selects recipients"
 sources:
   - https://open.spotify.com/
   - https://github.com/spotify
+  - https://engineering.atspotify.com/2022/04/announcing-the-spotify-foss-fund
+  - https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund

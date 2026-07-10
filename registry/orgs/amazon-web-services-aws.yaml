@@ -8,6 +8,8 @@ wires: [ai, oss]
 roles: [funder]
 org_type: company
 website: https://aws.amazon.com/research-credits
+socials:
+  x: https://x.com/awscloud
 status: active
 profile: >
   Amazon Web Services funds research with cloud credits rather than cash. Its
@@ -17,6 +19,14 @@ profile: >
   training communities on cloud research workloads. Applications are reviewed
   on a rolling 90-120 day cycle; student awards are capped at $5,000 while
   faculty and staff awards are uncapped.
+funding:
+  focus:
+    - cloud-hosted research tools and applications
+    - proof-of-concept / benchmark testing
+    - research community training on cloud workloads
+  typical_size: "$5,000 max for students; uncapped for faculty/staff"
+  cadence: "Rolling review, 90-120 day review cycle"
+  apply_url: https://pages.awscloud.com/aws-cloud-credit-for-research.html
 sources:
   - https://aws.amazon.com/research-credits
   - https://aws.amazon.com/government-education/research-and-technical-computing/cloud-credit-for-research/

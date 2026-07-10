@@ -1,0 +1,1897 @@
+[
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Administration for Community Living",
+    "program": null,
+    "title": "Notion reconcile: Administration for Community Living missing from registry",
+    "summary": "Administration for Community Living (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://acl.gov/",
+    "proposed_change": {
+      "orgs/administration-for-community-living.yaml": {
+        "id": "administration-for-community-living",
+        "name": "Administration for Community Living",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://acl.gov/",
+        "status": "active"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Principles of Intelligence",
+    "program": null,
+    "title": "Notion reconcile: Principles of Intelligence missing from registry",
+    "summary": "Principles of Intelligence (category: Non-Profit/NGO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://princint.ai/",
+    "proposed_change": {
+      "orgs/principles-of-intelligence.yaml": {
+        "id": "principles-of-intelligence",
+        "name": "Principles of Intelligence",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://princint.ai/",
+        "status": "active"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "AI-BOOST",
+    "program": null,
+    "title": "Notion reconcile: AI-BOOST missing from registry",
+    "summary": "AI-BOOST (category: Non-Profit/NGO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://aiboost-project.eu/",
+    "proposed_change": {
+      "orgs/ai-boost.yaml": {
+        "id": "ai-boost",
+        "name": "AI-BOOST",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://aiboost-project.eu/",
+        "status": "active"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "iSRL",
+    "program": null,
+    "title": "Notion reconcile: iSRL missing from registry",
+    "summary": "iSRL (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://isrl.in",
+    "proposed_change": {
+      "orgs/isrl.yaml": {
+        "id": "isrl",
+        "name": "iSRL",
+        "roles": [
+          "funder"
+        ],
+        "website": "https://isrl.in",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "U.S. Mission to the Philippines",
+    "program": null,
+    "title": "Notion reconcile: U.S. Mission to the Philippines missing from registry",
+    "summary": "U.S. Mission to the Philippines (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://ph.usembassy.gov/",
+    "proposed_change": {
+      "orgs/us-mission-to-the-philippines.yaml": {
+        "id": "us-mission-to-the-philippines",
+        "name": "U.S. Mission to the Philippines",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://ph.usembassy.gov/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "World Foundation Mini App Grants",
+    "program": null,
+    "title": "Notion reconcile: World Foundation Mini App Grants missing from registry",
+    "summary": "World Foundation Mini App Grants (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://world.org/grants",
+    "proposed_change": {
+      "orgs/world-foundation-mini-app-grants.yaml": {
+        "id": "world-foundation-mini-app-grants",
+        "name": "World Foundation Mini App Grants",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://world.org/grants",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "U.S. Mission to Egypt",
+    "program": null,
+    "title": "Notion reconcile: U.S. Mission to Egypt missing from registry",
+    "summary": "U.S. Mission to Egypt (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://eg.usembassy.gov/",
+    "proposed_change": {
+      "orgs/us-mission-to-egypt.yaml": {
+        "id": "us-mission-to-egypt",
+        "name": "U.S. Mission to Egypt",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://eg.usembassy.gov/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "U.S. Mission to Indonesia",
+    "program": null,
+    "title": "Notion reconcile: U.S. Mission to Indonesia missing from registry",
+    "summary": "U.S. Mission to Indonesia (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://id.usembassy.gov/",
+    "proposed_change": {
+      "orgs/us-mission-to-indonesia.yaml": {
+        "id": "us-mission-to-indonesia",
+        "name": "U.S. Mission to Indonesia",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://id.usembassy.gov/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "openEuler",
+    "program": null,
+    "title": "Notion reconcile: openEuler missing from registry",
+    "summary": "openEuler (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.openeuler.org/",
+    "proposed_change": {
+      "orgs/openeuler.yaml": {
+        "id": "openeuler",
+        "name": "openEuler",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://www.openeuler.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "OpenPOWER Foundation",
+    "program": null,
+    "title": "Notion reconcile: OpenPOWER Foundation missing from registry",
+    "summary": "OpenPOWER Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://openpowerfoundation.org/",
+    "proposed_change": {
+      "orgs/openpower-foundation.yaml": {
+        "id": "openpower-foundation",
+        "name": "OpenPOWER Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://openpowerfoundation.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "vLLM",
+    "program": null,
+    "title": "Notion reconcile: vLLM missing from registry",
+    "summary": "vLLM (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://vllm.ai/",
+    "proposed_change": {
+      "orgs/vllm.yaml": {
+        "id": "vllm",
+        "name": "vLLM",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai",
+          "oss"
+        ],
+        "website": "https://vllm.ai/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "OpenAtom Foundation",
+    "program": null,
+    "title": "Notion reconcile: OpenAtom Foundation missing from registry",
+    "summary": "OpenAtom Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.openatom.org/",
+    "proposed_change": {
+      "orgs/openatom-foundation.yaml": {
+        "id": "openatom-foundation",
+        "name": "OpenAtom Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://www.openatom.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "CHIPS Alliance",
+    "program": null,
+    "title": "Notion reconcile: CHIPS Alliance missing from registry",
+    "summary": "CHIPS Alliance (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://chipsalliance.org/",
+    "proposed_change": {
+      "orgs/chips-alliance.yaml": {
+        "id": "chips-alliance",
+        "name": "CHIPS Alliance",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://chipsalliance.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Bureau of Economic and Business Affairs",
+    "program": null,
+    "title": "Notion reconcile: Bureau of Economic and Business Affairs missing from registry",
+    "summary": "Bureau of Economic and Business Affairs (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.state.gov/bureaus-offices/under-secretary-for-economic-growth-energy-and-the-environment/bureau-of-economic-and-business-affairs/",
+    "proposed_change": {
+      "orgs/bureau-of-economic-and-business-affairs.yaml": {
+        "id": "bureau-of-economic-and-business-affairs",
+        "name": "Bureau of Economic and Business Affairs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.state.gov/bureaus-offices/under-secretary-for-economic-growth-energy-and-the-environment/bureau-of-economic-and-business-affairs/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Bureau of South and Central Asian Affairs",
+    "program": null,
+    "title": "Notion reconcile: Bureau of South and Central Asian Affairs missing from registry",
+    "summary": "Bureau of South and Central Asian Affairs (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.state.gov/bureaus-offices/under-secretary-for-political-affairs/bureau-of-south-and-central-asian-affairs/",
+    "proposed_change": {
+      "orgs/bureau-of-south-and-central-asian-affairs.yaml": {
+        "id": "bureau-of-south-and-central-asian-affairs",
+        "name": "Bureau of South and Central Asian Affairs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://www.state.gov/bureaus-offices/under-secretary-for-political-affairs/bureau-of-south-and-central-asian-affairs/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Polymarket",
+    "program": null,
+    "title": "Notion reconcile: Polymarket missing from registry",
+    "summary": "Polymarket (category: Protocol / Foundation) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://polymarket.com",
+    "proposed_change": {
+      "orgs/polymarket.yaml": {
+        "id": "polymarket",
+        "name": "Polymarket",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://polymarket.com",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Alpha-Omega",
+    "program": null,
+    "title": "Notion reconcile: Alpha-Omega missing from registry",
+    "summary": "Alpha-Omega (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://alpha-omega.dev/",
+    "proposed_change": {
+      "orgs/alpha-omega.yaml": {
+        "id": "alpha-omega",
+        "name": "Alpha-Omega",
+        "roles": [
+          "funder"
+        ],
+        "website": "https://alpha-omega.dev/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Hathor Network",
+    "program": null,
+    "title": "Notion reconcile: Hathor Network missing from registry",
+    "summary": "Hathor Network (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://hathor.network/",
+    "proposed_change": {
+      "orgs/hathor-network.yaml": {
+        "id": "hathor-network",
+        "name": "Hathor Network",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://hathor.network/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "StableLab",
+    "program": null,
+    "title": "Notion reconcile: StableLab missing from registry",
+    "summary": "StableLab (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://stablelab.xyz",
+    "proposed_change": {
+      "orgs/stablelab.yaml": {
+        "id": "stablelab",
+        "name": "StableLab",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://stablelab.xyz",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "dGrid",
+    "program": null,
+    "title": "Notion reconcile: dGrid missing from registry",
+    "summary": "dGrid (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://dgrid.ai",
+    "proposed_change": {
+      "orgs/dgrid.yaml": {
+        "id": "dgrid",
+        "name": "dGrid",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://dgrid.ai",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "X1 EcoChain",
+    "program": null,
+    "title": "Notion reconcile: X1 EcoChain missing from registry",
+    "summary": "X1 EcoChain (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://x1ecochain.com/",
+    "proposed_change": {
+      "orgs/x1-ecochain.yaml": {
+        "id": "x1-ecochain",
+        "name": "X1 EcoChain",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://x1ecochain.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "SuperDapp",
+    "program": null,
+    "title": "Notion reconcile: SuperDapp missing from registry",
+    "summary": "SuperDapp (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://superdapp.ai/",
+    "proposed_change": {
+      "orgs/superdapp.yaml": {
+        "id": "superdapp",
+        "name": "SuperDapp",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://superdapp.ai/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Defactor",
+    "program": null,
+    "title": "Notion reconcile: Defactor missing from registry",
+    "summary": "Defactor (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.defactor.com/",
+    "proposed_change": {
+      "orgs/defactor.yaml": {
+        "id": "defactor",
+        "name": "Defactor",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.defactor.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Fluid Foundation",
+    "program": null,
+    "title": "Notion reconcile: Fluid Foundation missing from registry",
+    "summary": "Fluid Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://gov.fluid.io/",
+    "proposed_change": {
+      "orgs/fluid-foundation.yaml": {
+        "id": "fluid-foundation",
+        "name": "Fluid Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://gov.fluid.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "KUB Chain",
+    "program": null,
+    "title": "Notion reconcile: KUB Chain missing from registry",
+    "summary": "KUB Chain (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.kubchain.com/",
+    "proposed_change": {
+      "orgs/kub-chain.yaml": {
+        "id": "kub-chain",
+        "name": "KUB Chain",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.kubchain.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "World Build Labs",
+    "program": null,
+    "title": "Notion reconcile: World Build Labs missing from registry",
+    "summary": "World Build Labs (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://worldbuildlabs.com/",
+    "proposed_change": {
+      "orgs/world-build-labs.yaml": {
+        "id": "world-build-labs",
+        "name": "World Build Labs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://worldbuildlabs.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Nosana",
+    "program": null,
+    "title": "Notion reconcile: Nosana missing from registry",
+    "summary": "Nosana (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://nosana.com/",
+    "proposed_change": {
+      "orgs/nosana.yaml": {
+        "id": "nosana",
+        "name": "Nosana",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://nosana.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Artificial Superintelligence Alliance",
+    "program": null,
+    "title": "Notion reconcile: Artificial Superintelligence Alliance missing from registry",
+    "summary": "Artificial Superintelligence Alliance (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://superintelligence.io/",
+    "proposed_change": {
+      "orgs/artificial-superintelligence-alliance.yaml": {
+        "id": "artificial-superintelligence-alliance",
+        "name": "Artificial Superintelligence Alliance",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://superintelligence.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ston.fi",
+    "program": null,
+    "title": "Notion reconcile: ston.fi missing from registry",
+    "summary": "ston.fi (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://ston.fi/",
+    "proposed_change": {
+      "orgs/stonfi.yaml": {
+        "id": "stonfi",
+        "name": "ston.fi",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://ston.fi/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "GitLab",
+    "program": null,
+    "title": "Notion reconcile: GitLab missing from registry",
+    "summary": "GitLab (category: Corporate) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.gitlabfoundation.org/",
+    "proposed_change": {
+      "orgs/gitlab.yaml": {
+        "id": "gitlab",
+        "name": "GitLab",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.gitlabfoundation.org/",
+        "status": "active"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ChainGPT",
+    "program": null,
+    "title": "Notion reconcile: ChainGPT missing from registry",
+    "summary": "ChainGPT (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.chaingpt.org/",
+    "proposed_change": {
+      "orgs/chaingpt.yaml": {
+        "id": "chaingpt",
+        "name": "ChainGPT",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "ai"
+        ],
+        "website": "https://www.chaingpt.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "MetaChain",
+    "program": null,
+    "title": "Notion reconcile: MetaChain missing from registry",
+    "summary": "MetaChain (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://defichain.com/metachain",
+    "proposed_change": {
+      "orgs/metachain.yaml": {
+        "id": "metachain",
+        "name": "MetaChain",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://defichain.com/metachain",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "CROO Network",
+    "program": null,
+    "title": "Notion reconcile: CROO Network missing from registry",
+    "summary": "CROO Network (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://croo.network/",
+    "proposed_change": {
+      "orgs/croo-network.yaml": {
+        "id": "croo-network",
+        "name": "CROO Network",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://croo.network/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Kaia",
+    "program": null,
+    "title": "Notion reconcile: Kaia missing from registry",
+    "summary": "Kaia (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.kaia.io",
+    "proposed_change": {
+      "orgs/kaia.yaml": {
+        "id": "kaia",
+        "name": "Kaia",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.kaia.io",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Shielded Labs",
+    "program": null,
+    "title": "Notion reconcile: Shielded Labs missing from registry",
+    "summary": "Shielded Labs (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://shieldedlabs.net/",
+    "proposed_change": {
+      "orgs/shielded-labs.yaml": {
+        "id": "shielded-labs",
+        "name": "Shielded Labs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "oss"
+        ],
+        "website": "https://shieldedlabs.net/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Zcash Foundation",
+    "program": null,
+    "title": "Notion reconcile: Zcash Foundation missing from registry",
+    "summary": "Zcash Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://zfnd.org/",
+    "proposed_change": {
+      "orgs/zcash-foundation.yaml": {
+        "id": "zcash-foundation",
+        "name": "Zcash Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "oss"
+        ],
+        "website": "https://zfnd.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "eBPF Foundation",
+    "program": null,
+    "title": "Notion reconcile: eBPF Foundation missing from registry",
+    "summary": "eBPF Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://ebpf.foundation/",
+    "proposed_change": {
+      "orgs/ebpf-foundation.yaml": {
+        "id": "ebpf-foundation",
+        "name": "eBPF Foundation",
+        "roles": [
+          "funder"
+        ],
+        "website": "https://ebpf.foundation/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": null
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "PRISM",
+    "program": null,
+    "title": "Notion reconcile: PRISM missing from registry",
+    "summary": "PRISM (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://prism-research.org/",
+    "proposed_change": {
+      "orgs/prism.yaml": {
+        "id": "prism",
+        "name": "PRISM",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "https://prism-research.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Open-Source Firmware Foundation",
+    "program": null,
+    "title": "Notion reconcile: Open-Source Firmware Foundation missing from registry",
+    "summary": "Open-Source Firmware Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://opensourcefirmware.foundation/",
+    "proposed_change": {
+      "orgs/open-source-firmware-foundation.yaml": {
+        "id": "open-source-firmware-foundation",
+        "name": "Open-Source Firmware Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://opensourcefirmware.foundation/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Injective",
+    "program": null,
+    "title": "Notion reconcile: Injective missing from registry",
+    "summary": "Injective (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://injective.com/",
+    "proposed_change": {
+      "orgs/injective.yaml": {
+        "id": "injective",
+        "name": "Injective",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://injective.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Confidential Computing Consortium",
+    "program": null,
+    "title": "Notion reconcile: Confidential Computing Consortium missing from registry",
+    "summary": "Confidential Computing Consortium (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://confidentialcomputing.io/",
+    "proposed_change": {
+      "orgs/confidential-computing-consortium.yaml": {
+        "id": "confidential-computing-consortium",
+        "name": "Confidential Computing Consortium",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://confidentialcomputing.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Zircuit",
+    "program": null,
+    "title": "Notion reconcile: Zircuit missing from registry",
+    "summary": "Zircuit (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.zircuit.com",
+    "proposed_change": {
+      "orgs/zircuit.yaml": {
+        "id": "zircuit",
+        "name": "Zircuit",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.zircuit.com",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "GNOME Foundation",
+    "program": null,
+    "title": "Notion reconcile: GNOME Foundation missing from registry",
+    "summary": "GNOME Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://foundation.gnome.org/",
+    "proposed_change": {
+      "orgs/gnome-foundation.yaml": {
+        "id": "gnome-foundation",
+        "name": "GNOME Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://foundation.gnome.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Open Source for Science Fund",
+    "program": null,
+    "title": "Notion reconcile: Open Source for Science Fund missing from registry",
+    "summary": "Open Source for Science Fund (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://os4science.org/",
+    "proposed_change": {
+      "orgs/open-source-for-science-fund.yaml": {
+        "id": "open-source-for-science-fund",
+        "name": "Open Source for Science Fund",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://os4science.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Gear Foundation",
+    "program": null,
+    "title": "Notion reconcile: Gear Foundation missing from registry",
+    "summary": "Gear Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://gear-tech.io",
+    "proposed_change": {
+      "orgs/gear-foundation.yaml": {
+        "id": "gear-foundation",
+        "name": "Gear Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "oss"
+        ],
+        "website": "https://gear-tech.io",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Rust Foundation",
+    "program": null,
+    "title": "Notion reconcile: Rust Foundation missing from registry",
+    "summary": "Rust Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://foundation.rust-lang.org/",
+    "proposed_change": {
+      "orgs/rust-foundation.yaml": {
+        "id": "rust-foundation",
+        "name": "Rust Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://foundation.rust-lang.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "peaq",
+    "program": null,
+    "title": "Notion reconcile: peaq missing from registry",
+    "summary": "peaq (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.peaq.network/",
+    "proposed_change": {
+      "orgs/peaq.yaml": {
+        "id": "peaq",
+        "name": "peaq",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.peaq.network/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Microsoft AI for Good",
+    "program": null,
+    "title": "Notion reconcile: Microsoft AI for Good missing from registry",
+    "summary": "Microsoft AI for Good (category: Corporate) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "microsoft.com",
+    "proposed_change": {
+      "orgs/microsoft-ai-for-good.yaml": {
+        "id": "microsoft-ai-for-good",
+        "name": "Microsoft AI for Good",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "microsoft.com",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Microsoft Research",
+    "program": null,
+    "title": "Notion reconcile: Microsoft Research missing from registry",
+    "summary": "Microsoft Research (category: Corporate) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "microsoft.com/research",
+    "proposed_change": {
+      "orgs/microsoft-research.yaml": {
+        "id": "microsoft-research",
+        "name": "Microsoft Research",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "microsoft.com/research",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ANII (Uruguay National Agency for Research and Innovation)",
+    "program": null,
+    "title": "Notion reconcile: ANII (Uruguay National Agency for Research and Innovation) missing from registry",
+    "summary": "ANII (Uruguay National Agency for Research and Innovation) (category: Government) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "anii.org.uy",
+    "proposed_change": {
+      "orgs/anii-uruguay-national-agency-for-research-and-innovation.yaml": {
+        "id": "anii-uruguay-national-agency-for-research-and-innovation",
+        "name": "ANII (Uruguay National Agency for Research and Innovation)",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "anii.org.uy",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "CAF (Development Bank of Latin America)",
+    "program": null,
+    "title": "Notion reconcile: CAF (Development Bank of Latin America) missing from registry",
+    "summary": "CAF (Development Bank of Latin America) (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "caf.com",
+    "proposed_change": {
+      "orgs/caf-development-bank-of-latin-america.yaml": {
+        "id": "caf-development-bank-of-latin-america",
+        "name": "CAF (Development Bank of Latin America)",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "caf.com",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "IDB Lab (Inter-American Development Bank)",
+    "program": null,
+    "title": "Notion reconcile: IDB Lab (Inter-American Development Bank) missing from registry",
+    "summary": "IDB Lab (Inter-American Development Bank) (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "bidlab.org",
+    "proposed_change": {
+      "orgs/idb-lab-inter-american-development-bank.yaml": {
+        "id": "idb-lab-inter-american-development-bank",
+        "name": "IDB Lab (Inter-American Development Bank)",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "bidlab.org",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Amateur Radio Digital Communications",
+    "program": null,
+    "title": "Notion reconcile: Amateur Radio Digital Communications missing from registry",
+    "summary": "Amateur Radio Digital Communications (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.ardc.net",
+    "proposed_change": {
+      "orgs/amateur-radio-digital-communications.yaml": {
+        "id": "amateur-radio-digital-communications",
+        "name": "Amateur Radio Digital Communications",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "website": "https://www.ardc.net",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Conservation X Labs",
+    "program": null,
+    "title": "Notion reconcile: Conservation X Labs missing from registry",
+    "summary": "Conservation X Labs (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "conservationxlabs.com",
+    "proposed_change": {
+      "orgs/conservation-x-labs.yaml": {
+        "id": "conservation-x-labs",
+        "name": "Conservation X Labs",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "conservationxlabs.com",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "The Earthshot Prize",
+    "program": null,
+    "title": "Notion reconcile: The Earthshot Prize missing from registry",
+    "summary": "The Earthshot Prize (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "earthshotprize.org",
+    "proposed_change": {
+      "orgs/the-earthshot-prize.yaml": {
+        "id": "the-earthshot-prize",
+        "name": "The Earthshot Prize",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "ai"
+        ],
+        "website": "earthshotprize.org",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "LayerZero",
+    "program": null,
+    "title": "Notion reconcile: LayerZero missing from registry",
+    "summary": "LayerZero (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://layerzero.network/",
+    "proposed_change": {
+      "orgs/layerzero.yaml": {
+        "id": "layerzero",
+        "name": "LayerZero",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://layerzero.network/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "MARA Foundation",
+    "program": null,
+    "title": "Notion reconcile: MARA Foundation missing from registry",
+    "summary": "MARA Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://mara.com/",
+    "proposed_change": {
+      "orgs/mara-foundation.yaml": {
+        "id": "mara-foundation",
+        "name": "MARA Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://mara.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Golem Foundation",
+    "program": null,
+    "title": "Notion reconcile: Golem Foundation missing from registry",
+    "summary": "Golem Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://golem.foundation/",
+    "proposed_change": {
+      "orgs/golem-foundation.yaml": {
+        "id": "golem-foundation",
+        "name": "Golem Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://golem.foundation/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Algorand Foundation",
+    "program": null,
+    "title": "Notion reconcile: Algorand Foundation missing from registry",
+    "summary": "Algorand Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://algorand.co/",
+    "proposed_change": {
+      "orgs/algorand-foundation.yaml": {
+        "id": "algorand-foundation",
+        "name": "Algorand Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://algorand.co/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "COW Swap",
+    "program": null,
+    "title": "Notion reconcile: COW Swap missing from registry",
+    "summary": "COW Swap (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://cow.fi/",
+    "proposed_change": {
+      "orgs/cow-swap.yaml": {
+        "id": "cow-swap",
+        "name": "COW Swap",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://cow.fi/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "BNB Chain",
+    "program": null,
+    "title": "Notion reconcile: BNB Chain missing from registry",
+    "summary": "BNB Chain (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.bnbchain.org/",
+    "proposed_change": {
+      "orgs/bnb-chain.yaml": {
+        "id": "bnb-chain",
+        "name": "BNB Chain",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.bnbchain.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Voiverse",
+    "program": null,
+    "title": "Notion reconcile: Voiverse missing from registry",
+    "summary": "Voiverse (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.voiverse.app/",
+    "proposed_change": {
+      "orgs/voiverse.yaml": {
+        "id": "voiverse",
+        "name": "Voiverse",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.voiverse.app/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Zcash Community Grants",
+    "program": null,
+    "title": "Notion reconcile: Zcash Community Grants missing from registry",
+    "summary": "Zcash Community Grants (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://zcashcommunitygrants.org/",
+    "proposed_change": {
+      "orgs/zcash-community-grants.yaml": {
+        "id": "zcash-community-grants",
+        "name": "Zcash Community Grants",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://zcashcommunitygrants.org/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Sia Foundation",
+    "program": null,
+    "title": "Notion reconcile: Sia Foundation missing from registry",
+    "summary": "Sia Foundation (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://sia.tech",
+    "proposed_change": {
+      "orgs/sia-foundation.yaml": {
+        "id": "sia-foundation",
+        "name": "Sia Foundation",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://sia.tech",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Bittensor",
+    "program": null,
+    "title": "Notion reconcile: Bittensor missing from registry",
+    "summary": "Bittensor (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://bittensor.com/",
+    "proposed_change": {
+      "orgs/bittensor.yaml": {
+        "id": "bittensor",
+        "name": "Bittensor",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://bittensor.com/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Pyth",
+    "program": null,
+    "title": "Notion reconcile: Pyth missing from registry",
+    "summary": "Pyth (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.pyth.network/",
+    "proposed_change": {
+      "orgs/pyth.yaml": {
+        "id": "pyth",
+        "name": "Pyth",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.pyth.network/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ETC Grants DAO",
+    "program": null,
+    "title": "Notion reconcile: ETC Grants DAO missing from registry",
+    "summary": "ETC Grants DAO (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://etcgrantsdao.io/",
+    "proposed_change": {
+      "orgs/etc-grants-dao.yaml": {
+        "id": "etc-grants-dao",
+        "name": "ETC Grants DAO",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://etcgrantsdao.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ZKsync",
+    "program": null,
+    "title": "Notion reconcile: ZKsync missing from registry",
+    "summary": "ZKsync (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://www.zksync.io/",
+    "proposed_change": {
+      "orgs/zksync.yaml": {
+        "id": "zksync",
+        "name": "ZKsync",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://www.zksync.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Google.org",
+    "program": null,
+    "title": "Notion reconcile: Google.org missing from registry",
+    "summary": "Google.org (category: Non-Profit/NGO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://google.org/",
+    "proposed_change": {
+      "orgs/googleorg.yaml": {
+        "id": "googleorg",
+        "name": "Google.org",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto",
+          "ai"
+        ],
+        "website": "https://google.org/",
+        "status": "active"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Decentraland",
+    "program": null,
+    "title": "Notion reconcile: Decentraland missing from registry",
+    "summary": "Decentraland (category: Ecosystem DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://decentraland.org/dao",
+    "proposed_change": {
+      "orgs/decentraland.yaml": {
+        "id": "decentraland",
+        "name": "Decentraland",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://decentraland.org/dao",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "Scroll",
+    "program": null,
+    "title": "Notion reconcile: Scroll missing from registry",
+    "summary": "Scroll (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://scroll.io/",
+    "proposed_change": {
+      "orgs/scroll.yaml": {
+        "id": "scroll",
+        "name": "Scroll",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://scroll.io/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "ENS",
+    "program": null,
+    "title": "Notion reconcile: ENS missing from registry",
+    "summary": "ENS (category: Protocol DAO) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://ens.domains/",
+    "proposed_change": {
+      "orgs/ens.yaml": {
+        "id": "ens",
+        "name": "ENS",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://ens.domains/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "new_org",
+    "org": null,
+    "org_name": "COTI",
+    "program": null,
+    "title": "Notion reconcile: COTI missing from registry",
+    "summary": "COTI (category: Foundation/Lab) has no matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before promoting; this is a lead, not a sourced fact.",
+    "evidence_url": "https://coti.foundation/",
+    "proposed_change": {
+      "orgs/coti.yaml": {
+        "id": "coti",
+        "name": "COTI",
+        "roles": [
+          "funder"
+        ],
+        "wires": [
+          "crypto"
+        ],
+        "website": "https://coti.foundation/",
+        "status": "unknown"
+      }
+    },
+    "confidence": 70,
+    "signal_id": null,
+    "wire": "crypto"
+  }
+]

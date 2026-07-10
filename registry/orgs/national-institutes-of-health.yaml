@@ -6,7 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: government
 website: https://www.nih.gov/
-socials: {}
+socials:
+  x: https://x.com/NIHFunding
 status: active
 profile: >
   The National Institutes of Health is a US government agency and the largest

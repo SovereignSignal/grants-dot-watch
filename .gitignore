@@ -8,8 +8,10 @@ node_modules/
 .data/
 tsconfig.tsbuildinfo
 
-# Desk day-one queue rides with the repo (registry data is public-shaped; repo is private)
+# Desk queue rides with the repo (registry data is public-shaped; repo is private) —
+# desk-store.ts reads these at runtime on Railway's ephemeral filesystem
 !/seed/proposals-batch-*.json
+!/seed/proposals-enrich-batch-*.json
 !/seed/resolution_report.json
 
 # QA screenshot scratch stays local; canon mocks are committed

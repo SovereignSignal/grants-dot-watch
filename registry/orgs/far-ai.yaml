@@ -7,7 +7,9 @@ wires: [ai]
 roles: [funder, grantee]
 org_type: nonprofit
 website: https://far.ai/
-socials: {}
+socials:
+  x: https://twitter.com/FARAIResearch
+  github: https://github.com/AlignmentResearch
 status: active
 profile: >
   FAR.AI is a research and education non-profit working to ensure advanced
@@ -18,5 +20,14 @@ profile: >
   Berkeley for AI safety researchers), and hosts events including alignment
   workshops and ControlConf. The site was active with events scheduled into
   2026.
+funding:
+  focus:
+    - deception detection
+    - robustness and security
+    - interpretability
+    - red-teaming and evaluation
+    - alignment
 sources:
   - https://far.ai/
+  - https://far.ai/programs
+  - https://far.ai/programs/grantmaking

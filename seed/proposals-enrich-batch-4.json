@@ -1,0 +1,173 @@
+[
+  {
+    "type": "new_program",
+    "org": "cooperative-ai-foundation",
+    "org_name": "Cooperative AI Foundation",
+    "program": "cooperative-ai-multi-agent-safety-fund",
+    "title": "New program: $10m Fund for Multi-Agent Safety (Cooperative AI Foundation / Schmidt Sciences / Google DeepMind / ARIA / Google.org)",
+    "summary": "CAIF's own site lists a call for proposals for a $10M Fund for Multi-Agent Safety, co-funded with Schmidt Sciences, Google DeepMind, the Advanced Research + Invention Agency (ARIA), and Google.org. It funds 1-2 year research grants on safety risks from large-scale multi-agent AI systems (emergent collective dynamics, trustworthy agent interaction infrastructure, monitoring/control for complex multi-agent networks), in two tiers: up to $300,000 and $300,000-$1,000,000. Deadline August 8, 2026, 11:59 PM AoE; applications managed through Schmidt Sciences' portal. This program is not currently in registry/programs (only cooperative-ai-phd-fellowship and cooperative-ai-research-grants exist for this org).",
+    "evidence_url": "https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world",
+    "proposed_change": {
+      "programs/cooperative-ai-multi-agent-safety-fund.yaml": {
+        "id": "cooperative-ai-multi-agent-safety-fund",
+        "name": "$10m Fund for Multi-Agent Safety",
+        "org": "cooperative-ai-foundation",
+        "parent": null,
+        "systems": ["ai-safety"],
+        "wires": ["ai"],
+        "status": "active",
+        "mechanism": "grants",
+        "apply_url": "https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world",
+        "summary": "A $10M fund co-backed by Schmidt Sciences, Google DeepMind, ARIA, and Google.org, supporting 1-2 year research grants ($300k-$1M, or up to $300k for smaller projects) on safety risks from large-scale multi-agent AI systems.",
+        "rounds": [
+          {
+            "name": "2026 call for proposals",
+            "status": "open",
+            "closes": "2026-08-08",
+            "size": "$300,000-$1,000,000 (Tier 2); up to $300,000 (Tier 1)",
+            "source": "https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world"
+          }
+        ],
+        "sources": ["https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world"]
+      }
+    },
+    "confidence": 88,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "mozilla-foundation",
+    "org_name": "Mozilla Foundation",
+    "program": "mozilla-foundation-incubator",
+    "title": "New program: Mozilla Foundation Incubator (Build/Sustain tracks) missing from registry/programs",
+    "summary": "Mozilla's own grantmaking hub (mozillafoundation.org/en/what-we-do/grantmaking/) currently lists four active programs: Incubator, Mozilla Fellows, Responsible Computing Challenge, and Collaborative Funds. The Mozilla Technology Fund (already in registry/programs) is absent from that list. The Incubator program is not in the registry at all: it funds values-driven tech projects (climate impacts, AI and democracy, data transparency, algorithmic accountability) via two tracks -- Build Track (prototype-to-product-community-fit) and Sustain Track (proven tech to long-term sustainability) -- with mentorship, workshops, and MozFest visibility. Current cohorts referenced on the page: 'Democracy x AI Cohort' and '2025 Cohort: Making the invisible visible.' No award size or apply deadline is listed on the page; interested parties sign up for notifications when new calls for proposals open.",
+    "evidence_url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/",
+    "proposed_change": {
+      "programs/mozilla-foundation-incubator.yaml": {
+        "id": "mozilla-foundation-incubator",
+        "name": "Mozilla Foundation Incubator",
+        "org": "mozilla-foundation",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["ai", "oss"],
+        "status": "active",
+        "mechanism": "incubator",
+        "apply_url": "https://mozillafoundation.tfaforms.net/f/grantmaking",
+        "summary": "Mozilla's current live cohort/mentorship funding vehicle: Build Track and Sustain Track support for values-driven technology projects addressing climate impact, AI and democracy, data transparency, and algorithmic accountability.",
+        "rounds": [
+          {
+            "name": "Democracy x AI Cohort",
+            "status": "open",
+            "source": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/"
+          },
+          {
+            "name": "2025 Cohort: Making the invisible visible",
+            "status": "open",
+            "source": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/"
+          }
+        ],
+        "sources": ["https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/", "https://www.mozillafoundation.org/en/what-we-do/grantmaking/"]
+      }
+    },
+    "confidence": 80,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "new_program",
+    "org": "numfocus",
+    "org_name": "NumFOCUS",
+    "program": "numfocus-small-development-grants",
+    "title": "New program: NumFOCUS Small Development Grants missing from registry/programs; applications currently paused",
+    "summary": "NumFOCUS's own projects-overview page describes Small Development Grants -- funding to help fiscally sponsored/affiliated projects improve usability, grow their communities, and speed up time to major releases -- with calls for proposals running 3 times per year. No program file exists in registry/programs for this org at all. As of this check, the page states applications are temporarily closed while NumFOCUS updates its financial and administrative systems -- worth flagging as a status/timing note alongside the new-program add.",
+    "evidence_url": "https://numfocus.org/projects-overview",
+    "proposed_change": {
+      "programs/numfocus-small-development-grants.yaml": {
+        "id": "numfocus-small-development-grants",
+        "name": "NumFOCUS Small Development Grants",
+        "org": "numfocus",
+        "parent": null,
+        "systems": ["oss-sustainability"],
+        "wires": ["oss", "ai"],
+        "status": "paused",
+        "mechanism": "grants",
+        "apply_url": "https://numfocus.org/projects-overview",
+        "summary": "Small grants to help NumFOCUS's fiscally sponsored and affiliated open-source scientific computing projects improve usability, grow their communities, and speed release cycles. Calls for proposals normally run 3x/year; applications are currently closed while NumFOCUS updates its financial and administrative systems.",
+        "rounds": [],
+        "sources": ["https://numfocus.org/projects-overview"]
+      }
+    },
+    "confidence": 78,
+    "signal_id": null,
+    "wire": "oss"
+  },
+  {
+    "type": "profile_note",
+    "org": "chainlink",
+    "org_name": null,
+    "program": null,
+    "title": "Chainlink Community Grant Program not discoverable on any current site page checked",
+    "summary": "The existing profile already hedges that 'the grant program is not referenced on the current homepage.' This pass independently checked chain.link/ (homepage), chain.link/community, and chain.link/blog (blog.chain.link/tag/grants/ now 301-redirects here) -- none of the three reference a Community Grant Program, past or current; the only grant-adjacent content found was a hackathon ('Convergence: A Chainlink Hackathon'). This doesn't confirm the program is dead (it may simply not be linked from top-level nav), but three independent checks turning up nothing raises the question of whether it's still running. Recommend Sov spot-check via a direct search or Chainlink Labs contact before the profile continues asserting an active Community Grant Program.",
+    "evidence_url": "https://chain.link/blog",
+    "proposed_change": {
+      "orgs/chainlink.yaml": {
+        "status_flag": "Community Grant Program not discoverable via homepage, /community, or /blog as of this check -- owner review requested before treating as confirmed-active"
+      }
+    },
+    "confidence": 45,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "etherfi",
+    "org_name": null,
+    "program": null,
+    "title": "EtherFi is tagged roles:[funder] but its own site describes no third-party grant or funding program",
+    "summary": "ether.fi's homepage describes only protocol features for its own users (restaking products, Cash card, TVL stats) plus a bug bounty (Immunefi) and governance/DAO mechanics -- no grants, ecosystem fund, or funding program for external builders is mentioned anywhere on the page. This is the same pattern flagged for EleutherAI in an earlier batch: roles:[funder] without an evidenced funding mechanism. Recommend downgrading roles to ecosystem, or sourcing a specific ether.fi grants program if one exists elsewhere (e.g. governance forum proposals), before continuing to list it as a funder.",
+    "evidence_url": "https://ether.fi/",
+    "proposed_change": {
+      "orgs/etherfi.yaml": {
+        "roles": ["ecosystem"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "crypto"
+  },
+  {
+    "type": "profile_note",
+    "org": "thinking-machines-lab",
+    "org_name": null,
+    "program": null,
+    "title": "Thinking Machines Lab is tagged roles:[funder] but its own site describes no grants or funding program",
+    "summary": "thinkingmachines.ai describes itself as an AI research and product company; the page commits to publishing research and sharing code/datasets/model specs to 'accelerate external research,' but nowhere mentions grants, funding, or a program for external applicants. Existing profile text already notes this ('does not mention any grants or external funding programs'). Recommend downgrading roles to ecosystem unless a grant program can be sourced.",
+    "evidence_url": "https://thinkingmachines.ai/",
+    "proposed_change": {
+      "orgs/thinking-machines-lab.yaml": {
+        "roles": ["ecosystem"]
+      }
+    },
+    "confidence": 55,
+    "signal_id": null,
+    "wire": "ai"
+  },
+  {
+    "type": "profile_note",
+    "org": "protocol-labs",
+    "org_name": null,
+    "program": null,
+    "title": "Protocol Labs' funding brand may be shifting to 'PL R&D' (plrd.org) -- relationship to existing protocol-labs-research program unclear",
+    "summary": "protocol.ai now features 'PL R&D' at plrd.org alongside 'PL Capital' (plcapital.xyz) as its current funding-adjacent brands, with focus areas (Digital Human Rights, Economies & Governance, AI & Robotics, Neurotechnology) that overlap with but aren't identical to the existing protocol-labs-research program's framing (RFPs, open research awards, fellowships; status: paused since 2023). PL R&D's own page describes itself as a 'coordination layer' rather than a traditional grant program, and does not state whether it supersedes, replaces, or runs alongside the paused Research Grants program. Not confident enough to fact-fill or auto-merge; flagging for Sov to determine whether PL R&D is the rebrand of protocol-labs-research (in which case status should probably change from paused) or a genuinely separate initiative.",
+    "evidence_url": "https://plrd.org/",
+    "proposed_change": {
+      "programs/protocol-labs-research.yaml": {
+        "review_note": "Check whether 'PL R&D' (plrd.org) is this program's current name/successor before next status update; site language suggests a coordination-layer model distinct from the paused RFP program described here."
+      }
+    },
+    "confidence": 40,
+    "signal_id": null,
+    "wire": "crypto"
+  }
+]

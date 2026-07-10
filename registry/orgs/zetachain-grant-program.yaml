@@ -21,7 +21,17 @@ profile: >
   and sits within broader developer incentives that earmark 5% of ZETA supply for builders.
   Applications are accepted on a rolling basis.
 funding:
+  focus:
+    - DeFi
+    - NFTs
+    - Gaming
+    - AI
+    - Social
+    - DePIN
+    - DeSci
+    - Infrastructure
   cadence: rolling
   apply_url: https://www.zetachain.com/grants
 sources:
   - https://www.zetachain.com/grants
+  - https://docs.google.com/forms/d/e/1FAIpQLSfNm6D0OCVLm89OCKS7qOHJ-OZ_iA1hg3N2JURY4_usW20Vuw/viewform

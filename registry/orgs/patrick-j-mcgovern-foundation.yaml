@@ -6,6 +6,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.mcgovern.org
+socials:
+  x: https://x.com/PJMFnd
 status: active
 profile: >
   The Patrick J. McGovern Foundation funds work across AI fluency, climate
@@ -13,6 +15,12 @@ profile: >
   $500 million in charitable contributions since inception. Its public grants
   database is updated weekly and lists awards from July 2017 onward;
   grantmaking runs through a curated portfolio rather than open calls.
+funding:
+  focus:
+    - AI & data approaches for the betterment of humanity
+    - nonprofit technology & AI capacity building
+    - digital dignity & data stewardship
+    - technology and data solutions for global challenges
 sources:
   - https://www.mcgovern.org
   - https://www.mcgovern.org/grants/

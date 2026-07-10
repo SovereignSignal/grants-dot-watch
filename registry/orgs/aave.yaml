@@ -24,7 +24,19 @@ profile: >
   development; it has awarded more than $4M historically. In April 2026 the DAO
   additionally approved a $25M funding grant to Aave Labs in a binding governance
   vote.
+funding:
+  focus:
+    - applications and integrations
+    - code audits
+    - developer tooling
+    - community, marketing and education
+    - events and hackathons
+    - protocol development
+  cadence: >
+    Rolling; no cohorts or application deadlines, new grantees announced monthly.
+  apply_url: https://aavegrants.org/apply-for-a-grant/
 sources:
   - https://aavegrants.org/
+  - https://aavegrants.org/apply-for-a-grant/
   - https://governance.aave.com/
   - https://www.theblock.co/post/397138/aave-dao-approves-25-million-aave-labs-funding-grant-in-binding-aave-will-win-vote

@@ -8,6 +8,8 @@ wires: [ai]
 roles: [funder]
 org_type: nonprofit
 website: https://www.gatesfoundation.org/
+socials:
+  x: https://twitter.com/gatesfoundation
 status: active
 profile: >
   The Gates Foundation is a nonprofit fighting poverty, disease, and inequity
@@ -15,5 +17,16 @@ profile: >
   diseases, and economic opportunity. Its site reports 2,506 grants across 51
   program strategies and $8.5 billion in charitable support to 1,472
   grantees, made with partners around the world.
+funding:
+  focus:
+    - maternal and child health
+    - infectious diseases
+    - economic opportunity
+  cadence: >
+    Most grants go to 501(c)(3) partners identified by foundation staff, rather than an
+    open call; periodic open Requests for Proposals are posted via Grand Challenges
+    (gcgh.grandchallenges.org).
+  apply_url: https://submit.gatesfoundation.org/
 sources:
   - https://www.gatesfoundation.org/
+  - https://www.gatesfoundation.org/how-we-work/general-information/grant-opportunities

@@ -15,5 +15,10 @@ profile: >
   researchers since 2019. It funds dual-use technologies, including AI, through open-topic and
   specific-topic solicitations plus STRATFI/TACFI scale-up pathways, running frequent
   solicitations and webinars on continuous funding cycles.
+funding:
+  cadence: >
+    Continuous numbered solicitation releases (e.g. "26.BZ Release 3/4") with a pre-release
+    engagement window before each submission period opens.
+  apply_url: https://www.dodsbirsttr.mil/submissions/login
 sources:
   - https://afwerx.com

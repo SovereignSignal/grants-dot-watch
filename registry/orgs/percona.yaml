@@ -7,6 +7,8 @@ roles: [funder]
 org_type: company
 website: https://www.percona.com
 socials:
+  x: https://x.com/percona
+  github: https://github.com/percona
   forum: https://forums.percona.com/
 status: active
 profile: >

@@ -24,6 +24,10 @@ funding:
     - training scholarships
     - event travel grants
     - research
+  apply_url: https://alpha-omega.dev/grants/how-to-apply/
+  cadence: "Rolling — Alpha-Omega grant submission form, followed by a proposal/SOW discussion with the team"
 sources:
   - https://www.linuxfoundation.org/
   - https://www.linuxfoundation.org/blog
+  - https://alpha-omega.dev/
+  - https://alpha-omega.dev/grants/how-to-apply/
