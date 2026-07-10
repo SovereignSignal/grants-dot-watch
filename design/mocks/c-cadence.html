@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>grants.watch — Programs as Cadence</title>
+<meta name="description" content="A cadence-lane redesign of the grants.watch registry — programs as year-long rhythm rows, rounds plotted against a Jan–Dec 2026 grid.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ground:#f6f5f1;
+    --ground-raised:#efeee7;
+    --ink:#1a1d27;
+    --ink-soft:#4b4e5a;
+    --ink-faint:#8a8d97;
+    --rule:#1a1d27;
+    --rule-soft:#d8d6cc;
+    --crypto:#96660f;
+    --ai:#6847d8;
+    --oss:#0983a1;
+    --serif:'Newsreader', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --ground:#15161b;
+    --ground-raised:#1b1c22;
+    --ink:#eeece4;
+    --ink-soft:#b8b6ac;
+    --ink-faint:#77767c;
+    --rule:#eeece4;
+    --rule-soft:#33333a;
+    --crypto:#d4a24f;
+    --ai:#a78bfa;
+    --oss:#4fc3dc;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#15161b;
+      --ground-raised:#1b1c22;
+      --ink:#eeece4;
+      --ink-soft:#b8b6ac;
+      --ink-faint:#77767c;
+      --rule:#eeece4;
+      --rule-soft:#33333a;
+      --crypto:#d4a24f;
+      --ai:#a78bfa;
+      --oss:#4fc3dc;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:'tnum' 1, 'kern' 1;
+  }
+
+  .page{
+    max-width:1360px;
+    margin:0 auto;
+    padding:14px 40px 0;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding-bottom:14px;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .wordmark .mark{
+    width:11px;height:11px;
+    background:var(--ink);
+    display:inline-block;
+    transform:translateY(-1px);
+  }
+  .wordmark .name{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:23px;
+    letter-spacing:-0.02em;
+  }
+  .wordmark .name span{ color:var(--ink-faint); font-weight:600; }
+  .wordmark .tag{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    padding-left:4px;
+    border-left:1px solid var(--rule-soft);
+    margin-left:2px;
+  }
+
+  nav.topnav{ display:flex; gap:28px; }
+  nav.topnav a{
+    font-size:11.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-weight:600;
+    padding-bottom:2px;
+  }
+  nav.topnav a.current{ color:var(--ink); border-bottom:2px solid var(--ink); }
+
+  .rule-double{
+    border:none;
+    border-top:2.5px solid var(--rule);
+    margin:0;
+    padding-top:3px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .byline{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    font-size:11px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .byline b{ color:var(--ink-soft); font-weight:700; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:9px 0 9px;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .hero .eyebrow{
+    font-size:10.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .hero .statement{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:23px;
+    line-height:1.2;
+    letter-spacing:-0.005em;
+    max-width:900px;
+    color:var(--ink);
+  }
+  .hero .sub{
+    margin-top:6px;
+    font-family:var(--sans);
+    font-size:12px;
+    color:var(--ink-soft);
+    max-width:760px;
+    line-height:1.45;
+  }
+
+  /* ---------- Chart ---------- */
+  .chart-wrap{
+    margin-top:2px;
+  }
+
+  .lane-col-w{ width:236px; flex:0 0 auto; }
+
+  .month-header{
+    display:flex;
+    padding:8px 0 4px;
+    border-bottom:1.5px solid var(--rule);
+    position:relative;
+  }
+  .month-header .lane{
+    position:relative;
+    flex:1 1 auto;
+    height:22px;
+  }
+  .month-header .tick{
+    position:absolute;
+    top:0;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    transform:translateX(0);
+    white-space:nowrap;
+  }
+  .month-header .today-tick{
+    position:absolute;
+    top:12px;
+    font-size:9.5px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+
+  .rows-area{
+    position:relative;
+  }
+
+  .overlay{
+    position:absolute;
+    left:236px;
+    right:0;
+    top:0;
+    bottom:0;
+    pointer-events:none;
+    z-index:0;
+  }
+  .overlay .gridline{
+    position:absolute;
+    top:0; bottom:0;
+    width:1px;
+    background:var(--rule-soft);
+  }
+  .overlay .today{
+    position:absolute;
+    top:0; bottom:0;
+    width:1.5px;
+    background:var(--ink);
+  }
+
+  /* Group heading */
+  .group{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    padding:6px 0 2px;
+    position:relative;
+    z-index:1;
+  }
+  .group .glabel{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .group .gcount{
+    font-size:10.5px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  .group .gline{
+    flex:1 1 auto;
+    height:0;
+    border-bottom:1px solid var(--rule-soft);
+    transform:translateY(-4px);
+  }
+
+  /* Program row */
+  .row{
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid var(--rule-soft);
+    position:relative;
+    z-index:1;
+  }
+  .row .label{
+    width:236px;
+    flex:0 0 auto;
+    padding:3px 16px 3px 0;
+  }
+  .row .pname{
+    font-family:var(--serif);
+    font-weight:600;
+    font-style:normal;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .row .porg{
+    margin-top:1px;
+    font-size:9.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+
+  .row .lane{
+    flex:1 1 auto;
+    position:relative;
+    height:28px;
+  }
+
+  /* markers */
+  .mk{
+    position:absolute;
+    top:50%;
+    width:7px;height:7px;
+    transform:translate(-50%,-50%) rotate(45deg);
+  }
+  .mk.crypto{ background:var(--crypto); }
+  .mk.ai{ background:var(--ai); }
+  .mk.oss{ background:var(--oss); }
+  .mk.faded{ opacity:.4; }
+  .mk.full{ opacity:1; }
+
+  .caption{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .caption.full{ color:var(--ink-soft); }
+  .caption.onband{
+    background:var(--ground);
+    padding:0 7px;
+    left:50%;
+    transform:translate(-50%,-50%);
+  }
+
+  /* rolling dashed band */
+  .band{
+    position:absolute;
+    top:50%;
+    height:0;
+    border-top:1.5px dashed currentColor;
+    transform:translateY(-50%);
+  }
+  .band.crypto{ color:var(--crypto); opacity:.32; }
+  .band.ai{ color:var(--ai); opacity:.32; }
+  .band.oss{ color:var(--oss); opacity:.32; }
+  .band.strong{ opacity:.55; }
+
+  /* solid window bar */
+  .bar{
+    position:absolute;
+    top:50%;
+    height:6px;
+    transform:translateY(-50%);
+    border-radius:1px;
+  }
+  .bar.oss{ background:var(--oss); opacity:.4; }
+
+  .rolltag{
+    position:absolute;
+    top:50%;
+    transform:translateY(calc(-50% - 11px));
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:10.5px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+  }
+
+  /* ---------- Legend / footer ---------- */
+  .legend-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0 8px;
+    border-top:2.5px solid var(--rule);
+    margin-top:4px;
+  }
+  .legend-row .key{
+    display:flex;
+    gap:22px;
+    align-items:center;
+  }
+  .legend-row .item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:600;
+  }
+  .legend-row .item .mk{ position:static; transform:rotate(45deg); }
+  .legend-row .swatch-line{
+    width:16px;
+    border-top:1.5px dashed var(--ink-faint);
+    opacity:.7;
+  }
+  .legend-row .swatch-bar{
+    width:16px;height:6px;
+    background:var(--ink-faint);
+    opacity:.4;
+    border-radius:1px;
+  }
+  .legend-row .swatch-solid{
+    width:7px;height:7px;
+    background:var(--ink);
+    transform:rotate(45deg);
+    opacity:.4;
+  }
+  .legend-row .swatch-solid.open{ opacity:1; }
+
+  footer{
+    border-top:1px solid var(--rule-soft);
+    margin-top:2px;
+    padding:8px 0 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  footer .about{
+    font-size:11px;
+    color:var(--ink-faint);
+    max-width:1000px;
+    line-height:1.4;
+  }
+  footer .about b{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="masthead">
+    <div class="wordmark">
+      <span class="mark"></span>
+      <span class="name">grants<span>.watch</span></span>
+      <span class="tag">The Daily Ledger</span>
+    </div>
+    <nav class="topnav">
+      <a href="#">Now Open</a>
+      <a href="#">Awards</a>
+      <a href="#">Systems</a>
+      <a href="#" class="current">Programs</a>
+      <a href="#">Method</a>
+    </nav>
+  </div>
+
+  <hr class="rule-double">
+
+  <div class="byline">
+    <span>Registry as of <b>July 9, 2026</b> · 230 organizations tracked</span>
+    <span><b>Edition 2026.07.09</b> · Cadence view — Jan–Dec 2026</span>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Programs, plotted against the calendar year</div>
+    <div class="statement">Every program has a rhythm. <em style="border-bottom:1px solid currentColor;">This is the year's.</em></div>
+    <div class="sub">Twelve programs across three wires of capital, each a lane against Jan–Dec 2026. Diamonds mark a round's close; dashed lines mark rolling, no-fixed-date intake; solid bars mark an open application window. Faded means closed already — full color is open or still ahead.</div>
+  </div>
+
+  <div class="chart-wrap">
+
+    <div class="month-header">
+      <div class="lane-col-w"></div>
+      <div class="lane">
+        <span class="tick" style="left:0%">Jan</span>
+        <span class="tick" style="left:8.493%">Feb</span>
+        <span class="tick" style="left:16.164%">Mar</span>
+        <span class="tick" style="left:24.658%">Apr</span>
+        <span class="tick" style="left:32.877%">May</span>
+        <span class="tick" style="left:41.370%">Jun</span>
+        <span class="tick" style="left:49.589%">Jul</span>
+        <span class="tick" style="left:58.082%">Aug</span>
+        <span class="tick" style="left:66.575%">Sep</span>
+        <span class="tick" style="left:74.795%">Oct</span>
+        <span class="tick" style="left:83.288%">Nov</span>
+        <span class="tick" style="left:91.507%">Dec</span>
+        <span class="today-tick" style="left:52.055%; transform:translateX(4px);">◆ Today — Jul 9</span>
+      </div>
+    </div>
+
+    <div class="rows-area">
+
+    <div class="overlay">
+      <div class="gridline" style="left:0%"></div>
+      <div class="gridline" style="left:8.493%"></div>
+      <div class="gridline" style="left:16.164%"></div>
+      <div class="gridline" style="left:24.658%"></div>
+      <div class="gridline" style="left:32.877%"></div>
+      <div class="gridline" style="left:41.370%"></div>
+      <div class="gridline" style="left:49.589%"></div>
+      <div class="gridline" style="left:58.082%"></div>
+      <div class="gridline" style="left:66.575%"></div>
+      <div class="gridline" style="left:74.795%"></div>
+      <div class="gridline" style="left:83.288%"></div>
+      <div class="gridline" style="left:91.507%"></div>
+      <div class="gridline" style="left:100%"></div>
+      <div class="today" style="left:52.055%"></div>
+    </div>
+
+    <!-- ETHEREUM & L2 -->
+    <div class="group">
+      <span class="glabel">Ethereum &amp; L2</span>
+      <span class="gline"></span>
+      <span class="gcount">4 programs</span>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">ESP PhD Fellowship</div>
+        <div class="porg">Ethereum Foundation</div>
+      </div>
+      <div class="lane">
+        <div class="mk crypto faded" style="left:24.932%"></div>
+        <div class="caption" style="left:calc(24.932% + 11px);">Closed Apr 1</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">Growth Grants — Season 9</div>
+        <div class="porg">Optimism Foundation</div>
+      </div>
+      <div class="lane">
+        <div class="mk crypto faded" style="left:38.356%"></div>
+        <div class="caption" style="left:calc(38.356% + 11px);">Closed May 20</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">SCF Build Award</div>
+        <div class="porg">Stellar Community Fund</div>
+      </div>
+      <div class="lane">
+        <div class="band crypto" style="left:0%; right:0%;"></div>
+        <span class="rolltag" style="left:63%;">numbered rounds, rolling</span>
+        <div class="mk crypto faded" style="left:8.767%"></div>
+        <div class="caption" style="left:calc(8.767% + 11px);">SCF #41 · Feb 1</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">Developer Grants</div>
+        <div class="porg">Circle</div>
+      </div>
+      <div class="lane">
+        <div class="band crypto strong" style="left:0%; right:0%;"></div>
+        <div class="caption onband full" style="left:44%;">Rolling — first cohort opened 2026</div>
+      </div>
+    </div>
+
+    <!-- AI SAFETY -->
+    <div class="group">
+      <span class="glabel">AI Safety</span>
+      <span class="gline"></span>
+      <span class="gcount">4 programs</span>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">Science of Trustworthy AI</div>
+        <div class="porg">Schmidt Sciences</div>
+      </div>
+      <div class="lane">
+        <div class="mk ai faded" style="left:37.534%"></div>
+        <div class="caption" style="left:calc(37.534% + 11px);">Closed May 17</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">MATS Program — Autumn 2026</div>
+        <div class="porg">SERI-MATS</div>
+      </div>
+      <div class="lane">
+        <div class="mk ai faded" style="left:43.288%"></div>
+        <div class="caption" style="left:calc(43.288% + 11px);">Closed Jun 7</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">S-Process Grant Rounds</div>
+        <div class="porg">Survival &amp; Flourishing Fund</div>
+      </div>
+      <div class="lane">
+        <div class="band ai" style="left:0%; right:0%;"></div>
+        <span class="rolltag" style="left:2%;">speculation grant, rolling</span>
+        <div class="mk ai faded" style="left:30.685%"></div>
+        <div class="caption" style="left:calc(30.685% + 11px);">S-Process · Apr 22</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">People-First AI Fund</div>
+        <div class="porg">OpenAI Foundation</div>
+      </div>
+      <div class="lane">
+        <div class="mk ai full" style="left:53.699%"></div>
+        <div class="caption full" style="left:calc(53.699% + 11px);">Closes Jul 15 · $50M fund</div>
+      </div>
+    </div>
+
+    <!-- OSS SUSTAINABILITY -->
+    <div class="group">
+      <span class="glabel">OSS Sustainability</span>
+      <span class="gline"></span>
+      <span class="gcount">4 programs</span>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">NGI Zero Commons Fund</div>
+        <div class="porg">NLnet Foundation</div>
+      </div>
+      <div class="lane">
+        <div class="band oss" style="left:0%; right:0%;"></div>
+        <span class="rolltag" style="left:2%;">calls run until budget spent</span>
+        <div class="mk oss full" style="left:58.356%"></div>
+        <div class="caption full" style="left:calc(58.356% + 11px);">Open call · closes Aug 1</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">Secure Open Source Fund</div>
+        <div class="porg">GitHub</div>
+      </div>
+      <div class="lane">
+        <div class="band oss strong" style="left:0%; right:0%;"></div>
+        <div class="caption onband full" style="left:44%;">Rolling — sessions ongoing</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">FOSS Sustainability Fund</div>
+        <div class="porg">Open Technology Fund</div>
+      </div>
+      <div class="lane">
+        <div class="bar oss" style="left:16.438%; width:24.932%;"></div>
+        <div class="caption" style="left:calc(16.438% + 24.932% + 8px);">Mar–May 2026 round</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="pname">Web Framework &amp; Tools Fund</div>
+        <div class="porg">Google Chrome</div>
+      </div>
+      <div class="lane">
+        <div class="band oss strong" style="left:0%; right:0%;"></div>
+        <div class="caption onband full" style="left:44%;">Ongoing disbursements</div>
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+
+  <div class="legend-row">
+    <div class="key">
+      <span class="item"><span class="mk crypto full" style="position:static;"></span>Crypto</span>
+      <span class="item"><span class="mk ai full" style="position:static;"></span>AI</span>
+      <span class="item"><span class="mk oss full" style="position:static;"></span>Open Source</span>
+    </div>
+    <div class="key">
+      <span class="item"><span class="swatch-solid open"></span>Open / ahead of today</span>
+      <span class="item"><span class="swatch-solid"></span>Closed round</span>
+      <span class="item"><span class="swatch-line"></span>Rolling intake</span>
+      <span class="item"><span class="swatch-bar"></span>Application window</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="about"><b>grants.watch</b> is an open, source-cited registry of grant funding across crypto, AI, and open source — this view plots each program's real rounds against the calendar to read funding rhythm at a glance.</div>
+  </footer>
+
+</div>
+</body>
+</html>

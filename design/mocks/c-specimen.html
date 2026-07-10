@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>grants.watch — The Specimen</title>
+<meta name="description" content="The funding network as a physical model — a matte data sculpture in the Daily Ledger design language.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ground:#f6f5f1;
+    --ground-raised:#efeee7;
+    --ink:#1a1d27;
+    --ink-soft:#4b4e5a;
+    --ink-faint:#8a8d97;
+    --rule:#1a1d27;
+    --rule-soft:#d8d6cc;
+    --crypto:#96660f;
+    --ai:#6847d8;
+    --oss:#0983a1;
+    --gold:#8a6414;
+    --serif:'Newsreader', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:'tnum' 1, 'kern' 1;
+  }
+
+  .page{
+    max-width:1320px;
+    margin:0 auto;
+    padding:44px 40px 0;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding-bottom:18px;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .wordmark .mark{
+    width:11px;height:11px;
+    background:var(--ink);
+    display:inline-block;
+    transform:translateY(-1px);
+  }
+  .wordmark .name{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:25px;
+    letter-spacing:-0.02em;
+  }
+  .wordmark .name span{ color:var(--ink-faint); font-weight:600; }
+  .wordmark .tag{
+    font-size:11.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    padding-left:4px;
+    border-left:1px solid var(--rule-soft);
+    margin-left:2px;
+  }
+
+  nav.topnav{
+    display:flex;
+    gap:30px;
+  }
+  nav.topnav a{
+    font-size:12px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-weight:600;
+    padding-bottom:2px;
+  }
+  nav.topnav a.current{
+    color:var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+
+  .rule-double{
+    border:none;
+    border-top:2.5px solid var(--rule);
+    margin:0;
+    padding-top:3px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .byline{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    font-size:11.5px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .byline b{ color:var(--ink-soft); font-weight:700; }
+
+  .plate-head{
+    padding:30px 0 20px;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .plate-head .eyebrow{
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .plate-head .statement{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:34px;
+    line-height:1.28;
+    letter-spacing:-0.005em;
+    max-width:900px;
+    color:var(--ink);
+  }
+
+  /* ---------- Viewport ---------- */
+  .viewport-wrap{
+    position:relative;
+    width:100%;
+    height:75vh;
+    min-height:560px;
+    margin-top:8px;
+    background:var(--ground);
+  }
+  #viewport{
+    position:absolute;
+    inset:0;
+    cursor:grab;
+  }
+  #viewport:active{ cursor:grabbing; }
+
+  .overlay-labels{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .leader-svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+  }
+  .node-tag{
+    position:absolute;
+    transform:translate(-50%,-100%);
+    font-family:var(--sans);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink);
+    white-space:nowrap;
+    pointer-events:none;
+    padding-bottom:6px;
+  }
+  .node-tag.permanent{
+    font-size:10.5px;
+  }
+  .node-tag .sub{
+    display:block;
+    font-weight:500;
+    letter-spacing:.02em;
+    text-transform:none;
+    color:var(--ink-faint);
+    font-size:9.5px;
+    margin-top:1px;
+  }
+  .node-tag.neighbor{
+    color:var(--ink-soft);
+    font-weight:600;
+    opacity:0;
+    transition:opacity .12s ease;
+  }
+  .node-tag.neighbor.show{ opacity:1; }
+
+  /* hover tooltip, ledger card styling */
+  .scene-tooltip{
+    position:absolute;
+    pointer-events:none;
+    background:var(--ground) !important;
+    border:1px solid var(--ink) !important;
+    color:var(--ink) !important;
+    font-family:var(--sans) !important;
+    font-size:11.5px !important;
+    padding:7px 10px !important;
+    border-radius:0 !important;
+    box-shadow:2px 2px 0 rgba(26,29,39,0.12) !important;
+    max-width:260px;
+    line-height:1.4;
+  }
+
+  .caption-block{
+    max-width:1320px;
+    margin:0 auto;
+    padding:26px 40px 0;
+    border-top:1px solid var(--rule-soft);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .caption-block .caption{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:16.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:680px;
+    padding-top:18px;
+  }
+  .caption-block .caption b{
+    font-weight:600;
+    font-style:italic;
+    color:var(--ink);
+  }
+  .legend{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    flex:0 0 auto;
+    padding-top:20px;
+    min-width:200px;
+  }
+  .legend .item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:600;
+  }
+  .legend .sw{
+    width:9px;height:9px;
+    display:inline-block;
+    flex:0 0 auto;
+    border-radius:1px;
+  }
+  .legend .sw.crypto{ background:var(--crypto); }
+  .legend .sw.ai{ background:var(--ai); }
+  .legend .sw.oss{ background:var(--oss); }
+  .legend .sw.grantee{ background:#3a3d47; border-radius:50%; }
+  .legend .sw.gold{
+    background:transparent;
+    border:1.5px solid var(--gold);
+    border-radius:50%;
+  }
+
+  footer{
+    max-width:1320px;
+    margin:0 auto;
+    border-top:1px solid var(--rule-soft);
+    margin-top:26px;
+    padding:16px 40px 44px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+  }
+  footer b{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="masthead">
+    <div class="wordmark">
+      <span class="mark"></span>
+      <span class="name">grants<span>.watch</span></span>
+      <span class="tag">The Daily Ledger</span>
+    </div>
+    <nav class="topnav">
+      <a href="#">Now Open</a>
+      <a href="#">Awards</a>
+      <a href="#">Systems</a>
+      <a href="#" class="current">Network</a>
+      <a href="#">Method</a>
+    </nav>
+  </div>
+
+  <hr class="rule-double">
+
+  <div class="byline">
+    <span>Registry as of <b>July 9, 2026</b> · 230 organizations tracked</span>
+    <span><b>Edition 2026.07.09</b> · Sourced &amp; linked, updated continuously</span>
+  </div>
+
+  <div class="plate-head">
+    <div class="eyebrow">Plate II · The registry, assembled</div>
+    <div class="statement">Every funder, every grantee, every dollar between them — <em>set as a single physical model.</em></div>
+  </div>
+
+</div>
+
+<div class="viewport-wrap">
+  <div id="viewport"></div>
+  <div class="overlay-labels" id="overlayLabels">
+    <svg class="leader-svg" id="leaderSvg"></svg>
+  </div>
+</div>
+
+<div class="caption-block">
+  <div class="caption"><b>Plate II — The funding network as a physical model.</b> 230 funders, their grantees, the money between them. Sphere size follows program activity; ring diameter follows funder count. Drag to rotate, scroll to zoom, rest a cursor on any body to trace its wires.</div>
+  <div class="legend">
+    <span class="item"><span class="sw crypto"></span>Crypto funder</span>
+    <span class="item"><span class="sw ai"></span>AI funder</span>
+    <span class="item"><span class="sw oss"></span>Open source funder</span>
+    <span class="item"><span class="sw grantee"></span>Graphite = grantees</span>
+    <span class="item"><span class="sw gold"></span>Gold ring = live round</span>
+  </div>
+</div>
+
+<footer>
+  <span><b>grants.watch</b> · Plate II of the registry atlas</span>
+  <span>Model rendered client-side · 467 bodies · 456 wires</span>
+</footer>
+
+<script type="application/json" id="graph-data">
+{"nodes":[{"id":"1inch-network","kind":"org","name":"1inch Network","wire":"crypto","systems":["ethereum"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"a16z-crypto-csx-crypto-startup-accelerator","kind":"org","name":"a16z crypto (CSX / Crypto Startup Accelerator)","wire":"crypto","systems":[],"size":6.882643049361842,"live":false,"awards":56,"totalUsd":15500000},{"id":"aave","kind":"org","name":"Aave","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"acquia-fair-trade-initiative","kind":"org","name":"Acquia Fair Trade Initiative","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"adobe-research","kind":"org","name":"Adobe Research","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"aethir-ecosystem-fund","kind":"org","name":"Aethir Ecosystem Fund","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"afwerx","kind":"org","name":"AFWERX","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ai-grant","kind":"org","name":"AI Grant","wire":"ai","systems":["open-source-ai"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"ai-security-institute","kind":"org","name":"AI Security Institute","wire":"ai","systems":["ai-safety","uk-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"alan-turing-institute","kind":"org","name":"Alan Turing Institute","wire":"ai","systems":["uk-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"sloan-foundation-tech-oss","kind":"org","name":"Alfred P. Sloan Foundation — Technology Program","wire":"oss","systems":["oss-sustainability"],"size":5.643856189774724,"live":false,"awards":22,"totalUsd":8559448},{"id":"algorand-xgov","kind":"org","name":"Algorand xGov","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"alibaba-qwen","kind":"org","name":"Alibaba Qwen","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"amazon-research-awards-amazon-science","kind":"org","name":"Amazon Research Awards (amazon.science)","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"amazon-web-services-aws","kind":"org","name":"Amazon Web Services (AWS)","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"apache-software-foundation","kind":"org","name":"Apache Software Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"apereo-foundation","kind":"org","name":"Apereo Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"apple-scholars-in-ai-ml","kind":"org","name":"Apple Scholars in AI/ML","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"aptos-foundation","kind":"org","name":"Aptos Foundation","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"arbitrum-foundation","kind":"org","name":"Arbitrum Foundation","wire":"crypto","systems":["arbitrum"],"size":8.179909090014934,"live":false,"awards":138,"totalUsd":1053293},{"id":"arc-institute","kind":"org","name":"Arc Institute","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"aria","kind":"org","name":"ARIA (Advanced Research and Invention Agency)","wire":"ai","systems":["uk-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"arpa-h-advanced-research-projects-agency-for-health","kind":"org","name":"ARPA-H (Advanced Research Projects Agency for Health)","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"astera-institute","kind":"org","name":"Astera Institute","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"astralis-foundation","kind":"org","name":"Astralis Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"avalanche-foundation","kind":"org","name":"Avalanche Foundation","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"baidu-apollo","kind":"org","name":"Baidu Apollo","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"barda-biomedical-advanced-research-and-development-authority","kind":"org","name":"BARDA (Biomedical Advanced Research and Development Authority)","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"base-coinbase","kind":"org","name":"Base (Coinbase)","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"berkeley-existential-risk-initiative-beri","kind":"org","name":"Berkeley Existential Risk Initiative (BERI)","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"bezos-earth-fund","kind":"org","name":"Bezos Earth Fund","wire":"ai","systems":["climate"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"bill-and-melinda-gates-foundation","kind":"org","name":"Bill and Melinda Gates Foundation","wire":"ai","systems":["global-health"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"blue-meridian-partners","kind":"org","name":"Blue Meridian Partners","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"bluedot-impact","kind":"org","name":"BlueDot Impact","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cardano-foundation","kind":"org","name":"Cardano Foundation","wire":"crypto","systems":["cardano"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"casper-network","kind":"org","name":"Casper Network","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"celo","kind":"org","name":"Celo","wire":"crypto","systems":["web3-public-goods"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"center-for-ai-safety","kind":"org","name":"Center for AI Safety","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"center-for-civic-futures","kind":"org","name":"Center for Civic Futures","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cepi-coalition-for-epidemic-preparedness-innovations","kind":"org","name":"CEPI (Coalition for Epidemic Preparedness Innovations)","wire":"ai","systems":["global-health"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"chainlink","kind":"org","name":"Chainlink","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"chan-zuckerberg-initiative","kind":"org","name":"Chan Zuckerberg Initiative","wire":"ai","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cifar-pan-canadian-ai-strategy","kind":"org","name":"CIFAR - Pan-Canadian AI Strategy","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"circle","kind":"org","name":"Circle","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"cisco-foundation","kind":"org","name":"Cisco Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"climateworks-foundation","kind":"org","name":"ClimateWorks Foundation","wire":"ai","systems":["climate"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cloud-native-computing-foundation","kind":"org","name":"Cloud Native Computing Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"co-impact","kind":"org","name":"Co-Impact","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"coefficient-giving","kind":"org","name":"Coefficient Giving","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cohere-for-ai","kind":"org","name":"Cohere For AI","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"coinbase-developer-platform","kind":"org","name":"Coinbase Developer Platform (CDP)","wire":"crypto","systems":["ethereum"],"size":6.247927513443585,"live":false,"awards":35,"totalUsd":8000},{"id":"compound-dao","kind":"org","name":"Compound DAO","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"cooperative-ai-foundation","kind":"org","name":"Cooperative AI Foundation","wire":"ai","systems":["ai-safety"],"size":6.832890014164741,"live":false,"awards":52,"totalUsd":3568069},{"id":"darpa-dice","kind":"org","name":"DARPA DICE","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"deep-funding","kind":"org","name":"Deep Funding","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"dfinity-internet-computer","kind":"org","name":"DFINITY / Internet Computer","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"digital-brain-project","kind":"org","name":"Digital Brain Project","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"digital-freedom-fund","kind":"org","name":"Digital Freedom Fund","wire":"ai","systems":["internet-freedom"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"drupal-association","kind":"org","name":"Drupal Association","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ecmwf","kind":"org","name":"ECMWF","wire":"oss","systems":["eu-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"effective-ventures","kind":"org","name":"Effective Ventures","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"eleutherai","kind":"org","name":"EleutherAI","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"entropy-advisors","kind":"org","name":"Entropy Advisors","wire":"crypto","systems":["arbitrum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ethereum-foundation","kind":"org","name":"Ethereum Foundation","wire":"crypto","systems":["ethereum"],"size":8.523561956057012,"live":false,"awards":179,"totalUsd":0},{"id":"etherfi","kind":"org","name":"EtherFi","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"eu-horizon-europe","kind":"org","name":"EU Horizon Europe","wire":"ai","systems":["eu-public-rd"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"european-high-performance-computing-joint-undertaking","kind":"org","name":"European High Performance Computing Joint Undertaking","wire":"ai","systems":["eu-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"falcon-foundation-technology-innovation-institute-uae","kind":"org","name":"Falcon Foundation (Technology Innovation Institute UAE)","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"far-ai","kind":"org","name":"FAR AI","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"filecoin-foundation","kind":"org","name":"Filecoin Foundation","wire":"crypto","systems":["filecoin"],"size":5,"live":false,"awards":13,"totalUsd":0},{"id":"floss-fund","kind":"org","name":"FLOSS/fund","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"flow","kind":"org","name":"Flow","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ford-foundation","kind":"org","name":"Ford Foundation","wire":"oss","systems":["oss-sustainability"],"size":5.807354922057604,"live":false,"awards":25,"totalUsd":997566.57},{"id":"foresight-institute","kind":"org","name":"Foresight Institute","wire":"ai","systems":["ai-safety"],"size":7.459431618637297,"live":false,"awards":85,"totalUsd":0},{"id":"foss-sustainability-fund","kind":"org","name":"FOSS Sustainability Fund","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"foss-united","kind":"org","name":"FOSS United","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"founders-pledge","kind":"org","name":"Founders Pledge","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"free-and-open-source-software-sustainability-fund","kind":"org","name":"Free and Open Source Software Sustainability Fund","wire":"oss","systems":["internet-freedom","sovereign-tech"],"size":6.977279923499917,"live":false,"awards":58,"totalUsd":97392287},{"id":"free-software-foundation","kind":"org","name":"Free Software Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"freebsd-foundation","kind":"org","name":"FreeBSD Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"freecad-project-association","kind":"org","name":"FreeCAD Project Association","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"frontier-model-forum","kind":"org","name":"Frontier Model Forum","wire":"ai","systems":["ai-safety"],"size":5.700439718141092,"live":false,"awards":23,"totalUsd":0},{"id":"future-of-life-institute-fli","kind":"org","name":"Future of Life Institute","wire":"ai","systems":["ai-safety"],"size":7.321928094887363,"live":false,"awards":75,"totalUsd":22191445},{"id":"gavi-the-vaccine-alliance","kind":"org","name":"Gavi, the Vaccine Alliance","wire":"ai","systems":["global-health"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"gitcoin","kind":"org","name":"Gitcoin","wire":"crypto","systems":["ethereum","web3-public-goods"],"size":7.321928094887363,"live":false,"awards":77,"totalUsd":83800},{"id":"github","kind":"org","name":"GitHub","wire":"oss","systems":["oss-sustainability"],"size":8.129283016944967,"live":false,"awards":137,"totalUsd":1370000},{"id":"givewell","kind":"org","name":"GiveWell","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"global-innovation-fund-gif","kind":"org","name":"Global Innovation Fund","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"gnosis-dao","kind":"org","name":"Gnosis DAO","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"gooddollar","kind":"org","name":"GoodDollar","wire":"crypto","systems":["web3-public-goods"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"google-academic-research-awards","kind":"org","name":"Google Academic Research Awards","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"google-chrome","kind":"org","name":"Google Chrome","wire":"oss","systems":["oss-sustainability"],"size":5.906890595608519,"live":true,"awards":22,"totalUsd":104565.22},{"id":"google-summer-of-code","kind":"org","name":"Google Summer of Code","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"graph-foundation","kind":"org","name":"Graph Foundation","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"hashkey","kind":"org","name":"HashKey","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"hedera","kind":"org","name":"Hedera","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"hrf-ai-for-individual-rights-fund","kind":"org","name":"HRF AI for Individual Rights Fund","wire":"ai","systems":["internet-freedom"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"hugging-face","kind":"org","name":"Hugging Face","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ibm-call-for-code","kind":"org","name":"IBM Call for Code","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"icann","kind":"org","name":"ICANN","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"icts","kind":"org","name":"ICTS","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ieee","kind":"org","name":"IEEE","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"institute-for-progress-ifp","kind":"org","name":"Institute for Progress (IFP)","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"institute-for-security-and-technology","kind":"org","name":"Institute for Security and Technology","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"interchain-foundation","kind":"org","name":"Interchain Foundation","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"interledger-fellowship-program","kind":"org","name":"Interledger Fellowship Program","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"international-development-research-centre-idrc-canada","kind":"org","name":"International Development Research Centre","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"internet-society","kind":"org","name":"Internet Society","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"japan-science-and-technology-agency-jst","kind":"org","name":"Japan Science and Technology Agency","wire":"ai","systems":["japan-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"john-and-catherine-t-macarthur-foundation","kind":"org","name":"John D. and Catherine T. MacArthur Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"kaust-king-abdullah-university","kind":"org","name":"KAUST (King Abdullah University)","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"kelpdao","kind":"org","name":"KelpDAO","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"knight-foundation","kind":"org","name":"Knight Foundation","wire":null,"systems":[],"size":7.392317422778761,"live":false,"awards":79,"totalUsd":12191289},{"id":"lacuna-fund","kind":"org","name":"Lacuna Fund","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"laude-institute","kind":"org","name":"Laude Institute","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"laude-institute-moonshot-program","kind":"org","name":"Laude Institute Moonshot Program","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"lever-for-change","kind":"org","name":"Lever for Change","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"lido","kind":"org","name":"Lido","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"linea-consensys","kind":"org","name":"Linea (ConsenSys)","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"linux-foundation","kind":"org","name":"Linux Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"long-term-future-fund","kind":"org","name":"Long-Term Future Fund","wire":"ai","systems":["ai-safety"],"size":7.845490050944375,"live":false,"awards":112,"totalUsd":4643957},{"id":"longview-philanthropy","kind":"org","name":"Longview Philanthropy","wire":"ai","systems":["ai-safety"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"lumen-foundation","kind":"org","name":"LUMEN Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"luminate-foundation","kind":"org","name":"Luminate Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"manifund-ai-safety-regranting","kind":"org","name":"Manifund (AI safety regranting)","wire":"ai","systems":["ai-safety"],"size":7.794415866350106,"live":false,"awards":108,"totalUsd":2323574.16},{"id":"mantle-foundation","kind":"org","name":"Mantle Foundation","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"mercatus-center","kind":"org","name":"Mercatus Center","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"meta-llama-impact-grants","kind":"org","name":"Meta Llama Impact Grants","wire":"ai","systems":["open-source-ai"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"meta-open-source","kind":"org","name":"Meta Open Source","wire":"ai","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"meta-research-awards","kind":"org","name":"Meta Research Awards","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"microsoft-foss-fund","kind":"org","name":"Microsoft FOSS Fund","wire":"ai","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"mina-foundation","kind":"org","name":"Mina Foundation","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"minimax","kind":"org","name":"MiniMax","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"mistral-ai","kind":"org","name":"Mistral AI","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"mlcommons","kind":"org","name":"MLCommons","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"moonshot-ai-kimi","kind":"org","name":"Moonshot AI / Kimi","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"mozilla-foundation","kind":"org","name":"Mozilla Foundation","wire":"ai","systems":["oss-sustainability"],"size":8.294620748891628,"live":false,"awards":148,"totalUsd":7166379},{"id":"national-institutes-of-health","kind":"org","name":"National Institutes of Health","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"national-research-foundation-nrf-singapore","kind":"org","name":"National Research Foundation (NRF) Singapore","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"national-science-foundation","kind":"org","name":"National Science Foundation","wire":"crypto","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"nccu","kind":"org","name":"NCCU","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ncn","kind":"org","name":"NCN","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"near-foundation","kind":"org","name":"NEAR Foundation","wire":"crypto","systems":[],"size":6.285402218862249,"live":false,"awards":36,"totalUsd":115000},{"id":"new-energy-and-industrial-technology-development-organizatio","kind":"org","name":"New Energy and Industrial Technology Development Organization (NEDO)","wire":"ai","systems":["japan-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"nist","kind":"org","name":"NIST","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"nlnet-foundation","kind":"org","name":"NLnet Foundation","wire":"oss","systems":["eu-public-rd","sovereign-tech"],"size":8.475733430966397,"live":true,"awards":172,"totalUsd":0},{"id":"nsf-graduate-research-fellowship-program","kind":"org","name":"NSF Graduate Research Fellowship Program","wire":"ai","systems":["us-federal-rd"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"nsf-sbir-sttr","kind":"org","name":"NSF SBIR / STTR","wire":"crypto","systems":["us-federal-rd"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"numfocus","kind":"org","name":"NumFOCUS","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"nvidia","kind":"org","name":"NVIDIA","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"obol","kind":"org","name":"Obol","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"octant","kind":"org","name":"Octant","wire":"crypto","systems":["ethereum","web3-public-goods"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"olmo-open-language-model","kind":"org","name":"OLMo (Open Language Model)","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"omidyar-network","kind":"org","name":"Omidyar Network","wire":"ai","systems":[],"size":4.169925001442312,"live":false,"awards":6,"totalUsd":0},{"id":"open-compute-project","kind":"org","name":"Open Compute Project","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"open-philanthropy","kind":"org","name":"Open Philanthropy","wire":"ai","systems":["ai-safety"],"size":7.6865005271832185,"live":false,"awards":100,"totalUsd":199726085},{"id":"open-society-foundations","kind":"org","name":"Open Society Foundations","wire":"ai","systems":["internet-freedom"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"open-source-collective","kind":"org","name":"Open Source Collective","wire":"ai","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"open-source-endowment","kind":"org","name":"Open Source Endowment","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"openai-foundation","kind":"org","name":"OpenAI Foundation","wire":"ai","systems":[],"size":3.584962500721156,"live":true,"awards":0,"totalUsd":0},{"id":"openssf-technical-initiative-funding","kind":"org","name":"OpenSSF Technical Initiative Funding","wire":"oss","systems":["oss-sustainability"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"openstreetmap-foundation","kind":"org","name":"OpenStreetMap Foundation","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"optimism-foundation","kind":"org","name":"Optimism Foundation","wire":"crypto","systems":["optimism","web3-public-goods"],"size":8.285402218862249,"live":false,"awards":149,"totalUsd":0},{"id":"overture-maps-foundation","kind":"org","name":"Overture Maps Foundation","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"pacifica","kind":"org","name":"Pacifica","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"partnership-on-ai","kind":"org","name":"Partnership on AI","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"patch-the-planet","kind":"org","name":"Patch the Planet","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"patrick-j-mcgovern-foundation","kind":"org","name":"Patrick J. McGovern Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"percona","kind":"org","name":"Percona","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"pharos-network","kind":"org","name":"Pharos Network","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"php-foundation","kind":"org","name":"PHP Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"polygon","kind":"org","name":"Polygon","wire":"crypto","systems":["ethereum"],"size":4.321928094887362,"live":false,"awards":7,"totalUsd":0},{"id":"protocol-labs","kind":"org","name":"Protocol Labs","wire":"crypto","systems":["filecoin"],"size":6.459431618637297,"live":false,"awards":39,"totalUsd":0},{"id":"rand-corporation","kind":"org","name":"RAND Corporation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"renaissance-philanthropy","kind":"org","name":"Renaissance Philanthropy","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"responsible-technology-youth-power-fund","kind":"org","name":"Responsible Technology Youth Power Fund","wire":null,"systems":[],"size":6.643856189774724,"live":true,"awards":44,"totalUsd":0},{"id":"revnets","kind":"org","name":"Revnets","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"risc-v-international","kind":"org","name":"RISC-V International","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ronin-network","kind":"org","name":"Ronin Network","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"schmidt-futures","kind":"org","name":"Schmidt Futures","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"schmidt-sciences","kind":"org","name":"Schmidt Sciences","wire":"ai","systems":["ai-safety"],"size":6.169925001442312,"live":false,"awards":33,"totalUsd":0},{"id":"second-look-research","kind":"org","name":"Second Look Research","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"seri-mats-mats-program","kind":"org","name":"SERI MATS (MATS Program)","wire":"ai","systems":["ai-safety"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"shuttleworth-foundation","kind":"org","name":"Shuttleworth Foundation","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"silicon-catalyst","kind":"org","name":"Silicon Catalyst","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"skale-network","kind":"org","name":"SKALE Network","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"software-freedom-conservancy","kind":"org","name":"Software Freedom Conservancy","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"solana-foundation","kind":"org","name":"Solana Foundation","wire":"crypto","systems":[],"size":5,"live":false,"awards":13,"totalUsd":0},{"id":"somnia","kind":"org","name":"Somnia","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"sovereign-tech-agency","kind":"org","name":"Sovereign Tech Agency","wire":"oss","systems":["sovereign-tech"],"size":7.554588851677638,"live":false,"awards":91,"totalUsd":0},{"id":"spotify","kind":"org","name":"Spotify","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"stacks-endowment","kind":"org","name":"Stacks Endowment","wire":"crypto","systems":["stacks"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"stacks-foundation","kind":"org","name":"Stacks Foundation","wire":"crypto","systems":["stacks"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"starknet-foundation","kind":"org","name":"Starknet Foundation","wire":"crypto","systems":["ethereum"],"size":3.321928094887362,"live":false,"awards":0,"totalUsd":0},{"id":"stellar-community-fund","kind":"org","name":"Stellar Community Fund","wire":"crypto","systems":["stellar"],"size":7.894817763307944,"live":false,"awards":116,"totalUsd":8966154},{"id":"stellar-development-foundation","kind":"org","name":"Stellar Development Foundation","wire":"crypto","systems":["stellar"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"stripe-climate","kind":"org","name":"Stripe Climate","wire":"ai","systems":["climate"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"subspace-foundation-autonomys-network","kind":"org","name":"Subspace Foundation / Autonomys Network","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"sui-foundation","kind":"org","name":"Sui Foundation","wire":"crypto","systems":["sui"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"survival-and-flourishing-fund-sff","kind":"org","name":"Survival and Flourishing Fund","wire":"ai","systems":["ai-safety"],"size":8.459431618637296,"live":false,"awards":173,"totalUsd":55966450},{"id":"taiko-grant-program","kind":"org","name":"Taiko Grant Program","wire":"crypto","systems":["ethereum"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"tarbell-center","kind":"org","name":"Tarbell Center","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"tether","kind":"org","name":"Tether","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"tezos-foundation","kind":"org","name":"Tezos Foundation","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"the-genesis-mission","kind":"org","name":"The Genesis Mission","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"the-perl-raku-foundation","kind":"org","name":"The Perl & Raku Foundation","wire":"oss","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"the-rockefeller-foundation","kind":"org","name":"The Rockefeller Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"thinking-machines-lab","kind":"org","name":"Thinking Machines Lab","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"ton-foundation","kind":"org","name":"TON Foundation","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"tor-project","kind":"org","name":"Tor Project","wire":"crypto","systems":["internet-freedom"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"tron-dao","kind":"org","name":"TRON DAO","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"uk-ai-security-institute-aisi","kind":"org","name":"UK AI Security Institute (AISI)","wire":"ai","systems":["ai-safety","uk-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"uk-research-and-innovation","kind":"org","name":"UK Research and Innovation","wire":"ai","systems":["uk-public-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"unicef","kind":"org","name":"UNICEF","wire":"crypto","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"uniswap-foundation","kind":"org","name":"Uniswap Foundation","wire":"crypto","systems":["ethereum"],"size":6.614709844115208,"live":false,"awards":46,"totalUsd":946640},{"id":"unitary-foundation","kind":"org","name":"Unitary Foundation","wire":"crypto","systems":["oss-sustainability"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"us-department-of-education","kind":"org","name":"US Department of Education","wire":"ai","systems":["us-federal-rd"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"walrus-foundation","kind":"org","name":"Walrus Foundation","wire":"crypto","systems":["sui"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"web3-foundation","kind":"org","name":"Web3 Foundation","wire":"crypto","systems":[],"size":6.459431618637297,"live":false,"awards":41,"totalUsd":0},{"id":"wellcome-trust","kind":"org","name":"Wellcome Trust","wire":"ai","systems":["global-health"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"wikimedia-foundation","kind":"org","name":"Wikimedia Foundation","wire":"oss","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"william-and-flora-hewlett-foundation","kind":"org","name":"William and Flora Hewlett Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"wisconsin-department-of-workforce-development","kind":"org","name":"Wisconsin Department of Workforce Development","wire":"ai","systems":[],"size":3.584962500721156,"live":true,"awards":0,"totalUsd":0},{"id":"xprize-foundation","kind":"org","name":"XPRIZE Foundation","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"xrpl","kind":"org","name":"XRPL","wire":"crypto","systems":["xrpl"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"xrpl-accelerator","kind":"org","name":"XRPL Accelerator","wire":"crypto","systems":["xrpl"],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"y-combinator","kind":"org","name":"Y Combinator","wire":"ai","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"yield-giving-mackenzie-scott","kind":"org","name":"Yield Giving (MacKenzie Scott)","wire":"ai","systems":[],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"zetachain-grant-program","kind":"org","name":"ZetaChain Grant Program","wire":"crypto","systems":[],"size":2.584962500721156,"live":false,"awards":0,"totalUsd":0},{"id":"zhipu-ai-glm","kind":"org","name":"Zhipu AI / GLM","wire":"ai","systems":["open-source-ai"],"size":1,"live":false,"awards":0,"totalUsd":0},{"id":"g:far-ai","kind":"grantee","slug":"far-ai","name":"FAR.AI","funders":4,"totalUsd":31835000,"orgId":"far-ai","size":3.2},{"id":"g:berkeley-existential-risk-initiative","kind":"grantee","slug":"berkeley-existential-risk-initiative","name":"Berkeley Existential Risk Initiative","funders":4,"totalUsd":1285167,"orgId":null,"size":3.2},{"id":"g:securebio","kind":"grantee","slug":"securebio","name":"SecureBio","funders":3,"totalUsd":1008000,"orgId":null,"size":2.9588457268119894},{"id":"g:stanford-university","kind":"grantee","slug":"stanford-university","name":"Stanford University","funders":2,"totalUsd":1940354,"orgId":null,"size":2.6727922061357856},{"id":"g:tor-project","kind":"grantee","slug":"tor-project","name":"The Tor Project","funders":2,"totalUsd":467500,"orgId":"tor-project","size":2.6727922061357856},{"id":"g:lightcone-infrastructure","kind":"grantee","slug":"lightcone-infrastructure","name":"Lightcone Infrastructure","funders":2,"totalUsd":1909500,"orgId":null,"size":2.6727922061357856},{"id":"g:apollo-research","kind":"grantee","slug":"apollo-research","name":"Apollo Research","funders":2,"totalUsd":251000,"orgId":null,"size":2.6727922061357856},{"id":"g:center-ai-safety","kind":"grantee","slug":"center-ai-safety","name":"Center for AI Safety, Inc.","funders":2,"totalUsd":1190000,"orgId":null,"size":2.6727922061357856},{"id":"g:foresight-institute","kind":"grantee","slug":"foresight-institute","name":"Foresight Institute","funders":2,"totalUsd":516000,"orgId":"foresight-institute","size":2.6727922061357856},{"id":"g:future-society","kind":"grantee","slug":"future-society","name":"The Future Society","funders":2,"totalUsd":582000,"orgId":null,"size":2.6727922061357856},{"id":"g:oxford-china-policy","kind":"grantee","slug":"oxford-china-policy","name":"Oxford China Policy Lab","funders":2,"totalUsd":1190000,"orgId":null,"size":2.6727922061357856},{"id":"g:palisade-research","kind":"grantee","slug":"palisade-research","name":"Palisade Research Inc","funders":2,"totalUsd":1817000,"orgId":null,"size":2.6727922061357856},{"id":"g:tarbell-center-ai-journalism","kind":"grantee","slug":"tarbell-center-ai-journalism","name":"Tarbell Center for AI Journalism","funders":2,"totalUsd":800500,"orgId":null,"size":2.6727922061357856},{"id":"g:code-science-society","kind":"grantee","slug":"code-science-society","name":"Code for Science and Society Inc","funders":2,"totalUsd":303969,"orgId":null,"size":2.6727922061357856},{"id":"g:python-software","kind":"grantee","slug":"python-software","name":"Python Software Foundation","funders":2,"totalUsd":377000,"orgId":null,"size":2.6727922061357856},{"id":"g:boston-university","kind":"grantee","slug":"boston-university","name":"Boston University","funders":2,"totalUsd":674722,"orgId":null,"size":2.6727922061357856},{"id":"g:northeastern-university","kind":"grantee","slug":"northeastern-university","name":"Northeastern University","funders":2,"totalUsd":1440894,"orgId":null,"size":2.6727922061357856},{"id":"g:rethink-priorities","kind":"grantee","slug":"rethink-priorities","name":"Rethink Priorities","funders":2,"totalUsd":6800601,"orgId":null,"size":2.6727922061357856},{"id":"g:simon-institute-longterm-governance","kind":"grantee","slug":"simon-institute-longterm-governance","name":"Simon Institute for Longterm Governance","funders":2,"totalUsd":857911,"orgId":null,"size":2.6727922061357856},{"id":"g:svelte","kind":"grantee","slug":"svelte","name":"Svelte","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:encode-justice","kind":"grantee","slug":"encode-justice","name":"Encode Justice","funders":2,"totalUsd":50000,"orgId":null,"size":2.6727922061357856},{"id":"g:openocean","kind":"grantee","slug":"openocean","name":"OpenOcean","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:collective-intelligence-project","kind":"grantee","slug":"collective-intelligence-project","name":"Collective Intelligence Project","funders":2,"totalUsd":150000,"orgId":null,"size":2.6727922061357856},{"id":"g:giveth","kind":"grantee","slug":"giveth","name":"Giveth","funders":2,"totalUsd":7500,"orgId":null,"size":2.6727922061357856},{"id":"g:stargate-finance","kind":"grantee","slug":"stargate-finance","name":"Stargate Finance","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:woofi","kind":"grantee","slug":"woofi","name":"Woofi","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:encode","kind":"grantee","slug":"encode","name":"Encode","funders":2,"totalUsd":250000,"orgId":null,"size":2.6727922061357856},{"id":"g:ethstaker","kind":"grantee","slug":"ethstaker","name":"EthStaker","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:edge-city","kind":"grantee","slug":"edge-city","name":"Edge City","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:hydrex","kind":"grantee","slug":"hydrex","name":"Hydrex","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:rubic","kind":"grantee","slug":"rubic","name":"Rubic","funders":2,"totalUsd":90000,"orgId":null,"size":2.6727922061357856},{"id":"g:university-toronto","kind":"grantee","slug":"university-toronto","name":"University of Toronto","funders":2,"totalUsd":926200,"orgId":null,"size":2.6727922061357856},{"id":"g:l2beat","kind":"grantee","slug":"l2beat","name":"L2BEAT","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:dot","kind":"grantee","slug":"dot","name":"Dot","funders":2,"totalUsd":500000,"orgId":null,"size":2.6727922061357856},{"id":"g:oro","kind":"grantee","slug":"oro","name":"ORO","funders":2,"totalUsd":500000,"orgId":null,"size":2.6727922061357856},{"id":"g:openmined","kind":"grantee","slug":"openmined","name":"OpenMined Foundation","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:chandler-smith-cooperative-ai","kind":"grantee","slug":"chandler-smith-cooperative-ai","name":"Chandler Smith (Cooperative AI Foundation)","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:apart-research","kind":"grantee","slug":"apart-research","name":"Apart Research","funders":2,"totalUsd":294000,"orgId":null,"size":2.6727922061357856},{"id":"g:mats-research","kind":"grantee","slug":"mats-research","name":"MATS Research","funders":2,"totalUsd":639000,"orgId":null,"size":2.6727922061357856},{"id":"g:ai-objectives-institute","kind":"grantee","slug":"ai-objectives-institute","name":"AI Objectives Institute","funders":2,"totalUsd":1038000,"orgId":null,"size":2.6727922061357856},{"id":"g:alignment-research-center","kind":"grantee","slug":"alignment-research-center","name":"Alignment Research Center","funders":2,"totalUsd":1598000,"orgId":null,"size":2.6727922061357856},{"id":"g:defillama","kind":"grantee","slug":"defillama","name":"DefiLlama","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:ethers-js","kind":"grantee","slug":"ethers-js","name":"Ethers.js","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:gardens","kind":"grantee","slug":"gardens","name":"Gardens","funders":2,"totalUsd":0,"orgId":null,"size":2.6727922061357856},{"id":"g:babel","kind":"grantee","slug":"babel","name":"Babel","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:codecarbon","kind":"grantee","slug":"codecarbon","name":"CodeCarbon","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:curl","kind":"grantee","slug":"curl","name":"curl","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:foundry","kind":"grantee","slug":"foundry","name":"Foundry","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:junit","kind":"grantee","slug":"junit","name":"JUnit","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:llvm","kind":"grantee","slug":"llvm","name":"LLVM","funders":2,"totalUsd":60000,"orgId":null,"size":2.6727922061357856},{"id":"g:log4j","kind":"grantee","slug":"log4j","name":"Log4j","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:mastodon","kind":"grantee","slug":"mastodon","name":"Mastodon","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:rustls","kind":"grantee","slug":"rustls","name":"Rustls","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:webpack","kind":"grantee","slug":"webpack","name":"webpack","funders":2,"totalUsd":135000,"orgId":null,"size":2.6727922061357856},{"id":"g:alignment-ecosystem-development","kind":"grantee","slug":"alignment-ecosystem-development","name":"Alignment Ecosystem Development","funders":2,"totalUsd":190330,"orgId":null,"size":2.6727922061357856},{"id":"g:john-wentworth","kind":"grantee","slug":"john-wentworth","name":"John Wentworth","funders":2,"totalUsd":458000,"orgId":null,"size":2.6727922061357856},{"id":"g:openjs","kind":"grantee","slug":"openjs","name":"OpenJS Foundation","funders":2,"totalUsd":35000,"orgId":null,"size":2.6727922061357856},{"id":"g:processing","kind":"grantee","slug":"processing","name":"The Processing Foundation","funders":2,"totalUsd":69700,"orgId":null,"size":2.6727922061357856},{"id":"g:let-encrypt","kind":"grantee","slug":"let-encrypt","name":"Let's Encrypt","funders":2,"totalUsd":187500,"orgId":null,"size":2.6727922061357856},{"id":"g:freebsd","kind":"grantee","slug":"freebsd","name":"FreeBSD Foundation","funders":2,"totalUsd":10000,"orgId":null,"size":2.6727922061357856},{"id":"g:alignment-complex-systems-research-group","kind":"grantee","slug":"alignment-complex-systems-research-group","name":"Alignment of Complex Systems Research Group","funders":2,"totalUsd":1083700,"orgId":null,"size":2.6727922061357856},{"id":"g:carnegie-mellon-university","kind":"grantee","slug":"carnegie-mellon-university","name":"Carnegie Mellon University","funders":2,"totalUsd":1116180,"orgId":null,"size":2.6727922061357856},{"id":"g:decode-research","kind":"grantee","slug":"decode-research","name":"Decode Research","funders":2,"totalUsd":840000,"orgId":null,"size":2.6727922061357856},{"id":"g:ilina","kind":"grantee","slug":"ilina","name":"ILINA Program","funders":2,"totalUsd":603120,"orgId":null,"size":2.6727922061357856},{"id":"g:simplex","kind":"grantee","slug":"simplex","name":"Simplex","funders":2,"totalUsd":2119200,"orgId":null,"size":2.6727922061357856},{"id":"g:timaeus-research","kind":"grantee","slug":"timaeus-research","name":"Timaeus Research","funders":2,"totalUsd":1816000,"orgId":null,"size":2.6727922061357856},{"id":"g:centre-governance-ai","kind":"grantee","slug":"centre-governance-ai","name":"Centre for the Governance of AI","funders":1,"totalUsd":54500000,"orgId":null,"size":0.9},{"id":"g:psiphon","kind":"grantee","slug":"psiphon","name":"Psiphon","funders":1,"totalUsd":40791508,"orgId":null,"size":0.9},{"id":"g:redwood-research","kind":"grantee","slug":"redwood-research","name":"Redwood Research","funders":1,"totalUsd":36566000,"orgId":null,"size":0.9},{"id":"g:nthlink","kind":"grantee","slug":"nthlink","name":"nthLink","funders":1,"totalUsd":17999602,"orgId":null,"size":0.9},{"id":"g:rand-corporation","kind":"grantee","slug":"rand-corporation","name":"RAND Corporation","funders":1,"totalUsd":16000000,"orgId":"rand-corporation","size":0.9},{"id":"g:lantern","kind":"grantee","slug":"lantern","name":"Lantern","funders":1,"totalUsd":14160286,"orgId":null,"size":0.9},{"id":"g:various-individuals-organizations","kind":"grantee","slug":"various-individuals-organizations","name":"Various Individuals and Organizations","funders":1,"totalUsd":9920930,"orgId":null,"size":0.9},{"id":"g:convergent-research","kind":"grantee","slug":"convergent-research","name":"Convergent Research","funders":1,"totalUsd":5000000,"orgId":null,"size":0.9},{"id":"g:ai-verification-evaluation-research-institute-averi","kind":"grantee","slug":"ai-verification-evaluation-research-institute-averi","name":"AI Verification and Evaluation Research Institute (AVERI)","funders":1,"totalUsd":4000000,"orgId":null,"size":0.9},{"id":"g:centre-public-impact-north-america-beeck-center-social-impac","kind":"grantee","slug":"centre-public-impact-north-america-beeck-center-social-impac","name":"Centre for Public Impact North America & Beeck Center for Social Impact & Innovation (The Opportunity Project for Cities)","funders":1,"totalUsd":3300000,"orgId":null,"size":0.9},{"id":"g:improve-news","kind":"grantee","slug":"improve-news","name":"Improve the News Foundation","funders":1,"totalUsd":3250000,"orgId":null,"size":0.9},{"id":"g:george-washington-university","kind":"grantee","slug":"george-washington-university","name":"George Washington University","funders":1,"totalUsd":3149000,"orgId":null,"size":0.9},{"id":"g:ai-futures-project","kind":"grantee","slug":"ai-futures-project","name":"AI Futures Project","funders":1,"totalUsd":2540000,"orgId":null,"size":0.9},{"id":"g:harvard-university","kind":"grantee","slug":"harvard-university","name":"Harvard University","funders":1,"totalUsd":1866362,"orgId":null,"size":0.9},{"id":"g:university-california-santa-cruz-uc-ospo-network","kind":"grantee","slug":"university-california-santa-cruz-uc-ospo-network","name":"University of California, Santa Cruz (UC OSPO Network)","funders":1,"totalUsd":1851549,"orgId":null,"size":0.9},{"id":"g:international-association-safe-ethical-ai-iaseai","kind":"grantee","slug":"international-association-safe-ethical-ai-iaseai","name":"International Association for Safe and Ethical AI (IASEAI)","funders":1,"totalUsd":1850000,"orgId":null,"size":0.9},{"id":"g:centre-long-term-resilience-cltr","kind":"grantee","slug":"centre-long-term-resilience-cltr","name":"The Centre for Long-Term Resilience (CLTR)","funders":1,"totalUsd":1648000,"orgId":null,"size":0.9},{"id":"g:ai-policy-institute-aipi","kind":"grantee","slug":"ai-policy-institute-aipi","name":"AI Policy Institute (AIPI)","funders":1,"totalUsd":1635000,"orgId":null,"size":0.9},{"id":"g:securedna","kind":"grantee","slug":"securedna","name":"SecureDNA","funders":1,"totalUsd":1628000,"orgId":null,"size":0.9},{"id":"g:center-ai-safety-action","kind":"grantee","slug":"center-ai-safety-action","name":"Center for AI Safety Action Fund, Inc.","funders":1,"totalUsd":1621000,"orgId":null,"size":0.9},{"id":"g:machine-intelligence-research-institute-miri","kind":"grantee","slug":"machine-intelligence-research-institute-miri","name":"Machine Intelligence Research Institute (MIRI)","funders":1,"totalUsd":1607000,"orgId":null,"size":0.9},{"id":"g:federation-american-scientists-fas","kind":"grantee","slug":"federation-american-scientists-fas","name":"Federation of American Scientists (FAS)","funders":1,"totalUsd":1500000,"orgId":null,"size":0.9},{"id":"g:amodo-design","kind":"grantee","slug":"amodo-design","name":"Amodo Design Ltd.","funders":1,"totalUsd":1229000,"orgId":null,"size":0.9},{"id":"g:wise-ancestors","kind":"grantee","slug":"wise-ancestors","name":"Wise Ancestors","funders":1,"totalUsd":1219685,"orgId":null,"size":0.9},{"id":"g:university-maryland","kind":"grantee","slug":"university-maryland","name":"University of Maryland","funders":1,"totalUsd":1168627,"orgId":null,"size":0.9},{"id":"g:university-california-at-berkeley-ai-policy-hub","kind":"grantee","slug":"university-california-at-berkeley-ai-policy-hub","name":"University of California at Berkeley (AI Policy Hub)","funders":1,"totalUsd":1050000,"orgId":null,"size":0.9},{"id":"g:university-california-berkeley","kind":"grantee","slug":"university-california-berkeley","name":"University of California, Berkeley","funders":1,"totalUsd":1049566,"orgId":null,"size":0.9},{"id":"g:rand-corporation-technology-security-policy-center","kind":"grantee","slug":"rand-corporation-technology-security-policy-center","name":"RAND Corporation [Technology and Security Policy Center]","funders":1,"totalUsd":1022000,"orgId":null,"size":0.9},{"id":"g:principles-intelligent-behavior-in-biological-social-systems","kind":"grantee","slug":"principles-intelligent-behavior-in-biological-social-systems","name":"Principles of Intelligent Behavior in Biological and Social Systems (PIBBSS)","funders":1,"totalUsd":1014000,"orgId":null,"size":0.9},{"id":"g:code-america-local-brigade-chapters","kind":"grantee","slug":"code-america-local-brigade-chapters","name":"Code for America (local Brigade chapters)","funders":1,"totalUsd":1000000,"orgId":null,"size":0.9},{"id":"g:foresight-institute-existential-hope-project","kind":"grantee","slug":"foresight-institute-existential-hope-project","name":"Foresight Institute (Existential Hope project)","funders":1,"totalUsd":1000000,"orgId":null,"size":0.9},{"id":"g:university-cambridge-centre-study-existential-risk-cser","kind":"grantee","slug":"university-cambridge-centre-study-existential-risk-cser","name":"University of Cambridge (Centre for the Study of Existential Risk, CSER)","funders":1,"totalUsd":1000000,"orgId":null,"size":0.9},{"id":"g:ellis-institute-bingen","kind":"grantee","slug":"ellis-institute-bingen","name":"ELLIS Institute Tübingen","funders":1,"totalUsd":1000000,"orgId":null,"size":0.9},{"id":"g:open-source-hardware-association","kind":"grantee","slug":"open-source-hardware-association","name":"Open Source Hardware Association","funders":1,"totalUsd":993600,"orgId":null,"size":0.9},{"id":"g:tails","kind":"grantee","slug":"tails","name":"Tails","funders":1,"totalUsd":972620,"orgId":null,"size":0.9},{"id":"g:terali-east-southeast-asia-civil-society-resilience","kind":"grantee","slug":"terali-east-southeast-asia-civil-society-resilience","name":"Terali: East and Southeast Asia Civil Society Resilience","funders":1,"totalUsd":971763,"orgId":null,"size":0.9},{"id":"g:project-phoenix-secure-private-messaging","kind":"grantee","slug":"project-phoenix-secure-private-messaging","name":"Project Phoenix: Secure, Private Messaging","funders":1,"totalUsd":965670,"orgId":null,"size":0.9},{"id":"g:university-oxford","kind":"grantee","slug":"university-oxford","name":"University of Oxford","funders":1,"totalUsd":948154,"orgId":null,"size":0.9},{"id":"g:noscript","kind":"grantee","slug":"noscript","name":"NoScript","funders":1,"totalUsd":945000,"orgId":null,"size":0.9},{"id":"g:fewshot","kind":"grantee","slug":"fewshot","name":"Fewshot Corp","funders":1,"totalUsd":875000,"orgId":null,"size":0.9},{"id":"g:eth-rich","kind":"grantee","slug":"eth-rich","name":"ETH Zürich","funders":1,"totalUsd":836698,"orgId":null,"size":0.9},{"id":"g:iliad","kind":"grantee","slug":"iliad","name":"Iliad","funders":1,"totalUsd":836000,"orgId":null,"size":0.9},{"id":"g:meridian","kind":"grantee","slug":"meridian","name":"Meridian","funders":1,"totalUsd":833734,"orgId":null,"size":0.9},{"id":"g:mailvelope-sustainability","kind":"grantee","slug":"mailvelope-sustainability","name":"Mailvelope Sustainability","funders":1,"totalUsd":829330,"orgId":null,"size":0.9},{"id":"g:tella","kind":"grantee","slug":"tella","name":"Tella","funders":1,"totalUsd":811314,"orgId":null,"size":0.9},{"id":"g:collider","kind":"grantee","slug":"collider","name":"Collider","funders":1,"totalUsd":800000,"orgId":null,"size":0.9},{"id":"g:increasing-internet-security-through-shorter-lived-tls-certi","kind":"grantee","slug":"increasing-internet-security-through-shorter-lived-tls-certi","name":"Increasing Internet Security Through Shorter-Lived TLS Certificates","funders":1,"totalUsd":800000,"orgId":null,"size":0.9},{"id":"g:earendil-security-layers-project","kind":"grantee","slug":"earendil-security-layers-project","name":"Earendil, LLC (Security Layers Project)","funders":1,"totalUsd":778000,"orgId":null,"size":0.9},{"id":"g:american-innovation-fai","kind":"grantee","slug":"american-innovation-fai","name":"Foundation for American Innovation (FAI)","funders":1,"totalUsd":777000,"orgId":null,"size":0.9},{"id":"g:center-ai-safety-action-cais-af","kind":"grantee","slug":"center-ai-safety-action-cais-af","name":"Center for AI Safety Action Fund (CAIS AF)","funders":1,"totalUsd":772000,"orgId":null,"size":0.9},{"id":"g:centre-long-term-resilience","kind":"grantee","slug":"centre-long-term-resilience","name":"Centre for Long-Term Resilience","funders":1,"totalUsd":769000,"orgId":null,"size":0.9},{"id":"g:aether","kind":"grantee","slug":"aether","name":"Aether","funders":1,"totalUsd":756570,"orgId":null,"size":0.9},{"id":"g:centre-governance-ai-govai","kind":"grantee","slug":"centre-governance-ai-govai","name":"Centre for the Governance of AI (GovAI)","funders":1,"totalUsd":756000,"orgId":null,"size":0.9},{"id":"g:university-notre-dame","kind":"grantee","slug":"university-notre-dame","name":"University of Notre Dame","funders":1,"totalUsd":752628,"orgId":null,"size":0.9},{"id":"g:metaculus","kind":"grantee","slug":"metaculus","name":"Metaculus","funders":1,"totalUsd":750000,"orgId":null,"size":0.9},{"id":"g:university-california-santa-cruz","kind":"grantee","slug":"university-california-santa-cruz","name":"University of California, Santa Cruz","funders":1,"totalUsd":744314,"orgId":null,"size":0.9},{"id":"g:chapman-university","kind":"grantee","slug":"chapman-university","name":"Chapman University","funders":1,"totalUsd":733320,"orgId":null,"size":0.9},{"id":"g:defo-sustainability","kind":"grantee","slug":"defo-sustainability","name":"DEfO Sustainability","funders":1,"totalUsd":721958,"orgId":null,"size":0.9},{"id":"g:university-massachusetts-amherst","kind":"grantee","slug":"university-massachusetts-amherst","name":"University of Massachusetts Amherst","funders":1,"totalUsd":719798,"orgId":null,"size":0.9},{"id":"g:alignment-in-complex-systems-research-group-acs-research","kind":"grantee","slug":"alignment-in-complex-systems-research-group-acs-research","name":"Alignment in Complex Systems Research Group (ACS Research)","funders":1,"totalUsd":706000,"orgId":null,"size":0.9},{"id":"g:interseclab","kind":"grantee","slug":"interseclab","name":"InterSecLab","funders":1,"totalUsd":699988,"orgId":null,"size":0.9},{"id":"g:design-from-margins","kind":"grantee","slug":"design-from-margins","name":"Design from the Margins","funders":1,"totalUsd":673232,"orgId":null,"size":0.9},{"id":"g:ovelle-bio","kind":"grantee","slug":"ovelle-bio","name":"Ovelle Bio","funders":1,"totalUsd":667000,"orgId":null,"size":0.9},{"id":"g:saint-louis-university","kind":"grantee","slug":"saint-louis-university","name":"Saint Louis University","funders":1,"totalUsd":654610,"orgId":null,"size":0.9},{"id":"g:university-illinois","kind":"grantee","slug":"university-illinois","name":"University of Illinois","funders":1,"totalUsd":651122,"orgId":null,"size":0.9},{"id":"g:poseidon-research","kind":"grantee","slug":"poseidon-research","name":"Poseidon Research","funders":1,"totalUsd":640200,"orgId":null,"size":0.9},{"id":"g:reproducible-builds-sustainability","kind":"grantee","slug":"reproducible-builds-sustainability","name":"Reproducible Builds Sustainability","funders":1,"totalUsd":640040,"orgId":null,"size":0.9},{"id":"g:rostam-vpn","kind":"grantee","slug":"rostam-vpn","name":"Rostam VPN","funders":1,"totalUsd":640000,"orgId":null,"size":0.9},{"id":"g:university-michigan","kind":"grantee","slug":"university-michigan","name":"University of Michigan","funders":1,"totalUsd":637755,"orgId":null,"size":0.9},{"id":"g:cambridge-in-america","kind":"grantee","slug":"cambridge-in-america","name":"Cambridge in America","funders":1,"totalUsd":628000,"orgId":null,"size":0.9},{"id":"g:bitpart","kind":"grantee","slug":"bitpart","name":"Bitpart","funders":1,"totalUsd":614456,"orgId":null,"size":0.9},{"id":"g:ai-cyber-security-institute","kind":"grantee","slug":"ai-cyber-security-institute","name":"The AI & Cyber Security Institute","funders":1,"totalUsd":612000,"orgId":null,"size":0.9},{"id":"g:robust-multi-protocol-multi-platform-tunneling-with-invisv-m","kind":"grantee","slug":"robust-multi-protocol-multi-platform-tunneling-with-invisv-m","name":"Robust Multi-Protocol, Multi-Platform Tunneling with INVISV MASQUE","funders":1,"totalUsd":610643,"orgId":null,"size":0.9},{"id":"g:alec-radford","kind":"grantee","slug":"alec-radford","name":"Alec Radford","funders":1,"totalUsd":601057,"orgId":null,"size":0.9},{"id":"g:internet-archive","kind":"grantee","slug":"internet-archive","name":"The Internet Archive","funders":1,"totalUsd":600000,"orgId":null,"size":0.9},{"id":"g:civic-ai-security-civai","kind":"grantee","slug":"civic-ai-security-civai","name":"Civic AI Security Program (CivAI)","funders":1,"totalUsd":600000,"orgId":null,"size":0.9},{"id":"g:eisenstat-research","kind":"grantee","slug":"eisenstat-research","name":"Eisenstat Research Program","funders":1,"totalUsd":593000,"orgId":null,"size":0.9},{"id":"g:safe-ai-forum","kind":"grantee","slug":"safe-ai-forum","name":"Safe AI Forum","funders":1,"totalUsd":580000,"orgId":null,"size":0.9},{"id":"g:institute-ai-policy-strategy-iaps","kind":"grantee","slug":"institute-ai-policy-strategy-iaps","name":"The Institute for AI Policy and Strategy (IAPS)","funders":1,"totalUsd":572000,"orgId":null,"size":0.9},{"id":"g:university-vermont","kind":"grantee","slug":"university-vermont","name":"University of Vermont","funders":1,"totalUsd":566253,"orgId":null,"size":0.9},{"id":"g:earendil-standards-infrastructure-project","kind":"grantee","slug":"earendil-standards-infrastructure-project","name":"Earendil, LLC (Standards Infrastructure Project)","funders":1,"totalUsd":564000,"orgId":null,"size":0.9},{"id":"g:medronho","kind":"grantee","slug":"medronho","name":"Medronho","funders":1,"totalUsd":564000,"orgId":null,"size":0.9},{"id":"g:defending-documenting-digital-threats-in-taiwan","kind":"grantee","slug":"defending-documenting-digital-threats-in-taiwan","name":"Defending and Documenting Digital Threats in Taiwan","funders":1,"totalUsd":563785,"orgId":null,"size":0.9},{"id":"g:decentralized-private-dns-lookup-with-quad9","kind":"grantee","slug":"decentralized-private-dns-lookup-with-quad9","name":"Decentralized and private DNS lookup with Quad9","funders":1,"totalUsd":556730,"orgId":null,"size":0.9},{"id":"g:qaul-scaling-usability-trust","kind":"grantee","slug":"qaul-scaling-usability-trust","name":"qaul — Scaling, Usability, and Trust","funders":1,"totalUsd":552195,"orgId":null,"size":0.9},{"id":"g:model-evaluation-threat-research-metr","kind":"grantee","slug":"model-evaluation-threat-research-metr","name":"Model Evaluation & Threat Research (METR)","funders":1,"totalUsd":548000,"orgId":null,"size":0.9},{"id":"g:ohio-state-university","kind":"grantee","slug":"ohio-state-university","name":"Ohio State University","funders":1,"totalUsd":541734,"orgId":null,"size":0.9},{"id":"g:rcbox-extend-east","kind":"grantee","slug":"rcbox-extend-east","name":"RCBox: Extend East","funders":1,"totalUsd":538702,"orgId":null,"size":0.9},{"id":"g:ai-risk-mitigation","kind":"grantee","slug":"ai-risk-mitigation","name":"AI Risk Mitigation Fund","funders":1,"totalUsd":530000,"orgId":null,"size":0.9},{"id":"g:longview-philanthropy","kind":"grantee","slug":"longview-philanthropy","name":"Longview Philanthropy","funders":1,"totalUsd":522000,"orgId":"longview-philanthropy","size":0.9},{"id":"g:tarbell-fellowship","kind":"grantee","slug":"tarbell-fellowship","name":"Tarbell Fellowship","funders":1,"totalUsd":520000,"orgId":null,"size":0.9},{"id":"g:american-innovation","kind":"grantee","slug":"american-innovation","name":"Foundation for American Innovation","funders":1,"totalUsd":518000,"orgId":null,"size":0.9},{"id":"g:encode-ai-corporation","kind":"grantee","slug":"encode-ai-corporation","name":"Encode AI Corporation","funders":1,"totalUsd":516000,"orgId":null,"size":0.9},{"id":"g:ai-standards-holtman-systems-research","kind":"grantee","slug":"ai-standards-holtman-systems-research","name":"AI Standards Lab and Holtman Systems Research","funders":1,"totalUsd":512000,"orgId":null,"size":0.9},{"id":"g:deep-packet-resistance-with-ai-driven-deflect-ceno","kind":"grantee","slug":"deep-packet-resistance-with-ai-driven-deflect-ceno","name":"Deep Packet Resistance with AI-driven Deflect & Ceno","funders":1,"totalUsd":510393,"orgId":null,"size":0.9},{"id":"g:resilient-newnode-messenger-broadcasting-channels","kind":"grantee","slug":"resilient-newnode-messenger-broadcasting-channels","name":"Resilient NewNode Messenger Broadcasting Channels","funders":1,"totalUsd":503420,"orgId":null,"size":0.9},{"id":"g:ambient","kind":"grantee","slug":"ambient","name":"Ambient","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:banyan","kind":"grantee","slug":"banyan","name":"Banyan","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:blocksense","kind":"grantee","slug":"blocksense","name":"Blocksense","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:cambrian","kind":"grantee","slug":"cambrian","name":"Cambrian","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:cork-protocol","kind":"grantee","slug":"cork-protocol","name":"Cork Protocol","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:fermah","kind":"grantee","slug":"fermah","name":"Fermah","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:future-primitive","kind":"grantee","slug":"future-primitive","name":"Future Primitive","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:glider","kind":"grantee","slug":"glider","name":"Glider","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:inco-network","kind":"grantee","slug":"inco-network","name":"Inco Network","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:kuzco","kind":"grantee","slug":"kuzco","name":"Kuzco","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:kyd","kind":"grantee","slug":"kyd","name":"KYD Labs","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:launcher-capital","kind":"grantee","slug":"launcher-capital","name":"Launcher Capital","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:mahojin","kind":"grantee","slug":"mahojin","name":"Mahojin","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:meshmap","kind":"grantee","slug":"meshmap","name":"MeshMap","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:miden","kind":"grantee","slug":"miden","name":"Miden","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:opacity","kind":"grantee","slug":"opacity","name":"Opacity Labs","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:opengradient","kind":"grantee","slug":"opengradient","name":"OpenGradient","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:pin-ai","kind":"grantee","slug":"pin-ai","name":"PIN AI","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:pod","kind":"grantee","slug":"pod","name":"Pod","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:sekai","kind":"grantee","slug":"sekai","name":"Sekai","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:skyfire","kind":"grantee","slug":"skyfire","name":"Skyfire","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:suave","kind":"grantee","slug":"suave","name":"Suave","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:t1","kind":"grantee","slug":"t1","name":"t1","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:taceo","kind":"grantee","slug":"taceo","name":"TACEO","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:term","kind":"grantee","slug":"term","name":"Term Labs","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:toji","kind":"grantee","slug":"toji","name":"Toji","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:vlayer","kind":"grantee","slug":"vlayer","name":"vlayer labs","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:zar","kind":"grantee","slug":"zar","name":"ZAR","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:zkspin","kind":"grantee","slug":"zkspin","name":"zkSpin","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:aces-action-explanation-through-counterfactual-simulation-st","kind":"grantee","slug":"aces-action-explanation-through-counterfactual-simulation-st","name":"ACES: Action Explanation Through Counterfactual Simulation, Stanford University (Tobias Gerstenberg and Dorsa Sadigh)","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:foundations-cooperative-ai-focal-carnegie-mellon-university-","kind":"grantee","slug":"foundations-cooperative-ai-focal-carnegie-mellon-university-","name":"Foundations of Cooperative AI Lab (FOCAL), Carnegie Mellon University (Vincent Conitzer)","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:center-humane-technology","kind":"grantee","slug":"center-humane-technology","name":"Center for Humane Technology","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:redwood-research-group","kind":"grantee","slug":"redwood-research-group","name":"Redwood Research Group, Inc.","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:positive-ai","kind":"grantee","slug":"positive-ai","name":"Positive AI Labs","funders":1,"totalUsd":500000,"orgId":null,"size":0.9},{"id":"g:rochester-institute-technology","kind":"grantee","slug":"rochester-institute-technology","name":"Rochester Institute of Technology","funders":1,"totalUsd":499121,"orgId":null,"size":0.9},{"id":"g:open-data-to-open-knowledge-city-boston","kind":"grantee","slug":"open-data-to-open-knowledge-city-boston","name":"Open Data to Open Knowledge — City of Boston","funders":1,"totalUsd":475000,"orgId":null,"size":0.9},{"id":"g:data-equity-main-street-california-state-library-nevada-stat","kind":"grantee","slug":"data-equity-main-street-california-state-library-nevada-stat","name":"Data Equity for Main Street — California State Library / Nevada State Library / State of Washington Technology Solutions","funders":1,"totalUsd":470000,"orgId":null,"size":0.9},{"id":"g:internet-architecture-in-public-interest","kind":"grantee","slug":"internet-architecture-in-public-interest","name":"Internet Architecture in the Public Interest","funders":1,"totalUsd":469713,"orgId":null,"size":0.9},{"id":"g:center-humane-technology-cht","kind":"grantee","slug":"center-humane-technology-cht","name":"Center for Humane Technology (CHT)","funders":1,"totalUsd":468000,"orgId":null,"size":0.9},{"id":"g:resilient-media-project","kind":"grantee","slug":"resilient-media-project","name":"Resilient Media Project","funders":1,"totalUsd":459145,"orgId":null,"size":0.9},{"id":"g:open-measurement-gatherings","kind":"grantee","slug":"open-measurement-gatherings","name":"Open Measurement Gatherings","funders":1,"totalUsd":453919,"orgId":null,"size":0.9},{"id":"g:openvpn-community-maintenance-sustainability","kind":"grantee","slug":"openvpn-community-maintenance-sustainability","name":"OpenVPN Community Maintenance and Sustainability","funders":1,"totalUsd":452524,"orgId":null,"size":0.9},{"id":"g:columbia-university","kind":"grantee","slug":"columbia-university","name":"Columbia University","funders":1,"totalUsd":451159,"orgId":null,"size":0.9},{"id":"g:weighing-wisdom-crowd-orb-media","kind":"grantee","slug":"weighing-wisdom-crowd-orb-media","name":"Weighing the Wisdom of the Crowd — Orb Media","funders":1,"totalUsd":450000,"orgId":null,"size":0.9},{"id":"g:cooperation-negotiation-in-large-language-models-university-","kind":"grantee","slug":"cooperation-negotiation-in-large-language-models-university-","name":"Cooperation and Negotiation in Large Language Models, University of Washington and UC Berkeley (Natasha Jaques and Sergey Levine)","funders":1,"totalUsd":450000,"orgId":null,"size":0.9},{"id":"g:all-places-personal-data-goes-institute-quantitative-social-","kind":"grantee","slug":"all-places-personal-data-goes-institute-quantitative-social-","name":"All the Places Personal Data Goes — Institute for Quantitative Social Science, Harvard University","funders":1,"totalUsd":440000,"orgId":null,"size":0.9},{"id":"g:king-college-london","kind":"grantee","slug":"king-college-london","name":"King's College London","funders":1,"totalUsd":439725,"orgId":null,"size":0.9},{"id":"g:topos-institute","kind":"grantee","slug":"topos-institute","name":"Topos Institute","funders":1,"totalUsd":433000,"orgId":null,"size":0.9},{"id":"g:fake-antenna-detection-project","kind":"grantee","slug":"fake-antenna-detection-project","name":"Fake Antenna Detection Project","funders":1,"totalUsd":424144,"orgId":null,"size":0.9},{"id":"g:global-shield","kind":"grantee","slug":"global-shield","name":"Global Shield","funders":1,"totalUsd":424000,"orgId":null,"size":0.9},{"id":"g:publicbits-breaking-down-open-data-silos-open-data","kind":"grantee","slug":"publicbits-breaking-down-open-data-silos-open-data","name":"PublicBits: Breaking Down Open Data Silos — U.S. Open Data","funders":1,"totalUsd":420000,"orgId":null,"size":0.9},{"id":"g:dcomms","kind":"grantee","slug":"dcomms","name":"dComms","funders":1,"totalUsd":416434,"orgId":null,"size":0.9},{"id":"g:saferai","kind":"grantee","slug":"saferai","name":"SaferAI","funders":1,"totalUsd":406000,"orgId":null,"size":0.9},{"id":"g:citizens-police-data-project-experimental-station-invisible-","kind":"grantee","slug":"citizens-police-data-project-experimental-station-invisible-","name":"Citizens Police Data Project — The Experimental Station / The Invisible Institute","funders":1,"totalUsd":400000,"orgId":null,"size":0.9},{"id":"sys:ai-safety","kind":"system","name":"AI Safety & Existential Risk Funding","size":9.363961030678928,"memberCount":18},{"id":"sys:arbitrum","kind":"system","name":"Arbitrum","size":5.121320343559643,"memberCount":2},{"id":"sys:cardano","kind":"system","name":"Cardano","size":4.5,"memberCount":1},{"id":"sys:climate","kind":"system","name":"Climate Funding","size":5.598076211353316,"memberCount":3},{"id":"sys:ethereum","kind":"system","name":"Ethereum","size":9.87386354243376,"memberCount":21},{"id":"sys:eu-public-rd","kind":"system","name":"EU & European Public R&D","size":6,"memberCount":4},{"id":"sys:filecoin","kind":"system","name":"Filecoin / Protocol Labs","size":5.121320343559643,"memberCount":2},{"id":"sys:global-health","kind":"system","name":"Global Health Funding","size":6,"memberCount":4},{"id":"sys:internet-freedom","kind":"system","name":"Internet Freedom & Digital Rights","size":6.354101966249685,"memberCount":5},{"id":"sys:japan-public-rd","kind":"system","name":"Japan Public R&D","size":5.121320343559643,"memberCount":2},{"id":"sys:open-source-ai","kind":"system","name":"Open-Source AI","size":7.5,"memberCount":9},{"id":"sys:oss-sustainability","kind":"system","name":"Open-Source Sustainability","size":11.351646544245032,"memberCount":31},{"id":"sys:optimism","kind":"system","name":"Optimism","size":4.5,"memberCount":1},{"id":"sys:sovereign-tech","kind":"system","name":"Sovereign Tech & Public-Interest Digital Infrastructure","size":5.598076211353316,"memberCount":3},{"id":"sys:stacks","kind":"system","name":"Stacks","size":5.121320343559643,"memberCount":2},{"id":"sys:stellar","kind":"system","name":"Stellar","size":5.121320343559643,"memberCount":2},{"id":"sys:sui","kind":"system","name":"Sui","size":5.121320343559643,"memberCount":2},{"id":"sys:uk-public-rd","kind":"system","name":"UK Public R&D","size":6.354101966249685,"memberCount":5},{"id":"sys:us-federal-rd","kind":"system","name":"US Federal R&D","size":7.9749371855331,"memberCount":11},{"id":"sys:web3-public-goods","kind":"system","name":"Web3 Public Goods Funding","size":6.354101966249685,"memberCount":5},{"id":"sys:xrpl","kind":"system","name":"XRP Ledger","size":5.121320343559643,"memberCount":2}],"links":[{"source":"frontier-model-forum","target":"g:far-ai","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:far-ai","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:far-ai","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:far-ai","weight":2,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:berkeley-existential-risk-initiative","weight":1,"kind":"award"},{"source":"long-term-future-fund","target":"g:berkeley-existential-risk-initiative","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:berkeley-existential-risk-initiative","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:berkeley-existential-risk-initiative","weight":1,"kind":"award"},{"source":"frontier-model-forum","target":"g:securebio","weight":2,"kind":"award"},{"source":"long-term-future-fund","target":"g:securebio","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:securebio","weight":2,"kind":"award"},{"source":"frontier-model-forum","target":"g:stanford-university","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:stanford-university","weight":4,"kind":"award"},{"source":"gitcoin","target":"g:tor-project","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:tor-project","weight":4,"kind":"award"},{"source":"manifund-ai-safety-regranting","target":"g:lightcone-infrastructure","weight":3,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:lightcone-infrastructure","weight":2,"kind":"award"},{"source":"frontier-model-forum","target":"g:apollo-research","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:apollo-research","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:center-ai-safety","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:center-ai-safety","weight":2,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:foresight-institute","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:foresight-institute","weight":2,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:future-society","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:future-society","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:oxford-china-policy","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:oxford-china-policy","weight":2,"kind":"award"},{"source":"long-term-future-fund","target":"g:palisade-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:palisade-research","weight":2,"kind":"award"},{"source":"manifund-ai-safety-regranting","target":"g:tarbell-center-ai-journalism","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:tarbell-center-ai-journalism","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:code-science-society","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:code-science-society","weight":2,"kind":"award"},{"source":"mozilla-foundation","target":"g:python-software","weight":2,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:python-software","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:boston-university","weight":2,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:boston-university","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:northeastern-university","weight":2,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:northeastern-university","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:rethink-priorities","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:rethink-priorities","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:simon-institute-longterm-governance","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:simon-institute-longterm-governance","weight":2,"kind":"award"},{"source":"google-chrome","target":"g:svelte","weight":1,"kind":"award"},{"source":"github","target":"g:svelte","weight":1,"kind":"award"},{"source":"responsible-technology-youth-power-fund","target":"g:encode-justice","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:encode-justice","weight":1,"kind":"award"},{"source":"arbitrum-foundation","target":"g:openocean","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:openocean","weight":1,"kind":"award"},{"source":"omidyar-network","target":"g:collective-intelligence-project","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:collective-intelligence-project","weight":1,"kind":"award"},{"source":"arbitrum-foundation","target":"g:giveth","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:giveth","weight":1,"kind":"award"},{"source":"arbitrum-foundation","target":"g:stargate-finance","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:stargate-finance","weight":1,"kind":"award"},{"source":"arbitrum-foundation","target":"g:woofi","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:woofi","weight":1,"kind":"award"},{"source":"responsible-technology-youth-power-fund","target":"g:encode","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:encode","weight":1,"kind":"award"},{"source":"ethereum-foundation","target":"g:ethstaker","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:ethstaker","weight":1,"kind":"award"},{"source":"ethereum-foundation","target":"g:edge-city","weight":1,"kind":"award"},{"source":"uniswap-foundation","target":"g:edge-city","weight":1,"kind":"award"},{"source":"coinbase-developer-platform","target":"g:hydrex","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:hydrex","weight":1,"kind":"award"},{"source":"stellar-community-fund","target":"g:rubic","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:rubic","weight":1,"kind":"award"},{"source":"frontier-model-forum","target":"g:university-toronto","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-toronto","weight":1,"kind":"award"},{"source":"ethereum-foundation","target":"g:l2beat","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:l2beat","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:dot","weight":1,"kind":"award"},{"source":"solana-foundation","target":"g:dot","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:oro","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:oro","weight":1,"kind":"award"},{"source":"frontier-model-forum","target":"g:openmined","weight":1,"kind":"award"},{"source":"foresight-institute","target":"g:openmined","weight":1,"kind":"award"},{"source":"cooperative-ai-foundation","target":"g:chandler-smith-cooperative-ai","weight":1,"kind":"award"},{"source":"foresight-institute","target":"g:chandler-smith-cooperative-ai","weight":1,"kind":"award"},{"source":"foresight-institute","target":"g:apart-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:apart-research","weight":1,"kind":"award"},{"source":"foresight-institute","target":"g:mats-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:mats-research","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:ai-objectives-institute","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ai-objectives-institute","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:alignment-research-center","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:alignment-research-center","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:defillama","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:defillama","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:ethers-js","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:ethers-js","weight":1,"kind":"award"},{"source":"gitcoin","target":"g:gardens","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:gardens","weight":1,"kind":"award"},{"source":"github","target":"g:babel","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:babel","weight":1,"kind":"award"},{"source":"github","target":"g:codecarbon","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:codecarbon","weight":1,"kind":"award"},{"source":"github","target":"g:curl","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:curl","weight":1,"kind":"award"},{"source":"github","target":"g:foundry","weight":1,"kind":"award"},{"source":"optimism-foundation","target":"g:foundry","weight":1,"kind":"award"},{"source":"github","target":"g:junit","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:junit","weight":1,"kind":"award"},{"source":"github","target":"g:llvm","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:llvm","weight":1,"kind":"award"},{"source":"github","target":"g:log4j","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:log4j","weight":1,"kind":"award"},{"source":"github","target":"g:mastodon","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:mastodon","weight":1,"kind":"award"},{"source":"github","target":"g:rustls","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:rustls","weight":1,"kind":"award"},{"source":"github","target":"g:webpack","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:webpack","weight":1,"kind":"award"},{"source":"long-term-future-fund","target":"g:alignment-ecosystem-development","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:alignment-ecosystem-development","weight":1,"kind":"award"},{"source":"long-term-future-fund","target":"g:john-wentworth","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:john-wentworth","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:openjs","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:openjs","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:processing","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:processing","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:let-encrypt","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:let-encrypt","weight":1,"kind":"award"},{"source":"mozilla-foundation","target":"g:freebsd","weight":1,"kind":"award"},{"source":"sovereign-tech-agency","target":"g:freebsd","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:alignment-complex-systems-research-group","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:alignment-complex-systems-research-group","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:carnegie-mellon-university","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:carnegie-mellon-university","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:decode-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:decode-research","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:ilina","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ilina","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:simplex","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:simplex","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:timaeus-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:timaeus-research","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:centre-governance-ai","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:psiphon","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:redwood-research","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:nthlink","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:rand-corporation","weight":2,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:lantern","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:various-individuals-organizations","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:convergent-research","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:ai-verification-evaluation-research-institute-averi","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:centre-public-impact-north-america-beeck-center-social-impac","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:improve-news","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:george-washington-university","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ai-futures-project","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:harvard-university","weight":5,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:university-california-santa-cruz-uc-ospo-network","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:international-association-safe-ethical-ai-iaseai","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:centre-long-term-resilience-cltr","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ai-policy-institute-aipi","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:securedna","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:center-ai-safety-action","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:machine-intelligence-research-institute-miri","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:federation-american-scientists-fas","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:amodo-design","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:wise-ancestors","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:university-maryland","weight":4,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:university-california-at-berkeley-ai-policy-hub","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:university-california-berkeley","weight":4,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:rand-corporation-technology-security-policy-center","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:principles-intelligent-behavior-in-biological-social-systems","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:code-america-local-brigade-chapters","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:foresight-institute-existential-hope-project","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:university-cambridge-centre-study-existential-risk-cser","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:ellis-institute-bingen","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:open-source-hardware-association","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:tails","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:terali-east-southeast-asia-civil-society-resilience","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:project-phoenix-secure-private-messaging","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-oxford","weight":3,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:noscript","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:fewshot","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:eth-rich","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:iliad","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:meridian","weight":2,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:mailvelope-sustainability","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:tella","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:collider","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:increasing-internet-security-through-shorter-lived-tls-certi","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:earendil-security-layers-project","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:american-innovation-fai","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:center-ai-safety-action-cais-af","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:centre-long-term-resilience","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:aether","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:centre-governance-ai-govai","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-notre-dame","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:metaculus","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:university-california-santa-cruz","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:chapman-university","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:defo-sustainability","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-massachusetts-amherst","weight":2,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:alignment-in-complex-systems-research-group-acs-research","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:interseclab","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:design-from-margins","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ovelle-bio","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:saint-louis-university","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-illinois","weight":2,"kind":"award"},{"source":"open-philanthropy","target":"g:poseidon-research","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:reproducible-builds-sustainability","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:rostam-vpn","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:university-michigan","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:cambridge-in-america","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:bitpart","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:ai-cyber-security-institute","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:robust-multi-protocol-multi-platform-tunneling-with-invisv-m","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:alec-radford","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:internet-archive","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:civic-ai-security-civai","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:eisenstat-research","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:safe-ai-forum","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:institute-ai-policy-strategy-iaps","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:university-vermont","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:earendil-standards-infrastructure-project","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:medronho","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:defending-documenting-digital-threats-in-taiwan","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:decentralized-private-dns-lookup-with-quad9","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:qaul-scaling-usability-trust","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:model-evaluation-threat-research-metr","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:ohio-state-university","weight":2,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:rcbox-extend-east","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ai-risk-mitigation","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:longview-philanthropy","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:tarbell-fellowship","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:american-innovation","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:encode-ai-corporation","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:ai-standards-holtman-systems-research","weight":2,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:deep-packet-resistance-with-ai-driven-deflect-ceno","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:resilient-newnode-messenger-broadcasting-channels","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:ambient","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:banyan","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:blocksense","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:cambrian","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:cork-protocol","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:fermah","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:future-primitive","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:glider","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:inco-network","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:kuzco","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:kyd","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:launcher-capital","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:mahojin","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:meshmap","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:miden","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:opacity","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:opengradient","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:pin-ai","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:pod","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:sekai","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:skyfire","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:suave","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:t1","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:taceo","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:term","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:toji","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:vlayer","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:zar","weight":1,"kind":"award"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"g:zkspin","weight":1,"kind":"award"},{"source":"cooperative-ai-foundation","target":"g:aces-action-explanation-through-counterfactual-simulation-st","weight":1,"kind":"award"},{"source":"cooperative-ai-foundation","target":"g:foundations-cooperative-ai-focal-carnegie-mellon-university-","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:center-humane-technology","weight":1,"kind":"award"},{"source":"future-of-life-institute-fli","target":"g:redwood-research-group","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:positive-ai","weight":1,"kind":"award"},{"source":"sloan-foundation-tech-oss","target":"g:rochester-institute-technology","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:open-data-to-open-knowledge-city-boston","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:data-equity-main-street-california-state-library-nevada-stat","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:internet-architecture-in-public-interest","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:center-humane-technology-cht","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:resilient-media-project","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:open-measurement-gatherings","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:openvpn-community-maintenance-sustainability","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:columbia-university","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:weighing-wisdom-crowd-orb-media","weight":1,"kind":"award"},{"source":"cooperative-ai-foundation","target":"g:cooperation-negotiation-in-large-language-models-university-","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:all-places-personal-data-goes-institute-quantitative-social-","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"g:king-college-london","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:topos-institute","weight":2,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:fake-antenna-detection-project","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:global-shield","weight":1,"kind":"award"},{"source":"knight-foundation","target":"g:publicbits-breaking-down-open-data-silos-open-data","weight":1,"kind":"award"},{"source":"free-and-open-source-software-sustainability-fund","target":"g:dcomms","weight":1,"kind":"award"},{"source":"survival-and-flourishing-fund-sff","target":"g:saferai","weight":2,"kind":"award"},{"source":"knight-foundation","target":"g:citizens-police-data-project-experimental-station-invisible-","weight":1,"kind":"award"},{"source":"open-philanthropy","target":"survival-and-flourishing-fund-sff","weight":9,"kind":"cofunding"},{"source":"future-of-life-institute-fli","target":"survival-and-flourishing-fund-sff","weight":8,"kind":"cofunding"},{"source":"github","target":"sovereign-tech-agency","weight":6,"kind":"cofunding"},{"source":"long-term-future-fund","target":"survival-and-flourishing-fund-sff","weight":5,"kind":"cofunding"},{"source":"mozilla-foundation","target":"sovereign-tech-agency","weight":5,"kind":"cofunding"},{"source":"frontier-model-forum","target":"open-philanthropy","weight":3,"kind":"cofunding"},{"source":"frontier-model-forum","target":"survival-and-flourishing-fund-sff","weight":3,"kind":"cofunding"},{"source":"open-philanthropy","target":"sloan-foundation-tech-oss","weight":3,"kind":"cofunding"},{"source":"arbitrum-foundation","target":"optimism-foundation","weight":3,"kind":"cofunding"},{"source":"gitcoin","target":"optimism-foundation","weight":3,"kind":"cofunding"},{"source":"github","target":"mozilla-foundation","weight":3,"kind":"cofunding"},{"source":"future-of-life-institute-fli","target":"open-philanthropy","weight":2,"kind":"cofunding"},{"source":"manifund-ai-safety-regranting","target":"survival-and-flourishing-fund-sff","weight":2,"kind":"cofunding"},{"source":"ethereum-foundation","target":"gitcoin","weight":2,"kind":"cofunding"},{"source":"foresight-institute","target":"survival-and-flourishing-fund-sff","weight":2,"kind":"cofunding"},{"source":"frontier-model-forum","target":"future-of-life-institute-fli","weight":1,"kind":"cofunding"},{"source":"future-of-life-institute-fli","target":"long-term-future-fund","weight":1,"kind":"cofunding"},{"source":"long-term-future-fund","target":"open-philanthropy","weight":1,"kind":"cofunding"},{"source":"frontier-model-forum","target":"long-term-future-fund","weight":1,"kind":"cofunding"},{"source":"gitcoin","target":"mozilla-foundation","weight":1,"kind":"cofunding"},{"source":"mozilla-foundation","target":"sloan-foundation-tech-oss","weight":1,"kind":"cofunding"},{"source":"github","target":"google-chrome","weight":1,"kind":"cofunding"},{"source":"responsible-technology-youth-power-fund","target":"survival-and-flourishing-fund-sff","weight":1,"kind":"cofunding"},{"source":"future-of-life-institute-fli","target":"omidyar-network","weight":1,"kind":"cofunding"},{"source":"arbitrum-foundation","target":"gitcoin","weight":1,"kind":"cofunding"},{"source":"future-of-life-institute-fli","target":"responsible-technology-youth-power-fund","weight":1,"kind":"cofunding"},{"source":"ethereum-foundation","target":"uniswap-foundation","weight":1,"kind":"cofunding"},{"source":"coinbase-developer-platform","target":"optimism-foundation","weight":1,"kind":"cofunding"},{"source":"optimism-foundation","target":"stellar-community-fund","weight":1,"kind":"cofunding"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"solana-foundation","weight":1,"kind":"cofunding"},{"source":"a16z-crypto-csx-crypto-startup-accelerator","target":"optimism-foundation","weight":1,"kind":"cofunding"},{"source":"foresight-institute","target":"frontier-model-forum","weight":1,"kind":"cofunding"},{"source":"cooperative-ai-foundation","target":"foresight-institute","weight":1,"kind":"cofunding"},{"source":"github","target":"optimism-foundation","weight":1,"kind":"cofunding"},{"source":"1inch-network","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"aave","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"acquia-fair-trade-initiative","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"afwerx","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"ai-grant","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"ai-security-institute","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"ai-security-institute","target":"sys:uk-public-rd","weight":1,"kind":"system"},{"source":"alan-turing-institute","target":"sys:uk-public-rd","weight":1,"kind":"system"},{"source":"sloan-foundation-tech-oss","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"alibaba-qwen","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"apache-software-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"apereo-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"arbitrum-foundation","target":"sys:arbitrum","weight":1,"kind":"system"},{"source":"aria","target":"sys:uk-public-rd","weight":1,"kind":"system"},{"source":"arpa-h-advanced-research-projects-agency-for-health","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"barda-biomedical-advanced-research-and-development-authority","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"base-coinbase","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"berkeley-existential-risk-initiative-beri","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"bezos-earth-fund","target":"sys:climate","weight":1,"kind":"system"},{"source":"bill-and-melinda-gates-foundation","target":"sys:global-health","weight":1,"kind":"system"},{"source":"bluedot-impact","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"cardano-foundation","target":"sys:cardano","weight":1,"kind":"system"},{"source":"celo","target":"sys:web3-public-goods","weight":1,"kind":"system"},{"source":"center-for-ai-safety","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"cepi-coalition-for-epidemic-preparedness-innovations","target":"sys:global-health","weight":1,"kind":"system"},{"source":"chan-zuckerberg-initiative","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"climateworks-foundation","target":"sys:climate","weight":1,"kind":"system"},{"source":"cloud-native-computing-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"coefficient-giving","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"coinbase-developer-platform","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"compound-dao","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"cooperative-ai-foundation","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"darpa-dice","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"digital-freedom-fund","target":"sys:internet-freedom","weight":1,"kind":"system"},{"source":"drupal-association","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"ecmwf","target":"sys:eu-public-rd","weight":1,"kind":"system"},{"source":"eleutherai","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"entropy-advisors","target":"sys:arbitrum","weight":1,"kind":"system"},{"source":"ethereum-foundation","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"etherfi","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"eu-horizon-europe","target":"sys:eu-public-rd","weight":1,"kind":"system"},{"source":"european-high-performance-computing-joint-undertaking","target":"sys:eu-public-rd","weight":1,"kind":"system"},{"source":"far-ai","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"filecoin-foundation","target":"sys:filecoin","weight":1,"kind":"system"},{"source":"floss-fund","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"ford-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"foresight-institute","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"foss-sustainability-fund","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"foss-united","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"free-and-open-source-software-sustainability-fund","target":"sys:internet-freedom","weight":1,"kind":"system"},{"source":"free-and-open-source-software-sustainability-fund","target":"sys:sovereign-tech","weight":1,"kind":"system"},{"source":"free-software-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"freebsd-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"freecad-project-association","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"frontier-model-forum","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"future-of-life-institute-fli","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"gavi-the-vaccine-alliance","target":"sys:global-health","weight":1,"kind":"system"},{"source":"gitcoin","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"gitcoin","target":"sys:web3-public-goods","weight":1,"kind":"system"},{"source":"github","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"gnosis-dao","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"gooddollar","target":"sys:web3-public-goods","weight":1,"kind":"system"},{"source":"google-chrome","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"google-summer-of-code","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"graph-foundation","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"hrf-ai-for-individual-rights-fund","target":"sys:internet-freedom","weight":1,"kind":"system"},{"source":"hugging-face","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"japan-science-and-technology-agency-jst","target":"sys:japan-public-rd","weight":1,"kind":"system"},{"source":"kelpdao","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"lido","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"linea-consensys","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"linux-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"long-term-future-fund","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"longview-philanthropy","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"manifund-ai-safety-regranting","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"mantle-foundation","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"meta-llama-impact-grants","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"meta-open-source","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"microsoft-foss-fund","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"mistral-ai","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"moonshot-ai-kimi","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"mozilla-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"national-institutes-of-health","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"national-science-foundation","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"new-energy-and-industrial-technology-development-organizatio","target":"sys:japan-public-rd","weight":1,"kind":"system"},{"source":"nist","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"nlnet-foundation","target":"sys:eu-public-rd","weight":1,"kind":"system"},{"source":"nlnet-foundation","target":"sys:sovereign-tech","weight":1,"kind":"system"},{"source":"nsf-graduate-research-fellowship-program","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"nsf-sbir-sttr","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"numfocus","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"obol","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"octant","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"octant","target":"sys:web3-public-goods","weight":1,"kind":"system"},{"source":"olmo-open-language-model","target":"sys:open-source-ai","weight":1,"kind":"system"},{"source":"open-philanthropy","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"open-society-foundations","target":"sys:internet-freedom","weight":1,"kind":"system"},{"source":"open-source-collective","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"open-source-endowment","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"openssf-technical-initiative-funding","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"optimism-foundation","target":"sys:optimism","weight":1,"kind":"system"},{"source":"optimism-foundation","target":"sys:web3-public-goods","weight":1,"kind":"system"},{"source":"patch-the-planet","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"php-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"polygon","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"protocol-labs","target":"sys:filecoin","weight":1,"kind":"system"},{"source":"schmidt-sciences","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"seri-mats-mats-program","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"skale-network","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"software-freedom-conservancy","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"sovereign-tech-agency","target":"sys:sovereign-tech","weight":1,"kind":"system"},{"source":"spotify","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"stacks-endowment","target":"sys:stacks","weight":1,"kind":"system"},{"source":"stacks-foundation","target":"sys:stacks","weight":1,"kind":"system"},{"source":"starknet-foundation","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"stellar-community-fund","target":"sys:stellar","weight":1,"kind":"system"},{"source":"stellar-development-foundation","target":"sys:stellar","weight":1,"kind":"system"},{"source":"stripe-climate","target":"sys:climate","weight":1,"kind":"system"},{"source":"sui-foundation","target":"sys:sui","weight":1,"kind":"system"},{"source":"survival-and-flourishing-fund-sff","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"taiko-grant-program","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"the-genesis-mission","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"the-perl-raku-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"tor-project","target":"sys:internet-freedom","weight":1,"kind":"system"},{"source":"uk-ai-security-institute-aisi","target":"sys:ai-safety","weight":1,"kind":"system"},{"source":"uk-ai-security-institute-aisi","target":"sys:uk-public-rd","weight":1,"kind":"system"},{"source":"uk-research-and-innovation","target":"sys:uk-public-rd","weight":1,"kind":"system"},{"source":"uniswap-foundation","target":"sys:ethereum","weight":1,"kind":"system"},{"source":"unitary-foundation","target":"sys:oss-sustainability","weight":1,"kind":"system"},{"source":"us-department-of-education","target":"sys:us-federal-rd","weight":1,"kind":"system"},{"source":"walrus-foundation","target":"sys:sui","weight":1,"kind":"system"},{"source":"wellcome-trust","target":"sys:global-health","weight":1,"kind":"system"},{"source":"xrpl","target":"sys:xrpl","weight":1,"kind":"system"},{"source":"xrpl-accelerator","target":"sys:xrpl","weight":1,"kind":"system"},{"source":"zhipu-ai-glm","target":"sys:open-source-ai","weight":1,"kind":"system"}]}
+</script>
+
+<!-- classic (non-module) scripts throughout — file:// pages can't fetch
+     ES module imports under Chrome's CORS rules, so three.js here is a
+     hand-repackaged classic build (see vendor/three.classic.js) instead of
+     the stock ESM one -->
+<script src="./vendor/three.classic.js"></script>
+<script src="./vendor/3d-force-graph.min.js"></script>
+
+<script>
+(async function () {
+
+const THREE = window.THREE;
+const ForceGraph3D = window.ForceGraph3D;
+
+const RAW = JSON.parse(document.getElementById('graph-data').textContent);
+
+const PAPER = 0xf6f5f1;
+const INK = 0x1a1d27;
+const GRAPHITE = 0x3a3d47;
+const GOLD = 0x8a6414;
+
+const WIRE_COLOR = {
+  crypto: 0xa9895a, // ceramic desaturated toward paper
+  ai: 0x8b7ec4,
+  oss: 0x6fa3ac,
+};
+const WIRE_COLOR_HEX = {
+  crypto: '#96660f',
+  ai: '#6847d8',
+  oss: '#0983a1',
+};
+
+function colorForNode(node) {
+  if (node.kind === 'grantee') return GRAPHITE;
+  if (node.kind === 'system') return INK;
+  return WIRE_COLOR[node.wire] || 0x8f8a7c;
+}
+
+// ---- build adjacency for hover highlighting ----
+const nodeById = new Map(RAW.nodes.map((n) => [n.id, n]));
+const neighborMap = new Map(); // id -> Set(neighbor ids)
+const linkKey = (l) => `${l.source}__${l.target}`;
+RAW.links.forEach((l) => {
+  if (!neighborMap.has(l.source)) neighborMap.set(l.source, new Set());
+  if (!neighborMap.has(l.target)) neighborMap.set(l.target, new Set());
+  neighborMap.get(l.source).add(l.target);
+  neighborMap.get(l.target).add(l.source);
+});
+
+// ---- top 6 funders get permanent labels ----
+const topFunders = RAW.nodes
+  .filter((n) => n.kind === 'org')
+  .sort((a, b) => b.size - a.size)
+  .slice(0, 6);
+const topFunderIds = new Set(topFunders.map((n) => n.id));
+
+// ---- sizing ----
+const RADIUS_SCALE_ORG = 2.1;
+const RADIUS_SCALE_GRANTEE = 1.7;
+function radiusFor(node) {
+  if (node.kind === 'system') return 0.001; // system nodes render as flat rings only
+  if (node.kind === 'grantee') return node.size * RADIUS_SCALE_GRANTEE;
+  return node.size * RADIUS_SCALE_ORG;
+}
+
+const nodeObjIndex = new Map(); // id -> { group, sphere }
+
+function makeSystemRing(node) {
+  const group = new THREE.Group();
+  const r = 3 + Math.sqrt(node.memberCount || 1) * 1.6;
+  const geo = new THREE.TorusGeometry(r, 0.11, 8, 48);
+  const mat = new THREE.MeshStandardMaterial({ color: INK, roughness: 0.9, metalness: 0, transparent: true, opacity: 0.5 });
+  const ring = new THREE.Mesh(geo, mat);
+  ring.rotation.x = Math.PI / 2;
+  group.add(ring);
+  return group;
+}
+
+function makeBodyGroup(node) {
+  const group = new THREE.Group();
+  const r = radiusFor(node);
+  const isOrg = node.kind === 'org';
+  const geo = new THREE.SphereGeometry(r, isOrg ? 20 : 12, isOrg ? 16 : 10);
+  const mat = new THREE.MeshStandardMaterial({
+    color: colorForNode(node),
+    roughness: 0.86,
+    metalness: 0.04,
+  });
+  const sphere = new THREE.Mesh(geo, mat);
+  sphere.userData.baseColor = colorForNode(node);
+  group.add(sphere);
+
+  if (isOrg && node.live) {
+    const ringR = r * 1.7;
+    const ringGeo = new THREE.TorusGeometry(ringR, r * 0.045, 8, 40);
+    const ringMat = new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0.55, metalness: 0.35 });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 2 + 0.32;
+    ring.rotation.y = 0.18;
+    group.add(ring);
+  }
+
+  nodeObjIndex.set(node.id, { group, sphere });
+  return group;
+}
+
+function nodeThreeObject(node) {
+  if (node.kind === 'system') return makeSystemRing(node);
+  return makeBodyGroup(node);
+}
+
+// ---- link material ----
+function baseOpacityFor(link) {
+  if (link.kind === 'system') return 0.07 + Math.min(link.weight, 4) * 0.008;
+  if (link.kind === 'cofunding') return 0.16 + Math.min(link.weight, 6) * 0.02;
+  return 0.10 + Math.min(link.weight, 6) * 0.018; // award
+}
+
+let hoverNodeId = null;
+
+function linkMaterialFor(link) {
+  const s = typeof link.source === 'object' ? link.source.id : link.source;
+  const t = typeof link.target === 'object' ? link.target.id : link.target;
+  let color = INK;
+  let opacity = baseOpacityFor(link);
+  if (hoverNodeId && (s === hoverNodeId || t === hoverNodeId)) {
+    const hoverNode = nodeById.get(hoverNodeId);
+    color = colorForNode(hoverNode);
+    opacity = 0.62;
+  } else if (hoverNodeId) {
+    opacity *= 0.35;
+  }
+  return new THREE.LineBasicMaterial({ color, transparent: true, opacity });
+}
+
+const container = document.getElementById('viewport');
+// the container is sized in vh, resolved only after layout; read its real
+// box explicitly and pass it in, otherwise the renderer's canvas can lock
+// onto a stale/full-window size instead of the actual 75vh box
+const initRect = container.getBoundingClientRect();
+const Graph = ForceGraph3D()(container)
+  .width(initRect.width)
+  .height(initRect.height)
+  .graphData(RAW)
+  .backgroundColor('#f6f5f1')
+  .showNavInfo(false)
+  .nodeThreeObject(nodeThreeObject)
+  .nodeThreeObjectExtend(false)
+  .linkMaterial(linkMaterialFor)
+  .linkCurvature(0)
+  .nodeLabel((n) => {
+    if (n.kind === 'system') {
+      return `<div><b>${escapeHtml(n.name)}</b><br>System · ${n.memberCount} funders anchored</div>`;
+    }
+    if (n.kind === 'grantee') {
+      const usd = n.totalUsd ? `$${Math.round(n.totalUsd).toLocaleString()}` : 'undisclosed';
+      return `<div><b>${escapeHtml(n.name)}</b><br>Grantee · ${n.funders} funder${n.funders === 1 ? '' : 's'} · ${usd}</div>`;
+    }
+    const usd = n.totalUsd ? `$${Math.round(n.totalUsd).toLocaleString()}` : 'undisclosed';
+    return `<div><b>${escapeHtml(n.name)}</b><br>Funder${n.live ? ' · live round' : ''} · ${n.awards} awards · ${usd}</div>`;
+  })
+  .onNodeHover(handleHover)
+  .onNodeClick((n) => console.log('[specimen] clicked', n.id, n.name))
+  .enableNodeDrag(false)
+  .cooldownTicks(160)
+  .cooldownTime(4000)
+  .warmupTicks(80);
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ---- forces: compact the sculpture into one mass, not separate wire-lobes ----
+Graph.d3Force('charge').strength(-28).distanceMax(210);
+Graph.d3Force('link')
+  .distance((l) => (l.kind === 'system' ? 24 : l.kind === 'cofunding' ? 17 : 11))
+  .strength((l) => (l.kind === 'system' ? 0.55 : l.kind === 'cofunding' ? 0.5 : 0.85));
+Graph.d3Force('center').strength(1);
+Graph.d3AlphaDecay(0.035);
+Graph.d3VelocityDecay(0.42);
+
+// ---- scene: fog + matte lighting ----
+const scene = Graph.scene();
+scene.fog = new THREE.Fog(PAPER, 260, 1900);
+// strip default lights, add our own soft hemisphere + warm key light
+[...scene.children].forEach((c) => { if (c.isLight) scene.remove(c); });
+const hemi = new THREE.HemisphereLight(0xffffff, 0xd8d4c4, 1.15);
+scene.add(hemi);
+const key = new THREE.DirectionalLight(0xfff1d8, 1.35);
+key.position.set(180, 260, 220);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xe7e9f2, 0.45);
+fill.position.set(-220, 80, -180);
+scene.add(fill);
+
+const renderer = Graph.renderer();
+renderer.setClearColor(PAPER, 1);
+
+window.addEventListener('resize', () => {
+  const r = container.getBoundingClientRect();
+  Graph.width(r.width).height(r.height);
+});
+
+// ---- camera: high three-quarter, framed to fill ----
+Graph.cameraPosition({ x: 340, y: 230, z: 340 }, { x: 0, y: -4, z: 0 }, 0);
+
+// ---- auto-rotate until interaction ----
+let autoRotate = true;
+let angle = Math.atan2(340, 340);
+let orbitRadiusXZ = Math.hypot(340, 340);
+let orbitY = 230;
+let orbitCenter = { x: 0, y: 0, z: 0 };
+let rotateHandle = setInterval(() => {
+  if (!autoRotate) return;
+  angle += 0.0016;
+  Graph.cameraPosition({
+    x: orbitCenter.x + orbitRadiusXZ * Math.sin(angle),
+    y: orbitY,
+    z: orbitCenter.z + orbitRadiusXZ * Math.cos(angle),
+  });
+}, 30);
+
+// once the layout has settled, frame the sculpture manually: compute the
+// core bounding box directly (trimming the farthest ~8% of nodes, which are
+// stray single-funder grantees, not the sculpture's body), then place the
+// camera at a fixed three-quarter-high azimuth/elevation and back it off
+// just far enough to fit that box for THIS canvas's actual aspect ratio —
+// deterministic, unlike zoomToFit's direction-preserving heuristic, which
+// misbehaves on a wide/short canvas with an off-center point cloud.
+const AZIMUTH = Math.PI / 4.1;   // ~44 degrees around
+const ELEVATION = 0.62;          // radians above horizontal, ~35 degrees — "slightly high"
+
+Graph.onEngineStop(() => {
+  const nodes = Graph.graphData().nodes.filter((n) => n.x !== undefined);
+
+  // aim at the VISUAL mass, not the geometric bounding box: many single-
+  // funder grantees radiate outward as thin sparse spikes, which drag a
+  // plain bounding-box centroid off to one side, leaving the dense cluster
+  // of big funder spheres sitting low/off-center in frame. Weight the
+  // center by node size (orgs + systems dominate) instead.
+  let wsum = 0, wx = 0, wy = 0, wz = 0;
+  nodes.forEach((n) => {
+    const w = Math.pow((n.size || 1) + 1, 2.2);
+    wsum += w; wx += n.x * w; wy += n.y * w; wz += n.z * w;
+  });
+  const center = { x: wx / wsum, y: wy / wsum, z: wz / wsum };
+
+  const dists = nodes
+    .map((n) => Math.hypot(n.x - center.x, n.y - center.y, n.z - center.z))
+    .sort((a, b) => a - b);
+  const boxRadius = dists[Math.floor(dists.length * 0.64)];
+
+  const cam = Graph.camera();
+  const rect = container.getBoundingClientRect();
+  const aspect = rect.width / rect.height;
+  const vFov = (cam.fov * Math.PI) / 180;
+  const hFov = 2 * Math.atan(Math.tan(vFov / 2) * aspect);
+  const fitFov = Math.min(vFov, hFov);
+  const padding = 0.98; // ~1 fits the trimmed core snugly, filling the frame
+  const distance = (boxRadius / Math.sin(fitFov / 2)) * padding;
+
+  const camPos = {
+    x: center.x + distance * Math.cos(ELEVATION) * Math.sin(AZIMUTH),
+    y: center.y + distance * Math.sin(ELEVATION),
+    z: center.z + distance * Math.cos(ELEVATION) * Math.cos(AZIMUTH),
+  };
+  Graph.cameraPosition(camPos, center, 0);
+
+  orbitRadiusXZ = Math.hypot(camPos.x - center.x, camPos.z - center.z);
+  orbitY = camPos.y;
+  angle = AZIMUTH;
+  orbitCenter = center;
+
+});
+
+const controls = Graph.controls();
+controls.addEventListener('start', () => { autoRotate = false; });
+
+// ---- overlay: permanent labels for top 6 + neighbor labels on hover ----
+const overlayRoot = document.getElementById('overlayLabels');
+const leaderSvg = document.getElementById('leaderSvg');
+
+// fan the six permanent labels out at distinct angles/radii — "anatomical
+// diagram" style leader lines — so they don't stack when their nodes sit
+// physically close together (as the top crypto funders do)
+const LABEL_OFFSETS = [
+  { dx: 52, dy: -58 },
+  { dx: -60, dy: -34 },
+  { dx: 64, dy: -14 },
+  { dx: -48, dy: -74 },
+  { dx: 40, dy: -96 },
+  { dx: -66, dy: -92 },
+];
+
+const permTagEls = new Map(); // id -> {el, line, offset}
+topFunders.forEach((n, i) => {
+  const el = document.createElement('div');
+  el.className = 'node-tag permanent';
+  const usd = n.totalUsd ? `$${Math.round(n.totalUsd / 1e6)}M+` : '';
+  el.innerHTML = `${escapeHtml(n.name)}<span class="sub">${usd}</span>`;
+  const offset = LABEL_OFFSETS[i % LABEL_OFFSETS.length];
+  if (offset.dx < 0) el.style.textAlign = 'right';
+  overlayRoot.appendChild(el);
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('stroke', '#1a1d27');
+  line.setAttribute('stroke-width', '1');
+  line.setAttribute('opacity', '0.55');
+  leaderSvg.appendChild(line);
+  permTagEls.set(n.id, { el, line, offset });
+});
+
+const neighborTagEls = new Map(); // id -> el
+function ensureNeighborTag(id) {
+  if (neighborTagEls.has(id)) return neighborTagEls.get(id);
+  const node = nodeById.get(id);
+  const el = document.createElement('div');
+  el.className = 'node-tag neighbor';
+  el.textContent = node ? node.name : id;
+  overlayRoot.appendChild(el);
+  neighborTagEls.set(id, el);
+  return el;
+}
+
+let activeNeighbors = new Set();
+
+function handleHover(node) {
+  hoverNodeId = node ? node.id : null;
+  Graph.linkMaterial((l) => linkMaterialFor(l));
+
+  activeNeighbors.forEach((id) => {
+    const el = neighborTagEls.get(id);
+    if (el) el.classList.remove('show');
+  });
+  activeNeighbors = new Set();
+
+  if (node) {
+    container.style.cursor = 'pointer';
+    const neighbors = neighborMap.get(node.id);
+    if (neighbors) {
+      neighbors.forEach((id) => {
+        if (topFunderIds.has(id)) return; // already permanent
+        const other = nodeById.get(id);
+        if (!other || other.kind === 'system') return;
+        activeNeighbors.add(id);
+        const el = ensureNeighborTag(id);
+        el.classList.add('show');
+      });
+    }
+  } else {
+    container.style.cursor = 'grab';
+  }
+}
+
+function updateOverlay() {
+  const rect = container.getBoundingClientRect();
+
+  permTagEls.forEach(({ el, line, offset }, id) => {
+    const node = nodeById.get(id);
+    if (!node || node.x === undefined) return;
+    const screen = Graph.graph2ScreenCoords(node.x, node.y, node.z);
+    const labelX = screen.x + offset.dx;
+    const labelY = screen.y + offset.dy;
+    el.style.left = labelX + 'px';
+    el.style.top = labelY + 'px';
+    line.setAttribute('x1', screen.x);
+    line.setAttribute('y1', screen.y);
+    line.setAttribute('x2', labelX);
+    line.setAttribute('y2', labelY + 4);
+  });
+
+  neighborTagEls.forEach((el, id) => {
+    if (!activeNeighbors.has(id)) return;
+    const node = nodeById.get(id);
+    if (!node || node.x === undefined) return;
+    const screen = Graph.graph2ScreenCoords(node.x, node.y, node.z);
+    el.style.left = screen.x + 'px';
+    el.style.top = (screen.y - 14) + 'px';
+  });
+
+  requestAnimationFrame(updateOverlay);
+}
+requestAnimationFrame(updateOverlay);
+
+console.log('[specimen] loaded', RAW.nodes.length, 'nodes,', RAW.links.length, 'links');
+})();
+</script>
+
+</body>
+</html>

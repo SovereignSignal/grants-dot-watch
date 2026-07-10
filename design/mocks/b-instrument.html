@@ -1,0 +1,555 @@
+<!-- grants.watch — Direction B: The Quiet Instrument -->
+<title>grants.watch — the quiet instrument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#0d0f16;
+    --panel:#12141d;
+    --ink:#e6e4dc;
+    --ink-dim:#a6a7ab;
+    --line:#262933;
+    --line-soft:#1c1f28;
+    --gray-1:#6f7178;
+    --gray-2:#8c8e93;
+    --gold:#d9a13f;
+    --gold-dim:#9c7833;
+    --space-1:8px;
+    --space-2:16px;
+    --space-3:24px;
+    --space-4:32px;
+    --space-5:40px;
+    --space-6:48px;
+    --space-8:64px;
+    --space-10:80px;
+    --space-12:96px;
+    --space-16:128px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    width:1440px;
+  }
+
+  body{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  .small-caps{
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--gray-2);
+  }
+
+  /* ---------- Masthead ---------- */
+
+  .masthead{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 var(--space-8);
+    border-bottom:1px solid var(--line);
+  }
+
+  .wordmark{
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  .wordmark .sep{
+    color:var(--gray-1);
+    font-weight:400;
+  }
+
+  .masthead nav{
+    display:flex;
+    gap:var(--space-6);
+  }
+
+  .masthead nav a{
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-dim);
+    text-decoration:none;
+    letter-spacing:0.01em;
+  }
+
+  .masthead nav a.current{
+    color:var(--ink);
+  }
+
+  .masthead-right{
+    display:flex;
+    align-items:center;
+    gap:var(--space-4);
+  }
+
+  .status-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:var(--gray-2);
+  }
+
+  .status-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px rgba(217,161,63,0.14);
+  }
+
+  .cta{
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold);
+    text-decoration:none;
+    border:1px solid var(--gold-dim);
+    padding:9px 18px;
+    border-radius:2px;
+    letter-spacing:0.01em;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding:var(--space-12) var(--space-8) var(--space-8);
+    max-width:920px;
+  }
+
+  .hero h1{
+    font-size:44px;
+    line-height:1.16;
+    font-weight:600;
+    letter-spacing:-0.015em;
+    color:var(--ink);
+    max-width:820px;
+  }
+
+  .hero p{
+    margin-top:var(--space-3);
+    font-size:16px;
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:640px;
+  }
+
+  .hero p .mono{
+    color:var(--gray-2);
+    font-size:15px;
+  }
+
+  /* ---------- Data strip ---------- */
+
+  .datastrip{
+    height:80px;
+    margin:0 var(--space-8) var(--space-12);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(217,161,63,0.05) 0%, transparent 65%);
+  }
+
+  .datastrip-ticks{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:flex-end;
+    gap:3px;
+    padding:0 1px;
+  }
+
+  .tick{
+    flex:1 1 0;
+    background:var(--line);
+    min-width:1px;
+  }
+
+  .datastrip-baseline{
+    position:absolute;
+    left:0;right:0;
+    top:50%;
+    height:1px;
+    background:var(--line-soft);
+  }
+
+  .datastrip-label{
+    position:absolute;
+    left:0;
+    top:var(--space-1);
+    font-size:10px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gray-1);
+    font-weight:600;
+  }
+
+  .datastrip-marker{
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:var(--gold);
+    opacity:0.9;
+  }
+
+  .datastrip-marker::after{
+    content:'';
+    position:absolute;
+    top:-3px;
+    left:-2.5px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+
+  /* ---------- Section shell ---------- */
+
+  section.block{
+    padding:0 var(--space-8) var(--space-12);
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:var(--space-3);
+    margin-bottom:var(--space-1);
+    border-bottom:1px solid var(--line);
+  }
+
+  .section-head .title{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--ink);
+  }
+
+  .section-head .meta{
+    font-size:12px;
+    color:var(--gray-1);
+  }
+
+  .section-head .meta .mono{
+    color:var(--gray-2);
+  }
+
+  /* ---------- Now open rows ---------- */
+
+  .round-row{
+    display:grid;
+    grid-template-columns:32px 1fr 200px 160px;
+    align-items:center;
+    column-gap:var(--space-4);
+    padding:var(--space-4) 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+
+  .round-row:last-child{
+    border-bottom:1px solid var(--line);
+  }
+
+  .round-index{
+    font-size:12px;
+    color:var(--gray-1);
+  }
+
+  .round-name{
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+    letter-spacing:-0.005em;
+  }
+
+  .round-org{
+    margin-top:4px;
+    font-size:13px;
+    color:var(--ink-dim);
+  }
+
+  .round-size{
+    font-size:13px;
+    color:var(--gray-2);
+    text-align:right;
+  }
+
+  .round-deadline-wrap{
+    text-align:right;
+  }
+
+  .round-deadline-label{
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gray-1);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+
+  .round-deadline{
+    font-size:16px;
+    font-weight:500;
+    color:var(--gold);
+  }
+
+  /* ---------- Registers index ---------- */
+
+  .registers-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    column-gap:var(--space-6);
+  }
+
+  .register{
+    padding:var(--space-4) 0 0;
+    border-top:1px solid var(--line);
+  }
+
+  .register .num{
+    font-size:40px;
+    font-weight:500;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  .register .label{
+    margin-top:var(--space-2);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--ink-dim);
+  }
+
+  .register .desc{
+    margin-top:var(--space-1);
+    font-size:13px;
+    line-height:1.55;
+    color:var(--gray-1);
+    max-width:250px;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer{
+    margin-top:var(--space-6);
+    border-top:1px solid var(--line);
+    padding:var(--space-6) var(--space-8) var(--space-8);
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+
+  .footer-left .wordmark{
+    font-size:14px;
+  }
+
+  .footer-left p{
+    margin-top:var(--space-2);
+    font-size:12px;
+    color:var(--gray-1);
+    max-width:320px;
+    line-height:1.6;
+  }
+
+  .footer-cols{
+    display:flex;
+    gap:var(--space-10);
+  }
+
+  .footer-col .small-caps{
+    display:block;
+    margin-bottom:var(--space-2);
+  }
+
+  .footer-col a{
+    display:block;
+    font-size:13px;
+    color:var(--ink-dim);
+    text-decoration:none;
+    margin-bottom:10px;
+  }
+
+  .footer-bottom{
+    grid-column:1/-1;
+  }
+
+  .footer-meta{
+    display:flex;
+    justify-content:space-between;
+    padding:var(--space-4) var(--space-8) 0;
+    font-size:11px;
+    color:var(--gray-1);
+  }
+
+  .footer-meta .mono{
+    color:var(--gray-2);
+  }
+</style>
+
+<header class="masthead">
+  <div class="wordmark">grants<span class="sep">.</span>watch</div>
+  <nav>
+    <a class="current">Now open</a>
+    <a>Registers</a>
+    <a>Systems</a>
+    <a>Wires</a>
+    <a>About</a>
+  </nav>
+  <div class="masthead-right">
+    <div class="status-pill"><span class="status-dot"></span><span class="mono">2026-07-09</span> · registry live</div>
+    <a class="cta" href="#now-open">Track a round →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Every open door in public and philanthropic funding, tracked to the day it closes.</h1>
+  <p>A standing registry of who funds what — from NLnet's rolling open calls to the OpenAI Foundation's first nonprofit fund. <span class="mono">21</span> systems, <span class="mono">230</span> organizations, <span class="mono">75</span> active programs, <span class="mono">2,510</span> awards on record.</p>
+</section>
+
+<div class="datastrip" aria-hidden="true">
+  <span class="datastrip-label">Award activity, trailing 90 days</span>
+  <div class="datastrip-baseline"></div>
+  <div class="datastrip-ticks" id="ticks"></div>
+  <div class="datastrip-marker" style="left:82%;"></div>
+</div>
+
+<section class="block" id="now-open">
+  <div class="section-head">
+    <div class="title">Now open</div>
+    <div class="meta">3 rounds closing within the month · sorted by deadline</div>
+  </div>
+
+  <div class="round-row">
+    <div class="round-index mono">01</div>
+    <div>
+      <div class="round-name">WisTRAIN — Initial Funding Round</div>
+      <div class="round-org">Wisconsin Department of Workforce Development</div>
+    </div>
+    <div class="round-size">Up to <span class="mono">$330,000</span></div>
+    <div class="round-deadline-wrap">
+      <div class="round-deadline-label">Closes</div>
+      <div class="round-deadline mono">2026-07-13</div>
+    </div>
+  </div>
+
+  <div class="round-row">
+    <div class="round-index mono">02</div>
+    <div>
+      <div class="round-name">People-First AI Fund — 2026 Cycle</div>
+      <div class="round-org">OpenAI Foundation</div>
+    </div>
+    <div class="round-size">Fund size <span class="mono">$50M</span></div>
+    <div class="round-deadline-wrap">
+      <div class="round-deadline-label">Closes</div>
+      <div class="round-deadline mono">2026-07-15</div>
+    </div>
+  </div>
+
+  <div class="round-row">
+    <div class="round-index mono">03</div>
+    <div>
+      <div class="round-name">NGI Zero Commons Fund — Open Call</div>
+      <div class="round-org">NLnet Foundation</div>
+    </div>
+    <div class="round-size">€5,000 – <span class="mono">€50,000</span></div>
+    <div class="round-deadline-wrap">
+      <div class="round-deadline-label">Closes</div>
+      <div class="round-deadline mono">2026-08-01</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="section-head">
+    <div class="title">Registers</div>
+    <div class="meta">the four indices the registry is built from</div>
+  </div>
+
+  <div class="registers-grid">
+    <div class="register">
+      <div class="num mono">21</div>
+      <div class="label">Systems</div>
+      <div class="desc">The funding programs and infrastructures grants move through — Optimism, EU Public R&D, Sovereign Tech, and more.</div>
+    </div>
+    <div class="register">
+      <div class="num mono">230</div>
+      <div class="label">Organizations</div>
+      <div class="desc">Funders, foundations, and agencies with a standing profile — from NLnet to the Optimism Foundation.</div>
+    </div>
+    <div class="register">
+      <div class="num mono">75</div>
+      <div class="label">Programs</div>
+      <div class="desc">Individual grant lines tracked to their mechanism, focus, and cadence — rolling calls and seasonal rounds alike.</div>
+    </div>
+    <div class="register">
+      <div class="num mono">2,510</div>
+      <div class="label">Awards</div>
+      <div class="desc">Recorded disbursements, dated and sourced, going back through each program's public history.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="wordmark">grants<span class="sep">.</span>watch</div>
+    <p>A quiet instrument for public and philanthropic funding. Updated as rounds open, close, and disburse.</p>
+  </div>
+  <div class="footer-cols">
+    <div class="footer-col">
+      <span class="small-caps">Registry</span>
+      <a>Now open</a>
+      <a>Systems</a>
+      <a>Organizations</a>
+      <a>Programs</a>
+    </div>
+    <div class="footer-col">
+      <span class="small-caps">About</span>
+      <a>Methodology</a>
+      <a>Sources</a>
+      <a>Contact</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-meta">
+  <span>© 2026 grants.watch — an independent registry</span>
+  <span class="mono">last synced 2026-07-09 06:00 UTC</span>
+</div>
+
+<script>
+  // purely decorative waveform ticks for the data strip — no external data
+  (function(){
+    var el = document.getElementById('ticks');
+    var heights = [14,22,10,30,18,8,26,34,12,20,16,28,10,24,32,14,18,22,8,30,16,26,12,20,10,34,18,14,24,28,16,10,22,30,12,18,26,8,20,14,32,16,10,24,18,28,12,22,30,14,8,26,16,20,34,10,18,24,12,28,16,22,10,30,14,26,18,8,32,20,12,24,16,28,10,22,14,30,18,26,12,20,34,16,8,24,10,28,14,22,18,30,12,26,16,10,24,14,20,28];
+    var frag = document.createDocumentFragment();
+    for (var i=0;i<heights.length;i++){
+      var d = document.createElement('div');
+      d.className='tick';
+      d.style.height = heights[i] + 'px';
+      d.style.opacity = (i > heights.length*0.7) ? (0.35 + (i/heights.length)*0.5) : 0.35;
+      frag.appendChild(d);
+    }
+    el.appendChild(frag);
+  })();
+</script>

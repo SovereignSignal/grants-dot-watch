@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grants.watch — The Front Page</title>
+<meta name="description" content="The home page recomposed as an actual newspaper front page — departures board as lead story, latest awards + index in the rail.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ground:#f6f5f1;
+    --ground-raised:#efeee7;
+    --ink:#1a1d27;
+    --ink-soft:#4b4e5a;
+    --ink-faint:#8a8d97;
+    --rule:#1a1d27;
+    --rule-soft:#d8d6cc;
+    --crypto:#96660f;
+    --ai:#6847d8;
+    --oss:#0983a1;
+    --gold:#8a6414;
+    --serif:'Newsreader', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --ground:#15161b;
+    --ground-raised:#1b1c22;
+    --ink:#eeece4;
+    --ink-soft:#b8b6ac;
+    --ink-faint:#77767c;
+    --rule:#eeece4;
+    --rule-soft:#33333a;
+    --crypto:#d4a24f;
+    --ai:#a78bfa;
+    --oss:#4fc3dc;
+    --gold:#e0b158;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#15161b;
+      --ground-raised:#1b1c22;
+      --ink:#eeece4;
+      --ink-soft:#b8b6ac;
+      --ink-faint:#77767c;
+      --rule:#eeece4;
+      --rule-soft:#33333a;
+      --crypto:#d4a24f;
+      --ai:#a78bfa;
+      --oss:#4fc3dc;
+      --gold:#e0b158;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:'tnum' 1, 'kern' 1;
+  }
+
+  .page{
+    max-width:1360px;
+    margin:0 auto;
+    padding:20px 40px 0;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding-bottom:10px;
+  }
+  .wordmark{ display:flex; align-items:baseline; gap:10px; }
+  .wordmark .mark{ width:11px;height:11px; background:var(--ink); display:inline-block; transform:translateY(-1px); }
+  .wordmark .name{ font-family:var(--sans); font-weight:800; font-size:25px; letter-spacing:-0.02em; }
+  .wordmark .name span{ color:var(--ink-faint); font-weight:600; }
+  .wordmark .tag{
+    font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
+    padding-left:4px; border-left:1px solid var(--rule-soft); margin-left:2px;
+  }
+  nav.topnav{ display:flex; gap:30px; }
+  nav.topnav a{
+    font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft);
+    text-decoration:none; font-weight:600; padding-bottom:2px;
+  }
+  nav.topnav a.current{ color:var(--ink); border-bottom:2px solid var(--ink); }
+
+  .rule-double{
+    border:none; border-top:2.5px solid var(--rule); margin:0; padding-top:3px; border-bottom:1px solid var(--rule);
+  }
+
+  .byline{
+    display:flex; justify-content:space-between; padding:6px 0;
+    font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .byline b{ color:var(--ink-soft); font-weight:700; }
+
+  /* ---------- Lead statement ---------- */
+  .lead-statement{
+    padding:16px 0 14px;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .lead-statement .eyebrow{
+    font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);
+    font-weight:700; margin-bottom:8px;
+  }
+  .lead-statement .statement{
+    font-family:var(--serif); font-style:italic; font-weight:500; font-size:27px; line-height:1.22;
+    letter-spacing:-0.005em; max-width:960px; color:var(--ink);
+  }
+  .lead-statement .statement em{
+    font-style:italic; color:var(--ink); border-bottom:1px solid currentColor;
+  }
+  .lead-statement .sub{
+    margin-top:8px; font-family:var(--sans); font-size:13px; color:var(--ink-soft);
+    max-width:660px; line-height:1.5;
+  }
+
+  /* ---------- Main grid: lead story + rail ---------- */
+  .front{
+    display:grid;
+    grid-template-columns: 1fr 340px;
+    gap:0 44px;
+    padding-top:0;
+  }
+  .lead-col{
+    padding-top:14px;
+    padding-bottom:6px;
+    padding-right:22px;
+    min-width:0;
+  }
+  .rail{
+    padding-top:14px;
+    padding-bottom:6px;
+    border-left:1px solid var(--rule-soft);
+    padding-left:44px;
+    margin-left:-44px;
+  }
+
+  /* ---------- Departures board (condensed, lead story) ---------- */
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom:1.5px solid var(--rule);
+    padding-bottom:6px;
+    margin-bottom:0;
+  }
+  .section-head h2{
+    margin:0;
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+  }
+  .section-head .count{
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .colheads{
+    display:grid;
+    grid-template-columns: 92px 1fr 190px 118px;
+    gap:16px;
+    padding:8px 0 5px;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .colheads span{
+    font-size:10.5px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
+  }
+
+  .month{
+    display:flex; align-items:center; gap:14px;
+    margin-top:12px; margin-bottom:2px;
+  }
+  .month .label{
+    font-size:11.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink);
+    white-space:nowrap;
+  }
+  .month .line{ flex:1; height:1px; background:var(--rule-soft); }
+  .month:first-of-type{ margin-top:8px; }
+
+  .drow{
+    display:grid;
+    grid-template-columns: 92px 1fr 190px 118px;
+    gap:16px;
+    align-items:center;
+    padding:9px 0;
+    border-bottom:1px solid var(--rule-soft);
+  }
+
+  .dcloses{ display:flex; flex-direction:column; }
+  .dcloses .day{
+    font-family:var(--serif); font-style:italic; font-weight:500; font-size:25px; line-height:1;
+    letter-spacing:-0.01em; color:var(--ink); font-variant-numeric:tabular-nums;
+  }
+  .dcloses.gold .day{ color:var(--gold); }
+  .dcloses .monyr{
+    margin-top:4px; font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
+  }
+  .dcloses.gold .monyr{ color:var(--gold); }
+
+  .dprogram{ min-width:0; display:flex; align-items:flex-start; gap:9px; }
+  .dprogram .marker{ width:6px;height:6px; border-radius:1px; flex:0 0 auto; margin-top:7px; }
+  .dprogram .marker.crypto{ background:var(--crypto); }
+  .dprogram .marker.ai{ background:var(--ai); }
+  .dprogram .marker.oss{ background:var(--oss); }
+  .dprogram .body{ min-width:0; }
+  .dprogram .name{
+    font-family:var(--serif); font-weight:600; font-style:normal; font-size:15.5px; color:var(--ink); line-height:1.28;
+  }
+  .dprogram .org{
+    margin-top:3px; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);
+  }
+
+  .dsize{ font-size:12.5px; color:var(--ink-soft); line-height:1.4; font-variant-numeric:tabular-nums; }
+
+  .dstatus{ display:flex; align-items:center; justify-content:flex-end; gap:0; }
+  .dstatus .word{ font-size:12px; font-weight:700; letter-spacing:.02em; color:var(--ink); }
+  .dstatus.is-closing .word{ color:var(--gold); }
+
+  .see-more{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--rule-soft);
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+  .see-more a{ color:var(--ink-soft); font-weight:600; text-decoration:none; border-bottom:1px solid var(--rule-soft); }
+
+  /* ---------- Rail: Latest Awards ---------- */
+  .rail-block + .rail-block{ margin-top:12px; }
+
+  .award-row{
+    display:flex;
+    gap:10px;
+    padding:11px 0;
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .award-row:first-of-type{ padding-top:12px; }
+  .award-row .marker{ width:6px;height:6px; border-radius:1px; flex:0 0 auto; margin-top:6px; }
+  .award-row .marker.crypto{ background:var(--crypto); }
+  .award-row .marker.ai{ background:var(--ai); }
+  .award-row .marker.oss{ background:var(--oss); }
+  .award-row .body{ flex:1; min-width:0; }
+  .award-row .flow{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:baseline;
+  }
+  .award-row .who{
+    font-size:13px;
+    line-height:1.35;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:block;
+  }
+  .award-row .funder{ color:var(--ink-faint); }
+  .award-row .arrow{ color:var(--ink-faint); padding:0 3px; }
+  .award-row .grantee{ color:var(--ink); font-weight:600; }
+  .award-row .amt{
+    flex:0 0 auto;
+    font-weight:700;
+    font-size:13px;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  .award-row .meta{
+    margin-top:3px;
+    font-size:10px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- Rail: Index ---------- */
+  .index-grid{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--rule-soft);
+  }
+  .index-stat{
+    padding:8px 18px 8px 0;
+  }
+  .index-stat:nth-child(2n){
+    padding-left:18px;
+    border-left:1px solid var(--rule-soft);
+  }
+  .index-stat:nth-child(n+3){
+    border-top:1px solid var(--rule-soft);
+  }
+  .index-stat .num{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:32px;
+    line-height:1;
+    letter-spacing:-0.01em;
+    font-variant-numeric:tabular-nums;
+  }
+  .index-stat .label{
+    margin-top:7px;
+    font-size:10px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:700;
+  }
+  .index-stat a{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+  }
+  .index-stat .link{
+    margin-top:5px;
+    font-size:10.5px;
+    font-variant:small-caps;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    font-weight:600;
+    border-bottom:1px solid var(--rule-soft);
+    display:inline-block;
+  }
+
+  /* ---------- Bottom strip: The Model pointer ---------- */
+  .model-strip{
+    margin-top:6px;
+    padding:8px 0 8px;
+    border-top:2.5px solid var(--rule);
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .model-thumb{
+    width:110px;
+    height:60px;
+    flex:0 0 auto;
+    background:var(--ground-raised);
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--rule-soft);
+  }
+  .model-thumb svg{ width:100%; height:100%; display:block; }
+  .model-pointer{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    font-size:16.5px;
+    line-height:1.4;
+    color:var(--ink-soft);
+  }
+  .model-pointer a{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--ink);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--rule-soft);
+    margin-top:0;
+    padding:10px 0 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  footer .about{
+    font-size:12px;
+    color:var(--ink-faint);
+    max-width:620px;
+    line-height:1.55;
+  }
+  footer .about b{ color:var(--ink-soft); }
+  footer .legend{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    flex:0 0 auto;
+  }
+  footer .legend .item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:600;
+  }
+  footer .legend .marker{ width:6px;height:6px; border-radius:1px; }
+  footer .legend .marker.crypto{ background:var(--crypto); }
+  footer .legend .marker.ai{ background:var(--ai); }
+  footer .legend .marker.oss{ background:var(--oss); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="wordmark">
+      <span class="mark"></span>
+      <span class="name">grants<span>.watch</span></span>
+      <span class="tag">The Daily Ledger</span>
+    </div>
+    <nav class="topnav">
+      <a href="#" class="current">Front Page</a>
+      <a href="#">Now Open</a>
+      <a href="#">Awards</a>
+      <a href="#">Systems</a>
+      <a href="#">Programs</a>
+      <a href="#">Method</a>
+    </nav>
+  </div>
+
+  <hr class="rule-double">
+
+  <div class="byline">
+    <span>Registry as of <b>July 9, 2026</b> · 230 organizations tracked</span>
+    <span><b>Edition 2026.07.09</b> · Sourced &amp; linked, updated continuously</span>
+  </div>
+
+  <div class="lead-statement">
+    <div class="eyebrow">Grant funding across crypto, AI, and open source</div>
+    <div class="statement">Every open round, every closed grant, every dollar that moved — <em>tracked in one register, sourced in the open.</em></div>
+    <div class="sub">grants.watch indexes funders and their programs across three wires of capital — crypto, AI, and open source — linking every figure back to a primary source. No aggregation without a citation.</div>
+  </div>
+
+  <div class="front">
+
+    <!-- LEAD STORY: DEPARTURES BOARD -->
+    <div class="lead-col">
+      <div class="section-head">
+        <h2>Departures — What Closes Next</h2>
+        <span class="count">Top 5 of 75 programs</span>
+      </div>
+
+      <div class="colheads">
+        <span>Closes</span>
+        <span>Program</span>
+        <span>Size</span>
+        <span style="text-align:right;">Status</span>
+      </div>
+
+      <div class="month">
+        <span class="label">July 2026</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="drow">
+        <div class="dcloses gold">
+          <span class="day">13</span>
+          <span class="monyr">Jul 2026</span>
+        </div>
+        <div class="dprogram">
+          <span class="marker ai"></span>
+          <div class="body">
+            <div class="name">WisTRAIN — Initial Funding Round</div>
+            <div class="org">Wisconsin Dept. of Workforce Development</div>
+          </div>
+        </div>
+        <div class="dsize">Up to $330,000 per grantee</div>
+        <div class="dstatus is-closing"><span class="word">Closing</span></div>
+      </div>
+
+      <div class="drow">
+        <div class="dcloses gold">
+          <span class="day">15</span>
+          <span class="monyr">Jul 2026</span>
+        </div>
+        <div class="dprogram">
+          <span class="marker ai"></span>
+          <div class="body">
+            <div class="name">People-First AI Fund, 2026</div>
+            <div class="org">OpenAI Foundation</div>
+          </div>
+        </div>
+        <div class="dsize">$50 million fund</div>
+        <div class="dstatus is-closing"><span class="word">Closing</span></div>
+      </div>
+
+      <div class="month">
+        <span class="label">August 2026</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="drow">
+        <div class="dcloses">
+          <span class="day">1</span>
+          <span class="monyr">Aug 2026</span>
+        </div>
+        <div class="dprogram">
+          <span class="marker oss"></span>
+          <div class="body">
+            <div class="name">NGI Zero Commons Fund — Open Call</div>
+            <div class="org">NLnet Foundation</div>
+          </div>
+        </div>
+        <div class="dsize">€5,000–50,000 per proposal</div>
+        <div class="dstatus"><span class="word">Open</span></div>
+      </div>
+
+      <div class="month">
+        <span class="label">Standing — No Fixed Deadline</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="drow">
+        <div class="dcloses">
+          <span class="day">—</span>
+          <span class="monyr">Rolling</span>
+        </div>
+        <div class="dprogram">
+          <span class="marker crypto"></span>
+          <div class="body">
+            <div class="name">Gitcoin Grants</div>
+            <div class="org">Gitcoin</div>
+          </div>
+        </div>
+        <div class="dsize">Quarterly rounds</div>
+        <div class="dstatus"><span class="word">Open</span></div>
+      </div>
+
+      <div class="drow">
+        <div class="dcloses">
+          <span class="day">—</span>
+          <span class="monyr">Rolling</span>
+        </div>
+        <div class="dprogram">
+          <span class="marker oss"></span>
+          <div class="body">
+            <div class="name">Sovereign Tech Fund</div>
+            <div class="org">Sovereign Tech Agency</div>
+          </div>
+        </div>
+        <div class="dsize">€99,000–€1,440,000</div>
+        <div class="dstatus"><span class="word">Open</span></div>
+      </div>
+
+      <div class="see-more">Programs board, in full, ordered by close — <a href="#">see all 75 →</a></div>
+    </div>
+
+    <!-- RAIL -->
+    <div class="rail">
+
+      <div class="rail-block">
+        <div class="section-head">
+          <h2>Latest Awards</h2>
+          <span class="count">5 of 2,510</span>
+        </div>
+
+        <div class="award-row">
+          <span class="marker oss"></span>
+          <div class="body">
+            <div class="flow">
+              <span class="who"><span class="funder">Chrome Web Perf. Fund</span><span class="arrow">→</span><span class="grantee">ESLint</span></span>
+              <span class="amt">$10,000</span>
+            </div>
+            <div class="meta">Jan 22, 2026 · Open Source</div>
+          </div>
+        </div>
+
+        <div class="award-row">
+          <span class="marker oss"></span>
+          <div class="body">
+            <div class="flow">
+              <span class="who"><span class="funder">Chrome Web Perf. Fund</span><span class="arrow">→</span><span class="grantee">e18e</span></span>
+              <span class="amt">$10,000</span>
+            </div>
+            <div class="meta">Jan 22, 2026 · Open Source</div>
+          </div>
+        </div>
+
+        <div class="award-row">
+          <span class="marker crypto"></span>
+          <div class="body">
+            <div class="flow">
+              <span class="who"><span class="funder">Stellar Community Fund</span><span class="arrow">→</span><span class="grantee">Beamable Onboarding</span></span>
+              <span class="amt">$150,000</span>
+            </div>
+            <div class="meta">Sep 15, 2025 · SCF Build #38</div>
+          </div>
+        </div>
+
+        <div class="award-row">
+          <span class="marker crypto"></span>
+          <div class="body">
+            <div class="flow">
+              <span class="who"><span class="funder">Stellar Community Fund</span><span class="arrow">→</span><span class="grantee">ROZO — One Tap to Pay</span></span>
+              <span class="amt">$150,000</span>
+            </div>
+            <div class="meta">Sep 15, 2025 · SCF Build #38</div>
+          </div>
+        </div>
+
+        <div class="award-row">
+          <span class="marker crypto"></span>
+          <div class="body">
+            <div class="flow">
+              <span class="who"><span class="funder">Stellar Community Fund</span><span class="arrow">→</span><span class="grantee">Stellar AI Agent Kit</span></span>
+              <span class="amt">$108,000</span>
+            </div>
+            <div class="meta">Aug 13, 2025 · SCF Build #37</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail-block">
+        <div class="section-head">
+          <h2>The Register</h2>
+          <span class="count">4 measures</span>
+        </div>
+
+        <div class="index-grid">
+          <div class="index-stat">
+            <a href="#">
+              <div class="num">21</div>
+              <div class="label">Systems</div>
+              <span class="link">Browse systems</span>
+            </a>
+          </div>
+          <div class="index-stat">
+            <a href="#">
+              <div class="num">230</div>
+              <div class="label">Organizations</div>
+              <span class="link">Browse orgs</span>
+            </a>
+          </div>
+          <div class="index-stat">
+            <a href="#">
+              <div class="num">75</div>
+              <div class="label">Programs</div>
+              <span class="link">Browse programs</span>
+            </a>
+          </div>
+          <div class="index-stat">
+            <a href="#">
+              <div class="num">2,510</div>
+              <div class="label">Awards</div>
+              <span class="link">Browse awards</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="model-strip">
+    <div class="model-thumb">
+      <svg viewBox="0 0 120 76" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="18" x2="46" y2="10" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="12" y1="18" x2="20" y2="52" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="46" y1="10" x2="80" y2="20" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="46" y1="10" x2="20" y2="52" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="80" y1="20" x2="20" y2="52" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="80" y1="20" x2="100" y2="48" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="20" y1="52" x2="58" y2="64" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="20" y1="52" x2="100" y2="48" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="58" y1="64" x2="100" y2="48" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="58" y1="64" x2="88" y2="66" stroke="#8a8d97" stroke-width="1"/>
+        <line x1="100" y1="48" x2="88" y2="66" stroke="#8a8d97" stroke-width="1"/>
+        <circle cx="12" cy="18" r="2" fill="#1a1d27"/>
+        <circle cx="46" cy="10" r="2" fill="#1a1d27"/>
+        <circle cx="80" cy="20" r="2" fill="#1a1d27"/>
+        <circle cx="20" cy="52" r="2" fill="#1a1d27"/>
+        <circle cx="100" cy="48" r="2" fill="#1a1d27"/>
+        <circle cx="58" cy="64" r="2" fill="#1a1d27"/>
+        <circle cx="88" cy="66" r="2" fill="#1a1d27"/>
+      </svg>
+    </div>
+    <div class="model-pointer">The full graph, in three dimensions — every system, program, and award as one shape. <a href="#">See the model →</a></div>
+  </div>
+
+  <footer>
+    <div class="about"><b>grants.watch</b> is an open, source-cited registry of grant funding across crypto, AI, and open source. Every figure links to a primary source — no aggregation without a citation.</div>
+    <div class="legend">
+      <span class="item"><span class="marker crypto"></span>Crypto</span>
+      <span class="item"><span class="marker ai"></span>AI</span>
+      <span class="item"><span class="marker oss"></span>Open Source</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

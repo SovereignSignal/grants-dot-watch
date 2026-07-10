@@ -1,0 +1,496 @@
+<title>grants.watch — the registry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#16181f;
+    --ink-soft:#4a4d57;
+    --ink-faint:#8b8d95;
+    --hair:#dcd9d0;
+    --accent:#c2410c;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  body{
+    font-family:'Schibsted Grotesk', 'Inter Tight', -apple-system, sans-serif;
+    font-feature-settings:'tnum' 1, 'lnum' 1;
+    -webkit-font-smoothing:antialiased;
+    width:1440px;
+  }
+
+  .wrap{
+    max-width:1256px;
+    margin:0 auto;
+    padding:0 92px;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead{
+    border-bottom:1px solid var(--hair);
+  }
+
+  .masthead .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:100px;
+  }
+
+  .wordmark{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+
+  .wordmark .dot{ color:var(--accent); }
+
+  .nav{
+    display:flex;
+    align-items:center;
+    gap:48px;
+  }
+
+  .nav a{
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.01em;
+    color:var(--ink-soft);
+  }
+
+  .nav a:hover{ color:var(--ink); }
+
+  .nav .cta{
+    color:var(--ink);
+    font-weight:600;
+    padding:10px 20px;
+    border:1px solid var(--ink);
+    border-radius:2px;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero{
+    padding:104px 0 76px;
+  }
+
+  .hero .eyebrow{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:28px;
+  }
+
+  .hero h1{
+    font-size:96px;
+    font-weight:600;
+    line-height:0.98;
+    letter-spacing:-0.03em;
+    max-width:1140px;
+  }
+
+  .hero h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--ink-soft);
+  }
+
+  .hero-rule{
+    margin-top:56px;
+    border-top:1px solid var(--ink);
+  }
+
+  .hero-stats{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding-top:22px;
+    font-size:15px;
+    color:var(--ink-soft);
+    letter-spacing:0.01em;
+  }
+
+  .hero-stats .stat-num{
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  .hero-stats .divider{
+    color:var(--hair);
+    margin:0 14px;
+  }
+
+  .hero-stats .as-of{
+    color:var(--ink-faint);
+    font-size:13px;
+  }
+
+  /* ---------- now open ---------- */
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding:64px 0 8px;
+  }
+
+  .section-head h2{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+
+  .section-head .count{
+    font-size:13px;
+    color:var(--ink-faint);
+    letter-spacing:0.02em;
+  }
+
+  .rows{
+    border-top:1px solid var(--ink);
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:1fr 320px 200px;
+    align-items:center;
+    padding:44px 0;
+    border-bottom:1px solid var(--hair);
+    gap:32px;
+  }
+
+  .row .num{
+    font-size:13px;
+    color:var(--ink-faint);
+    letter-spacing:0.02em;
+    display:block;
+    margin-bottom:10px;
+  }
+
+  .row .program{
+    font-size:34px;
+    font-weight:600;
+    letter-spacing:-0.015em;
+    line-height:1.1;
+  }
+
+  .row .org{
+    font-size:16px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  .row .meta{
+    text-align:left;
+  }
+
+  .row .meta .label{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:6px;
+  }
+
+  .row .meta .value{
+    font-size:17px;
+    font-weight:500;
+  }
+
+  .row .closes .value{
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .row .size{
+    text-align:right;
+  }
+
+  .row .size .value{
+    font-size:19px;
+    font-weight:600;
+  }
+
+  /* ---------- registers index ---------- */
+
+  .registers{
+    padding:88px 0 96px;
+    border-top:1px solid var(--ink);
+    margin-top:24px;
+  }
+
+  .registers .section-head{ padding-top:0; }
+
+  .register-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    margin-top:28px;
+  }
+
+  .register{
+    padding:36px 40px 0 0;
+    border-right:1px solid var(--hair);
+  }
+
+  .register:last-child{
+    border-right:none;
+    padding-right:0;
+  }
+
+  .register:first-child{
+    padding-left:0;
+  }
+
+  .register .figure{
+    font-size:72px;
+    font-weight:600;
+    letter-spacing:-0.03em;
+    line-height:1;
+  }
+
+  .register .figure .accent-mark{
+    color:var(--accent);
+  }
+
+  .register .label{
+    font-size:16px;
+    font-weight:600;
+    margin-top:18px;
+  }
+
+  .register .desc{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.5;
+    margin-top:10px;
+    max-width:250px;
+  }
+
+  .register .example{
+    font-size:12px;
+    color:var(--ink-faint);
+    margin-top:20px;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer{
+    border-top:1px solid var(--ink);
+    padding:40px 0 56px;
+  }
+
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  }
+
+  footer .foot-left .wordmark{
+    font-size:16px;
+    margin-bottom:10px;
+  }
+
+  footer .foot-left p{
+    font-size:13px;
+    color:var(--ink-faint);
+    max-width:380px;
+    line-height:1.55;
+  }
+
+  footer .foot-links{
+    display:flex;
+    gap:40px;
+  }
+
+  footer .foot-links div{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  footer .foot-links div a{
+    display:block;
+    margin-top:10px;
+    color:var(--ink-faint);
+  }
+
+  footer .foot-links div a:hover{ color:var(--ink); }
+
+  footer .foot-links .col-title{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:600;
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="wordmark">grants<span class="dot">.</span>watch</div>
+    <nav class="nav">
+      <a href="#">Systems</a>
+      <a href="#">Organizations</a>
+      <a href="#">Programs</a>
+      <a href="#">Awards</a>
+      <a href="#">About</a>
+      <a href="#" class="cta">Now open</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">The public grants registry</div>
+    <h1>Who funds what,<br><em>and when it closes.</em></h1>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">21</span> systems
+        <span class="divider">/</span>
+        <span class="stat-num">230</span> organizations
+        <span class="divider">/</span>
+        <span class="stat-num">75</span> programs
+        <span class="divider">/</span>
+        <span class="stat-num">2,510</span> awards tracked
+      </div>
+      <div class="as-of">Updated 9 July 2026</div>
+    </div>
+  </section>
+
+  <section class="now-open">
+    <div class="section-head">
+      <h2>Now open</h2>
+      <div class="count">3 of 75 programs accepting applications</div>
+    </div>
+
+    <div class="rows">
+
+      <div class="row">
+        <div>
+          <span class="num">01</span>
+          <div class="program">People‑First AI Fund</div>
+          <div class="org">OpenAI Foundation — unrestricted grants to US 501(c)(3) nonprofits</div>
+        </div>
+        <div class="meta closes">
+          <div class="label">Closes</div>
+          <div class="value">15 July 2026</div>
+        </div>
+        <div class="meta size">
+          <div class="label">Fund size</div>
+          <div class="value">$50M</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <span class="num">02</span>
+          <div class="program">WisTRAIN — Advanced Industry Training</div>
+          <div class="org">Wisconsin Department of Workforce Development — manufacturing &amp; AI</div>
+        </div>
+        <div class="meta closes">
+          <div class="label">Closes</div>
+          <div class="value">13 July 2026</div>
+        </div>
+        <div class="meta size">
+          <div class="label">Award size</div>
+          <div class="value">Up to $330K</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <span class="num">03</span>
+          <div class="program">NGI Zero Commons Fund</div>
+          <div class="org">NLnet Foundation — EU Next Generation Internet, open call</div>
+        </div>
+        <div class="meta closes">
+          <div class="label">Closes</div>
+          <div class="value">1 August 2026</div>
+        </div>
+        <div class="meta size">
+          <div class="label">Award size</div>
+          <div class="value">€5K–50K</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="registers">
+    <div class="section-head">
+      <h2>The registers</h2>
+      <div class="count">Four layers, one source of record</div>
+    </div>
+
+    <div class="register-grid">
+      <div class="register">
+        <div class="figure">21</div>
+        <div class="label">Systems</div>
+        <div class="desc">The funding systems and initiatives behind the money — EU public R&amp;D, sovereign tech funds, OSS sustainability, and more.</div>
+        <div class="example">e.g. eu-public-rd, sovereign-tech</div>
+      </div>
+      <div class="register">
+        <div class="figure">230</div>
+        <div class="label">Organizations</div>
+        <div class="desc">Foundations, companies, and agencies that fund — from NLnet and the OpenAI Foundation to state workforce departments.</div>
+        <div class="example">e.g. NLnet Foundation, Google Chrome</div>
+      </div>
+      <div class="register">
+        <div class="figure">75</div>
+        <div class="label">Programs</div>
+        <div class="desc">Individual grant programs, each with its own rounds, mechanism, and deadline — the unit you actually apply to.</div>
+        <div class="example">e.g. People‑First AI Fund</div>
+      </div>
+      <div class="register">
+        <div class="figure"><span class="accent-mark">2,510</span></div>
+        <div class="label">Awards</div>
+        <div class="desc">The raw ledger beneath every program — individual awards recorded since 2013, the evidence behind the register.</div>
+        <div class="example">2013 — 2026</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-left">
+      <div class="wordmark">grants<span class="dot" style="color:#c2410c">.</span>watch</div>
+      <p>A public registry of who funds what, kept current by hand and by pipeline. Not affiliated with any listed funder.</p>
+    </div>
+    <div class="foot-links">
+      <div>
+        <div class="col-title">Registry</div>
+        <a href="#">Systems</a>
+        <a href="#">Organizations</a>
+        <a href="#">Programs</a>
+      </div>
+      <div>
+        <div class="col-title">Data</div>
+        <a href="#">Methodology</a>
+        <a href="#">Sources</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div>
+        <div class="col-title">About</div>
+        <a href="#">Contact</a>
+        <a href="#">RSS</a>
+      </div>
+    </div>
+  </div>
+</footer>
