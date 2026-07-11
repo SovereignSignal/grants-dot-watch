@@ -35,6 +35,17 @@ export function dateShortIso(iso: string | undefined | null): string {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** Wire-service dateline for a citation line — "Jul 3", no year (the wire is
+ *  read same-week; the year is the masthead's job, not every quote's). */
+export function citeDate(iso: string | undefined | null): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  return `${MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCDate()}`;
+}
+
 /** Collapses multi-line text to the first N lines, reporting whether there
  *  was more — the ~10-line collapsed-by-default rule for change previews. */
 export function clampLines(text: string, maxLines: number): { visible: string; truncated: boolean; totalLines: number } {

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { PageHeader, WireBadge, Empty } from '@/components/ui';
+import { PageHeader, Empty } from '@/components/ui';
 import { OrgFilterBar, type OrgFilterState } from '@/components/browse/filters';
 import { ORG_ROLE_LABEL, ORG_STATUS_LABEL, orgTypeLabel } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL, dateShort } from '@/lib/format';
@@ -69,7 +69,7 @@ export default async function OrgsPage({
         statusOptions={STATUS_OPTIONS.map((s) => ({ value: s, label: ORG_STATUS_LABEL[s] }))}
       />
       <div className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="coord mb-3">
+        <div className="coord border-b border-line py-3">
           {total === 0
             ? 'no organizations match'
             : total > CAP
@@ -80,16 +80,16 @@ export default async function OrgsPage({
           <Empty>No organizations match these filters.</Empty>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[880px] text-sm">
               <thead>
-                <tr className="coord border-b border-line text-left">
-                  <th className="py-2 pr-4 font-normal">Name</th>
-                  <th className="py-2 pr-4 font-normal">Type</th>
-                  <th className="py-2 pr-4 font-normal">Systems</th>
-                  <th className="py-2 pr-4 font-normal">Wires</th>
-                  <th className="py-2 pr-4 font-normal">Programs</th>
-                  <th className="py-2 pr-4 font-normal">Awards given</th>
-                  <th className="py-2 pr-4 font-normal">Last activity</th>
+                <tr className="border-b-[1.5px] border-paper text-left">
+                  <th className="coord py-2.5 pr-4 font-normal">Name</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Type</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Systems</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Wires</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Awards</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,14 +99,14 @@ export default async function OrgsPage({
                   const shown = sys.slice(0, 2);
                   const extra = sys.length - shown.length;
                   return (
-                    <tr key={o.id} className="border-b border-line/60">
-                      <td className="py-2 pr-4">
-                        <Link href={`/orgs/${o.id}`} className="hover:text-signal">
+                    <tr key={o.id} className="border-b border-line transition-colors hover:bg-raised/40">
+                      <td className="py-3 pr-4">
+                        <Link href={`/orgs/${o.id}`} className="display text-[14.5px] text-paper hover:text-signal">
                           {o.name}
                         </Link>
                       </td>
-                      <td className="py-2 pr-4 text-dim">{orgTypeLabel(o)}</td>
-                      <td className="py-2 pr-4">
+                      <td className="coord py-3 pr-4 text-dim normal-case tracking-normal">{orgTypeLabel(o)}</td>
+                      <td className="coord py-3 pr-4 normal-case tracking-normal">
                         {shown.length === 0 ? (
                           <span className="text-faint">—</span>
                         ) : (
@@ -123,16 +123,22 @@ export default async function OrgsPage({
                           </>
                         )}
                       </td>
-                      <td className="py-2 pr-4">
-                        <div className="flex flex-wrap gap-2">
+                      <td className="py-3 pr-4">
+                        <div className="flex flex-wrap gap-1.5">
                           {(o.wires || []).map((w) => (
-                            <WireBadge key={w} wire={w} small />
+                            <span
+                              key={w}
+                              aria-label={WIRE_LABEL[w]}
+                              title={WIRE_LABEL[w]}
+                              className="inline-block size-1.5 shrink-0"
+                              style={{ background: `var(--color-${w})` }}
+                            />
                           ))}
                         </div>
                       </td>
-                      <td className="py-2 pr-4 font-mono">{stats?.programs ?? 0}</td>
-                      <td className="py-2 pr-4 font-mono">{stats?.awards_given ?? 0}</td>
-                      <td className="py-2 pr-4 font-mono text-dim">{dateShort(stats?.last_activity)}</td>
+                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.programs ?? 0}</td>
+                      <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.awards_given ?? 0}</td>
+                      <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     </tr>
                   );
                 })}

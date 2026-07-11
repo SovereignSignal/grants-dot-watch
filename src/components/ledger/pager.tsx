@@ -8,7 +8,7 @@ export function Pager({ base, query, page, pageCount }: { base: string; query: Q
   const prevHref = hrefWith(base, query, { page: page > 2 ? String(page - 1) : undefined });
   const nextHref = hrefWith(base, query, { page: String(page + 1) });
   return (
-    <nav aria-label="Pagination" className="flex items-center justify-between gap-4 py-4">
+    <nav aria-label="Pagination" className="flex items-center justify-between gap-4 border-t border-line py-4">
       {page > 1 ? (
         <Link href={prevHref} className="coord hover:text-dim">
           ← Prev

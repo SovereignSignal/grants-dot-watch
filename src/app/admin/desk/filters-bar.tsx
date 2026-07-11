@@ -2,7 +2,8 @@
 
 import { WIRE_LABEL } from '@/lib/format';
 import type { ProposalType, Wire } from '@/lib/types';
-import { PROPOSAL_TYPE_ORDER, TYPE_LABEL } from '@/proposal-lanes';
+import { PROPOSAL_TYPE_ORDER } from '@/proposal-lanes';
+import { TYPE_SLUG_LABEL } from './desk-voice';
 import type { ConfidenceBand, FilterState } from './desk-types';
 import type { QueueProposal } from './desk-types';
 
@@ -13,9 +14,10 @@ const CONFIDENCE_BANDS: { key: ConfidenceBand; label: string }[] = [
   { key: 'low', label: '<60' },
 ];
 
-/** Type chips, wire chips, confidence bands, and a text filter — all derived
- *  from the current pending set so counts on the chips always match what's
- *  actually in the queue right now. */
+/** Type words, wire words, confidence bands, and a text filter — telegraphic
+ *  small caps on a single hairline, no pill chrome. Counts are derived from
+ *  the current pending set so they always match what's actually in the
+ *  queue right now. */
 export function FiltersBar({
   items,
   filters,
@@ -50,38 +52,38 @@ export function FiltersBar({
     filters.types.size > 0 || filters.wires.size > 0 || filters.confidence !== 'all' || filters.text.trim() !== '';
 
   return (
-    <div className="mb-4 flex flex-col gap-2 rounded-md border border-line bg-surface p-3">
-      <div className="flex flex-wrap gap-1.5">
+    <div className="mb-6 border-t border-b border-line py-3">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
         {PROPOSAL_TYPE_ORDER.filter((t) => typeCounts.has(t)).map((t) => (
-          <Chip key={t} active={filters.types.has(t)} onClick={() => toggleType(t)}>
-            {TYPE_LABEL[t]} {typeCounts.get(t)}
-          </Chip>
+          <Word key={t} active={filters.types.has(t)} onClick={() => toggleType(t)}>
+            {TYPE_SLUG_LABEL[t]} {typeCounts.get(t)}
+          </Word>
         ))}
       </div>
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
         {[...wireCounts.keys()].sort().map((w) => (
-          <Chip key={w} active={filters.wires.has(w)} onClick={() => toggleWire(w)}>
+          <Word key={w} active={filters.wires.has(w)} onClick={() => toggleWire(w)}>
             {WIRE_LABEL[w]} {wireCounts.get(w)}
-          </Chip>
+          </Word>
         ))}
-        {wireCounts.size > 0 && <span className="mx-0.5 h-4 w-px bg-line" aria-hidden />}
+        {wireCounts.size > 0 && <span className="h-3 w-px bg-line" aria-hidden />}
         {CONFIDENCE_BANDS.map((band) => (
-          <Chip key={band.key} active={filters.confidence === band.key} onClick={() => onChange({ ...filters, confidence: band.key })}>
+          <Word key={band.key} active={filters.confidence === band.key} onClick={() => onChange({ ...filters, confidence: band.key })}>
             {band.label}
-          </Chip>
+          </Word>
         ))}
         <input
           type="text"
           value={filters.text}
           onChange={(e) => onChange({ ...filters, text: e.target.value })}
           placeholder="Filter title / org…"
-          className="ml-auto min-w-[10rem] rounded border border-line bg-deep px-2 py-1 text-sm text-paper placeholder:text-faint focus:outline-none"
+          className="ml-auto min-w-[10rem] border-b border-line bg-transparent px-1 py-1 text-[13px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
         />
         {hasActiveFilters && (
           <button
             type="button"
             onClick={() => onChange({ types: new Set(), wires: new Set(), confidence: 'all', text: '' })}
-            className="coord shrink-0 hover:text-dim"
+            className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim"
           >
             Clear
           </button>
@@ -91,14 +93,12 @@ export function FiltersBar({
   );
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Word({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`coord rounded-full border px-2.5 py-1 transition-colors ${
-        active ? 'border-signal bg-signal/15 text-paper' : 'border-line text-dim hover:border-faint hover:text-paper'
-      }`}
+      className={`coord ${active ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint hover:text-dim'}`}
     >
       {children}
     </button>

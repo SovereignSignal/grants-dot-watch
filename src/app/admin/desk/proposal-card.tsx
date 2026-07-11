@@ -2,22 +2,24 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Card, WireBadge } from '@/components/ui';
 import type { Verdict } from '@/lib/types';
-import { TYPE_LABEL } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
 import { ChangePreview } from './change-preview';
 import { commitUrl, timeAgo } from './desk-format';
+import { DESTINATION_NOTE } from './desk-voice';
 import type { PreviewPayload, QueueProposal } from './desk-types';
 import { EvidenceBlock } from './evidence-block';
+import { InkCheckbox } from './ink-checkbox';
+import { SlugLine } from './slug-line';
+import { VerdictActions } from './verdict-actions';
 
-/** Three questions, answered on every card without a click: WHAT (change
- *  preview, loaded on mount, collapsed to ~10 lines), VALIDATE (the wire
- *  signal behind it), WHERE (the destination path, already computed by the
- *  queue). Only "see the rest of a long diff" needs an interaction.
+/** One item on the wire: a broadsheet block on hairlines answering, without a
+ *  click, WHAT (the change preview), VALIDATE (the evidence block), and WHERE
+ *  (the destination line) — canon: design/mocks/c-desk.html. Only "see the
+ *  rest of a long diff" needs an interaction.
  *
  *  Bulk-triage additions (all optional, default off — Facts-tab cards don't
- *  use them): a selection checkbox, a keyboard-driven focus ring, and an
+ *  use them): a selection checkbox, a keyboard-driven focus mark, and an
  *  inline error line for an id that came back in a bulk decide's `failed`
  *  list (the id stays visible in the pending list; this is how it explains
  *  why). */
@@ -91,12 +93,12 @@ export function ProposalCard({
 
   if (result) {
     return (
-      <div className="flex flex-col gap-1.5 rounded-md border border-line bg-surface px-4 py-3 text-sm">
-        <div className="flex items-center gap-3">
-          <span className={result.decision === 'approved' ? 'text-live' : 'text-dim'}>
+      <div id={`proposal-${proposal.id}`} className="border-b border-line py-4 last:border-b-0">
+        <div className="flex items-center gap-3 text-[13px]">
+          <span className={result.decision === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>
             {result.decision === 'approved' ? 'Approved' : 'Rejected'}
           </span>
-          <span className="flex-1 truncate text-paper">{proposal.title}</span>
+          <span className="flex-1 truncate text-dim">{proposal.title}</span>
           {result.commit ? (
             <a
               href={commitUrl(result.commit)}
@@ -111,97 +113,74 @@ export function ProposalCard({
           )}
         </div>
         {result.decision === 'approved' && destination && destination.length > 0 && (
-          <div className="coord">
-            {destination.map((p) => (
-              <div key={p}>→ {p}</div>
-            ))}
-          </div>
+          <div className="coord mt-1">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
         )}
       </div>
     );
   }
 
   return (
-    <Card id={`proposal-${proposal.id}`} className={`flex flex-col gap-3 ${focused ? 'ring-2 ring-signal' : ''}`}>
+    <div
+      id={`proposal-${proposal.id}`}
+      className={`-ml-4 border-b border-line border-l-2 py-[30px] pl-4 transition-colors last:border-b-0 ${
+        focused ? 'border-l-paper' : 'border-l-transparent'
+      }`}
+    >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2">
-          {onToggleSelect && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={onToggleSelect}
-              aria-label={`Select ${proposal.title}`}
-              className="size-4 shrink-0"
-            />
-          )}
-          <span className="coord rounded border border-line px-1.5 py-0.5">{TYPE_LABEL[proposal.type]}</span>
+        <div className="flex items-center gap-2.5">
+          {onToggleSelect && <InkCheckbox checked={selected} onChange={onToggleSelect} label={`Select ${proposal.title}`} />}
+          <SlugLine proposal={proposal} />
         </div>
         <span className="coord shrink-0">{timeAgo(proposal.created_at)}</span>
       </div>
 
-      <div>
-        <h3 className="font-medium leading-snug text-paper">{proposal.title}</h3>
-        <p className="mt-1 text-sm text-dim">{proposal.summary}</p>
-      </div>
+      <h3 className="display mt-3 max-w-[820px] text-[22px] leading-[1.32] text-paper sm:text-[26px]">{proposal.title}</h3>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-        {proposal.wire && <WireBadge wire={proposal.wire} small />}
-        {proposal.org && (
-          <Link href={`/orgs/${proposal.org}`} className="text-dim underline decoration-line hover:text-paper">
+      {proposal.org && (
+        <div className="mt-2">
+          <Link href={`/orgs/${proposal.org}`} className="coord underline decoration-line underline-offset-2 hover:text-dim">
             {proposal.org_name || proposal.org}
           </Link>
-        )}
-      </div>
+        </div>
+      )}
 
       <EvidenceBlock proposal={proposal} />
 
-      <div>
-        <div className="coord mb-1.5">Where</div>
-        {destination === null ? (
-          <p className="text-xs text-closing">{proposal.destination_error || 'Destination could not be resolved.'}</p>
-        ) : destination.length === 0 ? (
-          <p className="text-xs text-faint">No files change — recorded as a decision only.</p>
-        ) : (
-          <div className="coord">
-            {destination.map((p) => (
-              <div key={p}>→ {p}</div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div>
-        <div className="coord mb-1.5">What</div>
+      <div className="mt-[22px] max-w-[820px]">
         {previewError ? (
-          <p className="text-xs text-closing">{previewError}</p>
+          <p className="text-[12.5px] text-closing">{previewError}</p>
         ) : preview ? (
           <ChangePreview changes={preview.changes} notes={preview.notes} />
         ) : (
-          <p className="text-xs text-faint">Loading preview…</p>
+          <p className="text-[12.5px] italic text-faint">Loading preview…</p>
         )}
       </div>
 
-      {error && <p className="text-xs text-closing">{error}</p>}
-      {errorMessage && <p className="text-xs text-closing">Bulk decide failed: {errorMessage}</p>}
-
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => decide('approved')}
-          disabled={busy !== null}
-          className="min-h-11 flex-1 rounded-md border border-live bg-live/15 font-medium text-live disabled:opacity-50"
-        >
-          {busy === 'approved' ? 'Approving…' : 'Approve'}
-        </button>
-        <button
-          type="button"
-          onClick={() => decide('rejected')}
-          disabled={busy !== null}
-          className="min-h-11 flex-1 rounded-md border border-line font-medium text-dim disabled:opacity-50"
-        >
-          {busy === 'rejected' ? 'Rejecting…' : 'Reject'}
-        </button>
+      <div className="serif-statement mt-3 text-[12px] text-faint">
+        {destination === null ? (
+          <span className="not-italic text-closing">{proposal.destination_error || 'Destination could not be resolved.'}</span>
+        ) : destination.length === 0 ? (
+          <span>No files change — recorded as a decision only.</span>
+        ) : (
+          <>
+            Destination — {DESTINATION_NOTE[proposal.type]}{' '}
+            <span className="font-mono text-[11.5px] font-semibold not-italic text-dim">{destination.join(' · ')}</span>
+          </>
+        )}
       </div>
-    </Card>
+
+      {error && <p className="mt-2 text-[12.5px] text-closing">{error}</p>}
+      {errorMessage && <p className="mt-2 text-[12.5px] text-closing">Bulk decide failed: {errorMessage}</p>}
+
+      <div className="mt-[22px]">
+        <VerdictActions
+          onApprove={() => decide('approved')}
+          onReject={() => decide('rejected')}
+          approveLabel={busy === 'approved' ? 'Approving…' : 'Approve — set in registry'}
+          rejectLabel={busy === 'rejected' ? 'Rejecting…' : 'Reject'}
+          disabled={busy !== null}
+        />
+      </div>
+    </div>
   );
 }

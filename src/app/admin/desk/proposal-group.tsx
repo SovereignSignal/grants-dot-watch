@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import type { ProposalType, Verdict } from '@/lib/types';
-import { TYPE_LABEL } from '@/proposal-lanes';
+import { TYPE_SLUG_LABEL } from './desk-voice';
+import { InkCheckbox } from './ink-checkbox';
 import type { QueueProposal } from './desk-types';
 import { ProposalCard } from './proposal-card';
 
-/** One proposal-type section: collapsible, with a count in the header and a
- *  "select all in group" checkbox that reflects partial selection via the
- *  indeterminate state. */
+/** One proposal-type section: a month-rule style bar (canon: "NEW
+ *  ORGANIZATION — 101 ITEMS", matching the home page's Departures group
+ *  dividers), collapsible, with a "select all in group" ink checkbox that
+ *  reflects partial selection via the indeterminate state. */
 export function ProposalGroup({
   type,
   items,
@@ -34,29 +36,21 @@ export function ProposalGroup({
   const someSelected = !allSelected && ids.some((id) => selected.has(id));
 
   return (
-    <section className="mb-6">
-      <div className="mb-2 flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={allSelected}
-          ref={(el) => {
-            if (el) el.indeterminate = someSelected;
-          }}
-          onChange={() => onToggleSelectAll(ids)}
-          aria-label={`Select all in ${TYPE_LABEL[type]}`}
-          className="size-4"
-        />
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          className="coord flex items-center gap-1.5 hover:text-paper"
-        >
-          <span aria-hidden>{open ? '▾' : '▸'}</span>
-          {TYPE_LABEL[type].toUpperCase()} · {items.length}
+    <section className="mb-8">
+      <div className="flex items-center gap-3.5 border-b-[1.5px] border-paper pb-1.5">
+        <InkCheckbox checked={allSelected} indeterminate={someSelected} onChange={() => onToggleSelectAll(ids)} label={`Select all in ${TYPE_SLUG_LABEL[type]}`} />
+        <button type="button" onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 hover:opacity-80">
+          <span aria-hidden className="text-[10px] text-faint">
+            {open ? '▾' : '▸'}
+          </span>
+          <span className="text-[11px] font-bold tracking-[.13em] text-paper uppercase whitespace-nowrap">
+            {TYPE_SLUG_LABEL[type]} — {items.length} item{items.length === 1 ? '' : 's'}
+          </span>
         </button>
+        <span aria-hidden className="h-px flex-1 bg-line" />
       </div>
       {open && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           {items.map((p) => (
             <ProposalCard
               key={p.id}

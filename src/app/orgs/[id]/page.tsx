@@ -2,9 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { loadRegistry, getOrg, programsOf, awardsGivenBy, awardsReceivedBy } from '@/lib/registry';
-import { PageHeader, Card, WireBadge, RoundStatus, Stat, Empty } from '@/components/ui';
+import { Empty } from '@/components/ui';
 import { money, dateShort } from '@/lib/format';
-import { orgStatusLabel, mechanismLabel, orgTypeLabel, coFundersOf, byDateDesc } from '@/components/browse/registry-helpers';
+import { orgStatusLabel, orgTypeLabel, coFundersOf, byDateDesc, isUsdKnown } from '@/components/browse/registry-helpers';
+import { Breadcrumb } from '@/components/browse/breadcrumb';
+import { Dossier, FactSep, FactsPanel } from '@/components/browse/dossier';
+import { SourceCitations, SourcesList } from '@/components/browse/sources';
+import { CadenceLane, type CadenceRow } from '@/components/browse/cadence-lane';
 
 export function generateStaticParams() {
   return loadRegistry().orgs.map((o) => ({ id: o.id }));
@@ -17,6 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 const SOCIAL_LABEL: Record<string, string> = { x: 'X', github: 'GitHub', forum: 'Forum', discord: 'Discord', telegram: 'Telegram' };
+
+/** Grid template shared by the two award tables in the left column — date |
+ *  counterparty | program (dim) | amount, right-aligned tabular amount.
+ *  Column order matches the master /awards table and every other award
+ *  listing on the site: date leads, amount trails. */
+const AWARD_COLS = 'grid-cols-[86px_1fr_1.3fr_92px]';
 
 export default async function OrgPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -31,253 +41,244 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
   const programs = programsOf(org.id);
   const given = byDateDesc(awardsGivenBy(org.id));
   const received = byDateDesc(awardsReceivedBy(org.id));
-  const coFunders = coFundersOf(org.id, registry, 6);
+  const coFunders = coFundersOf(org.id, registry, 8);
+
+  const primarySystem = org.systems?.[0] ? systemById.get(org.systems[0]) : null;
+  const systemNames = (org.systems || []).map((sid) => systemById.get(sid)?.name).filter((n): n is string => Boolean(n));
+
+  const withAmount = given.filter(isUsdKnown).length;
+  const noAmountCount = given.length - withAmount;
+
+  // Award count per program — same funder/program-name matching the program
+  // detail page uses, so the two pages never disagree on a count.
+  const cadenceRows: CadenceRow[] = programs.map((p) => {
+    const nameLower = p.name.toLowerCase();
+    const grantCount = given.filter((a) => a.program === p.id || (a.program_name && a.program_name.toLowerCase() === nameLower)).length;
+    return { program: p, grantCount };
+  });
+
+  const recentAwards = given.slice(0, 8);
+  const domain = org.website ? org.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : null;
 
   return (
     <>
-      <PageHeader
-        eyebrow={`ORG · ${orgTypeLabel(org)} · ${org.id}`}
-        title={
-          <span className="flex flex-col gap-1">
-            <span>{org.name}</span>
-            {org.aka?.length > 0 && <span className="coord">{org.aka.join(', ')}</span>}
-          </span>
-        }
-        right={
-          <div className="flex flex-col items-end gap-2">
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-dim">{orgStatusLabel(org.status)}</span>
-              {(org.wires || []).map((w) => (
-                <WireBadge key={w} wire={w} />
-              ))}
-            </div>
-            <div className="flex flex-wrap justify-end gap-x-3 gap-y-1">
-              {org.website && (
-                <a href={org.website} target="_blank" rel="noreferrer" className="text-xs text-dim hover:text-paper">
-                  Website ↗
+      <Breadcrumb
+        trail={[
+          { label: 'Registry', href: '/' },
+          { label: 'Organizations', href: '/orgs' },
+          ...(primarySystem ? [{ label: primarySystem.name, href: `/systems/${primarySystem.id}` }] : []),
+          { label: org.name },
+        ]}
+        note="Org profile — sourced & linked"
+      />
+
+      <Dossier
+        kicker="Organization Profile"
+        kickerColor={org.wires?.[0] ? `var(--color-${org.wires[0]})` : undefined}
+        name={org.name}
+        aka={org.aka?.length > 0 ? org.aka.join(', ') : undefined}
+        factsLine={
+          <>
+            <span>{orgTypeLabel(org)}</span>
+            {systemNames.length > 0 && (
+              <>
+                <FactSep />
+                <span>{systemNames.join(', ')}</span>
+              </>
+            )}
+            <FactSep />
+            <span className={org.status === 'active' ? 'text-signal' : 'text-faint'}>{orgStatusLabel(org.status)}</span>
+            {domain && (
+              <>
+                <FactSep />
+                <a
+                  href={org.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="border-b border-line text-dim normal-case tracking-normal hover:text-paper"
+                >
+                  {domain}
                 </a>
-              )}
-              {org.socials &&
-                Object.entries(org.socials).map(([k, v]) => (
-                  <a key={k} href={v} target="_blank" rel="noreferrer" className="text-xs text-dim hover:text-paper">
+              </>
+            )}
+            {org.socials &&
+              Object.entries(org.socials).map(([k, v]) => (
+                <span key={k} className="flex items-center gap-2.5">
+                  <FactSep />
+                  <a
+                    href={v}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-b border-line text-dim normal-case tracking-normal hover:text-paper"
+                  >
                     {SOCIAL_LABEL[k] || k} ↗
                   </a>
-                ))}
-            </div>
-          </div>
+                </span>
+              ))}
+          </>
+        }
+        standfirst={
+          org.profile?.trim() ? (
+            <>
+              {org.profile.trim()}
+              <SourceCitations sources={org.sources} />
+            </>
+          ) : (
+            <span className="text-dim">No public profile on file yet — we&apos;ll add one as we find more sources.</span>
+          )
         }
       />
 
-      <div className="mx-auto max-w-6xl px-4 pb-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 flex flex-col gap-6">
-          {org.profile && <p className="text-paper leading-relaxed">{org.profile}</p>}
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-0 px-4 lg:grid-cols-[1.65fr_1fr]">
+        {/* LEFT — programs cadence + recent awards */}
+        <div className="min-w-0 py-7">
+          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+            <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Programs</h2>
+            <span className="coord shrink-0">
+              {programs.length} program{programs.length === 1 ? '' : 's'} · {given.length} award{given.length === 1 ? '' : 's'} tracked
+            </span>
+          </div>
 
-          {org.funding && (org.funding.focus?.length || org.funding.typical_size || org.funding.cadence || org.funding.apply_url) && (
-            <div className="rounded-md border border-line bg-surface p-4 flex flex-col gap-3">
-              <div className="coord">Funding</div>
-              {org.funding.focus && org.funding.focus.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {org.funding.focus.map((f) => (
-                    <span key={f} className="inline-flex items-center rounded-full border border-line px-2.5 py-0.5 text-xs text-dim">
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-dim">
-                {org.funding.typical_size && (
-                  <span>
-                    Typical size: <span className="text-paper">{org.funding.typical_size}</span>
-                  </span>
-                )}
-                {org.funding.cadence && (
-                  <span>
-                    Cadence: <span className="text-paper">{org.funding.cadence}</span>
-                  </span>
-                )}
-              </div>
-              {org.funding.apply_url && (
-                <a
-                  href={org.funding.apply_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex w-fit items-center gap-1.5 rounded-md border border-signal/50 bg-signal/10 px-3 py-1.5 text-sm text-paper hover:bg-signal/20 transition-colors"
-                >
-                  Apply ↗
-                </a>
-              )}
-            </div>
+          {org.funding?.apply_url && (
+            <a href={org.funding.apply_url} target="_blank" rel="noreferrer" className="coord mt-2.5 inline-block hover:text-dim">
+              Apply ↗
+            </a>
           )}
 
-          {org.sources?.length > 0 && (
-            <div className="flex flex-col gap-1">
-              <div className="coord">Sources</div>
-              {org.sources.map((src) => (
-                <a key={src} href={src} target="_blank" rel="noreferrer" className="coord hover:text-dim block truncate">
-                  {src.replace(/^https?:\/\//, '')}
-                </a>
+          {programs.length === 0 ? <Empty>No programs on file for this org yet.</Empty> : <CadenceLane rows={cadenceRows} />}
+
+          <div className="mt-9">
+            <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+              <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Recent Awards</h2>
+              <span className="coord shrink-0">
+                {given.length === 0 ? 'none on file' : `most recent ${recentAwards.length} of ${given.length.toLocaleString()}`}
+              </span>
+            </div>
+            {given.length === 0 ? (
+              <Empty>No awards on file for this funder yet.</Empty>
+            ) : (
+              <>
+                <div className={`grid ${AWARD_COLS} gap-4 border-b border-line py-2`}>
+                  <span className="coord">Date</span>
+                  <span className="coord">Grantee</span>
+                  <span className="coord">Grant</span>
+                  <span className="coord text-right">Amount</span>
+                </div>
+                {recentAwards.map((a) => (
+                  <div key={a.key} className={`grid ${AWARD_COLS} items-baseline gap-4 border-b border-line py-3`}>
+                    <span className="text-[11px] tabular-nums text-faint">{dateShort(a.date)}</span>
+                    <Link href={`/grantees/${a.grantee}`} className="display truncate text-[14.5px] text-paper hover:text-signal">
+                      {a.grantee_name || a.grantee}
+                    </Link>
+                    <span className="truncate text-[12px] leading-snug text-dim" title={a.program_name || undefined}>
+                      {a.program_name || '—'}
+                    </span>
+                    <span className="text-right font-bold tabular-nums text-paper">{money(a.amount, a.amount_text)}</span>
+                  </div>
+                ))}
+                {noAmountCount > 0 && (
+                  <div className="serif-statement mt-3 text-[11px] text-faint">
+                    {noAmountCount} of {given.length} tracked award{given.length === 1 ? '' : 's'} carry no disclosed amount.
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {received.length > 0 && (
+            <div className="mt-9">
+              <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+                <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Awards Received</h2>
+                <span className="coord shrink-0">{received.length} on file</span>
+              </div>
+              <div className={`grid ${AWARD_COLS} gap-4 border-b border-line py-2`}>
+                <span className="coord">Date</span>
+                <span className="coord">Funder</span>
+                <span className="coord">Program</span>
+                <span className="coord text-right">Amount</span>
+              </div>
+              {received.map((a) => (
+                <div key={a.key} className={`grid ${AWARD_COLS} items-baseline gap-4 border-b border-line py-3`}>
+                  <span className="text-[11px] tabular-nums text-faint">{dateShort(a.date)}</span>
+                  {orgById.has(a.funder) ? (
+                    <Link href={`/orgs/${a.funder}`} className="display truncate text-[14.5px] text-paper hover:text-signal">
+                      {a.funder_name || a.funder}
+                    </Link>
+                  ) : (
+                    <span className="display truncate text-[14.5px] text-paper">{a.funder_name || a.funder}</span>
+                  )}
+                  <span className="truncate text-[12px] leading-snug text-dim">{a.program_name || '—'}</span>
+                  <span className="text-right font-bold tabular-nums text-paper">{money(a.amount, a.amount_text)}</span>
+                </div>
               ))}
             </div>
           )}
         </div>
 
-        <aside className="flex flex-col gap-6">
-          <div className="grid grid-cols-2 gap-4 rounded-md border border-line bg-surface p-4">
-            <Stat label="Awards given" value={stats?.awards_given ?? 0} />
-            <Stat label="Total known" value={money(stats?.awards_total_usd)} />
-            <Stat label="Grantees" value={stats?.grantees ?? 0} />
-            <Stat label="Live rounds" value={stats?.live_rounds ?? 0} />
-          </div>
+        {/* RIGHT — ruled facts panel, focus, sources */}
+        <aside className="min-w-0 py-7 lg:border-l lg:border-line lg:pl-11">
+          <FactsPanel
+            facts={[
+              { label: 'Awards tracked', value: stats?.awards_given ?? 0 },
+              {
+                label: 'Disclosed total',
+                value: money(stats?.awards_total_usd),
+                note: given.length > 0 ? `${withAmount} of ${given.length} awards carry a public figure` : undefined,
+              },
+              { label: 'Grantees funded', value: stats?.grantees ?? 0 },
+              {
+                label: 'Live rounds',
+                value: stats?.live_rounds ?? 0,
+                note: (stats?.live_rounds ?? 0) === 0 ? 'no open or announced rounds on file' : undefined,
+              },
+            ]}
+          />
 
-          {org.systems?.length > 0 && (
-            <div className="flex flex-col gap-1.5">
-              <div className="coord">Systems</div>
-              <div className="flex flex-wrap gap-2">
-                {org.systems.map((sid) => {
-                  const s = systemById.get(sid);
-                  if (!s) return null;
-                  return (
-                    <Link key={sid} href={`/systems/${sid}`} className="text-sm text-dim hover:text-paper underline decoration-line underline-offset-2">
-                      {s.name}
-                    </Link>
-                  );
-                })}
-              </div>
+          {org.funding?.focus && org.funding.focus.length > 0 && (
+            <div className="border-b border-line py-5">
+              <div className="coord mb-2.5">Focus Areas</div>
+              <p className="serif-statement text-[16px] leading-[1.55] text-paper">{org.funding.focus.join(', ')}.</p>
             </div>
           )}
+
+          {(org.funding?.typical_size || org.funding?.cadence) && (
+            <div className="flex flex-col gap-1.5 border-b border-line py-5 text-[12px] text-dim">
+              {org.funding?.typical_size && (
+                <div>
+                  <span className="coord mr-1.5">Typical size</span>
+                  {org.funding.typical_size}
+                </div>
+              )}
+              {org.funding?.cadence && (
+                <div>
+                  <span className="coord mr-1.5">Cadence</span>
+                  {org.funding.cadence}
+                </div>
+              )}
+            </div>
+          )}
+
+          <SourcesList sources={org.sources} />
         </aside>
       </div>
 
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <div className="starline pt-6 pb-4">
-          <h2 className="display text-xl font-semibold tracking-tight">Programs</h2>
-        </div>
-        {programs.length === 0 ? (
-          <Empty>No programs on file for this org.</Empty>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {programs.map((p) => (
-              <Card key={p.id} className="flex flex-col gap-2">
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="display text-base font-semibold tracking-tight">{p.name}</h3>
-                  {p.mechanism && <span className="coord shrink-0">{mechanismLabel(p.mechanism)}</span>}
-                </div>
-                {p.rounds?.length > 0 ? (
-                  <ul className="flex flex-col gap-1.5">
-                    {p.rounds.map((r, i) => (
-                      <li key={i} className="flex items-center justify-between gap-2 text-sm">
-                        <span className="flex items-center gap-2">
-                          <RoundStatus status={r.status} />
-                          {r.name}
-                        </span>
-                        {r.closes && <span className="font-mono text-xs text-dim shrink-0">closes {dateShort(r.closes)}</span>}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-sm text-faint">No dated rounds on file.</p>
-                )}
-              </Card>
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <div className="starline pt-6 pb-4 flex items-baseline justify-between gap-4">
-          <h2 className="display text-xl font-semibold tracking-tight">Awards given</h2>
-          {given.length > 0 && (
-            <Link href={`/awards?funder=${org.id}`} className="coord hover:text-dim shrink-0">
-              all {given.length} in the ledger →
-            </Link>
-          )}
-        </div>
-        {given.length === 0 ? (
-          <Empty>No awards on file for this funder yet.</Empty>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="coord border-b border-line text-left">
-                  <th className="py-2 pr-4 font-normal">Date</th>
-                  <th className="py-2 pr-4 font-normal">Grantee</th>
-                  <th className="py-2 pr-4 font-normal">Amount</th>
-                  <th className="py-2 pr-4 font-normal">Program</th>
-                </tr>
-              </thead>
-              <tbody>
-                {given.slice(0, 15).map((a) => (
-                  <tr key={a.key} className="border-b border-line/60">
-                    <td className="py-2 pr-4 font-mono text-dim">{dateShort(a.date)}</td>
-                    <td className="py-2 pr-4">
-                      <Link href={`/grantees/${a.grantee}`} className="hover:text-signal">
-                        {a.grantee_name || a.grantee}
-                      </Link>
-                    </td>
-                    <td className="py-2 pr-4 font-mono">{money(a.amount, a.amount_text)}</td>
-                    <td className="py-2 pr-4 text-dim">{a.program_name || '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      {received.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-12">
-          <div className="starline pt-6 pb-4">
-            <h2 className="display text-xl font-semibold tracking-tight">Awards received</h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="coord border-b border-line text-left">
-                  <th className="py-2 pr-4 font-normal">Date</th>
-                  <th className="py-2 pr-4 font-normal">Funder</th>
-                  <th className="py-2 pr-4 font-normal">Amount</th>
-                  <th className="py-2 pr-4 font-normal">Program</th>
-                </tr>
-              </thead>
-              <tbody>
-                {received.map((a) => (
-                  <tr key={a.key} className="border-b border-line/60">
-                    <td className="py-2 pr-4 font-mono text-dim">{dateShort(a.date)}</td>
-                    <td className="py-2 pr-4">
-                      {orgById.has(a.funder) ? (
-                        <Link href={`/orgs/${a.funder}`} className="hover:text-signal">
-                          {a.funder_name || a.funder}
-                        </Link>
-                      ) : (
-                        a.funder_name || a.funder
-                      )}
-                    </td>
-                    <td className="py-2 pr-4 font-mono">{money(a.amount, a.amount_text)}</td>
-                    <td className="py-2 pr-4 text-dim">{a.program_name || '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      )}
-
       {coFunders.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-16">
-          <div className="starline pt-6 pb-4">
-            <h2 className="display text-xl font-semibold tracking-tight">Co-funders</h2>
+        <section className="mx-auto max-w-6xl px-4 pt-2 pb-16">
+          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+            <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Co-funders</h2>
+            <span className="coord shrink-0">shared grantees, ranked</span>
           </div>
-          <div className="flex flex-wrap gap-3">
-            {coFunders.map(({ org: co, sharedGrantees }) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {coFunders.map(({ org: co, sharedGrantees }, i) => (
               <Link
                 key={co.id}
                 href={`/orgs/${co.id}`}
-                className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-1.5 text-sm hover:border-faint hover:bg-raised transition-colors"
+                className={`flex items-baseline justify-between gap-3 border-b border-line py-2.5 transition-colors hover:bg-raised/40 ${
+                  i % 2 === 0 ? 'sm:pr-6' : 'sm:pl-6'
+                }`}
               >
-                {co.name}
-                <span className="coord">
-                  {sharedGrantees} shared
-                </span>
+                <span className="display truncate text-[14.5px] text-paper">{co.name}</span>
+                <span className="coord shrink-0">{sharedGrantees} shared</span>
               </Link>
             ))}
           </div>

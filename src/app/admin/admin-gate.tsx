@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { PrivyProvider, usePrivy, useLogin, useLogout } from '@privy-io/react-auth';
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Coord } from '@/components/ui';
+import { tabClass } from '@/components/ui-filters';
 import { AdminAuthProvider } from './admin-auth';
 
 const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
@@ -46,15 +47,9 @@ function AdminShell({ children }: { children: ReactNode }) {
   return (
     <div>
       <div className="mx-auto max-w-6xl px-4 pt-6">
-        <div className="starline flex gap-1 pb-4">
+        <div className="flex gap-7 border-b border-line pb-0">
           {TABS.map((t) => (
-            <Link
-              key={t.href}
-              href={t.href}
-              className={`px-3 py-2 text-sm ${
-                pathname?.startsWith(t.href) ? 'border-b-2 border-signal text-paper' : 'text-dim hover:text-paper'
-              }`}
-            >
+            <Link key={t.href} href={t.href} className={tabClass(!!pathname?.startsWith(t.href))}>
               {t.label}
             </Link>
           ))}
@@ -127,27 +122,27 @@ function TokenLoginForm({ onAuthed }: { onAuthed: () => void }) {
 
   return (
     <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
-      <div className="coord mb-2">ADMIN</div>
-      <h1 className="display mb-3 text-2xl font-semibold">The admin panel is the owner&apos;s gate.</h1>
-      <p className="mb-6 text-sm text-dim">Enter the admin token to continue.</p>
-      <form onSubmit={submit} className="flex flex-col gap-3">
+      <div className="coord mb-4">The Desk</div>
+      <h1 className="serif-statement mb-3 text-[26px] leading-[1.28] text-paper">Sign in to review the queue.</h1>
+      <p className="mb-8 text-[13.5px] text-dim">Enter the admin token to continue.</p>
+      <form onSubmit={submit} className="flex flex-col gap-5">
         <input
           type="password"
           value={token}
           onChange={(e) => setToken(e.target.value)}
           placeholder="Admin token"
           autoFocus
-          className="w-full rounded-md border border-line bg-surface px-3 py-3 text-paper placeholder:text-faint focus:outline-none"
+          className="w-full border-b border-line bg-transparent px-1 py-2 text-center text-paper placeholder:text-faint focus:border-paper focus:outline-none"
         />
         <button
           type="submit"
           disabled={busy || !token}
-          className="min-h-11 rounded-md border border-live bg-live/15 font-medium text-live disabled:opacity-50"
+          className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px] disabled:cursor-default disabled:opacity-50"
         >
-          {busy ? 'Checking…' : 'Enter'}
+          {busy ? 'Checking…' : 'Enter →'}
         </button>
       </form>
-      {error && <p className="mt-3 text-sm text-closing">{error}</p>}
+      {error && <p className="mt-4 text-[13px] text-closing">{error}</p>}
     </div>
   );
 }
@@ -193,15 +188,15 @@ function PrivyGate({ children }: { children: ReactNode }) {
   if (!authenticated) {
     return (
       <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
-        <div className="coord mb-2">ADMIN</div>
-        <h1 className="display mb-3 text-2xl font-semibold">The admin panel is the owner&apos;s gate.</h1>
-        <p className="mb-6 text-sm text-dim">Log in to continue.</p>
+        <div className="coord mb-4">The Desk</div>
+        <h1 className="serif-statement mb-3 text-[26px] leading-[1.28] text-paper">Sign in to review the queue.</h1>
+        <p className="mb-8 text-[13.5px] text-dim">Log in to continue.</p>
         <button
           type="button"
           onClick={() => login()}
-          className="min-h-11 w-full rounded-md border border-live bg-live/15 font-medium text-live"
+          className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px]"
         >
-          Log in with Privy
+          Log in with Privy →
         </button>
       </div>
     );
@@ -212,10 +207,10 @@ function PrivyGate({ children }: { children: ReactNode }) {
   if (!authorized) {
     return (
       <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
-        <div className="coord mb-2">ADMIN</div>
-        <h1 className="display mb-3 text-2xl font-semibold">Not on the list.</h1>
-        <p className="mb-6 text-sm text-dim">This account isn&apos;t in the admin allowlist.</p>
-        <button type="button" onClick={() => logout()} className="coord hover:text-dim">
+        <div className="coord mb-4">The Desk</div>
+        <h1 className="display mb-3 text-2xl text-paper">Not on the list.</h1>
+        <p className="mb-8 text-[13.5px] text-dim">This account isn&apos;t in the admin allowlist.</p>
+        <button type="button" onClick={() => logout()} className="coord underline decoration-line underline-offset-2 hover:text-dim">
           Log out
         </button>
       </div>

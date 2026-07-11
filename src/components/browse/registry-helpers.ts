@@ -109,3 +109,9 @@ export function coFundersOf(orgId: string, index: RegistryIndex, limit = 6): CoF
 export function byDateDesc(awards: Award[]): Award[] {
   return [...awards].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 }
+
+/** True when an award carries a usable public dollar figure (used for the
+ *  "N of M awards carry a public figure" honesty subscripts). */
+export function isUsdKnown(a: Award): boolean {
+  return Boolean(a.amount) && (!a.currency || a.currency.toUpperCase() === 'USD');
+}

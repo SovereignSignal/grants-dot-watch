@@ -46,19 +46,29 @@ export default async function HealthPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="INSTRUMENT" title="Health" sub="Registry counts, load state, and the curation desk — at a glance." />
-      <div className="mx-auto max-w-6xl px-4 pb-16 space-y-6">
+      <PageHeader
+        eyebrow="THE INSTRUMENT PANEL"
+        title="Health"
+        sub="Registry counts, load state, and the curation desk — ledgered, not dashboarded."
+      />
+      <div className="mx-auto max-w-6xl px-4 pb-16 space-y-8">
         <Card>
           <Coord>Registry counts</Coord>
-          <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-            <Stat label="Systems" value={counts.systems} />
-            <Stat label="Orgs" value={counts.orgs} />
-            <Stat label="Funders" value={counts.funders} />
-            <Stat label="Programs" value={counts.programs} />
-            <Stat label="Awards" value={counts.awards} />
-            <Stat label="Grantees" value={counts.grantees} />
+          <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-3 md:grid-cols-6">
+            {[
+              { label: 'Systems', value: counts.systems },
+              { label: 'Orgs', value: counts.orgs },
+              { label: 'Funders', value: counts.funders },
+              { label: 'Programs', value: counts.programs },
+              { label: 'Awards', value: counts.awards },
+              { label: 'Grantees', value: counts.grantees },
+            ].map((s) => (
+              <div key={s.label} className="px-4 py-3.5 first:pl-0">
+                <Stat label={s.label} value={s.value} />
+              </div>
+            ))}
           </div>
-          <div className="starline mt-4 pt-3 coord">loaded {formatLoadedAt(loadedAt)}</div>
+          <div className="mt-4 border-t border-line pt-3 coord">Registry loaded {formatLoadedAt(loadedAt)}</div>
         </Card>
 
         <Card>
@@ -68,16 +78,16 @@ export default async function HealthPage() {
               <Empty>No awards on file.</Empty>
             </div>
           ) : (
-            <div className="mt-3 space-y-1.5 overflow-x-auto">
+            <div className="mt-4 divide-y divide-line border-t border-line overflow-x-auto">
               {years.map(([year, n]) => {
                 const barLen = Math.max(1, Math.round((n / maxYearCount) * 30));
                 return (
-                  <div key={year} className="flex items-center gap-3 font-mono text-xs">
-                    <span className="coord w-16 shrink-0">{year}</span>
-                    <span className="text-signal shrink-0" aria-hidden>
+                  <div key={year} className="flex items-center gap-4 py-2 text-xs">
+                    <span className="w-16 shrink-0 font-mono text-[11px] font-semibold tracking-[.08em] text-faint">{year}</span>
+                    <span className="shrink-0 font-mono text-signal" aria-hidden>
                       {'▪'.repeat(barLen)}
                     </span>
-                    <span className="text-dim">{n}</span>
+                    <span className="ml-auto font-mono tabular-nums text-dim">{n.toLocaleString()}</span>
                   </div>
                 );
               })}
@@ -87,9 +97,13 @@ export default async function HealthPage() {
 
         <Card>
           <Coord>The Desk</Coord>
-          <div className="mt-3 grid grid-cols-2 gap-4 max-w-xs">
-            <Stat label="Pending" value={desk.pending} />
-            <Stat label="Decided" value={desk.decided} />
+          <div className="mt-4 grid max-w-xs grid-cols-2 divide-x divide-line border-t border-line">
+            <div className="py-3.5 pr-4">
+              <Stat label="Pending" value={desk.pending} />
+            </div>
+            <div className="py-3.5 pl-4">
+              <Stat label="Decided" value={desk.decided} />
+            </div>
           </div>
         </Card>
       </div>

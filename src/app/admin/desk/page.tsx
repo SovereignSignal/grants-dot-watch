@@ -1,17 +1,19 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Empty, PageHeader, Stat } from '@/components/ui';
+import { Empty, Stat } from '@/components/ui';
+import { tabClass } from '@/components/ui-filters';
 import type { ProposalType, Verdict } from '@/lib/types';
 import { PROPOSAL_TYPE_ORDER, typeCountsSummary } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
 import { BulkBar } from './bulk-bar';
-import { commitUrl, timeAgo } from './desk-format';
+import { commitUrl, dateShortIso, timeAgo } from './desk-format';
+import { DeskHeader } from './desk-header';
 import { DEFAULT_FILTERS, type DecideBulkResponse, type FilterState, type QueueProposal } from './desk-types';
 import { FiltersBar } from './filters-bar';
 import { ProposalCard } from './proposal-card';
 import { ProposalGroup } from './proposal-group';
-import { QueueExplainer } from './queue-explainer';
+import { VerdictActions } from './verdict-actions';
 
 type Tab = 'judgment' | 'fact' | 'log';
 
@@ -258,9 +260,9 @@ export default function DeskPage() {
     [data, selected]
   );
 
-  // Keyboard triage: j/k moves the focus ring, x toggles selection, a/r
-  // approve/reject the focused card. Judgment tab only — it's the 310-item
-  // queue this is for; Facts leans on "apply all" instead.
+  // Keyboard triage: j/k moves the focus mark, x toggles selection, a/r
+  // approve/reject the focused card. Judgment tab only — it's the big queue
+  // this is for; Facts leans on "apply all" instead.
   useEffect(() => {
     if (tab !== 'judgment') return;
     function onKeyDown(e: KeyboardEvent) {
@@ -314,65 +316,56 @@ export default function DeskPage() {
   }
 
   return (
-    <>
-      <PageHeader
-        eyebrow="THE DESK"
-        title="The Desk"
-        sub="The owner's gate. Approve or reject what the wires found before it lands in the registry."
-        right={
-          <button
-            type="button"
-            onClick={runSeed}
-            disabled={seeding}
-            className="coord rounded border border-line px-3 py-2 hover:border-faint disabled:opacity-50"
-          >
-            {seeding ? 'Importing…' : 'Import new proposals'}
-          </button>
-        }
+    <div className="mx-auto max-w-6xl px-4 pt-8 pb-16">
+      <DeskHeader
+        totalOnWire={data.counts.total}
+        awaitingJudgment={data.counts.pendingJudgment}
+        dev={data.dev}
+        seeding={seeding}
+        seedMsg={seedMsg}
+        onSeed={runSeed}
       />
-      <div className="mx-auto max-w-6xl px-4 pb-16">
-        {data.dev && (
-          <p className="coord mb-6 rounded border border-dashed border-line px-3 py-2 text-signal">
-            Dev mode: ADMIN_TOKEN unset, the gate is open.
-          </p>
-        )}
-        {seedMsg && <p className="coord mb-6">{seedMsg}</p>}
 
-        <QueueExplainer />
+      <div className="mb-8 grid grid-cols-3 gap-3 sm:gap-4">
+        <Stat label="Pending judgment" value={data.counts.pendingJudgment} />
+        <Stat label="Pending facts" value={data.counts.pendingFact} />
+        <Stat label="Decided today" value={data.counts.decidedToday} />
+      </div>
 
-        <div className="mb-8 grid grid-cols-3 gap-3 sm:gap-4">
-          <Stat label="Pending judgment" value={data.counts.pendingJudgment} />
-          <Stat label="Pending facts" value={data.counts.pendingFact} />
-          <Stat label="Decided today" value={data.counts.decidedToday} />
-        </div>
+      <div className="mb-6 flex gap-7 border-b border-line">
+        {(['judgment', 'fact', 'log'] as Tab[]).map((t) => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setTab(t)}
+            className={tabClass(tab === t)}
+          >
+            {t === 'judgment'
+              ? `Judgment · ${judgmentPending.length}`
+              : t === 'fact'
+                ? `Facts · ${factPending.length}`
+                : `Log · ${data.verdicts.length}`}
+          </button>
+        ))}
+      </div>
 
-        <div className="starline mb-6 flex gap-1 pt-4">
-          {(['judgment', 'fact', 'log'] as Tab[]).map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setTab(t)}
-              className={`px-3 py-2 text-sm ${tab === t ? 'border-b-2 border-signal text-paper' : 'text-dim hover:text-paper'}`}
-            >
-              {t === 'judgment'
-                ? `Judgment (${judgmentPending.length})`
-                : t === 'fact'
-                  ? `Facts (${factPending.length})`
-                  : `Log (${data.verdicts.length})`}
-            </button>
-          ))}
-        </div>
-
-        {tab === 'judgment' && (
-          <>
-            {judgmentPending.length === 0 ? (
-              <Empty>No judgment calls on file. The queue is caught up.</Empty>
-            ) : (
-              <>
-                <FiltersBar items={judgmentPending} filters={filters} onChange={setFilters} />
-                {groups.length === 0 ? (
-                  <Empty>No judgment items match these filters.</Empty>
-                ) : (
+      {tab === 'judgment' && (
+        <>
+          {judgmentPending.length === 0 ? (
+            <Empty>No judgment calls on file. The queue is caught up.</Empty>
+          ) : (
+            <>
+              <FiltersBar items={judgmentPending} filters={filters} onChange={setFilters} />
+              {groups.length === 0 ? (
+                <Empty>No judgment items match these filters.</Empty>
+              ) : (
+                <>
+                  <div className="mb-1 flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+                    <h2 className="text-[13px] font-extrabold tracking-[.09em] text-paper uppercase">Judgment Queue</h2>
+                    <span className="coord shrink-0">
+                      {filteredJudgment.length} of {judgmentPending.length} · grouped by type
+                    </span>
+                  </div>
                   <div className="pb-2">
                     {groups.map((g) => (
                       <ProposalGroup
@@ -388,87 +381,83 @@ export default function DeskPage() {
                       />
                     ))}
                   </div>
-                )}
-                <BulkBar
-                  selectedProposals={selectedProposals}
-                  onApprove={(note) => bulkDecide([...selected], 'approved', note)}
-                  onReject={(note) => bulkDecide([...selected], 'rejected', note)}
-                  busy={bulkBusy}
-                />
-              </>
-            )}
-          </>
-        )}
+                </>
+              )}
+              <BulkBar
+                selectedProposals={selectedProposals}
+                onApprove={(note) => bulkDecide([...selected], 'approved', note)}
+                onReject={(note) => bulkDecide([...selected], 'rejected', note)}
+                busy={bulkBusy}
+              />
+            </>
+          )}
+        </>
+      )}
 
-        {tab === 'fact' && (
-          <div className="flex flex-col gap-4">
-            <p className="rounded-md border border-line bg-surface p-4 text-sm text-dim">
-              These apply automatically with provenance; undo is <span className="font-mono">git revert</span>. Auto-apply
-              arrives with the live feed; for now you&apos;re the loop.
-            </p>
-            {factPending.length === 0 ? (
-              <Empty>No fact-lane items on file.</Empty>
-            ) : (
-              <>
-                <div>
-                  <button
-                    type="button"
-                    onClick={applyAllFacts}
-                    disabled={bulkBusy}
-                    className="min-h-10 rounded-md border border-live bg-live/15 px-4 text-sm font-medium text-live disabled:opacity-50"
-                  >
-                    {bulkBusy ? 'Applying…' : `Apply all ${factPending.length} facts`}
-                  </button>
-                </div>
-                <div className="flex flex-col gap-3">
-                  {factPending.map((p) => (
-                    <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} errorMessage={bulkErrors[p.id]} />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {tab === 'log' &&
-          (data.verdicts.length === 0 ? (
-            <Empty>No decisions on file yet.</Empty>
+      {tab === 'fact' && (
+        <div className="flex flex-col gap-6">
+          <p className="serif-statement max-w-[640px] text-[13.5px] leading-[1.6] text-dim">
+            These apply automatically with provenance; undo is <span className="font-mono not-italic">git revert</span>.
+            Auto-apply arrives with the live feed; for now you&apos;re the loop.
+          </p>
+          {factPending.length === 0 ? (
+            <Empty>No fact-lane items on file.</Empty>
           ) : (
-            <div className="flex flex-col divide-y divide-line rounded-md border border-line bg-surface">
-              {data.verdicts.map((v, i) => {
-                const proposal = data.proposals.find((p) => p.id === v.proposal_id);
-                const destination = v.decision === 'approved' ? proposal?.destination : null;
-                return (
-                  <div key={`${v.proposal_id}-${i}`} className="flex flex-col gap-1 px-4 py-2.5 text-sm">
-                    <div className="flex items-center gap-3">
-                      <span className={v.decision === 'approved' ? 'text-live' : 'text-dim'}>
-                        {v.decision === 'approved' ? 'Approved' : 'Rejected'}
-                      </span>
-                      <span className="flex-1 truncate text-paper">{proposal?.title || v.proposal_id}</span>
-                      {v.note && <span className="hidden max-w-xs truncate text-xs text-faint md:inline">{v.note}</span>}
-                      {v.commit ? (
-                        <a
-                          href={commitUrl(v.commit)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="coord shrink-0 hover:text-dim"
-                        >
-                          {v.commit}
-                        </a>
-                      ) : (
-                        <span className="coord shrink-0">ledgered</span>
-                      )}
-                      <span className="coord hidden shrink-0 sm:inline">{timeAgo(v.at)}</span>
-                    </div>
-                    {destination && destination.length > 0 && (
-                      <div className="coord pl-0">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
+            <>
+              <VerdictActions
+                onApprove={applyAllFacts}
+                approveLabel={bulkBusy ? 'Applying…' : `Apply all ${factPending.length} facts — set in registry`}
+                disabled={bulkBusy}
+              />
+              <div className="flex flex-col">
+                {factPending.map((p) => (
+                  <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} errorMessage={bulkErrors[p.id]} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {tab === 'log' &&
+        (data.verdicts.length === 0 ? (
+          <Empty>No decisions on file yet.</Empty>
+        ) : (
+          <div className="flex flex-col">
+            {data.verdicts.map((v, i) => {
+              const proposal = data.proposals.find((p) => p.id === v.proposal_id);
+              const destination = v.decision === 'approved' ? proposal?.destination : null;
+              return (
+                <div key={`${v.proposal_id}-${i}`} className="border-b border-line py-3 last:border-b-0">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
+                    <span className="coord shrink-0">{dateShortIso(v.at)}</span>
+                    <span className={v.decision === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>
+                      {v.decision === 'approved' ? 'Approved' : 'Rejected'}
+                    </span>
+                    <span className="min-w-[10rem] flex-1 truncate text-dim">{proposal?.title || v.proposal_id}</span>
+                    {v.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{v.note}</span>}
+                    {v.commit ? (
+                      <a
+                        href={commitUrl(v.commit)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="coord shrink-0 hover:text-dim"
+                      >
+                        {v.commit}
+                      </a>
+                    ) : (
+                      <span className="coord shrink-0">ledgered</span>
                     )}
+                    <span className="coord hidden shrink-0 sm:inline">{timeAgo(v.at)}</span>
                   </div>
-                );
-              })}
-            </div>
-          ))}
-      </div>
-    </>
+                  {destination && destination.length > 0 && (
+                    <div className="coord mt-1">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+    </div>
   );
 }

@@ -143,3 +143,26 @@ Public access, the full galaxy viz, people/contacts in the registry, writes into
 3. Notion funder rows carry live registry summaries (post dry-run approval).
 4. Zero BD-private fields in any `registry/` file (verifiable by grep/CI).
 5. The registry survives a DB wipe (rebuild from files).
+
+## Voice & era (Sov, 2026-07-11)
+
+The register is the 1920s–30s wire service — the grand age of the newspaper — carried by
+discipline, never costume. grants.watch speaks as a press bureau for capital: dispatches
+from the funding wires, edition-stamped, sourced like a paper of record.
+
+- Masthead: "■ grants.watch | THE REGISTRY OF THE FUNDING WORLD". Footer keeps the same line.
+- The era lives in CONVENTIONS, not decoration: datelines ("ETHEREUM WIRE — JUL 11"),
+  slug lines (small caps: NEW ORGANIZATION · CRYPTO WIRE · CONFIDENCE 85), edition stamps
+  (EDITION 2026.07.11), plates and figure captions, telegraphic section labels
+  (DISPATCHES, THE DESK, STANDING — NO FIXED DEADLINE).
+- "Wire" is the native word for the three verticals — lean into it. "Dispatches" names
+  incoming signal streams. "Ledger" only ever means the awards ledger.
+- NO pastiche: no distressed textures, no faux-aged paper, no period typefaces beyond the
+  serif/sans system already chosen. Modern hairline discipline, era-true voice.
+- NO aphorisms (Sov, 2026-07-11): display statements DESCRIBE the product or STATE fact —
+  never maxims or process-philosophy ("Nothing joins the registry until someone reads it
+  and says so" is the canonical counter-example: killed on sight).
+- EXTERNAL READER TEST (Sov, 2026-07-11): every public page must be fully legible to a
+  first-time visitor with zero context. Insider terms get an inline definition at first
+  use per page or get replaced with plain words. Empty states explain what absence means.
+- Icon: the ink square printer's block. Nothing cosmic, ever.

@@ -5,17 +5,14 @@ import { PageHeader, Empty, Stat } from '@/components/ui';
 import { dateShort, money, WIRE_LABEL } from '@/lib/format';
 import type { Award, Wire } from '@/lib/types';
 import { param, hrefWith, type SearchParams, type Query } from '@/components/ledger/query';
-import { ChipRow, FilterChip, ActiveFilterChip } from '@/components/ledger/chip';
+import { FilterGroup, FilterLink, ActiveFilterLink } from '@/components/ui-filters';
 import { Pager } from '@/components/ledger/pager';
+import { isUsdKnown } from '@/components/browse/registry-helpers';
 
 export const metadata: Metadata = { title: 'Awards' };
 
 const WIRE_ORDER: Wire[] = ['crypto', 'ai', 'oss'];
 const PAGE_SIZE = 100;
-
-function isUsdKnown(a: Award): boolean {
-  return Boolean(a.amount) && (!a.currency || a.currency.toUpperCase() === 'USD');
-}
 
 export default async function AwardsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const sp = await searchParams;
@@ -63,8 +60,9 @@ export default async function AwardsPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <PageHeader
-        eyebrow="CAPITAL IN MOTION"
+        eyebrow="THE LEDGER"
         title="Awards"
+        sub="Every disclosed grant on file, funder to grantee, sourced and dated where the record allows it."
         right={
           <div className="flex gap-6">
             <Stat label="awards" value={totalCount.toLocaleString()} />
@@ -73,33 +71,33 @@ export default async function AwardsPage({ searchParams }: { searchParams: Promi
         }
       />
 
-      <div className="mx-auto max-w-6xl px-4 space-y-3 pb-6">
+      <div className="mx-auto max-w-6xl space-y-2.5 px-4 pt-4 pb-5">
         {wireValues.length > 1 && (
-          <ChipRow>
+          <FilterGroup>
             {wireValues.map((w) => (
-              <FilterChip key={w} href={hrefWith('/awards', query, { wire: wireF === w ? undefined : w })} active={wireF === w}>
+              <FilterLink key={w} href={hrefWith('/awards', query, { wire: wireF === w ? undefined : w })} active={wireF === w}>
                 <span className="inline-flex items-center gap-1.5">
-                  <span aria-hidden className="inline-block size-1.5 rounded-full" style={{ background: `var(--color-${w})` }} />
+                  <span aria-hidden className="inline-block size-1.5" style={{ background: `var(--color-${w})` }} />
                   {WIRE_LABEL[w]}
                 </span>
-              </FilterChip>
+              </FilterLink>
             ))}
-          </ChipRow>
+          </FilterGroup>
         )}
         {years.length > 1 && (
-          <ChipRow>
+          <FilterGroup>
             {years.map((y) => (
-              <FilterChip key={y} href={hrefWith('/awards', query, { year: yearF === y ? undefined : y })} active={yearF === y}>
+              <FilterLink key={y} href={hrefWith('/awards', query, { year: yearF === y ? undefined : y })} active={yearF === y}>
                 {y === 'undated' ? 'Undated' : y}
-              </FilterChip>
+              </FilterLink>
             ))}
-          </ChipRow>
+          </FilterGroup>
         )}
         {(funderName || granteeName) && (
-          <ChipRow>
-            {funderName && <ActiveFilterChip href={hrefWith('/awards', query, { funder: undefined })}>Funder: {funderName}</ActiveFilterChip>}
-            {granteeName && <ActiveFilterChip href={hrefWith('/awards', query, { grantee: undefined })}>Grantee: {granteeName}</ActiveFilterChip>}
-          </ChipRow>
+          <FilterGroup>
+            {funderName && <ActiveFilterLink href={hrefWith('/awards', query, { funder: undefined })}>Funder: {funderName}</ActiveFilterLink>}
+            {granteeName && <ActiveFilterLink href={hrefWith('/awards', query, { grantee: undefined })}>Grantee: {granteeName}</ActiveFilterLink>}
+          </FilterGroup>
         )}
       </div>
 
@@ -108,55 +106,62 @@ export default async function AwardsPage({ searchParams }: { searchParams: Promi
           <Empty>No awards on file for this filter.</Empty>
         ) : (
           <>
-            <div className="overflow-x-auto rounded-md border border-line">
-              <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[900px] text-sm">
                 <thead>
-                  <tr className="border-b border-line text-left">
-                    <th className="coord px-3 py-2 font-normal">Date</th>
-                    <th className="coord px-3 py-2 font-normal">Funder</th>
-                    <th className="coord px-3 py-2 font-normal" aria-hidden></th>
-                    <th className="coord px-3 py-2 font-normal">Grantee</th>
-                    <th className="coord px-3 py-2 font-normal text-right">Amount</th>
-                    <th className="coord px-3 py-2 font-normal">Program</th>
-                    <th className="coord px-3 py-2 font-normal">Wire</th>
-                    <th className="coord px-3 py-2 font-normal" aria-hidden></th>
+                  <tr className="border-b-[1.5px] border-paper text-left">
+                    <th className="coord py-2.5 pr-4 font-normal">Date</th>
+                    <th className="coord py-2.5 pr-4 font-normal">Funder</th>
+                    <th className="coord py-2.5 pr-4 font-normal" aria-hidden></th>
+                    <th className="coord py-2.5 pr-4 font-normal">Grantee</th>
+                    <th className="coord py-2.5 pr-4 font-normal">Program</th>
+                    <th className="coord py-2.5 pr-4 text-right font-normal">Amount</th>
+                    <th className="coord py-2.5 pr-4 font-normal">Wire</th>
+                    <th className="coord py-2.5 pr-4 font-normal" aria-hidden></th>
                   </tr>
                 </thead>
                 <tbody>
                   {pageItems.map((a) => (
-                    <tr key={a.key} className="border-b border-line last:border-0 align-top">
-                      <td className="whitespace-nowrap px-3 py-2 font-mono text-dim">{dateShort(a.date)}</td>
-                      <td className="px-3 py-2">
-                        <Link href={`/orgs/${a.funder}`} className="hover:text-signal">
+                    <tr key={a.key} className="border-b border-line align-top transition-colors hover:bg-raised/40">
+                      <td className="py-3 pr-4 text-[12px] whitespace-nowrap tabular-nums text-faint">{dateShort(a.date)}</td>
+                      <td className="py-3 pr-4">
+                        <Link href={`/orgs/${a.funder}`} className="display text-[14px] text-paper hover:text-signal">
                           {a.funder_name || a.funder}
                         </Link>
                       </td>
-                      <td className="px-3 py-2 text-faint" aria-hidden>
+                      <td className="py-3 pr-2 text-faint" aria-hidden>
                         →
                       </td>
-                      <td className="px-3 py-2">
-                        <Link href={`/grantees/${a.grantee}`} className="hover:text-signal">
+                      <td className="py-3 pr-4">
+                        <Link href={`/grantees/${a.grantee}`} className="display text-[14px] font-semibold text-paper hover:text-signal">
                           {a.grantee_name || a.grantee}
                         </Link>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-2 text-right font-mono">{money(a.amount, a.amount_text)}</td>
-                      <td className="max-w-[16rem] truncate px-3 py-2 text-dim" title={a.program_name || undefined}>
+                      <td className="max-w-[15rem] truncate py-3 pr-4 text-[12.5px] text-dim" title={a.program_name || undefined}>
                         {a.program_name || '—'}
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="py-3 pr-4 text-right font-bold whitespace-nowrap tabular-nums text-paper">{money(a.amount, a.amount_text)}</td>
+                      <td className="py-3 pr-4">
                         {a.wire ? (
-                          <span className="inline-flex items-center gap-1.5 text-xs text-dim">
-                            <span aria-hidden className="inline-block size-2 rounded-full" style={{ background: `var(--color-${a.wire})` }} />
-                            {WIRE_LABEL[a.wire]}
-                          </span>
+                          <span
+                            aria-label={WIRE_LABEL[a.wire]}
+                            title={WIRE_LABEL[a.wire]}
+                            className="inline-block size-2 shrink-0"
+                            style={{ background: `var(--color-${a.wire})` }}
+                          />
                         ) : (
                           <span className="text-faint">—</span>
                         )}
                       </td>
-                      <td className="px-3 py-2">
+                      <td className="py-3 pr-4">
                         {a.source && (
-                          <a href={a.source} target="_blank" rel="noreferrer" className="text-dim hover:text-paper">
-                            ↗
+                          <a
+                            href={a.source}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="border-b border-line text-[11px] text-faint hover:border-paper hover:text-paper"
+                          >
+                            source ↗
                           </a>
                         )}
                       </td>

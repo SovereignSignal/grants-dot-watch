@@ -12,18 +12,18 @@ export default function NotFound() {
   return (
     <div>
       <PageHeader
-        eyebrow="UNCHARTED"
-        title="Nothing at these coordinates."
-        sub="This page isn't on file. Try one of the charted routes below."
+        eyebrow="NOT FOUND"
+        title="Page not found."
+        sub="This page isn't on file. Try one of the pages below."
       />
-      <div className="mx-auto max-w-6xl px-4 pb-16 flex flex-wrap gap-3">
+      <div className="mx-auto max-w-6xl px-4 pb-16 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6">
         {LINKS.map((l) => (
           <Link
             key={l.href}
             href={l.href}
-            className="rounded-md border border-line bg-surface px-4 py-2 text-sm text-paper transition-colors hover:border-faint hover:bg-raised"
+            className="coord border-b border-line pb-0.5 text-dim transition-colors hover:border-paper hover:text-paper"
           >
-            {l.label}
+            {l.label} →
           </Link>
         ))}
       </div>

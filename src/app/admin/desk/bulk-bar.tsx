@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import { typeCountsSummary } from '@/proposal-lanes';
 import type { QueueProposal } from './desk-types';
+import { VerdictActions } from './verdict-actions';
 
-/** Sticky bottom bar, appears only once something is selected. Approve
- *  confirms first with a plain-language type breakdown — it's the one action
- *  in The Desk that writes files and commits immediately, so it gets a pause;
- *  Reject only records a verdict, so it doesn't. */
+/** Sticky bottom bar, appears only once something is selected — same
+ *  hairline discipline as an item, ink-underline actions, no color, no
+ *  shadow. Approve confirms first with a plain-language type breakdown —
+ *  it's the one action here that writes files and commits immediately, so it
+ *  gets a pause; Reject only records a verdict, so it doesn't. */
 export function BulkBar({
   selectedProposals,
   onApprove,
@@ -40,31 +42,26 @@ export function BulkBar({
   }
 
   return (
-    <div className="sticky bottom-0 z-20 mt-4 flex flex-wrap items-center gap-3 rounded-md border border-line bg-raised/95 px-4 py-3 shadow-lg backdrop-blur">
-      <span className="coord shrink-0">{n} selected</span>
-      <input
-        type="text"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        placeholder="Optional note…"
-        className="min-w-0 flex-1 rounded border border-line bg-surface px-2 py-1.5 text-sm text-paper placeholder:text-faint focus:outline-none"
-      />
-      <button
-        type="button"
-        onClick={handleApprove}
-        disabled={busy}
-        className="min-h-9 shrink-0 rounded-md border border-live bg-live/15 px-3 text-sm font-medium text-live disabled:opacity-50"
-      >
-        {busy ? 'Working…' : `Approve ${n}`}
-      </button>
-      <button
-        type="button"
-        onClick={handleReject}
-        disabled={busy}
-        className="min-h-9 shrink-0 rounded-md border border-line px-3 text-sm font-medium text-dim disabled:opacity-50"
-      >
-        {busy ? 'Working…' : `Reject ${n}`}
-      </button>
+    <div className="sticky bottom-0 z-20 mt-4 border-t-2 border-paper bg-void/95 px-1 py-4 backdrop-blur">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <span className="coord shrink-0">
+          <span className="text-paper">{n} selected</span>
+        </span>
+        <input
+          type="text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Optional note…"
+          className="min-w-0 flex-1 border-b border-line bg-transparent px-1 py-1 text-[13px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+        />
+        <VerdictActions
+          onApprove={handleApprove}
+          onReject={handleReject}
+          approveLabel={busy ? 'Working…' : `Approve ${n} — set in registry`}
+          rejectLabel={busy ? 'Working…' : `Reject ${n}`}
+          disabled={busy}
+        />
+      </div>
     </div>
   );
 }

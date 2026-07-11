@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { buildStarmap, WIRE_HEX } from '@/lib/starmap';
-import { Coord, Empty } from '@/components/ui';
-import { dateShort } from '@/lib/format';
+import { Empty } from '@/components/ui';
+import { dateShort, money, MONTHS_LONG, WIRE_LABEL } from '@/lib/format';
 import type { Org, Program, Round } from '@/lib/types';
-import Field from '@/components/field';
 
 interface OpenRound {
   key: string;
@@ -23,12 +21,6 @@ function collectOpenRounds(programs: Program[], orgs: Org[]): OpenRound[] {
       }
     }
   }
-  rounds.sort((a, b) => {
-    if (!a.round.closes && !b.round.closes) return 0;
-    if (!a.round.closes) return 1;
-    if (!b.round.closes) return -1;
-    return a.round.closes.localeCompare(b.round.closes);
-  });
   return rounds;
 }
 
@@ -38,151 +30,218 @@ function daysUntil(date: string | undefined): number | null {
   return Math.ceil(d / 86_400_000);
 }
 
-export default function Home() {
-  const { systems, orgs, programs, orgStats, counts } = loadRegistry();
-  const map = buildStarmap(systems, orgs, orgStats);
+function monthLabel(dateStr: string): string {
+  const [y, m] = dateStr.split('-');
+  return `${MONTHS_LONG[+m - 1]} ${y}`;
+}
 
-  const openRounds = collectOpenRounds(programs, orgs).slice(0, 3);
+function wireDot(wire: string | null | undefined) {
+  return <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />;
+}
+
+export default function Home() {
+  const { orgs, programs, awards, counts } = loadRegistry();
+
+  const openRounds = collectOpenRounds(programs, orgs);
+  const dated = openRounds
+    .filter((r) => r.round.closes)
+    .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
+  const standing = openRounds.filter((r) => !r.round.closes);
+  const departures = dated.slice(0, 5);
+
+  // group departures by close month — a month's label carries the year once,
+  // so individual rows show only the day (no repeated "Jul 2026" per row).
+  const groups: { label: string; rows: OpenRound[] }[] = [];
+  for (const r of departures) {
+    const label = monthLabel(r.round.closes!);
+    let g = groups[groups.length - 1];
+    if (!g || g.label !== label) {
+      g = { label, rows: [] };
+      groups.push(g);
+    }
+    g.rows.push(r);
+  }
+
+  const latestAwards = awards
+    .filter((a) => a.date)
+    .sort((a, b) => b.date!.localeCompare(a.date!) || (b.amount ?? -1) - (a.amount ?? -1))
+    .slice(0, 5);
+
+  const REGISTER: { href: string; label: string; n: number }[] = [
+    { href: '/systems', label: 'Systems', n: counts.systems },
+    { href: '/orgs', label: 'Organizations', n: counts.orgs },
+    { href: '/programs', label: 'Programs', n: counts.programs },
+    { href: '/awards', label: 'Awards', n: counts.awards },
+  ];
 
   return (
     <>
-      {/* The field hero stays a dark observatory viewport in both themes — the
-          canvas itself never repaints light. That means every token this
-          section (and Field's own hover tooltip, rendered inside it) reads
-          must stay pinned to its dark-theme value too, or light-theme text
-          tokens (paper → ink, etc.) would flip to near-invisible over the
-          still-dark canvas. Pinning the CSS custom properties here, scoped
-          to just this <section>, hardcodes the dark equivalents for every
-          descendant while leaving the rest of the app themable normally. */}
-      <section
-        className="relative"
-        style={
-          {
-            '--color-void': '#0b0e1a',
-            '--color-surface': '#131829',
-            '--color-raised': '#1a2033',
-            '--color-line': '#232a40',
-            '--color-paper': '#e8e6df',
-            '--color-dim': '#9094a8',
-            '--color-faint': '#5b5f73',
-            '--color-live': '#4fbf7e',
-            '--color-closing': '#d9a13f',
-            '--color-signal': '#e8b44f',
-          } as React.CSSProperties
-        }
-      >
-        <Field map={map} />
-        <div className="pointer-events-none absolute inset-0 flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-4">
-            <div className="max-w-2xl">
-              <div className="coord mb-4 flex items-center gap-3">
-                <span className="inline-block h-px w-8 bg-faint" aria-hidden />
-                THE REGISTER
-              </div>
-              <h1 className="display text-5xl font-semibold leading-[1.04] tracking-tight text-paper md:text-7xl">
-                The funding world,
-                <br />
-                on file.
-              </h1>
-              <p className="mt-4 max-w-lg text-base text-paper/70 md:text-lg">
-                Every system, funder, program, and award tracked across crypto, AI, and open source — kept current, in
-                one registry.
-              </p>
-              <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-                <span className="font-mono text-sm text-paper">
-                  {counts.funders} <span className="coord">FUNDERS TRACKED</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section className="mx-auto max-w-6xl border-b border-line px-4 pt-8 pb-7">
+        <div className="coord mb-2.5">Grant funding across crypto, AI, and open source</div>
+        <p className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
+          Every open round, every closed grant, every dollar that moved —{' '}
+          <em className="border-b border-paper not-italic">tracked in one register, sourced in the open.</em>
+        </p>
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
+          grants.watch indexes funding systems (ecosystems with their own treasury, like Ethereum or Cardano), the
+          funders and programs inside them, across three wires of capital — crypto, AI, and open source — linking
+          every figure back to a primary source. No aggregation without a citation.
+        </p>
       </section>
 
-      <div className="starline" />
-
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="mb-5 flex items-baseline justify-between gap-4">
-          <div>
-            <Coord>DEADLINES AHEAD</Coord>
-            <h2 className="display mt-1 text-2xl font-semibold text-paper">Now open</h2>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-11 gap-y-10 px-4 py-9 lg:grid-cols-[1fr_336px]">
+        {/* DEPARTURES — lead story */}
+        <section className="min-w-0">
+          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Departures — What Closes Next</h2>
+            <span className="coord shrink-0">
+              {departures.length} of {counts.programs.toLocaleString()} programs
+            </span>
           </div>
-          <Link href="/programs" className="coord hover:text-paper">
-            ALL PROGRAMS →
-          </Link>
+
+          {departures.length === 0 && standing.length === 0 ? (
+            <Empty>No open funding rounds on file right now. Check back soon — new rounds are added continuously.</Empty>
+          ) : (
+            <>
+              {groups.map((g) => (
+                <div key={g.label}>
+                  <div className="mt-4 mb-1 flex items-center gap-3.5 first:mt-3.5">
+                    <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[.13em] text-paper">
+                      {g.label}
+                    </span>
+                    <span aria-hidden className="h-px flex-1 bg-line" />
+                  </div>
+                  {g.rows.map((r) => {
+                    const wire = (r.program.wires || [])[0] || null;
+                    const days = daysUntil(r.round.closes);
+                    const closingSoon = days !== null && days >= 0 && days <= 14;
+                    return (
+                      <Link
+                        key={r.key}
+                        href={`/programs/${r.program.id}`}
+                        className="grid grid-cols-[52px_1fr] items-start gap-x-4 gap-y-1 border-b border-line py-3 transition-colors hover:bg-raised/40 sm:grid-cols-[68px_1fr_150px_92px] sm:items-center sm:gap-x-5"
+                      >
+                        <div className={`serif-statement text-[26px] leading-none not-italic tabular-nums ${closingSoon ? 'text-closing' : 'text-paper'}`}>
+                          {new Date(r.round.closes! + 'T00:00:00Z').getUTCDate()}
+                        </div>
+                        <div className="flex min-w-0 items-start gap-2.5">
+                          {wireDot(wire)}
+                          <div className="min-w-0">
+                            <div className="display text-[15.5px] leading-tight text-paper">{r.program.name}</div>
+                            <div className="coord mt-0.5 truncate">{r.orgName}</div>
+                          </div>
+                        </div>
+                        <div className="col-span-2 text-[12.5px] leading-snug text-dim tabular-nums sm:col-span-1">
+                          {r.round.size || '—'}
+                        </div>
+                        <div className="col-span-2 sm:col-span-1 sm:text-right">
+                          <span className={`text-[12px] font-bold ${closingSoon ? 'text-closing' : 'text-paper'}`}>
+                            {closingSoon ? 'Closing' : r.round.status === 'announced' ? 'Announced' : 'Open'}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              ))}
+              <div className="mt-3 border-t border-line pt-3 text-xs text-faint">
+                Programs board, in full, ordered by close —{' '}
+                <Link href="/programs" className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                  see all {counts.programs.toLocaleString()} →
+                </Link>
+              </div>
+            </>
+          )}
+        </section>
+
+        {/* RAIL */}
+        <aside className="min-w-0 lg:border-l lg:border-line lg:pl-11">
+          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Latest Awards</h2>
+            <span className="coord shrink-0">
+              {latestAwards.length} of {counts.awards.toLocaleString()}
+            </span>
+          </div>
+          {latestAwards.length === 0 ? (
+            <Empty>No awards with a recorded date on file yet.</Empty>
+          ) : (
+            latestAwards.map((a) => (
+              <Link
+                key={a.key}
+                href={`/grantees/${a.grantee}`}
+                className="flex items-start gap-2.5 border-b border-line py-3 transition-colors hover:bg-raised/40"
+              >
+                {wireDot(a.wire)}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="min-w-0 truncate text-[13px] text-paper">
+                      <span className="text-faint">{a.funder_name}</span>
+                      <span className="px-1 text-faint">→</span>
+                      <span className="font-semibold">{a.grantee_name}</span>
+                    </div>
+                    <div className="shrink-0 text-[13px] font-bold tabular-nums text-paper">{money(a.amount, a.amount_text)}</div>
+                  </div>
+                  <div className="coord mt-0.5">
+                    {dateShort(a.date)}
+                    {a.wire ? ` · ${WIRE_LABEL[a.wire]}` : ''}
+                  </div>
+                </div>
+              </Link>
+            ))
+          )}
+
+          <div className="mt-8">
+            <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+              <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
+              <span className="coord shrink-0">4 measures</span>
+            </div>
+            <div className="grid grid-cols-2 border-t border-line">
+              {REGISTER.map((r, i) => (
+                <Link
+                  key={r.href}
+                  href={r.href}
+                  className={`group py-3 ${i % 2 === 1 ? 'border-l border-line pl-5' : 'pr-5'} ${i >= 2 ? 'border-t border-line' : ''}`}
+                >
+                  <div className="serif-statement text-[28px] leading-none tabular-nums text-paper">{r.n.toLocaleString()}</div>
+                  <div className="coord mt-1.5">{r.label}</div>
+                  <div className="coord mt-1 inline-block border-b border-line text-dim group-hover:border-paper group-hover:text-paper">
+                    Browse {r.label.toLowerCase()} →
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* STANDING — quiet section for rolling programs */}
+      <section className="mx-auto max-w-6xl border-t-[2.5px] border-paper px-4 pt-5 pb-12">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+          <h2 className="coord text-dim">Standing — No Fixed Deadline</h2>
+          <span className="coord">Applications run on a rolling or continuous basis</span>
         </div>
-        {openRounds.length === 0 ? (
-          <Empty>No open rounds on file.</Empty>
+        {standing.length === 0 ? (
+          <p className="serif-statement mt-4 text-dim">No standing open calls on file.</p>
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {openRounds.map((r) => {
+          <div className="mt-3 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+            {standing.map((r) => {
               const wire = (r.program.wires || [])[0] || null;
-              const days = daysUntil(r.round.closes);
-              const closingSoon = days !== null && days >= 0 && days <= 14;
               return (
                 <Link
                   key={r.key}
                   href={`/programs/${r.program.id}`}
-                  className="group relative overflow-hidden rounded-md border border-line bg-surface p-4 transition-colors hover:border-faint hover:bg-raised"
+                  className="flex items-start gap-2.5 border-b border-line py-2.5 transition-colors hover:bg-raised/40"
                 >
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 top-0 h-[2px] opacity-80"
-                    style={{ background: wire ? WIRE_HEX[wire] : 'var(--color-line)' }}
-                  />
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="line-clamp-2 font-medium leading-snug text-paper" title={r.program.name}>
-                        {r.program.name}
-                      </div>
-                      <div className="coord mt-1 truncate">{r.orgName}</div>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex items-end justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="coord">{r.round.closes ? 'CLOSES' : 'WINDOW'}</div>
-                      <div
-                        className={`flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-mono text-lg ${closingSoon ? 'text-closing' : 'text-paper'}`}
-                      >
-                        <span className="whitespace-nowrap">{r.round.closes ? dateShort(r.round.closes) : 'Rolling'}</span>
-                        {closingSoon && (
-                          <span className="whitespace-nowrap text-xs">
-                            <span aria-hidden className="mr-1.5">
-                              ·
-                            </span>
-                            {days}d left
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    {r.round.size && (
-                      <div className="line-clamp-2 max-w-[45%] text-right font-mono text-xs leading-snug text-signal">
-                        {r.round.size}
-                      </div>
-                    )}
+                  <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm text-paper">{r.program.name}</div>
+                    <div className="coord mt-0.5 truncate">{r.orgName}</div>
                   </div>
                 </Link>
               );
             })}
           </div>
         )}
-      </section>
-
-      <div className="starline" />
-
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="flex flex-wrap gap-x-10 gap-y-4">
-          {[
-            { href: '/systems', label: 'Systems', n: counts.systems },
-            { href: '/orgs', label: 'Organizations', n: counts.orgs },
-            { href: '/programs', label: 'Programs', n: counts.programs },
-            { href: '/awards', label: 'The ledger', n: counts.awards },
-          ].map((x) => (
-            <Link key={x.href} href={x.href} className="group">
-              <span className="font-mono text-2xl text-paper group-hover:text-signal">{x.n.toLocaleString()}</span>
-              <span className="coord ml-2 group-hover:text-dim">{x.label} →</span>
-            </Link>
-          ))}
-        </div>
       </section>
     </>
   );

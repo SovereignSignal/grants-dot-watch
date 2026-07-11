@@ -1,55 +1,22 @@
 @import 'tailwindcss';
 
-/* ── grants.watch: the observatory ledger ─────────────────────────────
-   Deep-field indigo, warm starlight ink, three validated wire hues
-   (dark-surface validated: #BC7E1E / #9B7BF7 / #1FA3B5), gold reserved
-   for capital in motion. Dark is the default surface; a light surface
-   (validated separately, see the html[data-theme="light"] block below)
-   is available via the header toggle. The field hero and galaxy canvases
-   stay dark in both themes — they're instruments, not chrome. */
+/* ── grants.watch: The Daily Ledger ────────────────────────────────────
+   Light paper ground, ink structure, three wire hues as square markers.
+   No boxes, no glows, no shadows — hierarchy comes from hairline rules
+   and alignment. Light is the default surface; a quiet "ledger-dark"
+   variant (same design, inverted) lives behind html[data-theme="dark"]
+   and behind a system prefers-color-scheme fallback for no-JS loads.
+   See layout.tsx for the pre-paint script that sets the attribute. */
 
 @theme {
-  --color-void: #0b0e1a;
-  --color-deep: #0e1322;
-  --color-surface: #131829;
-  --color-raised: #1a2033;
-  --color-line: #232a40;
-  --color-paper: #e8e6df;
-  --color-dim: #9094a8;
-  --color-faint: #5b5f73;
-
-  --color-crypto: #bc7e1e;
-  --color-ai: #9b7bf7;
-  --color-oss: #1fa3b5;
-
-  --color-live: #4fbf7e;
-  --color-closing: #d9a13f;
-  --color-signal: #e8b44f;
-
-  --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
-  --font-body: 'Instrument Sans Variable', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-}
-
-:root {
-  color-scheme: dark;
-}
-
-/* Light theme — same token NAMES, validated light values. Dark stays the
-   default (no attribute on <html>); this block only applies when the
-   pre-paint script (see layout.tsx) or the theme toggle sets
-   data-theme="light" on the root element. */
-html[data-theme='light'] {
-  color-scheme: light;
-
-  --color-void: #f2f1ea;
-  --color-deep: #eceade;
-  --color-surface: #faf9f4;
-  --color-raised: #f4f2ea;
-  --color-line: #d9d6c8;
-  --color-paper: #1d2130;
-  --color-dim: #565b6e;
-  --color-faint: #8b8fa0;
+  --color-void: #f6f5f1;
+  --color-deep: #f6f5f1;
+  --color-surface: #efeee7;
+  --color-raised: #e9e7db;
+  --color-line: #d8d6cc;
+  --color-paper: #1a1d27;
+  --color-dim: #4b4e5a;
+  --color-faint: #8a8d97;
 
   --color-crypto: #96660f;
   --color-ai: #6847d8;
@@ -58,6 +25,62 @@ html[data-theme='light'] {
   --color-live: #1e7d4d;
   --color-closing: #8a6414;
   --color-signal: #8a6414;
+
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+/* Dark — "ledger-dark": the same chrome and rules, inverted values. Applies
+   when the toggle (or a stored preference) sets data-theme="dark". */
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-void: #14161d;
+  --color-deep: #14161d;
+  --color-surface: #1a1c24;
+  --color-raised: #20222b;
+  --color-line: #2a2d38;
+  --color-paper: #e8e6df;
+  --color-dim: #b8b6ac;
+  --color-faint: #77767c;
+
+  --color-crypto: #bc7e1e;
+  --color-ai: #9b7bf7;
+  --color-oss: #1fa3b5;
+
+  --color-live: #4fbf7e;
+  --color-closing: #d9a13f;
+  --color-signal: #d9a13f;
+}
+
+/* No-JS / first-paint fallback: honor the system preference unless the
+   visitor has explicitly chosen light (data-theme="light" always wins). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color-void: #14161d;
+    --color-deep: #14161d;
+    --color-surface: #1a1c24;
+    --color-raised: #20222b;
+    --color-line: #2a2d38;
+    --color-paper: #e8e6df;
+    --color-dim: #b8b6ac;
+    --color-faint: #77767c;
+
+    --color-crypto: #bc7e1e;
+    --color-ai: #9b7bf7;
+    --color-oss: #1fa3b5;
+
+    --color-live: #4fbf7e;
+    --color-closing: #d9a13f;
+    --color-signal: #d9a13f;
+  }
 }
 
 html {
@@ -71,27 +94,74 @@ body {
   font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings:
+    'tnum' 1,
+    'kern' 1;
 }
 
 ::selection {
   background: color-mix(in oklab, var(--color-signal) 30%, transparent);
 }
 
-/* catalog coordinates — the registry's mono voice */
-.coord {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-faint);
+/* small-caps label voice — eyebrows, bylines, counts. Sans, tracked,
+   uppercase; never mono (mono is reserved for numbers/dates).
+   Wrapped in @layer components: unlayered CSS sits in an implicit final
+   layer that beats EVERY Tailwind utility regardless of specificity or
+   source order, so callers like `coord hover:text-dim` silently lost the
+   utility half. Inside @layer components, normal cascade layer ordering
+   applies and utilities (later layer) win as authors expect. */
+@layer components {
+  .coord {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  /* display voice — serif, upright. Page titles, dossier names. No size or
+     line-height baked in on purpose: callers set those with Tailwind. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: -0.014em;
+  }
+
+  /* statement voice — serif, italic. Lead statements, big index numbers. */
+  .serif-statement {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+
+  /* Hides scrollbar chrome on a horizontally-scrollable single-row strip
+     (the primary nav on narrow viewports, where it overflows) while
+     keeping it scrollable — some platforms render a persistent gray
+     scrollbar track there otherwise, reading as a stray UI element. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.display {
-  font-family: var(--font-display);
-  letter-spacing: -0.01em;
+/* hairline utilities */
+.rule {
+  border-top: 1px solid var(--color-line);
+}
+.rule-heavy {
+  border-top: 2.5px solid var(--color-paper);
+  padding-top: 3px;
+  border-bottom: 1px solid var(--color-paper);
 }
 
-/* hairline with a star point — section divider */
+/* hairline with a point — legacy section divider, still in use on pages
+   this phase doesn't restyle; reads fine in the ledger palette as-is. */
 .starline {
   position: relative;
   border-top: 1px solid var(--color-line);

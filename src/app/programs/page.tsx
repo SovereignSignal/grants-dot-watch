@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { PageHeader, Card, RoundStatus, Empty, Stat } from '@/components/ui';
-import { dateShort, WIRE_LABEL } from '@/lib/format';
+import { PageHeader, Stat } from '@/components/ui';
 import type { Wire } from '@/lib/types';
 import { param, hrefWith, type SearchParams, type Query } from '@/components/ledger/query';
-import { ChipRow, FilterChip, ActiveFilterChip } from '@/components/ledger/chip';
 import { MECHANISM_LABEL, PROGRAM_STATUS_LABEL } from '@/components/ledger/labels';
-import { mostLiveRound, programRank } from '@/components/ledger/rounds';
+import { WIRE_LABEL } from '@/lib/format';
+import { FilterRow, FilterLink, ActiveFilterLink } from '@/components/ui-filters';
+import { ProgramsTabs, type ProgramsView } from '@/components/programs/tabs';
+import { DeparturesBoard } from '@/components/programs/departures-board';
+import { CadenceChart } from '@/components/programs/cadence-chart';
 
 export const metadata: Metadata = { title: 'Programs' };
 
@@ -26,31 +27,22 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   const mechF = param(sp, 'mechanism');
   const wireF = param(sp, 'wire');
   const orgF = param(sp, 'org');
+  const viewParam = param(sp, 'view');
+  const view: ProgramsView = viewParam === 'cadence' ? 'cadence' : 'departures';
 
-  const { programs, orgs } = loadRegistry();
+  const { programs, orgs, systems } = loadRegistry();
   const orgById = new Map(orgs.map((o) => [o.id, o]));
 
+  // Same filter logic the board carried before this phase — status/mechanism/
+  // wire/org narrow the program set; both tabs read from that one filtered
+  // list, so a filter set on one view still holds when you switch to the other.
   let filtered = programs;
   if (statusF) filtered = filtered.filter((p) => p.status === statusF);
   if (mechF) filtered = filtered.filter((p) => (p.mechanism || 'other') === mechF);
   if (wireF) filtered = filtered.filter((p) => (p.wires || []).includes(wireF as Wire));
   if (orgF) filtered = filtered.filter((p) => p.org === orgF);
 
-  const sorted = [...filtered].sort((a, b) => {
-    const ra = programRank(a.rounds);
-    const rb = programRank(b.rounds);
-    if (ra !== rb) return ra - rb;
-    if (ra === 0) {
-      const ca = mostLiveRound(a.rounds)?.closes || '';
-      const cb = mostLiveRound(b.rounds)?.closes || '';
-      if (ca && cb && ca !== cb) return ca.localeCompare(cb);
-      if (ca && !cb) return -1;
-      if (!ca && cb) return 1;
-    }
-    return a.name.localeCompare(b.name);
-  });
-
-  const query: Query = { status: statusF, mechanism: mechF, wire: wireF, org: orgF };
+  const query: Query = { status: statusF, mechanism: mechF, wire: wireF, org: orgF, view: viewParam };
   const statusValues = uniqueInOrder(programs.map((p) => p.status), STATUS_ORDER);
   const mechValues = uniqueInOrder(programs.map((p) => p.mechanism || 'other'), MECHANISM_ORDER);
   const wireValues = uniqueInOrder(programs.flatMap((p) => p.wires || []), WIRE_ORDER);
@@ -59,88 +51,66 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   return (
     <>
       <PageHeader
-        eyebrow="FUNDING VEHICLES"
+        eyebrow="Funding Vehicles"
         title="Programs"
-        right={<Stat label="on file" value={sorted.length.toLocaleString()} />}
+        sub="What closes next across every program we track — and the year's rhythm, plotted lane by lane."
+        right={<Stat label="on file" value={filtered.length.toLocaleString()} />}
       />
-      <div className="mx-auto max-w-6xl px-4 space-y-3 pb-6">
-        {statusValues.length > 1 && (
-          <ChipRow>
-            {statusValues.map((v) => (
-              <FilterChip key={v} href={hrefWith('/programs', query, { status: statusF === v ? undefined : v })} active={statusF === v}>
-                {PROGRAM_STATUS_LABEL[v] || v}
-              </FilterChip>
-            ))}
-          </ChipRow>
-        )}
-        {mechValues.length > 1 && (
-          <ChipRow>
-            {mechValues.map((v) => (
-              <FilterChip key={v} href={hrefWith('/programs', query, { mechanism: mechF === v ? undefined : v })} active={mechF === v}>
-                {MECHANISM_LABEL[v] || v}
-              </FilterChip>
-            ))}
-          </ChipRow>
-        )}
-        {wireValues.length > 1 && (
-          <ChipRow>
-            {wireValues.map((v) => (
-              <FilterChip key={v} href={hrefWith('/programs', query, { wire: wireF === v ? undefined : v })} active={wireF === v}>
-                <span className="inline-flex items-center gap-1.5">
-                  <span aria-hidden className="inline-block size-1.5 rounded-full" style={{ background: `var(--color-${v})` }} />
-                  {WIRE_LABEL[v]}
-                </span>
-              </FilterChip>
-            ))}
-          </ChipRow>
-        )}
-        {orgFilterName && (
-          <ChipRow>
-            <ActiveFilterChip href={hrefWith('/programs', query, { org: undefined })}>Org: {orgFilterName}</ActiveFilterChip>
-          </ChipRow>
-        )}
+
+      <div className="mx-auto max-w-6xl px-4 pt-5">
+        <ProgramsTabs active={view} query={query} />
       </div>
 
+      {view === 'departures' && (
+        <div className="mx-auto max-w-6xl px-4 pb-1">
+          {statusValues.length > 1 && (
+            <FilterRow label="Status">
+              {statusValues.map((v) => (
+                <FilterLink
+                  key={v}
+                  href={hrefWith('/programs', query, { status: statusF === v ? undefined : v })}
+                  active={statusF === v}
+                >
+                  {PROGRAM_STATUS_LABEL[v] || v}
+                </FilterLink>
+              ))}
+            </FilterRow>
+          )}
+          {mechValues.length > 1 && (
+            <FilterRow label="Mechanism">
+              {mechValues.map((v) => (
+                <FilterLink
+                  key={v}
+                  href={hrefWith('/programs', query, { mechanism: mechF === v ? undefined : v })}
+                  active={mechF === v}
+                >
+                  {MECHANISM_LABEL[v] || v}
+                </FilterLink>
+              ))}
+            </FilterRow>
+          )}
+          {wireValues.length > 1 && (
+            <FilterRow label="Wire">
+              {wireValues.map((v) => (
+                <FilterLink key={v} href={hrefWith('/programs', query, { wire: wireF === v ? undefined : v })} active={wireF === v}>
+                  {WIRE_LABEL[v]}
+                </FilterLink>
+              ))}
+            </FilterRow>
+          )}
+          {orgFilterName && (
+            <FilterRow label="Organization">
+              <ActiveFilterLink href={hrefWith('/programs', query, { org: undefined })}>{orgFilterName}</ActiveFilterLink>
+            </FilterRow>
+          )}
+        </div>
+      )}
+
       <div className="mx-auto max-w-6xl px-4 pb-16">
-        {sorted.length === 0 ? (
-          <Empty>No programs on file for this filter yet.</Empty>
+        {view === 'departures' ? (
+          <DeparturesBoard programs={filtered} orgs={orgs} />
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {sorted.map((p) => {
-              const org = orgById.get(p.org);
-              const round = mostLiveRound(p.rounds);
-              return (
-                <Card key={p.id}>
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <Link href={`/programs/${p.id}`} className="display block truncate text-lg font-semibold hover:text-signal transition-colors">
-                        {p.name}
-                      </Link>
-                      {org ? (
-                        <Link href={`/orgs/${org.id}`} className="coord hover:text-dim">
-                          {org.name}
-                        </Link>
-                      ) : (
-                        <span className="coord opacity-60">{p.org}</span>
-                      )}
-                    </div>
-                    <div className="shrink-0 text-right">
-                      {round ? (
-                        <>
-                          <RoundStatus status={round.status} />
-                          {round.closes && <div className="coord mt-1">closes {dateShort(round.closes)}</div>}
-                        </>
-                      ) : (
-                        <span className="coord opacity-50">no rounds on file</span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="coord mt-2">{MECHANISM_LABEL[p.mechanism || 'other'] || p.mechanism}</div>
-                  {p.summary?.trim() && <p className="mt-2 line-clamp-1 text-sm text-dim">{p.summary.trim()}</p>}
-                </Card>
-              );
-            })}
-          </div>
+          <CadenceChart programs={filtered} orgs={orgs} systems={systems} />
         )}
       </div>
     </>

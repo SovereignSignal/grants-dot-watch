@@ -164,7 +164,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
             setMobileOpen(true);
             requestAnimationFrame(() => inputRef.current?.focus());
           }}
-          className="md:hidden inline-flex size-8 items-center justify-center rounded-md border border-line text-dim hover:text-paper hover:border-faint transition-colors"
+          className="md:hidden inline-flex size-8 items-center justify-center border border-line text-dim hover:text-paper hover:border-faint transition-colors"
           aria-label="Open search"
         >
           <span aria-hidden>🔍</span>
@@ -187,7 +187,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           onBlur={() => closePanel()}
           onKeyDown={onKeyDown}
           placeholder="Search the register… ⌘K"
-          className="w-full rounded-md border border-line bg-surface px-3 py-1.5 text-sm text-paper placeholder:text-faint focus:outline-none focus:border-faint transition-colors"
+          className="w-full border-b border-line bg-transparent px-1 py-1.5 text-sm text-paper placeholder:text-faint focus:outline-none focus:border-paper transition-colors"
           role="combobox"
           aria-expanded={panelOpen}
           aria-controls="search-results"
@@ -199,7 +199,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
         <div
           id="search-results"
           role="listbox"
-          className="absolute right-0 top-full mt-1 w-72 max-h-96 overflow-y-auto rounded-md border border-line bg-raised shadow-lg shadow-black/40 z-50"
+          className="absolute right-0 top-full mt-1 w-72 max-h-96 overflow-y-auto border border-line bg-raised z-50"
         >
           {loading && <div className="px-3 py-3 text-sm text-dim">Loading…</div>}
           {!loading && query.trim() && groups.length === 0 && (

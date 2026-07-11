@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { PageHeader, Card, WireBadge, Empty, Coord } from '@/components/ui';
-import { systemKindLabel, firstSentence } from '@/components/browse/registry-helpers';
+import { PageHeader, Empty } from '@/components/ui';
+import { systemKindLabel } from '@/components/browse/registry-helpers';
+import { WIRE_LABEL } from '@/lib/format';
 
 export const metadata: Metadata = { title: 'Systems' };
 
@@ -20,35 +22,65 @@ export default function SystemsPage() {
         {systems.length === 0 ? (
           <Empty>No systems on file.</Empty>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {systems.map((s) => {
-              const members = bySystem.get(s.id) || { orgs: [], programs: [] };
-              const funderCount = members.orgs.filter((o) => o.roles?.includes('funder')).length;
-              const parents = (s.part_of || []).map((pid) => byId.get(pid)).filter((p): p is NonNullable<typeof p> => !!p);
-              return (
-                <Card key={s.id} href={`/systems/${s.id}`} className="flex flex-col gap-2">
-                  <div className="flex items-start justify-between gap-2">
-                    <h2 className="display text-lg font-semibold tracking-tight">{s.name}</h2>
-                  </div>
-                  <div className="coord">
-                    {systemKindLabel(s.kind)}
-                    {parents.length > 0 && <> · satellite of {parents.map((p) => p.name).join(', ')}</>}
-                  </div>
-                  {s.wires?.length > 0 && (
-                    <div className="flex flex-wrap gap-3">
-                      {s.wires.map((w) => (
-                        <WireBadge key={w} wire={w} small />
-                      ))}
-                    </div>
-                  )}
-                  <Coord>
-                    {funderCount} funder{funderCount === 1 ? '' : 's'} · {members.programs.length} program
-                    {members.programs.length === 1 ? '' : 's'}
-                  </Coord>
-                  {s.summary && <p className="text-sm text-dim">{firstSentence(s.summary)}</p>}
-                </Card>
-              );
-            })}
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] text-sm">
+              <thead>
+                <tr className="border-b-[1.5px] border-paper text-left">
+                  <th className="coord py-2.5 pr-4 font-normal">Name</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Kind</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Wires</th>
+                  <th className="coord py-2.5 pr-4 font-normal">Part of</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Funders</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
+                </tr>
+              </thead>
+              <tbody>
+                {systems.map((s) => {
+                  const members = bySystem.get(s.id) || { orgs: [], programs: [] };
+                  const funderCount = members.orgs.filter((o) => o.roles?.includes('funder')).length;
+                  const parents = (s.part_of || []).map((pid) => byId.get(pid)).filter((p): p is NonNullable<typeof p> => !!p);
+                  return (
+                    <tr key={s.id} className="border-b border-line transition-colors hover:bg-raised/40">
+                      <td className="py-3 pr-4">
+                        <Link href={`/systems/${s.id}`} className="display text-[14.5px] text-paper hover:text-signal">
+                          {s.name}
+                        </Link>
+                      </td>
+                      <td className="coord py-3 pr-4 text-dim normal-case tracking-normal">{systemKindLabel(s.kind)}</td>
+                      <td className="py-3 pr-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          {(s.wires || []).map((w) => (
+                            <span
+                              key={w}
+                              aria-label={WIRE_LABEL[w]}
+                              title={WIRE_LABEL[w]}
+                              className="inline-block size-1.5 shrink-0"
+                              style={{ background: `var(--color-${w})` }}
+                            />
+                          ))}
+                        </div>
+                      </td>
+                      <td className="coord py-3 pr-4 normal-case tracking-normal">
+                        {parents.length === 0 ? (
+                          <span className="text-faint">—</span>
+                        ) : (
+                          parents.map((p, i) => (
+                            <span key={p.id}>
+                              {i > 0 && ', '}
+                              <Link href={`/systems/${p.id}`} className="text-dim hover:text-paper">
+                                {p.name}
+                              </Link>
+                            </span>
+                          ))
+                        )}
+                      </td>
+                      <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{funderCount}</td>
+                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{members.programs.length}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
