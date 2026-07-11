@@ -1,0 +1,16 @@
+id: us-mission-to-indonesia
+name: U.S. Mission to Indonesia
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://id.usembassy.gov/
+status: unknown
+profile: "U.S. Mission to Indonesia (category: Government) has no matching org file in the registry
+  (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against
+  Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before
+  promoting; this is a lead, not a sourced fact."
+sources:
+  - https://id.usembassy.gov/
