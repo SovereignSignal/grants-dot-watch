@@ -1,0 +1,17 @@
+id: ai-grant-open-source
+name: AI Grant (Open Source Track)
+org: ai-grant
+parent: null
+systems:
+  - open-source-ai
+wires:
+  - ai
+  - oss
+status: active
+mechanism: grants
+apply_url: https://aigrant.org
+summary: No-strings grants of $5,000-$50,000 (compute or cash) for open-source AI/ML projects,
+  distinct from AI Grant's main $250k accelerator.
+rounds: []
+sources:
+  - https://aigrant.org
