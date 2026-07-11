@@ -1,0 +1,19 @@
+id: arbitrum-audit-program
+name: Arbitrum Audit Program
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: An Arbitrum Foundation program subsidizing security audits for ecosystem protocols, with
+  $10M in ARB earmarked over a 12-month window.
+rounds:
+  - name: Audit Program (12-month)
+    status: open
+    size: $10M in ARB over 12 months
+    source: https://arbitrum.io/grants
+sources:
+  - https://arbitrum.io/grants
