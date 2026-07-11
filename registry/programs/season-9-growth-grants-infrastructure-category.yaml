@@ -1,0 +1,16 @@
+id: season-9-growth-grants-infrastructure-category
+name: Season 9 Growth Grants (Infrastructure Category)
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Project Name: superchain-guard — The Security Frontier for Interoperable Intents
+  Applicant: ILE Labs ( ILE-Labs · GitHub ) Program: Season 9 Growth Grants (Infrastructure
+  Category) Executive Summary Optimism is entering the era of Native Superchain Interoperability .
+  As users move assets and intents seamlessly between OP, Base, Zora, and other Superchain members,
+  the attack surface for “Intent Phi"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/grant-application-superchain-guard/10676

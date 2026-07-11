@@ -1,0 +1,21 @@
+id: stargate-dao
+name: Stargate DAO
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://tinyurl.com/gluestg
+status: active
+profile: >-
+  [please see the non-truncated version of this proposal is at the **[Discussion
+  link](https://tinyurl.com/gluestg)** - Snapshot limits proposals to only 10k letters, so the below
+  stops halfway through]
+
+
+  Stargate Finance has established itself as a leading cross-chain infrastructure protocol, with
+  over $20 billion in lifetime bridge volume to date. The team recently launched Stargate V2, vastly
+  redu
+sources:
+  - https://snapshot.org/#/stgdao.eth/proposal/0x651e4f676f4619107fcbcf97821f6b099500f4f62f2a425d6f4c8c7fbc5ba36d

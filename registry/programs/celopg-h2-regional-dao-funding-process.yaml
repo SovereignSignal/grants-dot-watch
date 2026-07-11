@@ -1,0 +1,12 @@
+id: celopg-h2-regional-dao-funding-process
+name: CeloPG H2 - Regional DAO Funding Process
+org: celo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: CeloPG H2 - Regional DAO Funding Process
+rounds: []
+sources:
+  - https://forum.celo.org/t/celopg-h2-regional-dao-funding-process/8383

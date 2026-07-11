@@ -1,0 +1,24 @@
+id: request-for-proposals-research-and-applied-work-on-digital-m
+name: "Request for Proposals: Research and Applied Work on Digital Minds (Longview Philanthropy)"
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview
+summary: >-
+  This is a linkpost for Request for Proposals: Research and Applied Work on Digital Minds.
+
+
+  I'm glad to announce a request for proposals for research and applied work on digital minds
+  at Longview Philanthropy. We’re seeking applications for project grants, research fellowships,
+  and career development fellowships on the potential consciousness, sentience, moral status, and
+  legal position of AI syste
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-24
+    source: https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview
+sources:
+  - https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview
