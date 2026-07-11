@@ -1,0 +1,16 @@
+id: filecointldr-filecoin-propgf-batch-2-grant-results-3-22m-all
+name: "FilecoinTLDR: Filecoin ProPGF Batch 2 grant results: $3.22M allocated to 16 projects in
+  infrastructure, dev tools,"
+org: filecoin-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://fil.org/
+summary: "**Filecoin ProPGF Batch 2** has allocated $3.22 million to 16 projects. The program
+  reviewed 102 applications, advanced 42 proposals to review, and distributed $3,220,200 across
+  infrastructure, developer tools, ecosystem coordination, and financial systems."
+rounds: []
+sources:
+  - https://x.com/FilecoinTLDR/status/2031367223780999569
