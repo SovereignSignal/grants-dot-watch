@@ -1,0 +1,16 @@
+id: gemaker
+name: gemaker
+org: sia-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://sia.tech
+summary: CRC Grants Round 27 is now open, supporting medium to long-term industry-led research
+  collaborations. The Round 26 outcomes included $53 million for the Critical Metals for Critical
+  Industries CRC. Applications close 29 April. https://x.com/gemaker/status/2030956521371193741 Mon,
+  09 Mar 2026 10:39:02 GMT
+rounds: []
+sources:
+  - https://x.com/gemaker/status/2030956521371193741
