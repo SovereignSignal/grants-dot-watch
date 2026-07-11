@@ -1,0 +1,22 @@
+id: unicef-crypto-funding-call
+name: UNICEF Crypto Funding Call
+org: unicef
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.unicef.org/innovation/
+summary: UNICEF Venture Fund is inviting startups in emerging markets to apply for mentorship and
+  equity-free funding of up to US$100,000 in ETH, BTC, or USDC for onchain solutions focused on
+  social good. The call targets ready-to-deploy projects that leverage crypto technology.
+  Applications are open until the deadline of March 10, 2026. More details on eligibility and
+  requirements are available via the provided link.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-03-10
+    size: US$100,000 in ETH, BTC, USDC
+    source: https://x.com/UNICEFinnovate/status/2026680597586846191
+sources:
+  - https://x.com/UNICEFinnovate/status/2026680597586846191
