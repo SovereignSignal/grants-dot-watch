@@ -1,0 +1,19 @@
+id: arbitrum-stylus-sprint
+name: Arbitrum Stylus Sprint
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: concluded
+mechanism: grants
+summary: A concluded Arbitrum Foundation program distributing 5M ARB worth of grants to projects
+  building with Stylus, marked "Program Complete" on the Foundation's grants page.
+rounds:
+  - name: Stylus Sprint
+    status: closed
+    size: 5M ARB worth of grants
+    source: https://arbitrum.io/grants
+sources:
+  - https://arbitrum.io/grants
