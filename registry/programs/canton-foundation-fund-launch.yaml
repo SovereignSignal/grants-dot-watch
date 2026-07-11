@@ -1,0 +1,17 @@
+id: canton-foundation-fund-launch
+name: Canton Foundation Fund Launch
+org: ton-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://ton.foundation/
+summary: The Canton Foundation has launched the Protocol Development Fund to support the Canton
+  Network ecosystem. This fund allocates 5% of future network supply through governance to key areas
+  including core protocol R&D, developer tooling, security audits, reference implementations,
+  critical infrastructure, and early DeFi liquidity. The initiative aims to bolster the network's
+  growth and innovation by funding essential development and infrastructure projects.
+rounds: []
+sources:
+  - https://x.com/CantonNetwork/status/2024492220443734335
