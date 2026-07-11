@@ -1,0 +1,17 @@
+id: ton-blockchain-ton-announces-results-of-ai-agent-tooling-fas
+name: "ton_blockchain: TON announces results of AI Agent Tooling Fast Grants: 14 winners, $14k
+  distributed (public goods fu"
+org: ton-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://ton.foundation/
+summary: "**TON Blockchain announces results** of its AI Agent Tooling Fast Grants. The program
+  received 40 submissions and selected 14 winners, distributing $14k in total. Winners developed
+  tools, SDKs, infrastructure primitives, and A2A building blocks to accelerate AI agent development
+  on TON. Results were announced on March 5, 2026."
+rounds: []
+sources:
+  - https://x.com/ton_blockchain/status/2029561777059778576
