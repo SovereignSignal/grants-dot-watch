@@ -1,0 +1,15 @@
+id: compound-security-service-provider-ssp-rfp
+name: Compound Security Service Provider (SSP) RFP
+org: compound-dao
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: |-
+  Following the [Compound Foundation’s recommendations](https://www.comp.xyz/t/compound-foundations-security-service-provider-recommendation/7047) around the DAO’s next Security Service Provider (SSP), the CGWG is coordinating next steps to facilitate the election of Compound’s new SSP. 
+
+  * This 7-day Snapshot vote to determine the DAO’s preferred SSP will run from Monday, July 28 at 3pm ET until Mo
+rounds: []
+sources:
+  - https://snapshot.org/#/comp-vote.eth/proposal/0x29f34f6cae855cb2605b81d490db7a13565be448a72b5f7a3d121db4b1a0cc49
