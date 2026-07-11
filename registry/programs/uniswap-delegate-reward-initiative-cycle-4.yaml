@@ -1,0 +1,19 @@
+id: uniswap-delegate-reward-initiative-cycle-4
+name: Uniswap Delegate Reward Initiative - Cycle 4
+org: uniswap-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: |-
+  Uniswap Delegate Reward Initiative - Cycle 4
+
+  Authors: @Doo_StableLab @PGov @AranaDigital @seedgov
+  ![AD_4nXds4EPLs4TfuPYDacVihDk88smRJZ58HQ0P_yvIaHWm4VbLsJjjU7460oYFufJTRY8LV-R2GqSeshizBT1duYUdfMdsjNYglNg96LyQ73qHZwLL2SzlOE6fq7Yz67heGZmLqPcZYA.png](ipfs://bafkreier2adm2ha4yntm2au6c5obpjbothxfw3dldflb4vzbwxdukjqw2y)
+
+  Summary
+  This proposal outlines the Uniswap Delegate Reward Initiative—Cycle 4, a c
+rounds: []
+sources:
+  - https://snapshot.org/#/uniswapgovernance.eth/proposal/0xea4a1505c96ce4ef5c1f88e6cc3ec89d63f3d88219aa97af97b8384d006a5f92
