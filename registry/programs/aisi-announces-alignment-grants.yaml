@@ -1,0 +1,17 @@
+id: aisi-announces-alignment-grants
+name: AISI Announces Alignment Grants
+org: ai-security-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.aisi.gov.uk/
+summary: The AI Security Institute (AISI) has announced the first 60 Alignment Project grants to
+  support research in AI alignment and control. The total funding for this initiative has grown to
+  £27M since the initial RFP last year. This effort aims to bring more independent experts and ideas
+  into the field. Key partners include OpenAI and Microsoft, joining an international coalition for
+  this cause.
+rounds: []
+sources:
+  - https://x.com/geoffreyirving/status/2024587899056828529
