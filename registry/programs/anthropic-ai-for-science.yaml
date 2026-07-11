@@ -1,0 +1,21 @@
+id: anthropic-ai-for-science
+name: AI for Science (Claude Science)
+org: anthropic
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: "Anthropic's 2026-06-30 Claude Science launch opened applications for up to 50 AI for
+  Science projects, each receiving up to USD 30,000 in Claude credits plus up to USD 2,000 in Modal
+  compute for select projects, starting with biology/life sciences and targeting researchers,
+  postdocs, and grad students. Deadline is July 15, 2026. Duplicate signals: 10935, 10814."
+rounds:
+  - name: Inaugural round (biology/life sciences)
+    status: open
+    closes: 2026-07-15
+    size: up to $30,000 in credits per project, up to 50 projects
+    source: https://www.anthropic.com/news/claude-science-ai-workbench
+sources:
+  - https://www.anthropic.com/news/claude-science-ai-workbench
