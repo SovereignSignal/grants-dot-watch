@@ -1,0 +1,26 @@
+id: compound-dao-2025-oev-rfp
+name: Compound DAO 2025 OEV RFP
+org: compound-dao
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  This Snapshot is part of the Compound DAO’s 2025 OEV (Oracle Extractable Value) RFP process.
+  Delegates are asked to select whether to adopt an OEV solution for all 10 of the chains that
+  Compound currently resides on, with this vote focusing on BASE. 
+
+
+  For this Snapshot, delegates are able to vote between: 
+
+  * Adopt RedStone
+
+  * Adopt Api3 
+
+  * Adopt Chainlink SVR (phased rollout, chain by chain)  
+
+  * Do
+rounds: []
+sources:
+  - https://snapshot.org/#/comp-vote.eth/proposal/0xffd84200f112926e8b21793ee3750f272fc40a3f90399f86d41971a44aa3edf3
