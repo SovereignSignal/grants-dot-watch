@@ -523,7 +523,24 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
     case 'round_update':
     case 'deadline_change':
     case 'status_change': {
-      changes.push(buildProgramFieldUpdate(p));
+      // Some of these target the ORG file, not a program (e.g. an org status
+      // change, or an org whose registry entry has no program files). If the
+      // change map is keyed by orgs/<slug>.yaml, route it through the org
+      // field-map path instead of forcing a program resolution that can't
+      // succeed ("No programs on file for org ...").
+      const pc = (p.proposed_change || {}) as Record<string, unknown>;
+      const orgKeyed = Object.entries(pc).filter(
+        ([k, v]) => /^orgs\/(.+)\.yaml$/.test(k) && v && typeof v === 'object'
+      );
+      if (orgKeyed.length > 0) {
+        for (const [key, value] of orgKeyed) {
+          const slug = /^orgs\/(.+)\.yaml$/.exec(key)![1];
+          const change = applyOrgFieldMap(slug, value as Record<string, unknown>, p, notes);
+          if (change) changes.push(change);
+        }
+      } else {
+        changes.push(buildProgramFieldUpdate(p));
+      }
       break;
     }
     case 'new_award': {
