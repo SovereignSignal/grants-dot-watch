@@ -1,0 +1,17 @@
+id: shielded-labs
+name: Shielded Labs
+aka: []
+systems: []
+wires:
+  - crypto
+  - oss
+roles:
+  - funder
+website: https://shieldedlabs.net/
+status: unknown
+profile: "Shielded Labs (category: Foundation/Lab) has no matching org file in the registry (checked
+  by normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org
+  tracker, which flagged it as a likely funder — verify from the org's own site before promoting;
+  this is a lead, not a sourced fact."
+sources:
+  - https://shieldedlabs.net/

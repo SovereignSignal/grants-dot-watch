@@ -1,0 +1,16 @@
+id: bureau-of-economic-and-business-affairs
+name: Bureau of Economic and Business Affairs
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.state.gov/bureaus-offices/under-secretary-for-economic-growth-energy-and-the-environment/bureau-of-economic-and-business-affairs/
+status: unknown
+profile: "Bureau of Economic and Business Affairs (category: Government) has no matching org file in
+  the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness
+  pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own
+  site before promoting; this is a lead, not a sourced fact."
+sources:
+  - https://www.state.gov/bureaus-offices/under-secretary-for-economic-growth-energy-and-the-environment/bureau-of-economic-and-business-affairs/

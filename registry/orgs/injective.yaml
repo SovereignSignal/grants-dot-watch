@@ -1,0 +1,16 @@
+id: injective
+name: Injective
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://injective.com/
+status: unknown
+profile: "Injective (category: Foundation/Lab) has no matching org file in the registry (checked by
+  normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org
+  tracker, which flagged it as a likely funder — verify from the org's own site before promoting;
+  this is a lead, not a sourced fact."
+sources:
+  - https://injective.com/
