@@ -1,0 +1,16 @@
+id: reminder-for-flow-grants-dao-round-2-closing-soon-50k-flow-a
+name: Reminder for Flow Grants DAO Round 2 closing soon, 50k FLOW + advisory/fundraising support
+org: flow
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://developers.flow.com/
+summary: Less than a week left to submit to Grants DAO Round 2 with @dorahacks. $100K+ in funding
+  available for Flow builders right now. 50,000 FLOW available in prizing. But if you are a serious
+  builder, ongoing advisory and fundraising support from Flow Foundation for teams that show
+  traction are the true
+rounds: []
+sources:
+  - https://x.com/flow_developers/status/2024537643841900718
