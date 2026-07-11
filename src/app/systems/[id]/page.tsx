@@ -28,7 +28,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
   const funders = members.orgs
     .filter((o) => o.roles?.includes('funder'))
     .map((o) => ({ org: o, stats: registry.orgStats.get(o.id) }))
-    .sort((a, b) => (b.stats?.awards_given || 0) - (a.stats?.awards_given || 0) || a.org.name.localeCompare(b.org.name));
+    .sort((a, b) => (b.stats?.programs || 0) - (a.stats?.programs || 0) || a.org.name.localeCompare(b.org.name));
 
   const orgById = new Map(registry.orgs.map((o) => [o.id, o]));
   const byIdSystem = new Map(registry.systems.map((s) => [s.id, s]));
@@ -123,8 +123,8 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                 <tr className="border-b border-line text-left">
                   <th className="coord py-2.5 pr-4 font-normal">Name</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Live rounds</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Awards given</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Total known</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Live rounds</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                   <th className="coord py-2.5 pr-4 font-normal">Status</th>
                 </tr>
@@ -143,8 +143,8 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                         {(stats?.live_rounds || 0) > 0 && <RoundStatus status="open" />}
                       </span>
                     </td>
-                    <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.awards_given ?? 0}</td>
-                    <td className="py-3 pr-4 text-right tabular-nums text-dim">{money(stats?.awards_total_usd)}</td>
+                    <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
+                    <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.live_rounds ?? 0} live</td>
                     <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     <td className="coord py-3 pr-4 normal-case tracking-normal text-dim">{orgStatusLabel(org.status)}</td>
                   </tr>
