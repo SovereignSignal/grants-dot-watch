@@ -1,0 +1,22 @@
+id: anthropic-economic-futures-initiative
+name: Economic Futures Initiative
+org: anthropic
+parent: null
+systems: []
+wires:
+  - ai
+status: announced
+mechanism: grants
+apply_url: https://www.anthropic.com/economic-futures
+summary: "A $200M Economic Futures Research Fund for empirical research/policy trials on AI
+  labor-market impacts (prior structure: $10K-$50K awards to economists/data scientists), plus a
+  $150M National Fellowship Program for early-career professionals distributing AI's economic
+  benefits beyond coastal tech hubs."
+rounds:
+  - name: 2026 scale-up
+    status: announced
+    opens: 2026-06-10
+    size: $200M research fund + $150M fellowship program
+    source: https://www.anthropic.com/economic-futures
+sources:
+  - https://www.anthropic.com/economic-futures
