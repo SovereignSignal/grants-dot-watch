@@ -1,0 +1,14 @@
+id: zcash-community-grants
+name: Zcash Community Grants
+org: zcash-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://zfnd.org/
+summary: This grant program funds open-source projects that advance privacy technology in the Zcash
+  ecosystem.
+rounds: []
+sources:
+  - https://x.com/ZcashCommGrants/status/2024487043548488079
