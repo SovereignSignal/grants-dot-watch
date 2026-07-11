@@ -1,0 +1,16 @@
+id: celo-ecosystem-grants
+name: Celo Ecosystem Grants
+org: celo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hi everyone, My name is Oluwatobi Femi and I am building DeFiState. DeFiState is an open
+  infrastructure project for producing block-synchronized streams of DeFi protocol state on EVM
+  chains. The system aggregates data from protocol indexers and exposes the resulting state through
+  a JSON-RPC interface, enabling applications to consume real-time DeFi state using a simple
+  subscription. The goal of th
+rounds: []
+sources:
+  - https://forum.celo.org/t/defistate-block-synchronized-defi-state-infrastructure-for-the-celo-ecosystem/13110

@@ -1,0 +1,16 @@
+id: optimism-grants-education-community
+name: Optimism Grants (Education & Community)
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "I’m proposing a content-driven initiative to educate, onboard, and activate non-technical
+  users and creators within the Optimism ecosystem using consistent X (Twitter) threads, explainers,
+  and community engagement. Problem: Many new users struggle to understand Optimism, OP Stack,
+  RetroPGF, and how to contribute. Educational content is scattered, making onboarding slow and
+  intimidating for non-dev"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/optimism-education-community-growth-content-initiative/10512

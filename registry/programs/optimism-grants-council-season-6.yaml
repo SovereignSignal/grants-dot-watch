@@ -1,0 +1,16 @@
+id: optimism-grants-council-season-6
+name: Optimism Grants Council Season 6
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Delegate Mission Request Summary: Develop engaging onchain social games that attract and
+  nurture builders, fostering a vibrant community of developers who build valuable applications on
+  Optimism. S6 Intent : Intent 3A: Grow Application Developers on the Superchain Note : Please see
+  the comment below for context and details about the rationale and importance of this Mission
+  Request. This Mission Re"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/looking-for-sponsor-develop-onchain-social-games-that-attract-builders-to-optimism-v4/8928

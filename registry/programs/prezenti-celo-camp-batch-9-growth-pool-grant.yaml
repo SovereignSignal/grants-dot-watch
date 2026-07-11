@@ -1,0 +1,22 @@
+id: prezenti-celo-camp-batch-9-growth-pool-grant
+name: Prezenti Celo Camp Batch 9 Growth Pool Grant
+org: celo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://forum.celo.org/t/prezenti-grant-award-x-celo-camp/8215
+summary: "We are thrilled to announce that a selected team from Celo Camp Batch 9 or the Startup
+  Pathway will win a $25,000 cUSD Growth Pool grant from Prezenti! This is a $25,000 cUSD grant for
+  delivering their next set of works, against agreed milestones. One payment of $12,500 upfront and
+  the final payment of $12,500 upon successful completion. Criteria for Prezenti is as follows: Must
+  be open source Mus"
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2024-12-08
+    size: 25,000 CUSD
+    source: https://forum.celo.org/t/prezenti-grant-award-x-celo-camp/8215
+sources:
+  - https://forum.celo.org/t/prezenti-grant-award-x-celo-camp/8215

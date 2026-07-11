@@ -1,0 +1,16 @@
+id: scroll-marketing-programme
+name: Scroll Marketing Programme
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Authors: EGC (Tag @natalie & @jashar on any subsequent posts) Collaborators: Scroll Labs
+  (Emily Lin, Juan Molina) Date: October 2025 Status: Request for Comments (RFC) Purpose: Collect
+  feedback on a proposed Marketing Programme that will form the basis for an upcoming RFP. Note:
+  This plan outlines a tentative framework for discussion and will be refined based on the quality
+  and focus of applicatio"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/egc-marketing-rfc/1266

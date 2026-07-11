@@ -1,0 +1,21 @@
+id: pguild-daos-audit
+name: Pguild DAOs Audit
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://forum.arbitrum.foundation/t/making-the-dao-exciting-again-nominate-my-project-for-the-upcoming-pguild-daos-audit/30963
+summary: Continuing the discussion from Making the DAO exciting again(nominate my project for the
+  upcoming Pguild DAOs Audit) Use the link above for the full documentation for clarification of my
+  project and support for my protocol guild governance tokens to be granted in the next Audit coming
+  up July 2026 and will be full reflected by August, this will enable my voting power to be updated
+  so my voice can
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-31
+    source: https://forum.arbitrum.foundation/t/making-the-dao-exciting-again-nominate-my-project-for-the-upcoming-pguild-daos-audit/30963
+sources:
+  - https://forum.arbitrum.foundation/t/making-the-dao-exciting-again-nominate-my-project-for-the-upcoming-pguild-daos-audit/30963

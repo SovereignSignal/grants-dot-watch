@@ -1,0 +1,16 @@
+id: scroll-ecosystem-growth-eco-growth
+name: Scroll Ecosystem Growth (eco-growth)
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Proposal Title: User-Friendly Scroll Bridge UI with Force Transaction Feature Proposal
+  Type: Technical Contributions Authors: WakeUp Labs Overview This proposal by WakeUp Labs requests
+  funding to develop an open-source, user-friendly Scroll bridge interface. It will serve as both a
+  reliable alternative to the official UI and a fallback that allows users to force-include
+  transactions on Ethereum in"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/proposal-user-friendly-scroll-bridge-ui-with-force-transaction-feature/1115

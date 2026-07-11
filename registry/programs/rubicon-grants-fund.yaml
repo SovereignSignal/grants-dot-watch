@@ -1,0 +1,16 @@
+id: rubicon-grants-fund
+name: Rubicon Grants Fund
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Summary We propose reallocating ~ 110,000 OP tokens from previously approved but unused
+  sources into the Rubicon Grants Fund. This includes 60,000 OP from Phase 1 , which was initially
+  allocated for Rubicon Pools V2 (a product we no longer plan to pursue - in fact, Pools v1 was
+  entirely deprecated well over a year ago), and over 50,000 OP in unclaimed rewards from Rubicon’s
+  early user airdrop ( Ph
+rounds: []
+sources:
+  - https://gov.optimism.io/t/reallocating-pre-approved-and-unused-grants-rubicon-phase-0-phase-1/9111

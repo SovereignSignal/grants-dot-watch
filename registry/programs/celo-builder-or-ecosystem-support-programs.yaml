@@ -1,0 +1,16 @@
+id: celo-builder-or-ecosystem-support-programs
+name: Celo builder or ecosystem support programs
+org: celo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hello Celo community, We are a team of DeFi developers building TwinYield , a
+  capital-efficient yield infrastructure protocol designed to improve the utility of yield-bearing
+  assets and stablecoins. We are exploring the opportunity to deploy and grow the protocol on Celo
+  and would love to share our vision and gather feedback from the community. Overview TwinYield
+  introduces a mechanism that transf
+rounds: []
+sources:
+  - https://forum.celo.org/t/twinyield-fixed-income-yield-infrastructure-for-celo/13053

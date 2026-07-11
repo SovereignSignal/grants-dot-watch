@@ -1,0 +1,12 @@
+id: olympix-arbitrum-security-grant
+name: Olympix Arbitrum Security Grant
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Olympix Arbitrum Security Grant — Teams Now Being Onboarded
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/olympix-arbitrum-security-grant-teams-now-being-onboarded/30646

@@ -1,0 +1,16 @@
+id: scroll-retroactive-infrastructure-funding
+name: Scroll Retroactive Infrastructure Funding
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Title : Scroll Retroactive Infrastructure Funding Name : @Curia (Scroll Delegate) Category
+  of your idea : Grant Program Your idea The Scroll Retroactive Infrastructure Funding program
+  retroactively rewards teams for delivering measurable, Scroll-native infrastructure that aligns
+  with Scroll’s mission to scale Ethereum for billions of users. By distributing rewards based on
+  demonstrated outcomes ra"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/scroll-retroactive-infrastructure-funding/655

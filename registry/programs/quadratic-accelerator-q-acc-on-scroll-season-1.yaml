@@ -1,0 +1,17 @@
+id: quadratic-accelerator-q-acc-on-scroll-season-1
+name: Quadratic Accelerator (q/acc) on Scroll - Season 1
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://q-acc.giveth.io/
+summary: Protocol-Sponsored Tokenization on Scroll via q/acc 1. Title Protocol-Sponsored
+  Tokenization on Scroll via q/acc 2. Author & Delegate Status 0xJustice (q/acc) – not a current
+  Scroll delegate 3. Category Ecosystem Growth → Token Utility / Developer Acceleration 4. Idea The
+  Quadratic Accelerator (q/acc) is a live, audited framework that replaces one-off grants with
+  Protocol-Sponsored Tokenization (P
+rounds: []
+sources:
+  - https://forum.scroll.io/t/protocol-sponsored-tokenization-on-scroll-via-q-acc/652

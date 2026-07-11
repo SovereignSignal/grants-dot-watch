@@ -1,0 +1,16 @@
+id: optimism-governance-fund
+name: Optimism Governance Fund
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Cross-Chain Safe Module System — Governance Fund Mission Application Project Name: Unified
+  Safe Owner Management Across Superchain Mission: Deliver a secure, Hub-based Safe module system
+  that enables unified owner updates across multiple Optimism Superchain chains, reducing
+  operational overhead and friction for multi-chain Safe deployments. Team Lead Best Point of
+  Contact Name: Charles Emmanuel Co"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/unified-safe-owner-management-across-superchain/10430

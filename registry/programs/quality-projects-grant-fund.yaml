@@ -1,0 +1,16 @@
+id: quality-projects-grant-fund
+name: Quality Projects Grant Fund
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Grant Funding For Quality Projects Submitted by: Unicircle, a Scroll Delegate Category:
+  Grant Programs Your idea (in no less than 4 sentences). We propose creating a Quality Projects
+  Grant Fund that funds only the strongest 10–15 % of applicants. Grants are released in tranches as
+  projects hit predefined milestones. To qualify, a project must already show real traction on
+  Scroll or other chains, a"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/grant-funding-for-quality-projects/644

@@ -1,0 +1,16 @@
+id: scroll-ecosystem-growth-rfi
+name: Scroll Ecosystem Growth RFI
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: TLDR Scroll DAO is moving from high-level ecosystem growth ideas to more concrete plans.
+  We’re launching a Request for Ideas (RFI)-a step before full proposals to gather more detailed
+  input from the community. Submissions open Apr 22 and close May 6, with discussion on Apr 30
+  governance call. The goal is to have RFI responses ready for the Apr 30th call, so that we can
+  have a formal proposal ready
+rounds: []
+sources:
+  - https://forum.scroll.io/t/ecosystem-growth-request-for-ideas-rfi/624

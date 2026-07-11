@@ -1,0 +1,22 @@
+id: prezenti-almond-round
+name: Prezenti Almond Round
+org: celo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.prezenti.xyz
+summary: Following on from the Celo Seasons 0 funding approval, Prezenti is pleased to open its
+  ‘Almond Round’ of Celo grant funding! Like the Mint round, this round is open to all builders on
+  Celo for a period of time. This round is facilitated using Charmverse . Prezenti has a solid track
+  record for delivering grants in the Celo ecosystem, receiving over 400 applications, and granting
+  $1.4M cUSD to over
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2025-04-18
+    size: 2,000–50,000 CUSD
+    source: https://forum.celo.org/t/prezenti-opens-almond-grant-round-applications-open-17-03-18-04/10571
+sources:
+  - https://forum.celo.org/t/prezenti-opens-almond-grant-round-applications-open-17-03-18-04/10571

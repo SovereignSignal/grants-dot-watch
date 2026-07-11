@@ -1,0 +1,17 @@
+id: scroll-community-grants-support-program
+name: Scroll Community Grants Support Program
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://scroll.io/community-grants
+summary: "This framework has been authored by @Juansito , @gabriellamena , @Joey , @mimetista.eth
+  and myself. TL;DR Pilot a simple 3-month community grant stream. Owned and run by the Community
+  Council. Focused on events, meetups, hackathons, flex requests. Budget: SCR 312,500 Application
+  Link Summary The Community Council introduces the Community Grants Support Program, an initiative
+  designed to fund proje"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/introducing-community-grants-support-program/1164
