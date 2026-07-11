@@ -1,0 +1,19 @@
+id: sovereign-tech-fellowship
+name: Sovereign Tech Fellowship
+org: sovereign-tech-agency
+parent: null
+systems:
+  - sovereign-tech
+wires:
+  - oss
+status: active
+mechanism: fellowship
+summary: Flexible direct support (freelance or employment contracts) for maintainers, community
+  managers, and technical writers doing critical open-source work.
+rounds:
+  - name: 2026 cohort
+    status: deployed
+    size: 14 fellows
+    source: https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows
+sources:
+  - https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows

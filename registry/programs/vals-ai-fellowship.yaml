@@ -1,0 +1,18 @@
+id: vals-ai-fellowship
+name: Vals AI Fellowship
+org: vals-ai
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+summary: "3-6 month paid fellowship for researchers/builders working on AI evaluation benchmarks:
+  $1,000-$2,500/week stipend plus unlimited API credits, GPU budgets, and mentorship; remote or SF."
+rounds:
+  - name: 2026 cohort
+    status: open
+    closes: 2026-06-30
+    source: https://x.com/suraj_sharma14/status/2067238331478614508
+sources:
+  - https://x.com/suraj_sharma14/status/2067238331478614508

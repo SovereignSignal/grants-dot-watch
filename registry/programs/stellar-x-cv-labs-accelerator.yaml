@@ -1,0 +1,21 @@
+id: stellar-x-cv-labs-accelerator
+name: Stellar x CV Labs Accelerator
+org: cv-labs
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://www.cvlabs.com/accelerator/stellar
+summary: Accelerator for startups building DeFi, payments, and RWA products on Stellar or for EMEA;
+  up to $150,000 in XLM initial development funding from the Stellar Development Foundation, with
+  possible follow-on grants.
+rounds:
+  - name: 2026 cohort
+    status: open
+    closes: 2026-07-03
+    size: up to $150,000 in XLM
+    source: https://www.cvlabs.com/accelerator/stellar
+sources:
+  - https://www.cvlabs.com/accelerator/stellar

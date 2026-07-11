@@ -2,15 +2,16 @@ id: future-of-life-phd-fellowship
 name: Vitalik Buterin PhD Fellowship in AI Existential Safety
 org: future-of-life-institute-fli
 parent: null
-systems: [ai-safety]
-wires: [ai]
+systems:
+  - ai-safety
+wires:
+  - ai
 status: active
 mechanism: fellowship
 apply_url: https://futureoflife.org/grant-program/phd-fellowships/
 summary: >
-  FLI's recurring PhD fellowship supporting doctoral students working on AI
-  existential safety, with fellowship classes announced for 2022, 2023, and
-  2025.
+  FLI's recurring PhD fellowship supporting doctoral students working on AI existential safety, with
+  fellowship classes announced for 2022, 2023, and 2025.
 rounds:
   - name: Class of 2022
     status: deployed
@@ -19,6 +20,9 @@ rounds:
     status: deployed
     source: https://futureoflife.org/grant-program/phd-fellowships/
   - name: Class of 2025
+    status: deployed
+    source: https://futureoflife.org/grant-program/phd-fellowships/
+  - name: Class of 2024
     status: deployed
     source: https://futureoflife.org/grant-program/phd-fellowships/
 sources:

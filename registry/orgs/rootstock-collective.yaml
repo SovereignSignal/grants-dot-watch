@@ -1,0 +1,16 @@
+id: rootstock-collective
+name: Rootstock Collective
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://rootstockcollective.xyz/
+status: active
+profile: Rootstock (RSK) Collective Grants v3.2 funds projects driving TVL, users, and adoption on
+  the Bitcoin sidechain, prioritizing DeFi, infrastructure, tooling, and payments. Applications are
+  rolling.
+sources:
+  - https://rootstockcollective.xyz/collective-grants/

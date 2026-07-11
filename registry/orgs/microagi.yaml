@@ -1,0 +1,15 @@
+id: microagi
+name: MicroAGI
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.microagi.ai/
+status: active
+profile: MicroAGI's Research Fellowship is a 6-month in-residence program in Munich or Zurich for
+  embodied AI and robotics builders, offering a $10,000/month stipend, up to $2M in compute, and lab
+  access.
+sources:
+  - https://www.microagi.ai/fellowship

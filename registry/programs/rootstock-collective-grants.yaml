@@ -1,0 +1,18 @@
+id: rootstock-collective-grants
+name: Rootstock Collective Grants
+org: rootstock-collective
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://rootstockcollective.xyz/collective-grants/
+summary: Grants for measurable-impact projects driving TVL, users, and adoption on the Rootstock
+  (RSK) Bitcoin sidechain, prioritizing DeFi, infra, tooling, and payments.
+rounds:
+  - name: v3.2
+    status: open
+    source: https://rootstockcollective.xyz/collective-grants/
+sources:
+  - https://rootstockcollective.xyz/collective-grants/

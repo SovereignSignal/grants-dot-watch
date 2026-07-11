@@ -1,0 +1,15 @@
+id: konnex-builder-grants
+name: Konnex Builder Grant Program
+org: konnex
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://subnets.testnet.konnex.world/builder
+summary: "Tiered grants for builders on Konnex subnets: Spark ($25K prototypes), Launch ($75K
+  demos), Mainnet ($200K+ shipped subnets), with SDK support and marketing allocations."
+rounds: []
+sources:
+  - https://subnets.testnet.konnex.world/builder

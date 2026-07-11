@@ -1,0 +1,17 @@
+id: opensats
+name: OpenSats
+aka: []
+systems: []
+wires:
+  - crypto
+  - oss
+roles:
+  - funder
+org_type: nonprofit
+website: https://opensats.org/
+status: active
+profile: OpenSats announced its 17th wave of grants funding Nostr protocol projects, covering app
+  discovery, private calls, software distribution, client onboarding, and AI tools for open-source
+  Bitcoin/freedom-tech developers.
+sources:
+  - https://opensats.org/blog/seventeenth-wave-of-nostr-grants

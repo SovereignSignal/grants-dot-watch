@@ -1,0 +1,14 @@
+id: g-research-grants
+name: G-Research Grants
+org: g-research
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.gresearch.com/grants/
+summary: Monthly research grants for trustworthy AI, causal inference, and related machine-learning topics.
+rounds: []
+sources:
+  - https://www.gresearch.com/news/g-research-may-2026-grant-winners

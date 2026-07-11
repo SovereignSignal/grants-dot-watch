@@ -1,0 +1,20 @@
+id: stellar-marketing-grants
+name: Stellar Marketing Grants
+org: stellar-development-foundation
+parent: null
+systems:
+  - stellar
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://stellar.org/grants-and-funding/marketing-grants
+summary: Marketing grants of up to $500,000 to fund user-acquisition and growth campaigns for
+  qualified teams building on the Stellar network.
+rounds:
+  - name: Rolling
+    status: open
+    size: up to $500,000
+    source: https://stellar.org/grants-and-funding/marketing-grants
+sources:
+  - https://stellar.org/grants-and-funding/marketing-grants

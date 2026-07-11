@@ -1,0 +1,19 @@
+id: govai-winter-fellowship
+name: GovAI Winter Fellowship 2027
+org: govai
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+summary: Three-month bipartisan fellowship for AI governance/policy research, with DC and London (UK
+  GovAI) tracks; London track fully funded with up to GBP 12,000 stipend, travel support, and visa
+  sponsorship, running Jan-Apr 2027.
+rounds:
+  - name: 2027 cohort
+    status: open
+    closes: 2026-07-12
+    source: https://www.governance.ai/post/winter-fellowship-2027-research-track
+sources:
+  - https://www.governance.ai/post/winter-fellowship-2027-research-track

@@ -1,0 +1,17 @@
+id: cv-labs
+name: CV Labs
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: company
+website: https://www.cvlabs.com/
+status: active
+profile: CV Labs, with the Stellar Development Foundation, runs an accelerator for startups building
+  DeFi, payments, and RWA products on Stellar or for EMEA. Participants get ecosystem guidance,
+  protocol workshops, VC intros, and up to $150,000 in XLM initial development funding, with
+  possible follow-on grants. Deadline 2026-07-03.
+sources:
+  - https://www.cvlabs.com/accelerator/stellar

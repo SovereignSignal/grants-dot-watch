@@ -1,0 +1,18 @@
+id: gray-area-modal-ai-arts-open-call
+name: Gray Area / Modal AI Arts Open Call
+org: gray-area
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: "Open call for artists using AI in creative projects, run with compute partner Modal:
+  $2,000 honorarium, up to $5,000 production funding, and up to $20,000 in Modal compute credits."
+rounds:
+  - name: 2026 cycle
+    status: open
+    closes: 2026-07-15
+    source: https://x.com/GrayAreaorg/status/2067658757572857968
+sources:
+  - https://x.com/GrayAreaorg/status/2067658757572857968

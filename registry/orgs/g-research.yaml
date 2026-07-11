@@ -1,0 +1,15 @@
+id: g-research
+name: G-Research
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: company
+website: https://www.gresearch.com/
+status: active
+profile: G-Research Grants is a recurring monthly award for research in trustworthy AI, causal
+  inference, and related ML topics, with winners announced each month.
+sources:
+  - https://www.gresearch.com/news/g-research-may-2026-grant-winners

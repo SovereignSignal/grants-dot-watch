@@ -1,0 +1,18 @@
+id: opensats-nostr-grants
+name: OpenSats Nostr Grants
+org: opensats
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: "Recurring wave-based grants funding Nostr protocol projects: app discovery, private calls,
+  software distribution, client onboarding, and AI tools for open-source Bitcoin/freedom-tech
+  developers."
+rounds:
+  - name: Wave 17
+    status: deployed
+    source: https://opensats.org/blog/seventeenth-wave-of-nostr-grants
+sources:
+  - https://opensats.org/blog/seventeenth-wave-of-nostr-grants

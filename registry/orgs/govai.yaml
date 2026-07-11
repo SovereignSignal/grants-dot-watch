@@ -1,0 +1,18 @@
+id: govai
+name: GovAI
+aka:
+  - Centre for the Governance of AI
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://www.governance.ai/
+status: active
+profile: GovAI (Centre for the Governance of AI) runs a three-month bipartisan Winter Fellowship
+  2027 for careers in AI governance/policy, with a DC track (research, expert seminars, networking;
+  deadline 2026-07-12) and a fully funded UK/London track (up to GBP 12,000 stipend, travel support,
+  visa sponsorship, Jan-Apr 2027; deadline 2026-07-12).
+sources:
+  - https://www.governance.ai/post/winter-fellowship-2027-research-track

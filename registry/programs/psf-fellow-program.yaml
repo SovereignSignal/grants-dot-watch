@@ -1,0 +1,19 @@
+id: psf-fellow-program
+name: PSF Fellow Program
+org: python-software-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: fellowship
+apply_url: https://www.python.org/psf/fellows/
+summary: Nomination-based honorary recognition program for individuals who have made significant
+  contributions to the Python community; nominations reviewed quarterly.
+rounds:
+  - name: Q3 2026 batch
+    status: open
+    closes: 2026-08-20
+    source: https://www.python.org/psf/fellows/
+sources:
+  - https://www.python.org/psf/fellows/

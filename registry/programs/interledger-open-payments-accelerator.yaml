@@ -1,0 +1,22 @@
+id: interledger-open-payments-accelerator
+name: Interledger Open Payments Accelerator
+org: interledger-fellowship-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://interledger.org/grant/open-payments-accelerator
+summary: Four-month accelerator providing $50,000 plus mentorship and technical workshops to
+  early-stage teams building proof-of-concept digital financial services for underserved populations
+  using Open Payments and the Interledger Protocol.
+rounds:
+  - name: 2026 cohort
+    status: closed
+    opens: 2026-06-01
+    closes: 2026-06-30
+    size: $50,000
+    source: https://interledger.org/grant/open-payments-accelerator
+sources:
+  - https://interledger.org/grant/open-payments-accelerator

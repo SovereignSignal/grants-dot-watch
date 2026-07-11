@@ -1,0 +1,15 @@
+id: reactive-developer-fund
+name: Reactive Developer Fund
+org: reactive-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://reactive.network/devfund
+summary: $3M fund backing EVM-compatible app builders via Builder Grants ($3K-$5K) and Growth Grants
+  (up to $10K); rolling, global.
+rounds: []
+sources:
+  - https://reactive.network/devfund

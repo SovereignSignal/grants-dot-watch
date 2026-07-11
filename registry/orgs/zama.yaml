@@ -1,0 +1,16 @@
+id: zama
+name: Zama
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: company
+website: https://www.zama.org/
+status: active
+profile: Zama's Developer Program Season 3 funds confidential application development on Ethereum --
+  FHE-powered smart contracts, private token distribution, and composable privacy -- with a 12,500
+  cUSDT reward pool and a 2026-07-07 deadline.
+sources:
+  - https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key

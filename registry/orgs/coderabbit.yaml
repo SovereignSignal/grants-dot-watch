@@ -1,0 +1,16 @@
+id: coderabbit
+name: Coderabbit
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+org_type: company
+website: https://www.coderabbit.ai/
+status: active
+profile: Coderabbit (with contributor Santosh Yadav) has committed $1M to an open-source
+  distribution fund supporting open-source projects and maintainers, with roughly $700K already
+  contributed. Deadline rolling.
+sources:
+  - https://www.coderabbit.ai/blog/coderabbit-commits-1-million-to-open-source

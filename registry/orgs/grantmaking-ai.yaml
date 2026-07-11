@@ -6,11 +6,13 @@ wires:
   - ai
 roles:
   - funder
-website: https://www.grantmaking.ai
-status: unknown
+  - ecosystem
+website: https://www.grantmaking.ai/
+status: active
 profile: grantmaking.ai, in partnership with Manifund, opened a launch round distributing $5k-$50k
   grants per applicant from a $1M total round for projects reducing x-risk from AI. One short
   application creates a public project/funding ask reviewed by experienced AI safety grantmakers.
   Deadline is July 13, 2026.
 sources:
   - https://www.grantmaking.ai/apply
+  - https://www.grantmaking.ai/

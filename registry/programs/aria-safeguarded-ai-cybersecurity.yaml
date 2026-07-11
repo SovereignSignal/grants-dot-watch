@@ -1,0 +1,23 @@
+id: aria-safeguarded-ai-cybersecurity
+name: "Safeguarded AI: Cybersecurity (TA2)"
+org: aria
+parent: null
+systems:
+  - uk-public-rd
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding
+summary: Cybersecurity call within ARIA's GBP 59M Safeguarded AI programme, allocating GBP 20M
+  across Blue Team awards (3-6, production-grade security-critical software with machine-checked
+  proofs) and one Red Team for adversarial evaluation.
+rounds:
+  - name: TA2 2026 call
+    status: open
+    closes: 2026-07-01
+    size: GBP 20M
+    source: https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding
+sources:
+  - https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding

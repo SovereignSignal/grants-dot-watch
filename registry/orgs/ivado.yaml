@@ -1,0 +1,14 @@
+id: ivado
+name: IVADO
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://ivado.ca/
+status: active
+profile: IVADO's 2027-2030 R3AI Research Clusters call funds AI research clusters based in
+  Quebec/Canada. Deadline 2026-07-31.
+sources:
+  - https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/

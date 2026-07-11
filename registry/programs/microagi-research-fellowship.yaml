@@ -1,0 +1,15 @@
+id: microagi-research-fellowship
+name: MicroAGI Research Fellowship
+org: microagi
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://www.microagi.ai/fellowship
+summary: "6-month in-residence fellowship in Munich or Zurich for embodied AI/robotics builders:
+  $10K/month stipend, up to $2M compute, lab access."
+rounds: []
+sources:
+  - https://www.microagi.ai/fellowship

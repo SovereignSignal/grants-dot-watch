@@ -1,0 +1,15 @@
+id: os4science
+name: OS4Science
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://os4science.org/
+status: active
+profile: OS4Science's Open Source for the Life Sciences program funds open-source software
+  underpinning data-intensive research and AI-driven discovery in the life sciences, via a two-step
+  LOI plus Full Application process.
+sources:
+  - https://os4science.org/funding_opportunity/os4ls/

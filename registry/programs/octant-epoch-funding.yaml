@@ -1,0 +1,23 @@
+id: octant-epoch-funding
+name: Octant Epoch Funding
+org: octant
+parent: null
+systems:
+  - ethereum
+  - web3-public-goods
+wires:
+  - crypto
+status: active
+mechanism: quadratic
+apply_url: https://octant.build/
+summary: Octant's recurring epoch-based public-goods funding round, distributing a matching pool via
+  quadratic funding to participating ecosystem projects.
+rounds:
+  - name: Epoch 12
+    status: closed
+    opens: 2026-06-16
+    closes: 2026-06-30
+    size: 200 ETH matching pool, 26 projects
+    source: https://x.com/octantapp/status/2066912429561217132
+sources:
+  - https://x.com/octantapp/status/2066912429561217132

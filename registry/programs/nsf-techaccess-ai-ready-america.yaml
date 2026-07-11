@@ -1,0 +1,24 @@
+id: nsf-techaccess-ai-ready-america
+name: "TechAccess: AI-Ready America"
+org: national-science-foundation
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: NSF initiative funding State/Territory AI Readiness Coordination Hubs and a single National
+  Coordination Lead (up to $5M/year for up to 5 years) to coordinate them nationally.
+rounds:
+  - name: State/Territory Coordination Hubs, Round 1
+    status: open
+    closes: 2026-07-16
+    source: https://www.nsf.gov/funding/opportunities/techaccess-ai-ready-america/nsf26-508/solicitation
+  - name: National Coordination Lead
+    status: open
+    closes: 2026-07-21
+    size: up to $5M/year for up to 5 years, one award
+    source: https://www.nsf.gov/tip/updates/nsf-initiative-make-america-ai-ready-seeks-national-lead
+sources:
+  - https://www.nsf.gov/tip/updates/nsf-initiative-make-america-ai-ready-seeks-national-lead

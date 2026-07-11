@@ -1,0 +1,17 @@
+id: python-software-foundation
+name: Python Software Foundation
+aka:
+  - PSF
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+  - ecosystem
+org_type: nonprofit
+website: https://www.python.org/psf/
+status: active
+profile: The Python Software Foundation's Fellow program recognizes individuals for significant
+  contributions to the Python community; the Q3 2026 nomination batch closes 2026-08-20.
+sources:
+  - https://www.python.org/psf/fellows/

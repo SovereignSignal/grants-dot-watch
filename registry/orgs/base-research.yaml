@@ -1,0 +1,15 @@
+id: base-research
+name: BASE Research
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.baseresearch.org/
+status: active
+profile: BASE Research's Fellowship Fall 2026 is a 13-week remote, part-time program developing
+  Black leadership in AI Safety, AI Governance, and AI Security through mentorship and research
+  projects. Deadline 2026-06-16.
+sources:
+  - https://www.baseresearch.org/base-fellowship-f26

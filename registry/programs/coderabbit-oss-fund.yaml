@@ -1,0 +1,15 @@
+id: coderabbit-oss-fund
+name: Coderabbit OSS Fund
+org: coderabbit
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://www.coderabbit.ai/blog/coderabbit-commits-1-million-to-open-source
+summary: $1M distribution fund supporting open-source projects and maintainers; roughly $700K
+  already contributed as of June 2026.
+rounds: []
+sources:
+  - https://www.coderabbit.ai/blog/coderabbit-commits-1-million-to-open-source

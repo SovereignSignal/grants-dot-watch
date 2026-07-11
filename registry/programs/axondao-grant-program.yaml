@@ -1,0 +1,15 @@
+id: axondao-grant-program
+name: AxonDAO Grant Program
+org: axondao
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.axondao.io/grants
+summary: Grants, compute credits, mentorship, and connections for researchers and teams building in
+  health AI, DeSci, bioinformatics, and scientific computing.
+rounds: []
+sources:
+  - https://www.axondao.io/grants

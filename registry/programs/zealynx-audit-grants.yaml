@@ -1,0 +1,19 @@
+id: zealynx-audit-grants
+name: Zealynx Audit Grants
+org: zealynx
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://grants.zealynx.io/
+summary: Subsidy program covering 25-100% of senior smart contract audit costs for early-stage,
+  pre-mainnet DeFi protocols; no equity or tokens required.
+rounds:
+  - name: Season 1
+    status: open
+    closes: 2026-07-06
+    source: https://grants.zealynx.io/
+sources:
+  - https://grants.zealynx.io/

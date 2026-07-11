@@ -2,8 +2,10 @@ id: aethir-ecosystem-fund
 name: Aethir Ecosystem Fund
 aka: []
 systems: []
-wires: [crypto]
-roles: [funder]
+wires:
+  - crypto
+roles:
+  - funder
 org_type: dao
 website: https://aethir.com/ecosystem-fund
 socials:
@@ -12,17 +14,18 @@ socials:
 status: active
 profile: >
   Aethir operates a decentralized GPU compute (DePIN) network for AI and gaming and runs a $100M
-  Ecosystem Fund that awards roughly $5k-$500k in grants, paid in compute credits and ATH tokens,
-  to teams building AI, cloud gaming, and Web3 projects on its stack. The fund runs multiple
-  tracks and partner programs (including with XPLA, xAI, NEAR, Oasis, Polyhedra, and WeatherXM)
-  and is reviewed by an internal grant committee, with applications open.
+  Ecosystem Fund that awards roughly $5k-$500k in grants, paid in compute credits and ATH tokens, to
+  teams building AI, cloud gaming, and Web3 projects on its stack. The fund runs multiple tracks and
+  partner programs (including with XPLA, xAI, NEAR, Oasis, Polyhedra, and WeatherXM) and is reviewed
+  by an internal grant committee, with applications open.
 funding:
   focus:
     - AI applications
     - cloud gaming
     - AI-integrated gaming
     - enterprise AI workloads
-  typical_size: "$5,000-$500,000 per project"
+  typical_size: $10,000-$100,000 per project (compute credits and/or cash)
   apply_url: https://share.hsforms.com/1pUR3bv2jSyiKE3CwvpaxNAq8ovb
+  cadence: rolling
 sources:
   - https://aethir.com/ecosystem-fund

@@ -1,9 +1,15 @@
 id: 1inch-network
 name: 1inch Network
-aka: ["1inch", "1inch Foundation", "1inch.io"]
-systems: [ethereum]
-wires: [crypto]
-roles: [funder]
+aka:
+  - 1inch
+  - 1inch Foundation
+  - 1inch.io
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
 org_type: dao
 website: https://1inch.com/
 socials:
@@ -11,11 +17,10 @@ socials:
   forum: https://gov.1inch.network/
 status: active
 profile: >
-  The 1inch Network is a DeFi platform that aggregates liquidity across exchanges
-  so users can swap tokens at optimal rates. Its foundation supports projects and
-  initiatives that drive sustainable growth of the 1inch ecosystem, including
-  community engagement, protocol integrations, research and analytics, education,
-  and events, with non-dilutive grants paid in 1INCH tokens or other agreed
+  The 1inch Network is a DeFi platform that aggregates liquidity across exchanges so users can swap
+  tokens at optimal rates. Its foundation supports projects and initiatives that drive sustainable
+  growth of the 1inch ecosystem, including community engagement, protocol integrations, research and
+  analytics, education, and events, with non-dilutive grants paid in 1INCH tokens or other agreed
   currencies, structured around project milestones.
 funding:
   focus:

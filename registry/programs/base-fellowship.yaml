@@ -1,0 +1,19 @@
+id: base-fellowship
+name: BASE Fellowship
+org: base-research
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://www.baseresearch.org/base-fellowship-f26
+summary: 13-week remote part-time program building Black leadership in AI Safety, AI Governance, and
+  AI Security, with mentorship and research projects.
+rounds:
+  - name: Fall 2026
+    status: closed
+    closes: 2026-06-16
+    source: https://www.baseresearch.org/base-fellowship-f26
+sources:
+  - https://www.baseresearch.org/base-fellowship-f26

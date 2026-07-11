@@ -1,0 +1,15 @@
+id: open-source-for-the-life-sciences
+name: Open Source for the Life Sciences
+org: os4science
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://os4science.org/funding_opportunity/os4ls/
+summary: Funds open-source software underpinning data-intensive research and AI-driven discovery in
+  the life sciences; two-step LOI then Full Application process.
+rounds: []
+sources:
+  - https://os4science.org/funding_opportunity/os4ls/

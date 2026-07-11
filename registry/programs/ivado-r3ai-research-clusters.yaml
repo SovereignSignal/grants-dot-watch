@@ -1,0 +1,17 @@
+id: ivado-r3ai-research-clusters
+name: R3AI Research Clusters Call
+org: ivado
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Call for proposals to fund AI research clusters based in Quebec/Canada, 2027-2030 cycle.
+rounds:
+  - name: 2027-2030 cycle
+    status: open
+    closes: 2026-07-31
+    source: https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/
+sources:
+  - https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/

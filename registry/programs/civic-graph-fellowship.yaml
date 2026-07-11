@@ -1,0 +1,20 @@
+id: civic-graph-fellowship
+name: Civic Graph Fellowship
+org: code-for-africa
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: fellowship
+apply_url: https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/
+summary: 3-month part-time fellowship (7 positions) building open-source civic data systems, OSINT,
+  and structured transparency data in South Africa ahead of elections.
+rounds:
+  - name: 2026 cohort
+    status: open
+    closes: 2026-06-28
+    size: 7 positions
+    source: https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/
+sources:
+  - https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/

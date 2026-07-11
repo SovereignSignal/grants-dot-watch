@@ -1,0 +1,16 @@
+id: zealynx
+name: Zealynx
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: company
+website: https://grants.zealynx.io/
+status: active
+profile: Zealynx Audit Grants Season 1 covers 25-100% of senior smart contract audit costs for
+  early-stage, pre-mainnet DeFi protocols across multiple languages, with no equity or tokens
+  required. Deadline 2026-07-06.
+sources:
+  - https://grants.zealynx.io/

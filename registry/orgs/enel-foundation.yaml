@@ -1,0 +1,15 @@
+id: enel-foundation
+name: Enel Foundation
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: foundation
+website: https://www.enelfoundation.org/
+status: active
+profile: Enel Foundation's wAtt-boost program (2nd edition) awards a EUR 10,000 prize to youth-led
+  start-ups in Africa working in renewable energy, AI, smart grids, and climate tech.
+sources:
+  - https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition
