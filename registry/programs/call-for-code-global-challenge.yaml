@@ -1,0 +1,22 @@
+id: call-for-code-global-challenge
+name: Call for Code Global Challenge
+org: ibm-call-for-code
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: prize
+apply_url: https://hackathon.austinaihub.org/
+summary: Annual global challenge mobilizing developers to build AI solutions to urgent global issues
+  (climate, public health, justice/human rights), run with UN Human Rights and The Linux Foundation.
+  Winning solutions are recognized at the United Nations and supported through deployment in
+  communities worldwide.
+rounds:
+  - name: "2026: United Against Trafficking"
+    status: open
+    opens: 2026-06-11
+    closes: 2026-07-30
+    source: https://callforcode.org/
+sources:
+  - https://callforcode.org/

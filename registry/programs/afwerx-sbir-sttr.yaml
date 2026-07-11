@@ -1,0 +1,24 @@
+id: afwerx-sbir-sttr
+name: AFWERX SBIR/STTR
+org: afwerx
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.dodsbirsttr.mil/submissions/login
+summary: AFWERX's SBIR/STTR program funds dual-use technology for the U.S. Air Force through Open
+  Topic, Specific Topic, and STRATFI/TACFI scale-up solicitation tracks, released as continuous
+  numbered cycles (e.g. "26.BZ").
+rounds:
+  - name: 26.BZ Release 3 Specific Topic
+    status: open
+    closes: 2026-07-22
+    source: https://afwerx.com
+  - name: 26.BZ Release 4 Specific Topic
+    status: announced
+    source: https://afwerx.com
+sources:
+  - https://afwerx.com

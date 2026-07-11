@@ -1,0 +1,27 @@
+id: celo-prezenti-grants
+name: Prezenti Grants
+org: celo
+parent: null
+systems:
+  - web3-public-goods
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.prezenti.xyz/
+summary: "Three funding pools for Celo builders: Anchor (traction-stage, $25k+), Boost (invite-only,
+  cross-ecosystem), and Frontier (AI/agent-economy infrastructure, $25k+). 575+ applications, 120+
+  contracts signed, $2M distributed to date."
+rounds:
+  - name: Anchor Pool
+    status: closed
+    closes: 2026-06-30
+    size: $25,000+ per project
+    source: https://www.prezenti.xyz/
+  - name: Frontier Pool (AI & agent economy infra)
+    status: closed
+    closes: 2026-06-30
+    size: $25,000+ per project
+    source: https://www.prezenti.xyz/
+sources:
+  - https://www.prezenti.xyz/

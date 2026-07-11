@@ -1,0 +1,24 @@
+id: renaissance-ai-for-math-fund
+name: AI for Math Fund
+org: renaissance-philanthropy
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: "Renaissance Philanthropy fund applying AI and machine learning to mathematical research:
+  new ML paradigms for mathematical discovery, tools and infrastructure for mathematicians,
+  automated theorem proving and AI-assisted proof development, and open mathematical
+  datasets/benchmarks. All funded code, datasets, and research outputs must be open-access with
+  preprints in public repositories. Initial $9M round expanded by $13M announced March 2026; main
+  grants of $100K-$1M for 12-24 months, plus $20K-$30K summer fellowships and up to $100K seed
+  grants for early-stage work."
+rounds:
+  - name: 2026 funding round
+    status: reviewing
+    closes: 2026-03-30
+    size: $100K-$1M grants ($9M initial pool + $13M added March 2026)
+    source: https://www.renaissancephilanthropy.org/ai-for-math-fund
+sources:
+  - https://www.renaissancephilanthropy.org/ai-for-math-fund

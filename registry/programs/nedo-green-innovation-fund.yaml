@@ -1,0 +1,15 @@
+id: nedo-green-innovation-fund
+name: NEDO Green Innovation Fund
+org: new-energy-and-industrial-technology-development-organizatio
+parent: null
+systems:
+  - japan-public-rd
+wires: []
+status: active
+mechanism: grants
+summary: Japanese government fund established by NEDO to support carbon-neutrality and
+  decarbonization R&D projects. Grant sizes, cadence, and a direct application URL were not
+  confirmed from NEDO's English-language pages.
+rounds: []
+sources:
+  - https://www.nedo.go.jp/english/

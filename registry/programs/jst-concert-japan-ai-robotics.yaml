@@ -1,0 +1,19 @@
+id: jst-concert-japan-ai-robotics
+name: CONCERT-Japan 13th Call (AI Robotics)
+org: japan-science-and-technology-agency-jst
+parent: null
+systems:
+  - japan-public-rd
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: International collaborative-research call for real-world AI robotics applications, part of
+  the CONCERT-Japan framework.
+rounds:
+  - name: 13th Call
+    status: open
+    closes: 2026-07-22
+    source: https://www.jst.go.jp/EN/
+sources:
+  - https://www.jst.go.jp/EN/

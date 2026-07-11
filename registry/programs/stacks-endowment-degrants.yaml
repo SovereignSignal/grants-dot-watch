@@ -1,0 +1,15 @@
+id: stacks-endowment-degrants
+name: Community DeGrants
+org: stacks-endowment
+parent: null
+systems:
+  - stacks
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: Community-run grants track for creative, inclusive, and educational Stacks projects, with
+  Stacks Endowment providing operational support.
+rounds: []
+sources:
+  - https://stacksendowment.co/grants

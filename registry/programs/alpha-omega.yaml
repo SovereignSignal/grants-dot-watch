@@ -1,0 +1,20 @@
+id: alpha-omega
+name: Alpha-Omega
+org: linux-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://alpha-omega.dev/grants/how-to-apply/
+summary: OpenSSF-backed initiative (funders include Anthropic, AWS, Citi, GitHub, Google, Microsoft,
+  OpenAI) funding open-source supply-chain security, from the largest global projects to essential
+  components maintained by individuals; ~$7M annual budget. Applicants submit a grant form and, if
+  aligned, move to a proposal/SOW discussion; grantees give monthly public reports and join monthly
+  strategy roundtables.
+rounds: []
+sources:
+  - https://alpha-omega.dev/
+  - https://alpha-omega.dev/grants/how-to-apply/

@@ -1,0 +1,16 @@
+id: perl-core-development-fund
+name: Perl Core Development Fund
+org: the-perl-raku-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: A donation-funded grant initiative of The Perl & Raku Foundation supporting development of
+  the Perl core language. Proposals are reviewed on a bi-monthly cycle (call opens every two months,
+  two-week public feedback window before committee vote).
+rounds: []
+sources:
+  - https://www.perlfoundation.org/perl-core-development-fund.html
+  - https://www.perlfoundation.org/grants.html

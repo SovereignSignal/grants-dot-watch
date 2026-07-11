@@ -1,0 +1,25 @@
+id: mozilla-foundation-incubator
+name: Mozilla Foundation Incubator
+org: mozilla-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - ai
+  - oss
+status: active
+mechanism: incubator
+apply_url: https://mozillafoundation.tfaforms.net/f/grantmaking
+summary: "Mozilla's current live cohort/mentorship funding vehicle: Build Track and Sustain Track
+  support for values-driven technology projects addressing climate impact, AI and democracy, data
+  transparency, and algorithmic accountability."
+rounds:
+  - name: Democracy x AI Cohort
+    status: open
+    source: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/
+  - name: "2025 Cohort: Making the invisible visible"
+    status: open
+    source: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/
+sources:
+  - https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/
+  - https://www.mozillafoundation.org/en/what-we-do/grantmaking/

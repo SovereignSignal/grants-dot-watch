@@ -1,0 +1,16 @@
+id: nvidia-inception
+name: NVIDIA Inception
+org: nvidia
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: incubator
+apply_url: https://programs.nvidia.com/phoenix/application
+summary: Free program guiding AI startups with training, developer tools, preferred
+  hardware/software pricing, and investor introductions through a VC Alliance. No fees, deadlines,
+  or cohorts — rolling applications.
+rounds: []
+sources:
+  - https://www.nvidia.com/en-us/startups/

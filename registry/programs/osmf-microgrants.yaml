@@ -1,0 +1,15 @@
+id: osmf-microgrants
+name: OSMF Microgrants
+org: openstreetmap-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: OpenStreetMap Foundation microgrant program run by a dedicated Microgrants committee,
+  intended to help volunteers overcome financial barriers to OSM contribution. Award size, cadence,
+  and application process not yet confirmed from the org's own pages.
+rounds: []
+sources:
+  - https://osmfoundation.org/wiki/Microgrants

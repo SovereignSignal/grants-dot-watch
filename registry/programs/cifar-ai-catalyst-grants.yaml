@@ -1,0 +1,19 @@
+id: cifar-ai-catalyst-grants
+name: AI Catalyst Grants
+org: cifar-pan-canadian-ai-strategy
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: CIFAR program providing short-term, flexible funding to catalyze new interdisciplinary
+  machine-learning research collaborations across domains including AI safety and alignment,
+  misinformation/information integrity, trustworthy and interpretable LLMs, real-world
+  deployed-system safety, AI auditing and fairness, and privacy-preserving techniques. Awards have
+  run annually since at least 2020; a recent call funded the program's first AI-safety-specific
+  Catalyst Grants under the national strategy. Apply by contacting CIFAR directly; no standing
+  application URL found.
+rounds: []
+sources:
+  - https://cifar.ca/ai/cifar-ai-catalyst-grants/

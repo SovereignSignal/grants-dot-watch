@@ -1,0 +1,19 @@
+id: sui-academic-research-awards
+name: Academic Research Awards
+org: sui-foundation
+parent: null
+systems:
+  - sui
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: Sui Foundation awards of roughly $25,000 for academic blockchain science and security
+  research, applied for via an external form.
+rounds:
+  - name: Academic Research Awards
+    status: open
+    size: ~$25,000 per award
+    source: https://www.sui.io/programs-funding
+sources:
+  - https://www.sui.io/programs-funding

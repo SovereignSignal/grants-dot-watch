@@ -1,0 +1,19 @@
+id: numfocus-small-development-grants
+name: NumFOCUS Small Development Grants
+org: numfocus
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+  - ai
+status: paused
+mechanism: grants
+apply_url: https://numfocus.org/projects-overview
+summary: Small grants to help NumFOCUS's fiscally sponsored and affiliated open-source scientific
+  computing projects improve usability, grow their communities, and speed release cycles. Calls for
+  proposals normally run 3x/year; applications are currently closed while NumFOCUS updates its
+  financial and administrative systems.
+rounds: []
+sources:
+  - https://numfocus.org/projects-overview

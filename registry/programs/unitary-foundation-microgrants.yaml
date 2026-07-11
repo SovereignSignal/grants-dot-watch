@@ -1,0 +1,16 @@
+id: unitary-foundation-microgrants
+name: Unitary Foundation Microgrants
+org: unitary-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://unitaryfund.typeform.com/to/j0kAOd?typeform-source=unitary.foundation
+summary: Always-open flat $4,000 cash microgrants for open-source quantum software, education, and
+  sensor projects. No organizational affiliation required.
+rounds: []
+sources:
+  - https://unitary.foundation/

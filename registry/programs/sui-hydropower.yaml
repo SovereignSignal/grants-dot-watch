@@ -1,0 +1,16 @@
+id: sui-hydropower
+name: Hydropower
+org: sui-foundation
+parent: null
+systems:
+  - sui
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://www.sui.io/programs-funding
+summary: Sui Foundation's official non-dilutive accelerator, offering hands-on mentorship and
+  connections to capital for teams building on Sui.
+rounds: []
+sources:
+  - https://www.sui.io/programs-funding

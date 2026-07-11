@@ -1,0 +1,15 @@
+id: flow-ecosystem-grants
+name: Flow Ecosystem Grants
+org: flow
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: Top-down grant track for growth-stage teams building on Flow; milestone-based proposals
+  (roadmap, funding request per milestone, budget justification, success metrics) reviewed
+  internally by the Flow Foundation. Size and round schedule not published.
+rounds: []
+sources:
+  - https://developers.flow.com/ecosystem/grants

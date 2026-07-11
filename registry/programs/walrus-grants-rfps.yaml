@@ -1,0 +1,18 @@
+id: walrus-grants-rfps
+name: Walrus Grants & RFPs
+org: walrus-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: rfp
+apply_url: https://www.walrus.xyz/rfp/
+summary: "Two-track funding from the Walrus Foundation: RFPs (single-award, milestone-tied funding
+  for a specific ask, open until a team is selected) and smaller milestone-driven Grants for
+  well-scoped deliverables or MVP validation. Focused on AI, data markets, and DeFi applications
+  built on Walrus's verifiable data platform."
+rounds: []
+sources:
+  - https://www.walrus.xyz/rfp/
+  - https://www.walrus.xyz/

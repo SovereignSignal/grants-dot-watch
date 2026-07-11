@@ -1,0 +1,14 @@
+id: center-for-civic-futures-public-benefit-innovation-fund
+name: Public Benefit Innovation Fund
+org: center-for-civic-futures
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: A $20 million fund supporting real-world AI experimentation in public services and
+  disseminating findings so other government jurisdictions can responsibly adopt the technology.
+rounds: []
+sources:
+  - https://www.centerforcivicfutures.org/

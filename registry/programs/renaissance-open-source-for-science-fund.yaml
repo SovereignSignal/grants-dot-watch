@@ -1,0 +1,20 @@
+id: renaissance-open-source-for-science-fund
+name: Open Source for Science Fund
+org: renaissance-philanthropy
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://os4science.org/apply-for-funding/
+summary: "Multi-donor fund administered by Renaissance Philanthropy, seeded with support from the
+  Chan Zuckerberg Initiative, Biohub, and Wellcome Trust, funding open-source software
+  infrastructure for science: data representation and curation, large-scale data analysis and
+  visualization, numerical computing and simulation, hardware acceleration and scalability, and
+  workflow automation. Actively accepting applications through its funding-opportunities portal."
+rounds: []
+sources:
+  - https://os4science.org
+  - https://os4science.org/apply-for-funding/

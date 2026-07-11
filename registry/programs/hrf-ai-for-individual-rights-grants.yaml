@@ -1,0 +1,20 @@
+id: hrf-ai-for-individual-rights-grants
+name: AI for Individual Rights Fund
+org: hrf-ai-for-individual-rights-fund
+parent: null
+systems:
+  - internet-freedom
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://hrf.org/program/ai-for-individual-rights/ai-grants/
+summary: Grants to activists, researchers, and open-source developers building privacy-preserving,
+  freedom-enhancing AI tools and exposing authoritarian AI uses; also runs the AI Hack for Freedom
+  hackathon series.
+rounds:
+  - name: AI Hack for Freedom II
+    status: deployed
+    source: https://hrf.org/program/ai-for-individual-rights/
+sources:
+  - https://hrf.org/program/ai-for-individual-rights/ai-grants/

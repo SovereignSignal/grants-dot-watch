@@ -1,0 +1,21 @@
+id: spotify-foss-fund
+name: Spotify FOSS Fund
+org: spotify
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: "Annual fund (established at €100,000 in 2022) paying maintainers of critical independent
+  open-source projects Spotify depends on. No external application: Spotify's internal engineers
+  nominate projects, informed by internal dependency data, and a fund committee selects recipients."
+rounds:
+  - name: 2025 cohort
+    status: closed
+    size: FFmpeg €30k, Xiph.Org €25k, MSW €15k
+    source: https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund
+sources:
+  - https://engineering.atspotify.com/2022/04/announcing-the-spotify-foss-fund
+  - https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund

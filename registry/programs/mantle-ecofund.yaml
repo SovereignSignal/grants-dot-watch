@@ -1,0 +1,17 @@
+id: mantle-ecofund
+name: Mantle EcoFund
+org: mantle-foundation
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: other
+summary: A $200M catalyzed capital pool funding early-stage ecosystem projects in partnership with
+  20+ venture firms (incl. Polychain, Dragonfly), providing deal structuring, fundraising
+  assistance, and exchange-listing support rather than fixed grant rounds. No published award size,
+  cadence, or application form; contact is ecofund@mantle.xyz.
+rounds: []
+sources:
+  - https://www.mantle.xyz/ecofund

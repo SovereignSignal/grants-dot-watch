@@ -1,0 +1,17 @@
+id: nvidia-academic-grant-program
+name: NVIDIA Academic Grant Program
+org: nvidia
+parent: null
+systems: []
+wires:
+  - ai
+status: paused
+mechanism: grants
+apply_url: https://academicgrants.nvidia.com/academicgrantprogram/s/welcome
+summary: Cloud/hardware/software research grants (e.g. up to 30,000 H100 80GB GPU-hours, RTX PRO
+  6000, or DGX Spark units) for full-time faculty at accredited PhD-granting institutions, across
+  simulation & modeling, AI training, and AI inference/agents/systems software. Currently not
+  accepting new applications.
+rounds: []
+sources:
+  - https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/

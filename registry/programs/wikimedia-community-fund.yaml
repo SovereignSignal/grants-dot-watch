@@ -1,0 +1,17 @@
+id: wikimedia-community-fund
+name: Wikimedia Community Fund
+org: wikimedia-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://meta.wikimedia.org/wiki/Grants:Start
+summary: Umbrella grantmaking program for the Wikimedia movement, comprising the Rapid Fund (avg.
+  $500-$5,000, short-term projects), the General Support Fund (flexible multi-year operating support
+  up to 3 years), and the Hub Fund (multiple rounds per year), open to individuals and organizations
+  advancing knowledge equity.
+rounds: []
+sources:
+  - https://meta.wikimedia.org/wiki/Grants:Start

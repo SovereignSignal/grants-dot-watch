@@ -8,7 +8,11 @@ wires:
 status: active
 mechanism: rfp
 apply_url: https://ifp.org/rfp-launch/
-summary: $10k honorarium + funder matchmaking, rolling
+summary: IFP's rolling request for proposals on high-impact projects in AI resilience,
+  AI-for-science, and institutional adaptation. Pays a $10,000 honorarium to authors of published
+  proposals, plus $1,000 bounties for successful referrals and for new ideas that get published. No
+  fixed deadline; those without a specific idea can join IFP's talent database instead.
 rounds: []
 sources:
   - https://ifp.org/rfp-launch/
+  - https://ifp.org/the-launch-sequence/

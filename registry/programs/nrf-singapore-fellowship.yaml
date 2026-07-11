@@ -1,0 +1,18 @@
+id: nrf-singapore-fellowship
+name: NRF Fellowship
+org: national-research-foundation-nrf-singapore
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://www.researchgrant.gov.sg
+summary: NRF Singapore's flagship award giving early-career researchers independent research funding
+  in Singapore over a five-year period.
+rounds:
+  - name: 19th Singapore NRF Fellowship (Class of 2027)
+    status: open
+    source: https://www.nrf.gov.sg/
+sources:
+  - https://www.nrf.gov.sg/

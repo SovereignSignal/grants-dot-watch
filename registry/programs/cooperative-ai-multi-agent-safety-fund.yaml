@@ -1,0 +1,22 @@
+id: cooperative-ai-multi-agent-safety-fund
+name: $10m Fund for Multi-Agent Safety
+org: cooperative-ai-foundation
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world
+summary: A $10M fund co-backed by Schmidt Sciences, Google DeepMind, ARIA, and Google.org,
+  supporting 1-2 year research grants ($300k-$1M, or up to $300k for smaller projects) on safety
+  risks from large-scale multi-agent AI systems.
+rounds:
+  - name: 2026 call for proposals
+    status: open
+    closes: 2026-08-08
+    size: $300,000-$1,000,000 (Tier 2); up to $300,000 (Tier 1)
+    source: https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world
+sources:
+  - https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world

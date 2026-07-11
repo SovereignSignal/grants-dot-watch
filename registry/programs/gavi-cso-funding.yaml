@@ -1,0 +1,19 @@
+id: gavi-cso-funding
+name: Gavi Civil Society Organization (CSO) Funding
+org: gavi-the-vaccine-alliance
+parent: null
+systems:
+  - global-health
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance
+summary: Grants to civil society organizations working to reach zero-dose and under-immunised
+  children, expand HPV vaccine rollout, and integrate COVID-19 vaccination into routine
+  immunisation. Delivered via country-specific calls for proposals through the Grantelope grant
+  management system, administered by MannionDaniels/Oxford Policy Management on Gavi's behalf.
+rounds: []
+sources:
+  - https://www.gavi.org/our-work/funding-civil-society-organisations
+  - https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance

@@ -1,0 +1,17 @@
+id: kaust-research-funding-services
+name: KAUST Research Funding and Services (RFS)
+org: kaust-king-abdullah-university
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://rfs.kaust.edu.sa/
+summary: "KAUST's dedicated office administering research funding across its four academic
+  divisions: Biological and Environmental Science and Engineering; Biomedical Sciences; Computer,
+  Electrical and Mathematical Science and Engineering; and Physical Science and Engineering."
+rounds: []
+sources:
+  - https://rfs.kaust.edu.sa/
+  - https://www.kaust.edu.sa/en/

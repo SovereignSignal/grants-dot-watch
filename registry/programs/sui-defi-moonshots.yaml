@@ -1,14 +1,21 @@
 id: sui-defi-moonshots
-name: Sui DeFi Moonshots
+name: DeFi Moonshots
 org: sui-foundation
 parent: null
-systems: []
+systems:
+  - sui
 wires:
   - crypto
 status: active
 mechanism: grants
-apply_url: https://www.sui.io/moonshots
-summary: Up to $500K liquidity incentives + engineering support + audit credits, ~10 teams/year
-rounds: []
+apply_url: https://www.sui.io/programs-funding
+summary: A Sui Foundation program offering up to $500,000 in liquidity incentives to top DeFi
+  protocol builders on Sui.
+rounds:
+  - name: DeFi Moonshots
+    status: open
+    size: up to $500,000 in liquidity incentives
+    source: https://www.sui.io/programs-funding
 sources:
   - https://www.sui.io/moonshots
+  - https://www.sui.io/programs-funding

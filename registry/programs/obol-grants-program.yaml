@@ -1,0 +1,19 @@
+id: obol-grants-program
+name: Obol Grants Program
+org: obol
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: paused
+mechanism: grants
+summary: "Milestone-based funding framework for the Obol Collective across three tracks: contributor
+  work on Obol Collective SQUAD Goals, retroactive funding for community
+  workshops/meetups/onboarding sessions (proof of attendance), and open research/technical
+  contributions advancing distributed staking. Grants are issued in OBOL tokens negotiated at
+  USD-equivalent value; applications went through Questbook with no fixed deadlines while live. Per
+  Obol's own docs, the program is currently paused."
+rounds: []
+sources:
+  - https://docs.obol.org/community-and-governance/community/grants-program

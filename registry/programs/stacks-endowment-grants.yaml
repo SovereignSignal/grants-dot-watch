@@ -1,0 +1,16 @@
+id: stacks-endowment-grants
+name: Stacks Endowment Grants
+org: stacks-endowment
+parent: null
+systems:
+  - stacks
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://portal.stacksendowment.co/
+summary: "Two tracks: Builder Grants (up to $50,000, for teams with proven traction) and Getting
+  Started Grants (up to $10,000, for early prototypes)."
+rounds: []
+sources:
+  - https://stacksendowment.co/grants

@@ -1,0 +1,16 @@
+id: tezos-foundation-grants
+name: Tezos Foundation Grants
+org: tezos-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://tezos.foundation/grants/
+summary: Rolling grants across seven verticals (core dev, technical relations, infra & tooling, arts
+  & culture, DeFi, business development, gaming) for Tezos and Etherlink. ~4 weeks review + ~4 weeks
+  paperwork.
+rounds: []
+sources:
+  - https://tezos.foundation/grants/
