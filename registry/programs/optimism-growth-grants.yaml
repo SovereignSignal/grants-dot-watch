@@ -2,19 +2,24 @@ id: optimism-growth-grants
 name: Optimism Growth Grants
 org: optimism-foundation
 parent: null
-systems: [optimism, web3-public-goods]
-wires: [crypto]
+systems:
+  - optimism
+  - web3-public-goods
+wires:
+  - crypto
 status: active
 mechanism: grants
 apply_url: https://atlas.optimism.io/missions/growth-grants
 summary: >
-  A grants mission run through the Optimism Atlas missions portal supporting
-  growth of projects in the Optimism ecosystem; the Season 9 Growth Grants
-  round listed an application deadline of May 20, 2026.
+  A grants mission run through the Optimism Atlas missions portal supporting growth of projects in
+  the Optimism ecosystem; the Season 9 Growth Grants round listed an application deadline of May 20,
+  2026.
 rounds:
   - name: Season 9 Growth Grants
     status: closed
-    closes: "2026-05-20"
-    source: https://atlas.optimism.io/missions/growth-grants
+    closes: 2026-05-20
+    size: 3.89M
+    source: https://x.com/soneium/status/2026907531084472666
 sources:
   - https://atlas.optimism.io/missions/growth-grants
+  - https://x.com/soneium/status/2026907531084472666

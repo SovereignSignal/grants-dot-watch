@@ -1,0 +1,16 @@
+id: mango-capital
+name: Mango Capital
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.mangocapitalinc.com/
+status: active
+profile: "$2M seed pool for AI agent builders, backed by Mango Capital. The @Tiny_fish Accelerator
+  is now accepting applications. 9 weeks, fully virtual, rolling admissions. Founders build in
+  public and pitch on Demo Day. What cohort founders get: >Access to a $2M seed pool from Mango
+  Capital >15+ partner com"
+sources:
+  - https://x.com/dify_ai/status/2026158691573956912

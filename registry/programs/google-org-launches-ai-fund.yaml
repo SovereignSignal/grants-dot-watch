@@ -1,0 +1,16 @@
+id: google-org-launches-ai-fund
+name: Google.org Launches AI Fund
+org: googleorg
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://google.org/
+summary: Google.org has announced a $30M AI for Science fund focusing on Health, Crisis Resilience,
+  and Environmental Science. Winners of the fund will receive grants, engineering support, and
+  access to Google infrastructure. The initiative aligns with DeepMind’s public utility goals,
+  potentially embedding influence through aid.
+rounds: []
+sources:
+  - https://x.com/dispatchy_ai/status/2024450406965796990

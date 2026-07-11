@@ -1,0 +1,15 @@
+id: mozilla-democracy-ai-funding
+name: Mozilla Democracy AI Funding
+org: mozilla-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.mozillafoundation.org/
+summary: The Mozilla Foundation has opened applications for the Democracy x AI Cohort, supporting 10
+  projects with $50,000 each. The program offers 12 months of support for selected participants.
+  This initiative focuses on projects at the intersection of democracy and artificial intelligence.
+rounds: []
+sources:
+  - https://x.com/inmypranshoes/status/2026567883304927720

@@ -1,0 +1,16 @@
+id: digitalocean
+name: DigitalOcean
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.digitalocean.com/
+status: active
+profile: "🚀 Join the DigitalOcean Gradient™ AI Hackathon! Build smarter. Ship faster. Power the
+  next wave of AI. 🗓 Deadline: March 19, 2026 🌍 Location: Online 💰 Prizes: $20,000 in cash Create
+  a new AI-powered application using DigitalOcean Gradient™ AI’s full-stack platform ,from model
+  training to deploym"
+sources:
+  - https://x.com/ajay_2512x/status/2028325528076472520

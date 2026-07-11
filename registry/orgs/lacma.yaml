@@ -1,0 +1,16 @@
+id: lacma
+name: LACMA
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.lacma.org/art/lab/grants
+status: active
+profile: "AI grant alert We're proud to support @LACMA's Art + Technology Lab—a program that
+  empowers artists to prototype ideas at the edges of art, science, and emerging technology. The
+  2026 call for proposals is open to artists worldwide. Grants up to $50K. Apply by Apr 22:
+  https://www.lacma.org/art/lab/gr"
+sources:
+  - https://x.com/flakoubay/status/2026225116103753960

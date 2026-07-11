@@ -1,0 +1,24 @@
+id: arbitrum-firestarters-february-update
+name: Arbitrum Firestarters February Update
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: The Firestarters program by Arbitrum released its February 2026 monthly update, reporting
+  10 applications received, 3 approved, and $13,100 in funds allocated, with $36,900 remaining. A
+  notable grant of $4,800 was awarded to Tempe Techie for the Consumer App Support Program, which
+  involves researching the feasibility of supporting consumer mobile apps on Arbitrum One through
+  mapping 10-20 apps and drafting a potential program proposal. The update also includes a public
+  dashboard for tracking grant statuses and program KPIs. The Consumer App Support Program research
+  is ongoing until March 1, 20
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-03-01
+    size: $13,100
+    source: https://forum.arbitrum.foundation/t/firestarters-february-monthly-update/30586
+sources:
+  - https://forum.arbitrum.foundation/t/firestarters-february-monthly-update/30586

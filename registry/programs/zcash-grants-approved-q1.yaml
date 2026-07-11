@@ -1,0 +1,16 @@
+id: zcash-grants-approved-q1
+name: Zcash Grants Approved Q1
+org: zcash-community-grants
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://zcashcommunitygrants.org/
+summary: Zcash Community Grants announced the approval of several grants for Q1 2026. The funded
+  projects include CipherScan with $58,800, Sustainability & Zbase Vision by Zcash Turkey with
+  $31,000, Zingo Labs Hackfest with $25,500.23, and Zcash Arabia with $7,500. Further details are
+  available in the ZCG meeting minutes linked in the announcement.
+rounds: []
+sources:
+  - https://x.com/ZcashCommGrants/status/2024484943561445701

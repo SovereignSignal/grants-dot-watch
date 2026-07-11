@@ -1,0 +1,16 @@
+id: warp
+name: Warp
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.warp.dev
+status: active
+profile: Warp is providing free credits to high-impact open source projects utilizing Oz cloud
+  agents for automation tasks like issue triage and PR reviews. Projects such as Tan Stack, Vite,
+  and PicGo are already prototyping with Oz. Interested maintainers are encouraged to share details
+  about their projects to potentially receive these credits.
+sources:
+  - https://x.com/warpdotdev/status/2023871375690395708

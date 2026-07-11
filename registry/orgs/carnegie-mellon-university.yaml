@@ -1,0 +1,14 @@
+id: carnegie-mellon-university
+name: Carnegie Mellon University
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.cmu.edu/
+status: active
+profile: I was proud to be here today at @CarnegieMellon University to announce $1.5 million in
+  grant funding to build a Physical AI Accelerator at their new Robotics Innovation Center.
+sources:
+  - https://x.com/GovernorShapiro/status/2027485702338797904

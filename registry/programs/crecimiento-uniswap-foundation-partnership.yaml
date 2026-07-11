@@ -1,0 +1,17 @@
+id: crecimiento-uniswap-foundation-partnership
+name: Crecimiento Uniswap Foundation Partnership
+org: uniswap-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://uniswapfoundation.org/
+summary: Crecimiento has announced a continued partnership with Uniswap Foundation to support
+  startups in the onchain ecosystem. They will lead an Acceleration Season focused on helping
+  startups achieve product-market fit, enhance integrations, and scale their operations. This
+  collaboration aims to create significant opportunities for growth from Argentina to a global
+  scale.
+rounds: []
+sources:
+  - https://x.com/crecimientoar/status/2027398901800620114

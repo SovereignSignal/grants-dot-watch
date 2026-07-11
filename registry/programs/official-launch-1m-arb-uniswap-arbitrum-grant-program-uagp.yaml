@@ -1,0 +1,14 @@
+id: official-launch-1m-arb-uniswap-arbitrum-grant-program-uagp
+name: "Official Launch: $1m ARB Uniswap-Arbitrum Grant Program (UAGP)"
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hey all, the Uniswap-Arbitrum Grant Program is now live and open for applications! We have
+  been setting up the joint ecosystem Grant Program over the last weeks and are happy to finally
+  announc...
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/official-launch-1m-arb-uniswap-arbitrum-grant-program-uagp/19433

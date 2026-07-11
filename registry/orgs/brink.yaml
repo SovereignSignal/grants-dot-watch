@@ -1,0 +1,16 @@
+id: brink
+name: Brink
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://brink.dev/
+status: active
+profile: "JUST IN: Bitwise Donates $230K Bitcoin ( $BTC ) ETF Profits to Developers Spot Bitcoin ETF
+  issuer Bitwise is donating $230K from its ETF profits directly to Bitcoin developers. This is
+  institutional funding for open-source projects. It highlights a virtuous cycle: ETF capital
+  supports core protocol"
+sources:
+  - https://x.com/ruma_intern/status/2029272958208799091

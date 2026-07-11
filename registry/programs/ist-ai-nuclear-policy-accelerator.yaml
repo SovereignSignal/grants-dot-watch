@@ -1,0 +1,17 @@
+id: ist-ai-nuclear-policy-accelerator
+name: IST AI-Nuclear Policy Accelerator
+org: institute-for-security-and-technology
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://securityandtechnology.org/
+summary: The Institute for Security and Technology has launched the Andrew Carnegie AI-Nuclear
+  Policy Accelerator, a new initiative focused on enhancing decision-making at the intersection of
+  AI and nuclear policy. This program targets mid-career professionals in the national security
+  space, offering hands-on technical literacy and engagement. Interested individuals can learn more
+  and apply through the provided resources on the IST website.
+rounds: []
+sources:
+  - https://x.com/IST_org/status/2024956885397561604
