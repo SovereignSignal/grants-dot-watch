@@ -17,13 +17,18 @@ socials:
   github: https://github.com/ArbitrumFoundation
   forum: https://forum.arbitrum.foundation/
 status: active
-profile: >
+profile: >-
   The Arbitrum Foundation stewards the Arbitrum DAO and L2 ecosystem on Ethereum, operating a
   milestone-based grant program (typical awards $20k-$150k in ARB) alongside specialized initiatives
   like Trailblazer, Audit Subsidy, Arbifuel, and DRIP to drive adoption, infrastructure, and
   community growth. Community-elected domain allocators also distribute milestone-based grants via
   Questbook across domains such as developer tooling, education, gaming, and new protocols. Programs
   are active and expanding, including a $16M funding proposal in May 2026.
+
+
+  Runs a Watchdog Program investigating misuse of historic incentive programs; as of May 2026 all
+  outstanding cases were resolved, future investigations are limited to post-2025 incidents, and
+  oversight is transitioning from Entropy to OpCo.
 funding:
   focus:
     - developer tooling & infrastructure
@@ -42,3 +47,4 @@ sources:
   - https://arbitrum.questbook.app/
   - https://www.arbitrumhub.io/ecosystem-hub/grant-projects/quest-book/
   - https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753/55?u=jojo
+  - https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968
