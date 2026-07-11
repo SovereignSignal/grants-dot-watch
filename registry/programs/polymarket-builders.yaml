@@ -1,0 +1,14 @@
+id: polymarket-builders
+name: Polymarket Builders
+org: polymarket
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: other
+apply_url: https://builders.polymarket.com/
+summary: $25k/week rewards + Builder fees, 10+ active grants
+rounds: []
+sources:
+  - https://builders.polymarket.com/

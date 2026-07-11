@@ -1,0 +1,16 @@
+id: the-graph-grants-program
+name: The Graph Grants Program
+org: graph-foundation
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: The Graph Foundation runs Grants & RFPs for developers and teams contributing to protocol,
+  tooling, subgraph, and dApp development across the Web3 ecosystem, alongside open requests for
+  proposals from core contributors.
+rounds: []
+sources:
+  - https://thegraph.com/grants/

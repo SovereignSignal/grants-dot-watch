@@ -1,0 +1,21 @@
+id: ebpf-foundation-academic-research-grant
+name: eBPF Foundation Academic Research Grant Program
+org: ebpf-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://ebpf.foundation/funding-opportunities/research-fund/
+summary: Unrestricted awards of up to $50,000 for upstream academic research on kernel-level OSS
+  infrastructure, verification, performance, and security.
+rounds:
+  - name: 2026 cycle
+    status: open
+    opens: 2026-06-15
+    closes: 2026-07-15
+    size: up to $50,000
+    source: https://ebpf.foundation/funding-opportunities/research-fund/
+sources:
+  - https://ebpf.foundation/funding-opportunities/research-fund/

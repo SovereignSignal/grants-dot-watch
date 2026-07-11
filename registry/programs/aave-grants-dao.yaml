@@ -1,0 +1,17 @@
+id: aave-grants-dao
+name: Aave Grants DAO
+org: aave
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://aavegrants.org/
+summary: Aave Grants DAO is Aave's grant-making arm, organizing grant recipients into three-month
+  funding rounds through its own application portal (aavegrants.org) rather than a page on aave.com
+  itself.
+rounds: []
+sources:
+  - https://aavegrants.org/

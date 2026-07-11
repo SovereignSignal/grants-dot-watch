@@ -1,0 +1,17 @@
+id: foss-united-grants
+name: FOSS United Grants
+org: foss-united
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://fossunited.org/grants/apply/new
+summary: FOSS United Foundation runs a grants program (a 25-lakh INR budget as of 2025) for FOSS
+  projects and developers in India, covering both event grants and project grants via an online
+  application.
+rounds: []
+sources:
+  - https://fossunited.org/grants

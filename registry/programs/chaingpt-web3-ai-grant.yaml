@@ -1,0 +1,16 @@
+id: chaingpt-web3-ai-grant
+name: ChainGPT Web3-AI Grant
+org: chaingpt
+parent: null
+systems: []
+wires:
+  - crypto
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.chaingpt.org/web3-ai-grant
+summary: ChainGPT offers up to $1 million in tiered Web3-AI Grants, including research grants up to
+  $5K in API credit, to accelerate AI-powered blockchain projects.
+rounds: []
+sources:
+  - https://www.chaingpt.org/web3-ai-grant

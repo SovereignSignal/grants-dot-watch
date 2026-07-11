@@ -1,0 +1,15 @@
+id: apple-scholars-in-ai-ml
+name: Apple Scholars in AI/ML
+org: apple-scholars-in-ai-ml
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+summary: Apple Scholars in AI/ML is a PhD fellowship providing roughly two years of stipend, tuition
+  coverage, a travel grant, and mentorship to doctoral students in AI/ML fields nominated by partner
+  universities.
+rounds: []
+sources:
+  - https://machinelearning.apple.com/updates/apple-scholars-aiml-2026

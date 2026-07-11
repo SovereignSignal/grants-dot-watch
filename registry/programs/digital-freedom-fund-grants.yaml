@@ -1,0 +1,17 @@
+id: digital-freedom-fund-grants
+name: Digital Freedom Fund Grants
+org: digital-freedom-fund
+parent: null
+systems:
+  - internet-freedom
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://digitalfreedomfund.org/grants/
+summary: The Digital Freedom Fund funds three types of activity — litigation, pre-litigation, and
+  post-litigation — advancing digital rights through strategic litigation in Europe, with open calls
+  reviewed by community peers.
+rounds: []
+sources:
+  - https://digitalfreedomfund.org/grants/

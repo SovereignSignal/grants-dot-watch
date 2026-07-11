@@ -1,0 +1,15 @@
+id: silicon-catalyst-incubator
+name: Silicon Catalyst Incubator
+org: silicon-catalyst
+parent: null
+systems: []
+wires: []
+status: active
+mechanism: incubator
+apply_url: https://siliconcatalyst.com/application
+summary: Silicon Catalyst bills itself as the semiconductor industry's first incubator, providing
+  in-kind partner resources, mentorship, and investor access; its portfolio companies have received
+  over $100M in grants.
+rounds: []
+sources:
+  - https://siliconcatalyst.com/

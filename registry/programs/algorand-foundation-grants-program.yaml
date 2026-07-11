@@ -1,0 +1,14 @@
+id: algorand-foundation-grants-program
+name: Algorand Foundation Grants Program
+org: algorand-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: The Algorand Foundation's Grants Program is a broad, multi-year, worldwide program funding
+  projects that grow the Algorand ecosystem, launched with a 250-million ALGO commitment.
+rounds: []
+sources:
+  - https://grantedai.com/grants/algorand-foundation-grants-program-algorand-foundation-86e87521

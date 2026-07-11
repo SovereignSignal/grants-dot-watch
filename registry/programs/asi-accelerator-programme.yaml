@@ -1,0 +1,15 @@
+id: asi-accelerator-programme
+name: ASI:Accelerator Programme
+org: artificial-superintelligence-alliance
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: incubator
+summary: The Artificial Superintelligence Alliance's ASI:Accelerator Programme gives applicants
+  access to AI insights, enterprise-grade infrastructure, and dedicated mentorship, alongside
+  separate grant programs run by member projects SingularityNET and Fetch.ai.
+rounds: []
+sources:
+  - https://superintelligence.io/

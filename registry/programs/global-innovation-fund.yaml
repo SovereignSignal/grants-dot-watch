@@ -1,0 +1,15 @@
+id: global-innovation-fund
+name: Global Innovation Fund
+org: global-innovation-fund-gif
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: The Global Innovation Fund is a non-profit, impact-first investment fund that funds social
+  innovations improving the lives of underserved and vulnerable people, with an open application for
+  funding.
+rounds: []
+sources:
+  - https://www.globalinnovation.fund/apply-for-funding

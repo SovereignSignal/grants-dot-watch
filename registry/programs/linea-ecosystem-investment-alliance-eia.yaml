@@ -1,0 +1,16 @@
+id: linea-ecosystem-investment-alliance-eia
+name: Linea Ecosystem Investment Alliance (EIA)
+org: linea-consensys
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: incubator
+summary: ConsenSys launched the Linea Ecosystem Investment Alliance with 30+ venture capital firms
+  to support builders on Linea, announced alongside Linea's mainnet launch and separate developer
+  grants.
+rounds: []
+sources:
+  - https://consensys.io/blog/consensys-launches-linea-mainnet

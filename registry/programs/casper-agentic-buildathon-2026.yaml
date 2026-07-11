@@ -18,6 +18,12 @@ rounds:
     closes: 2026-07-31
     size: $150,000 (cash + in-kind)
     source: https://dorahacks.io/hackathon/2202/detail
+  - name: Qualification round
+    status: closed
+    closes: 2026-07-01
+    size: $150,000 prize pool
+    source: https://dorahacks.io/hackathon/casper-agentic-buildathon
 sources:
   - https://www.casper.network
   - https://dorahacks.io/hackathon/2202/detail
+  - https://dorahacks.io/hackathon/casper-agentic-buildathon

@@ -1,0 +1,15 @@
+id: icf-funding-program
+name: ICF Funding Program
+org: interchain-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: The Interchain Foundation's Funding Program supports development of open-source
+  decentralized networks across the Cosmos ecosystem, run alongside a separately restarted Grants
+  Program for a wider range of organizations.
+rounds: []
+sources:
+  - https://github.com/interchainio/funding

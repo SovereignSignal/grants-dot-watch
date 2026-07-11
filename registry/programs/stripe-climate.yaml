@@ -1,0 +1,15 @@
+id: stripe-climate
+name: Stripe Climate
+org: stripe-climate
+parent: null
+systems:
+  - climate
+wires:
+  - ai
+status: active
+mechanism: other
+summary: Stripe Climate lets businesses of any size fund frontier carbon removal by directing a
+  share of revenue to Stripe's portfolio of carbon-removal purchases.
+rounds: []
+sources:
+  - https://stripe.com/climate

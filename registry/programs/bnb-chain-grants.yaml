@@ -1,0 +1,15 @@
+id: bnb-chain-grants
+name: BNB Chain Grants
+org: bnb-chain
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.bnbchain.org/en/grants
+summary: BNB Chain Grants funds developers building open-source initiatives and projects on or
+  migrating to BNB Chain, part of a wider set of builder support programs.
+rounds: []
+sources:
+  - https://www.bnbchain.org/en/grants

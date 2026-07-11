@@ -1,0 +1,14 @@
+id: ai-boost-ai-challenge-competition
+name: AI-BOOST AI Challenge Competition
+org: ai-boost
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: prize
+summary: AI-BOOST's AI Challenge Competition is an open competition with a €100,000 prize pool
+  across four generative AI challenges, part of a European AI ecosystem-building project.
+rounds: []
+sources:
+  - https://aiboost-project.eu/

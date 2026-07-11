@@ -1,0 +1,13 @@
+id: coti-web4-ai-agent-grants
+name: COTI Web4 Grant Program for AI Agents
+org: coti
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: other
+summary: Rolling gas support plus COTI token rewards every 14 days for qualifying AI agents
+rounds: []
+sources:
+  - https://cotinetwork.medium.com/coti-launches-the-first-web4-grant-program-for-ai-agents-dad03be5053a

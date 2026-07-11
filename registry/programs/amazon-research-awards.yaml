@@ -1,0 +1,15 @@
+id: amazon-research-awards
+name: Amazon Research Awards
+org: amazon-research-awards-amazon-science
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.amazon.science/research-awards
+summary: Amazon Research Awards give university researchers up to $100,000 in unrestricted funds
+  plus up to $50,000 in AWS Promotional Credits, awarded across periodic calls for proposals.
+rounds: []
+sources:
+  - https://www.amazon.science/research-awards

@@ -1,0 +1,16 @@
+id: deep-funding-ai-pgf
+name: Deep Funding (AI-PGF)
+org: deep-funding
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://deepfunding.ai/
+summary: Deep Funding is listed on Gitcoin as an AI public-goods-funding mechanism; the org's own
+  profile independently confirms it runs milestone-based grants, RFPs, and hackathons for
+  decentralized-AI builders, consistent with this citation.
+rounds: []
+sources:
+  - https://gitcoin.co/mechanisms/deep-funding

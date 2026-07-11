@@ -1,0 +1,15 @@
+id: shared-horizons-fund
+name: Shared Horizons Fund
+org: astralis-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Astralis Foundation operates the Shared Horizons Fund, a multi-funder vehicle for AI safety
+  grantmaking led by Senior Advisor Tim Shavers; sourced from a specialist longtermist tracking wiki
+  rather than Astralis's own site, so should be verified before promotion.
+rounds: []
+sources:
+  - https://www.longtermwiki.com/wiki/E702

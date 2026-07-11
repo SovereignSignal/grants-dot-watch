@@ -1,0 +1,15 @@
+id: dolphin-awards-and-fellowships
+name: Dolphin Awards and Fellowships
+org: apereo-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: fellowship
+summary: Apereo Foundation's Dolphin Awards and Fellowships recognize and fund teaching-and-learning
+  work built on open source education software, including a Dolphin Fellows track.
+rounds: []
+sources:
+  - http://www.apereo.org/programs/dolphin-awards

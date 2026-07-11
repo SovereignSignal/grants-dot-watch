@@ -1,0 +1,16 @@
+id: ardc-grants
+name: ARDC Grants
+org: amateur-radio-digital-communications
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://www.ardc.net/apply/
+summary: ARDC (Amateur Radio Digital Communications) funds projects that advance amateur radio,
+  digital communications, and related technologies through an open grants application process, with
+  awards announced annually.
+rounds: []
+sources:
+  - https://www.ardc.net/apply/

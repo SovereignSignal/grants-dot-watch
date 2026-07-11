@@ -1,0 +1,14 @@
+id: all-grants-fund
+name: All Grants Fund
+org: givewell
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: GiveWell's All Grants Fund lets donors support the full range of GiveWell's grantmaking in
+  global health and well-being, including incubating newer programs alongside its top charities.
+rounds: []
+sources:
+  - https://www.givewell.org/all-grants-fund

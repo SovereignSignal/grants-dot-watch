@@ -1,0 +1,14 @@
+id: algorand-xgov
+name: Algorand xGov
+org: algorand-xgov
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: other
+summary: Algorand xGov is a decentralized, on-chain platform where xGov council members analyze
+  community grant proposals and vote to select which ones receive funding.
+rounds: []
+sources:
+  - https://xgov.algorand.co/

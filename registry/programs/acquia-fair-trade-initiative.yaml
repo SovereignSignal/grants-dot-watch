@@ -1,0 +1,16 @@
+id: acquia-fair-trade-initiative
+name: Acquia Fair Trade Initiative
+org: acquia-fair-trade-initiative
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: other
+summary: Acquia commits 2% of every closed eligible partner deal to the Drupal Association, credited
+  in the partner's name, as an automatic structural funding commitment with no separate grant
+  application process.
+rounds: []
+sources:
+  - https://www.acquia.com/partners/fair-trade-initiative

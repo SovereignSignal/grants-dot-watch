@@ -1,0 +1,14 @@
+id: rust-foundation-maintainers-fund
+name: Rust Foundation Maintainers Fund
+org: rust-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: fellowship
+summary: Provides stable, long-term funding and a Maintainer in Residence program for key Rust
+  maintainers, funded through donations and contributions.
+rounds: []
+sources:
+  - https://blog.rust-lang.org/2026/06/02/launching-the-rust-foundation-maintainers-fund

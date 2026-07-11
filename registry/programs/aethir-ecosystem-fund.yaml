@@ -1,0 +1,15 @@
+id: aethir-ecosystem-fund
+name: Aethir Ecosystem Fund
+org: aethir-ecosystem-fund
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://share.hsforms.com/1pUR3bv2jSyiKE3CwvpaxNAq8ovb
+summary: Aethir's $100 million Ecosystem Fund backs AI and gaming projects building on Aethir's
+  decentralized cloud infrastructure, with applications submitted through an online form.
+rounds: []
+sources:
+  - https://aethir.com/ecosystem-fund

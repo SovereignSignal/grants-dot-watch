@@ -1,0 +1,16 @@
+id: floss-fund
+name: FLOSS/fund
+org: floss-fund
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://dir.floss.fund/submit
+summary: FLOSS/fund provides roughly $1M per year to free and open source projects; applicants
+  create a funding.json manifest in their repo and apply through its public directory.
+rounds: []
+sources:
+  - https://floss.fund/

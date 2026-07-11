@@ -1,0 +1,14 @@
+id: google-academic-research-awards
+name: Google Academic Research Awards
+org: google-academic-research-awards
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Google Academic Research Awards fund academic researchers advising students and conducting
+  technology and computing research, through periodic nomination-based calls for proposals.
+rounds: []
+sources:
+  - https://research.google/programs-and-events/google-academic-research-awards/

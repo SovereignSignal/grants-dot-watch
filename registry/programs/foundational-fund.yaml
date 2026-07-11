@@ -1,0 +1,15 @@
+id: foundational-fund
+name: Foundational Fund
+org: co-impact
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Co-Impact's Foundational Fund supports efforts to deliver lasting change to health,
+  education, and economic systems across Africa, Asia, and Latin America, and to advance gender
+  equality.
+rounds: []
+sources:
+  - https://co-impact.org/about-us/what-we-fund/

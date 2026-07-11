@@ -1,0 +1,16 @@
+id: open-source-endowment
+name: Open Source Endowment
+org: open-source-endowment
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: The Open Source Endowment is billed as the first endowment fund dedicated to sustainably
+  funding open source projects, investing donations in a low-risk portfolio and disbursing only
+  investment income as grants, starting with roughly $5,000 microgrants.
+rounds: []
+sources:
+  - https://endowment.dev/

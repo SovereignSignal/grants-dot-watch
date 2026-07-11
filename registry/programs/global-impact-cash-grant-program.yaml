@@ -1,0 +1,15 @@
+id: global-impact-cash-grant-program
+name: Global Impact Cash Grant Program
+org: cisco-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Cisco's Global Impact Cash Grant Program funds community partners worldwide via an online
+  grants management portal, with Cisco also connecting recipients to pro-bono strategic and
+  technical advisory services.
+rounds: []
+sources:
+  - https://www.cisco.com/site/us/en/about/purpose/community-resilience/social-impact-investments/global-impact-cash-grants.html

@@ -1,0 +1,16 @@
+id: cepi-calls-for-proposals
+name: CEPI Calls for Proposals
+org: cepi-coalition-for-epidemic-preparedness-innovations
+parent: null
+systems:
+  - global-health
+wires:
+  - ai
+status: active
+mechanism: rfp
+summary: CEPI's Calls for Proposals invite vaccine and biosecurity innovators worldwide to apply to
+  its scientific programs, funding R&D across a diverse portfolio of vaccine candidates against
+  epidemic threats.
+rounds: []
+sources:
+  - https://cepi.net/calls-for-proposals

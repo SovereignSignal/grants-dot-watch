@@ -1,0 +1,14 @@
+id: arc-ignite-awards
+name: Arc Ignite Awards
+org: arc-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: prize
+summary: Arc Institute's Ignite Award gives a one-time $100,000 gift to kickstart ambitious research
+  ideas that are difficult to fund through traditional grant mechanisms.
+rounds: []
+sources:
+  - https://arcinstitute.org/programs/innovation-investigators

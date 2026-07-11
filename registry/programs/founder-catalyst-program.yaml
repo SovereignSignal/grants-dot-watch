@@ -1,0 +1,15 @@
+id: founder-catalyst-program
+name: Founder Catalyst Program
+org: cardano-foundation
+parent: null
+systems:
+  - cardano
+wires:
+  - crypto
+status: active
+mechanism: incubator
+summary: Techstars and the Cardano Foundation launched the Founder Catalyst Program, a new
+  accelerator initiative for Web3 founders building on Cardano.
+rounds: []
+sources:
+  - https://www.techstars.com/blog/program-news/techstars-and-cardano-foundation-launch-new-founder-catalyst-program
