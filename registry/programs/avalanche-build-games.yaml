@@ -1,0 +1,13 @@
+id: avalanche-build-games
+name: Avalanche Build Games
+org: avalanche-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://build.avax.network/grants
+summary: Avalanche Build Games — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://x.com/avax/status/2038980963275866598
