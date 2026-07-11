@@ -9,6 +9,11 @@ status: active
 mechanism: other
 summary: Algorand xGov is a decentralized, on-chain platform where xGov council members analyze
   community grant proposals and vote to select which ones receive funding.
-rounds: []
+rounds:
+  - name: Retroactive proposals (relaunched xGov)
+    status: open
+    size: 10,000-250,000+ ALGO per proposal
+    source: https://algorand.co/blog/algorand-xgov-update-now-accepting-retroactive-proposals
 sources:
   - https://xgov.algorand.co/
+  - https://algorand.co/blog/algorand-xgov-update-now-accepting-retroactive-proposals
