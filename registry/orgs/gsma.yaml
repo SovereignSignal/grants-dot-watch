@@ -1,0 +1,16 @@
+id: gsma
+name: GSMA
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.gsma.com/solutions-and-impact/technologies/artificial-intelligence/
+status: active
+profile: $ASTS may be able to apply - GSMA Foundry and the European Space Agency announced funding
+  up to €100M for projects to scale innovations in AI for Non-Terrestrial Networks (NTN),
+  Direct-to-Device (D2D) connectivity
+  https://techafricanews.com/2026/03/02/esa-and-gsma-foundry-launch-e100-million-initiat
+sources:
+  - https://x.com/first1AAA/status/2028411243761897851
