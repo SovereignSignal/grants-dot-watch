@@ -1,0 +1,15 @@
+id: barda-drive-ez-baa
+name: BARDA DRIVe (EZ-BAA)
+org: barda-biomedical-advanced-research-and-development-authority
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: rfp
+summary: BARDA's DRIVe division runs EZ-BAA, a rolling funding mechanism partnering with early-stage
+  companies on health-security innovations; DRIVe's partnering approaches vary by project.
+rounds: []
+sources:
+  - https://drive.hhs.gov/ezbaa.html
