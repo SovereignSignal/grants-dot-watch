@@ -1,0 +1,15 @@
+id: arbitrum-gaming-ventures
+name: Arbitrum Gaming Ventures
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: An Arbitrum Foundation initiative funding gaming projects building on Arbitrum; award size
+  not confirmed from the page fetched.
+rounds: []
+sources:
+  - https://arbitrum.io/grants
