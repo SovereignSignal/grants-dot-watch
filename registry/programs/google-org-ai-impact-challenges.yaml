@@ -1,0 +1,23 @@
+id: google-org-ai-impact-challenges
+name: Google.org AI Impact Challenges
+org: googleorg
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://google.org/
+summary: >-
+  **Google.org AI Impact Challenges** invites organizations and researchers to apply for funding to
+  advance AI projects in government innovation and scientific breakthroughs. 
+
+
+  Eligible applicants may submit proposals for the government track by April 3, 2026 or the science
+  track by April 17, 2026. 
+
+
+  The program supports AI initiatives that drive measurable impact in public-sector innovation and
+  scientific discovery.
+rounds: []
+sources:
+  - https://x.com/opportunitiesfy/status/2029466946929082852

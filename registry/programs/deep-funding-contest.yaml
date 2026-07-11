@@ -1,0 +1,15 @@
+id: deep-funding-contest
+name: Deep Funding Contest
+org: deep-funding
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://deepfunding.ai/
+summary: "**Deep Funding Contest** offers a $20,000 prize pool to ML developers who build models
+  that weight Ethereum open-source contributions. The challenge is run by Kleros and targets machine
+  learning practitioners. The total prize pool is $20,000. No application deadline is specified."
+rounds: []
+sources:
+  - https://x.com/Kleros_io/status/2031100906578592162

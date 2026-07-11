@@ -1,0 +1,16 @@
+id: ai-enabled-o
+name: AI Enabled O
+org: open-compute-project
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.opencompute.org/
+summary: "**Open Compute Project launches AI Enabled O-RU OCP Experience Center.** The new center
+  gives open-source developers access to FPGA platforms and toolchains for prototyping AI-enabled
+  5G/6G radio units. It supports work on open O-RU hardware and software. No deadline or funding
+  amount is listed."
+rounds: []
+sources:
+  - https://x.com/OpenComputePrj/status/2028599719581368699

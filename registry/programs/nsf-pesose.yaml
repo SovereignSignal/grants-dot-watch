@@ -1,0 +1,13 @@
+id: nsf-pesose
+name: NSF PESOSE
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: NSF PESOSE — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation

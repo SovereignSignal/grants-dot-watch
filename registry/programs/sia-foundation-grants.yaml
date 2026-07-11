@@ -1,0 +1,16 @@
+id: sia-foundation-grants
+name: Sia Foundation Grants
+org: sia-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://sia.tech
+summary: "**Sia Foundation Grants** offers rolling funding for developers building tools and
+  applications on the Sia decentralized storage network. The Foundation recently approved grants for
+  a personal backup solution and a language preservation platform. Any individual or team enhancing
+  Sia's storage ecosystem is eligible. There is no fixed deadline or specified grant amounts."
+rounds: []
+sources:
+  - https://x.com/SiaFoundation/status/2031052524766007437

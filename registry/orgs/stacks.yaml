@@ -1,0 +1,18 @@
+id: stacks
+name: Stacks
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.stacks.co/
+status: active
+profile: The Stacks Ecosystem Grants Program has officially launched as of February 10, 2026, with
+  applications now open for funding. The program, backed by the Treasury Committee's 2026 operating
+  budget, offers Builder Grants up to $50,000 and Getting Started Grants up to $10,000 through the
+  Stacks Endowment. A public grants tracker and deployer wallet transparency are in development,
+  with a target completion by the end of Q1 2026. Weekly office hours on X spaces are also available
+  for applicants seeking guidance.
+sources:
+  - https://forum.stacks.org/t/stacks-ecosystem-grants-program-live/18665

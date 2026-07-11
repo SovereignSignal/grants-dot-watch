@@ -1,0 +1,24 @@
+id: scroll-delegates-contribution-program
+name: Scroll Delegates Contribution Program
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://scroll.io/
+summary: The Scroll Forum has opened applications for DCP 1 - State of Scroll Research, a pilot
+  under the Delegates Contribution Program, with a total budget of 18,000 USDC for an 8-10 week
+  project targeting a deadline of May 31, 2026. Roles include Data & Analytics (5,000 USDC), Format
+  & Visualization (2,000 USDC), and Regional Researchers & Storytellers (2,200 USDC per region)
+  focusing on regions like LATAM, Europe, Africa, Southeast Asia, and APAC. Contributors will
+  produce a comprehensive 'State of Scroll' package with regional chapters, ecosystem maps, and
+  vertical deep dives on topics like infras
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-05-31
+    size: 18,000 USDC
+    source: https://forum.scroll.io/t/dcp-1-state-of-scroll-research-application-thread/1410
+sources:
+  - https://forum.scroll.io/t/dcp-1-state-of-scroll-research-application-thread/1410

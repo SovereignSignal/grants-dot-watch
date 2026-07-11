@@ -1,0 +1,20 @@
+id: anthropic
+name: Anthropic
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.anthropic.com/
+status: active
+profile: >-
+  **Claude Community Ambassadors** offers rolling grants to community organizers who host AI meetups
+  and hackathons. The program covers event costs and provides free monthly Anthropic API credits to
+  selected ambassadors. 
+
+
+  It is open to individuals actively running AI communities. Applications are reviewed on a rolling
+  basis.
+sources:
+  - https://x.com/aitrendz_xyz/status/2031327365075468677

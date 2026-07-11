@@ -1,0 +1,13 @@
+id: digital-chamber
+name: Digital Chamber
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://digitalchamber.org/
+status: active
+profile: Digital Chamber’s State Network — dispatch from the wire, no further detail on file.
+sources:
+  - https://digitalchamber.org/tdcs-state-network-opens-2026-microgrant-application-process/

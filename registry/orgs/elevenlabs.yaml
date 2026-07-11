@@ -1,0 +1,13 @@
+id: elevenlabs
+name: ElevenLabs
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://elevenlabs.io/
+status: active
+profile: ElevenLabs Engineers OSS Fund — dispatch from the wire, no further detail on file.
+sources:
+  - https://elevenlabs.io/blog/elevenlabs-oss-engineers-fund-supporting-the-open-source-projects-that-shape-our-work

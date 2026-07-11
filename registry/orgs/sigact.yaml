@@ -1,0 +1,19 @@
+id: sigact
+name: SIGACT
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.sigact.org/
+status: active
+profile: >-
+  **SIGACT Community Grants** offers small grants of $2k-$20k to support theoretical computer
+  science research, including AI and ML theory. The program is open to academics and researchers.
+  Applications are due April 2, 2026. 
+
+
+  (47 words)
+sources:
+  - https://x.com/sigact/status/2028960734894539112

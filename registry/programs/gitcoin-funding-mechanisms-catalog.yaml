@@ -1,0 +1,19 @@
+id: gitcoin-funding-mechanisms-catalog
+name: Gitcoin Funding Mechanisms Catalog
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gitcoin.co/
+summary: >-
+  **Gitcoin Funding Mechanisms Catalog** catalogs over 80 funding mechanisms including grants,
+  marking its pivot from a grant platform to a knowledge commons for capital allocation. 
+
+
+  The public catalog serves as a comprehensive resource for communities designing effective funding
+  systems.
+rounds: []
+sources:
+  - https://x.com/owockibot/status/2029684940988895372
