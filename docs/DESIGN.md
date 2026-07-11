@@ -109,6 +109,14 @@ Pipeline: signal → **resolver** (name/handle/domain → org via `aka`/domains;
 | Fact | round dates/status/deadline from the org's own page or feed; awards with source URL; dead/redirected URLs | auto-commit to `registry/`, provenance in message; undo = `git revert` |
 | Judgment | new orgs, merges/renames, system membership, new programs (auto-drafted), profile prose | queue → admin UI → approve lands the commit, reject logs why |
 
+**Machine validation, the graduation clause (2026-07-11):** Sov won't hand-approve routine items — the system checks them itself, deterministically, no LLM (`proposal-validator.ts` + `validation-runner.ts`, run via `POST /api/desk/validate` or the Desk's "Run validation" button). This turns the two lanes above into three tiers:
+
+| Tier | What it means | Effect |
+|---|---|---|
+| Machine-validated | every check passed — evidence URL 200s, page name/date-matches, not a registry dupe | auto-applied + committed, verdict `by: machine` |
+| Exception queue | a check failed | stays pending; Desk shows "machine check failed — &lt;reason&gt;" |
+| Never-auto | new awards, org merges (always Sov's call, by design) | stays pending; Desk shows "needs the owner" |
+
 ## The app (v1 site)
 
 Next.js/TS on Railway (discuss.watch stack). Reads `registry/` into an index at boot; Postgres for queue/state. Surfaces:

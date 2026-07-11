@@ -255,7 +255,7 @@ async function queueCountsLocal(): Promise<{ pendingJudgment: number; pendingFac
 async function recordVerdictLocal(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   const store = readLocalStore();
   const idx = store.proposals.findIndex((p) => p.id === id);
@@ -265,10 +265,29 @@ async function recordVerdictLocal(
   const at = new Date().toISOString();
   const proposal: Proposal = { ...store.proposals[idx], state: decision, decided_at: at, decision_note: opts?.note };
   store.proposals[idx] = proposal;
-  const verdict: Verdict = { proposal_id: id, decision, note: opts?.note, at, commit: opts?.commit ?? null };
+  const verdict: Verdict = {
+    proposal_id: id,
+    decision,
+    note: opts?.note,
+    at,
+    commit: opts?.commit ?? null,
+    ...(opts?.by ? { by: opts.by } : {}),
+  };
   store.verdicts.unshift(verdict);
   writeLocalStore(store);
   return { proposal, verdict };
+}
+
+/** Updates a proposal's `validation` field in place — used by
+ *  validation-runner.ts to persist a FAIL's checks/reason without touching
+ *  state (the proposal stays pending; The Desk's exception queue reads this
+ *  straight off the record). A no-op if the proposal has since vanished. */
+async function setProposalValidationLocal(id: string, validation: Proposal['validation']): Promise<void> {
+  const store = readLocalStore();
+  const idx = store.proposals.findIndex((p) => p.id === id);
+  if (idx === -1) return;
+  store.proposals[idx] = { ...store.proposals[idx], validation };
+  writeLocalStore(store);
 }
 
 // ============================================================
@@ -440,7 +459,7 @@ async function queueCountsPg(): Promise<{ pendingJudgment: number; pendingFact: 
 async function recordVerdictPg(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   await ensureSchema();
   const db = getPool();
@@ -454,7 +473,14 @@ async function recordVerdictPg(
     const at = new Date().toISOString();
     const proposal: Proposal = { ...(rows[0].data as Proposal), state: decision, decided_at: at, decision_note: opts?.note };
     await client.query('UPDATE desk_proposals SET data = $2, state = $3 WHERE id = $1', [id, proposal, decision]);
-    const verdict: Verdict = { proposal_id: id, decision, note: opts?.note, at, commit: opts?.commit ?? null };
+    const verdict: Verdict = {
+      proposal_id: id,
+      decision,
+      note: opts?.note,
+      at,
+      commit: opts?.commit ?? null,
+      ...(opts?.by ? { by: opts.by } : {}),
+    };
     await client.query('INSERT INTO desk_verdicts (proposal_id, data, at) VALUES ($1, $2, $3)', [id, verdict, at]);
     await client.query('COMMIT');
     return { proposal, verdict };
@@ -464,6 +490,16 @@ async function recordVerdictPg(
   } finally {
     client.release();
   }
+}
+
+/** Postgres counterpart of setProposalValidationLocal. */
+async function setProposalValidationPg(id: string, validation: Proposal['validation']): Promise<void> {
+  await ensureSchema();
+  const db = getPool();
+  const { rows } = await db.query('SELECT data FROM desk_proposals WHERE id = $1', [id]);
+  if (rows.length === 0) return;
+  const proposal: Proposal = { ...(rows[0].data as Proposal), validation };
+  await db.query('UPDATE desk_proposals SET data = $2 WHERE id = $1', [id, proposal]);
 }
 
 // ============================================================
@@ -496,13 +532,22 @@ export async function queueCounts(): Promise<{ pendingJudgment: number; pendingF
 }
 
 /** Record a decision already carried out by the caller (committer.ts does the
- *  file mutation + git commit; this just moves the proposal + logs the verdict). */
+ *  file mutation + git commit; this just moves the proposal + logs the verdict).
+ *  `by` defaults to unset (interpreted as 'owner' everywhere it's read) —
+ *  only validation-runner.ts passes 'machine'. */
 export async function recordVerdict(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   return DATABASE_URL ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
+}
+
+/** Persist a validator run's result onto a still-pending proposal (FAIL case
+ *  only — a PASS goes through recordVerdict instead). Never throws on a
+ *  missing proposal; a run racing a manual decision just no-ops. */
+export async function setProposalValidation(id: string, validation: Proposal['validation']): Promise<void> {
+  return DATABASE_URL ? setProposalValidationPg(id, validation) : setProposalValidationLocal(id, validation);
 }
 
 // ---- durable applied-changes ledger ----

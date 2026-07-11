@@ -76,6 +76,8 @@ export default function DeskPage() {
   const [tab, setTab] = useState<Tab>('judgment');
   const [seeding, setSeeding] = useState(false);
   const [seedMsg, setSeedMsg] = useState<string | null>(null);
+  const [validating, setValidating] = useState(false);
+  const [validateMsg, setValidateMsg] = useState<string | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
 
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -242,6 +244,36 @@ export default function DeskPage() {
     }
   }
 
+  /** POSTs /api/desk/validate — the machine runs its deterministic checks
+   *  over pending proposals in both lanes, applies + commits what passes,
+   *  and leaves everything else pending with a checks/reason record
+   *  attached (read by ProposalCard). A full requery afterward is what
+   *  makes passed items disappear from the queue and failed ones show
+   *  their MACHINE CHECK FAILED line. */
+  async function runValidate() {
+    setValidating(true);
+    setValidateMsg(null);
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/desk/validate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...headers },
+        body: JSON.stringify({}),
+      });
+      const json = await res.json();
+      if (res.ok) {
+        setValidateMsg(`Passed ${json.passed}, failed ${json.failed}${json.skipped ? `, skipped ${json.skipped}` : ''}.`);
+        await loadQueue();
+      } else {
+        setValidateMsg(json.error || 'Validation run failed.');
+      }
+    } catch {
+      setValidateMsg('Validation run failed.');
+    } finally {
+      setValidating(false);
+    }
+  }
+
   const judgmentPending = useMemo(
     () => (data ? data.proposals.filter((p) => p.lane === 'judgment' && p.state === 'pending') : []),
     [data]
@@ -324,6 +356,9 @@ export default function DeskPage() {
         seeding={seeding}
         seedMsg={seedMsg}
         onSeed={runSeed}
+        validating={validating}
+        validateMsg={validateMsg}
+        onValidate={runValidate}
       />
 
       <div className="mb-8 grid grid-cols-3 gap-3 sm:gap-4">
@@ -434,6 +469,7 @@ export default function DeskPage() {
                     <span className={v.decision === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>
                       {v.decision === 'approved' ? 'Approved' : 'Rejected'}
                     </span>
+                    {v.by === 'machine' && <span className="coord shrink-0 text-faint">machine</span>}
                     <span className="min-w-[10rem] flex-1 truncate text-dim">{proposal?.title || v.proposal_id}</span>
                     {v.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{v.note}</span>}
                     {v.commit ? (

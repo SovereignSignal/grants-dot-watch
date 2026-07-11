@@ -172,6 +172,16 @@ export function ProposalCard({
       {error && <p className="mt-2 text-[12.5px] text-closing">{error}</p>}
       {errorMessage && <p className="mt-2 text-[12.5px] text-closing">Bulk decide failed: {errorMessage}</p>}
 
+      {proposal.validation && (
+        <p className="coord mt-3">
+          {proposal.validation.never_auto ? (
+            <span className="text-faint">Needs the owner</span>
+          ) : (
+            <span className="text-closing">Machine check failed — {proposal.validation.reason}</span>
+          )}
+        </p>
+      )}
+
       <div className="mt-[22px]">
         <VerdictActions
           onApprove={() => decide('approved')}

@@ -118,6 +118,19 @@ export type ProposalType =
   | 'profile_note'
   | 'merge_orgs';
 
+/** Result of a deterministic proposal-validator.ts run, persisted onto a
+ *  still-pending proposal when the machine check fails — the Desk's
+ *  exception queue reads this straight off the record, no re-run needed. */
+export interface ProposalValidation {
+  checks: { name: string; pass: boolean; detail?: string }[];
+  reason: string;
+  checked_at: string;
+  /** true for classes that are never machine-validated by design (new_award,
+   *  merge_orgs, unrecognized types) — the Desk shows "needs the owner"
+   *  instead of "machine check failed" for these. */
+  never_auto?: boolean;
+}
+
 export interface Proposal {
   id: string;
   type: ProposalType;
@@ -136,6 +149,10 @@ export interface Proposal {
   created_at: string;
   decided_at?: string;
   decision_note?: string;
+  /** Set by validation-runner.ts on a FAIL — cleared implicitly once the
+   *  proposal is later approved/rejected by any path (a decided proposal's
+   *  validation record is just history at that point). */
+  validation?: ProposalValidation;
 }
 
 export interface Verdict {
@@ -144,4 +161,8 @@ export interface Verdict {
   note?: string;
   at: string;
   commit?: string | null;
+  /** Who decided — omitted (not defaulted) for every pre-existing verdict,
+   *  so backward compat needs no migration: absent means owner. Only the
+   *  machine-validation pipeline ever writes 'machine'. */
+  by?: 'machine' | 'owner';
 }

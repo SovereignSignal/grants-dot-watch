@@ -17,6 +17,9 @@ export function DeskHeader({
   seeding,
   seedMsg,
   onSeed,
+  validating,
+  validateMsg,
+  onValidate,
 }: {
   totalOnWire: number;
   awaitingJudgment: number;
@@ -24,6 +27,9 @@ export function DeskHeader({
   seeding: boolean;
   seedMsg: string | null;
   onSeed: () => void;
+  validating: boolean;
+  validateMsg: string | null;
+  onValidate: () => void;
 }) {
   return (
     <div className="mb-8">
@@ -32,18 +38,29 @@ export function DeskHeader({
           <span className="font-bold text-dim">{totalOnWire.toLocaleString()}</span> items on the wire ·{' '}
           <span className="font-bold text-dim">{awaitingJudgment.toLocaleString()}</span> awaiting judgment
         </span>
-        <button
-          type="button"
-          onClick={onSeed}
-          disabled={seeding}
-          className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim disabled:opacity-50"
-        >
-          {seeding ? 'Importing…' : 'Import new proposals'}
-        </button>
+        <span className="flex shrink-0 items-baseline gap-x-5">
+          <button
+            type="button"
+            onClick={onValidate}
+            disabled={validating}
+            className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim disabled:opacity-50"
+          >
+            {validating ? 'Running checks…' : 'Run validation'}
+          </button>
+          <button
+            type="button"
+            onClick={onSeed}
+            disabled={seeding}
+            className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim disabled:opacity-50"
+          >
+            {seeding ? 'Importing…' : 'Import new proposals'}
+          </button>
+        </span>
       </div>
 
       {dev && <p className="serif-statement mt-3 text-[12.5px] text-signal">Dev mode — ADMIN_TOKEN unset, the gate is open.</p>}
       {seedMsg && <p className="coord mt-3">{seedMsg}</p>}
+      {validateMsg && <p className="coord mt-3">{validateMsg}</p>}
 
       <div className="border-b border-line pt-7 pb-6">
         <div className="coord mb-3.5">The owner&apos;s daily curation gate</div>
