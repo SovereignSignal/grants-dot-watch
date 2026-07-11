@@ -1,0 +1,25 @@
+id: 1inch-recognised-delegates-program-rdp-renewal
+name: 1inch Recognised Delegates Program (RDP) Renewal
+org: 1inch-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  ## Simple Summary
+
+
+  This proposal seeks to renew the 1-inch Recognised Delegates Program (RDP) for another term,
+  incorporating updated performance requirements, revised compensation tiers, stricter participation
+  metrics, and a position cap on funded delegates.
+
+
+  ## Abstract
+
+
+  The Recognised Delegates Program was established to incentivise active participation and
+  professionalise 1inch DAO governance.
+rounds: []
+sources:
+  - https://snapshot.org/#/1inch.eth/proposal/0x3137b3d89d3feb03d9c9a7ded08ffe2c3d38a0eaa686c466cc9ecc64c3e06463
