@@ -1,0 +1,17 @@
+id: drips
+name: Drips
+aka: []
+systems:
+  - web3-public-goods
+wires:
+  - crypto
+  - oss
+roles:
+  - funder
+website: https://www.drips.network/
+status: active
+profile: Drips is an onchain platform for funding open-source developers and their dependencies,
+  letting ecosystems stream funds to any GitHub repo and run retroactive public goods funding
+  (RetroPGF) rounds. It is listed among Gitcoin's ecosystem funding apps.
+sources:
+  - https://www.drips.network/
