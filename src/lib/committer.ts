@@ -317,6 +317,24 @@ function mergeSources(current: unknown, incoming: unknown): string[] {
  *  deliberate-create case, e.g. the olmo→Ai2 replacement); a partial update
  *  against a missing file is a no-op with a note, never a guessed stub. */
 function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposal, notes: string[]): AppliedChange | null {
+  // Apply-time value guard (all paths — Desk clicks, bulk, triage API, validator):
+  // bare domains get https://, and enum fields reject invalid values here rather
+  // than writing schema-breaking data the validator only catches later.
+  const ORG_STATUSES = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
+  const urlish = (v: unknown): unknown =>
+    typeof v === 'string' && v && !/^https?:\/\//.test(v) && /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}/i.test(v)
+      ? `https://${v}`
+      : v;
+  for (const k of ['website', 'apply_url']) if (k in map) map[k] = urlish(map[k]);
+  if (Array.isArray(map.sources)) map.sources = (map.sources as unknown[]).map(urlish);
+  if (map.socials && typeof map.socials === 'object')
+    for (const [sk, sv] of Object.entries(map.socials as Record<string, unknown>))
+      (map.socials as Record<string, unknown>)[sk] = urlish(sv);
+  if ('status' in map && typeof map.status === 'string' && !ORG_STATUSES.has(map.status)) {
+    notes.push(`status "${map.status}" is not a valid org status — skipped, never guessed`);
+    delete map.status;
+  }
+
   const fileRel = `orgs/${slug}.yaml`;
   const path = join(REGISTRY, fileRel);
   const existing = existsSync(path) ? safeParseYaml<Org>(path) : null;

@@ -33,6 +33,7 @@ export const ORG_STATUS_LABEL: Record<Org['status'], string> = {
   active: 'Active',
   'winding-down': 'Winding down',
   dormant: 'Dormant',
+  dead: 'Dead',
   unknown: 'Unknown',
 };
 

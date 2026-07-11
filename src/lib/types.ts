@@ -24,7 +24,7 @@ export interface Org {
   org_type?: 'foundation' | 'dao' | 'company' | 'nonprofit' | 'government' | 'education';
   website?: string;
   socials?: Record<string, string>;
-  status: 'active' | 'winding-down' | 'dormant' | 'unknown';
+  status: 'active' | 'winding-down' | 'dormant' | 'dead' | 'unknown';
   profile: string;
   funding?: {
     focus?: string[];

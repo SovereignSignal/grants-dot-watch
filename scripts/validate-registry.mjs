@@ -13,7 +13,7 @@ const err = (f, m) => errs.push(`${f}: ${m}`);
 const WIRES = new Set(['crypto', 'ai', 'oss']);
 const ORG_ROLES = new Set(['funder', 'grantee', 'ecosystem']);
 const ORG_TYPES = new Set(['foundation', 'dao', 'company', 'nonprofit', 'government', 'education']);
-const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'unknown']);
+const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const PROG_STATUS = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
 const MECHANISMS = new Set(['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other']);
 const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
