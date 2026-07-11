@@ -1,0 +1,16 @@
+id: fluid-dao-proposal-to-establish-fluid-foundation-receiving-2
+name: Fluid DAO proposal to establish Fluid Foundation receiving $250K monthly grant for operations.[[
+org: fluid-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gov.fluid.io/
+summary: Major crypto projects are undergoing one of the most significant structural changes. First
+  Aave, and now, Fluid. A new proposal from @DeFi_Made_Here proposes to establish the Fluid
+  Foundation to steward the IP on behalf of the DAO and receive a $250k monthly grant for operations
+  - security, risk, BD
+rounds: []
+sources:
+  - https://x.com/castle_labs/status/2025888187386839329
