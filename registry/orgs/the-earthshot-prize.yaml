@@ -1,0 +1,16 @@
+id: the-earthshot-prize
+name: The Earthshot Prize
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: earthshotprize.org
+status: unknown
+profile: "The Earthshot Prize (category: Foundation/Lab) has no matching org file in the registry
+  (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against
+  Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before
+  promoting; this is a lead, not a sourced fact."
+sources:
+  - earthshotprize.org
