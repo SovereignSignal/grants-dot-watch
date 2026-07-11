@@ -1,0 +1,20 @@
+id: solana-frontier-hackathon
+name: Solana Frontier Hackathon
+org: solana-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://solana.org/
+summary: "**Solana Frontier Hackathon** offers $3M in prizes and pre-seed funding for teams building
+  on Solana. Colosseum’s largest online startup competition and accelerator provides $3M+ in total
+  prizes and pre-seed investment for top teams. The deadline is May 11, 2026."
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-05-11
+    size: $3M
+    source: https://x.com/colosseum/status/2036478552963752224
+sources:
+  - https://x.com/colosseum/status/2036478552963752224
