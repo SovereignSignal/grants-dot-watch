@@ -1,0 +1,22 @@
+id: solana-mobile-builder-grants
+name: Solana Mobile Builder Grants
+org: solana-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://solana.org/
+summary: >-
+  **Solana Mobile Builder Grants** offers rolling funding for developers building apps, tools, and
+  Saga Seeker-integrated products on the Solana Mobile ecosystem. 
+
+
+  The program provides grants, technical guidance, and marketing support to help selected teams
+  launch on the dApp Store. It operates through two tracks: open Builder Grants and targeted RFPs. 
+
+
+  Applications are accepted on a rolling basis with no fixed deadline.
+rounds: []
+sources:
+  - https://blog.solanamobile.com/post/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas
