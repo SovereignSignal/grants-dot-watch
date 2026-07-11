@@ -1,0 +1,20 @@
+id: arbitrum-trailblazer-ai
+name: Arbitrum Trailblazer AI
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+  - ai
+status: concluded
+mechanism: grants
+summary: A concluded $1,000,000 Arbitrum Foundation initiative funding AI-related projects on
+  Arbitrum, marked "Program Complete" on the Foundation's grants page.
+rounds:
+  - name: Trailblazer AI
+    status: closed
+    size: $1,000,000 initiative
+    source: https://arbitrum.io/grants
+sources:
+  - https://arbitrum.io/grants
