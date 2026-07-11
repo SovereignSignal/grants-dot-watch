@@ -1,0 +1,13 @@
+id: ens-dao-public-goods
+name: ENS DAO Public Goods
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://ens.domains/
+summary: ENS DAO Public Goods — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://x.com/CryptoPlanet247/status/2072749574029025349

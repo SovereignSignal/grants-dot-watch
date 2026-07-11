@@ -1,0 +1,13 @@
+id: gitcoin-flows-continuous-grants
+name: Gitcoin Flows / Continuous Grants
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gitcoin.co/
+summary: Gitcoin Flows / Continuous Grants — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://gitcoin.co/apps/flows-wtf

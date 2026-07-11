@@ -1,0 +1,12 @@
+id: stellar-community-fund-scf
+name: Stellar Community Fund (SCF)
+org: stellar-development-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Stellar Community Fund (SCF) — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://stellar.org/grants-and-funding

@@ -1,0 +1,25 @@
+id: strategic-animal-funding-circle-safc-spring-2026
+name: Strategic Animal Funding Circle (SAFC) Spring 2026
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://forum.effectivealtruism.org/posts/snznHCwhCfSuX8qQP/request-for-proposals-strategic-animal-funding-circle-spring
+summary: >-
+  Overview
+
+
+  Strategic Animal Funding Circle (SAFC) is a group of donors looking to support cost-effective and
+  high-impact animal welfare and protection nonprofits, particularly during a critical growth phase
+  where targeted funding can have a significant impact. Twice a year, donors in the circle grant a
+  total of ±$500k divided among the most promising applicants, with a typical grant size of $50k.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-03-25
+    size: $50,000–500,000
+    source: https://forum.effectivealtruism.org/posts/snznHCwhCfSuX8qQP/request-for-proposals-strategic-animal-funding-circle-spring
+sources:
+  - https://forum.effectivealtruism.org/posts/snznHCwhCfSuX8qQP/request-for-proposals-strategic-animal-funding-circle-spring

@@ -1,0 +1,22 @@
+id: abundance-house
+name: Abundance House
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://abundance.house
+summary: >-
+  [Previous announcement post on the forum]
+
+
+  I'm excited to share that applications are live for the upcoming cohort of Abundance House!
+
+
+  Abundance House is a month-long residency for funded founders seeking a period of extreme focus
+  and genuine connection among exceptional peers. The residency runs from March 1st to April 1st at
+  a mansion in Cuernavaca, 1 hour south of Mexico City. Program fee: 0.3
+rounds: []
+sources:
+  - https://forum.effectivealtruism.org/posts/7t69qSbaBT8jwXTCE/applications-live-for-the-next-cohort-of-abundance-house

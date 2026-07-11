@@ -1,0 +1,13 @@
+id: avalanche-accelerator-builder-grants
+name: Avalanche Accelerator / Builder Grants
+org: avalanche-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://build.avax.network/grants
+summary: Avalanche Accelerator / Builder Grants — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://x.com/Web3_Surya/status/2072620604000469456

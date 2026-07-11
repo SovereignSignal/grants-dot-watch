@@ -1,0 +1,16 @@
+id: cardano-bounties
+name: Cardano Bounties
+org: cardano-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Cardano Bounties’ Beta Testing is live! After many weeks of building, refining, and
+  validating the platform, Cardano Bounties is officially moving into Beta Testing. 𝗣𝗿𝗶𝘇𝗲
+  𝗣𝗼𝗼𝗹: 𝟮𝟬𝟬 $𝗔𝗗𝗔 Check the X’s account pinned post to learn more on how to participate.
+  Cardano Bounties is built for the community, let’s test and give our feedbacks! 1 post - 1
+  participant Read full topic"
+rounds: []
+sources:
+  - https://forum.cardano.org/t/cardano-bounties-beta-testing-is-live/155553

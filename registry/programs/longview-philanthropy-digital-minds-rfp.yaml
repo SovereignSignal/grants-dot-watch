@@ -1,0 +1,27 @@
+id: longview-philanthropy-digital-minds-rfp
+name: Longview Philanthropy Digital Minds RFP
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://forum.effectivealtruism.org/posts/NLGaeqAmWzcawjutt/seeking-feedback-and-collaborators-for-an-ai-welfare-project
+summary: >-
+  The ask: Seeking feedback and collaborators on a proposal for a multi-lineage AI model panel that
+  reviews evaluations for welfare concerns
+
+
+  About me: I’m a public health physician and epidemiologist with 20+ years of experience with human
+  subjects research, community engagement, and research program leadership. I am pivoting to work on
+  AI safety with a focus on model welfare.
+
+
+  Project status and r
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-24
+    source: https://forum.effectivealtruism.org/posts/NLGaeqAmWzcawjutt/seeking-feedback-and-collaborators-for-an-ai-welfare-project
+sources:
+  - https://forum.effectivealtruism.org/posts/NLGaeqAmWzcawjutt/seeking-feedback-and-collaborators-for-an-ai-welfare-project

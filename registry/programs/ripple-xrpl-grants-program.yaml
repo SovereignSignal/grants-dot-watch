@@ -1,0 +1,12 @@
+id: ripple-xrpl-grants-program
+name: Ripple XRPL Grants Program
+org: xrpl-accelerator
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Ripple XRPL Grants Program — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://xrplgrants.org/

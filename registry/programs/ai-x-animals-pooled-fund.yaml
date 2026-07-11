@@ -1,0 +1,30 @@
+id: ai-x-animals-pooled-fund
+name: AI x Animals Pooled Fund
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals
+summary: |-
+  TL;DR
+
+   * We are launching a pooled fund for projects at the AIxAnimals intersection.
+   * We are open to a broad set of ideas, but prioritize those in the following categories:
+     * Empowering Animal Advocates
+     * Strategic Field-building and Coordination
+     * Actionable Research and Strategic Foresight
+   * Apply here by April 30th.
+
+
+  Introduction
+
+  Over the next decade, AI will increasingly shape h
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-04-30
+    source: https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals
+sources:
+  - https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals

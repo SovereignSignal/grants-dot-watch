@@ -1,0 +1,19 @@
+id: the-automation-humanity-documentary-fund
+name: The Automation & Humanity Documentary Fund
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: >-
+  Who Let The Docs Out launched their AI Safety Grant yesterday, which was aptly named ‘The
+  Automation & Humanity Documentary Fund’.
+
+
+  This granting fund was established to provide early-stage research funding ($8,000) to filmmakers
+  creating documentary projects that focus on AI-safety; specifically the risks, unintended
+  consequences and the ethical implications of artificial intelligence - with a fo
+rounds: []
+sources:
+  - https://forum.effectivealtruism.org/posts/D95d8kAP7uyRcw9y5/what-ai-safely-topics-are-missing-from-the-mainstream-media

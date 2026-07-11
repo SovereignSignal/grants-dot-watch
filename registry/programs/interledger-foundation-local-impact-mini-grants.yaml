@@ -1,0 +1,13 @@
+id: interledger-foundation-local-impact-mini-grants
+name: Interledger Foundation Local Impact Mini-Grants
+org: interledger-fellowship-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Interledger Foundation Local Impact Mini-Grants — dispatch from the wire, no further detail
+  on file.
+rounds: []
+sources:
+  - https://interledger.org/grant/local-impact

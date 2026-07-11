@@ -1,0 +1,12 @@
+id: rad-budget
+name: RAD Budget
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: RAD Budget — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/rad-budget-quarterly-review-2q2026/31031

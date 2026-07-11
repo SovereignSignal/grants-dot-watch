@@ -1,0 +1,16 @@
+id: scroll-signal-sessions-pilot
+name: Scroll Signal Sessions Pilot
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Authors: @Axia (Rika Goldberg) @coffee-crusher @alexsotodigital Summary This proposal
+  introduces Scroll Signal Sessions , a lightweight pilot to operationalize the outputs of the
+  Delegates Contribution Program (DCP) 1 — State of Scroll. The DCP Pilot will soon produce a
+  high-signal, decision-useful “State of Scroll” view across key regions and verticals to support
+  the DAO with shared, credible eco"
+rounds: []
+sources:
+  - https://forum.scroll.io/t/proposal-scroll-signal-sessions-pilot/1472
