@@ -1,0 +1,17 @@
+id: access-now
+name: Access Now
+aka: []
+systems:
+  - internet-freedom
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.accessnow.org/
+status: active
+profile: Access Now runs a grants program funding digital rights defenders, activists, and
+  communities most at risk of digital rights violations online and offline. It also operates a
+  Digital Security Helpline and rapid-response funding for people facing digital security
+  emergencies.
+sources:
+  - https://www.accessnow.org/grants/

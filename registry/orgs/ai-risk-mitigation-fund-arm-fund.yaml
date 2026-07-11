@@ -1,0 +1,17 @@
+id: ai-risk-mitigation-fund-arm-fund
+name: AI Risk Mitigation Fund (ARM Fund)
+aka: []
+systems:
+  - ai-safety
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.airiskfund.com/
+status: active
+profile: The AI Risk Mitigation Fund is a nonprofit that makes grants toward technical AI-alignment
+  research, AI policy work, and training programs for new researchers, aiming to reduce catastrophic
+  risk from advanced AI. It is a smaller, newer entrant alongside the larger AI-safety funders
+  already tracked in the registry.
+sources:
+  - https://www.airiskfund.com/

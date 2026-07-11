@@ -1,0 +1,17 @@
+id: herodevs
+name: HeroDevs
+aka: []
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.herodevs.com/
+status: active
+profile: HeroDevs runs a $20 million Open Source Sustainability Fund that grants money to
+  maintainers of open-source projects, with a particular focus on software that has reached
+  end-of-life and lost official support. Maintainers can apply for grants, guidance, and ongoing
+  support through the fund.
+sources:
+  - https://www.herodevs.com/sustainability-fund

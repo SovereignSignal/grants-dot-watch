@@ -1,0 +1,18 @@
+id: filecoin-foundation-for-the-decentralized-web-ffdw
+name: Filecoin Foundation for the Decentralized Web (FFDW)
+aka: []
+systems:
+  - filecoin
+wires:
+  - crypto
+roles:
+  - funder
+website: https://ffdweb.org/
+status: active
+profile: FFDW is a separate 501(c)(3) nonprofit from Filecoin Foundation that has awarded roughly
+  $23M across 20 grants to open-source/decentralized-web and journalism-infrastructure projects
+  (e.g. Freedom of the Press Foundation's SecureDrop). It is closely related in branding to the
+  already-tracked Filecoin Foundation but is a legally distinct funder, and recent public activity
+  looks slower than 2020-2023, so verify it's still actively granting before promoting.
+sources:
+  - https://ffdweb.org/

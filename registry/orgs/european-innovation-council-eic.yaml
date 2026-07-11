@@ -1,0 +1,17 @@
+id: european-innovation-council-eic
+name: European Innovation Council (EIC)
+aka: []
+systems:
+  - eu-public-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://eic.ec.europa.eu/
+status: active
+profile: The European Innovation Council funds breakthrough, high-risk deep-tech innovation through
+  instruments like EIC Pathfinder (research grants), EIC Transition (market-readiness grants), and
+  EIC Accelerator (grant plus equity investment for startups/SMEs). Like the ERC, it runs under the
+  Horizon Europe umbrella but is a distinct funding body not yet tracked.
+sources:
+  - https://eic.ec.europa.eu/eic-funding-opportunities_en

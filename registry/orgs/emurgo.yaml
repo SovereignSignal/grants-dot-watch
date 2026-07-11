@@ -1,0 +1,16 @@
+id: emurgo
+name: EMURGO
+aka: []
+systems:
+  - cardano
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.emurgo.io/
+status: active
+profile: EMURGO is one of Cardano's three founding entities; it invests in and funds Web3/blockchain
+  startups building on Cardano through vehicles like a $100M ecosystem investment fund and regional
+  programs such as EMURGO Africa's accelerator and hackathon grants.
+sources:
+  - https://www.emurgo.io/press-news/how-cardano-founding-entity-emurgo-invests-for-cardano/

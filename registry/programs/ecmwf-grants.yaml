@@ -1,0 +1,15 @@
+id: ecmwf-grants
+name: ECMWF Grants
+org: ecmwf
+parent: null
+systems:
+  - eu-public-rd
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: ECMWF Grants, adopted in 2025, is a funding instrument providing financial support to
+  organizations whose activities contribute to ECMWF's objectives.
+rounds: []
+sources:
+  - https://www.ecmwf.int/en/about/grants

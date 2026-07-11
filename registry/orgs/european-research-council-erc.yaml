@@ -1,0 +1,17 @@
+id: european-research-council-erc
+name: European Research Council (ERC)
+aka: []
+systems:
+  - eu-public-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://erc.europa.eu/
+status: active
+profile: The European Research Council is the EU's flagship basic-research funder, awarding
+  Starting, Consolidator, Advanced, Synergy, and Proof-of-Concept grants to researchers across all
+  fields, including AI. It operates within Horizon Europe but has its own identity, governance, and
+  website distinct from the generic Horizon Europe entry already tracked.
+sources:
+  - https://erc.europa.eu/homepage

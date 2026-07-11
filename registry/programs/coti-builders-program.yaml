@@ -1,0 +1,15 @@
+id: coti-builders-program
+name: COTI Builders Program
+org: coti
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: The COTI Builders Program is COTI Foundation's grants program funding developers building
+  COTI-based solutions, run through a public GitHub repo of RFPs, alongside a separate $500K
+  Gitcoin-partnered grants round for privacy projects.
+rounds: []
+sources:
+  - https://github.com/coti-io/coti-grants

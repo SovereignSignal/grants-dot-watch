@@ -1,0 +1,17 @@
+id: lambda
+name: Lambda
+aka: []
+systems:
+  - open-source-ai
+wires:
+  - ai
+roles:
+  - funder
+website: https://lambda.ai/
+status: active
+profile: Lambda runs a Research Grant program that provides GPU compute credits to fund open AI
+  research projects, the same compute-credit model used by other open-source AI funders like AI
+  Grant. Lambda cites its grant program as having backed work such as an open-source text-to-video
+  pretraining effort (Open-Sora).
+sources:
+  - https://lambda.ai/research

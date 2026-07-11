@@ -1,0 +1,18 @@
+id: arbitrum-gaming-ventures
+name: Arbitrum Gaming Ventures
+aka: []
+systems:
+  - arbitrum
+wires:
+  - crypto
+roles:
+  - funder
+website: https://arbitrumgamingventures.com/
+status: active
+profile: Arbitrum Gaming Ventures is an investment vehicle seeded via Arbitrum DAO's Gaming Catalyst
+  Program, backing teams building blockchain games on Arbitrum; it announced a $10M first cohort of
+  investments. It is equity/investment-style funding rather than classic non-dilutive grants, and
+  appears to be an Arbitrum Foundation/DAO-affiliated offshoot rather than a fully independent
+  funder, so treat this one with more scrutiny.
+sources:
+  - https://arbitrumgamingventures.com/

@@ -1,0 +1,16 @@
+id: darpa-dice
+name: DARPA DICE
+org: darpa-dice
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: rfp
+summary: DARPA's DICE (Decentralized Artificial Intelligence through Controlled Emergence) program,
+  run by the Information Processing Technologies Office, solicits research and technology proposals;
+  third-party trackers note the current solicitation is closed.
+rounds: []
+sources:
+  - https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence

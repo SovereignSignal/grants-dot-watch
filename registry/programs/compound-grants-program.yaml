@@ -1,0 +1,16 @@
+id: compound-grants-program
+name: Compound Grants Program
+org: compound-dao
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: The Compound Grants Program (CGP) was a community-run grants program funding Compound
+  ecosystem contributions, administered independently via Questbook, with the community publishing a
+  lessons-and-next-steps retrospective on the forum.
+rounds: []
+sources:
+  - https://www.comp.xyz/t/compound-grants-program-lessons-and-next-steps/2264

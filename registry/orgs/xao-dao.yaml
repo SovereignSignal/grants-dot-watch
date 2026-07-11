@@ -1,0 +1,18 @@
+id: xao-dao
+name: XAO DAO
+aka: []
+systems:
+  - xrpl
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.xaodao.io/
+status: unknown
+profile: XAO DAO is a hybrid decentralized autonomous organization Ripple is standing up for the XRP
+  Ledger as part of a 2026 shift toward a more distributed funding model, letting members
+  collectively allocate resources to developers and early-stage projects through community grants
+  and DAO proposals. The move is tied to Ripple's broader $550 million funding push for the XRPL
+  ecosystem; as of this sweep the XAO DAO site is a pre-launch signup page.
+sources:
+  - https://beincrypto.com/ripple-xrpl-funding-expansion-2026-price-impact/

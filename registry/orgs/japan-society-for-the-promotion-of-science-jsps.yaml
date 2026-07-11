@@ -1,0 +1,17 @@
+id: japan-society-for-the-promotion-of-science-jsps
+name: Japan Society for the Promotion of Science (JSPS)
+aka: []
+systems:
+  - japan-public-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.jsps.go.jp/english/
+status: active
+profile: JSPS administers KAKENHI, Japan's Grants-in-Aid for Scientific Research program, one of the
+  country's largest public competitive funding schemes covering basic and applied research across
+  all fields. JST's own reference guide to Japanese government funding programs lists JSPS alongside
+  JST and NEDO as a core public R&D funding agency available to international collaborators.
+sources:
+  - https://www.jsps.go.jp/english/e-grants/

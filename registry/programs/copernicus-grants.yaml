@@ -1,0 +1,15 @@
+id: copernicus-grants
+name: Copernicus Grants
+org: ecmwf
+parent: null
+systems:
+  - eu-public-rd
+wires:
+  - oss
+status: active
+mechanism: rfp
+summary: Copernicus Grants, administered through ECMWF, includes calls such as the C3S National
+  Collaboration Programme, with proposals submitted via ECMWF's Call Package and submission portal.
+rounds: []
+sources:
+  - https://www.ecmwf.int/en/about/grants/copernicus-grants

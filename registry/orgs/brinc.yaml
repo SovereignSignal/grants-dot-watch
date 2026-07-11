@@ -1,0 +1,17 @@
+id: brinc
+name: Brinc
+aka: []
+systems:
+  - sui
+wires:
+  - crypto
+roles:
+  - funder
+website: https://brinc.io
+status: active
+profile: Brinc is a global venture capital and accelerator firm that, together with CoinList,
+  launched SuiHub, a global accelerator program funding pre-token projects building on Sui. The
+  program offers up to $200,000 per team in milestone-based funding and drew over 630 applications
+  from 152 countries in its debut cohort.
+sources:
+  - https://www.newsfilecorp.com/release/230730/SuiHub-Launches-Global-Accelerator-Program-in-Partnership-with-Brinc-CoinList

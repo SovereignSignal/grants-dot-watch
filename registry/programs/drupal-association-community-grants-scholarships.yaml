@@ -1,0 +1,17 @@
+id: drupal-association-community-grants-scholarships
+name: Drupal Association Community Grants & Scholarships
+org: drupal-association
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: The Drupal Association offers scholarships and community grants tied to DrupalCon events,
+  part of the programs it runs to keep Drupal's infrastructure and community functioning; evidence
+  is a single event-specific page rather than a standing program landing page, so this should be
+  verified before promotion.
+rounds: []
+sources:
+  - https://events.drupal.org/atlanta2025/scholarships-community-grants

@@ -1,0 +1,18 @@
+id: novo-nordisk-foundation
+name: Novo Nordisk Foundation
+aka: []
+systems:
+  - global-health
+wires:
+  - ai
+roles:
+  - funder
+website: https://novonordiskfonden.dk/en/
+status: active
+profile: The Gates Foundation, Novo Nordisk Foundation, and Wellcome jointly launched a
+  philanthropic partnership backing country-led research to evaluate AI tools that could improve
+  health outcomes in low- and middle-income countries. The first call for proposals is open and
+  focuses on mature AI tools that support clinical decision-making in primary and community health
+  settings.
+sources:
+  - https://wellcome.org/insights/articles/philanthropic-partnership-backs-country-led-research-guide-use-ai-health

@@ -1,0 +1,17 @@
+id: center-for-security-and-emerging-technology-cset
+name: Center for Security and Emerging Technology (CSET)
+aka: []
+systems:
+  - ai-safety
+wires:
+  - ai
+roles:
+  - funder
+website: https://cset.georgetown.edu/
+status: active
+profile: CSET, a Georgetown University policy research center, runs a Foundational Research Grants
+  program funding exploration of foundational technical topics tied to the long-term
+  national-security implications of AI. It sits alongside the other AI-safety grantmakers already
+  tracked (Coefficient Giving, FLI, Schmidt Sciences) but is not itself in the registry.
+sources:
+  - https://cset.georgetown.edu/foundational-research-grants/

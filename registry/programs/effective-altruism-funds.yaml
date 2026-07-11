@@ -1,0 +1,15 @@
+id: effective-altruism-funds
+name: Effective Altruism Funds
+org: effective-ventures
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Effective Ventures Foundation hosts Effective Altruism Funds, which fund high-impact
+  projects aiming to positively influence the long-term trajectory of civilization, alongside
+  separate Group Support Grants run by its Centre for Effective Altruism.
+rounds: []
+sources:
+  - https://funds.effectivealtruism.org/apply-for-funding

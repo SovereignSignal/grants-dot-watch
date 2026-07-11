@@ -1,0 +1,16 @@
+id: green-climate-fund
+name: Green Climate Fund
+aka: []
+systems:
+  - climate
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.greenclimate.fund/
+status: active
+profile: The Green Climate Fund is the world's largest dedicated climate fund, established under the
+  UN climate framework to invest in low-emission, climate-resilient projects in developing
+  countries. It is a major international funder not yet tracked under the registry's climate domain.
+sources:
+  - https://www.greenclimate.fund/

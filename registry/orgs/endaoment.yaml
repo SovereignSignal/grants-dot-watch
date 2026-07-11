@@ -1,0 +1,17 @@
+id: endaoment
+name: Endaoment
+aka: []
+systems:
+  - web3-public-goods
+wires:
+  - crypto
+roles:
+  - funder
+website: https://endaoment.org
+status: active
+profile: Endaoment is an onchain donor-advised fund (DAF) platform that lets donors give stock,
+  cash, and crypto to nonprofits, and it partnered with Circle to stand up a USDC-based disaster
+  relief fund. It routes digital-asset donations to nonprofit and public-goods-adjacent recipients,
+  functioning as philanthropic funding infrastructure rather than a classic grants program.
+sources:
+  - https://www.circle.com/pressroom/circle-collaborates-with-endaoment-creating-usdc-based-disaster-relief-fund-to-help-communities-affected-by-deadly-tornadoes

@@ -1,0 +1,16 @@
+id: stellar-enterprise-fund
+name: Stellar Enterprise Fund
+org: stellar-development-foundation
+parent: null
+systems:
+  - stellar
+wires:
+  - crypto
+status: active
+mechanism: other
+apply_url: https://stellar.org/enterprise-fund
+summary: SDF's venture-style investment fund for companies building on the Stellar network, distinct
+  from the grant-based Stellar Community Fund.
+rounds: []
+sources:
+  - https://stellar.org/enterprise-fund

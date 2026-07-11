@@ -1,0 +1,15 @@
+id: defactor-accelerator-grant-fund
+name: Defactor Accelerator Grant Fund
+org: defactor
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://grants.defactor.com
+summary: Defactor's Accelerator Grant Fund offers roughly $250,000-260,000 to real-world-asset (RWA)
+  projects tokenizing onchain, launched jointly with RWA.io as a global acceleration initiative.
+rounds: []
+sources:
+  - https://www.defactor.com/grants

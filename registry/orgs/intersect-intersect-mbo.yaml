@@ -1,0 +1,17 @@
+id: intersect-intersect-mbo
+name: Intersect (Intersect MBO)
+aka: []
+systems:
+  - cardano
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.intersectmbo.org/
+status: active
+profile: Intersect is the member-based organization now stewarding Cardano protocol development and
+  coordinating the community budget process, including facilitating Project Catalyst / on-chain
+  treasury withdrawal proposals. The registry's own cardano.yaml system note names Intersect as one
+  of the ecosystem's core funding bodies, but it has no org entry yet.
+sources:
+  - https://www.intersectmbo.org/governance

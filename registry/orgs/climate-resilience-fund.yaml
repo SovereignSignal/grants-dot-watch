@@ -1,0 +1,17 @@
+id: climate-resilience-fund
+name: Climate Resilience Fund
+aka: []
+systems:
+  - climate
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.climateresiliencefund.org/
+status: active
+profile: The Climate Resilience Fund supports community climate-resilience work in the US, building
+  on tools like NOAA's Climate Program Office resilience toolkit. Evidence of a formal, sizeable
+  grants program is thinner than for the other climate candidates in this batch, so flag for extra
+  scrutiny.
+sources:
+  - https://www.climateresiliencefund.org/

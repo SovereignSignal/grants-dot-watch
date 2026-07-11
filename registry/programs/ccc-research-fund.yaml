@@ -1,0 +1,15 @@
+id: ccc-research-fund
+name: CCC Research Fund
+org: confidential-computing-consortium
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: The Confidential Computing Consortium's Research Fund awards grants for practical academic
+  research in confidential computing, with applications submitted directly to the consortium's
+  research team.
+rounds: []
+sources:
+  - https://confidentialcomputing.io/resources/research-fund/

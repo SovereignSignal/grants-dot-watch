@@ -1,0 +1,17 @@
+id: japan-agency-for-medical-research-and-development-amed
+name: Japan Agency for Medical Research and Development (AMED)
+aka: []
+systems:
+  - japan-public-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.amed.go.jp/en/
+status: active
+profile: AMED is one of Japan's core public R&D funding agencies, named alongside JSPS and JST in
+  JST's own reference list of Japanese government funding programs available to international
+  applicants. It funds medical and health R&D, an area increasingly intersecting with AI-enabled
+  biomedical research.
+sources:
+  - https://www.jst.go.jp/inter/washington/docs/fundinglist_e.pdf

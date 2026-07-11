@@ -1,0 +1,17 @@
+id: nasa
+name: NASA
+aka: []
+systems:
+  - us-federal-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.nasa.gov
+status: active
+profile: NASA funds external research and development through competitive grant programs such as
+  NASA Innovative Advanced Concepts (NIAC), which issues multiple solicitations and grant awards
+  each year for early-stage, visionary aerospace and technology concepts. Awards are administered
+  through NASA's own funding channels and grants.gov listings.
+sources:
+  - https://www.nasa.gov/work-with-us/

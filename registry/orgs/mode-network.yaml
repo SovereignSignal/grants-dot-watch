@@ -1,0 +1,17 @@
+id: mode-network
+name: Mode Network
+aka: []
+systems:
+  - optimism
+wires:
+  - crypto
+roles:
+  - funder
+website: https://mode.network/
+status: active
+profile: Mode Network is an OP Stack layer-2 in the Optimism Superchain that shares 80% of sequencer
+  revenue back to protocols and developers through its Sequencer Fee Share program, a funding
+  channel distinct from Optimism Foundation grants. It also runs staking-based incentive programs
+  where users direct a share of OP token rewards toward protocols they support.
+sources:
+  - https://eco.com/support/en/articles/14798703-optimism-superchain-how-op-stack-works

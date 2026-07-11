@@ -1,0 +1,16 @@
+id: xrpl-commons
+name: XRPL Commons
+aka: []
+systems:
+  - xrpl
+wires:
+  - crypto
+roles:
+  - funder
+website: https://xrpl-commons.org
+status: active
+profile: XRPL Commons is a Paris-based nonprofit association launched to educate and empower the
+  global XRP Ledger community, with a mission to nurture a vibrant XRPL ecosystem. It runs the Glow
+  retroactive funding program, which rewards community contributors for their work on the ledger.
+sources:
+  - https://xrpl-commons.org/press

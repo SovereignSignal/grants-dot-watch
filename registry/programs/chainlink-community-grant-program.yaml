@@ -1,0 +1,16 @@
+id: chainlink-community-grant-program
+name: Chainlink Community Grant Program
+org: chainlink
+parent: null
+systems: []
+wires:
+  - crypto
+  - ai
+status: active
+mechanism: grants
+apply_url: https://go.chain.link/archives/community/grants
+summary: The Chainlink Community Grant Program funds development teams and researchers building a
+  more functional, accessible, and socially impactful smart contract economy.
+rounds: []
+sources:
+  - https://go.chain.link/archives/community/grants

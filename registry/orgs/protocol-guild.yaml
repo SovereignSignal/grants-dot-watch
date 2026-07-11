@@ -1,0 +1,18 @@
+id: protocol-guild
+name: Protocol Guild
+aka: []
+systems:
+  - web3-public-goods
+wires:
+  - crypto
+  - oss
+roles:
+  - funder
+website: https://protocolguild.org
+status: active
+profile: Protocol Guild is a funding collective, launched in 2022, that pools donations from
+  ecosystem projects, DAOs, institutions, and individuals and distributes them by formula to over
+  190 Ethereum core-protocol contributors across roughly 30 teams. It has received more than $100
+  million in cumulative donations as of 2025.
+sources:
+  - https://gitcoin.co/apps/protocol-guild
