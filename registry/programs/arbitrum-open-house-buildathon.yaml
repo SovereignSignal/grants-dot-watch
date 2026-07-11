@@ -1,0 +1,13 @@
+id: arbitrum-open-house-buildathon
+name: Arbitrum Open House Buildathon
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: Arbitrum Open House Buildathon — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://x.com/Ricardo__Gordon/status/2055206878867607588
