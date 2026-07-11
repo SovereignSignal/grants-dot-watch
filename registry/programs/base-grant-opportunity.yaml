@@ -1,0 +1,15 @@
+id: base-grant-opportunity
+name: Base Grant Opportunity
+org: base-coinbase
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://base.org/
+summary: "**Base Grant Opportunity** offers grants of 1-5 ETH to selected builders on Base. The
+  program accepts self-nominations or nominations of others and operates on a rolling deadline with
+  no fixed cutoff."
+rounds: []
+sources:
+  - https://x.com/CryptoMaliel/status/2031315197713883538
