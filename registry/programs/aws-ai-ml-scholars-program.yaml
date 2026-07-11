@@ -1,0 +1,17 @@
+id: aws-ai-ml-scholars-program
+name: AWS AI & ML Scholars Program
+org: amazon-web-services-aws
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+summary: Fully funded AI/ML education and research program targeted at Global South participants.
+rounds:
+  - name: 2026 cohort
+    status: closed
+    closes: 2026-06-24
+    source: https://x.com/AndroOxinu/status/2059091674001822006
+sources:
+  - https://x.com/AndroOxinu/status/2059091674001822006
