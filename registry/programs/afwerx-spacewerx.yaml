@@ -1,0 +1,13 @@
+id: afwerx-spacewerx
+name: AFWERX & SpaceWERX
+org: afwerx
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://afwerx.com
+summary: AFWERX & SpaceWERX — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.bwcoconsulting.com/funding/ai-ml
