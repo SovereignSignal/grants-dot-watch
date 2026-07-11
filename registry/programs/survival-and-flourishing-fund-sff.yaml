@@ -1,0 +1,20 @@
+id: survival-and-flourishing-fund-sff
+name: Survival and Flourishing Fund (SFF
+org: survival-and-flourishing-fund-sff
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: >-
+  **Survival and Flourishing Fund (SFF) is accepting applications** for its 2026 S-Process Grant
+  Round. The fund will distribute $20–40 million+ in grants across main, freedom, fairness, and
+  theme tracks supporting technology, AI, freedom, fairness, and flourishing initiatives, including
+  open-source and software projects. 
+
+
+  Applications are open via the S-Process at https://survivalandflourishing.fund/2026/application.
+  No specific eligibility restrictions or deadlines are listed.
+rounds: []
+sources:
+  - https://survivalandflourishing.fund/2026/application

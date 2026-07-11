@@ -1,0 +1,23 @@
+id: hrf-bitcoin-dev-fund
+name: HRF Bitcoin Dev Fund
+org: hrf-ai-for-individual-rights-fund
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **HRF Bitcoin Dev Fund** is accepting applications for its ongoing Bitcoin Development Fund. The
+  Human Rights Foundation provides grants to open-source Bitcoin developers and projects that
+  enhance Bitcoin’s privacy, scalability, or resilience, with no fixed deadlines or maximum award
+  amounts. 
+
+
+  Eligible applicants include individual developers and teams building public goods for the Bitcoin
+  protocol and ecosystem. 
+
+
+  Apply directly via the HRF website.
+rounds: []
+sources:
+  - https://hrf.org/program/financial-freedom/bitcoin-development-fund/

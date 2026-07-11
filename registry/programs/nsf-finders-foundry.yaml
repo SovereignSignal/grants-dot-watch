@@ -1,0 +1,19 @@
+id: nsf-finders-foundry
+name: NSF FINDERS FOUNDRY
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: >-
+  **NSF FINDERS FOUNDRY** announces planning grants for K-12 educators, technologists, researchers,
+  and parents/guardians to develop and scale evidence-based tools for an AI-driven future. 
+
+
+  Eligible teams may apply for planning grants to prepare for larger implementation projects. The
+  deadline is May 27, 2026.
+rounds: []
+sources:
+  - https://x.com/tlearningagency/status/2036834801014173826

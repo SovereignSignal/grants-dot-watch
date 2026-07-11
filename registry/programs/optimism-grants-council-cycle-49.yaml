@@ -1,0 +1,20 @@
+id: optimism-grants-council-cycle-49
+name: Optimism Grants Council Cycle 49
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.optimism.io/
+summary: >-
+  **Optimism Grants Council Cycle 49** awarded multiple grants, including a Growth Grant to
+  ArcadiaFi for automated liquidity management, one-click concentrated liquidity positions,
+  leverage, and yield optimization on Optimism Mainnet. 
+
+
+  The full Cycle 49 report detailing all awarded projects is available at
+  https://gov.optimism.io/t/cycle-49-grants-council-report/10630.
+rounds: []
+sources:
+  - https://gov.optimism.io/t/cycle-49-grants-council-report/10630
