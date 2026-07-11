@@ -1,0 +1,19 @@
+id: state-ai-aces-south-asia
+name: AI-ACES in South Asia (DFOP0018586)
+org: bureau-of-economic-and-business-affairs
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+mechanism: grants
+summary: The Bureau of South and Central Asian Affairs posted the Artificial Intelligence for
+  American Competitiveness and Economic Security (AI-ACES) in South Asia opportunity (#DFOP0018586)
+  on grants.gov, with a deadline of August 2, 2026.
+rounds:
+  - name: DFOP0018586
+    status: open
+    closes: 2026-08-02
+    source: https://www.grants.gov/search-results-detail/363033
+sources:
+  - https://www.grants.gov/search-results-detail/363033
