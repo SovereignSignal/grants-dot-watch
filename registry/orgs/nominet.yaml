@@ -1,0 +1,15 @@
+id: nominet
+name: Nominet
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://nominet.uk
+status: unknown
+profile: Nominet's DNS Fund provides funding for open-source DNS projects and maintainers to improve
+  security, sustainability, and resilience of critical internet infrastructure. Application deadline
+  is August 17, 2026.
+sources:
+  - https://nominet.uk/our-impact/nominet-dns-fund

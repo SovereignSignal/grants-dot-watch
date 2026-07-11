@@ -1,0 +1,19 @@
+id: nominet-dns-fund
+name: Nominet DNS Fund
+org: nominet
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: Nominet's DNS Fund provides funding for open-source DNS projects and maintainers to improve
+  security, sustainability, and resilience of critical internet infrastructure. Application deadline
+  is August 17, 2026.
+rounds:
+  - name: 2026 call
+    status: open
+    closes: 2026-08-17
+    source: https://nominet.uk/our-impact/nominet-dns-fund
+sources:
+  - https://nominet.uk/our-impact/nominet-dns-fund
