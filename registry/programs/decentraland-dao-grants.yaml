@@ -1,0 +1,15 @@
+id: decentraland-dao-grants
+name: Decentraland DAO Grants
+org: decentraland
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: Decentraland's DAO Grants let users submit and vote on funding proposals across defined
+  grant categories, tracked publicly, with enacted proposals including the Decentraland Ambassador's
+  Program.
+rounds: []
+sources:
+  - https://decentraland.org/dao/grants/
