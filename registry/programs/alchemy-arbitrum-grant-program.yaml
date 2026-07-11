@@ -1,0 +1,19 @@
+id: alchemy-arbitrum-grant-program
+name: Alchemy-Arbitrum Grant Program
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: A co-branded grant program between Alchemy and the Arbitrum Foundation, combining a $10M
+  grant pool with up to $500K in Alchemy infrastructure credits for builders on Arbitrum.
+rounds:
+  - name: Alchemy-Arbitrum Grant Program
+    status: open
+    size: $10M grants + up to $500K Alchemy infra credits
+    source: https://arbitrum.io/grants
+sources:
+  - https://arbitrum.io/grants
