@@ -1,0 +1,21 @@
+id: horizon-ai-rapid-response-fellowship
+name: AI Rapid Response Fellowship
+org: horizon-institute-for-public-service
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+mechanism: fellowship
+summary: The Horizon Institute for Public Service opened the AI Rapid Response Fellowship on
+  2026-07-01, a funded fellowship placing AI security experts into US executive branch roles at
+  $170K-$250K+. Applications close July 22, 2026.
+rounds:
+  - name: 2026 fellowship
+    status: open
+    opens: 2026-07-01
+    closes: 2026-07-22
+    size: $170K-$250K+
+    source: https://horizonpublicservice.org/ai-rapid-response-fellowship/
+sources:
+  - https://horizonpublicservice.org/ai-rapid-response-fellowship/

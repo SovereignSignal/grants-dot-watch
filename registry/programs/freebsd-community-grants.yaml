@@ -1,0 +1,16 @@
+id: freebsd-community-grants
+name: Community Grants
+org: freebsd-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://freebsdfoundation.org/grant-request-policy/
+summary: The FreeBSD Foundation accepts rolling grant requests to improve the FreeBSD Project,
+  including equipment for developers, conference and event sponsorship, and other efforts benefiting
+  the FreeBSD community.
+rounds: []
+sources:
+  - https://freebsdfoundation.org/grant-request-policy/

@@ -1,0 +1,20 @@
+id: openai-ai-resilience
+name: AI Resilience
+org: openai-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://openaifoundation.org/news/update-on-the-openai-foundation
+summary: Grants across four focus areas -- bio-resilience, cyber-resilience, AI model safety, and
+  impact on children/youth from AI tools -- led by co-founder Wojciech Zaremba, part of the
+  Foundation's broader $1B+ annual deployment from its $25B commitment.
+rounds:
+  - name: Initial grants (as of June 2026)
+    status: deployed
+    size: $130M+
+    source: https://openaifoundation.org/news/update-on-the-openai-foundation
+sources:
+  - https://openaifoundation.org/news/update-on-the-openai-foundation

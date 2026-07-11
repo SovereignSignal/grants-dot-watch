@@ -1,0 +1,14 @@
+id: conflux-grants
+name: Conflux Grants
+org: conflux-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://confluxnetwork.org/en/developers/grants
+summary: Grants with a current PayFi track priority
+rounds: []
+sources:
+  - https://confluxnetwork.org/en/developers/grants

@@ -1,0 +1,16 @@
+id: bluedot-career-transition-grants
+name: Career Transition Grants
+org: bluedot-impact
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://bluedot.org/programs/career-transition-grant
+summary: BlueDot Impact's Career Transition Grants provide 6-12 months of runway for people
+  transitioning into AI safety work, including introductions, check-ins, and a community of
+  grantees. Applications are rolling.
+rounds: []
+sources:
+  - https://bluedot.org/programs/career-transition-grant

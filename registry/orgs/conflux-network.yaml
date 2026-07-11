@@ -1,0 +1,15 @@
+id: conflux-network
+name: Conflux Network
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://confluxnetwork.org
+status: unknown
+profile: The Conflux Grants program is prioritizing funding and support for teams building
+  Web3-native payments, compliant RWA tokenization, streaming finance, and related primitives on
+  Conflux. Applications are rolling via the official developers grants page.
+sources:
+  - https://confluxnetwork.org/en/developers/grants

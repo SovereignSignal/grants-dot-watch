@@ -1,0 +1,18 @@
+id: goat-ai-builder-grants
+name: GOAT AI Builder Grants Program
+org: goat-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.goat.network/builder-program
+summary: GOAT Network runs an AI Builder Grants Program funding builders creating AI agent
+  infrastructure, verification layers, and agent-native apps on its Bitcoin-secured L2; first
+  projects have been announced and the program is ongoing. A companion announcement on the official
+  GOAT Network X account (signal 10910) describes $500 starter grants scaling up to $1M based on
+  traction.
+rounds: []
+sources:
+  - https://www.goat.network/builder-program

@@ -1,0 +1,20 @@
+id: palladium-genesis-fund
+name: Genesis Fund
+org: palladium-labs
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://palladiumlabs.org/grant
+summary: Palladium Labs (AlpendHQ team) runs the Genesis Fund, a 10M CC (~$1.5M) grant initiative
+  supporting builders, applications, infrastructure, tooling, and integrations on Canton Network
+  with a tokenized finance focus. Applications are open with no listed deadline.
+rounds:
+  - name: Rolling
+    status: open
+    size: 10M CC (~$1.5M)
+    source: https://palladiumlabs.org/grant
+sources:
+  - https://palladiumlabs.org/grant

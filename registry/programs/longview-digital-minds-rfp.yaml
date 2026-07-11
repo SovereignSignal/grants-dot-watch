@@ -1,0 +1,16 @@
+id: longview-digital-minds-rfp
+name: Digital Minds RFP
+org: longview-philanthropy
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: rfp
+summary: Longview Philanthropy announced a request for proposals for research and applied work on
+  digital minds, seeking applications for project grants, research fellowships, and career
+  development fellowships on the potential consciousness, sentience, moral status, and legal
+  position of AI systems.
+rounds: []
+sources:
+  - https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview

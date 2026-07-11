@@ -1,0 +1,20 @@
+id: pibbss-fellowship
+name: PIBBSS AI Safety Fellowship
+org: pibbss
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+mechanism: fellowship
+summary: PIBBSS runs a ~3-month interdisciplinary AI safety/alignment fellowship (in-person Cape
+  Town or remote) with a $3k/month stipend plus accommodation, travel, and meals, and mentorship.
+  Application deadline is July 20, 2026. A companion signal (10614) describes the upcoming Winter
+  cohort as Nov 2026-Feb 2027 with ~20 fellows.
+rounds:
+  - name: Winter 2026-2027 cohort
+    status: open
+    closes: 2026-07-20
+    source: https://pibbss.ai
+sources:
+  - https://pibbss.ai

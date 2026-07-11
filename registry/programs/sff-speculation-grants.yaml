@@ -1,0 +1,16 @@
+id: sff-speculation-grants
+name: Speculation Grants (Rolling Application)
+org: survival-and-flourishing-fund-sff
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://survivalandflourishing.fund/speculation-grants
+summary: The Survival and Flourishing Fund maintains a rolling application for Speculation Grants
+  and consideration in future S-Process grant rounds; applicants can apply even when no main round
+  is open, and applying at full-round deadlines improves round eligibility.
+rounds: []
+sources:
+  - https://survivalandflourishing.fund/speculation-grants

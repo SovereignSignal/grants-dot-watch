@@ -1,0 +1,15 @@
+id: vlayer
+name: vlayer
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.vlayer.xyz
+status: unknown
+profile: vlayer offers $1K-$10K in retroactive or milestone-based funding per project, from a $200K
+  total commitment, for verifiable data dApps using its Web Proofs technology on any EVM chain.
+  Applications are rolling; the form is currently gated via Discord or office hours.
+sources:
+  - https://www.vlayer.xyz/grants

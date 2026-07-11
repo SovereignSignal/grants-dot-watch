@@ -1,0 +1,21 @@
+id: openai-economic-futures
+name: Economic Futures in the Age of AI
+org: openai-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://openaifoundation.org/news/economic-futures-in-the-age-of-ai
+summary: Initial $250M commitment to grants, partnerships, and direct work spanning independent
+  measurement/forecasting of AI's economic impact, resourcing workers/communities through near-term
+  disruption, and new approaches to sharing economic gains broadly.
+rounds:
+  - name: Initial commitment
+    status: announced
+    opens: 2026-05-27
+    size: $250M
+    source: https://openaifoundation.org/news/economic-futures-in-the-age-of-ai
+sources:
+  - https://openaifoundation.org/news/economic-futures-in-the-age-of-ai

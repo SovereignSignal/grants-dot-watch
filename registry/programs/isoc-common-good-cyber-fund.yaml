@@ -1,0 +1,17 @@
+id: isoc-common-good-cyber-fund
+name: Common Good Cyber Fund
+org: internet-society
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: Run by the Internet Society Foundation, the Internet Society's philanthropic arm
+rounds:
+  - name: 2026 global call
+    status: open
+    size: at least $3.5M; ~15 grants of $100K-$300K over two years
+    source: https://www.isocfoundation.org/2026/06/internet-society-foundation-opens-global-call-for-common-good-cyber-fund-to-strengthen-cybersecurity/
+sources:
+  - https://www.isocfoundation.org/2026/06/internet-society-foundation-opens-global-call-for-common-good-cyber-fund-to-strengthen-cybersecurity/

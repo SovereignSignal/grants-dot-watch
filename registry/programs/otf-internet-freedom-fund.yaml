@@ -1,0 +1,16 @@
+id: otf-internet-freedom-fund
+name: Internet Freedom Fund
+org: free-and-open-source-software-sustainability-fund
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://www.opentech.fund/funds/internet-freedom-fund/
+summary: The Open Technology Fund's Internet Freedom Fund supports innovative technology and
+  research projects that help people facing repressive censorship and/or surveillance. Sourced from
+  the official OTF funds page.
+rounds: []
+sources:
+  - https://www.opentech.fund/funds/internet-freedom-fund/

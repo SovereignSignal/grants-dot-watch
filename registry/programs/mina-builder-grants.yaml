@@ -1,0 +1,14 @@
+id: mina-builder-grants
+name: Mina Protocol Builder Grants
+org: mina-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://minaprotocol.com/builder-grants-program
+summary: "Three rolling tiers: $1K-$5K / $5K-$30K / $100K+"
+rounds: []
+sources:
+  - https://minaprotocol.com/builder-grants-program

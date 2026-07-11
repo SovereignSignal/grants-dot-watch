@@ -1,0 +1,16 @@
+id: meta-earth-ecosystem-fund
+name: Meta Earth Developer Ecosystem Fund
+org: meta-earth
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.mec.me/en-US/me-grants
+summary: Meta Earth, a modular rollup and DID project, advertises a $100M developer ecosystem fund
+  with rolling applications and no fixed deadline via its official grants page. The $100M figure is
+  the project's own claim and is not independently corroborated in the signal.
+rounds: []
+sources:
+  - https://www.mec.me/en-US/me-grants

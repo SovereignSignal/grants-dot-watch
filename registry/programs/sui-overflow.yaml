@@ -1,0 +1,21 @@
+id: sui-overflow
+name: Sui Overflow
+org: sui-foundation
+parent: null
+systems:
+  - sui
+wires:
+  - crypto
+status: active
+mechanism: prize
+apply_url: https://overflow.sui.io/
+summary: Sui Foundation's flagship annual hackathon for Sui builders, with prizes and seed funding
+  across core tracks.
+rounds:
+  - name: "2026"
+    status: open
+    opens: 2026-05-01
+    size: over $1,000,000
+    source: https://overflow.sui.io/
+sources:
+  - https://overflow.sui.io/

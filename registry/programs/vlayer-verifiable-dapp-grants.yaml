@@ -1,0 +1,20 @@
+id: vlayer-verifiable-dapp-grants
+name: vlayer Verifiable dApp Grants
+org: vlayer
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.vlayer.xyz/grants
+summary: vlayer offers $1K-$10K in retroactive or milestone-based funding per project, from a $200K
+  total commitment, for verifiable data dApps using its Web Proofs technology on any EVM chain.
+  Applications are rolling; the form is currently gated via Discord or office hours.
+rounds:
+  - name: Rolling
+    status: open
+    size: $200K total; $1K-$10K per project
+    source: https://www.vlayer.xyz/grants
+sources:
+  - https://www.vlayer.xyz/grants

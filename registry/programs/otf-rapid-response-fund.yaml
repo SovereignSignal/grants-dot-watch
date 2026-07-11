@@ -1,0 +1,16 @@
+id: otf-rapid-response-fund
+name: Rapid Response Fund
+org: free-and-open-source-software-sustainability-fund
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://www.opentech.fund/funds/rapid-response-fund/
+summary: The Open Technology Fund's Rapid Response Fund provides short-term, urgent digital security
+  support for at-risk users facing clear, time-sensitive, state-sponsored digital emergencies.
+  Applications are rolling.
+rounds: []
+sources:
+  - https://www.opentech.fund/funds/rapid-response-fund/

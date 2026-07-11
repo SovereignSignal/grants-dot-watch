@@ -1,0 +1,13 @@
+id: leo-gao-microgrants
+name: Leo Gao's Experimental Microgranting Program
+org: manifund-ai-safety-regranting
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: $10k rolling microgrants, hosted on Manifund
+rounds: []
+sources:
+  - https://manifund.org/causes/leo-microgrants?tab=about

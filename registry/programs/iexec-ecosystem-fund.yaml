@@ -1,0 +1,15 @@
+id: iexec-ecosystem-fund
+name: iExec Ecosystem Fund & Grants
+org: iexec
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: iExec promotes an Ecosystem Fund and Grants Program supporting dApps in DeFi, AI, RWA, and
+  other use cases, per its official ecosystem fund page. iExec is absent from the org registry; a
+  companion signal (10963) shows it also running a small privacy-focused hackathon ($1,500 pool).
+rounds: []
+sources:
+  - https://www.iex.ec/ecosystem-fund

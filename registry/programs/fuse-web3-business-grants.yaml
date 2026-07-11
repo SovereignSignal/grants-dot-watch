@@ -1,0 +1,21 @@
+id: fuse-web3-business-grants
+name: Fuse Web3 Business Grants Program
+org: fuse-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.fuse.io/web3-business-grant-program
+summary: "Fuse Network's $10M non-dilutive grants program funds businesses building Web3 payment
+  infrastructure: non-custodial mobile fintech, consumer loyalty, branded stablecoins, wallets, and
+  regional payment providers. Open globally with a stated focus on emerging markets (notably
+  Africa); grantees receive funding plus technical mentorship. Rolling applications."
+rounds:
+  - name: Rolling
+    status: open
+    size: $10M program
+    source: https://www.fuse.io/web3-business-grant-program
+sources:
+  - https://www.fuse.io/web3-business-grant-program

@@ -1,0 +1,14 @@
+id: sentient-open-source-agi-grants
+name: Open Source AGI Grant Program
+org: sentient-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://sentient.foundation/grants
+summary: $42M in non-dilutive grants and investments for open-source AGI development
+rounds: []
+sources:
+  - https://sentient.foundation/grants

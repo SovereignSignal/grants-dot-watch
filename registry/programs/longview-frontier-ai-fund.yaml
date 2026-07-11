@@ -1,0 +1,16 @@
+id: longview-frontier-ai-fund
+name: Frontier AI Fund
+org: longview-philanthropy
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.longview.org/fund/frontier-ai-fund/
+summary: Longview's Frontier AI Fund supports work to mitigate risks from advanced AI systems, open
+  to researchers, nonprofits, and builders working on frontier AI safety and governance, with a
+  rolling deadline.
+rounds: []
+sources:
+  - https://www.longview.org/fund/frontier-ai-fund/

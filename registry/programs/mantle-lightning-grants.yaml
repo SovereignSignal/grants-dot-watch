@@ -1,0 +1,14 @@
+id: mantle-lightning-grants
+name: Mantle Lightning Grants
+org: mantle-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://lightning.mantle.xyz/
+summary: Up to $20K fast-track grants, weekly review cadence
+rounds: []
+sources:
+  - https://lightning.mantle.xyz/

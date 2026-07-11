@@ -1,0 +1,19 @@
+id: unitaryhack
+name: UnitaryHACK
+org: unitary-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: prize
+apply_url: https://unitaryhack.dev/
+summary: Bounty-driven contribution event for open-source quantum software, open to developers worldwide.
+rounds:
+  - name: "2026"
+    status: closed
+    closes: 2026-06-17
+    source: https://unitaryhack.dev/
+sources:
+  - https://unitaryhack.dev/

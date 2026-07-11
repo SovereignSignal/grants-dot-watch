@@ -1,0 +1,16 @@
+id: fuse-network
+name: Fuse Network
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.fuse.io
+status: unknown
+profile: "Fuse Network's $10M non-dilutive grants program funds businesses building Web3 payment
+  infrastructure: non-custodial mobile fintech, consumer loyalty, branded stablecoins, wallets, and
+  regional payment providers. Open globally with a stated focus on emerging markets (notably
+  Africa); grantees receive funding plus technical mentorship. Rolling applications."
+sources:
+  - https://www.fuse.io/web3-business-grant-program

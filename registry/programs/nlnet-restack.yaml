@@ -1,0 +1,25 @@
+id: nlnet-restack
+name: Restack
+org: nlnet-foundation
+parent: null
+systems:
+  - eu-public-rd
+  - sovereign-tech
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://nlnet.nl/restack/
+summary: EUR 10M Horizon Europe cascade-funding programme led by NLnet with FSFE and other partners,
+  offering EUR 5,000-50,000 R&D grants with rolling calls every two months (2026-2030) plus a
+  scale-up track, across open-tech sovereignty/privacy, internet resilience, environmental impact,
+  and supply-chain transparency.
+rounds:
+  - name: First call
+    status: open
+    opens: 2026-06-01
+    closes: 2026-08-01
+    size: EUR 10M programme; EUR 5,000-50,000 per grant
+    source: https://fsfe.org/news/2026/news-20260528-01.en.html
+sources:
+  - https://fsfe.org/news/2026/news-20260528-01.en.html

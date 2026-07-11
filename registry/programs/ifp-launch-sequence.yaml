@@ -1,0 +1,14 @@
+id: ifp-launch-sequence
+name: The Launch Sequence
+org: institute-for-progress-ifp
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://ifp.org/rfp-launch/
+summary: $10k honorarium + funder matchmaking, rolling
+rounds: []
+sources:
+  - https://ifp.org/rfp-launch/

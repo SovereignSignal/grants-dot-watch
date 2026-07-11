@@ -1,0 +1,20 @@
+id: longview-extreme-power-concentration-rfp
+name: Extreme Power Concentration RFP
+org: longview-philanthropy
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+mechanism: rfp
+summary: Longview Philanthropy's RFP funds proposals to reduce risks of AI enabling extreme
+  concentration of power, with grants of $100K-$2M/yr across 12 priority areas plus career
+  transition funding. The listed deadline was July 2, 2026.
+rounds:
+  - name: 2026 RFP
+    status: closed
+    closes: 2026-07-02
+    size: $100K-$2M/yr per grant
+    source: https://www.longview.org/request-for-proposals-on-extreme-power-concentration/
+sources:
+  - https://www.longview.org/request-for-proposals-on-extreme-power-concentration/

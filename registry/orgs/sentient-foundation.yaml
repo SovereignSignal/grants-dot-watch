@@ -1,0 +1,18 @@
+id: sentient-foundation
+name: Sentient Foundation
+aka: []
+systems: []
+wires:
+  - ai
+  - oss
+roles:
+  - funder
+website: https://sentient.foundation
+status: unknown
+profile: Sentient Foundation runs a $42M grant program for developers, researchers, and companies
+  building and leveraging open-source AGI, with rolling applications and no listed deadline.
+  Ecosystem partners named include Alibaba Cloud, Franklin Templeton, Princeton, and the Indian
+  Institute of Science. The same program surfaced repeatedly across the oss wire (signals 10972,
+  10962, 10966, 10853).
+sources:
+  - https://sentient.foundation/grants
