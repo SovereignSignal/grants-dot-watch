@@ -1,0 +1,17 @@
+id: ens-ecosystem-grants
+name: ENS Ecosystem Grants
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.enssubname.com
+summary: Hi team, I’m Woody, enssubname.com founder. enssubname.com is design for sell and register
+  subname. The Dapp is available on goerli and mainnet now. https://twitter.com/ENSsubname
+  https://www.enssubname.com We would like request grant for our SubnameAgent smartcontract security
+  audit. Community founder/domain owner approve and set register rule and sell price. Community
+  member register subname and
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/enssubname-com-join-ens-ecosystem/18568

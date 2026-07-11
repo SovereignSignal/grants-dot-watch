@@ -1,0 +1,16 @@
+id: ens-public-goods-working-group-strategic-grants-programme
+name: ENS Public Goods Working Group Strategic Grants programme
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Summary For the next allocation of the ENS Public Goods (PG) Working Group Strategic
+  Grants programme, we are disbursing $50,000 USDC each to support two critical public goods efforts
+  in 2025: Remix Labs and Fabric. Following our first strategic grant allocation for the DRC in
+  March, we continue to strategically support key public goods projects that have also secured
+  external matching funds from"
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/ens-public-goods-working-group-funding-remix-labs-fabric/20866

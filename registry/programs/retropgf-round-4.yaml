@@ -1,0 +1,16 @@
+id: retropgf-round-4
+name: RetroPGF Round 4
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hello Optimists and badgeholders (Special thanks to @ben-chain , @karl , and @Billy191 for
+  supporting builders of public goods) I’m a solo builder who has spent the last months creating
+  open, educational, and creative public goods — all built for the Optimism Collective and powered
+  by hope. Everything I built is free, onchain, and accessible for the community. I believe my
+  independent contribution
+rounds: []
+sources:
+  - https://gov.optimism.io/t/nomination-stephan1516417-solo-builder-of-public-goods-on-optimism/10245

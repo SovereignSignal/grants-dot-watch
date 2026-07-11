@@ -1,0 +1,16 @@
+id: ens-builder-grants-program
+name: ENS Builder Grants program
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hey ENS community, we were referred to this forum and to the ENS Builder Grants program by
+  good people, so we’re here. We were planning to apply for a small public goods grant (2 ETH) for
+  the ENS integration, and then for a larger one (50K USDC), but we hit a roadblock after reading
+  your FAQ, so we decided to write this post instead. So, let me first red pill on the current state
+  of web3, then tur
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/ens-on-spasm-a-match-made-in-heaven/21701

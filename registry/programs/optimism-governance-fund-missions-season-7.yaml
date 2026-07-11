@@ -1,0 +1,16 @@
+id: optimism-governance-fund-missions-season-7
+name: Optimism Governance Fund Missions Season 7
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Special thanks to members of the Feedback Commission for discussion and review. In Season
+  7, Governance Fund Missions will focus on contributions, across the Superchain, that make progress
+  towards success metrics. That means only projects that meet eligibility criteria ensuring their
+  contributions are measurable onchain will be supported in Season 7. While that means a sub-set of
+  contributions wil
+rounds: []
+sources:
+  - https://gov.optimism.io/t/season-7-governance-fund-missions/9300

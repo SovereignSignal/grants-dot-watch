@@ -1,0 +1,16 @@
+id: retro-funding-season-7-onchain-builders
+name: Retro Funding Season 7 – Onchain Builders
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Hey everyone, Carl from Open Source Observer here, sharing the evaluation algorithms for
+  Retroactive Public Goods Funding (Retro Funding) Season 7: Onchain Builders. The Onchain Builders
+  Mission seeks to reward protocols and dapps that demonstrate meaningful onchain usage, drive TVL
+  growth, and support interop across the Superchain. See here for more on the mission’s objectives.
+  This season, Optim"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/retro-funding-s7-onchain-builders-eval-algos/9708

@@ -1,0 +1,22 @@
+id: gg23-grantee-onboarding-education-program
+name: GG23 Grantee Onboarding/Education Program
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gov.gitcoin.co/t/rfp-gg23-grantee-onboarding-education-program/19931
+summary: Overview We are seeking experienced grantees within the Gitcoin ecosystem to lead our
+  community-led onboarding program for GG23. These Onboarding Partners will be responsible for
+  educating grantees and builders, building upon the success of the GG22 Onboarding Program . Scope
+  of Work Throughout this program, Onboarding Partners are expected to educate grantees and builders
+  on critical aspects of t
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2025-02-14
+    size: 18,000 GTC
+    source: https://gov.gitcoin.co/t/rfp-gg23-grantee-onboarding-education-program/19931
+sources:
+  - https://gov.gitcoin.co/t/rfp-gg23-grantee-onboarding-education-program/19931

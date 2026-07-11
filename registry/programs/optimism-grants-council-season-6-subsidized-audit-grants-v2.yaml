@@ -1,0 +1,16 @@
+id: optimism-grants-council-season-6-subsidized-audit-grants-v2
+name: Optimism Grants Council Season 6 - Subsidized Audit Grants V2
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Delegate Mission Request Summary This mission request repurposes the budget from this
+  Mission Request and is a continuation of last season’s Mission Request . The goal remains to
+  gather smart contract auditors to provide subsidized audits for promising projects selected by the
+  Grants Council. Current process: Auditors apply for a budget. Grants Council (GC) approves the
+  budget. Projects apply for"
+rounds: []
+sources:
+  - https://gov.optimism.io/t/mission-request-subsidized-audit-grants-v2/8856

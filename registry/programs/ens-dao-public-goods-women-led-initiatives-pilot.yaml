@@ -1,0 +1,16 @@
+id: ens-dao-public-goods-women-led-initiatives-pilot
+name: ENS DAO Public Goods - Women-Led Initiatives Pilot
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Women-led initiatives in our Ecosystem ENS DAO Public Goods Working group is highlighting
+  women-led initiatives within the ENS ecosysystem and Web3 adjacent ecosystems. The initiave will
+  seek to highlight Gitcoin GR15 and leaders in the space who focus on protocol development,
+  education, and advocacy. This is an exercise in building rapport with those underserved
+  communities and establishing our u
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/ens-dao-public-goods-highlights/14370

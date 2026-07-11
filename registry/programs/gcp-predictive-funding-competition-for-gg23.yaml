@@ -1,0 +1,16 @@
+id: gcp-predictive-funding-competition-for-gg23
+name: GCP - Predictive Funding Competition for GG23
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Summary This GCP proposes to support a machine learning competition to predict funding
+  received by projects in GG23. The objective is an understanding of the metrics and models that are
+  most likely to give a similar allocation outcome as the human judgment mechanism of quadratic
+  funding. For this, we are requesting a total of 20,000 GTC (~$11k as of 29th January), half of
+  which is given as prizes
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/gcp-xxx-predictive-funding-competition-for-gg23/19902

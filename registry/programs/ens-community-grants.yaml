@@ -1,0 +1,16 @@
+id: ens-community-grants
+name: ENS Community Grants
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hi, I’m Ivan aka MrRed.eth. I am not a dev, but I did my best to build this platform with
+  no-code language. I want to introduce you to BADG3, hoping to get any kind of support from this
+  community. What is BADG3? Badg3 is the Web3 Fiverr for anonymous professionals. Professionals can
+  create a profile by inheriting their on-chain data, and companies can contact them or post job
+  offers. The mission i
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/the-web3-fiverr-for-anon-professionals/15358

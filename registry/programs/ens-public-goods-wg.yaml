@@ -1,0 +1,16 @@
+id: ens-public-goods-wg
+name: ENS Public Goods WG
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Overview Social media is a gold mine for scammers . Since 2021, more than 46,000 people
+  have reported losing over $1 billion in crypto to scams and crypto makes it attractive to
+  scammers. There are many Twitter accounts claiming the “vitalik.eth” on Twitter, but Twitter Blue
+  still cannot fix it. Behind the scene of “ Not giving away ETH ”, there are victims of the social
+  media scam. What we do? We
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/pg-wg-proposal-crypto-twitter-login-with-ens/15175

@@ -1,0 +1,16 @@
+id: ens-meta-governance-working-group
+name: ENS Meta-Governance Working Group
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Summary The goal of the Meta-Governance working group (MG WG) is to manage the
+  administration of the ENS DAO. The MG WG shall focus on the following three areas over the Q1/Q2
+  2022 Term. Treasury Management Governance process and DAO structures DAO Tooling The following
+  budget is requested to provide the MG WG with the resources to work on the areas mentioned above
+  over the Q1/Q2 2022 Term. Propos
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/q1-q2-meta-governance-working-group-budget-request/11101

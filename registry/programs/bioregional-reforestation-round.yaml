@@ -1,0 +1,16 @@
+id: bioregional-reforestation-round
+name: Bioregional Reforestation Round
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Gm Gitcoin community! Djimo here, founder at Silvi - wanted to share the first update for
+  the Bioregional Reforestation Round , announced here and here , now half way through the matching
+  phase ahead of the impact phase during Q1 and Q2 of 2026. Round tldr: $100k seeds nine bioregional
+  smart pools via QF allocation and then distributes funding from pools to stewards/orgs in those
+  bioregions for ve"
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/bioregional-reforestation-round/24927

@@ -1,0 +1,17 @@
+id: ens-dao-public-goods-working-group
+name: ENS DAO Public Goods Working Group
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://github.com/imrulo/lat.eth
+summary: "Cultural Defense Mission: Advancing ENS Adoption Among Latinos Across the Balkans Through
+  Latin Dance LAT.ETH Cultural Defense Initiative (led by imrulo.eth) proposes advancing ENS
+  adoption among the entire Latino community across the Balkans through interactive Latin dance
+  workshops, starting with Serbia as our pilot region. We will use Latin dance (salsa, reggaetón,
+  bachata, merengue) as the cul"
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/temperature-check-lat-eth-cultural-defense-initiative-1000-latino-identities-through-latin-dance-in-the-balkans/21363

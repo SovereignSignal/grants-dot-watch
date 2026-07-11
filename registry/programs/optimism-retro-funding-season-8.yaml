@@ -1,0 +1,16 @@
+id: optimism-retro-funding-season-8
+name: Optimism Retro Funding Season 8
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: In 2025, Retro Funding sharpens its focus on data-driven impact measurement , using
+  targeted Missions to develop robust methods for evaluating specific types of contributions. The
+  Retro Funding Missions from S7, Onchain Builders and Dev Tooling, will continue in S8. In
+  addition, we propose expanding the program’s scope to include a new Mission focused on OP Stack
+  dependencies , ensuring sustained
+rounds: []
+sources:
+  - https://gov.optimism.io/t/s8-retro-funding-missions/10003

@@ -1,0 +1,16 @@
+id: citizen-grants-gcp
+name: Citizen Grants GCP
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Proposal Title Baking Impact Into The Quadratic Funding Matching Formula (ImpactQF)
+  Description This proposal seeks funding to create an Impact Passport framework . We expect use of
+  this passport to augment the Quadratic Funding mechanism, serve as training data for AI allocation
+  agents, and other use cases as they arise. Projects can collect passport stamps from a selection
+  of Impact Evaluators t
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/citizen-grants-gcp-impact-passports-and-impact-quadratic-funding-impactqf/19712

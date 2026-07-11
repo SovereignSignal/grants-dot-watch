@@ -1,0 +1,16 @@
+id: ens-public-goods-working-group-small-grants-program
+name: ENS Public Goods Working Group - Small Grants Program
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Purpose The Metaphor team would like to launch an experiment within ENS DAO to see if the
+  community can operationalize a small grants program, similar to the successful Nouns Prop House !
+  I DM’d with that team to see if we could fork their project, it seems they aren’t yet open source
+  and they are currently focused on expanding within the Nouns / NFT community. Metaphor proposes to
+  the Public Good
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/pg-wg-proposal-ens-small-grants/12843
