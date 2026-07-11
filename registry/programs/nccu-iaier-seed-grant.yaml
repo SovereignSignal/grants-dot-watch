@@ -1,0 +1,15 @@
+id: nccu-iaier-seed-grant
+name: IAIER Seed Grant Program
+org: nccu
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.nccu.edu/form/frap-application
+summary: Up to $10,000 per award for NCCU faculty, postdocs, and students to jumpstart early-stage
+  AI pilot projects, administered via Graduate Studies' Faculty Research Award Program.
+rounds: []
+sources:
+  - https://www.nccu.edu/research/institutes-and-special-facilities/iaier/seed-grant-program

@@ -1,0 +1,22 @@
+id: taiko-grants
+name: Taiko Grant Cycle 3
+org: taiko-grant-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://taiko.xyz/grant-program
+summary: Taiko's community grants program funds builders in DeFi, AI, RWA, SocialFi, gaming, and
+  core ecosystem categories, milestone-based and non-dilutive. Current round is Grant Cycle 3
+  ($25M), rolling applications via GitHub or the program portal; prior rounds include Cycle 2
+  (2023).
+rounds:
+  - name: Grant Cycle 3
+    status: open
+    size: $25,000,000 fund
+    source: https://taiko.xyz/grant-program
+sources:
+  - https://taiko.xyz/grant-program
+  - https://github.com/taikoxyz/grants

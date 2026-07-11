@@ -2,19 +2,19 @@ id: survival-flourishing-s-process
 name: SFF S-Process Grant Rounds
 org: survival-and-flourishing-fund-sff
 parent: null
-systems: [ai-safety]
-wires: [ai]
+systems:
+  - ai-safety
+wires:
+  - ai
 status: active
 mechanism: grants
 apply_url: https://docs.google.com/forms/d/e/1FAIpQLSd447GiP5BkyvHAKrybC-4jRcmIH2kHH2n86o4ruJb1TSfmKQ/viewform
 summary: >
-  The Survival and Flourishing Fund's recurring grant rounds, run once or
-  twice per year via the S-Process algorithm and meeting procedure, recommend
-  donations to organizations working on the long-term survival and
-  flourishing of sentient life, including existential and global catastrophic
-  risk reduction. A rolling Speculation Grant application runs year-round; a
-  Speculation Grant guarantees eligibility for consideration in an S-Process
-  round.
+  The Survival and Flourishing Fund's recurring grant rounds, run once or twice per year via the
+  S-Process algorithm and meeting procedure, recommend donations to organizations working on the
+  long-term survival and flourishing of sentient life, including existential and global catastrophic
+  risk reduction. A rolling Speculation Grant application runs year-round; a Speculation Grant
+  guarantees eligibility for consideration in an S-Process round.
 rounds:
   - name: SFF-2024 S-Process
     status: deployed
@@ -24,9 +24,25 @@ rounds:
     source: https://survivalandflourishing.fund/2025/recommendations
   - name: SFF-2026 S-Process (Main, Freedom, and Fairness tracks)
     status: reviewing
-    closes: "2026-04-22"
+    closes: 2026-04-22
     source: https://survivalandflourishing.fund/
+  - name: SFF-2026 S-Process — Climate Change track
+    status: reviewing
+    closes: 2026-06-10
+    size: $2-4MM
+    source: https://survivalandflourishing.fund/2026/application
+  - name: SFF-2026 S-Process — Animal Welfare track
+    status: reviewing
+    closes: 2026-06-24
+    size: $2-4MM
+    source: https://survivalandflourishing.fund/2026/application
+  - name: SFF-2026 S-Process — Human Self-Enhancement and Empowerment (HSEE) track
+    status: reviewing
+    closes: 2026-07-08
+    size: $2-4MM
+    source: https://survivalandflourishing.fund/2026/application
 sources:
   - https://survivalandflourishing.fund/
   - https://survivalandflourishing.fund/2025/recommendations
   - https://survivalandflourishing.fund/2024/recommendations
+  - https://survivalandflourishing.fund/2026/application

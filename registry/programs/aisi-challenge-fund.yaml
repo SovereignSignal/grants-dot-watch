@@ -1,0 +1,19 @@
+id: aisi-challenge-fund
+name: AISI Challenge Fund
+org: ai-security-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: concluded
+mechanism: grants
+summary: AISI's Challenge Fund supported UK and international academic institutions and non-profit
+  organizations researching safeguards, control, alignment, and societal resilience to advanced AI
+  risk, with awards up to £200,000 per project. Closed with no current open applications.
+rounds:
+  - name: Challenge Fund
+    status: closed
+    size: up to £200,000 per project
+    source: https://www.aisi.gov.uk/grants
+sources:
+  - https://www.aisi.gov.uk/grants

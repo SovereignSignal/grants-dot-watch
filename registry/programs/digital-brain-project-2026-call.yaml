@@ -1,0 +1,21 @@
+id: digital-brain-project-2026-call
+name: Digital Brain Project 2026 Research Call
+org: digital-brain-project
+parent: null
+systems: []
+wires:
+  - ai
+status: concluded
+mechanism: grants
+apply_url: https://digitalbrainproject.org/apply.html
+summary: Funds PI-led teams at accredited institutions up to $500,000 over 36 months to acquire and
+  share neuroimaging data for foundational models of intelligent behavior.
+rounds:
+  - name: 2026 Call
+    status: closed
+    opens: 2026-04-15
+    closes: 2026-05-15
+    size: up to $500,000 per team
+    source: https://digitalbrainproject.org/apply.html
+sources:
+  - https://digitalbrainproject.org/apply.html

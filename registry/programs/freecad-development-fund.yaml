@@ -1,0 +1,27 @@
+id: freecad-development-fund
+name: FPA Development Fund
+org: freecad-project-association
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://github.com/FreeCAD/FPA-grant-proposals
+summary: Quarterly grants (EUR 1,500-5,000, EUR 40,000 reserved for 2026) to accelerate FreeCAD
+  development, prioritizing documentation, testing, release-cycle work, and ecosystem
+  infrastructure.
+rounds:
+  - name: Q3 2026
+    status: open
+    closes: 2026-09-01
+    size: EUR 1,500-5,000 per grant
+    source: https://fpa.freecad.org/programs.html
+  - name: Q4 2026
+    status: announced
+    closes: 2026-11-15
+    source: https://fpa.freecad.org/programs.html
+sources:
+  - https://fpa.freecad.org/programs.html
+  - https://fpa.freecad.org/programs/fpadf-announcement

@@ -1,0 +1,23 @@
+id: google-summer-of-code-2026
+name: Google Summer of Code 2026
+org: google-summer-of-code
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: fellowship
+apply_url: https://summerofcode.withgoogle.com/get-started
+summary: Annual global program pairing new open-source contributors with mentoring organizations for
+  12+ week projects, with PPP-adjusted stipends of $750-$6,600.
+rounds:
+  - name: GSoC 2026 contributor applications
+    status: closed
+    opens: 2026-03-16
+    closes: 2026-03-31
+    size: $750-$6,600 PPP-adjusted stipend
+    source: https://developers.google.com/open-source/gsoc/timeline
+sources:
+  - https://developers.google.com/open-source/gsoc/timeline
+  - https://developers.google.com/open-source/gsoc/help/student-stipends

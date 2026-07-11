@@ -1,0 +1,17 @@
+id: far-ai-grantmaking
+name: FAR.AI Grantmaking Program
+org: far-ai
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://far.ai/programs/grantmaking
+summary: $12M grantmaking program (funded by Coefficient Giving) for academics and independent
+  researchers on deception, robustness, interpretability, red-teaming, and alignment. Currently
+  nomination-only pending limited evaluation capacity; public RFPs planned.
+rounds: []
+sources:
+  - https://far.ai/programs/grantmaking

@@ -1,0 +1,14 @@
+id: xprize-water-scarcity
+name: XPRIZE Water Scarcity
+org: xprize-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: prize
+apply_url: https://xprize.org/competitions
+summary: $119 million incentive prize competition for breakthrough water scarcity solutions.
+rounds: []
+sources:
+  - https://xprize.org/competitions

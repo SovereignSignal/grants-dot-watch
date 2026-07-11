@@ -1,0 +1,14 @@
+id: xprize-wildfire
+name: XPRIZE Wildfire
+org: xprize-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: prize
+apply_url: https://xprize.org/competitions
+summary: $11 million incentive prize competition for breakthrough wildfire detection/suppression solutions.
+rounds: []
+sources:
+  - https://xprize.org/competitions

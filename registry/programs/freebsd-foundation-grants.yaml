@@ -1,0 +1,21 @@
+id: freebsd-foundation-grants
+name: FreeBSD Foundation Grants
+org: freebsd-foundation
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://freebsdfoundation.org/our-work/grants/
+summary: "The FreeBSD Foundation's standing grant process: Travel Grants for conference attendance
+  and Community Grants for software development, equipment, and conference sponsorship benefiting
+  the FreeBSD project."
+rounds:
+  - name: EuroBSDCon 2026 Travel Grant
+    status: open
+    opens: 2026-06-30
+    source: https://freebsdfoundation.org/our-work/grants/
+sources:
+  - https://freebsdfoundation.org/our-work/grants/

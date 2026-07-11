@@ -1,0 +1,20 @@
+id: aisi-alignment-project
+name: AISI Alignment Project
+org: ai-security-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: concluded
+mechanism: grants
+summary: AISI's Alignment Project funded research to prevent advanced AI systems from behaving
+  dangerously, intentionally or accidentally, with awards up to £1 million per project. Part of over
+  £15M AISI has committed across three grant programs; closed with no current open applications.
+rounds:
+  - name: Alignment Project
+    status: closed
+    size: up to £1,000,000 per project
+    source: https://alignmentproject.aisi.gov.uk/
+sources:
+  - https://www.aisi.gov.uk/grants
+  - https://alignmentproject.aisi.gov.uk/

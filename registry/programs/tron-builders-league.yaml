@@ -1,0 +1,20 @@
+id: tron-builders-league
+name: TRON Builders League
+org: tron-dao
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://trondao.org/tron-builders-league
+summary: A long-term, milestone-based TRON DAO funding and incubation program (up to $5M) for
+  projects building on TRON and BTTC, spanning tracks including infrastructure/security, gaming,
+  cross-chain, payments/DeFi, and AI & automation.
+rounds:
+  - name: TRON Builders League
+    status: open
+    size: Up to $5,000,000 in funding
+    source: https://trondao.org/tron-builders-league
+sources:
+  - https://trondao.org/tron-builders-league
