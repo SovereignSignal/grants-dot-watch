@@ -1,6 +1,6 @@
 id: project-catalyst
 name: Project Catalyst
-org: cardano-foundation
+org: intersect-intersect-mbo
 parent: null
 systems:
   - cardano
@@ -8,6 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: quadratic
+apply_url: https://projectcatalyst.io/
 summary: Project Catalyst is Cardano's community-driven, on-chain innovation funding process; the
   Cardano Foundation has adjusted its strategy across rounds, most recently limiting voting power
   and increasing focus on community-led governance in round F14.
