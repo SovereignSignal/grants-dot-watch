@@ -1,0 +1,17 @@
+id: anthropic-claude-for-startups
+name: Claude for Startups
+org: anthropic
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: other
+apply_url: https://www.anthropic.com/startups
+summary: "Anthropic launched Claude for Startups, offering API credits, early model access, and
+  priority support to early-stage founders integrating Claude, plus community events, hackathons,
+  and direct technical support. Applications are rolling with no fixed deadline. Duplicate signal:
+  9991 (claude.com/programs/startups)."
+rounds: []
+sources:
+  - https://www.anthropic.com/startups
