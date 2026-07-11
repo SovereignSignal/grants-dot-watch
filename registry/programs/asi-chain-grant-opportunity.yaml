@@ -1,0 +1,21 @@
+id: asi-chain-grant-opportunity
+name: ASI Chain Grant Opportunity
+org: artificial-superintelligence-alliance
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://superintelligence.io/
+summary: The Artificial Superintelligence Alliance is offering $50,000 in grants to develop an
+  AI-native IDE for ASI:Chain, aimed at simplifying and accelerating dApp development. Proposals
+  must be submitted via the DeepFunding portal by the deadline of February 13, 2026, at 23:59 UTC.
+  This initiative targets builders creating tools for the first AI-native Layer-1 crypto network.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-02-13
+    size: $50,000
+    source: https://x.com/ASI_Alliance/status/2022257859375858103
+sources:
+  - https://x.com/ASI_Alliance/status/2022257859375858103
