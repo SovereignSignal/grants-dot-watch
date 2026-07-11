@@ -1,0 +1,16 @@
+id: uniswap-foundation-security-fund-audit-subsidies-up-to-100-c
+name: Uniswap Foundation Security Fund — Audit subsidies (up to 100% coverage
+org: uniswap-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://uniswapfoundation.org/
+summary: "**Uniswap Foundation Security Fund** is offering audit subsidies of up to 100% coverage
+  for teams building with Uniswap v4 hooks or Trading APIs. The program also provides pre-audit
+  scans and security guidance. Eligible projects can receive full audit cost coverage through the
+  fund."
+rounds: []
+sources:
+  - https://x.com/0xboo/status/2028401618333389136
