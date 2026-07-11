@@ -1,0 +1,19 @@
+id: google-deepmind-multi-agent-ai-safety-research-fund
+name: Google DeepMind Multi-Agent AI Safety Research Fund
+org: googleorg
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://google.org/
+summary: Google DeepMind Multi-Agent AI Safety Research Fund — dispatch from the wire, no further
+  detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-08-08
+    size: $10M
+    source: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
+sources:
+  - https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/

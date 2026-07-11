@@ -1,0 +1,18 @@
+id: foresight-fellowship
+name: Foresight Fellowship
+org: foresight-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: "we need to include both? The prompt says: \"Deadline: Apply for 2027 cohort; deadline not
+  listed on page Source: ... Description: Fellowship supporting work in AI and related frontier tech
+  areas. Deadline: July 31, 2026\". So we have two deadlines: one for 2027 cohort (no date) and a
+  date July 31, 2026. We need to include all specific numbers (amounts, dates, eligibility). No
+  amounts given. So include dates. Write 2-4 sentences, max 120 words. Lead with
+  organization/program name and a strong action verb. So start: \"Foresight Fellowship invites...\"
+  Something like that. Include that it's"
+rounds: []
+sources:
+  - https://foresight.org/engage/fellowship/

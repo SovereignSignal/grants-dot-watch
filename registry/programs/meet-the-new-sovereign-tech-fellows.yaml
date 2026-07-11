@@ -1,0 +1,12 @@
+id: meet-the-new-sovereign-tech-fellows
+name: Meet the new Sovereign Tech Fellows
+org: sovereign-tech-agency
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: Meet the new Sovereign Tech Fellows — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows

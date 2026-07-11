@@ -1,0 +1,24 @@
+id: arbitrum-watchdog-program-update
+name: Arbitrum Watchdog Program Update
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968
+summary: The reviewing committee completed all investigations into historic incentive programs,
+  determining one of two outstanding cases as valid misuse and the other as not valid. A new
+  time-frame limit effective May 11th restricts future investigations to incidents or programs
+  occurring after 2025. The program's working budget stood at approximately 476,546 ARB at month end
+  (assuming $0.10 ARB), with two earmarked reporter payments pending KYC completion before a July
+  forfeiture deadline. Entropy is transitioning oversight responsibilities to OpCo over the coming
+  months.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-01
+    size: 476,546 ARB
+    source: https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968
+sources:
+  - https://forum.arbitrum.foundation/t/watchdog-program-may-2026-update/30968

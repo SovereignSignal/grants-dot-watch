@@ -1,0 +1,13 @@
+id: solana-foundation-perps-derivatives-grants
+name: Solana Foundation Perps & Derivatives Grants
+org: solana-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://solana.org/
+summary: Solana Foundation Perps & Derivatives Grants — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://solana.com/news/build-onchain-perps
