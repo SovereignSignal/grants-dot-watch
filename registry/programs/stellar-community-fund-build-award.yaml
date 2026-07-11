@@ -2,19 +2,19 @@ id: stellar-community-fund-build-award
 name: SCF Build Award
 org: stellar-community-fund
 parent: null
-systems: [stellar]
-wires: [crypto]
+systems:
+  - stellar
+wires:
+  - crypto
 status: active
 mechanism: grants
 apply_url: https://communityfund.stellar.org/
 summary: >
-  The Stellar Community Fund's primary award, funding teams building on the
-  Stellar network with up to $150,000 in XLM per project across three tracks:
-  Open (brand-new projects), Integration (existing Stellar building blocks or
-  teams with significant traction), and RFP (tooling/services matching an
-  open SCF RFP). Runs in numbered rounds; new applicants start with an
-  interest form reviewed on a rolling basis, and selected teams complete
-  KYC/KYB.
+  The Stellar Community Fund's primary award, funding teams building on the Stellar network with up
+  to $150,000 in XLM per project across three tracks: Open (brand-new projects), Integration
+  (existing Stellar building blocks or teams with significant traction), and RFP (tooling/services
+  matching an open SCF RFP). Runs in numbered rounds; new applicants start with an interest form
+  reviewed on a rolling basis, and selected teams complete KYC/KYB.
 rounds:
   - name: "SCF #33 Build Award"
     status: deployed
@@ -33,8 +33,13 @@ rounds:
     source: https://medium.com/stellar-community/scf-39-round-recap-e211cdd5eb80
   - name: "SCF #41 Build Award"
     status: closed
-    closes: "2026-02-01"
+    closes: 2026-02-01
     source: https://communityfund.stellar.org/
+  - name: Public Goods Award Q2 2026
+    status: deployed
+    size: 17 projects funded
+    source: https://x.com/lumenloop/status/2073050770694435114
 sources:
   - https://communityfund.stellar.org/
   - https://medium.com/stellar-community/scf-39-round-recap-e211cdd5eb80
+  - https://x.com/lumenloop/status/2073050770694435114
