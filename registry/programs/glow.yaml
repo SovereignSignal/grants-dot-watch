@@ -1,0 +1,15 @@
+id: glow
+name: Glow
+org: xrpl-commons
+parent: null
+systems:
+  - xrpl
+wires:
+  - crypto
+status: active
+mechanism: retro
+apply_url: https://glow.xrpl-commons.org/
+summary: Community-voted retroactive funding for XRPL contributors, run by XRPL Commons since October 2025.
+rounds: []
+sources:
+  - https://glow.xrpl-commons.org/

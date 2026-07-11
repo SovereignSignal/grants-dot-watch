@@ -1,0 +1,16 @@
+id: youth-climate-justice-fund
+name: Youth Climate Justice Fund
+aka: []
+systems:
+  - climate
+wires:
+  - ai
+roles:
+  - funder
+website: https://ycjf.org/
+status: active
+profile: The Youth Climate Justice Fund makes grants to youth-led climate justice organizing. It is
+  a smaller, less-established funder than the registry's existing climate entries, so this candidate
+  is weaker and worth double-checking before promotion.
+sources:
+  - https://ycjf.org/how-to-apply

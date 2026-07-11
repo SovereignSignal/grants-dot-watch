@@ -1,0 +1,15 @@
+id: nasa-niac
+name: NASA Innovative Advanced Concepts (NIAC)
+org: nasa
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.nasa.gov/work-with-us/
+summary: NASA's phased grant program funding early-stage, high-risk aerospace and technology concepts.
+rounds: []
+sources:
+  - https://simpler.grants.gov/opportunity/ae5e8da1-f514-44cc-a388-b50fb9e9a505

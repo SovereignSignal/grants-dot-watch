@@ -1,0 +1,14 @@
+id: eic-accelerator
+name: EIC Accelerator
+org: european-innovation-council-eic
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
+summary: EIC Accelerator funds startups and SMEs with high-risk, high-impact deep-tech innovations,
+  combining a grant of up to EUR 2.5M with an optional equity investment component.
+rounds: []
+sources:
+  - https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en

@@ -1,0 +1,14 @@
+id: foundational-research-grants
+name: Foundational Research Grants
+org: center-for-security-and-emerging-technology-cset
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://cset.georgetown.edu/foundational-research-grants/
+summary: CSET's Foundational Research Grants program funds exploration of foundational technical
+  AI-safety-adjacent topics with national-security relevance.
+rounds: []
+sources:
+  - https://cset.georgetown.edu/foundational-research-grants/

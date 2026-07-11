@@ -1,0 +1,16 @@
+id: suihub-accelerator
+name: SuiHub Accelerator
+org: brinc
+parent: null
+systems:
+  - sui
+wires:
+  - crypto
+status: active
+mechanism: incubator
+apply_url: https://web.brinc.io/suihub-launches-global-accelerator-program-in-partnership-with-brinc-coinlist/
+summary: Milestone-based accelerator funding up to $200k/team for pre-token Sui projects, co-run by
+  Brinc and CoinList.
+rounds: []
+sources:
+  - https://cryptobriefing.com/suihub-accelerator-record-application/
