@@ -1,0 +1,191 @@
+[
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Novo Nordisk Foundation",
+  "title": "Sweep: Novo Nordisk Foundation \u2014 global-health funder",
+  "summary": "The Gates Foundation, Novo Nordisk Foundation, and Wellcome jointly launched a philanthropic partnership backing country-led research to evaluate AI tools that could improve health outcomes in low- and middle-income countries. The first call for proposals is open and focuses on mature AI tools that support clinical decision-making in primary and community health settings.",
+  "evidence_url": "https://wellcome.org/insights/articles/philanthropic-partnership-backs-country-led-research-guide-use-ai-health",
+  "proposed_change": {
+   "orgs/novo-nordisk-foundation.yaml": {
+    "id": "novo-nordisk-foundation",
+    "name": "Novo Nordisk Foundation",
+    "website": "https://novonordiskfonden.dk/en/",
+    "systems": [
+     "global-health"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Access Now",
+  "title": "Sweep: Access Now \u2014 internet-freedom funder",
+  "summary": "Access Now runs a grants program funding digital rights defenders, activists, and communities most at risk of digital rights violations online and offline. It also operates a Digital Security Helpline and rapid-response funding for people facing digital security emergencies.",
+  "evidence_url": "https://www.accessnow.org/grants/",
+  "proposed_change": {
+   "orgs/access-now.yaml": {
+    "id": "access-now",
+    "name": "Access Now",
+    "website": "https://www.accessnow.org/",
+    "systems": [
+     "internet-freedom"
+    ],
+    "wires": [
+     "oss"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 75,
+  "wire": "oss"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Japan Society for the Promotion of Science (JSPS)",
+  "title": "Sweep: Japan Society for the Promotion of Science (JSPS) \u2014 japan-public-rd funder",
+  "summary": "JSPS administers KAKENHI, Japan's Grants-in-Aid for Scientific Research program, one of the country's largest public competitive funding schemes covering basic and applied research across all fields. JST's own reference guide to Japanese government funding programs lists JSPS alongside JST and NEDO as a core public R&D funding agency available to international collaborators.",
+  "evidence_url": "https://www.jsps.go.jp/english/e-grants/",
+  "proposed_change": {
+   "orgs/japan-society-for-the-promotion-of-science-jsps.yaml": {
+    "id": "japan-society-for-the-promotion-of-science-jsps",
+    "name": "Japan Society for the Promotion of Science (JSPS)",
+    "website": "https://www.jsps.go.jp/english/",
+    "systems": [
+     "japan-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 75,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Japan Agency for Medical Research and Development (AMED)",
+  "title": "Sweep: Japan Agency for Medical Research and Development (AMED) \u2014 japan-public-rd funder",
+  "summary": "AMED is one of Japan's core public R&D funding agencies, named alongside JSPS and JST in JST's own reference list of Japanese government funding programs available to international applicants. It funds medical and health R&D, an area increasingly intersecting with AI-enabled biomedical research.",
+  "evidence_url": "https://www.jst.go.jp/inter/washington/docs/fundinglist_e.pdf",
+  "proposed_change": {
+   "orgs/japan-agency-for-medical-research-and-development-amed.yaml": {
+    "id": "japan-agency-for-medical-research-and-development-amed",
+    "name": "Japan Agency for Medical Research and Development (AMED)",
+    "website": "https://www.amed.go.jp/en/",
+    "systems": [
+     "japan-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 60,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Lambda",
+  "title": "Sweep: Lambda \u2014 open-source-ai funder",
+  "summary": "Lambda runs a Research Grant program that provides GPU compute credits to fund open AI research projects, the same compute-credit model used by other open-source AI funders like AI Grant. Lambda cites its grant program as having backed work such as an open-source text-to-video pretraining effort (Open-Sora).",
+  "evidence_url": "https://lambda.ai/research",
+  "proposed_change": {
+   "orgs/lambda.yaml": {
+    "id": "lambda",
+    "name": "Lambda",
+    "website": "https://lambda.ai/",
+    "systems": [
+     "open-source-ai"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 62,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Mode Network",
+  "title": "Sweep: Mode Network \u2014 optimism funder",
+  "summary": "Mode Network is an OP Stack layer-2 in the Optimism Superchain that shares 80% of sequencer revenue back to protocols and developers through its Sequencer Fee Share program, a funding channel distinct from Optimism Foundation grants. It also runs staking-based incentive programs where users direct a share of OP token rewards toward protocols they support.",
+  "evidence_url": "https://eco.com/support/en/articles/14798703-optimism-superchain-how-op-stack-works",
+  "proposed_change": {
+   "orgs/mode-network.yaml": {
+    "id": "mode-network",
+    "name": "Mode Network",
+    "website": "https://mode.network/",
+    "systems": [
+     "optimism"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 60,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "HeroDevs",
+  "title": "Sweep: HeroDevs \u2014 oss-sustainability funder",
+  "summary": "HeroDevs runs a $20 million Open Source Sustainability Fund that grants money to maintainers of open-source projects, with a particular focus on software that has reached end-of-life and lost official support. Maintainers can apply for grants, guidance, and ongoing support through the fund.",
+  "evidence_url": "https://www.herodevs.com/sustainability-fund",
+  "proposed_change": {
+   "orgs/herodevs.yaml": {
+    "id": "herodevs",
+    "name": "HeroDevs",
+    "website": "https://www.herodevs.com/",
+    "systems": [
+     "oss-sustainability"
+    ],
+    "wires": [
+     "oss"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 74,
+  "wire": "oss"
+ }
+]

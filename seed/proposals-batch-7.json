@@ -1,0 +1,429 @@
+[
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Center for Security and Emerging Technology (CSET)",
+  "title": "Sweep: Center for Security and Emerging Technology (CSET) \u2014 ai-safety funder",
+  "summary": "CSET, a Georgetown University policy research center, runs a Foundational Research Grants program funding exploration of foundational technical topics tied to the long-term national-security implications of AI. It sits alongside the other AI-safety grantmakers already tracked (Coefficient Giving, FLI, Schmidt Sciences) but is not itself in the registry.",
+  "evidence_url": "https://cset.georgetown.edu/foundational-research-grants/",
+  "proposed_change": {
+   "orgs/center-for-security-and-emerging-technology-cset.yaml": {
+    "id": "center-for-security-and-emerging-technology-cset",
+    "name": "Center for Security and Emerging Technology (CSET)",
+    "website": "https://cset.georgetown.edu/",
+    "systems": [
+     "ai-safety"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 75,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": null,
+  "org_name": "Center for Security and Emerging Technology (CSET)",
+  "program": "Foundational Research Grants",
+  "title": "Sweep: Center for Security and Emerging Technology (CSET) \u2014 Foundational Research Grants (ai-safety)",
+  "summary": "CSET's Foundational Research Grants program funds exploration of foundational technical AI-safety-adjacent topics with national-security relevance.",
+  "evidence_url": "https://cset.georgetown.edu/foundational-research-grants/",
+  "proposed_change": {
+   "programs/foundational-research-grants.yaml": {
+    "id": "foundational-research-grants",
+    "name": "Foundational Research Grants",
+    "apply_url": "https://cset.georgetown.edu/foundational-research-grants/",
+    "org": "center-for-security-and-emerging-technology-cset"
+   }
+  },
+  "confidence": 75,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "AI Risk Mitigation Fund (ARM Fund)",
+  "title": "Sweep: AI Risk Mitigation Fund (ARM Fund) \u2014 ai-safety funder",
+  "summary": "The AI Risk Mitigation Fund is a nonprofit that makes grants toward technical AI-alignment research, AI policy work, and training programs for new researchers, aiming to reduce catastrophic risk from advanced AI. It is a smaller, newer entrant alongside the larger AI-safety funders already tracked in the registry.",
+  "evidence_url": "https://www.airiskfund.com/",
+  "proposed_change": {
+   "orgs/ai-risk-mitigation-fund-arm-fund.yaml": {
+    "id": "ai-risk-mitigation-fund-arm-fund",
+    "name": "AI Risk Mitigation Fund (ARM Fund)",
+    "website": "https://www.airiskfund.com/",
+    "systems": [
+     "ai-safety"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Alchemy",
+  "title": "Sweep: Alchemy \u2014 arbitrum funder",
+  "summary": "Alchemy, a Web3 developer-infrastructure company, runs an Arbitrum-specific grant offering up to $500,000 in platform credits per team building on Arbitrum Orbit chains. It is a multi-chain infra provider rather than a pure grants foundation, so confidence is moderate.",
+  "evidence_url": "https://www.alchemy.com/arbitrum-grant",
+  "proposed_change": {
+   "orgs/alchemy.yaml": {
+    "id": "alchemy",
+    "name": "Alchemy",
+    "website": "https://www.alchemy.com/",
+    "systems": [
+     "arbitrum"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 62,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": null,
+  "org_name": "Alchemy",
+  "program": "Alchemy + Arbitrum Grant",
+  "title": "Sweep: Alchemy \u2014 Alchemy + Arbitrum Grant (arbitrum)",
+  "summary": "Alchemy offers up to $500K in infrastructure credits, first-come-first-served, to teams building Orbit chains on Arbitrum.",
+  "evidence_url": "https://www.alchemy.com/arbitrum-grant",
+  "proposed_change": {
+   "programs/alchemy-arbitrum-grant.yaml": {
+    "id": "alchemy-arbitrum-grant",
+    "name": "Alchemy + Arbitrum Grant",
+    "apply_url": "https://www.alchemy.com/arbitrum-grant",
+    "org": "alchemy"
+   }
+  },
+  "confidence": 62,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Arbitrum Gaming Ventures",
+  "title": "Sweep: Arbitrum Gaming Ventures \u2014 arbitrum funder",
+  "summary": "Arbitrum Gaming Ventures is an investment vehicle seeded via Arbitrum DAO's Gaming Catalyst Program, backing teams building blockchain games on Arbitrum; it announced a $10M first cohort of investments. It is equity/investment-style funding rather than classic non-dilutive grants, and appears to be an Arbitrum Foundation/DAO-affiliated offshoot rather than a fully independent funder, so treat this one with more scrutiny.",
+  "evidence_url": "https://arbitrumgamingventures.com/",
+  "proposed_change": {
+   "orgs/arbitrum-gaming-ventures.yaml": {
+    "id": "arbitrum-gaming-ventures",
+    "name": "Arbitrum Gaming Ventures",
+    "website": "https://arbitrumgamingventures.com/",
+    "systems": [
+     "arbitrum"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 55,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Intersect (Intersect MBO)",
+  "title": "Sweep: Intersect (Intersect MBO) \u2014 cardano funder",
+  "summary": "Intersect is the member-based organization now stewarding Cardano protocol development and coordinating the community budget process, including facilitating Project Catalyst / on-chain treasury withdrawal proposals. The registry's own cardano.yaml system note names Intersect as one of the ecosystem's core funding bodies, but it has no org entry yet.",
+  "evidence_url": "https://www.intersectmbo.org/governance",
+  "proposed_change": {
+   "orgs/intersect-intersect-mbo.yaml": {
+    "id": "intersect-intersect-mbo",
+    "name": "Intersect (Intersect MBO)",
+    "website": "https://www.intersectmbo.org/",
+    "systems": [
+     "cardano"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 85,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": null,
+  "org_name": "Intersect (Intersect MBO)",
+  "program": "Project Catalyst",
+  "title": "Sweep: Intersect (Intersect MBO) \u2014 Project Catalyst (cardano)",
+  "summary": "Project Catalyst is Cardano's on-chain treasury funding system, which has distributed over $150M in ada to community-proposed projects since 2020 through recurring quarterly rounds; stewardship of the fund has shifted to Intersect.",
+  "evidence_url": "https://projectcatalyst.io/",
+  "proposed_change": {
+   "programs/project-catalyst.yaml": {
+    "id": "project-catalyst",
+    "name": "Project Catalyst",
+    "apply_url": "https://projectcatalyst.io/",
+    "org": "intersect-intersect-mbo"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "EMURGO",
+  "title": "Sweep: EMURGO \u2014 cardano funder",
+  "summary": "EMURGO is one of Cardano's three founding entities; it invests in and funds Web3/blockchain startups building on Cardano through vehicles like a $100M ecosystem investment fund and regional programs such as EMURGO Africa's accelerator and hackathon grants.",
+  "evidence_url": "https://www.emurgo.io/press-news/how-cardano-founding-entity-emurgo-invests-for-cardano/",
+  "proposed_change": {
+   "orgs/emurgo.yaml": {
+    "id": "emurgo",
+    "name": "EMURGO",
+    "website": "https://www.emurgo.io/",
+    "systems": [
+     "cardano"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 75,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Green Climate Fund",
+  "title": "Sweep: Green Climate Fund \u2014 climate funder",
+  "summary": "The Green Climate Fund is the world's largest dedicated climate fund, established under the UN climate framework to invest in low-emission, climate-resilient projects in developing countries. It is a major international funder not yet tracked under the registry's climate domain.",
+  "evidence_url": "https://www.greenclimate.fund/",
+  "proposed_change": {
+   "orgs/green-climate-fund.yaml": {
+    "id": "green-climate-fund",
+    "name": "Green Climate Fund",
+    "website": "https://www.greenclimate.fund/",
+    "systems": [
+     "climate"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Giving Green Fund",
+  "title": "Sweep: Giving Green Fund \u2014 climate funder",
+  "summary": "Giving Green Fund pools donor money and regrants it to vetted climate nonprofits working on clean energy and industrial decarbonization; it announced $1.94M in grants in February 2026. It operates in the same effective-giving-adjacent lane as other funds the registry already tracks.",
+  "evidence_url": "https://www.givinggreen.earth/post/giving-green-fund-announces-1-94m-in-february-2026-grants-for-clean-energy-and-industrial-decarbonization",
+  "proposed_change": {
+   "orgs/giving-green-fund.yaml": {
+    "id": "giving-green-fund",
+    "name": "Giving Green Fund",
+    "website": "https://www.givinggreen.earth/",
+    "systems": [
+     "climate"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Youth Climate Justice Fund",
+  "title": "Sweep: Youth Climate Justice Fund \u2014 climate funder",
+  "summary": "The Youth Climate Justice Fund makes grants to youth-led climate justice organizing. It is a smaller, less-established funder than the registry's existing climate entries, so this candidate is weaker and worth double-checking before promotion.",
+  "evidence_url": "https://ycjf.org/how-to-apply",
+  "proposed_change": {
+   "orgs/youth-climate-justice-fund.yaml": {
+    "id": "youth-climate-justice-fund",
+    "name": "Youth Climate Justice Fund",
+    "website": "https://ycjf.org/",
+    "systems": [
+     "climate"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 55,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Climate Resilience Fund",
+  "title": "Sweep: Climate Resilience Fund \u2014 climate funder",
+  "summary": "The Climate Resilience Fund supports community climate-resilience work in the US, building on tools like NOAA's Climate Program Office resilience toolkit. Evidence of a formal, sizeable grants program is thinner than for the other climate candidates in this batch, so flag for extra scrutiny.",
+  "evidence_url": "https://www.climateresiliencefund.org/",
+  "proposed_change": {
+   "orgs/climate-resilience-fund.yaml": {
+    "id": "climate-resilience-fund",
+    "name": "Climate Resilience Fund",
+    "website": "https://www.climateresiliencefund.org/",
+    "systems": [
+     "climate"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 55,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "European Research Council (ERC)",
+  "title": "Sweep: European Research Council (ERC) \u2014 eu-public-rd funder",
+  "summary": "The European Research Council is the EU's flagship basic-research funder, awarding Starting, Consolidator, Advanced, Synergy, and Proof-of-Concept grants to researchers across all fields, including AI. It operates within Horizon Europe but has its own identity, governance, and website distinct from the generic Horizon Europe entry already tracked.",
+  "evidence_url": "https://erc.europa.eu/homepage",
+  "proposed_change": {
+   "orgs/european-research-council-erc.yaml": {
+    "id": "european-research-council-erc",
+    "name": "European Research Council (ERC)",
+    "website": "https://erc.europa.eu/",
+    "systems": [
+     "eu-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "European Innovation Council (EIC)",
+  "title": "Sweep: European Innovation Council (EIC) \u2014 eu-public-rd funder",
+  "summary": "The European Innovation Council funds breakthrough, high-risk deep-tech innovation through instruments like EIC Pathfinder (research grants), EIC Transition (market-readiness grants), and EIC Accelerator (grant plus equity investment for startups/SMEs). Like the ERC, it runs under the Horizon Europe umbrella but is a distinct funding body not yet tracked.",
+  "evidence_url": "https://eic.ec.europa.eu/eic-funding-opportunities_en",
+  "proposed_change": {
+   "orgs/european-innovation-council-eic.yaml": {
+    "id": "european-innovation-council-eic",
+    "name": "European Innovation Council (EIC)",
+    "website": "https://eic.ec.europa.eu/",
+    "systems": [
+     "eu-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 72,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": null,
+  "org_name": "European Innovation Council (EIC)",
+  "program": "EIC Accelerator",
+  "title": "Sweep: European Innovation Council (EIC) \u2014 EIC Accelerator (eu-public-rd)",
+  "summary": "EIC Accelerator funds startups and SMEs with high-risk, high-impact deep-tech innovations, combining a grant of up to EUR 2.5M with an optional equity investment component.",
+  "evidence_url": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en",
+  "proposed_change": {
+   "programs/eic-accelerator.yaml": {
+    "id": "eic-accelerator",
+    "name": "EIC Accelerator",
+    "apply_url": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en",
+    "org": "european-innovation-council-eic"
+   }
+  },
+  "confidence": 72,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Filecoin Foundation for the Decentralized Web (FFDW)",
+  "title": "Sweep: Filecoin Foundation for the Decentralized Web (FFDW) \u2014 filecoin funder",
+  "summary": "FFDW is a separate 501(c)(3) nonprofit from Filecoin Foundation that has awarded roughly $23M across 20 grants to open-source/decentralized-web and journalism-infrastructure projects (e.g. Freedom of the Press Foundation's SecureDrop). It is closely related in branding to the already-tracked Filecoin Foundation but is a legally distinct funder, and recent public activity looks slower than 2020-2023, so verify it's still actively granting before promoting.",
+  "evidence_url": "https://ffdweb.org/",
+  "proposed_change": {
+   "orgs/filecoin-foundation-for-the-decentralized-web-ffdw.yaml": {
+    "id": "filecoin-foundation-for-the-decentralized-web-ffdw",
+    "name": "Filecoin Foundation for the Decentralized Web (FFDW)",
+    "website": "https://ffdweb.org/",
+    "systems": [
+     "filecoin"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 58,
+  "wire": "crypto"
+ }
+]

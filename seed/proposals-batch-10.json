@@ -1,0 +1,1282 @@
+[
+ {
+  "type": "new_program",
+  "org": "aave",
+  "org_name": "Aave",
+  "program": "Aave Grants DAO",
+  "title": "Sweep: Aave Grants DAO (aave)",
+  "summary": "Aave Grants DAO is Aave's grant-making arm, organizing grant recipients into three-month funding rounds through its own application portal (aavegrants.org) rather than a page on aave.com itself.",
+  "evidence_url": "https://aavegrants.org/",
+  "proposed_change": {
+   "programs/aave-grants-dao.yaml": {
+    "id": "aave-grants-dao",
+    "name": "Aave Grants DAO",
+    "org": "aave",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ],
+    "apply_url": "https://aavegrants.org/"
+   }
+  },
+  "confidence": 82,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "acquia-fair-trade-initiative",
+  "org_name": "Acquia Fair Trade Initiative",
+  "program": "Acquia Fair Trade Initiative",
+  "title": "Sweep: Acquia Fair Trade Initiative (acquia-fair-trade-initiative)",
+  "summary": "Acquia commits 2% of every closed eligible partner deal to the Drupal Association, credited in the partner's name, as an automatic structural funding commitment with no separate grant application process.",
+  "evidence_url": "https://www.acquia.com/partners/fair-trade-initiative",
+  "proposed_change": {
+   "programs/acquia-fair-trade-initiative.yaml": {
+    "id": "acquia-fair-trade-initiative",
+    "name": "Acquia Fair Trade Initiative",
+    "org": "acquia-fair-trade-initiative",
+    "mechanism": "other",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ]
+   }
+  },
+  "confidence": 80,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "aethir-ecosystem-fund",
+  "org_name": "Aethir Ecosystem Fund",
+  "program": "Aethir Ecosystem Fund",
+  "title": "Sweep: Aethir Ecosystem Fund (aethir-ecosystem-fund)",
+  "summary": "Aethir's $100 million Ecosystem Fund backs AI and gaming projects building on Aethir's decentralized cloud infrastructure, with applications submitted through an online form.",
+  "evidence_url": "https://aethir.com/ecosystem-fund",
+  "proposed_change": {
+   "programs/aethir-ecosystem-fund.yaml": {
+    "id": "aethir-ecosystem-fund",
+    "name": "Aethir Ecosystem Fund",
+    "org": "aethir-ecosystem-fund",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "apply_url": "https://share.hsforms.com/1pUR3bv2jSyiKE3CwvpaxNAq8ovb"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "amazon-research-awards-amazon-science",
+  "org_name": "Amazon Research Awards (amazon.science)",
+  "program": "Amazon Research Awards",
+  "title": "Sweep: Amazon Research Awards (amazon-research-awards-amazon-science)",
+  "summary": "Amazon Research Awards give university researchers up to $100,000 in unrestricted funds plus up to $50,000 in AWS Promotional Credits, awarded across periodic calls for proposals.",
+  "evidence_url": "https://www.amazon.science/research-awards",
+  "proposed_change": {
+   "programs/amazon-research-awards.yaml": {
+    "id": "amazon-research-awards",
+    "name": "Amazon Research Awards",
+    "org": "amazon-research-awards-amazon-science",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "apply_url": "https://www.amazon.science/research-awards"
+   }
+  },
+  "confidence": 82,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "apple-scholars-in-ai-ml",
+  "org_name": "Apple Scholars in AI/ML",
+  "program": "Apple Scholars in AI/ML",
+  "title": "Sweep: Apple Scholars in AI/ML (apple-scholars-in-ai-ml)",
+  "summary": "Apple Scholars in AI/ML is a PhD fellowship providing roughly two years of stipend, tuition coverage, a travel grant, and mentorship to doctoral students in AI/ML fields nominated by partner universities.",
+  "evidence_url": "https://machinelearning.apple.com/updates/apple-scholars-aiml-2026",
+  "proposed_change": {
+   "programs/apple-scholars-in-ai-ml.yaml": {
+    "id": "apple-scholars-in-ai-ml",
+    "name": "Apple Scholars in AI/ML",
+    "org": "apple-scholars-in-ai-ml",
+    "mechanism": "fellowship",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 82,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "astralis-foundation",
+  "org_name": "Astralis Foundation",
+  "program": "Shared Horizons Fund",
+  "title": "Sweep: Shared Horizons Fund (astralis-foundation)",
+  "summary": "Astralis Foundation operates the Shared Horizons Fund, a multi-funder vehicle for AI safety grantmaking led by Senior Advisor Tim Shavers; sourced from a specialist longtermist tracking wiki rather than Astralis's own site, so should be verified before promotion.",
+  "evidence_url": "https://www.longtermwiki.com/wiki/E702",
+  "proposed_change": {
+   "programs/shared-horizons-fund.yaml": {
+    "id": "shared-horizons-fund",
+    "name": "Shared Horizons Fund",
+    "org": "astralis-foundation",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 60,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "barda-biomedical-advanced-research-and-development-authority",
+  "org_name": "BARDA (Biomedical Advanced Research and Development Authority)",
+  "program": "BARDA DRIVe (EZ-BAA)",
+  "title": "Sweep: BARDA DRIVe (EZ-BAA) (barda-biomedical-advanced-research-and-development-authority)",
+  "summary": "BARDA's DRIVe division runs EZ-BAA, a rolling funding mechanism partnering with early-stage companies on health-security innovations; DRIVe's partnering approaches vary by project.",
+  "evidence_url": "https://drive.hhs.gov/ezbaa.html",
+  "proposed_change": {
+   "programs/barda-drive-ez-baa.yaml": {
+    "id": "barda-drive-ez-baa",
+    "name": "BARDA DRIVe (EZ-BAA)",
+    "org": "barda-biomedical-advanced-research-and-development-authority",
+    "mechanism": "rfp",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "us-federal-rd"
+    ]
+   }
+  },
+  "confidence": 70,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "barda-biomedical-advanced-research-and-development-authority",
+  "org_name": "BARDA (Biomedical Advanced Research and Development Authority)",
+  "program": "BARDA Accelerator Network",
+  "title": "Sweep: BARDA Accelerator Network (barda-biomedical-advanced-research-and-development-authority)",
+  "summary": "The BARDA Accelerator Network offers proof-of-concept funding opportunities year-round with rolling application submissions and priority deadlines, part of BARDA's DRIVe partnering approach for health-security innovation.",
+  "evidence_url": "https://drive.hhs.gov/partner.html",
+  "proposed_change": {
+   "programs/barda-accelerator-network.yaml": {
+    "id": "barda-accelerator-network",
+    "name": "BARDA Accelerator Network",
+    "org": "barda-biomedical-advanced-research-and-development-authority",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "us-federal-rd"
+    ]
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "base-coinbase",
+  "org_name": "Base (Coinbase)",
+  "program": "Base Builder Grants",
+  "title": "Sweep: Base Builder Grants (base-coinbase)",
+  "summary": "Base runs its own retroactive Builder Grants (1-5 ETH per shipped project, 20+ cohorts since 2024) for developers shipping live on the Base mainnet; note this is distinct from Coinbase Developer Platform's separately-registered CDP Builder Grants program, so check for overlap before promoting.",
+  "evidence_url": "https://www.coinfabrik.com/web3-grants/base-grants/",
+  "proposed_change": {
+   "programs/base-builder-grants.yaml": {
+    "id": "base-builder-grants",
+    "name": "Base Builder Grants",
+    "org": "base-coinbase",
+    "mechanism": "retro",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ],
+    "apply_url": "https://docs.base.org/get-started/get-funded"
+   }
+  },
+  "confidence": 62,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "cepi-coalition-for-epidemic-preparedness-innovations",
+  "org_name": "CEPI (Coalition for Epidemic Preparedness Innovations)",
+  "program": "CEPI Calls for Proposals",
+  "title": "Sweep: CEPI Calls for Proposals (cepi-coalition-for-epidemic-preparedness-innovations)",
+  "summary": "CEPI's Calls for Proposals invite vaccine and biosecurity innovators worldwide to apply to its scientific programs, funding R&D across a diverse portfolio of vaccine candidates against epidemic threats.",
+  "evidence_url": "https://cepi.net/calls-for-proposals",
+  "proposed_change": {
+   "programs/cepi-calls-for-proposals.yaml": {
+    "id": "cepi-calls-for-proposals",
+    "name": "CEPI Calls for Proposals",
+    "org": "cepi-coalition-for-epidemic-preparedness-innovations",
+    "mechanism": "rfp",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "global-health"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "cisco-foundation",
+  "org_name": "Cisco Foundation",
+  "program": "Global Impact Cash Grant Program",
+  "title": "Sweep: Global Impact Cash Grant Program (cisco-foundation)",
+  "summary": "Cisco's Global Impact Cash Grant Program funds community partners worldwide via an online grants management portal, with Cisco also connecting recipients to pro-bono strategic and technical advisory services.",
+  "evidence_url": "https://www.cisco.com/site/us/en/about/purpose/community-resilience/social-impact-investments/global-impact-cash-grants.html",
+  "proposed_change": {
+   "programs/global-impact-cash-grant-program.yaml": {
+    "id": "global-impact-cash-grant-program",
+    "name": "Global Impact Cash Grant Program",
+    "org": "cisco-foundation",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "co-impact",
+  "org_name": "Co-Impact",
+  "program": "Foundational Fund",
+  "title": "Sweep: Foundational Fund (co-impact)",
+  "summary": "Co-Impact's Foundational Fund supports efforts to deliver lasting change to health, education, and economic systems across Africa, Asia, and Latin America, and to advance gender equality.",
+  "evidence_url": "https://co-impact.org/about-us/what-we-fund/",
+  "proposed_change": {
+   "programs/foundational-fund.yaml": {
+    "id": "foundational-fund",
+    "name": "Foundational Fund",
+    "org": "co-impact",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 74,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "coefficient-giving",
+  "org_name": "Coefficient Giving",
+  "program": "Global Catastrophic Risks Opportunities Fund",
+  "title": "Sweep: Global Catastrophic Risks Opportunities Fund (coefficient-giving)",
+  "summary": "Coefficient Giving (formerly Open Philanthropy) runs a Global Catastrophic Risks Opportunities Fund as one of several open-application funds, alongside Global Health and Wellbeing, Farm Animal Welfare, and Effective Giving & Careers funds.",
+  "evidence_url": "https://coefficientgiving.org/apply-for-funding/",
+  "proposed_change": {
+   "programs/global-catastrophic-risks-opportunities-fund.yaml": {
+    "id": "global-catastrophic-risks-opportunities-fund",
+    "name": "Global Catastrophic Risks Opportunities Fund",
+    "org": "coefficient-giving",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "ai-safety"
+    ]
+   }
+  },
+  "confidence": 76,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "deep-funding",
+  "org_name": "Deep Funding",
+  "program": "Deep Funding (AI-PGF)",
+  "title": "Sweep: Deep Funding (AI-PGF) (deep-funding)",
+  "summary": "Deep Funding is listed on Gitcoin as an AI public-goods-funding mechanism; the org's own profile independently confirms it runs milestone-based grants, RFPs, and hackathons for decentralized-AI builders, consistent with this citation.",
+  "evidence_url": "https://gitcoin.co/mechanisms/deep-funding",
+  "proposed_change": {
+   "programs/deep-funding-ai-pgf.yaml": {
+    "id": "deep-funding-ai-pgf",
+    "name": "Deep Funding (AI-PGF)",
+    "org": "deep-funding",
+    "mechanism": "rfp",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "apply_url": "https://deepfunding.ai/"
+   }
+  },
+  "confidence": 62,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "digital-freedom-fund",
+  "org_name": "Digital Freedom Fund",
+  "program": "Digital Freedom Fund Grants",
+  "title": "Sweep: Digital Freedom Fund Grants (digital-freedom-fund)",
+  "summary": "The Digital Freedom Fund funds three types of activity \u2014 litigation, pre-litigation, and post-litigation \u2014 advancing digital rights through strategic litigation in Europe, with open calls reviewed by community peers.",
+  "evidence_url": "https://digitalfreedomfund.org/grants/",
+  "proposed_change": {
+   "programs/digital-freedom-fund-grants.yaml": {
+    "id": "digital-freedom-fund-grants",
+    "name": "Digital Freedom Fund Grants",
+    "org": "digital-freedom-fund",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "internet-freedom"
+    ],
+    "apply_url": "https://digitalfreedomfund.org/grants/"
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "floss-fund",
+  "org_name": "FLOSS/fund",
+  "program": "FLOSS/fund",
+  "title": "Sweep: FLOSS/fund (floss-fund)",
+  "summary": "FLOSS/fund provides roughly $1M per year to free and open source projects; applicants create a funding.json manifest in their repo and apply through its public directory.",
+  "evidence_url": "https://floss.fund/",
+  "proposed_change": {
+   "programs/floss-fund.yaml": {
+    "id": "floss-fund",
+    "name": "FLOSS/fund",
+    "org": "floss-fund",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ],
+    "apply_url": "https://dir.floss.fund/submit"
+   }
+  },
+  "confidence": 82,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "foss-united",
+  "org_name": "FOSS United",
+  "program": "FOSS United Grants",
+  "title": "Sweep: FOSS United Grants (foss-united)",
+  "summary": "FOSS United Foundation runs a grants program (a 25-lakh INR budget as of 2025) for FOSS projects and developers in India, covering both event grants and project grants via an online application.",
+  "evidence_url": "https://fossunited.org/grants",
+  "proposed_change": {
+   "programs/foss-united-grants.yaml": {
+    "id": "foss-united-grants",
+    "name": "FOSS United Grants",
+    "org": "foss-united",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ],
+    "apply_url": "https://fossunited.org/grants/apply/new"
+   }
+  },
+  "confidence": 78,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "givewell",
+  "org_name": "GiveWell",
+  "program": "All Grants Fund",
+  "title": "Sweep: All Grants Fund (givewell)",
+  "summary": "GiveWell's All Grants Fund lets donors support the full range of GiveWell's grantmaking in global health and well-being, including incubating newer programs alongside its top charities.",
+  "evidence_url": "https://www.givewell.org/all-grants-fund",
+  "proposed_change": {
+   "programs/all-grants-fund.yaml": {
+    "id": "all-grants-fund",
+    "name": "All Grants Fund",
+    "org": "givewell",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 75,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "global-innovation-fund-gif",
+  "org_name": "Global Innovation Fund",
+  "program": "Global Innovation Fund",
+  "title": "Sweep: Global Innovation Fund (global-innovation-fund-gif)",
+  "summary": "The Global Innovation Fund is a non-profit, impact-first investment fund that funds social innovations improving the lives of underserved and vulnerable people, with an open application for funding.",
+  "evidence_url": "https://www.globalinnovation.fund/apply-for-funding",
+  "proposed_change": {
+   "programs/global-innovation-fund.yaml": {
+    "id": "global-innovation-fund",
+    "name": "Global Innovation Fund",
+    "org": "global-innovation-fund-gif",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 72,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "gooddollar",
+  "org_name": "GoodDollar",
+  "program": "Prosperity Grants Program",
+  "title": "Sweep: Prosperity Grants Program (gooddollar)",
+  "summary": "GoodDollar's Prosperity Grants Program funds projects that bridge the economic wealth gap through financial access, inclusivity, and education, and is now officially accepting applications.",
+  "evidence_url": "https://medium.com/gooddollar/announcing-the-official-launch-of-the-prosperity-grants-program-1b446cfcf558",
+  "proposed_change": {
+   "programs/prosperity-grants-program.yaml": {
+    "id": "prosperity-grants-program",
+    "name": "Prosperity Grants Program",
+    "org": "gooddollar",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "web3-public-goods"
+    ]
+   }
+  },
+  "confidence": 70,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "google-academic-research-awards",
+  "org_name": "Google Academic Research Awards",
+  "program": "Google Academic Research Awards",
+  "title": "Sweep: Google Academic Research Awards (google-academic-research-awards)",
+  "summary": "Google Academic Research Awards fund academic researchers advising students and conducting technology and computing research, through periodic nomination-based calls for proposals.",
+  "evidence_url": "https://research.google/programs-and-events/google-academic-research-awards/",
+  "proposed_change": {
+   "programs/google-academic-research-awards.yaml": {
+    "id": "google-academic-research-awards",
+    "name": "Google Academic Research Awards",
+    "org": "google-academic-research-awards",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 80,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "graph-foundation",
+  "org_name": "Graph Foundation",
+  "program": "The Graph Grants Program",
+  "title": "Sweep: The Graph Grants Program (graph-foundation)",
+  "summary": "The Graph Foundation runs Grants & RFPs for developers and teams contributing to protocol, tooling, subgraph, and dApp development across the Web3 ecosystem, alongside open requests for proposals from core contributors.",
+  "evidence_url": "https://thegraph.com/grants/",
+  "proposed_change": {
+   "programs/the-graph-grants-program.yaml": {
+    "id": "the-graph-grants-program",
+    "name": "The Graph Grants Program",
+    "org": "graph-foundation",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ]
+   }
+  },
+  "confidence": 74,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "interchain-foundation",
+  "org_name": "Interchain Foundation",
+  "program": "ICF Funding Program",
+  "title": "Sweep: ICF Funding Program (interchain-foundation)",
+  "summary": "The Interchain Foundation's Funding Program supports development of open-source decentralized networks across the Cosmos ecosystem, run alongside a separately restarted Grants Program for a wider range of organizations.",
+  "evidence_url": "https://github.com/interchainio/funding",
+  "proposed_change": {
+   "programs/icf-funding-program.yaml": {
+    "id": "icf-funding-program",
+    "name": "ICF Funding Program",
+    "org": "interchain-foundation",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 74,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "lido",
+  "org_name": "Lido",
+  "program": "LEGO (Lido Ecosystem Grants Organization)",
+  "title": "Sweep: LEGO (Lido Ecosystem Grants Organization) (lido)",
+  "summary": "LEGO (Lido Ecosystem Grants Organization) funds individuals, projects, and initiatives that benefit the Lido protocol and the broader blockchain space.",
+  "evidence_url": "https://lido.fi/lego",
+  "proposed_change": {
+   "programs/lego-lido-ecosystem-grants-organization.yaml": {
+    "id": "lego-lido-ecosystem-grants-organization",
+    "name": "LEGO (Lido Ecosystem Grants Organization)",
+    "org": "lido",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ],
+    "apply_url": "https://lido.fi/lego"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "linea-consensys",
+  "org_name": "Linea (ConsenSys)",
+  "program": "Linea Ecosystem Investment Alliance (EIA)",
+  "title": "Sweep: Linea Ecosystem Investment Alliance (EIA) (linea-consensys)",
+  "summary": "ConsenSys launched the Linea Ecosystem Investment Alliance with 30+ venture capital firms to support builders on Linea, announced alongside Linea's mainnet launch and separate developer grants.",
+  "evidence_url": "https://consensys.io/blog/consensys-launches-linea-mainnet",
+  "proposed_change": {
+   "programs/linea-ecosystem-investment-alliance-eia.yaml": {
+    "id": "linea-ecosystem-investment-alliance-eia",
+    "name": "Linea Ecosystem Investment Alliance (EIA)",
+    "org": "linea-consensys",
+    "mechanism": "incubator",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ]
+   }
+  },
+  "confidence": 62,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "open-source-endowment",
+  "org_name": "Open Source Endowment",
+  "program": "Open Source Endowment",
+  "title": "Sweep: Open Source Endowment (open-source-endowment)",
+  "summary": "The Open Source Endowment is billed as the first endowment fund dedicated to sustainably funding open source projects, investing donations in a low-risk portfolio and disbursing only investment income as grants, starting with roughly $5,000 microgrants.",
+  "evidence_url": "https://endowment.dev/",
+  "proposed_change": {
+   "programs/open-source-endowment.yaml": {
+    "id": "open-source-endowment",
+    "name": "Open Source Endowment",
+    "org": "open-source-endowment",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ]
+   }
+  },
+  "confidence": 76,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "silicon-catalyst",
+  "org_name": "Silicon Catalyst",
+  "program": "Silicon Catalyst Incubator",
+  "title": "Sweep: Silicon Catalyst Incubator (silicon-catalyst)",
+  "summary": "Silicon Catalyst bills itself as the semiconductor industry's first incubator, providing in-kind partner resources, mentorship, and investor access; its portfolio companies have received over $100M in grants.",
+  "evidence_url": "https://siliconcatalyst.com/",
+  "proposed_change": {
+   "programs/silicon-catalyst-incubator.yaml": {
+    "id": "silicon-catalyst-incubator",
+    "name": "Silicon Catalyst Incubator",
+    "org": "silicon-catalyst",
+    "mechanism": "incubator",
+    "status": "active",
+    "apply_url": "https://siliconcatalyst.com/application"
+   }
+  },
+  "confidence": 72,
+  "wire": null
+ },
+ {
+  "type": "new_program",
+  "org": "stripe-climate",
+  "org_name": "Stripe Climate",
+  "program": "Stripe Climate",
+  "title": "Sweep: Stripe Climate (stripe-climate)",
+  "summary": "Stripe Climate lets businesses of any size fund frontier carbon removal by directing a share of revenue to Stripe's portfolio of carbon-removal purchases.",
+  "evidence_url": "https://stripe.com/climate",
+  "proposed_change": {
+   "programs/stripe-climate.yaml": {
+    "id": "stripe-climate",
+    "name": "Stripe Climate",
+    "org": "stripe-climate",
+    "mechanism": "other",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "climate"
+    ]
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "ai-boost",
+  "org_name": "AI-BOOST",
+  "program": "AI-BOOST AI Challenge Competition",
+  "title": "Sweep: AI-BOOST AI Challenge Competition (ai-boost)",
+  "summary": "AI-BOOST's AI Challenge Competition is an open competition with a \u20ac100,000 prize pool across four generative AI challenges, part of a European AI ecosystem-building project.",
+  "evidence_url": "https://aiboost-project.eu/",
+  "proposed_change": {
+   "programs/ai-boost-ai-challenge-competition.yaml": {
+    "id": "ai-boost-ai-challenge-competition",
+    "name": "AI-BOOST AI Challenge Competition",
+    "org": "ai-boost",
+    "mechanism": "prize",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 70,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "algorand-foundation",
+  "org_name": "Algorand Foundation",
+  "program": "Algorand Foundation Grants Program",
+  "title": "Sweep: Algorand Foundation Grants Program (algorand-foundation)",
+  "summary": "The Algorand Foundation's Grants Program is a broad, multi-year, worldwide program funding projects that grow the Algorand ecosystem, launched with a 250-million ALGO commitment.",
+  "evidence_url": "https://grantedai.com/grants/algorand-foundation-grants-program-algorand-foundation-86e87521",
+  "proposed_change": {
+   "programs/algorand-foundation-grants-program.yaml": {
+    "id": "algorand-foundation-grants-program",
+    "name": "Algorand Foundation Grants Program",
+    "org": "algorand-foundation",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 68,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "algorand-xgov",
+  "org_name": "Algorand xGov",
+  "program": "Algorand xGov",
+  "title": "Sweep: Algorand xGov (algorand-xgov)",
+  "summary": "Algorand xGov is a decentralized, on-chain platform where xGov council members analyze community grant proposals and vote to select which ones receive funding.",
+  "evidence_url": "https://xgov.algorand.co/",
+  "proposed_change": {
+   "programs/algorand-xgov.yaml": {
+    "id": "algorand-xgov",
+    "name": "Algorand xGov",
+    "org": "algorand-xgov",
+    "mechanism": "other",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 76,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "amateur-radio-digital-communications",
+  "org_name": "Amateur Radio Digital Communications",
+  "program": "ARDC Grants",
+  "title": "Sweep: ARDC Grants (amateur-radio-digital-communications)",
+  "summary": "ARDC (Amateur Radio Digital Communications) funds projects that advance amateur radio, digital communications, and related technologies through an open grants application process, with awards announced annually.",
+  "evidence_url": "https://www.ardc.net/apply/",
+  "proposed_change": {
+   "programs/ardc-grants.yaml": {
+    "id": "ardc-grants",
+    "name": "ARDC Grants",
+    "org": "amateur-radio-digital-communications",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "apply_url": "https://www.ardc.net/apply/"
+   }
+  },
+  "confidence": 78,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "apereo-foundation",
+  "org_name": "Apereo Foundation",
+  "program": "Dolphin Awards and Fellowships",
+  "title": "Sweep: Dolphin Awards and Fellowships (apereo-foundation)",
+  "summary": "Apereo Foundation's Dolphin Awards and Fellowships recognize and fund teaching-and-learning work built on open source education software, including a Dolphin Fellows track.",
+  "evidence_url": "http://www.apereo.org/programs/dolphin-awards",
+  "proposed_change": {
+   "programs/dolphin-awards-and-fellowships.yaml": {
+    "id": "dolphin-awards-and-fellowships",
+    "name": "Dolphin Awards and Fellowships",
+    "org": "apereo-foundation",
+    "mechanism": "fellowship",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ]
+   }
+  },
+  "confidence": 66,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "arc-institute",
+  "org_name": "Arc Institute",
+  "program": "Arc Ignite Awards",
+  "title": "Sweep: Arc Ignite Awards (arc-institute)",
+  "summary": "Arc Institute's Ignite Award gives a one-time $100,000 gift to kickstart ambitious research ideas that are difficult to fund through traditional grant mechanisms.",
+  "evidence_url": "https://arcinstitute.org/programs/innovation-investigators",
+  "proposed_change": {
+   "programs/arc-ignite-awards.yaml": {
+    "id": "arc-ignite-awards",
+    "name": "Arc Ignite Awards",
+    "org": "arc-institute",
+    "mechanism": "prize",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "artificial-superintelligence-alliance",
+  "org_name": "Artificial Superintelligence Alliance",
+  "program": "ASI:Accelerator Programme",
+  "title": "Sweep: ASI:Accelerator Programme (artificial-superintelligence-alliance)",
+  "summary": "The Artificial Superintelligence Alliance's ASI:Accelerator Programme gives applicants access to AI insights, enterprise-grade infrastructure, and dedicated mentorship, alongside separate grant programs run by member projects SingularityNET and Fetch.ai.",
+  "evidence_url": "https://superintelligence.io/",
+  "proposed_change": {
+   "programs/asi-accelerator-programme.yaml": {
+    "id": "asi-accelerator-programme",
+    "name": "ASI:Accelerator Programme",
+    "org": "artificial-superintelligence-alliance",
+    "mechanism": "incubator",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 65,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "bnb-chain",
+  "org_name": "BNB Chain",
+  "program": "BNB Chain Grants",
+  "title": "Sweep: BNB Chain Grants (bnb-chain)",
+  "summary": "BNB Chain Grants funds developers building open-source initiatives and projects on or migrating to BNB Chain, part of a wider set of builder support programs.",
+  "evidence_url": "https://www.bnbchain.org/en/grants",
+  "proposed_change": {
+   "programs/bnb-chain-grants.yaml": {
+    "id": "bnb-chain-grants",
+    "name": "BNB Chain Grants",
+    "org": "bnb-chain",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "apply_url": "https://www.bnbchain.org/en/grants"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "cardano-foundation",
+  "org_name": "Cardano Foundation",
+  "program": "Project Catalyst",
+  "title": "Sweep: Project Catalyst (cardano-foundation)",
+  "summary": "Project Catalyst is Cardano's community-driven, on-chain innovation funding process; the Cardano Foundation has adjusted its strategy across rounds, most recently limiting voting power and increasing focus on community-led governance in round F14.",
+  "evidence_url": "https://projectcatalyst.io/",
+  "proposed_change": {
+   "programs/project-catalyst.yaml": {
+    "id": "project-catalyst",
+    "name": "Project Catalyst",
+    "org": "cardano-foundation",
+    "mechanism": "quadratic",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "cardano"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "cardano-foundation",
+  "org_name": "Cardano Foundation",
+  "program": "Founder Catalyst Program",
+  "title": "Sweep: Founder Catalyst Program (cardano-foundation)",
+  "summary": "Techstars and the Cardano Foundation launched the Founder Catalyst Program, a new accelerator initiative for Web3 founders building on Cardano.",
+  "evidence_url": "https://www.techstars.com/blog/program-news/techstars-and-cardano-foundation-launch-new-founder-catalyst-program",
+  "proposed_change": {
+   "programs/founder-catalyst-program.yaml": {
+    "id": "founder-catalyst-program",
+    "name": "Founder Catalyst Program",
+    "org": "cardano-foundation",
+    "mechanism": "incubator",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "cardano"
+    ]
+   }
+  },
+  "confidence": 72,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "chaingpt",
+  "org_name": "ChainGPT",
+  "program": "ChainGPT Web3-AI Grant",
+  "title": "Sweep: ChainGPT Web3-AI Grant (chaingpt)",
+  "summary": "ChainGPT offers up to $1 million in tiered Web3-AI Grants, including research grants up to $5K in API credit, to accelerate AI-powered blockchain projects.",
+  "evidence_url": "https://www.chaingpt.org/web3-ai-grant",
+  "proposed_change": {
+   "programs/chaingpt-web3-ai-grant.yaml": {
+    "id": "chaingpt-web3-ai-grant",
+    "name": "ChainGPT Web3-AI Grant",
+    "org": "chaingpt",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto",
+     "ai"
+    ],
+    "apply_url": "https://www.chaingpt.org/web3-ai-grant"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "chainlink",
+  "org_name": "Chainlink",
+  "program": "Chainlink Community Grant Program",
+  "title": "Sweep: Chainlink Community Grant Program (chainlink)",
+  "summary": "The Chainlink Community Grant Program funds development teams and researchers building a more functional, accessible, and socially impactful smart contract economy.",
+  "evidence_url": "https://go.chain.link/archives/community/grants",
+  "proposed_change": {
+   "programs/chainlink-community-grant-program.yaml": {
+    "id": "chainlink-community-grant-program",
+    "name": "Chainlink Community Grant Program",
+    "org": "chainlink",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto",
+     "ai"
+    ],
+    "apply_url": "https://go.chain.link/archives/community/grants"
+   }
+  },
+  "confidence": 84,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "compound-dao",
+  "org_name": "Compound DAO",
+  "program": "Compound Grants Program",
+  "title": "Sweep: Compound Grants Program (compound-dao)",
+  "summary": "The Compound Grants Program (CGP) was a community-run grants program funding Compound ecosystem contributions, administered independently via Questbook, with the community publishing a lessons-and-next-steps retrospective on the forum.",
+  "evidence_url": "https://www.comp.xyz/t/compound-grants-program-lessons-and-next-steps/2264",
+  "proposed_change": {
+   "programs/compound-grants-program.yaml": {
+    "id": "compound-grants-program",
+    "name": "Compound Grants Program",
+    "org": "compound-dao",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "systems": [
+     "ethereum"
+    ]
+   }
+  },
+  "confidence": 65,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "confidential-computing-consortium",
+  "org_name": "Confidential Computing Consortium",
+  "program": "CCC Research Fund",
+  "title": "Sweep: CCC Research Fund (confidential-computing-consortium)",
+  "summary": "The Confidential Computing Consortium's Research Fund awards grants for practical academic research in confidential computing, with applications submitted directly to the consortium's research team.",
+  "evidence_url": "https://confidentialcomputing.io/resources/research-fund/",
+  "proposed_change": {
+   "programs/ccc-research-fund.yaml": {
+    "id": "ccc-research-fund",
+    "name": "CCC Research Fund",
+    "org": "confidential-computing-consortium",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "coti",
+  "org_name": "COTI",
+  "program": "COTI Builders Program",
+  "title": "Sweep: COTI Builders Program (coti)",
+  "summary": "The COTI Builders Program is COTI Foundation's grants program funding developers building COTI-based solutions, run through a public GitHub repo of RFPs, alongside a separate $500K Gitcoin-partnered grants round for privacy projects.",
+  "evidence_url": "https://github.com/coti-io/coti-grants",
+  "proposed_change": {
+   "programs/coti-builders-program.yaml": {
+    "id": "coti-builders-program",
+    "name": "COTI Builders Program",
+    "org": "coti",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 74,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "darpa-dice",
+  "org_name": "DARPA DICE",
+  "program": "DARPA DICE",
+  "title": "Sweep: DARPA DICE (darpa-dice)",
+  "summary": "DARPA's DICE (Decentralized Artificial Intelligence through Controlled Emergence) program, run by the Information Processing Technologies Office, solicits research and technology proposals; third-party trackers note the current solicitation is closed.",
+  "evidence_url": "https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence",
+  "proposed_change": {
+   "programs/darpa-dice.yaml": {
+    "id": "darpa-dice",
+    "name": "DARPA DICE",
+    "org": "darpa-dice",
+    "mechanism": "rfp",
+    "status": "active",
+    "wires": [
+     "ai"
+    ],
+    "systems": [
+     "us-federal-rd"
+    ]
+   }
+  },
+  "confidence": 72,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "decentraland",
+  "org_name": "Decentraland",
+  "program": "Decentraland DAO Grants",
+  "title": "Sweep: Decentraland DAO Grants (decentraland)",
+  "summary": "Decentraland's DAO Grants let users submit and vote on funding proposals across defined grant categories, tracked publicly, with enacted proposals including the Decentraland Ambassador's Program.",
+  "evidence_url": "https://decentraland.org/dao/grants/",
+  "proposed_change": {
+   "programs/decentraland-dao-grants.yaml": {
+    "id": "decentraland-dao-grants",
+    "name": "Decentraland DAO Grants",
+    "org": "decentraland",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ]
+   }
+  },
+  "confidence": 76,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "defactor",
+  "org_name": "Defactor",
+  "program": "Defactor Accelerator Grant Fund",
+  "title": "Sweep: Defactor Accelerator Grant Fund (defactor)",
+  "summary": "Defactor's Accelerator Grant Fund offers roughly $250,000-260,000 to real-world-asset (RWA) projects tokenizing onchain, launched jointly with RWA.io as a global acceleration initiative.",
+  "evidence_url": "https://www.defactor.com/grants",
+  "proposed_change": {
+   "programs/defactor-accelerator-grant-fund.yaml": {
+    "id": "defactor-accelerator-grant-fund",
+    "name": "Defactor Accelerator Grant Fund",
+    "org": "defactor",
+    "mechanism": "incubator",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "apply_url": "https://grants.defactor.com"
+   }
+  },
+  "confidence": 76,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "dfinity-internet-computer",
+  "org_name": "DFINITY / Internet Computer",
+  "program": "DFINITY Developer Grants Program",
+  "title": "Sweep: DFINITY Developer Grants Program (dfinity-internet-computer)",
+  "summary": "The DFINITY Foundation's Developer Grants Program funds developers building on the Internet Computer, including a dedicated DeAI grant track for AI applications on ICP.",
+  "evidence_url": "https://dfinity.org/grants",
+  "proposed_change": {
+   "programs/dfinity-developer-grants-program.yaml": {
+    "id": "dfinity-developer-grants-program",
+    "name": "DFINITY Developer Grants Program",
+    "org": "dfinity-internet-computer",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "crypto"
+    ],
+    "apply_url": "https://dfinity.org/grants"
+   }
+  },
+  "confidence": 82,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "drupal-association",
+  "org_name": "Drupal Association",
+  "program": "Drupal Association Community Grants & Scholarships",
+  "title": "Sweep: Drupal Association Community Grants & Scholarships (drupal-association)",
+  "summary": "The Drupal Association offers scholarships and community grants tied to DrupalCon events, part of the programs it runs to keep Drupal's infrastructure and community functioning; evidence is a single event-specific page rather than a standing program landing page, so this should be verified before promotion.",
+  "evidence_url": "https://events.drupal.org/atlanta2025/scholarships-community-grants",
+  "proposed_change": {
+   "programs/drupal-association-community-grants-scholarships.yaml": {
+    "id": "drupal-association-community-grants-scholarships",
+    "name": "Drupal Association Community Grants & Scholarships",
+    "org": "drupal-association",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "oss-sustainability"
+    ]
+   }
+  },
+  "confidence": 60,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "ebpf-foundation",
+  "org_name": "eBPF Foundation",
+  "program": "eBPF Foundation Academic Research Grant Program",
+  "title": "Sweep: eBPF Foundation Academic Research Grant Program (ebpf-foundation)",
+  "summary": "The eBPF Foundation's Academic Research Grant Program awarded five $50,000 grants in 2024 for academic research benefiting the eBPF community, inviting university faculty to apply.",
+  "evidence_url": "https://ebpf.foundation/funding-opportunities/research-fund/",
+  "proposed_change": {
+   "programs/ebpf-foundation-academic-research-grant-program.yaml": {
+    "id": "ebpf-foundation-academic-research-grant-program",
+    "name": "eBPF Foundation Academic Research Grant Program",
+    "org": "ebpf-foundation",
+    "mechanism": "grants",
+    "status": "active"
+   }
+  },
+  "confidence": 82,
+  "wire": null
+ },
+ {
+  "type": "new_program",
+  "org": "ecmwf",
+  "org_name": "ECMWF",
+  "program": "ECMWF Grants",
+  "title": "Sweep: ECMWF Grants (ecmwf)",
+  "summary": "ECMWF Grants, adopted in 2025, is a funding instrument providing financial support to organizations whose activities contribute to ECMWF's objectives.",
+  "evidence_url": "https://www.ecmwf.int/en/about/grants",
+  "proposed_change": {
+   "programs/ecmwf-grants.yaml": {
+    "id": "ecmwf-grants",
+    "name": "ECMWF Grants",
+    "org": "ecmwf",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "eu-public-rd"
+    ]
+   }
+  },
+  "confidence": 78,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "ecmwf",
+  "org_name": "ECMWF",
+  "program": "Copernicus Grants",
+  "title": "Sweep: Copernicus Grants (ecmwf)",
+  "summary": "Copernicus Grants, administered through ECMWF, includes calls such as the C3S National Collaboration Programme, with proposals submitted via ECMWF's Call Package and submission portal.",
+  "evidence_url": "https://www.ecmwf.int/en/about/grants/copernicus-grants",
+  "proposed_change": {
+   "programs/copernicus-grants.yaml": {
+    "id": "copernicus-grants",
+    "name": "Copernicus Grants",
+    "org": "ecmwf",
+    "mechanism": "rfp",
+    "status": "active",
+    "wires": [
+     "oss"
+    ],
+    "systems": [
+     "eu-public-rd"
+    ]
+   }
+  },
+  "confidence": 68,
+  "wire": "oss"
+ },
+ {
+  "type": "new_program",
+  "org": "effective-ventures",
+  "org_name": "Effective Ventures",
+  "program": "Effective Altruism Funds",
+  "title": "Sweep: Effective Altruism Funds (effective-ventures)",
+  "summary": "Effective Ventures Foundation hosts Effective Altruism Funds, which fund high-impact projects aiming to positively influence the long-term trajectory of civilization, alongside separate Group Support Grants run by its Centre for Effective Altruism.",
+  "evidence_url": "https://funds.effectivealtruism.org/apply-for-funding",
+  "proposed_change": {
+   "programs/effective-altruism-funds.yaml": {
+    "id": "effective-altruism-funds",
+    "name": "Effective Altruism Funds",
+    "org": "effective-ventures",
+    "mechanism": "grants",
+    "status": "active",
+    "wires": [
+     "ai"
+    ]
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ }
+]

@@ -1,0 +1,436 @@
+[
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Bitcoin Frontier Fund",
+  "title": "Sweep: Bitcoin Frontier Fund \u2014 stacks funder",
+  "summary": "Bitcoin Frontier Fund (formerly Stacks Ventures) is a venture capital firm and accelerator that invests in early-stage teams building new use cases for Bitcoin, including projects on Stacks. In December 2024 it announced plans to invest specifically in teams building with sBTC, Stacks' 1:1 Bitcoin-backed asset, through its 3-month BFF Accelerator program.",
+  "evidence_url": "https://www.theblock.co/post/328240/bitcoin-frontier-fund-home-of-the-top-bitcoin-accelerator-to-invest-in-teams-built-on-sbtc",
+  "proposed_change": {
+   "orgs/bitcoin-frontier-fund.yaml": {
+    "id": "bitcoin-frontier-fund",
+    "name": "Bitcoin Frontier Fund",
+    "website": "https://www.btcfrontier.fund/",
+    "systems": [
+     "stacks"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "stellar-development-foundation",
+  "org_name": "Stellar Development Foundation",
+  "title": "Sweep: Stellar Enterprise Fund \u2014 stellar funder",
+  "summary": "The Stellar Enterprise Fund is a venture-style fund run by the Stellar Development Foundation that invests in companies transforming everyday financial services on Stellar. SDF describes it as a strategic blockchain fund that has put over $100 million into Web3 innovation spanning the globe.",
+  "evidence_url": "https://stellar.org/enterprise-fund",
+  "proposed_change": {
+   "programs/stellar-enterprise-fund.yaml": {
+    "id": "stellar-enterprise-fund",
+    "name": "Stellar Enterprise Fund",
+    "org": "stellar-development-foundation",
+    "systems": [
+     "stellar"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "mechanism": "other",
+    "status": "active",
+    "apply_url": "https://stellar.org/enterprise-fund",
+    "summary": "SDF's venture-style investment fund for companies building on the Stellar network, distinct from the grant-based Stellar Community Fund."
+   }
+  },
+  "confidence": 78,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Brinc",
+  "title": "Sweep: Brinc \u2014 sui funder",
+  "summary": "Brinc is a global venture capital and accelerator firm that, together with CoinList, launched SuiHub, a global accelerator program funding pre-token projects building on Sui. The program offers up to $200,000 per team in milestone-based funding and drew over 630 applications from 152 countries in its debut cohort.",
+  "evidence_url": "https://www.newsfilecorp.com/release/230730/SuiHub-Launches-Global-Accelerator-Program-in-Partnership-with-Brinc-CoinList",
+  "proposed_change": {
+   "orgs/brinc.yaml": {
+    "id": "brinc",
+    "name": "Brinc",
+    "website": "https://brinc.io",
+    "systems": [
+     "sui"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 72,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "brinc",
+  "org_name": "Brinc",
+  "title": "Sweep: SuiHub Accelerator \u2014 sui funder",
+  "summary": "SuiHub is a global accelerator program for Sui ecosystem projects, run by Brinc in partnership with CoinList, offering up to $200,000 per team in milestone-based funding for pre-token startups with strong scaling potential. Its debut cohort drew over 630 applications from 152 countries, one of the largest ecosystem-specific intakes to date.",
+  "evidence_url": "https://cryptobriefing.com/suihub-accelerator-record-application/",
+  "proposed_change": {
+   "programs/suihub-accelerator.yaml": {
+    "id": "suihub-accelerator",
+    "name": "SuiHub Accelerator",
+    "org": "brinc",
+    "systems": [
+     "sui"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "mechanism": "incubator",
+    "status": "active",
+    "apply_url": "https://web.brinc.io/suihub-launches-global-accelerator-program-in-partnership-with-brinc-coinlist/",
+    "summary": "Milestone-based accelerator funding up to $200k/team for pre-token Sui projects, co-run by Brinc and CoinList."
+   }
+  },
+  "confidence": 65,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Defence and Security Accelerator (DASA)",
+  "title": "Sweep: Defence and Security Accelerator (DASA) \u2014 uk-public-rd funder",
+  "summary": "DASA is a UK Ministry of Defence innovation-funding body, running DARPA-style competitive funding calls since 2012 that channel funding directly to innovators and small businesses working on defense and security technology, including AI. It is a UK government arm's-length delivery function operating under gov.uk.",
+  "evidence_url": "https://oecd-opsi.org/innovations/the-defence-and-security-accelerator-dasa/",
+  "proposed_change": {
+   "orgs/defence-and-security-accelerator-dasa.yaml": {
+    "id": "defence-and-security-accelerator-dasa",
+    "name": "Defence and Security Accelerator (DASA)",
+    "website": "https://www.gov.uk/government/organisations/defence-and-security-accelerator",
+    "systems": [
+     "uk-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 78,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "The British Academy",
+  "title": "Sweep: The British Academy \u2014 uk-public-rd funder",
+  "summary": "The British Academy is the UK's national academy for the humanities and social sciences, a government-sponsored body that runs more than 30 funding schemes each year for researchers in the UK and internationally. Grants range from small-scale seed funding to longer-term fellowships and challenge-led collaborative awards.",
+  "evidence_url": "https://www.thebritishacademy.ac.uk/funding/",
+  "proposed_change": {
+   "orgs/the-british-academy.yaml": {
+    "id": "the-british-academy",
+    "name": "The British Academy",
+    "website": "https://www.thebritishacademy.ac.uk/",
+    "systems": [
+     "uk-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 65,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Royal Society",
+  "title": "Sweep: Royal Society \u2014 uk-public-rd funder",
+  "summary": "The Royal Society is the UK's national academy of sciences, funding research fellowships and grant schemes for scientists across career stages, sometimes jointly with the British Academy such as the Harnessing Educational Research programme. It is a long-standing fixture of the UK public research funding landscape alongside UKRI and ARIA.",
+  "evidence_url": "https://royalsociety.org/news-resources/projects/royal-society-british-academy-educational-research/",
+  "proposed_change": {
+   "orgs/royal-society.yaml": {
+    "id": "royal-society",
+    "name": "Royal Society",
+    "website": "https://royalsociety.org",
+    "systems": [
+     "uk-public-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 68,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "ARPA-E (Advanced Research Projects Agency-Energy)",
+  "title": "Sweep: ARPA-E \u2014 us-federal-rd funder",
+  "summary": "ARPA-E is a US Department of Energy agency modeled on DARPA that funds high-risk, high-reward energy technology research through competitive funding opportunity announcements. It publishes open calls via arpa-e-foa.energy.gov and reports on funded-project impact on its own site.",
+  "evidence_url": "https://arpa-e.energy.gov/homepage",
+  "proposed_change": {
+   "orgs/arpa-e-advanced-research-projects-agency-energy.yaml": {
+    "id": "arpa-e-advanced-research-projects-agency-energy",
+    "name": "ARPA-E (Advanced Research Projects Agency-Energy)",
+    "website": "https://arpa-e.energy.gov",
+    "systems": [
+     "us-federal-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 82,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "NASA",
+  "title": "Sweep: NASA \u2014 us-federal-rd funder",
+  "summary": "NASA funds external research and development through competitive grant programs such as NASA Innovative Advanced Concepts (NIAC), which issues multiple solicitations and grant awards each year for early-stage, visionary aerospace and technology concepts. Awards are administered through NASA's own funding channels and grants.gov listings.",
+  "evidence_url": "https://www.nasa.gov/work-with-us/",
+  "proposed_change": {
+   "orgs/nasa.yaml": {
+    "id": "nasa",
+    "name": "NASA",
+    "website": "https://www.nasa.gov",
+    "systems": [
+     "us-federal-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 65,
+  "wire": "ai"
+ },
+ {
+  "type": "new_program",
+  "org": "nasa",
+  "org_name": "NASA",
+  "title": "Sweep: NASA Innovative Advanced Concepts (NIAC) \u2014 us-federal-rd funder",
+  "summary": "NIAC is NASA's grant program for early-stage, visionary aerospace and technology concepts, run in Phase I/II/III stages with multiple solicitations and grant awards issued each year. Listings are cross-posted on grants.gov alongside NASA's own site.",
+  "evidence_url": "https://simpler.grants.gov/opportunity/ae5e8da1-f514-44cc-a388-b50fb9e9a505",
+  "proposed_change": {
+   "programs/nasa-innovative-advanced-concepts-niac.yaml": {
+    "id": "nasa-niac",
+    "name": "NASA Innovative Advanced Concepts (NIAC)",
+    "org": "nasa",
+    "systems": [
+     "us-federal-rd"
+    ],
+    "wires": [
+     "ai"
+    ],
+    "mechanism": "grants",
+    "status": "active",
+    "apply_url": "https://www.nasa.gov/work-with-us/",
+    "summary": "NASA's phased grant program funding early-stage, high-risk aerospace and technology concepts."
+   }
+  },
+  "confidence": 70,
+  "wire": "ai"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Protocol Guild",
+  "title": "Sweep: Protocol Guild \u2014 web3-public-goods funder",
+  "summary": "Protocol Guild is a funding collective, launched in 2022, that pools donations from ecosystem projects, DAOs, institutions, and individuals and distributes them by formula to over 190 Ethereum core-protocol contributors across roughly 30 teams. It has received more than $100 million in cumulative donations as of 2025.",
+  "evidence_url": "https://gitcoin.co/apps/protocol-guild",
+  "proposed_change": {
+   "orgs/protocol-guild.yaml": {
+    "id": "protocol-guild",
+    "name": "Protocol Guild",
+    "website": "https://protocolguild.org",
+    "systems": [
+     "web3-public-goods"
+    ],
+    "wires": [
+     "crypto",
+     "oss"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 68,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Drips",
+  "title": "Sweep: Drips (drips.network) \u2014 web3-public-goods funder",
+  "summary": "Drips is an onchain platform for funding open-source developers and their dependencies, letting ecosystems stream funds to any GitHub repo and run retroactive public goods funding (RetroPGF) rounds. It is listed among Gitcoin's ecosystem funding apps.",
+  "evidence_url": "https://www.drips.network/",
+  "proposed_change": {
+   "orgs/drips.yaml": {
+    "id": "drips",
+    "name": "Drips",
+    "website": "https://www.drips.network/",
+    "systems": [
+     "web3-public-goods"
+    ],
+    "wires": [
+     "crypto",
+     "oss"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 75,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "Endaoment",
+  "title": "Sweep: Endaoment \u2014 web3-public-goods funder",
+  "summary": "Endaoment is an onchain donor-advised fund (DAF) platform that lets donors give stock, cash, and crypto to nonprofits, and it partnered with Circle to stand up a USDC-based disaster relief fund. It routes digital-asset donations to nonprofit and public-goods-adjacent recipients, functioning as philanthropic funding infrastructure rather than a classic grants program.",
+  "evidence_url": "https://www.circle.com/pressroom/circle-collaborates-with-endaoment-creating-usdc-based-disaster-relief-fund-to-help-communities-affected-by-deadly-tornadoes",
+  "proposed_change": {
+   "orgs/endaoment.yaml": {
+    "id": "endaoment",
+    "name": "Endaoment",
+    "website": "https://endaoment.org",
+    "systems": [
+     "web3-public-goods"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 60,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "XRPL Commons",
+  "title": "Sweep: XRPL Commons \u2014 xrpl funder",
+  "summary": "XRPL Commons is a Paris-based nonprofit association launched to educate and empower the global XRP Ledger community, with a mission to nurture a vibrant XRPL ecosystem. It runs the Glow retroactive funding program, which rewards community contributors for their work on the ledger.",
+  "evidence_url": "https://xrpl-commons.org/press",
+  "proposed_change": {
+   "orgs/xrpl-commons.yaml": {
+    "id": "xrpl-commons",
+    "name": "XRPL Commons",
+    "website": "https://xrpl-commons.org",
+    "systems": [
+     "xrpl"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "active"
+   }
+  },
+  "confidence": 80,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_program",
+  "org": "xrpl-commons",
+  "org_name": "XRPL Commons",
+  "title": "Sweep: Glow \u2014 xrpl funder",
+  "summary": "Glow is XRPL Commons' retroactive funding program, launched in October 2025, that rewards community-driven XRPL work \u2014 from bug fixes to major protocol advances \u2014 through community-voting-based monthly disbursements. XRPL Commons describes it as an experiment in retroactive funding for the XRPL ecosystem.",
+  "evidence_url": "https://glow.xrpl-commons.org/",
+  "proposed_change": {
+   "programs/glow.yaml": {
+    "id": "glow",
+    "name": "Glow",
+    "org": "xrpl-commons",
+    "systems": [
+     "xrpl"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "mechanism": "retro",
+    "status": "active",
+    "apply_url": "https://glow.xrpl-commons.org/",
+    "summary": "Community-voted retroactive funding for XRPL contributors, run by XRPL Commons since October 2025."
+   }
+  },
+  "confidence": 78,
+  "wire": "crypto"
+ },
+ {
+  "type": "new_org",
+  "org": null,
+  "org_name": "XAO DAO",
+  "title": "Sweep: XAO DAO \u2014 xrpl funder",
+  "summary": "XAO DAO is a hybrid decentralized autonomous organization Ripple is standing up for the XRP Ledger as part of a 2026 shift toward a more distributed funding model, letting members collectively allocate resources to developers and early-stage projects through community grants and DAO proposals. The move is tied to Ripple's broader $550 million funding push for the XRPL ecosystem; as of this sweep the XAO DAO site is a pre-launch signup page.",
+  "evidence_url": "https://beincrypto.com/ripple-xrpl-funding-expansion-2026-price-impact/",
+  "proposed_change": {
+   "orgs/xao-dao.yaml": {
+    "id": "xao-dao",
+    "name": "XAO DAO",
+    "website": "https://www.xaodao.io/",
+    "systems": [
+     "xrpl"
+    ],
+    "wires": [
+     "crypto"
+    ],
+    "roles": [
+     "funder"
+    ],
+    "status": "unknown"
+   }
+  },
+  "confidence": 65,
+  "wire": "crypto"
+ }
+]
