@@ -1,0 +1,23 @@
+id: casper-agentic-buildathon-2026
+name: Casper Agentic Buildathon 2026
+org: casper-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: prize
+apply_url: https://dorahacks.io/hackathon/2202/detail
+summary: Buildathon for AI-native applications for autonomous systems and machine-to-machine
+  economies on Casper; no prior Web3 experience required. Casper's standing Accelerate Grant Program
+  is currently suspended, making this the network's active funding vehicle.
+rounds:
+  - name: 2026 Buildathon
+    status: open
+    opens: 2026-06-01
+    closes: 2026-07-31
+    size: $150,000 (cash + in-kind)
+    source: https://dorahacks.io/hackathon/2202/detail
+sources:
+  - https://www.casper.network
+  - https://dorahacks.io/hackathon/2202/detail

@@ -1,0 +1,16 @@
+id: tarbell-fellowship
+name: Tarbell Fellowship
+org: tarbell-center
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://www.tarbellcenter.org/fellowship
+summary: One-year fellowship combining AI training with nine-month newsroom placements for
+  journalists covering AI; $60,000-$80,000 stipend for early-career fellows, $90,000-$110,000 for
+  senior fellows.
+rounds: []
+sources:
+  - https://www.tarbellcenter.org/fellowship

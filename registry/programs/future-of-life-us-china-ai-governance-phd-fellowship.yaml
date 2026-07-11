@@ -1,0 +1,20 @@
+id: future-of-life-us-china-ai-governance-phd-fellowship
+name: US-China AI Governance PhD Fellowship
+org: future-of-life-institute-fli
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/
+summary: FLI's PhD fellowship for doctoral research on US-China AI governance dynamics, distinct
+  from FLI's technical AI-safety PhD fellowship track.
+rounds:
+  - name: 2025-26 cohort applications
+    status: closed
+    closes: 2025-11-21
+    source: https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/
+sources:
+  - https://futureoflife.org/grant-program/us-china-ai-governance-phd-fellowship/

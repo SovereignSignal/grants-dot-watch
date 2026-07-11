@@ -1,0 +1,17 @@
+id: cohere-catalyst-grants
+name: Catalyst Grants
+org: cohere-for-ai
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://cohere.com/research/grants
+summary: Free Cohere API access (not cash) for academic partners, civic institutions, and
+  impact-focused organizations working on education, healthcare, climate, sustainability, LM safety,
+  and values alignment; rolling applications.
+rounds: []
+sources:
+  - https://cohere.com/research
+  - https://cohere.com/research/grants

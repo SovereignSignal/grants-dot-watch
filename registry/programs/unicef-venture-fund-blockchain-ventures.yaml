@@ -1,0 +1,22 @@
+id: unicef-venture-fund-blockchain-ventures
+name: UNICEF Venture Fund — Blockchain Ventures
+org: unicef
+parent: null
+systems: []
+wires:
+  - crypto
+  - ai
+status: active
+mechanism: grants
+apply_url: https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions
+summary: UNICEF Venture Fund's equity-free cohort for early-stage, open-source blockchain startups
+  in emerging markets, funding accountability/financing use cases for children; up to US$100,000 in
+  ETH/BTC/USDC plus mentorship over 12-18 months.
+rounds:
+  - name: Blockchain Ventures cohort
+    status: closed
+    closes: 2026-03-10
+    size: up to $100,000 in ETH/BTC/USDC
+    source: https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions
+sources:
+  - https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions

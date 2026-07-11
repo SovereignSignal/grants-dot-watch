@@ -1,0 +1,15 @@
+id: astera-residency-program
+name: Astera Residency Program
+org: astera-institute
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+summary: 12-18 month fully funded residency for scientists, engineers, and entrepreneurs across
+  Neuro-AI, AI-enabled life sciences, open science, and public-goods infrastructure; $125k-$250k/yr
+  salary plus $0-$1.5M per-project budget. Application cycles run about twice a year.
+rounds: []
+sources:
+  - https://astera.org/residency/

@@ -1,0 +1,16 @@
+id: pharos-ecosystem-grant-program
+name: Pharos Ecosystem Grant Program
+org: pharos-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://www.pharos.xyz/ecosystem
+summary: A $20M ecosystem grant program for builders on Pharos Network (RWA tokenization,
+  decentralized payments, DeFi, tooling/infrastructure), applied for at pharos.xyz/ecosystem; run
+  alongside a separate $10M RealFi/RWA incubator (Builder Base Camp, with HackQuest).
+rounds: []
+sources:
+  - https://www.pharos.xyz/ecosystem

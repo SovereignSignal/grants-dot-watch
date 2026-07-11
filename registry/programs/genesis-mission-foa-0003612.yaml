@@ -1,0 +1,30 @@
+id: genesis-mission-foa-0003612
+name: "The Genesis Mission: Transforming Science and Energy with AI (DE-FOA-0003612)"
+org: the-genesis-mission
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://science.osti.gov/grants/FOAs/Open
+summary: DOE Office of Science funding opportunity announcement DE-FOA-0003612 for interdisciplinary
+  teams applying AI to energy, nuclear, environmental, and national-security science; phased Phase
+  I/II review with a final Phase II application deadline of 2026-12-17.
+rounds:
+  - name: Phase I applications / Phase II letters of intent
+    status: closed
+    closes: 2026-05-01
+    source: https://science.osti.gov/grants/FOAs/Open
+  - name: Phase II applications
+    status: closed
+    closes: 2026-05-19
+    source: https://science.osti.gov/grants/FOAs/Open
+  - name: Final Phase II deadline
+    status: open
+    closes: 2026-12-17
+    source: https://science.osti.gov/grants/FOAs/Open
+sources:
+  - https://www.energy.gov/
+  - https://science.osti.gov/grants/FOAs/Open

@@ -1,0 +1,15 @@
+id: tarbell-residencies
+name: Tarbell Residencies
+org: tarbell-center
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://www.tarbellcenter.org/residencies
+summary: Residency program for senior journalists and experienced editors doing in-depth AI
+  reporting; $80,000+ stipend plus an upskilling component.
+rounds: []
+sources:
+  - https://www.tarbellcenter.org/residencies

@@ -1,0 +1,21 @@
+id: flow-grantdao
+name: Flow GrantDAO
+org: flow
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: quadratic
+apply_url: https://dorahacks.io/flow
+summary: Community-voted fund (MACI voting on DoraHacks) for pre-startup and hackathon-stage
+  builders on Flow; at least 50k FLOW prize pool per round, with advisory and fundraising support
+  for standout teams.
+rounds:
+  - name: Round 1
+    status: closed
+    closes: 2025-08-16
+    size: ≥50k FLOW
+    source: https://developers.flow.com/ecosystem/grants
+sources:
+  - https://developers.flow.com/ecosystem/grants

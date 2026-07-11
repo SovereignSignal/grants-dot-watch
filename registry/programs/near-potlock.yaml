@@ -1,0 +1,16 @@
+id: near-potlock
+name: Potlock
+org: near-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: quadratic
+apply_url: https://app.potlock.org/
+summary: Community funding platform on NEAR for public-goods and impact projects, running discovery
+  listings and periodic quadratic-style community funding rounds.
+rounds: []
+sources:
+  - https://www.near.org/funding
+  - https://app.potlock.org/

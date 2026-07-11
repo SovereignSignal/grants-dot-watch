@@ -1,0 +1,16 @@
+id: near-meta-pool-grants
+name: Meta Pool Grants
+org: near-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://docs.metapool.app/master/meta-pool-ecosystem/vote-governance/grants
+summary: Meta Pool's grants program funding DeFi, education, and TVL-growth initiatives in the NEAR
+  ecosystem.
+rounds: []
+sources:
+  - https://www.near.org/funding
+  - https://docs.metapool.app/master/meta-pool-ecosystem/vote-governance/grants

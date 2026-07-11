@@ -1,0 +1,17 @@
+id: center-for-ai-safety-fellowship
+name: AI and Society Fellowship
+org: center-for-ai-safety
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://safe.ai/fellowship
+summary: A three-month fellowship examining societal impacts of advanced AI, institutional
+  responses, and policy development; application deadline historically March 24.
+rounds: []
+sources:
+  - https://safe.ai/
+  - https://safe.ai/fellowship

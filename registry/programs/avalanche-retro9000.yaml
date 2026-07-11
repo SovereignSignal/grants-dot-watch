@@ -1,0 +1,25 @@
+id: avalanche-retro9000
+name: Retro9000
+org: avalanche-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: retro
+apply_url: https://retro9000.avax.network
+summary: Retroactive funding for projects built on Avalanche C-Chain and Avalanche L1s, run in
+  recurring tracked rounds; community leaderboard voting is advisory, the Avalanche Foundation makes
+  final award decisions.
+rounds:
+  - name: C-Chain Round 5
+    status: open
+    closes: 2026-07-17
+    source: https://retro9000.avax.network
+  - name: L1s & Infrastructure Tooling snapshot
+    status: open
+    closes: 2026-07-14
+    source: https://retro9000.avax.network
+sources:
+  - https://retro9000.avax.network
+  - https://build.avax.network/grants

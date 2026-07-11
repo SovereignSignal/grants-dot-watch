@@ -1,0 +1,16 @@
+id: near-protocol-rewards
+name: NEAR Protocol Rewards
+org: near-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: other
+apply_url: https://www.nearprotocolrewards.com
+summary: Metrics-based rewards system for NEAR projects that ties funding directly to on-chain
+  development activity and user adoption metrics, rather than a discretionary grants review.
+rounds: []
+sources:
+  - https://www.near.org/funding
+  - https://www.nearprotocolrewards.com

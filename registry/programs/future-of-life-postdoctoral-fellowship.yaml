@@ -1,0 +1,19 @@
+id: future-of-life-postdoctoral-fellowship
+name: FLI Technical Postdoctoral Fellowship
+org: future-of-life-institute-fli
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://futureoflife.org/grant-program/postdoctoral-fellowships/
+summary: FLI's recurring postdoctoral fellowship supporting technical research on AI existential safety.
+rounds:
+  - name: Current cycle
+    status: closed
+    closes: 2026-01-05
+    source: https://futureoflife.org/grant-program/postdoctoral-fellowships/
+sources:
+  - https://futureoflife.org/grant-program/postdoctoral-fellowships/

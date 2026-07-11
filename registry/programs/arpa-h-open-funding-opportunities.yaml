@@ -1,0 +1,32 @@
+id: arpa-h-open-funding-opportunities
+name: ARPA-H Open Funding Opportunities
+org: arpa-h-advanced-research-projects-agency-for-health
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://arpa-h.gov/explore-funding/open-funding-opportunities
+summary: ARPA-H's standing list of open Innovative Solutions Openings (ISOs) and exploratory topics
+  across its four mission offices (Health Science Futures, Scalable Solutions, Proactive Health,
+  Resilient Systems); solicitations rotate on a rolling basis.
+rounds:
+  - name: HEARING (Hearing Enhancement through ARtificially Intelligent Neurotechnology)
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: IGoR (Intelligent Generator of Research)
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: REST (Restorative & health-Enhancing Sleep Time)
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: TIGAR Exploratory Topic
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: BRAINS Exploratory Topic
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+sources:
+  - https://arpa-h.gov/explore-funding/open-funding-opportunities

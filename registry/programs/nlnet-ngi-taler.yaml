@@ -1,0 +1,24 @@
+id: nlnet-ngi-taler
+name: NGI TALER
+org: nlnet-foundation
+parent: null
+systems:
+  - eu-public-rd
+  - sovereign-tech
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://nlnet.nl/propose/
+summary: NLnet-run fund supporting free/open-source privacy-preserving digital payment
+  infrastructure built on GNU Taler; grants typically EUR 5,000-50,000, at least EUR 676,000
+  available this call.
+rounds:
+  - name: 2026 open call
+    status: open
+    closes: 2026-08-01
+    size: EUR 5,000-50,000 per project; EUR 676,000+ total
+    source: https://nlnet.nl/taler/
+sources:
+  - https://nlnet.nl/
+  - https://nlnet.nl/taler/

@@ -1,0 +1,17 @@
+id: patch-the-planet-security-review
+name: Patch the Planet
+org: patch-the-planet
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: other
+apply_url: https://trailofbits.com/patch-the-planet/
+summary: "In-kind security-engineering support for critical open source projects: a dedicated Trail
+  of Bits review week producing patches, tooling improvements, and coordinated disclosures, plus six
+  months of ChatGPT Pro/Codex access for selected maintainers. No cash grant."
+rounds: []
+sources:
+  - https://trailofbits.com/patch-the-planet/
