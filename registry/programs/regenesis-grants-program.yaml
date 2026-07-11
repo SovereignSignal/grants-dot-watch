@@ -1,0 +1,16 @@
+id: regenesis-grants-program
+name: Regenesis Grants Program
+org: decentraland
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: This thread is for general community questions about the Regenesis Grants Program If you
+  have general questions about the program, please use this thread, so answers stay visible and
+  helpful for everyone. Please also give the team some time to review and respond thoughtfully. If
+  your question is related to a specific grant proposal, please use the dedicated Grant Proposal
+  thread. If you are an acc
+rounds: []
+sources:
+  - https://forum.decentraland.org/t/regenesis-grants-program-community-questions-thread/25267

@@ -1,0 +1,16 @@
+id: 1inch-dao-2026-governance-operations
+name: 1inch DAO 2026 Governance Operations
+org: 1inch-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Simple Summary Allocate $200,000 from the DAO Treasury for dedicated governance operations
+  and support for 2026. Abstract This proposal funds a dedicated DAO governance operations function
+  for 2026, covering proposal lifecycle management, delegate coordination, compliance monitoring,
+  and day-to-day DAO administration. Motivation The 1inch DAO Guidelines (Section 4.3.2) place
+  Ecosystem Governance w
+rounds: []
+sources:
+  - https://gov.1inch.io/t/1rc-2026-dao-governance-operations-and-support/925

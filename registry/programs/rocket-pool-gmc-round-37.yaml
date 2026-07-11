@@ -1,0 +1,21 @@
+id: rocket-pool-gmc-round-37
+name: Rocket Pool GMC Round 37
+org: rocket-pool
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
+summary: This thread is for applications for Rocket Pool’s May 7, 2026 - June 7, 2026 grants. Please
+  only post grant applications in this thread. If you would like to discuss and/or ask questions
+  about any applications you see in this thread, we ask that you do so in this Round 37 - GMC
+  Community Discussion of Submitted Applications which has been established for all community
+  discussions related to this r
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-07
+    source: https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
+sources:
+  - https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938

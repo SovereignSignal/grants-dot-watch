@@ -1,0 +1,22 @@
+id: ens-delegation-incentives-program
+name: ENS Delegation Incentives Program
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228
+summary: "Abstract This is the on-chain executable proposal to fund the Delegation Incentives
+  Program , already approved by ENS governance via Snapshot ([6.31] Delegation Incentives Program).
+  It transfers 90,000 ENS and 5 ETH from the DAO treasury to the MetaGov stewards multisig , which
+  will manage distribution over the program’s three monthly rounds. The program is ready to launch:
+  Start date: July 1st, 2"
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-10-01
+    size: 15,000–90,000 ENS
+    source: https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228
+sources:
+  - https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228

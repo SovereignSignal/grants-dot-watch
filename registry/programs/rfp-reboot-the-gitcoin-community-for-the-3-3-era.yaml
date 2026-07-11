@@ -1,0 +1,21 @@
+id: rfp-reboot-the-gitcoin-community-for-the-3-3-era
+name: "RFP: Reboot the Gitcoin Community for the 3.3 Era"
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
+summary: "RFP: Reboot the Gitcoin Community for the 3.3 Era Issued by: Gitcoin DAO (sponsor: Kevin
+  Owocki, ED) Date issued: May 2026 Proposals due: Rolling, first review June 1, 2026 Engagement
+  window: June 2026 – Q1 2027 (phased; see milestones) Budget envelope: Open — propose your number.
+  Bias toward lean, milestone-gated engagements over a single large retainer. Submit to:
+  kevin@gitcoin.co and/or post a"
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-01
+    source: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
+sources:
+  - https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256

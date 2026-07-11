@@ -1,0 +1,16 @@
+id: lido-finance-gas-supply-committee-funding
+name: Lido Finance - Gas Supply Committee Funding
+org: lido
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Consolidation Bot Funding TL;DR We propose that the Gas Supply Committee fund the gas costs
+  and consolidation fee of the Consolidation Bot as part of the Curated Module v1 (CMv1) → Curated
+  Module v2 (CMv2) migration defined in ( LIP-35 ). The bot submits the on-chain requests that
+  consolidate CMv1 0x01 validators into compounding CMv2 0x02 validators. The full migration is
+  estimated at ~27 ETH — ~
+rounds: []
+sources:
+  - https://research.lido.fi/t/consolidation-bot-funding/11693

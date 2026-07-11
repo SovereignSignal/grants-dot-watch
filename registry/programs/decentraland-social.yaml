@@ -1,0 +1,12 @@
+id: decentraland-social
+name: Decentraland Social
+org: decentraland
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "[Grant Proposal] Decentraland Social — Tech Ecosystem #djl7"
+rounds: []
+sources:
+  - https://forum.decentraland.org/t/grant-proposal-decentraland-social-tech-ecosystem-djl7/25171

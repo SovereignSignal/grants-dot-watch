@@ -1,0 +1,12 @@
+id: decentraland-dcl-tech-ecosystem
+name: Decentraland (DCL) Tech Ecosystem
+org: decentraland
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "[Grant Proposal] DCL Wearable Generator — Tech Ecosystem #mxmy"
+rounds: []
+sources:
+  - https://forum.decentraland.org/t/grant-proposal-dcl-wearable-generator-tech-ecosystem-mxmy/25172

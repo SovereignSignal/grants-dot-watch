@@ -1,0 +1,16 @@
+id: 1inch-ethglobal-events-grant-proposal-2026-2027
+name: 1inch <> ETHGlobal events Grant Proposal 2026-2027
+org: 1inch-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Simple Summary The 1inch ecosystem continues to support global developer activity through
+  participation in hackathons, conferences, and technical community events that drive protocol
+  adoption and ecosystem growth. This proposal requests DAO funding to support 1inch ecosystem
+  participation in a structured series of ETHGlobal hackathons and conferences throughout 2026–2027.
+  These activities are desi
+rounds: []
+sources:
+  - https://gov.1inch.io/t/1inch-ethglobal-events-grant-proposal-2026-2027/935

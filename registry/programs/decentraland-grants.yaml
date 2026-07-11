@@ -1,0 +1,12 @@
+id: decentraland-grants
+name: Decentraland Grants
+org: decentraland
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "[Grant Proposal] Dredd Detective — Content Development #p0sk"
+rounds: []
+sources:
+  - https://forum.decentraland.org/t/grant-proposal-dredd-detective-content-development-p0sk/25189

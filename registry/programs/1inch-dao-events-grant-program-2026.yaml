@@ -1,0 +1,16 @@
+id: 1inch-dao-events-grant-program-2026
+name: 1inch DAO Events Grant Program 2026
+org: 1inch-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Simple Summary The 1inch ecosystem has maintained an active presence across the global
+  crypto landscape, supporting conferences, hackathons, university initiatives, and community events
+  that drive developer growth, and ecosystem expansion. This proposal requests DAO funding to
+  support 1inch ecosystem participation in a series of US-based events during 2026, including
+  educational initiative, confer
+rounds: []
+sources:
+  - https://gov.1inch.io/t/1rc-1inch-events-grant-proposal-2026/926
