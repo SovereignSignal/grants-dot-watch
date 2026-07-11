@@ -1,0 +1,23 @@
+id: karma-gap-builder-grant-cycle-13-updates
+name: Karma GAP - Builder Grant - Cycle 13 - Updates
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.optimism.io/
+summary: >-
+  **Karma GAP Builder Grant Cycle 13 Updates**
+
+
+  Karma GAP has opened applications for its Builder Grant Cycle 13 on Optimism. The program funds
+  development of a Grantee Accountability Protocol (GAP) that uses Optimism’s Attestation Station to
+  standardize how grantees publish milestones and progress updates, improving tracking and
+  accountability across crypto grant programs. 
+
+
+  Applications are now open; see the full details and requirements in the governance post.
+rounds: []
+sources:
+  - https://gov.optimism.io/t/karma-gap-builder-grant-cycle-13-updates/6682

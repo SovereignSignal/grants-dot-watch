@@ -1,0 +1,27 @@
+id: the-three-pillars-of-polygon-governance-call-for-proposals
+name: The Three Pillars of Polygon Governance, Call for Proposals
+org: polygon
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://polygon.technology/
+summary: >-
+  **Polygon Governance** has issued a Call for Proposals for The Three Pillars of Polygon
+  Governance. 
+
+
+  The initiative seeks submissions to strengthen protocol governance across three pillars: the
+  Polygon Improvement Proposal (PIP) framework, the Polygon Community Treasury, and the Governance
+  Participation Framework. 
+
+
+  The post emphasizes the need to evolve governance structures in response to rapid ecosystem growth
+  and the launch of Polygon zkEVM. 
+
+
+  Proposals are open to the community via the Polygon Forum.
+rounds: []
+sources:
+  - https://forum.polygon.technology/t/the-three-pillars-of-polygon-governance-call-for-proposals/11847

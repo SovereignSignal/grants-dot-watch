@@ -1,0 +1,21 @@
+id: ethereum-protocol-attackathon-sponsorship
+name: Ethereum Protocol Attackathon Sponsorship
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **Ethereum Protocol Attackathon Sponsorship** invites grant proposals from teams and individuals
+  to sponsor the Ethereum Protocol Attackathon. The program seeks to boost participation in Solidity
+  security research, addressing the limited visibility of the existing Ethereum Bug Bounty Program
+  through a focused, time-bound event. 
+
+
+  Proposals must demonstrate clear alignment with Ethereum and Arbitrum ecosystems. All specific
+  funding amounts, deadlines, and eligibility criteria are available in the original Arbitrum DAO
+  forum post.
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/ethereum-protocol-attackathon-sponsorship/26122

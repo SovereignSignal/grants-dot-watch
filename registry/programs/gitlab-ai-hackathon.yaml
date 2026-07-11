@@ -1,0 +1,15 @@
+id: gitlab-ai-hackathon
+name: GitLab AI Hackathon
+org: gitlab
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.gitlabfoundation.org/
+summary: "**GitLab AI Hackathon** invites developers to build AI agents on the GitLab Duo Agent
+  Platform for code planning, security, and deployments. The hackathon offers $65,000 in total
+  prizes and runs until March 25."
+rounds: []
+sources:
+  - https://x.com/devpost/status/2031384335765614743

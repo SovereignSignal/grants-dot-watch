@@ -1,0 +1,17 @@
+id: grants-council-charter-season-6
+name: Grants Council Charter - Season 6
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.optimism.io/
+summary: "**Optimism Grants Council Charter Season 6** is now open for proposals. The open-source
+  charter drafted by @danelund.eth provides a ready template for anyone to submit as lead proponent.
+  It continues the Grants Council structure first defined by the Foundation in Season 3, with all
+  Season 6-specific updates now available for review and adoption. Full details and the draft
+  charter are in the governance forum."
+rounds: []
+sources:
+  - https://gov.optimism.io/t/grants-council-charter-season-6/8170

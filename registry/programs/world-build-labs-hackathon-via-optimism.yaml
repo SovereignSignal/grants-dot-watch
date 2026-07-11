@@ -1,0 +1,19 @@
+id: world-build-labs-hackathon-via-optimism
+name: World Build Labs Hackathon (via Optimism)
+org: world-build-labs
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://worldbuildlabs.com/
+summary: >-
+  **World Build Labs Hackathon (via Optimism)** is accepting applications from ambitious founders
+  building apps with Worldcoin’s real human network on OP Mainnet. The program offers up to $200K in
+  grant funding from the World Foundation, plus funded trips and mentorship. 
+
+
+  All projects must be built on OP Mainnet using Worldcoin’s proof of personhood.
+rounds: []
+sources:
+  - https://x.com/Optimism/status/2031467646521422210

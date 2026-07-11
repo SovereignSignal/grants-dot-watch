@@ -1,0 +1,16 @@
+id: nebius
+name: Nebius
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://nebius.com/
+status: active
+profile: "**Nebius Startup Program** has relaunched and is offering GPU capacity, transparent
+  pricing, reliable large-scale training, and engineering support to AI startups. The program
+  targets companies building foundation models, biotech platforms, or robotics systems. Eligible
+  startups receive dedicated resources and technical assistance for large-scale AI development."
+sources:
+  - https://x.com/nebiusai/status/2031794002987794779

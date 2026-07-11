@@ -1,0 +1,24 @@
+id: arbitrum-research-development-collective-elections-applicati
+name: "Arbitrum Research & Development Collective: Elections & Applications"
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: >-
+  **Arbitrum Research & Development Collective** has opened elections and applications for its grant
+  program. 
+
+
+  The initiative funds research in cross-project integrations, ecosystem insurance, block time
+  optimization, bug bounty impact analysis, interoperable bridge solutions, and formal verification
+  tooling for Arbitrum and Stylus. 
+
+
+  Anyone in the Arbitrum ecosystem may apply or run for election to the collective. Full details and
+  the application process are available on the Arbitrum forum.
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/arbitrum-research-development-collective-elections-applications/20805

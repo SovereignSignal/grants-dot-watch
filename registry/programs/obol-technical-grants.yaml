@@ -1,0 +1,24 @@
+id: obol-technical-grants
+name: Obol Technical Grants
+org: obol
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://obol.org/
+summary: >-
+  **Obol Technical Grants** are now open for applications. The program offers funding for four
+  specific open-source projects: DVT-TEE security research, Dappnode validator features, GotEth data
+  indexer, and a token monitoring dashboard. 
+
+
+  All grants support development that benefits the Obol Collective and its Distributed Validator
+  Technology ecosystem. 
+
+
+  Apply directly through the details posted on X at
+  https://x.com/Obol_Collective/status/2029557050620211384.
+rounds: []
+sources:
+  - https://x.com/Obol_Collective/status/2029557050620211384

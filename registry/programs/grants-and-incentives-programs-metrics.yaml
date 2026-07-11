@@ -1,0 +1,21 @@
+id: grants-and-incentives-programs-metrics
+name: Grants and Incentives Programs - Metrics
+org: polygon
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **Polygon Grants and Incentives Programs** has published metrics on its grants and incentives
+  initiatives. The program tracks total incentives paid, distribution methods, whether payouts occur
+  in USD or POL tokens, application volumes, approval rates, and eligibility criteria across its
+  various funding programs. A community member is compiling a public comparative database of grant
+  programs and has requested detailed Polygon data including payout currencies and overall program
+  performance. 
+
+
+  (78 words)
+rounds: []
+sources:
+  - https://forum.polygon.technology/t/grants-and-incentives-programs-metrics/2770

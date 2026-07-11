@@ -1,0 +1,20 @@
+id: revnets-autonomous-revenue-networks
+name: Revnets Autonomous Revenue Networks
+org: revnets
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://revnet.eth.limo/
+summary: >-
+  **Revnets Autonomous Revenue Networks** launches a new onchain public goods funding experiment
+  that creates perpetual project treasuries without grants committees, governance votes, or owners.
+  Built on JuiceboxETH, the program enables projects to fund themselves autonomously through
+  revenue-generating mechanisms onchain. 
+
+
+  The initiative is now open for participation.
+rounds: []
+sources:
+  - https://x.com/gitcoin/status/2031888307416879210

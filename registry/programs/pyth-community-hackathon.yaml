@@ -1,0 +1,16 @@
+id: pyth-community-hackathon
+name: Pyth Community Hackathon
+org: pyth
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.pyth.network/
+summary: "**Pyth Community Hackathon** invites developers and tinkerers to participate in a 6-week
+  global DAO-organized hackathon. Participants must build open-source demos using Pyth Price Feeds
+  or Entropy with real market data to compete for PYTH rewards. The event is open to anyone
+  worldwide."
+rounds: []
+sources:
+  - https://x.com/CryptohooperB/status/2031424611691495491

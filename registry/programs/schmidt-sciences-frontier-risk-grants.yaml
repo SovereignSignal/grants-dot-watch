@@ -1,0 +1,20 @@
+id: schmidt-sciences-frontier-risk-grants
+name: Schmidt Sciences Frontier Risk Grants
+org: schmidt-sciences
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.schmidtsciences.org/
+summary: >-
+  **Schmidt Sciences Frontier Risk Grants** offer $5M in funding for frontier AI risk research. The
+  program supports AI researchers pursuing high-risk, high-reward work on advanced AI safety and
+  governance challenges. 
+
+
+  Total funding is $5 million with no specified per-grant caps or deadlines in the announcement.
+  Eligible applicants are AI researchers.
+rounds: []
+sources:
+  - https://x.com/DeepFunding/status/2030629173547385211

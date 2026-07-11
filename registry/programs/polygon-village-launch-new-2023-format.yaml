@@ -1,0 +1,17 @@
+id: polygon-village-launch-new-2023-format
+name: Polygon Village Launch (new 2023 format)
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: "**Polygon Village Launch** has opened its new 2023 grant program. The initiative funds
+  community-driven projects building on Polygon with grants ranging from $5,000 to $50,000.
+  Applications are open on an ongoing basis with no fixed deadline. Teams must demonstrate clear
+  product-market fit, active community engagement, and alignment with Polygon’s ecosystem goals.
+  Full details and application instructions are available on the Polygon forum."
+rounds: []
+sources:
+  - https://forum.polygon.technology/t/polygon-village-launch-new-2023-format/11609

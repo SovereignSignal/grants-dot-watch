@@ -1,0 +1,18 @@
+id: quadratic-accelerator-s2-impact-report
+name: Quadratic Accelerator S2 Impact Report
+org: polygon
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://polygon.technology/
+summary: "**Quadratic Accelerator S2 Impact Report** details the program’s results on Polygon. The
+  accelerator deployed 1.5M POL in grants during Season 2 and generated substantially higher value
+  for the chain, delivering unmatched stakeholder ROI compared with other grant programs. The report
+  analyzes on-chain metrics, ecosystem growth, and extrapolated impact at larger scale, repeating
+  the same “input vs. output” methodology used in Season 1. Full data and analysis are available in
+  the Polygon forum."
+rounds: []
+sources:
+  - https://forum.polygon.technology/t/quadratic-accelerator-s2-impact-report/21022

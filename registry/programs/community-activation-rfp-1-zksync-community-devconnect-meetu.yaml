@@ -1,0 +1,25 @@
+id: community-activation-rfp-1-zksync-community-devconnect-meetu
+name: "[Community Activation RFP 1] ZKsync Community Devconnect Meetup"
+org: zksync
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.zksync.io/
+summary: >-
+  **ZKsync has opened its Community Activation RFP 1 for the ZKsync Community Devconnect Meetup.** 
+
+
+  The program offers a $5,000 grant (100,000 ZK at $0.05) to host one meetup event during the week
+  of Devconnect 2025 in Buenos Aires. 
+
+
+  This falls under the Product Marketing and Community Activation category with a one-event
+  duration. 
+
+
+  Proposals must be submitted via the ZK Nation forum. The RFP is now open.
+rounds: []
+sources:
+  - https://forum.zknation.io/t/community-activation-rfp-1-zksync-community-devconnect-meetup/800

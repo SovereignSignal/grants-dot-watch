@@ -1,0 +1,19 @@
+id: mozilla-foundation-democracy-x-ai-cohort-grants-for-teams-bu
+name: "[Mozilla Foundation — Democracy x AI Cohort] — Grants for teams building open-source AI tools
+  that protect democracy"
+org: mozilla-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.mozillafoundation.org/
+summary: "**Mozilla Foundation — Democracy x AI Cohort** is offering $50,000 initial grants to
+  approximately 10 teams building open-source AI tools that protect democracy. Selected teams
+  receive 12 months of funding and may become eligible for an additional $250,000, for a maximum of
+  $300,000 total. Initial proposals are due March 16, 2026. Projects must have functional
+  technology, a committed team, and a clear commitment to openness, including some code open-sourced
+  or a public roadmap during the grant period."
+rounds: []
+sources:
+  - https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/democracy-ai-cohort/

@@ -1,0 +1,17 @@
+id: pond
+name: Pond
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://joinpond.ai/
+status: active
+profile: "**Pond Deep Funding Contest Bounties** offers new funding for builders contributing to its
+  Ethereum-based open-source experiment that uses AI to fund open source software. The contest
+  provides multiple bounties for developers working on the project. Eligible participants must
+  contribute to the Pond AI-powered funding mechanism on Ethereum. Full details are available in the
+  announcement at https://x.com/cryptheneon/status/2031714396154511660."
+sources:
+  - https://x.com/cryptheneon/status/2031714396154511660

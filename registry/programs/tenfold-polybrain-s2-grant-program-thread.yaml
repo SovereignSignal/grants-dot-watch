@@ -1,0 +1,22 @@
+id: tenfold-polybrain-s2-grant-program-thread
+name: Tenfold Polybrain S2 Grant Program Thread
+org: polygon
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://polygon.technology/
+summary: >-
+  **Tenfold Polybrain S2 Grant Program** is accepting applications. 
+
+
+  Polygon’s AI-powered grant allocator is running its second season after successfully identifying
+  fraudulent applications and surfacing strong proposals that human reviewers missed in Season 1.
+  The program continues to test whether AI can effectively allocate grants. 
+
+
+  Full details and application instructions are available on the Polygon forum.
+rounds: []
+sources:
+  - https://forum.polygon.technology/t/tenfold-polybrain-s2-grant-program-thread/21373
