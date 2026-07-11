@@ -1,0 +1,26 @@
+id: taiko-grant-program-25-million-grant-fund-for-open-source-pr
+name: Taiko Grant Program — $25 million grant fund for open-source projects in DeFi, AI, RWA,
+  SocialFi, Gaming and other
+org: taiko-grant-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://taiko.xyz/grant-program
+summary: >-
+  **Taiko Grant Program** offers a $25 million fund for open-source projects building on Taiko. 
+
+
+  The program supports teams working in DeFi, AI, RWA, SocialFi, Gaming, and other verticals, with
+  grants awarded on a rolling basis. 
+
+
+  Eligible projects must be open source and deployed on or integrated with Taiko, and selected
+  grantees may receive follow-on investment rights. 
+
+
+  Apply directly at taiko.xyz/grant-program.
+rounds: []
+sources:
+  - https://taiko.xyz/grant-program

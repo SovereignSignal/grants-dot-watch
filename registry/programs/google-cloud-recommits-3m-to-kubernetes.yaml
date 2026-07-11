@@ -1,0 +1,13 @@
+id: google-cloud-recommits-3m-to-kubernetes
+name: Google Cloud Recommits $3M to Kubernetes
+org: googleorg
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://google.org/
+summary: Google Cloud Recommits $3M to Kubernetes — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/

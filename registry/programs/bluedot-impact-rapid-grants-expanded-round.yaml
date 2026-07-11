@@ -1,0 +1,12 @@
+id: bluedot-impact-rapid-grants-expanded-round
+name: BlueDot Impact Rapid Grants (Expanded Round)
+org: bluedot-impact
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: BlueDot Impact Rapid Grants (Expanded Round) — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://bluedot.org/programs/rapid-grants

@@ -1,0 +1,19 @@
+id: aws-openssf-12-5m-investment-to-defend-open-source-from-ai-t
+name: "AWS + OpenSSF: $12.5M Investment to Defend Open Source from AI Threats"
+org: amazon-web-services-aws
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: >-
+  **AWS and OpenSSF invest $12.5 million** to defend open source from AI-driven threats. The
+  initiative strengthens open source security infrastructure against emerging risks posed by AI
+  technologies. AWS and other leading organizations are funding the effort through the Open Source
+  Security Foundation to improve tools, processes, and defenses across the ecosystem. 
+
+
+  (68 words)
+rounds: []
+sources:
+  - https://aws.amazon.com/blogs/opensource/aws-and-others-invest-12-5m-to-defend-the-open-source-ecosystem-from-ai-threats/

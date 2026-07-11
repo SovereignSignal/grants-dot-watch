@@ -1,0 +1,19 @@
+id: mit-bitcoin-hackathon-2026
+name: MIT Bitcoin Hackathon 2026
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://mitbitcoinexpo.org/
+status: active
+profile: >-
+  **MIT Bitcoin Expo** is hosting the MIT Bitcoin Hackathon 2026, a 36-hour in-person Bitcoin and
+  blockchain hackathon at MIT. The event features application-only entry and community-focused prize
+  distribution, with 70% of the prize pool shared among qualifying participants. 
+
+
+  The hackathon takes place in 2026 at the Massachusetts Institute of Technology.
+sources:
+  - https://mitbitcoinexpo.org/hackathon

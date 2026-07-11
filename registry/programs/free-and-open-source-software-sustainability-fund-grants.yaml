@@ -2,24 +2,26 @@ id: free-and-open-source-software-sustainability-fund-grants
 name: Free and Open Source Software Sustainability Fund
 org: free-and-open-source-software-sustainability-fund
 parent: null
-systems: [internet-freedom, sovereign-tech]
-wires: [oss]
+systems:
+  - internet-freedom
+  - sovereign-tech
+wires:
+  - oss
 status: active
 mechanism: grants
 apply_url: https://apply.opentech.fund/
 summary: >
-  OTF's fund for the sustainability of free and open source software used for
-  internet freedom, making targeted awards (from $7k/month up to $400k over
-  24 months) for maintenance, interoperability, security, and resilience of
-  FOSS tools. Awards run through a two-stage competitive process (concept
-  note, then proposal with advisory council review) as deliverable-based
-  performance contracts; supported projects include F-Droid, DEfO, and
-  Mailvelope, and an application round ran March-May 2026.
+  OTF's fund for the sustainability of free and open source software used for internet freedom,
+  making targeted awards (from $7k/month up to $400k over 24 months) for maintenance,
+  interoperability, security, and resilience of FOSS tools. Awards run through a two-stage
+  competitive process (concept note, then proposal with advisory council review) as
+  deliverable-based performance contracts; supported projects include F-Droid, DEfO, and Mailvelope,
+  and an application round ran March-May 2026.
 rounds:
   - name: March-May 2026 round
     status: closed
-    opens: "2026-03"
-    closes: "2026-05"
+    opens: 2026-03
+    closes: 2026-05-07
     source: https://www.opentech.fund/funds/free-and-open-source-software-sustainability-fund/
 sources:
   - https://www.opentech.fund/funds/free-and-open-source-software-sustainability-fund/

@@ -1,0 +1,18 @@
+id: mantle-public-grants-scouts-program
+name: Mantle Public Grants / Scouts Program
+org: mantle-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **Mantle Public Grants / Scouts Program** offers up to $20,000 in MNT tokens to early-stage
+  projects and ecosystem contributors. The program accepts rolling applications for work in
+  consumer, DeFi, AI, and payments, with both public submissions and scout nominations eligible. 
+
+
+  Apply at https://www.mantle.xyz/grants/apply.
+rounds: []
+sources:
+  - https://www.mantle.xyz/grants/apply

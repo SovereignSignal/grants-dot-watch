@@ -1,0 +1,15 @@
+id: scroll-community-grants-support-program-funding-for-regional
+name: Scroll Community Grants Support Program — Funding for regional meetups, hackathons,
+  educational workshops, conferences,
+org: scroll
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://scroll.io/
+summary: Scroll Community Grants Support Program — Funding for regional meetups, hackathons,
+  educational workshops, conferences, — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://gitcoin.co/apps/scroll-grants

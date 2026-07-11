@@ -1,0 +1,15 @@
+id: arbitrum-trailblazer-2-0-1m-agentic-defi-grants
+name: "Arbitrum Trailblazer 2.0: $1M Agentic DeFi Grants"
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: Arbitrum Foundation Trailblazer 2.0 — $1M in grants to power agentic DeFi on Arbitrum.
+  Focused on autonomous DeFi agents, trading strategies, and yield optimization tools. Applications
+  via Arbitrum Foundation.
+rounds: []
+sources:
+  - https://arbitrumfoundation.medium.com/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum-9534aa3fe541

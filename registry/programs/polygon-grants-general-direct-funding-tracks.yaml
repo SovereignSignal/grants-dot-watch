@@ -1,0 +1,13 @@
+id: polygon-grants-general-direct-funding-tracks
+name: Polygon Grants (General & Direct Funding Tracks
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Polygon Grants (General & Direct Funding Tracks — dispatch from the wire, no further detail
+  on file.
+rounds: []
+sources:
+  - https://gitcoin.co/apps/polygon-grants

@@ -1,0 +1,12 @@
+id: 2026-mozilla-fellows-nominations
+name: 2026 Mozilla Fellows nominations
+org: mozilla-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: 2026 Mozilla Fellows nominations — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.mozillafoundation.org/en/what-we-do/grantmaking/fellowship/2026-nominations-request/

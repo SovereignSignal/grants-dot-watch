@@ -1,0 +1,13 @@
+id: gitcoin-octant-public-goods-funding
+name: Gitcoin & Octant Public Goods Funding
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://gitcoin.co/
+summary: Gitcoin & Octant Public Goods Funding — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://x.com/OctantApp/status/2054969579810820321

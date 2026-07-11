@@ -1,0 +1,14 @@
+id: filecoin-retropgf-round-3-585-000-fil-distributed-to-public-
+name: Filecoin RetroPGF Round 3 — 585,000 FIL Distributed to Public Goods
+org: filecoin-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://fil.org/
+summary: Filecoin RetroPGF Round 3 — 585,000 FIL Distributed to Public Goods — dispatch from the
+  wire, no further detail on file.
+rounds: []
+sources:
+  - https://filecoin.io/blog/posts/filecoin-retropgf-round-3-powering-proven-impact-with-585k-fil/
