@@ -1,0 +1,16 @@
+id: ens-dao-contract-naming-season-offers-10k-ens-incentives-for
+name: ENS DAO Contract Naming Season offers 10k ENS incentives for projects
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://ens.domains/
+summary: Ethereum runs on trust and now, that trust has rewards. The @ENS_DAO’s Contract Naming
+  Season is funding projects that turn unreadable contract addresses into clear, verifiable names
+  with Enscribe. 🏆 10,000 $ENS in incentives 🛠️ For builders, DAOs, L2s, and DeFi protocols 📅
+  Runs Nov 2025 → Apr 20
+rounds: []
+sources:
+  - https://x.com/enscribe_/status/2023403245167620450
