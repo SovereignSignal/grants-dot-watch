@@ -1,23 +1,26 @@
 id: seri-mats-mats-program
-name: SERI MATS (MATS Program)
+name: MATS (MATS Research)
 aka:
   - MATS Research
   - MATS Program
-systems: [ai-safety]
-wires: [ai]
-roles: [funder]
+systems:
+  - ai-safety
+wires:
+  - ai
+roles:
+  - funder
 org_type: nonprofit
 website: https://www.matsprogram.org/
 socials:
   x: https://x.com/MATSprogram
 status: active
 profile: >
-  MATS is an independent research fellowship that connects researchers with
-  mentors in AI alignment, transparency, and security. The main program runs
-  10 weeks with an optional 6-12 month extension, and provides a $1,250 weekly
-  stipend, a $2,000-per-week compute budget, housing, meals, and office space
-  in Berkeley and London. Over 527 researchers have participated since late
-  2021, producing more than 200 research papers.
+  MATS is an independent research fellowship that connects researchers with mentors in AI alignment,
+  transparency, and security. The main program runs 10 weeks with an optional 6-12 month extension,
+  and provides a $1,250 weekly stipend, a $2,000-per-week compute budget, housing, meals, and office
+  space in Berkeley and London. Over 527 researchers have participated since late 2021, producing
+  more than 200 research papers.
 sources:
   - https://www.matsprogram.org/
   - https://www.matsprogram.org/program/autumn-2026
+  - https://www.matsprogram.org/about
