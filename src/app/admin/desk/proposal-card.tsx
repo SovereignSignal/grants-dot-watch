@@ -14,13 +14,27 @@ import { EvidenceBlock } from './evidence-block';
 /** Three questions, answered on every card without a click: WHAT (change
  *  preview, loaded on mount, collapsed to ~10 lines), VALIDATE (the wire
  *  signal behind it), WHERE (the destination path, already computed by the
- *  queue). Only "see the rest of a long diff" needs an interaction. */
+ *  queue). Only "see the rest of a long diff" needs an interaction.
+ *
+ *  Bulk-triage additions (all optional, default off — Facts-tab cards don't
+ *  use them): a selection checkbox, a keyboard-driven focus ring, and an
+ *  inline error line for an id that came back in a bulk decide's `failed`
+ *  list (the id stays visible in the pending list; this is how it explains
+ *  why). */
 export function ProposalCard({
   proposal,
   onDecided,
+  selected = false,
+  onToggleSelect,
+  focused = false,
+  errorMessage,
 }: {
   proposal: QueueProposal;
   onDecided: (id: string, decision: 'approved' | 'rejected', verdict: Verdict) => void;
+  selected?: boolean;
+  onToggleSelect?: () => void;
+  focused?: boolean;
+  errorMessage?: string;
 }) {
   const { getAuthHeaders } = useAdminAuth();
   const [busy, setBusy] = useState<'approved' | 'rejected' | null>(null);
@@ -108,9 +122,20 @@ export function ProposalCard({
   }
 
   return (
-    <Card className="flex flex-col gap-3">
+    <Card id={`proposal-${proposal.id}`} className={`flex flex-col gap-3 ${focused ? 'ring-2 ring-signal' : ''}`}>
       <div className="flex items-start justify-between gap-3">
-        <span className="coord rounded border border-line px-1.5 py-0.5">{TYPE_LABEL[proposal.type]}</span>
+        <div className="flex items-center gap-2">
+          {onToggleSelect && (
+            <input
+              type="checkbox"
+              checked={selected}
+              onChange={onToggleSelect}
+              aria-label={`Select ${proposal.title}`}
+              className="size-4 shrink-0"
+            />
+          )}
+          <span className="coord rounded border border-line px-1.5 py-0.5">{TYPE_LABEL[proposal.type]}</span>
+        </div>
         <span className="coord shrink-0">{timeAgo(proposal.created_at)}</span>
       </div>
 
@@ -157,6 +182,7 @@ export function ProposalCard({
       </div>
 
       {error && <p className="text-xs text-closing">{error}</p>}
+      {errorMessage && <p className="text-xs text-closing">Bulk decide failed: {errorMessage}</p>}
 
       <div className="flex gap-2">
         <button

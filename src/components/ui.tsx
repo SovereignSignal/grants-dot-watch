@@ -38,10 +38,20 @@ export function Coord({ children }: { children: React.ReactNode }) {
   return <span className="coord">{children}</span>;
 }
 
-export function Card({ href, children, className = '' }: { href?: string; children: React.ReactNode; className?: string }) {
+export function Card({
+  href,
+  children,
+  className = '',
+  id,
+}: {
+  href?: string;
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) {
   const cls = `block rounded-md border border-line bg-surface p-4 transition-colors ${href ? 'hover:border-faint hover:bg-raised' : ''} ${className}`;
-  if (href) return <Link href={href} className={cls}>{children}</Link>;
-  return <div className={cls}>{children}</div>;
+  if (href) return <Link href={href} id={id} className={cls}>{children}</Link>;
+  return <div id={id} className={cls}>{children}</div>;
 }
 
 export function PageHeader({ eyebrow, title, sub, right }: { eyebrow: string; title: React.ReactNode; sub?: React.ReactNode; right?: React.ReactNode }) {

@@ -9,7 +9,7 @@
 // On first Postgres use, if desk_proposals is empty and the local .data/desk.json
 // file exists, its proposals + verdicts are imported once.
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
 import type { Proposal, ProposalType, Verdict, Wire } from './types';
@@ -18,6 +18,7 @@ import { laneFor } from '../proposal-lanes';
 const REPO_ROOT = process.cwd();
 const DATA_DIR = join(REPO_ROOT, '.data');
 const STORE_PATH = join(DATA_DIR, 'desk.json');
+const PENDING_COMMITS_PATH = join(DATA_DIR, 'pending-commits.jsonl');
 const SEED_DIR = join(REPO_ROOT, 'seed');
 
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -315,6 +316,24 @@ async function initSchema(): Promise<void> {
       updated_at timestamptz NOT NULL DEFAULT now()
     )
   `);
+  // Durable applied-changes ledger — same DDL as db/migrations/003_desk_ledger.sql
+  // (kept in sync), created here too so the runtime never depends on the
+  // loader having run against this database.
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS desk_applied_changes (
+      id serial PRIMARY KEY,
+      proposal_id text,
+      files jsonb NOT NULL,
+      message text,
+      sha text,
+      synced_at timestamptz,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
+  `);
+  await db.query(`
+    CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_unsynced
+      ON desk_applied_changes (id) WHERE synced_at IS NULL
+  `);
   await maybeImportLocalStore(db);
 }
 
@@ -484,4 +503,43 @@ export async function recordVerdict(
   opts?: { note?: string; commit?: string | null }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   return DATABASE_URL ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
+}
+
+// ---- durable applied-changes ledger ----
+
+export interface AppliedChangeEntry {
+  proposal_id: string | null; // one id, or comma-joined ids for a bulk approve
+  files: { path: string; content_after: string }[];
+  message: string;
+}
+
+function appendPendingCommitLocal(entry: AppliedChangeEntry): void {
+  mkdirSync(DATA_DIR, { recursive: true });
+  appendFileSync(PENDING_COMMITS_PATH, `${JSON.stringify({ ...entry, at: new Date().toISOString() })}\n`, 'utf8');
+}
+
+/** Durably persist an applied-but-uncommitted change set (committer.ts calls
+ *  this whenever a commit produced no sha: the GRANTS_WATCH_NO_GIT guard, or
+ *  a git failure). Postgres (desk_applied_changes) when DATABASE_URL is set —
+ *  the Railway case, where the filesystem is ephemeral — with the local
+ *  .data/pending-commits.jsonl as the no-DB backend AND as the fallback if
+ *  the insert itself fails; the ledger write must never take the approve
+ *  down. scripts/sync-desk-commits.mjs replays unsynced rows into real
+ *  commits. */
+export async function recordAppliedChanges(entry: AppliedChangeEntry): Promise<void> {
+  if (!DATABASE_URL) {
+    appendPendingCommitLocal(entry);
+    return;
+  }
+  try {
+    await ensureSchema();
+    const db = getPool();
+    await db.query(`INSERT INTO desk_applied_changes (proposal_id, files, message) VALUES ($1, $2, $3)`, [
+      entry.proposal_id,
+      JSON.stringify(entry.files),
+      entry.message,
+    ]);
+  } catch {
+    appendPendingCommitLocal(entry);
+  }
 }

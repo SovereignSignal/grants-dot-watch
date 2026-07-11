@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     try {
       const { changes, notes } = applyProposal(proposal);
       if (changes.length > 0) {
-        commit = commitChange(changes.map((c) => c.path), commitMessageFor(proposal));
+        commit = await commitChange(changes.map((c) => c.path), commitMessageFor(proposal), proposal.id);
       }
       if (notes.length) mergedNote = [note, ...notes].filter(Boolean).join(' | ');
     } catch (e) {

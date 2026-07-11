@@ -1,12 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Empty, PageHeader, Stat } from '@/components/ui';
-import type { Verdict } from '@/lib/types';
+import type { ProposalType, Verdict } from '@/lib/types';
+import { PROPOSAL_TYPE_ORDER, typeCountsSummary } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
+import { BulkBar } from './bulk-bar';
 import { commitUrl, timeAgo } from './desk-format';
-import type { QueueProposal } from './desk-types';
+import { DEFAULT_FILTERS, type DecideBulkResponse, type FilterState, type QueueProposal } from './desk-types';
+import { FiltersBar } from './filters-bar';
 import { ProposalCard } from './proposal-card';
+import { ProposalGroup } from './proposal-group';
 import { QueueExplainer } from './queue-explainer';
 
 type Tab = 'judgment' | 'fact' | 'log';
@@ -18,6 +22,52 @@ interface QueuePayload {
   dev: boolean;
 }
 
+// /api/desk/decide-bulk caps at 60 ids/request; selections bigger than that
+// (a big "select all" or the Facts "apply all") get chunked client-side.
+const MAX_IDS_PER_REQUEST = 60;
+
+function matchesConfidence(band: FilterState['confidence'], confidence: number | undefined): boolean {
+  if (band === 'all') return true;
+  const c = confidence ?? -1;
+  if (band === 'high') return c >= 80;
+  if (band === 'mid') return c >= 60 && c < 80;
+  return c >= 0 && c < 60;
+}
+
+function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposal[] {
+  const text = filters.text.trim().toLowerCase();
+  return list.filter((p) => {
+    if (filters.types.size > 0 && !filters.types.has(p.type)) return false;
+    if (filters.wires.size > 0 && (!p.wire || !filters.wires.has(p.wire))) return false;
+    if (!matchesConfidence(filters.confidence, p.confidence)) return false;
+    if (text) {
+      const hay = `${p.title} ${p.org_name ?? ''} ${p.org ?? ''}`.toLowerCase();
+      if (!hay.includes(text)) return false;
+    }
+    return true;
+  });
+}
+
+/** Group by proposal type (a stable, spec'd order), sort within a group by
+ *  org then confidence desc — matches the two-line rule in the build brief. */
+function groupAndSort(list: QueueProposal[]): { type: ProposalType; items: QueueProposal[] }[] {
+  const map = new Map<ProposalType, QueueProposal[]>();
+  for (const p of list) {
+    const arr = map.get(p.type);
+    if (arr) arr.push(p);
+    else map.set(p.type, [p]);
+  }
+  return PROPOSAL_TYPE_ORDER.filter((t) => map.has(t)).map((type) => {
+    const items = [...(map.get(type) as QueueProposal[])].sort((a, b) => {
+      const orgA = (a.org_name || a.org || '').toLowerCase();
+      const orgB = (b.org_name || b.org || '').toLowerCase();
+      if (orgA !== orgB) return orgA.localeCompare(orgB);
+      return (b.confidence ?? -1) - (a.confidence ?? -1);
+    });
+    return { type, items };
+  });
+}
+
 export default function DeskPage() {
   const { getAuthHeaders } = useAdminAuth();
   const [data, setData] = useState<QueuePayload | null>(null);
@@ -25,6 +75,12 @@ export default function DeskPage() {
   const [seeding, setSeeding] = useState(false);
   const [seedMsg, setSeedMsg] = useState<string | null>(null);
   const [loadErr, setLoadErr] = useState<string | null>(null);
+
+  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkBusy, setBulkBusy] = useState(false);
+  const [bulkErrors, setBulkErrors] = useState<Record<string, string>>({});
+  const [focusedId, setFocusedId] = useState<string | null>(null);
 
   const loadQueue = useCallback(async () => {
     setLoadErr(null);
@@ -61,6 +117,107 @@ export default function DeskPage() {
       const verdicts = verdict ? [verdict, ...prev.verdicts] : prev.verdicts;
       return { ...prev, proposals, counts, verdicts };
     });
+    setSelected((prev) => {
+      if (!prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.delete(id);
+      return next;
+    });
+    setBulkErrors((prev) => {
+      if (!(id in prev)) return prev;
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  }, []);
+
+  /** Shared by the bulk bar, the Facts "apply all" button, and the a/r
+   *  keyboard shortcuts. Optimistic: marks ids decided immediately, then
+   *  reconciles against the server — any id the server reports as failed is
+   *  put back to pending with its error attached, then a full requery keeps
+   *  counts/verdicts/commit links honest. Chunks past the API's 60-id cap. */
+  const bulkDecide = useCallback(
+    async (ids: string[], decision: 'approved' | 'rejected', note?: string) => {
+      if (ids.length === 0) return;
+      setBulkBusy(true);
+
+      const idSet = new Set(ids);
+      setData((prev) =>
+        prev ? { ...prev, proposals: prev.proposals.map((p) => (idSet.has(p.id) ? { ...p, state: decision } : p)) } : prev
+      );
+      setSelected((prev) => {
+        const next = new Set(prev);
+        for (const id of ids) next.delete(id);
+        return next;
+      });
+      setBulkErrors((prev) => {
+        const next = { ...prev };
+        for (const id of ids) delete next[id];
+        return next;
+      });
+
+      const failedAll: { id: string; error: string }[] = [];
+      const headers = await getAuthHeaders();
+
+      for (let i = 0; i < ids.length; i += MAX_IDS_PER_REQUEST) {
+        const chunk = ids.slice(i, i + MAX_IDS_PER_REQUEST);
+        try {
+          const res = await fetch('/api/desk/decide-bulk', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', ...headers },
+            body: JSON.stringify({ ids: chunk, decision, note }),
+          });
+          const json = (await res.json()) as DecideBulkResponse | { error: string };
+          if (res.ok && 'ok' in json) {
+            failedAll.push(...json.failed);
+          } else {
+            const message = 'error' in json ? json.error : 'request failed';
+            for (const id of chunk) failedAll.push({ id, error: message });
+          }
+        } catch {
+          for (const id of chunk) failedAll.push({ id, error: 'network error' });
+        }
+      }
+
+      if (failedAll.length > 0) {
+        const failedIds = new Set(failedAll.map((f) => f.id));
+        setData((prev) =>
+          prev
+            ? { ...prev, proposals: prev.proposals.map((p) => (failedIds.has(p.id) ? { ...p, state: 'pending' } : p)) }
+            : prev
+        );
+        setBulkErrors((prev) => {
+          const next = { ...prev };
+          for (const f of failedAll) next[f.id] = f.error;
+          return next;
+        });
+      }
+
+      setBulkBusy(false);
+      await loadQueue();
+    },
+    [getAuthHeaders, loadQueue]
+  );
+
+  const toggleSelect = useCallback((id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectGroup = useCallback((ids: string[]) => {
+    setSelected((prev) => {
+      const allSelected = ids.length > 0 && ids.every((id) => prev.has(id));
+      const next = new Set(prev);
+      for (const id of ids) {
+        if (allSelected) next.delete(id);
+        else next.add(id);
+      }
+      return next;
+    });
   }, []);
 
   async function runSeed() {
@@ -83,6 +240,71 @@ export default function DeskPage() {
     }
   }
 
+  const judgmentPending = useMemo(
+    () => (data ? data.proposals.filter((p) => p.lane === 'judgment' && p.state === 'pending') : []),
+    [data]
+  );
+  const factPending = useMemo(
+    () => (data ? data.proposals.filter((p) => p.lane === 'fact' && p.state === 'pending') : []),
+    [data]
+  );
+
+  const filteredJudgment = useMemo(() => applyFilters(judgmentPending, filters), [judgmentPending, filters]);
+  const groups = useMemo(() => groupAndSort(filteredJudgment), [filteredJudgment]);
+  const judgmentFlatIds = useMemo(() => groups.flatMap((g) => g.items.map((i) => i.id)), [groups]);
+
+  const selectedProposals = useMemo(
+    () => (data ? data.proposals.filter((p) => selected.has(p.id)) : []),
+    [data, selected]
+  );
+
+  // Keyboard triage: j/k moves the focus ring, x toggles selection, a/r
+  // approve/reject the focused card. Judgment tab only — it's the 310-item
+  // queue this is for; Facts leans on "apply all" instead.
+  useEffect(() => {
+    if (tab !== 'judgment') return;
+    function onKeyDown(e: KeyboardEvent) {
+      const tag = (document.activeElement?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      if (judgmentFlatIds.length === 0) return;
+
+      if (e.key === 'j' || e.key === 'k') {
+        e.preventDefault();
+        setFocusedId((prev) => {
+          const idx = prev ? judgmentFlatIds.indexOf(prev) : -1;
+          const nextIdx = e.key === 'j' ? Math.min(idx + 1, judgmentFlatIds.length - 1) : Math.max(idx - 1, 0);
+          const nextId = judgmentFlatIds[nextIdx];
+          document.getElementById(`proposal-${nextId}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          return nextId;
+        });
+      } else if (e.key === 'x') {
+        if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
+        e.preventDefault();
+        toggleSelect(focusedId);
+      } else if (e.key === 'a' || e.key === 'r') {
+        if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
+        e.preventDefault();
+        bulkDecide([focusedId], e.key === 'a' ? 'approved' : 'rejected');
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [tab, judgmentFlatIds, focusedId, toggleSelect, bulkDecide]);
+
+  async function applyAllFacts() {
+    if (factPending.length === 0) return;
+    const summary = typeCountsSummary(factPending.map((p) => p.type));
+    const proceed = window.confirm(
+      `Apply all ${factPending.length} fact-lane item${factPending.length === 1 ? '' : 's'}${summary ? `: ${summary}` : ''}?\n\n` +
+        `This writes the registry files and commits, right now.`
+    );
+    if (!proceed) return;
+    await bulkDecide(
+      factPending.map((p) => p.id),
+      'approved'
+    );
+  }
+
   if (loadErr || !data) {
     return (
       <div className="mx-auto max-w-6xl px-4 pt-16 pb-16">
@@ -90,9 +312,6 @@ export default function DeskPage() {
       </div>
     );
   }
-
-  const judgmentPending = data.proposals.filter((p) => p.lane === 'judgment' && p.state === 'pending');
-  const factPending = data.proposals.filter((p) => p.lane === 'fact' && p.state === 'pending');
 
   return (
     <>
@@ -144,16 +363,42 @@ export default function DeskPage() {
           ))}
         </div>
 
-        {tab === 'judgment' &&
-          (judgmentPending.length === 0 ? (
-            <Empty>No judgment calls on file. The queue is caught up.</Empty>
-          ) : (
-            <div className="flex flex-col gap-3">
-              {judgmentPending.map((p) => (
-                <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} />
-              ))}
-            </div>
-          ))}
+        {tab === 'judgment' && (
+          <>
+            {judgmentPending.length === 0 ? (
+              <Empty>No judgment calls on file. The queue is caught up.</Empty>
+            ) : (
+              <>
+                <FiltersBar items={judgmentPending} filters={filters} onChange={setFilters} />
+                {groups.length === 0 ? (
+                  <Empty>No judgment items match these filters.</Empty>
+                ) : (
+                  <div className="pb-2">
+                    {groups.map((g) => (
+                      <ProposalGroup
+                        key={g.type}
+                        type={g.type}
+                        items={g.items}
+                        selected={selected}
+                        focusedId={focusedId}
+                        errors={bulkErrors}
+                        onToggleSelect={toggleSelect}
+                        onToggleSelectAll={toggleSelectGroup}
+                        onDecided={handleDecided}
+                      />
+                    ))}
+                  </div>
+                )}
+                <BulkBar
+                  selectedProposals={selectedProposals}
+                  onApprove={(note) => bulkDecide([...selected], 'approved', note)}
+                  onReject={(note) => bulkDecide([...selected], 'rejected', note)}
+                  busy={bulkBusy}
+                />
+              </>
+            )}
+          </>
+        )}
 
         {tab === 'fact' && (
           <div className="flex flex-col gap-4">
@@ -164,11 +409,23 @@ export default function DeskPage() {
             {factPending.length === 0 ? (
               <Empty>No fact-lane items on file.</Empty>
             ) : (
-              <div className="flex flex-col gap-3">
-                {factPending.map((p) => (
-                  <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} />
-                ))}
-              </div>
+              <>
+                <div>
+                  <button
+                    type="button"
+                    onClick={applyAllFacts}
+                    disabled={bulkBusy}
+                    className="min-h-10 rounded-md border border-live bg-live/15 px-4 text-sm font-medium text-live disabled:opacity-50"
+                  >
+                    {bulkBusy ? 'Applying…' : `Apply all ${factPending.length} facts`}
+                  </button>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {factPending.map((p) => (
+                    <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} errorMessage={bulkErrors[p.id]} />
+                  ))}
+                </div>
+              </>
             )}
           </div>
         )}

@@ -1,7 +1,7 @@
 // Shapes for The Desk's own API responses — supersets of the shared registry
 // types (@/lib/types) with the queue's WHERE/VALIDATE enrichment. Kept local
 // to admin/desk since nothing outside The Desk needs them.
-import type { Proposal } from '@/lib/types';
+import type { ProposalType, Proposal, Wire } from '@/lib/types';
 import type { SignalEvidence } from '@/lib/signal-lookup';
 
 /** A Proposal as /api/desk/queue actually returns it: destination paths and
@@ -31,3 +31,29 @@ export interface PreviewPayload {
   changes: PreviewChange[];
   notes: string[];
 }
+
+/** /api/desk/decide-bulk's response shape. */
+export interface DecideBulkResponse {
+  ok: true;
+  decided: string[];
+  failed: { id: string; error: string }[];
+  commit: string | null;
+}
+
+export type ConfidenceBand = 'all' | 'high' | 'mid' | 'low';
+
+/** Judgment-tab filter state, lifted to page.tsx so it survives group
+ *  collapse/expand and is shared with the bulk-approve breakdown. */
+export interface FilterState {
+  types: Set<ProposalType>; // empty = all types
+  wires: Set<Wire>; // empty = all wires
+  confidence: ConfidenceBand;
+  text: string;
+}
+
+export const DEFAULT_FILTERS: FilterState = {
+  types: new Set(),
+  wires: new Set(),
+  confidence: 'all',
+  text: '',
+};

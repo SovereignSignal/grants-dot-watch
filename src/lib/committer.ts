@@ -6,13 +6,12 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import YAML from 'yaml';
+import { recordAppliedChanges } from './desk-store';
 import { invalidateRegistryCache, loadRegistry } from './registry';
 import type { Award, Org, Proposal, Program, Round, Wire } from './types';
 
 const REPO_ROOT = process.cwd();
 const REGISTRY = join(REPO_ROOT, 'registry');
-const DATA_DIR = join(REPO_ROOT, '.data');
-const PENDING_COMMITS = join(DATA_DIR, 'pending-commits.jsonl');
 
 export interface AppliedChange {
   path: string; // repo-relative, e.g. "registry/orgs/foo.yaml"
@@ -280,27 +279,193 @@ function buildAwardChange(p: Proposal): AppliedChange {
 }
 
 // ---- profile_note ----
+//
+// Shapes actually present in the seed data (surveyed 2026-07-11 across every
+// seed/proposals-*batch-*.json profile_note item — the literal
+// {field, current, proposed} audit shape does NOT occur; the batch-5 audit
+// corrections are file-keyed field maps like everything else):
+//   (1) { profile: "<text>" }                        → append a paragraph to the
+//       proposal org's profile (the original behavior, kept verbatim)
+//   (2) { "orgs/<slug>.yaml": {field: value, ...},
+//         "programs/<slug>.yaml": {...} }            → field-level updates to the
+//       referenced registry file — a map value is the field's NEW value
+//       (arrays replace: roles ["funder"]→["ecosystem"] is a correction)
+//   (3) top-level action / remove keys               → advisory or destructive;
+//       never automated, surfaced as a note for the owner's hand
+// Unknown fields inside a map (…_flag, review_note, profile_note,
+// profile_project_counts, summary_amount, …) are curator-facing prose that
+// would need an editorial rewrite to land — skipped with an explicit note.
+// Never guess.
 
-function buildProfileNoteChange(p: Proposal, notes: string[]): AppliedChange | null {
-  const pc = (p.proposed_change || {}) as Record<string, unknown>;
-  const profileText = typeof pc.profile === 'string' ? pc.profile.trim() : '';
-  if (!profileText || !p.org) {
-    notes.push('no-op: proposed_change.profile not present');
-    return null;
-  }
-  const path = join(REGISTRY, 'orgs', `${p.org}.yaml`);
+const ORG_SET_FIELDS = new Set(['name', 'aka', 'systems', 'wires', 'roles', 'org_type', 'website', 'status', 'profile']);
+const ORG_MERGE_OBJECT_FIELDS = new Set(['socials', 'funding']);
+const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'status', 'mechanism', 'apply_url', 'summary']);
+
+function appendParagraph(existing: unknown, addition: string): string {
+  const base = typeof existing === 'string' ? existing.trim() : '';
+  return base ? `${base}\n\n${addition.trim()}` : addition.trim();
+}
+
+function mergeSources(current: unknown, incoming: unknown): string[] {
+  const cur = Array.isArray(current) ? (current as string[]) : [];
+  const inc = Array.isArray(incoming) ? (incoming as string[]) : [];
+  return dedupe([...cur, ...inc]);
+}
+
+/** Field-level update of one orgs/<slug>.yaml from a profile_note field map.
+ *  Creates the file only when the map itself carries name + profile (the
+ *  deliberate-create case, e.g. the olmo→Ai2 replacement); a partial update
+ *  against a missing file is a no-op with a note, never a guessed stub. */
+function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposal, notes: string[]): AppliedChange | null {
+  const fileRel = `orgs/${slug}.yaml`;
+  const path = join(REGISTRY, fileRel);
   const existing = existsSync(path) ? safeParseYaml<Org>(path) : null;
-  if (!existing) {
-    notes.push(`no-op: org "${p.org}" not found`);
+  if (!existing && !(typeof map.name === 'string' && typeof map.profile === 'string')) {
+    notes.push(`no-op ${fileRel}: file not found, and the map lacks name+profile to create it`);
     return null;
   }
-  const nextProfile = existing.profile ? `${existing.profile.trim()}\n\n${profileText}` : profileText;
-  const merged: Org = {
-    ...existing,
-    profile: nextProfile,
-    sources: dedupe([...(existing.sources || []), p.evidence_url]),
-  };
-  return { path: `registry/orgs/${p.org}.yaml`, content: toYaml(orgDocToYamlObject(merged)), op: 'update' };
+  const base: Org =
+    existing ??
+    ({ id: slug, name: '', aka: [], systems: [], wires: [], roles: ['funder'], status: 'unknown', profile: '', sources: [] } as Org);
+  const next = { ...base } as Record<string, unknown>;
+  let touched = false;
+
+  for (const [field, value] of Object.entries(map)) {
+    if (field === 'id') {
+      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}" — a file's identity is its path`);
+      continue;
+    }
+    if (ORG_SET_FIELDS.has(field)) {
+      next[field] = value;
+      touched = true;
+      continue;
+    }
+    if (ORG_MERGE_OBJECT_FIELDS.has(field) && value && typeof value === 'object' && !Array.isArray(value)) {
+      next[field] = { ...((next[field] as Record<string, unknown>) || {}), ...(value as Record<string, unknown>) };
+      touched = true;
+      continue;
+    }
+    const dotted = /^(funding|socials)\.([a-z_]+)$/.exec(field);
+    if (dotted) {
+      next[dotted[1]] = { ...((next[dotted[1]] as Record<string, unknown>) || {}), [dotted[2]]: value };
+      touched = true;
+      continue;
+    }
+    if (field === 'sources' || field === 'sources_add') {
+      next.sources = mergeSources(next.sources, value);
+      touched = true;
+      continue;
+    }
+    if (field === 'profile_update' && typeof value === 'string' && value.trim()) {
+      next.profile = appendParagraph(next.profile, value);
+      touched = true;
+      continue;
+    }
+    notes.push(`${fileRel}: field "${field}" needs the owner's hand — skipped, never guessed`);
+  }
+
+  if (!touched) {
+    notes.push(`no-op ${fileRel}: nothing auto-applicable in the field map`);
+    return null;
+  }
+  next.sources = dedupe([...((next.sources as string[]) || []), p.evidence_url]);
+  return { path: `registry/${fileRel}`, content: toYaml(orgDocToYamlObject(next as unknown as Org)), op: existing ? 'update' : 'create' };
+}
+
+/** Field-level update of one programs/<slug>.yaml. Update-only: profile_note
+ *  never creates program files (that's new_program's job). */
+function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Proposal, notes: string[]): AppliedChange | null {
+  const fileRel = `programs/${slug}.yaml`;
+  const path = join(REGISTRY, fileRel);
+  const existing = existsSync(path) ? safeParseYaml<Program>(path) : null;
+  if (!existing) {
+    notes.push(`no-op ${fileRel}: file not found — profile_note never creates program files`);
+    return null;
+  }
+  const next = { ...existing } as Record<string, unknown>;
+  let touched = false;
+
+  for (const [field, value] of Object.entries(map)) {
+    if (field === 'id') {
+      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}" — a file's identity is its path`);
+      continue;
+    }
+    if (PROGRAM_SET_FIELDS.has(field)) {
+      next[field] = value;
+      touched = true;
+      continue;
+    }
+    if ((field === 'summary_update' || field === 'summary_add') && typeof value === 'string' && value.trim()) {
+      next.summary = appendParagraph(next.summary, value);
+      touched = true;
+      continue;
+    }
+    if (field === 'sources' || field === 'sources_add') {
+      next.sources = mergeSources(next.sources, value);
+      touched = true;
+      continue;
+    }
+    if (field === 'rounds' && Array.isArray(value)) {
+      next.rounds = mergeRounds((next.rounds as Round[]) || [], value, p.evidence_url);
+      touched = true;
+      continue;
+    }
+    if (field === 'add_round' && value && typeof value === 'object' && !Array.isArray(value)) {
+      next.rounds = mergeRounds((next.rounds as Round[]) || [], [value], p.evidence_url);
+      touched = true;
+      continue;
+    }
+    notes.push(`${fileRel}: field "${field}" needs the owner's hand — skipped, never guessed`);
+  }
+
+  if (!touched) {
+    notes.push(`no-op ${fileRel}: nothing auto-applicable in the field map`);
+    return null;
+  }
+  next.sources = dedupe([...((next.sources as string[]) || []), p.evidence_url]);
+  return { path: `registry/${fileRel}`, content: toYaml(programDocToYamlObject(next as unknown as Program)), op: 'update' };
+}
+
+function buildProfileNoteChanges(p: Proposal, notes: string[]): AppliedChange[] {
+  const pc = (p.proposed_change || {}) as Record<string, unknown>;
+  const changes: AppliedChange[] = [];
+
+  const fileEntries = Object.entries(pc).filter(
+    ([k, v]) => /^(orgs|programs)\/.+\.yaml$/.test(k) && v != null && typeof v === 'object'
+  );
+
+  if (fileEntries.length > 0) {
+    // shape (2): file-keyed field maps
+    for (const [key, value] of fileEntries) {
+      const m = /^(orgs|programs)\/(.+)\.yaml$/.exec(key)!;
+      const change =
+        m[1] === 'orgs'
+          ? applyOrgFieldMap(m[2], value as Record<string, unknown>, p, notes)
+          : applyProgramFieldMap(m[2], value as Record<string, unknown>, p, notes);
+      if (change) changes.push(change);
+    }
+  } else if (typeof pc.profile === 'string' && pc.profile.trim() && p.org) {
+    // shape (1): top-level profile string — append to the org's profile (original behavior)
+    const path = join(REGISTRY, 'orgs', `${p.org}.yaml`);
+    const existing = existsSync(path) ? safeParseYaml<Org>(path) : null;
+    if (!existing) {
+      notes.push(`no-op: org "${p.org}" not found`);
+    } else {
+      const merged: Org = {
+        ...existing,
+        profile: appendParagraph(existing.profile, pc.profile),
+        sources: dedupe([...(existing.sources || []), p.evidence_url]),
+      };
+      changes.push({ path: `registry/orgs/${p.org}.yaml`, content: toYaml(orgDocToYamlObject(merged)), op: 'update' });
+    }
+  }
+
+  // shape (3): advisory / destructive top-level keys — named honestly, never executed
+  if (typeof pc.action === 'string') notes.push(`action "${pc.action}" is not automated — the owner's hand`);
+  if (typeof pc.remove === 'string') notes.push(`destructive remove of ${pc.remove} skipped — deletions are never automated from a proposal`);
+
+  if (changes.length === 0 && notes.length === 0) notes.push('no-op: proposed_change has nothing auto-applicable');
+  return changes;
 }
 
 // ---- dispatcher ----
@@ -366,8 +531,7 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
       break;
     }
     case 'profile_note': {
-      const change = buildProfileNoteChange(p, notes);
-      if (change) changes.push(change);
+      changes.push(...buildProfileNoteChanges(p, notes));
       break;
     }
     case 'merge_orgs': {
@@ -383,10 +547,12 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
   return { changes, notes };
 }
 
-/** Writes buildProposalChanges' output to disk. Invalidates the in-memory
- *  registry cache on success so the running process reflects the write on
- *  its very next read, instead of waiting out the stale stamp window. */
-export function applyProposal(p: Proposal): ApplyResult {
+/** Computes + writes a proposal's file changes to disk. Does NOT invalidate
+ *  the registry cache — a caller applying many proposals in a batch (e.g.
+ *  /api/desk/decide-bulk) should invalidate once after the whole batch lands,
+ *  not once per item. Single-proposal callers should use applyProposal below,
+ *  which invalidates immediately. */
+export function writeProposalChanges(p: Proposal): ApplyResult {
   const result = buildProposalChanges(p);
   for (const c of result.changes) {
     const abs = join(REPO_ROOT, c.path);
@@ -394,6 +560,14 @@ export function applyProposal(p: Proposal): ApplyResult {
     if (c.op === 'append') appendFileSync(abs, c.content, 'utf8');
     else writeFileSync(abs, c.content, 'utf8');
   }
+  return result;
+}
+
+/** Writes buildProposalChanges' output to disk. Invalidates the in-memory
+ *  registry cache on success so the running process reflects the write on
+ *  its very next read, instead of waiting out the stale stamp window. */
+export function applyProposal(p: Proposal): ApplyResult {
+  const result = writeProposalChanges(p);
   if (result.changes.length > 0) invalidateRegistryCache();
   return result;
 }
@@ -405,20 +579,39 @@ export function commitMessageFor(p: Proposal): string {
   return lines.join('\n');
 }
 
-function appendPendingCommit(entry: { files: string[]; message: string; at: string }): void {
-  mkdirSync(DATA_DIR, { recursive: true });
-  appendFileSync(PENDING_COMMITS, `${JSON.stringify(entry)}\n`, 'utf8');
+/** Reads each written file back off disk so the ledger row carries the full
+ *  post-write content — enough to reconstruct the change on another machine
+ *  without this filesystem (Railway's is ephemeral). */
+function filesWithContentAfter(files: string[]): { path: string; content_after: string }[] {
+  return files.map((path) => {
+    let content = '';
+    try {
+      content = readFileSync(join(REPO_ROOT, path), 'utf8');
+    } catch {
+      // written moments ago, so this should not happen; ledger an empty
+      // marker rather than dropping the path from the record
+    }
+    return { path, content_after: content };
+  });
 }
 
 /** Best-effort local git commit, scoped to exactly the files passed in — never
  *  a blanket `registry/` add, so approving one Desk proposal can never sweep
- *  up unrelated local registry changes. On any failure (no git repo, nothing
- *  to commit, etc.) the change is logged to .data/pending-commits.jsonl and
- *  this returns null — the file mutation already happened and is never
- *  rolled back. */
-export function commitChange(files: string[], message: string): string | null {
+ *  up unrelated local registry changes. Whenever no sha is produced — the
+ *  GRANTS_WATCH_NO_GIT guard (Railway) or any git failure — the full change
+ *  set (paths + post-write contents) is persisted durably via
+ *  desk-store.recordAppliedChanges (Postgres when DATABASE_URL is set, else
+ *  .data/pending-commits.jsonl) and this returns null; the file mutation
+ *  already happened and is never rolled back. scripts/sync-desk-commits.mjs
+ *  replays those ledger rows into real commits on a machine with git. */
+export async function commitChange(files: string[], message: string, proposalId?: string | null): Promise<string | null> {
   if (files.length === 0) return null;
-  if (process.env.GRANTS_WATCH_NO_GIT === '1') return null;
+  const ledger = () =>
+    recordAppliedChanges({ proposal_id: proposalId ?? null, files: filesWithContentAfter(files), message });
+  if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+    await ledger();
+    return null;
+  }
   try {
     execFileSync('git', ['add', '--', ...files], { cwd: REPO_ROOT, stdio: 'pipe' });
     execFileSync('git', ['commit', '-m', message, '--author', 'The Desk <desk@grants.watch>'], {
@@ -427,7 +620,7 @@ export function commitChange(files: string[], message: string): string | null {
     });
     return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO_ROOT, stdio: 'pipe' }).toString().trim();
   } catch {
-    appendPendingCommit({ files, message, at: new Date().toISOString() });
+    await ledger();
     return null;
   }
 }
