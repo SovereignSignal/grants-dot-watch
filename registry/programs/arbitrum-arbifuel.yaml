@@ -1,0 +1,15 @@
+id: arbitrum-arbifuel
+name: ArbiFuel
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: active
+mechanism: other
+summary: Gas fee sponsorship program from the Arbitrum Foundation intended to help early-stage teams
+  ship faster on Arbitrum by covering onboarding gas costs.
+rounds: []
+sources:
+  - https://arbitrum.io/grants
