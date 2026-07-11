@@ -179,8 +179,13 @@ function findDateLiterals(value: unknown, out: string[] = []): string[] {
 }
 
 // ---- org resolver dedupe (pattern reused from scripts/resolve-orgs.mjs) ----
+// norm/domainOf/buildOrgDedupeIndex/findDuplicateOrg are exported so
+// ingest.ts's resolver can match wire/discuss.watch items against the
+// registry with the EXACT same normalization this validator's own
+// not-a-duplicate check uses — one normalization rule, not two that could
+// silently drift apart.
 
-function norm(s: string): string {
+export function norm(s: string): string {
   return (s || '')
     .toLowerCase()
     .normalize('NFKD')
@@ -189,7 +194,7 @@ function norm(s: string): string {
     .trim();
 }
 
-function domainOf(url?: string | null): string | null {
+export function domainOf(url?: string | null): string | null {
   if (!url) return null;
   try {
     const h = new URL(url.startsWith('http') ? url : `https://${url}`).hostname;
@@ -199,12 +204,31 @@ function domainOf(url?: string | null): string | null {
   }
 }
 
-interface OrgDedupeIndex {
+// Multi-tenant platform hostnames — an org's `socials.x`/`socials.github`/...
+// value lives at a HANDLE under one of these shared domains, not at a domain
+// the org owns. Found live (2026-07-11) while smoke-testing ingest.ts's org
+// resolver: 142 registry orgs carry a socials.x pointing at x.com, so
+// without this guard every org's byDomain entry for "x.com" collided on one
+// winner (whichever org buildOrgDedupeIndex iterated first — alphabetically
+// "1inch Network") and every x.com URL from ANY org resolved to that one
+// org. domainOf() only ever looks at .hostname (never the path), so it
+// cannot tell handles on a shared platform apart — the fix is to never let
+// a shared-platform hostname enter the domain index at all, from either
+// `website` or `socials`.
+const SHARED_PLATFORM_DOMAINS = new Set([
+  'x.com', 'twitter.com', 'github.com', 'discord.gg', 'discord.com',
+  't.me', 'telegram.me', 'telegram.org', 'medium.com', 'mirror.xyz',
+  'warpcast.com', 'farcaster.xyz', 'youtube.com', 'youtu.be', 'linkedin.com',
+  'reddit.com', 'facebook.com', 'instagram.com', 'notion.site', 'linktr.ee',
+  'substack.com', 'bsky.app', 'lens.xyz', 'tiktok.com',
+]);
+
+export interface OrgDedupeIndex {
   byName: Map<string, Org>;
   byDomain: Map<string, Org>;
 }
 
-function buildOrgDedupeIndex(orgs: Org[]): OrgDedupeIndex {
+export function buildOrgDedupeIndex(orgs: Org[]): OrgDedupeIndex {
   const byName = new Map<string, Org>();
   const byDomain = new Map<string, Org>();
   for (const o of orgs) {
@@ -215,13 +239,13 @@ function buildOrgDedupeIndex(orgs: Org[]): OrgDedupeIndex {
     const socialUrls = o.socials ? Object.values(o.socials) : [];
     for (const url of [o.website, ...socialUrls]) {
       const d = domainOf(url);
-      if (d && !byDomain.has(d)) byDomain.set(d, o);
+      if (d && !SHARED_PLATFORM_DOMAINS.has(d) && !byDomain.has(d)) byDomain.set(d, o);
     }
   }
   return { byName, byDomain };
 }
 
-function findDuplicateOrg(
+export function findDuplicateOrg(
   index: OrgDedupeIndex,
   candidate: { name?: string | null; aka?: string[]; website?: string | null }
 ): Org | null {

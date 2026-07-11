@@ -33,6 +33,17 @@ npm run build && npm run start
 Environment (all optional in dev): `ADMIN_TOKEN` gates The Desk; `GRANTS_WATCH_NO_GIT=1`
 disables commit-on-approve (decisions ledger to `.data/pending-commits.jsonl` instead).
 
+**Daily ingest loop** (`src/lib/ingest.ts`, `POST /api/ingest/run`, same auth as The Desk):
+`WIRE_DATABASE_URL` — read-only Postgres URL for the wire-room-ops canonical database
+(`scan_entries` + `org_profiles`); unset skips that source (fail-soft, logged as a source
+error, never blocks discuss.watch). `DISCUSS_WATCH_GRANTS_URL` — the discuss.watch grants
+feed endpoint, no API key needed; defaults to `https://www.discuss.watch/api/v1/grants`
+(**not** the bare `https://discuss.watch/...` apex — that 302s through Squarespace to the
+marketing homepage and drops the path). `INGEST_ENABLED=1` starts a daily in-process timer
+(`src/instrumentation.ts`, nodejs runtime) guarded by a Postgres advisory lock so multiple
+Railway replicas never double-run; last-run status lands in `ingest_state` and shows on
+`/admin/health`.
+
 ## Layout
 
 ```

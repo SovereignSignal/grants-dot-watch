@@ -54,7 +54,7 @@ function safeParseYaml<T>(path: string): T | null {
 
 const COMBINING_MARKS = /[̀-ͯ]/g;
 
-function slugify(s: string): string {
+export function slugify(s: string): string {
   return (s || '')
     .toLowerCase()
     .normalize('NFKD')

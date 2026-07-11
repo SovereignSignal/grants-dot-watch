@@ -55,7 +55,7 @@ function dedupeKeyOf(input: {
   return `hash:${h}`;
 }
 
-interface RawMinerProposal {
+export interface RawMinerProposal {
   type: ProposalType;
   org?: string | null;
   org_name?: string | null;
@@ -172,6 +172,244 @@ function collectSeedProposals(
   }
 
   return { proposals, skipped };
+}
+
+// ---- ingest.ts dedupe (daily ingest loop, wire + discuss.watch) ----
+//
+// Mirrors proposal-validator.ts's norm() exactly (lowercase, strip
+// diacritics, collapse to single spaces) but duplicated locally rather than
+// imported: proposal-validator.ts imports committer.ts which imports THIS
+// file, so an import the other way would be circular. It's five lines; a
+// drift risk here is cheap to notice (dedupe just gets slightly looser), so
+// duplication beats restructuring the module graph for it.
+function normKey(s: string | null | undefined): string {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+/** One-shot creation/judgment types: a second proposal for the same
+ *  org/program is always redundant (only one can ever be approved), so
+ *  these get a secondary type+org/program dedupe key on top of the signal-ref
+ *  key. Fact types (round_update/deadline_change/...) are deliberately
+ *  EXCLUDED — a second deadline_change for the same program is often a
+ *  legitimate new dated fact, not a duplicate, so they rely on signal-ref
+ *  dedupe alone (each source item has its own signal_id). */
+const ONE_SHOT_DEDUPE_TYPES: ReadonlySet<ProposalType> = new Set(['new_org', 'new_program', 'merge_orgs']);
+
+function typeOrgProgramKeyOf(input: { type: ProposalType; org?: string | null; org_name?: string | null; program?: string | null }): string {
+  return `tp:${input.type}:${normKey(input.org || input.org_name)}:${normKey(input.program)}`;
+}
+
+interface IngestDedupeState {
+  sigKeys: Set<string>;
+  tpKeys: Set<string>;
+}
+
+function buildIngestDedupeState(existing: Proposal[]): IngestDedupeState {
+  const sigKeys = new Set(existing.map((p) => dedupeKeyOf(p)));
+  const tpKeys = new Set(existing.filter((p) => ONE_SHOT_DEDUPE_TYPES.has(p.type)).map((p) => typeOrgProgramKeyOf(p)));
+  return { sigKeys, tpKeys };
+}
+
+/** Filters ingest.ts's mapped candidates down to genuinely-new proposals,
+ *  checking (and updating, so within-batch dupes across the two sources also
+ *  collapse) both dedupe key sets. Storage-agnostic — callers do the actual
+ *  insert. */
+function filterNewIngestCandidates(
+  candidates: RawMinerProposal[],
+  state: IngestDedupeState
+): { accepted: RawMinerProposal[]; skipped: number } {
+  const accepted: RawMinerProposal[] = [];
+  let skipped = 0;
+  for (const c of candidates) {
+    if (!c || !c.type || !c.title || !c.summary) {
+      skipped++;
+      continue;
+    }
+    const sigKey = dedupeKeyOf(c);
+    if (state.sigKeys.has(sigKey)) {
+      skipped++;
+      continue;
+    }
+    const tpKey = ONE_SHOT_DEDUPE_TYPES.has(c.type) ? typeOrgProgramKeyOf(c) : null;
+    if (tpKey && state.tpKeys.has(tpKey)) {
+      skipped++;
+      continue;
+    }
+    accepted.push(c);
+    state.sigKeys.add(sigKey);
+    if (tpKey) state.tpKeys.add(tpKey);
+  }
+  return { accepted, skipped };
+}
+
+function proposalFromRaw(item: RawMinerProposal, nextId: () => string): Proposal {
+  return {
+    id: nextId(),
+    type: item.type,
+    org: item.org ?? null,
+    org_name: item.org_name ?? null,
+    program: item.program ?? null,
+    title: item.title,
+    summary: item.summary,
+    evidence_url: item.evidence_url ?? null,
+    proposed_change: item.proposed_change,
+    confidence: item.confidence,
+    signal_id: item.signal_id,
+    wire: item.wire ?? null,
+    lane: laneFor(item.type, item.evidence_url),
+    state: 'pending',
+    created_at: new Date().toISOString(),
+  };
+}
+
+async function insertIngestProposalsLocal(candidates: RawMinerProposal[]): Promise<{ inserted: Proposal[]; skipped: number }> {
+  const store = readLocalStore();
+  const state = buildIngestDedupeState(store.proposals);
+  const nextId = makeIdCounterFrom(store.proposals.map((p) => p.id));
+  const { accepted, skipped } = filterNewIngestCandidates(candidates, state);
+  const inserted = accepted.map((item) => proposalFromRaw(item, nextId));
+  store.proposals.push(...inserted);
+  if (inserted.length > 0) writeLocalStore(store);
+  return { inserted, skipped };
+}
+
+async function insertIngestProposalsPg(candidates: RawMinerProposal[]): Promise<{ inserted: Proposal[]; skipped: number }> {
+  await ensureSchema();
+  const db = getPool();
+  const { rows } = await db.query('SELECT id, data FROM desk_proposals');
+  const existing = rows.map((r) => r.data as Proposal);
+  const state = buildIngestDedupeState(existing);
+  const nextId = makeIdCounterFrom(rows.map((r) => r.id as string));
+  const { accepted, skipped } = filterNewIngestCandidates(candidates, state);
+
+  const inserted: Proposal[] = [];
+  if (accepted.length > 0) {
+    const client = await db.connect();
+    try {
+      await client.query('BEGIN');
+      for (const item of accepted) {
+        const proposal = proposalFromRaw(item, nextId);
+        await client.query(
+          `INSERT INTO desk_proposals (id, data, lane, state, created_at) VALUES ($1, $2, $3, $4, $5)`,
+          [proposal.id, proposal, proposal.lane, proposal.state, proposal.created_at]
+        );
+        inserted.push(proposal);
+      }
+      await client.query('COMMIT');
+    } catch (e) {
+      await client.query('ROLLBACK');
+      throw e;
+    } finally {
+      client.release();
+    }
+  }
+  return { inserted, skipped };
+}
+
+/** ingest.ts's insert door: takes already-mapped candidates (deterministic
+ *  output of the wire/discuss.watch resolver — no seed/ files involved) and
+ *  inserts whatever survives dedupe against every proposal on file
+ *  (pending+decided), both by signal ref and — for new_org/new_program/
+ *  merge_orgs — by (type, org, program). Safe to call repeatedly: a re-run
+ *  over already-seen signals inserts nothing. */
+export async function insertIngestProposals(candidates: RawMinerProposal[]): Promise<{ inserted: Proposal[]; skipped: number }> {
+  return DATABASE_URL ? insertIngestProposalsPg(candidates) : insertIngestProposalsLocal(candidates);
+}
+
+// ---- ingest_state (watermarks + last-run log) ----
+
+const INGEST_STATE_PATH = join(DATA_DIR, 'ingest-state.json');
+
+function readLocalIngestState(): Record<string, unknown> {
+  if (!existsSync(INGEST_STATE_PATH)) return {};
+  try {
+    const parsed = JSON.parse(readFileSync(INGEST_STATE_PATH, 'utf8'));
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeLocalIngestState(state: Record<string, unknown>): void {
+  mkdirSync(DATA_DIR, { recursive: true });
+  const tmp = join(DATA_DIR, `.ingest-state.json.${process.pid}.${Date.now()}.tmp`);
+  writeFileSync(tmp, JSON.stringify(state, null, 2), 'utf8');
+  renameSync(tmp, INGEST_STATE_PATH);
+}
+
+/** Reads one ingest_state row. Postgres in prod (the table already exists —
+ *  see initSchema); a flat .data/ingest-state.json file in local/JSON-desk
+ *  mode, same {key: value} shape, so ingest.ts's watermark logic never has
+ *  to know which backend it's on. */
+export async function getIngestState(key: string): Promise<unknown | null> {
+  if (!DATABASE_URL) {
+    const state = readLocalIngestState();
+    return key in state ? state[key] : null;
+  }
+  await ensureSchema();
+  const db = getPool();
+  const { rows } = await db.query('SELECT value FROM ingest_state WHERE key = $1', [key]);
+  return rows[0]?.value ?? null;
+}
+
+export async function setIngestState(key: string, value: unknown): Promise<void> {
+  if (!DATABASE_URL) {
+    const state = readLocalIngestState();
+    state[key] = value;
+    writeLocalIngestState(state);
+    return;
+  }
+  await ensureSchema();
+  const db = getPool();
+  await db.query(
+    `INSERT INTO ingest_state (key, value, updated_at) VALUES ($1, $2::jsonb, now())
+     ON CONFLICT (key) DO UPDATE SET value = $2::jsonb, updated_at = now()`,
+    [key, JSON.stringify(value)]
+  );
+}
+
+// ---- advisory lock (instrumentation.ts's daily timer) ----
+
+// Arbitrary fixed key, unique to this app's ingest job — pg_try_advisory_lock
+// takes any bigint; there's nothing else in this database that would collide.
+const INGEST_LOCK_KEY = 8892011;
+
+let localIngestMutex = false;
+
+/** Runs `fn` only if no other instance/timer currently holds the ingest lock;
+ *  otherwise returns { ran: false } without calling `fn`. Postgres session
+ *  advisory lock when DATABASE_URL is set (works across Railway instances —
+ *  the whole point, since a daily in-process timer runs on every replica);
+ *  an in-process boolean in local/JSON-desk mode, where there's no shared
+ *  Postgres to lock against and only ever one process anyway. */
+export async function withIngestLock<T>(fn: () => Promise<T>): Promise<{ ran: boolean; result?: T }> {
+  if (!DATABASE_URL) {
+    if (localIngestMutex) return { ran: false };
+    localIngestMutex = true;
+    try {
+      return { ran: true, result: await fn() };
+    } finally {
+      localIngestMutex = false;
+    }
+  }
+  const db = getPool();
+  const client = await db.connect();
+  try {
+    const { rows } = await client.query('SELECT pg_try_advisory_lock($1) AS locked', [INGEST_LOCK_KEY]);
+    if (!rows[0]?.locked) return { ran: false };
+    try {
+      return { ran: true, result: await fn() };
+    } finally {
+      await client.query('SELECT pg_advisory_unlock($1)', [INGEST_LOCK_KEY]);
+    }
+  } finally {
+    client.release();
+  }
 }
 
 function computeQueueCounts(
