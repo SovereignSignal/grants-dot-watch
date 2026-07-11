@@ -1,0 +1,16 @@
+id: starknet-announces-grant-programs
+name: Starknet Announces Grant Programs
+org: starknet-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.starknet.io/grants/
+summary: Starknet has introduced multiple funding initiatives for early-stage and growing teams
+  building on their platform. They are offering $25K Seed Grants for early-stage teams, up to $1M in
+  Growth Grants, and up to $1M in gas rebates through the Propulsion Program. Direct support from
+  the Starknet Foundation is also available to participants.
+rounds: []
+sources:
+  - https://x.com/Starknet/status/2026296130934390900
