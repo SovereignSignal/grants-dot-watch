@@ -2,24 +2,26 @@ id: ethereum-esp
 name: Ethereum Foundation Ecosystem Support Program (ESP)
 org: ethereum-foundation
 parent: null
-systems: [ethereum]
-wires: [crypto, oss]
+systems:
+  - ethereum
+wires:
+  - crypto
+  - oss
 status: active
 mechanism: grants
 apply_url: https://esp.ethereum.foundation/applicants
 summary: >
-  The Ethereum Foundation's primary direct grants program, supporting free
-  and open-source projects, builder tools, infrastructure, and research that
-  strengthen Ethereum's technical, social, and research foundations. Funding
-  flows through Wishlist items (open problems inviting proposals) and
-  Requests for Proposals; quarterly allocation reports break awards into
-  categories such as community and education, cryptography and zero-knowledge
-  proofs, developer tooling, consensus and execution layers, and application
-  infrastructure. The open grants track was paused in 2025 in favor of more
-  strategic allocation.
+  The Ethereum Foundation's primary direct grants program, supporting free and open-source projects,
+  builder tools, infrastructure, and research that strengthen Ethereum's technical, social, and
+  research foundations. Funding flows through Wishlist items (open problems inviting proposals) and
+  Requests for Proposals; quarterly allocation reports break awards into categories such as
+  community and education, cryptography and zero-knowledge proofs, developer tooling, consensus and
+  execution layers, and application infrastructure. The open grants track was paused in 2025 in
+  favor of more strategic allocation.
 rounds: []
 sources:
   - https://esp.ethereum.foundation/applicants
   - https://blog.ethereum.org/2026/04/29/allocation-q1-26
   - https://blog.ethereum.org/2025/12/02/allocation-q3-25
   - https://blog.ethereum.org/en/2025/07/23/allocation-q2-25
+  - https://x.com/ef_esp/status/2062897232635195871
