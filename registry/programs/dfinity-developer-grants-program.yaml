@@ -1,0 +1,15 @@
+id: dfinity-developer-grants-program
+name: DFINITY Developer Grants Program
+org: dfinity-internet-computer
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+apply_url: https://dfinity.org/grants
+summary: The DFINITY Foundation's Developer Grants Program funds developers building on the Internet
+  Computer, including a dedicated DeAI grant track for AI applications on ICP.
+rounds: []
+sources:
+  - https://dfinity.org/grants
