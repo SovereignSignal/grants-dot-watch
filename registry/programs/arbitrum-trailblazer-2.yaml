@@ -1,0 +1,19 @@
+id: arbitrum-trailblazer-2
+name: Arbitrum Trailblazer 2.0
+org: arbitrum-foundation
+parent: null
+systems:
+  - arbitrum
+wires:
+  - crypto
+status: concluded
+mechanism: grants
+summary: A concluded $1M Arbitrum Foundation funding program for ecosystem builders, marked "Program
+  Complete" on the Foundation's grants page.
+rounds:
+  - name: Trailblazer 2.0
+    status: closed
+    size: $1M funding program
+    source: https://arbitrum.io/grants
+sources:
+  - https://arbitrum.io/grants
