@@ -1,0 +1,18 @@
+id: ethereum-foundation-github-dependency-mapping-bounty
+name: Ethereum Foundation GitHub Dependency Mapping Bounty
+org: ethereum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://esp.ethereum.foundation/
+summary: Ethereum Foundation GitHub Dependency Mapping Bounty — dispatch from the wire, no further
+  detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-05-27
+    source: https://x.com/JoinPond/status/2056959056309584119
+sources:
+  - https://x.com/JoinPond/status/2056959056309584119
