@@ -85,7 +85,19 @@ interface Outcome {
  *  approve uses, so undo is the same `git revert` story. */
 export async function runValidation(opts: RunValidationOptions = {}): Promise<RunValidationResult> {
   const limit = opts.limit && opts.limit > 0 ? Math.floor(opts.limit) : DEFAULT_LIMIT;
-  const pending = (await listProposals({ state: 'pending' })).slice(0, limit);
+  // Never-checked proposals come first — otherwise a standing exception list
+  // (failures stay pending by design) starves new arrivals of validation.
+  // Already-checked items only retry after a cooldown, stalest first, and
+  // never-auto classes are excluded from retries (their verdict can't change).
+  const RECHECK_COOLDOWN_MS = 20 * 60 * 60 * 1000;
+  const now = Date.now();
+  const all = await listProposals({ state: 'pending' });
+  const unchecked = all.filter((p) => !p.validation);
+  const recheckable = all
+    .filter((p) => p.validation && !p.validation.never_auto)
+    .filter((p) => now - new Date(p.validation!.checked_at).getTime() > RECHECK_COOLDOWN_MS)
+    .sort((a, b) => new Date(a.validation!.checked_at).getTime() - new Date(b.validation!.checked_at).getTime());
+  const pending = [...unchecked, ...recheckable].slice(0, limit);
 
   const byType: RunValidationResult['byType'] = {};
   const errors: { id: string; error: string }[] = [];
