@@ -1,0 +1,20 @@
+id: nih-itcr-early-stage-informatics
+name: ITCR Early-Stage Informatics Technologies for Cancer Research (RFA-CA-27-019)
+org: national-institutes-of-health
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: NIH's ITCR RFA-CA-27-019 funds early-stage open-source informatics tools for cancer
+  research via the U01 mechanism, with a deadline of 2027-10-19. Submitted via the recall-audit feed
+  as a verified-live miss.
+rounds:
+  - name: RFA-CA-27-019
+    status: open
+    closes: 2027-10-19
+    size: NIH U01
+    source: https://www.grants.gov/search-results-detail/359892
+sources:
+  - https://www.grants.gov/search-results-detail/359892
