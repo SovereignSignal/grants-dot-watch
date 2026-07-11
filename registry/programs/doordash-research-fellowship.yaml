@@ -1,0 +1,15 @@
+id: doordash-research-fellowship
+name: DoorDash Research Fellowship
+org: doordash
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: fellowship
+apply_url: https://careersatdoordash.com/jobs/ai-research-fellowship-summer-and-fall-2026/7848317
+summary: 3-6 month (extendable) applied ML research fellowship for summer/fall 2026, including a
+  housing subsidy.
+rounds: []
+sources:
+  - https://careersatdoordash.com/jobs/ai-research-fellowship-summer-and-fall-2026/7848317

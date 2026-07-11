@@ -1,0 +1,15 @@
+id: doordash
+name: DoorDash
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+org_type: company
+website: https://careersatdoordash.com/
+status: active
+profile: DoorDash's Research Fellowship is a 3-6 month (extendable) applied machine-learning
+  research fellowship for summer/fall 2026, including a housing subsidy.
+sources:
+  - https://careersatdoordash.com/jobs/ai-research-fellowship-summer-and-fall-2026/7848317
