@@ -1,9 +1,12 @@
 id: celo
 name: Celo
 aka: []
-systems: [web3-public-goods]
-wires: [crypto]
-roles: [funder]
+systems:
+  - web3-public-goods
+wires:
+  - crypto
+roles:
+  - funder
 org_type: dao
 website: https://celo.org/
 socials:
@@ -11,22 +14,26 @@ socials:
   github: https://github.com/celo-org
   forum: https://forum.celo.org/c/ecosystem/grants/27
 status: active
-profile: >
-  Celo is a mobile-first, EVM-compatible layer-1 blockchain focused on
-  real-world payments and adoption, governed by the Celo DAO with support
-  from the Celo Foundation and cLabs. Ecosystem funding runs through
-  CeloPG (public goods / retroactive grants), milestone-based grants,
-  security subsidies, and Gitcoin-style quadratic-funding rounds, funded in
-  CELO, cUSD, and OP each season.
+profile: >-
+  Celo is a mobile-first, EVM-compatible layer-1 blockchain focused on real-world payments and
+  adoption, governed by the Celo DAO with support from the Celo Foundation and cLabs. Ecosystem
+  funding runs through CeloPG (public goods / retroactive grants), milestone-based grants, security
+  subsidies, and Gitcoin-style quadratic-funding rounds, funded in CELO, cUSD, and OP each season.
+
+
+  Prezenti Grants (a Celo builder grant line) now takes applications through Tally rather than its
+  prior intake.
 funding:
   focus:
     - public goods
     - real-world payments
     - ecosystem infrastructure
   typical_size: "Prezenti Anchor/Frontier pools: $25,000+ per project"
-  cadence: "Prezenti Anchor/Frontier pools run in seasonal windows (Season 2 concluded; next round posted for Feb–Jun 2026), plus periodic CeloPG retroactive/QF rounds"
+  cadence: Prezenti Anchor/Frontier pools run in seasonal windows (Season 2 concluded; next round
+    posted for Feb–Jun 2026), plus periodic CeloPG retroactive/QF rounds
   apply_url: https://forum.celo.org/c/ecosystem/grants/27
 sources:
   - https://celo.org/
   - https://forum.celo.org/c/ecosystem/grants/27
   - https://www.prezenti.xyz/
+  - https://forum.celo.org/t/prezenti-grant-applications-have-moved-to-tally/13318
