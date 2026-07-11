@@ -1,0 +1,21 @@
+id: multi-agent-ai-safety-research-fund
+name: Multi-Agent AI Safety Research Fund
+org: google-deepmind
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
+summary: $10M fund jointly run by Google DeepMind, Schmidt Sciences, the Cooperative AI Foundation,
+  ARIA, and Google.org, kick-starting independent research on multi-agent AI safety.
+rounds:
+  - name: 2026 call
+    status: open
+    closes: 2026-08-08
+    size: $10M
+    source: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
+sources:
+  - https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
