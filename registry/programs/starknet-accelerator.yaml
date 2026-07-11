@@ -1,0 +1,14 @@
+id: starknet-accelerator
+name: Starknet Accelerator
+org: starknet-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.starknet.io/grants/
+summary: A 12-week accelerator from the Starknet Foundation offering $100,000 per startup
+  for teams building ZK applications, Cairo development, and ecosystem tooling on Starknet.
+rounds: []
+sources:
+  - https://www.karmahq.xyz/funding-map
