@@ -1,18 +1,25 @@
 id: foss-sustainability-fund
 name: FOSS Sustainability Fund
 aka: []
-systems: [oss-sustainability]
-wires: [oss]
-roles: [funder]
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://www.fossfund.org/
 socials:
   x: https://x.com/fossfund
-status: unknown
-profile: >
-  The FOSS Sustainability Fund is listed as a funder supporting the
-  sustainability of free and open source software. Its website at
-  fossfund.org did not resolve when checked in July 2026, so its current
-  status and program details are unconfirmed here.
+status: dead
+profile: >-
+  The FOSS Sustainability Fund is listed as a funder supporting the sustainability of free and open
+  source software. Its website at fossfund.org did not resolve when checked in July 2026, so its
+  current status and program details are unconfirmed here.
+
+
+  The FOSS Sustainability Fund was listed as a funder supporting free and open source software
+  sustainability. Its domain (fossfund.org) no longer resolves (DNS failure, reconfirmed 2026-07),
+  so it is treated as defunct pending contrary evidence.
 sources:
   - https://www.fossfund.org/
