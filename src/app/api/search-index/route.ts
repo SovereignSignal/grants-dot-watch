@@ -5,14 +5,14 @@ import { NextResponse } from 'next/server';
 import { loadRegistry } from '@/lib/registry';
 
 export interface SearchIndexItem {
-  t: 'system' | 'org' | 'program' | 'grantee';
+  t: 'system' | 'org' | 'program';
   id: string;
   n: string;
   a?: string[];
 }
 
 export async function GET() {
-  const { systems, orgs, programs, grantees } = loadRegistry();
+  const { systems, orgs, programs } = loadRegistry();
 
   const items: SearchIndexItem[] = [
     ...systems.map((s): SearchIndexItem => ({ t: 'system', id: s.id, n: s.name })),
@@ -22,11 +22,6 @@ export async function GET() {
       return item;
     }),
     ...programs.map((p): SearchIndexItem => ({ t: 'program', id: p.id, n: p.name })),
-    // grantees only surface once >=2 funders have touched them — keeps the
-    // payload sane and matches the site's own bar for a "notable" grantee.
-    ...grantees
-      .filter((g) => g.funders.length >= 2)
-      .map((g): SearchIndexItem => ({ t: 'grantee', id: g.slug, n: g.name })),
   ];
 
   return NextResponse.json(items, {

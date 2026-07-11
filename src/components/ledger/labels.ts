@@ -1,6 +1,6 @@
 // Label maps for program-level fields not covered by src/lib/format.ts
 // (which only knows round status and wires). Kept in the ledger module
-// since only programs/awards pages use them.
+// since only the programs pages use them.
 
 export const MECHANISM_LABEL: Record<string, string> = {
   grants: 'Grants',

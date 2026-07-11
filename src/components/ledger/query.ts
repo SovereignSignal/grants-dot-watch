@@ -1,4 +1,4 @@
-// Query-string helpers shared by the programs/awards/grantees pages.
+// Query-string helpers shared by the programs pages.
 // Server components receive searchParams as a Promise<Record<string, string | string[] | undefined>>;
 // these turn that into plain strings and back into Link-able hrefs, filters-first, no client JS needed.
 

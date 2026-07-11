@@ -60,7 +60,7 @@ export default async function OrgsPage({
 
   return (
     <>
-      <PageHeader eyebrow="THE REGISTER" title="Organizations" sub="Every org grants.watch tracks — funders in depth, grantees as thin records derived from awards." />
+      <PageHeader eyebrow="THE REGISTER" title="Organizations" sub="Every org grants.watch tracks — funders curated in depth, others as thin records." />
       <OrgFilterBar
         current={current}
         roleOptions={ROLE_OPTIONS.map((r) => ({ value: r, label: ORG_ROLE_LABEL[r] }))}

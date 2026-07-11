@@ -25,9 +25,9 @@ export function FilterRow({ label, children }: { label: string; children: React.
   );
 }
 
-/** An unlabeled wrapped row of toggles — for a page (like /awards) that
- *  groups filters by their own visual content (a wire dot, a bare year)
- *  rather than a text label. */
+/** An unlabeled wrapped row of toggles — for a page that groups filters by
+ *  their own visual content (a wire dot, a bare year) rather than a text
+ *  label. */
 export function FilterGroup({ children }: { children: React.ReactNode }) {
   return <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">{children}</div>;
 }

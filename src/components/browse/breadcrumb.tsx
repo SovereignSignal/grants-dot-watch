@@ -1,5 +1,5 @@
 // Page-level breadcrumb + edition line, sitting under the global masthead on
-// entity detail pages (org/system/grantee cards) — the wire-service "dateline"
+// entity detail pages (org/system cards) — the wire-service "dateline"
 // row from design/mocks/c-orgcard.html's .byline, adapted: the global layout
 // already carries the registry-wide "Registry as of… / Edition …" byline, so
 // this is a second, page-scoped row (REGISTRY / ORGANIZATIONS / NAME on the

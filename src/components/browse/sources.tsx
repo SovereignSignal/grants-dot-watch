@@ -30,7 +30,7 @@ export function SourceCitations({ sources }: { sources: string[] | undefined }) 
 export function SourcesList({ sources, label = 'Sources' }: { sources: string[] | undefined; label?: string }) {
   if (!sources || sources.length === 0) return null;
   return (
-    <div className="mt-6">
+    <div>
       <div className="coord mb-2.5">{label}</div>
       <ol className="flex flex-col">
         {sources.map((src, i) => (

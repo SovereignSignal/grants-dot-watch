@@ -16,7 +16,7 @@ import type { Wire } from '@/lib/types';
 
 export const metadata: Metadata = {
   title: { default: 'grants.watch', template: '%s · grants.watch' },
-  description: 'The registry of the funding world: systems, organizations, programs, and awards across crypto, AI, and open source.',
+  description: 'The registry of the funding world: systems, organizations, and programs across crypto, AI, and open source.',
 };
 
 // Pre-paint theme script — reads the stored choice (or prefers-color-scheme
@@ -28,7 +28,6 @@ const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('gw-theme');if(
 
 const NAV = [
   { href: '/programs', label: 'Now Open' },
-  { href: '/awards', label: 'Awards' },
   { href: '/systems', label: 'Systems' },
   { href: '/orgs', label: 'Organizations' },
   { href: '/admin/desk', label: 'The Desk' },

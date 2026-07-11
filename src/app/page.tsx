@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { Empty } from '@/components/ui';
-import { dateShort, money, MONTHS_LONG, WIRE_LABEL } from '@/lib/format';
+import { MONTHS_LONG } from '@/lib/format';
 import type { Org, Program, Round } from '@/lib/types';
 
 interface OpenRound {
@@ -40,7 +40,7 @@ function wireDot(wire: string | null | undefined) {
 }
 
 export default function Home() {
-  const { orgs, programs, awards, counts } = loadRegistry();
+  const { orgs, programs, counts } = loadRegistry();
 
   const openRounds = collectOpenRounds(programs, orgs);
   const dated = openRounds
@@ -62,16 +62,10 @@ export default function Home() {
     g.rows.push(r);
   }
 
-  const latestAwards = awards
-    .filter((a) => a.date)
-    .sort((a, b) => b.date!.localeCompare(a.date!) || (b.amount ?? -1) - (a.amount ?? -1))
-    .slice(0, 5);
-
   const REGISTER: { href: string; label: string; n: number }[] = [
     { href: '/systems', label: 'Systems', n: counts.systems },
     { href: '/orgs', label: 'Organizations', n: counts.orgs },
     { href: '/programs', label: 'Programs', n: counts.programs },
-    { href: '/awards', label: 'Awards', n: counts.awards },
   ];
 
   return (
@@ -79,7 +73,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl border-b border-line px-4 pt-8 pb-7">
         <div className="coord mb-2.5">Grant funding across crypto, AI, and open source</div>
         <p className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
-          Every open round, every closed grant, every dollar that moved —{' '}
+          Every funder, every program, every open round —{' '}
           <em className="border-b border-paper not-italic">tracked in one register, sourced in the open.</em>
         </p>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
@@ -89,7 +83,7 @@ export default function Home() {
         </p>
       </section>
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-11 gap-y-10 px-4 py-9 lg:grid-cols-[1fr_336px]">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-11 gap-y-10 px-4 py-9 lg:grid-cols-[1fr_300px]">
         {/* DEPARTURES — lead story */}
         <section className="min-w-0">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
@@ -154,62 +148,28 @@ export default function Home() {
           )}
         </section>
 
-        {/* RAIL */}
+        {/* RAIL — THE REGISTER, the index alone now that awards has stepped back */}
         <aside className="min-w-0 lg:border-l lg:border-line lg:pl-11">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Latest Awards</h2>
-            <span className="coord shrink-0">
-              {latestAwards.length} of {counts.awards.toLocaleString()}
-            </span>
+            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
+            <span className="coord shrink-0">3 measures</span>
           </div>
-          {latestAwards.length === 0 ? (
-            <Empty>No awards with a recorded date on file yet.</Empty>
-          ) : (
-            latestAwards.map((a) => (
+          <div className="flex flex-col">
+            {REGISTER.map((r) => (
               <Link
-                key={a.key}
-                href={`/grantees/${a.grantee}`}
-                className="flex items-start gap-2.5 border-b border-line py-3 transition-colors hover:bg-raised/40"
+                key={r.href}
+                href={r.href}
+                className="group flex items-baseline justify-between gap-4 border-b border-line py-6 first:pt-5"
               >
-                {wireDot(a.wire)}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <div className="min-w-0 truncate text-[13px] text-paper">
-                      <span className="text-faint">{a.funder_name}</span>
-                      <span className="px-1 text-faint">→</span>
-                      <span className="font-semibold">{a.grantee_name}</span>
-                    </div>
-                    <div className="shrink-0 text-[13px] font-bold tabular-nums text-paper">{money(a.amount, a.amount_text)}</div>
-                  </div>
-                  <div className="coord mt-0.5">
-                    {dateShort(a.date)}
-                    {a.wire ? ` · ${WIRE_LABEL[a.wire]}` : ''}
-                  </div>
+                <div>
+                  <div className="serif-statement text-[40px] leading-none tabular-nums text-paper">{r.n.toLocaleString()}</div>
+                  <div className="coord mt-2">{r.label}</div>
+                </div>
+                <div className="coord shrink-0 border-b border-line pb-0.5 text-dim group-hover:border-paper group-hover:text-paper">
+                  Browse →
                 </div>
               </Link>
-            ))
-          )}
-
-          <div className="mt-8">
-            <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-              <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
-              <span className="coord shrink-0">4 measures</span>
-            </div>
-            <div className="grid grid-cols-2 border-t border-line">
-              {REGISTER.map((r, i) => (
-                <Link
-                  key={r.href}
-                  href={r.href}
-                  className={`group py-3 ${i % 2 === 1 ? 'border-l border-line pl-5' : 'pr-5'} ${i >= 2 ? 'border-t border-line' : ''}`}
-                >
-                  <div className="serif-statement text-[28px] leading-none tabular-nums text-paper">{r.n.toLocaleString()}</div>
-                  <div className="coord mt-1.5">{r.label}</div>
-                  <div className="coord mt-1 inline-block border-b border-line text-dim group-hover:border-paper group-hover:text-paper">
-                    Browse {r.label.toLowerCase()} →
-                  </div>
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
         </aside>
       </div>

@@ -1,7 +1,7 @@
 // Shared display helpers for the systems/orgs browsing module. Pure functions
 // only — no components here (components live in filters.tsx / cards live inline
 // in the pages that own them).
-import type { Award, Org, Program, RegistryIndex, System } from '@/lib/types';
+import type { Org, Program, System } from '@/lib/types';
 import { mostLiveRound } from '@/components/ledger/rounds';
 
 // mostLiveRound is defined once in the ledger module (src/components/ledger/rounds.ts)
@@ -81,37 +81,4 @@ export function firstSentence(text: string): string {
   const flat = (text || '').trim().replace(/\s+/g, ' ');
   const m = flat.match(/^.*?[.!?](?=\s|$)/);
   return (m ? m[0] : flat).trim();
-}
-
-export interface CoFunder {
-  org: Org;
-  sharedGrantees: number;
-}
-
-/** Orgs that funded at least one of the same grantees as `orgId`, ranked by overlap. */
-export function coFundersOf(orgId: string, index: RegistryIndex, limit = 6): CoFunder[] {
-  const myGrantees = new Set(index.awards.filter((a) => a.funder === orgId).map((a) => a.grantee));
-  if (myGrantees.size === 0) return [];
-  const counts = new Map<string, number>();
-  for (const a of index.awards) {
-    if (a.funder === orgId || !myGrantees.has(a.grantee)) continue;
-    counts.set(a.funder, (counts.get(a.funder) || 0) + 1);
-  }
-  const orgsById = new Map(index.orgs.map((o) => [o.id, o]));
-  return [...counts.entries()]
-    .map(([id, sharedGrantees]) => ({ org: orgsById.get(id), sharedGrantees }))
-    .filter((c): c is { org: Org; sharedGrantees: number } => !!c.org)
-    .sort((a, b) => b.sharedGrantees - a.sharedGrantees || a.org.name.localeCompare(b.org.name))
-    .slice(0, limit);
-}
-
-/** Awards sorted newest-first (unset dates sink to the bottom). */
-export function byDateDesc(awards: Award[]): Award[] {
-  return [...awards].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-}
-
-/** True when an award carries a usable public dollar figure (used for the
- *  "N of M awards carry a public figure" honesty subscripts). */
-export function isUsdKnown(a: Award): boolean {
-  return Boolean(a.amount) && (!a.currency || a.currency.toUpperCase() === 'USD');
 }

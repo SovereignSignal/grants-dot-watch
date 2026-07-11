@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getOrg, getProgram, loadRegistry } from '@/lib/registry';
 import { PageHeader, Empty, Coord } from '@/components/ui';
-import { dateShort, money, ROUND_STATUS_LABEL, WIRE_COLOR } from '@/lib/format';
+import { ROUND_STATUS_LABEL, WIRE_COLOR } from '@/lib/format';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { ProgramStatusBadge } from '@/components/ledger/program-status';
 import { timelineOrder } from '@/components/ledger/rounds';
@@ -27,17 +27,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
   if (!program) notFound();
 
   const org = getOrg(program.org);
-  const { awards, programs } = loadRegistry();
-  const nameLower = program.name.toLowerCase();
-  const programAwards = awards
-    .filter((a) => a.program === program.id || (a.program_name && a.program_name.toLowerCase() === nameLower))
-    .sort((a, b) => {
-      if (a.date && b.date) return b.date.localeCompare(a.date);
-      if (a.date) return -1;
-      if (b.date) return 1;
-      return 0;
-    })
-    .slice(0, 20);
+  const { programs } = loadRegistry();
 
   const rounds = timelineOrder(program.rounds || []);
   const parent = program.parent ? getProgram(program.parent) : null;
@@ -139,43 +129,6 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
                 );
               })}
             </>
-          )}
-        </section>
-
-        <section className="mt-10">
-          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Awards From This Program</h2>
-            <span className="coord shrink-0">{programAwards.length.toLocaleString()} shown</span>
-          </div>
-          {programAwards.length === 0 ? (
-            <Empty>No awards on file for this program yet.</Empty>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-line text-left">
-                    <th className="coord py-2 pr-4 font-normal">Date</th>
-                    <th className="coord py-2 pr-4 font-normal">Grantee</th>
-                    <th className="coord py-2 pr-4 text-right font-normal">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {programAwards.map((a) => (
-                    <tr key={a.key} className="border-b border-line last:border-0">
-                      <td className="whitespace-nowrap py-2.5 pr-4 font-mono text-xs text-faint">{dateShort(a.date)}</td>
-                      <td className="py-2.5 pr-4">
-                        <Link href={`/grantees/${a.grantee}`} className="display text-paper hover:text-signal">
-                          {a.grantee_name || a.grantee}
-                        </Link>
-                      </td>
-                      <td className="whitespace-nowrap py-2.5 pr-4 text-right font-mono font-semibold text-paper">
-                        {money(a.amount, a.amount_text)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           )}
         </section>
 

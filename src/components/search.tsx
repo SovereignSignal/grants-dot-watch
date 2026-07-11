@@ -9,18 +9,16 @@ import type { SearchIndexItem } from '@/app/api/search-index/route';
 
 type ItemType = SearchIndexItem['t'];
 
-const GROUP_ORDER: ItemType[] = ['system', 'org', 'program', 'grantee'];
+const GROUP_ORDER: ItemType[] = ['system', 'org', 'program'];
 const GROUP_LABEL: Record<ItemType, string> = {
   system: 'Systems',
   org: 'Organizations',
   program: 'Programs',
-  grantee: 'Grantees',
 };
 const HREF: Record<ItemType, (id: string) => string> = {
   system: (id) => `/systems/${id}`,
   org: (id) => `/orgs/${id}`,
   program: (id) => `/programs/${id}`,
-  grantee: (id) => `/grantees/${id}`,
 };
 
 const MAX_RESULTS = 8;

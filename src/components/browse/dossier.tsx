@@ -1,7 +1,7 @@
 // The broadsheet dossier header — kicker + huge serif name + small-caps facts
 // row + serif standfirst — per design/mocks/c-orgcard.html's .dossier/.standfirst.
-// Shared by org, system, and grantee detail pages; `compact` shrinks it for the
-// grantee "mini org card" per the phase-2B brief.
+// Shared by org and system detail pages; `compact` shrinks it for smaller,
+// mini-card-style uses.
 import type { ReactNode } from 'react';
 
 export function FactSep() {
@@ -67,10 +67,25 @@ export interface Fact {
   note?: ReactNode;
 }
 
-/** The right-rail ruled facts panel — serif italic tabular numbers over a
- *  small-caps label, each row separated by a hairline, with an optional
- *  honesty subscript (e.g. "19 of 46 awards carry a public figure"). */
-export function FactsPanel({ facts }: { facts: Fact[] }) {
+/** The ruled facts panel — serif italic tabular numbers over a small-caps
+ *  label, with an optional honesty subscript for a stat that needs a
+ *  caveat. `vertical` (default) stacks rows hairline-separated for a narrow
+ *  rail; `horizontal` lays them out side by side under one shared rule, for
+ *  a full-width strip when there's no rail to hang them on. */
+export function FactsPanel({ facts, layout = 'vertical' }: { facts: Fact[]; layout?: 'vertical' | 'horizontal' }) {
+  if (layout === 'horizontal') {
+    return (
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3">
+        {facts.map((f, i) => (
+          <div key={i}>
+            <div className="serif-statement text-[32px] leading-none tabular-nums text-paper">{f.value}</div>
+            <div className="coord mt-2">{f.label}</div>
+            {f.note && <div className="serif-statement mt-1 text-[10.5px] leading-snug text-faint">{f.note}</div>}
+          </div>
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col">
       {facts.map((f, i) => (
