@@ -1,0 +1,16 @@
+id: global-catastrophic-risks-opportunities-fund
+name: Global Catastrophic Risks Opportunities Fund
+org: coefficient-giving
+parent: null
+systems:
+  - ai-safety
+wires:
+  - ai
+status: active
+mechanism: grants
+summary: Coefficient Giving (formerly Open Philanthropy) runs a Global Catastrophic Risks
+  Opportunities Fund as one of several open-application funds, alongside Global Health and
+  Wellbeing, Farm Animal Welfare, and Effective Giving & Careers funds.
+rounds: []
+sources:
+  - https://coefficientgiving.org/apply-for-funding/
