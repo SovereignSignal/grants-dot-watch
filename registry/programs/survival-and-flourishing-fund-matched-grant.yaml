@@ -1,0 +1,26 @@
+id: survival-and-flourishing-fund-matched-grant
+name: Survival and Flourishing Fund Matched Grant
+org: long-term-future-fund
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: >-
+  TLDR:
+
+
+  The Survival and Flourishing Fund has committed a matched grant. Donations are matched 1:1 up to
+  $26,000. We need to raise at least $10,000 to unlock any of it. The full match funds the team for
+  seven months.
+
+
+  If you've been looking for a way to support quantitative AI governance work specifically, this is
+  a good moment. Donate here, and feel free to reach out if you’re on the fence!
+
+
+
+  What
+rounds: []
+sources:
+  - https://forum.effectivealtruism.org/posts/fhw9gth9oBEBnWy6R/modeling-ai-competition-dynamics-for-better-governance

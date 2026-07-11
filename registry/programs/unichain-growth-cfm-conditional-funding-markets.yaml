@@ -1,0 +1,17 @@
+id: unichain-growth-cfm-conditional-funding-markets
+name: Unichain growth CFM (Conditional Funding Markets)
+org: uniswap-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://uniswap.org
+summary: Welcome to the Unichain growth CFM category! This forum category will be used to share
+  lending protocol applications, post market results, and communicate other updates. ** Please note
+  that posting in this category is restricted to participating lending protocols and the UF and
+  Butter teams. About the CFMs One of our primary strategic goals for Uniswap governance is to
+  create a credibly neutral go
+rounds: []
+sources:
+  - https://gov.uniswap.org/t/about-the-conditional-funding-markets-cfm-category/25675

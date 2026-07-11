@@ -1,0 +1,16 @@
+id: compound-grants-committee
+name: Compound Grants Committee
+org: compound-dao
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: Hello everyone I have submitted a proposal to the Compounds Grants committee about
+  implementing an extension to support real world assets with the Compound protocol. Real world
+  assets could be any asset that exists physically and produces an income stream or gains in value
+  over time such as real estate, art, commodities like gold, etc. The value proposition is two fold
+  enable real asset owners to
+rounds: []
+sources:
+  - https://www.comp.xyz/t/proposal-real-world-asset-rwa-asset-markets-on-compound/4419

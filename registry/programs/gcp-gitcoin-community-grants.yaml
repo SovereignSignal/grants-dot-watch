@@ -1,0 +1,16 @@
+id: gcp-gitcoin-community-grants
+name: GCP - Gitcoin Community Grants
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: a3na GCP Enhancing Gitcoin’s Knowledge Base and Citizen Engagement Summary a3na (Consensys)
+  proposes to unlock funds for Gitcoin Citizens to be rewarded for content that they contribute by
+  leveraging a developing protocol named a3na. We also wish to work closely with Gitcoin to ensure
+  that what we are building is for communities like Gitcoin, helping us to make informed decisions
+  along the way abo
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/gcp-xxx-community-knowledge-base-for-llm/19523

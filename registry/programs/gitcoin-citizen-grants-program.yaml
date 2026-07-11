@@ -1,0 +1,16 @@
+id: gitcoin-citizen-grants-program
+name: Gitcoin Citizen Grants Program
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Overview Our goal is to create a community-led onboarding program for grantees that will
+  be delivered the week before GG22 goes live. We are seeking experienced grantees within the
+  Gitcoin ecosystem to lead this onboarding program; they will be our Onboarding Partners. Scope of
+  Work Throughout this program it is important for Onboarding Partners to educate grantees and
+  builders on: How QF works Ho"
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/rfp-gg22-grantee-onboarding-education-program/19364

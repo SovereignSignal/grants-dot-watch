@@ -1,0 +1,16 @@
+id: compound-growth-program
+name: Compound Growth Program
+org: compound-dao
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Hello Compound community! We’re excited to be working with the Compound Growth Program via
+  @rossgates & @dmitriywoofsoftware to launch a platform to host WOOFs new beautiful frontend in a
+  decentralized and resilient manner. TL;DR: We’re building a decentralized solution where Compound
+  can post its website code to IPFS. From there, others in the community can independently host and
+  verify it as the"
+rounds: []
+sources:
+  - https://www.comp.xyz/t/nextosi-decentralized-hosting-grant-introduction/5952
