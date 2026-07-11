@@ -1,0 +1,15 @@
+id: aave-dao-to-vote-on-51m-funding-package-for-aave-labs
+name: Aave DAO to vote on $51M funding package for Aave Labs
+org: aave
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://aavegrants.org/
+summary: "Aave DAO prepares to vote on a $51 million funding package for Aave Labs; critics say Aave
+  Labs has previously received more than $86 million from grants, ICO proceeds and swap fees; AAVE
+  hit an intraday high of $119.35 and traded at $116.60, up 2.8% over 24 hours. 📊 Market Data:"
+rounds: []
+sources:
+  - https://x.com/cry_pto_news/status/2026658502358241560
