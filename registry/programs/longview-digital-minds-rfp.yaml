@@ -11,6 +11,11 @@ summary: Longview Philanthropy announced a request for proposals for research an
   digital minds, seeking applications for project grants, research fellowships, and career
   development fellowships on the potential consciousness, sentience, moral status, and legal
   position of AI systems.
-rounds: []
+rounds:
+  - name: Rolling
+    status: announced
+    closes: 2026-01-01
+    source: https://www.longview.org/request-for-proposals-research-and-applied-work-on-digital-minds/
 sources:
   - https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview
+  - https://www.longview.org/request-for-proposals-research-and-applied-work-on-digital-minds/

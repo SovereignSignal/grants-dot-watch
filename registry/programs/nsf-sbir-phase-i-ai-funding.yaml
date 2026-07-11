@@ -1,0 +1,17 @@
+id: nsf-sbir-phase-i-ai-funding
+name: NSF SBIR Phase I AI Funding
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: NSF SBIR Phase I AI Funding — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-27
+    source: https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation
+sources:
+  - https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation

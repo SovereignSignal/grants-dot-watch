@@ -1,0 +1,17 @@
+id: linux-foundation-travel-funding
+name: Linux Foundation Travel Funding
+org: linux-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.linuxfoundation.org/
+summary: Linux Foundation Travel Funding — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-08
+    source: https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
+sources:
+  - https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/

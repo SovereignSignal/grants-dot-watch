@@ -1,0 +1,18 @@
+id: thinking-machines-lab-interactivity-research-grants
+name: Thinking Machines Lab Interactivity Research Grants
+org: thinking-machines-lab
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://thinkingmachines.ai/news/interactivity-research-grants/
+summary: Thinking Machines Lab Interactivity Research Grants — dispatch from the wire, no further
+  detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-19
+    source: https://thinkingmachines.ai/news/interactivity-research-grants/
+sources:
+  - https://thinkingmachines.ai/news/interactivity-research-grants/

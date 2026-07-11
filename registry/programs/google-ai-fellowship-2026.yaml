@@ -1,0 +1,17 @@
+id: google-ai-fellowship-2026
+name: Google AI Fellowship 2026
+org: googleorg
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://google.org/
+summary: Google AI Fellowship 2026 — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-12
+    source: https://x.com/opportunitiesfy/status/2061417480057421933
+sources:
+  - https://x.com/opportunitiesfy/status/2061417480057421933

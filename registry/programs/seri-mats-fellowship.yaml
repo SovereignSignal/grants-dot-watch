@@ -2,22 +2,24 @@ id: seri-mats-fellowship
 name: MATS Program
 org: seri-mats-mats-program
 parent: null
-systems: [ai-safety]
-wires: [ai]
+systems:
+  - ai-safety
+wires:
+  - ai
 status: active
 mechanism: fellowship
 apply_url: https://www.matsprogram.org/program/autumn-2026
 summary: >
-  An independent research fellowship connecting researchers with mentors in AI
-  alignment, transparency, and security. The main program runs 10 weeks (with
-  an optional 6-12 month extension) and provides a $1,250 weekly stipend, a
-  $2,000-per-week compute budget, housing, meals, and office space in Berkeley
-  and London.
+  An independent research fellowship connecting researchers with mentors in AI alignment,
+  transparency, and security. The main program runs 10 weeks (with an optional 6-12 month extension)
+  and provides a $1,250 weekly stipend, a $2,000-per-week compute budget, housing, meals, and office
+  space in Berkeley and London.
 rounds:
   - name: Autumn 2026
     status: closed
-    closes: "2026-06-07"
-    source: https://www.matsprogram.org/program/autumn-2026
+    closes: 2026-06-07
+    source: https://www.matsprogram.org/apply
 sources:
   - https://www.matsprogram.org/
   - https://www.matsprogram.org/program/autumn-2026
+  - https://www.matsprogram.org/apply

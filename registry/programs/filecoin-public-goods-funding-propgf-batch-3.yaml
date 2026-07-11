@@ -1,0 +1,19 @@
+id: filecoin-public-goods-funding-propgf-batch-3
+name: Filecoin Public Goods Funding (ProPGF) Batch 3
+org: filecoin-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://fil.org/
+summary: 'just one. The grant name: Filecoin Public Goods Funding (ProPGF) Batch 3. So start with
+  "Filecoin Public Goods Funding (ProPGF) Batch 3" and a strong action verb like "Award". But need
+  to lead with organization/program name and a strong action verb. So'
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-16
+    source: https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+sources:
+  - https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track

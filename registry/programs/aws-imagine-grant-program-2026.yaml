@@ -1,0 +1,19 @@
+id: aws-imagine-grant-program-2026
+name: AWS Imagine Grant Program 2026
+org: amazon-web-services-aws
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://aws.amazon.com/government-education/nonprofits/aws-imagine-grant-program/
+summary: AWS Imagine Grant Program 2026 — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-05
+    size: Up to $200,000 unrestricted funding plus up to $100,000 AWS credits for Pathfinder; other
+      tracks lower
+    source: https://aws.amazon.com/government-education/nonprofits/aws-imagine-grant-program/
+sources:
+  - https://aws.amazon.com/government-education/nonprofits/aws-imagine-grant-program/

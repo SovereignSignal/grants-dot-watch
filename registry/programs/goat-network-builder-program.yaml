@@ -1,0 +1,12 @@
+id: goat-network-builder-program
+name: GOAT Network Builder Program
+org: goat-network
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: GOAT Network Builder Program — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.goat.network/builder-program

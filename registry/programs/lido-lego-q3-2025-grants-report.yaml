@@ -1,0 +1,17 @@
+id: lido-lego-q3-2025-grants-report
+name: Lido LEGO Q3 2025 Grants Report
+org: lido
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: The Lido Ecosystem Grants Organization (LEGO) allocated DAI 115.6K in Q3 2025, representing
+  23% of its quarterly budget, to grants including Stake2Care, the Ethereum Fusaka Audit Contest
+  sponsorship, and Safe deployments on Holesky and Hoodi. For Q4 2025, the LEGO budget has been set
+  at DAI 250,000 with 100% DAI stablecoin composition, and individual council member allowances are
+  fixed at DAI 15,000 per quarter. The LEGO Nominees body has been dissolved, and council member
+  @skozin was replaced by @zuzu_eeka.
+rounds: []
+sources:
+  - https://research.lido.fi/t/lido-ecosystem-grants-organization-lego-reports/10935

@@ -1,0 +1,14 @@
+id: zcash-grants-hub-live-map-for-zcg-coinholder-and-zechub-fund
+name: "Zcash Grants Hub: live map for ZCG, Coinholder, and ZecHub funding lanes"
+org: zcash-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://zfnd.org/
+summary: "Zcash Grants Hub: live map for ZCG, Coinholder, and ZecHub funding lanes — dispatch from
+  the wire, no further detail on file."
+rounds: []
+sources:
+  - https://zgrantshub.com/

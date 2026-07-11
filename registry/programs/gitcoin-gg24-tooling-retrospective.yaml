@@ -1,0 +1,17 @@
+id: gitcoin-gg24-tooling-retrospective
+name: Gitcoin GG24 Tooling Retrospective
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: The GG24 Public Goods Tooling Development Round ran from October 2025 through March 2026,
+  allocating $123,800 in total funding. It distributed $83,800 in proactive funding across 12
+  projects via two conviction voting pools, awarded $40,000 in performance-based retro funding, and
+  paid a $20,000 operation fee (16.1% of total). The round aimed to increase interoperability,
+  create cross-project collaborations, improve UI/UX in public goods funding workflows, and advance
+  tooling toward production readiness.
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276

@@ -1,0 +1,12 @@
+id: opensats-17th-wave-nostr-grants
+name: OpenSats 17th Wave Nostr Grants
+org: opensats
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: OpenSats 17th Wave Nostr Grants — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://opensats.org/blog/seventeenth-wave-of-nostr-grants

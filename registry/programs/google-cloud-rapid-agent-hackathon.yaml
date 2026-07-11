@@ -1,0 +1,13 @@
+id: google-cloud-rapid-agent-hackathon
+name: Google Cloud Rapid Agent Hackathon
+org: googleorg
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://google.org/
+summary: Google Cloud Rapid Agent Hackathon — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://rapid-agent.devpost.com/

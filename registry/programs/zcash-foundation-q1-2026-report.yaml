@@ -1,0 +1,15 @@
+id: zcash-foundation-q1-2026-report
+name: Zcash Foundation Q1 2026 Report
+org: zcash-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: The Zcash Foundation released its Q1 2026 report covering engineering team work and other
+  activities during the period. The report details financial inflows and outflows with a breakdown
+  of expenses, plus a snapshot of the Foundation's financial position including liquid assets and
+  liabilities. Previous quarterly reports are available on the Zcash Foundation website.
+rounds: []
+sources:
+  - https://zfnd.org/zcash-foundation-q1-2026-report/

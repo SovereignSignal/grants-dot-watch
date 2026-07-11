@@ -1,0 +1,17 @@
+id: bnb-hack-ai-trading-agent-edition
+name: "BNB Hack: AI Trading Agent Edition"
+org: bnb-chain
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.bnbchain.org/
+summary: "BNB Hack: AI Trading Agent Edition — dispatch from the wire, no further detail on file."
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-21
+    source: https://dorahacks.io/hackathon/bnbhack-twt-cmc/detail
+sources:
+  - https://dorahacks.io/hackathon/bnbhack-twt-cmc/detail

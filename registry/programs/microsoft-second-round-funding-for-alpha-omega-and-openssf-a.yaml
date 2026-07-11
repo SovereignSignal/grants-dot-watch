@@ -1,0 +1,14 @@
+id: microsoft-second-round-funding-for-alpha-omega-and-openssf-a
+name: Microsoft second round funding for Alpha Omega and OpenSSF AI powered OSS security
+org: microsoft-foss-fund
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.microsoft.com/en-us/research/
+summary: Microsoft second round funding for Alpha Omega and OpenSSF AI powered OSS security —
+  dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://opensource.microsoft.com/blog/2026/05/18/from-open-source-to-agentic-systems-microsoft-at-open-source-summit-north-america-2026/
