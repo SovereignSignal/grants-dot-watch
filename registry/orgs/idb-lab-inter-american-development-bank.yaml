@@ -1,0 +1,16 @@
+id: idb-lab-inter-american-development-bank
+name: IDB Lab (Inter-American Development Bank)
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: bidlab.org
+status: unknown
+profile: "IDB Lab (Inter-American Development Bank) (category: Foundation/Lab) has no matching org
+  file in the registry (checked by normalized name, aka, and website domain). Surfaced via a
+  completeness pass against Sov's org tracker, which flagged it as a likely funder — verify from the
+  org's own site before promoting; this is a lead, not a sourced fact."
+sources:
+  - bidlab.org
