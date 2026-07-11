@@ -1,0 +1,20 @@
+id: macarthur-foundation
+name: MacArthur Foundation
+org: john-and-catherine-t-macarthur-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: >-
+  **MacArthur Foundation** commits $500 million through its new Humanity+AI initiative to build a
+  people-centered future for artificial intelligence. The foundation will deploy the funding over
+  the next five years to support research, policy, and projects that ensure AI benefits humanity and
+  mitigates risks. 
+
+
+  The announcement was made in a press release detailing the organization’s expanded commitment to
+  shaping responsible AI development.
+rounds: []
+sources:
+  - https://www.macfound.org/press/press-releases/humanity-ai-commits-500-million-to-build-a-people-centered-future-for-ai

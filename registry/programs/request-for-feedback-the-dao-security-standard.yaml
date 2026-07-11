@@ -1,0 +1,19 @@
+id: request-for-feedback-the-dao-security-standard
+name: "[Request for Feedback] - The DAO Security Standard"
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **Arbitrum DAO** seeks feedback on the DAO Security Standard, a proposed set of security practices
+  for DAOs that manage funds. The document recommends using timelocks before protocol upgrades,
+  performing automated tests on code commits, and running a bug bounty program for any DAO that
+  handles user funds. 
+
+
+  The full draft is open for community review and comment.
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/request-for-feedback-the-dao-security-standard/27388

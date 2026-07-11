@@ -1,0 +1,20 @@
+id: ef-phd-fellowship-bankless
+name: EF PhD Fellowship (Bankless)
+org: ethereum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://esp.ethereum.foundation/
+summary: >-
+  **EF PhD Fellowship (Bankless)** invites applications from PhD students conducting research on
+  Ethereum or related technologies. The fellowship provides $40,000 USD in funding plus additional
+  resources and mentorship from the Ethereum Foundation. 
+
+
+  Eligible applicants must be currently enrolled in a PhD program and demonstrate relevant research
+  focus. Applications are open now through the Bankless portal.
+rounds: []
+sources:
+  - https://www.bankless.com/read/ethereum-foundation-anoui

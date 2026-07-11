@@ -1,0 +1,20 @@
+id: filecoin-devgrants-open-grants
+name: Filecoin DevGrants (Open Grants
+org: filecoin-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://fil.org/
+summary: >-
+  **Filecoin DevGrants (Open Grants) accepts rolling applications.** The program offers up to $50K
+  for projects that advance the Filecoin ecosystem, including novel ideas that enhance network
+  utility or functionality. There is no fixed deadline. 
+
+
+  Eligible applicants should submit proposals directly via the GitHub repository at
+  https://github.com/filecoin-project/devgrants.
+rounds: []
+sources:
+  - https://github.com/filecoin-project/devgrants

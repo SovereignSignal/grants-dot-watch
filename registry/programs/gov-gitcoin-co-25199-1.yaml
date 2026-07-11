@@ -1,0 +1,16 @@
+id: gov-gitcoin-co-25199-1
+name: gov.gitcoin.co/25199/1
+org: gitcoin
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "**Gitcoin Governance** shares lessons from building Verdict, its deep funding juror data
+  collection system. The report details improvements in juror onboarding, data quality, and
+  evaluation processes for quadratic funding rounds. It outlines specific technical and procedural
+  changes implemented to enhance participant data collection and analysis. The full case study is
+  available on gov.gitcoin.co."
+rounds: []
+sources:
+  - https://gov.gitcoin.co/t/lessons-from-building-verdict-improving-deep-funding-juror-data-collection/25199/1

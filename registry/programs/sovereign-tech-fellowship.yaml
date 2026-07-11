@@ -15,7 +15,8 @@ rounds:
     status: deployed
     closes: 2026-04-06
     size: 12 m
-    source: https://www.sovereign.tech/programs/fellowship
+    source: https://www.sovereign.tech/news/2026-fellowship-applications-open
 sources:
   - https://www.sovereign.tech/news/meet-the-2026-sovereign-tech-fellows
   - https://www.sovereign.tech/programs/fellowship
+  - https://www.sovereign.tech/news/2026-fellowship-applications-open

@@ -1,0 +1,15 @@
+id: govnerds-season-7-update-thread
+name: "govNERDs Season 7: Update Thread"
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "**govNERDs Season 7** has released its first official progress update. The govNERDs team,
+  which provides operational support for Optimism’s governance, is introducing a new regular update
+  cadence for Season 7 and sharing accomplishments since the season began. The full update thread is
+  available on the Optimism governance forum."
+rounds: []
+sources:
+  - https://gov.optimism.io/t/govnerds-season-7-update-thread/9755

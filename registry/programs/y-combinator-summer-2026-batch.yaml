@@ -1,0 +1,19 @@
+id: y-combinator-summer-2026-batch
+name: Y Combinator Summer 2026 Batch
+org: y-combinator
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ycombinator.com/
+summary: >-
+  **Y Combinator Summer 2026 Batch** is now accepting applications for its accelerator program. The
+  batch offers $500K to early-stage startups, with a strong focus on AI-native companies and
+  technical AI projects. 
+
+
+  Applications are open at https://www.ycombinator.com/apply. Standard YC deal terms apply.
+rounds: []
+sources:
+  - https://www.ycombinator.com/apply

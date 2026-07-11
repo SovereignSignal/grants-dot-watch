@@ -16,7 +16,7 @@ rounds:
   - name: Blockchain Ventures cohort
     status: closed
     closes: 2026-03-10
-    size: up to $100,000 in ETH/BTC/USDC
+    size: $100,000
     source: https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions
 sources:
   - https://www.unicef.org/innovation/equity-free-funding-blockchain-solutions

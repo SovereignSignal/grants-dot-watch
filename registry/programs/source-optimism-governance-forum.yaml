@@ -1,0 +1,19 @@
+id: source-optimism-governance-forum
+name: "Source: Optimism Governance Forum"
+org: optimism-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: >-
+  **Optimism Governance Fund** is accepting proposals for Season 9 Missions. 
+
+
+  The program will distribute up to 2.4 million OP across four mission categories through the
+  Optimism Collective’s Governance Fund. Any individual or team may submit a mission proposal on the
+  Optimism Governance Forum by the deadline of June 17, 2025. Successful missions will be voted on
+  by token holders and funded from the Governance Fund if approved.
+rounds: []
+sources:
+  - https://gov.optimism.io/t/season-9-governance-fund-missions/10526

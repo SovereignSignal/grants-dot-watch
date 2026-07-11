@@ -1,0 +1,17 @@
+id: analysing-impact-and-performance-of-previous-arb-incentive-p
+name: Analysing impact and performance of previous ARB incentive programs (STIP, Backfund, LTIPP) -
+  LTIPP Research bounty - PYOR
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "**PYOR** is conducting an analysis of the impact and performance of Arbitrum's previous
+  ARB incentive programs including STIP, Backfund, and LTIPP. The LTIPP Research bounty project will
+  examine pre- and post-incentive metrics of grantees to measure ecosystem effects and ROI. The work
+  focuses on key performance indicators across the three programs to provide data-driven insights
+  for future Arbitrum DAO incentive decisions."
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/analysing-impact-and-performance-of-previous-arb-incentive-programs-stip-backfund-ltipp-ltipp-research-bounty-pyor/24702

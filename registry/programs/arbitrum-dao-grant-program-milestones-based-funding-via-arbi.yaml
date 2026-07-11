@@ -1,0 +1,23 @@
+id: arbitrum-dao-grant-program-milestones-based-funding-via-arbi
+name: Arbitrum DAO Grant Program — Milestones-based funding via Arbitrum DAO for builders, dApps,
+  technical infrastructure,
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: >-
+  **Arbitrum DAO Grant Program** offers milestones-based funding to builders, dApps, technical
+  infrastructure projects, adoption initiatives, and community growth efforts on Arbitrum chains. 
+
+
+  The program operates on a rolling deadline with no fixed application window. Grants are approved
+  and disbursed through the Arbitrum DAO governance process. 
+
+
+  Eligible applicants include teams building directly on Arbitrum One or Arbitrum Nova.
+rounds: []
+sources:
+  - https://arbitrum.foundation/grants

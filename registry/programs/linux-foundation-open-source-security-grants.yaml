@@ -1,0 +1,20 @@
+id: linux-foundation-open-source-security-grants
+name: Linux Foundation Open Source Security Grants
+org: linux-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.linuxfoundation.org/
+summary: >-
+  **Linux Foundation Open Source Security Grants** is offering $12.5 million in funding. Backed by
+  Anthropic, AWS, GitHub, Google, Google DeepMind, Microsoft, and OpenAI, the program supports
+  sustainable security solutions for open source projects through the OpenSSF and Alpha-Omega
+  initiatives. 
+
+
+  The grants aim to strengthen the security of critical open source software.
+rounds: []
+sources:
+  - https://www.linuxfoundation.org/press/linux-foundation-announces-12.5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security

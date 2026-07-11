@@ -1,0 +1,25 @@
+id: nsf-pathways-to-enable-secure-open-source-ecosystems-pesose
+name: NSF Pathways to Enable Secure Open-Source Ecosystems (PESOSE)
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: >-
+  **NSF Pathways to Enable Secure Open-Source Ecosystems (PESOSE)** invites proposals to build and
+  secure open-source ecosystems, including those supporting AI agent ecosystems and related
+  resilient technologies. 
+
+
+  The program supports collaborative projects that strengthen the security, sustainability, and
+  trustworthiness of critical open-source software. 
+
+
+  NSF expects to make multiple awards, though no specific funding amounts or deadlines are listed in
+  the current solicitation. Eligible applicants include institutions of higher education,
+  nonprofits, and other organizations with demonstrated 
+rounds: []
+sources:
+  - https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems

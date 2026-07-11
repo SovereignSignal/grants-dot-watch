@@ -1,0 +1,22 @@
+id: nsf-official-dcl
+name: NSF Official DCL
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: >-
+  **NSF Official DCL** invites proposals for advancing artificial intelligence agent ecosystems. The
+  Dear Colleague Letter supports research on AI agents that can perceive, reason, and act in complex
+  environments, including multi-agent systems, human-AI collaboration, and safe deployment of
+  autonomous agents. 
+
+
+  No specific funding amounts, deadlines, or eligibility restrictions are listed in the DCL;
+  interested researchers should submit proposals through existing NSF programs that align with the
+  described research themes.
+rounds: []
+sources:
+  - https://www.nsf.gov/funding/opportunities/dcl-advancing-artificial-intelligence-ai-agent-ecosystems

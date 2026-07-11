@@ -1,0 +1,16 @@
+id: theweal
+name: TheWeal
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://theweal.com/
+status: active
+profile: "**Sui Foundation launches $50M Grants program.** The foundation is committing $50 million
+  to support developers building on the Sui blockchain. The grants are available to ecosystem
+  developers with no specified application deadline or eligibility restrictions listed. Full details
+  are available at theweal.com."
+sources:
+  - https://theweal.com/2026/02/18/sui-foundation-announces-50m-grants-for-ecosystem-developers/amp/
