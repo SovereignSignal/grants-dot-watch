@@ -1,0 +1,18 @@
+id: base-builder-grants
+name: Base Builder Grants
+org: base-coinbase
+parent: null
+systems:
+  - ethereum
+wires:
+  - crypto
+status: active
+mechanism: retro
+apply_url: https://docs.base.org/get-started/get-funded
+summary: Base runs its own retroactive Builder Grants (1-5 ETH per shipped project, 20+ cohorts
+  since 2024) for developers shipping live on the Base mainnet; note this is distinct from Coinbase
+  Developer Platform's separately-registered CDP Builder Grants program, so check for overlap before
+  promoting.
+rounds: []
+sources:
+  - https://www.coinfabrik.com/web3-grants/base-grants/
