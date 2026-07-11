@@ -1,0 +1,18 @@
+id: lido-lego
+name: LEGO (Lido Ecosystem Grants Organisation)
+org: lido
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: LEGO (Lido Ecosystem Grants Organisation) funds individuals and projects benefiting the
+  Lido protocol and broader Ethereum PoS/DeFi ecosystem, via a tiered structure (Sandgrain up to
+  $1,000; Pebble up to $10,000; Boulder up to $100,000; Mountain $100,000+) overseen by an 8-member
+  LEGO Council with domain-specific tracks. Applicants pitch a committee member directly rather than
+  through an open-form apply page.
+rounds: []
+sources:
+  - https://lido.fi/lego
+  - https://lego.lido.fi/lego-quarterly-reporting
