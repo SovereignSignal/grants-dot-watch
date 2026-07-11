@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/ui';
 const LINKS = [
   { href: '/', label: 'Home' },
   { href: '/orgs', label: 'Organizations' },
-  { href: '/galaxy', label: 'Galaxy' },
+  { href: '/programs', label: 'Programs' },
 ];
 
 export default function NotFound() {

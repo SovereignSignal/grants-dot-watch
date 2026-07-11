@@ -24,7 +24,6 @@ const NAV = [
   { href: '/orgs', label: 'Organizations' },
   { href: '/programs', label: 'Programs' },
   { href: '/awards', label: 'Awards' },
-  { href: '/galaxy', label: 'Galaxy' },
   { href: '/admin/desk', label: 'The Desk' },
 ];
 

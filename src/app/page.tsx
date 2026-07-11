@@ -92,9 +92,6 @@ export default function Home() {
                 <span className="font-mono text-sm text-paper">
                   {counts.funders} <span className="coord">FUNDERS TRACKED</span>
                 </span>
-                <Link href="/galaxy" className="coord transition-colors hover:text-paper">
-                  ENTER THE GALAXY →
-                </Link>
               </div>
             </div>
           </div>

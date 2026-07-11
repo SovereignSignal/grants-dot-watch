@@ -145,10 +145,6 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
               </div>
             </div>
           )}
-
-          <Link href={`/galaxy?focus=${org.id}`} className="coord hover:text-dim">
-            View in galaxy →
-          </Link>
         </aside>
       </div>
 
