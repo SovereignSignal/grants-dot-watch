@@ -2,18 +2,20 @@ id: gitcoin-grants
 name: Gitcoin Grants
 org: gitcoin
 parent: null
-systems: [ethereum, web3-public-goods]
-wires: [crypto]
+systems:
+  - ethereum
+  - web3-public-goods
+wires:
+  - crypto
 status: active
 mechanism: quadratic
 apply_url: https://builder.gitcoin.co
 summary: >
-  A quarterly public-goods funding program (running since 2019) that lets the
-  crypto community fund open-source and ecosystem projects, using Quadratic
-  Funding to amplify many small donations from a matching pool. Recent rounds
-  organize funding into domains -- developer tooling, interop standards,
-  public goods R&D, privacy -- under a Domain Allocator model, alongside
-  retro rounds for mature builders.
+  A quarterly public-goods funding program (running since 2019) that lets the crypto community fund
+  open-source and ecosystem projects, using Quadratic Funding to amplify many small donations from a
+  matching pool. Recent rounds organize funding into domains -- developer tooling, interop
+  standards, public goods R&D, privacy -- under a Domain Allocator model, alongside retro rounds for
+  mature builders.
 rounds:
   - name: GG23 Mature Builders Retro Round
     status: deployed
@@ -34,3 +36,4 @@ sources:
   - https://builder.gitcoin.co
   - https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
   - https://www.gitcoin.co/blog/top-30-builders-in-gitcoins-retro-round-funding-proven-impact
+  - https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276
