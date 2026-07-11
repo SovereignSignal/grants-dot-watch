@@ -21,8 +21,10 @@ rounds:
   - name: 2026 Science of Trustworthy AI RFP
     status: closed
     closes: 2026-05-17
-    source: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
+    size: $5M
+    source: https://schmidtsciences.smapply.io/prog/science_of_trustworthy_ai_rfp_2026/
 sources:
   - https://www.schmidtsciences.org/trustworthy-ai/
   - https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
   - https://www.schmidtsciences.org/opportunities/
+  - https://schmidtsciences.smapply.io/prog/science_of_trustworthy_ai_rfp_2026/
