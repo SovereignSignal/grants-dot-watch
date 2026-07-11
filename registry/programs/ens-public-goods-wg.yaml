@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: concluded
 summary: Overview Social media is a gold mine for scammers . Since 2021, more than 46,000 people
   have reported losing over $1 billion in crypto to scams and crypto makes it attractive to
   scammers. There are many Twitter accounts claiming the “vitalik.eth” on Twitter, but Twitter Blue
@@ -14,3 +14,4 @@ summary: Overview Social media is a gold mine for scammers . Since 2021, more th
 rounds: []
 sources:
   - https://discuss.ens.domains/t/pg-wg-proposal-crypto-twitter-login-with-ens/15175
+  - https://x.com/CryptoPlanet247/status/2072749574029025349
