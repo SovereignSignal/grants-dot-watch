@@ -1,0 +1,17 @@
+id: sui-requests-for-proposals
+name: Sui Requests for Proposals
+org: sui-foundation
+parent: null
+systems:
+  - sui
+wires:
+  - crypto
+status: active
+mechanism: rfp
+apply_url: https://www.sui.io/request-for-proposals
+summary: Sui Foundation Requests for Proposals targeting specific technical or ecosystem challenges
+  the Foundation wants solved.
+rounds: []
+sources:
+  - https://www.sui.io/programs-funding
+  - https://www.sui.io/request-for-proposals
