@@ -1,0 +1,19 @@
+id: nih-biomedical-tech-optimization-center
+name: Biomedical Technology Optimization and Dissemination Center (PAR-27-024)
+org: national-institutes-of-health
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: NIH's PAR-27-024 funds late-stage optimization and sustainable dissemination of research
+  technologies and software via the RM1 mechanism, with recurring deadlines through 2029-01-29.
+rounds:
+  - name: PAR-27-024
+    status: open
+    closes: 2029-01-29
+    size: NIH RM1
+    source: https://www.grants.gov/search-results-detail/360446
+sources:
+  - https://www.grants.gov/search-results-detail/360446
