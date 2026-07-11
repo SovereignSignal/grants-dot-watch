@@ -1,0 +1,20 @@
+id: nsf-ai-related-funding-opportunities-including-nairr-oc-cybe
+name: NSF AI-related funding opportunities (including NAIRR-OC, CyberAI SFS, and general AI research
+  infrastructure) —
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.nsf.gov/
+summary: "**NSF AI Funding Opportunities** announces multiple active solicitations for AI research,
+  infrastructure, education, and workforce development. These include the National AI Research
+  Resource Operating Collaborative (NAIRR-OC), CyberAI Scholarship for Service (SFS) program, and
+  general AI research infrastructure grants. Funding supports academic institutions and researchers
+  pursuing interdisciplinary AI projects and cybersecurity-focused AI training. Deadlines and award
+  amounts vary by specific solicitation. Full details are available at
+  https://www.nsf.gov/focus-areas/ai."
+rounds: []
+sources:
+  - https://www.nsf.gov/focus-areas/ai
