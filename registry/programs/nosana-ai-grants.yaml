@@ -1,0 +1,22 @@
+id: nosana-ai-grants
+name: Nosana AI Grants
+org: nosana
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://nosana.com/
+summary: >-
+  **Nosana AI Grants** is offering up to $50K in funding plus free GPU compute credits to startups,
+  researchers, and solo builders working at the intersection of AI and Solana. 
+
+
+  Eligible applicants include teams and individuals building AI projects on the Solana blockchain.
+  The program provides both cash grants and compute resources to support development. 
+
+
+  Apply directly through the Nosana platform.
+rounds: []
+sources:
+  - https://x.com/rektoff_xyz/status/2031738913371398149
