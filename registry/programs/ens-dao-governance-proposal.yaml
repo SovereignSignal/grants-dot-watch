@@ -1,0 +1,13 @@
+id: ens-dao-governance-proposal
+name: ENS DAO Governance Proposal
+org: ens
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://ens.domains/
+summary: ENS DAO Governance Proposal — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://discuss.ens.domains/t/temp-check-next-era-of-ens-dao-empowering-the-ens-foundation/22175

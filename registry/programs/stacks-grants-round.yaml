@@ -1,0 +1,17 @@
+id: stacks-grants-round
+name: Stacks Grants Round
+org: stacks-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://stacks.foundation/grants
+summary: Stacks Grants Round — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-26
+    source: https://stacks.foundation/grants
+sources:
+  - https://stacks.foundation/grants

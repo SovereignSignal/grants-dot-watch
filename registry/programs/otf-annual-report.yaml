@@ -1,0 +1,12 @@
+id: otf-annual-report
+name: OTF Annual Report
+org: free-and-open-source-software-sustainability-fund
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: OTF Annual Report — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.opentech.fund/wp-content/uploads/2026/06/OTF-Annual-Report-FY-2024.pdf

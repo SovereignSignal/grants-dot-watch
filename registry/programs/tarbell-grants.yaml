@@ -10,6 +10,10 @@ mechanism: grants
 apply_url: https://www.tarbellcenter.org/grants
 summary: Story grants of $1,000-$20,000 for original, forward-looking journalism on AI impacts,
   published in established outlets. Open to freelancers, staff reporters, and newsroom teams.
-rounds: []
+rounds:
+  - name: Rolling
+    status: announced
+    closes: 2026-07-12
+    source: https://www.tarbellcenter.org/grants
 sources:
   - https://www.tarbellcenter.org/grants

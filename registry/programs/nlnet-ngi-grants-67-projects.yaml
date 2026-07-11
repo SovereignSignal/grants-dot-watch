@@ -1,0 +1,13 @@
+id: nlnet-ngi-grants-67-projects
+name: NLnet NGI Grants (67 Projects)
+org: nlnet-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://nlnet.nl/
+summary: NLnet NGI Grants (67 Projects) — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://nlnet.nl/news/2026/20260616-67-new-projects.html

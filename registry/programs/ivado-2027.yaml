@@ -1,0 +1,20 @@
+id: ivado-2027
+name: IVADO 2027
+org: ivado
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/
+summary: "the deadline is 2026-07-31 as given. Must include eligibility: Quebec/Canada-based AI
+  research clusters. Amount? Not given. Should we include amount? Not provided. So we don't mention
+  amount. Must include specific numbers: date, maybe year 2027, 2030. So we can write: \"IVADO 2027
+  invites"
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-31
+    source: https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/
+sources:
+  - https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/

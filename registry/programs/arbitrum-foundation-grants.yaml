@@ -1,0 +1,13 @@
+id: arbitrum-foundation-grants
+name: Arbitrum Foundation Grants
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://arbitrum.foundation/
+summary: Arbitrum Foundation Grants — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://arbitrum.foundation/grants

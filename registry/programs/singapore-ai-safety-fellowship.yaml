@@ -14,6 +14,7 @@ rounds:
   - name: 2026 fellowship (Sept 21 - Dec 4)
     status: open
     closes: 2026-07-10
+    size: USD 30,000
     source: https://www.aisafety.sg/programs/singapore-ai-safety-fellowship
 sources:
   - https://www.aisafety.sg/programs/singapore-ai-safety-fellowship

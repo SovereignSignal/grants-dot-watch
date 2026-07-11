@@ -1,0 +1,17 @@
+id: open-source-for-science-fund
+name: Open Source for Science Fund
+org: open-source-for-science-fund
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://os4science.org/apply-for-funding/
+summary: Open Source for Science Fund — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-21
+    source: https://os4science.org/apply-for-funding/
+sources:
+  - https://os4science.org/apply-for-funding/

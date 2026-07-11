@@ -1,0 +1,12 @@
+id: ai-forge-program
+name: AI Forge Program
+org: darpa-dice
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: AI Forge Program — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://www.darpa.mil/research/programs/ai-forge

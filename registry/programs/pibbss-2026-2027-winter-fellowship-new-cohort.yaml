@@ -1,0 +1,19 @@
+id: pibbss-2026-2027-winter-fellowship-new-cohort
+name: PIBBSS 2026-2027 Winter Fellowship (new cohort)
+org: principles-of-intelligence
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://princint.ai/programs/fellowship/
+summary: PIBBSS 2026-2027 Winter Fellowship (new cohort) — dispatch from the wire, no further detail
+  on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-07-20
+    size: $3,000
+    source: https://princint.ai/programs/fellowship/
+sources:
+  - https://princint.ai/programs/fellowship/

@@ -1,0 +1,18 @@
+id: interledger-2026-fellowship
+name: Interledger 2026 Fellowship
+org: interledger-fellowship-program
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://interledger.org/grant/fellowship
+summary: Interledger 2026 Fellowship — dispatch from the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-06-15
+    size: $72,000
+    source: https://interledger.org/grant/fellowship
+sources:
+  - https://interledger.org/grant/fellowship

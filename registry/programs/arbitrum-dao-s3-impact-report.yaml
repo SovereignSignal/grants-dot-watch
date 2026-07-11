@@ -1,0 +1,15 @@
+id: arbitrum-dao-s3-impact-report
+name: Arbitrum DAO S3 Impact Report
+org: arbitrum-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: The Arbitrum D.A.O. Grant Program has released its Season 3 Impact Report as a PDF document
+  shared via Google Drive. The report covers the outcomes and performance data from the S3 grant
+  cycle. This retrospective provides details on funded projects, milestone completions, and overall
+  program effectiveness during the third season.
+rounds: []
+sources:
+  - https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753/55?u=jojo

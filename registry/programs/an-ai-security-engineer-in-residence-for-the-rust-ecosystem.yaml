@@ -1,0 +1,15 @@
+id: an-ai-security-engineer-in-residence-for-the-rust-ecosystem
+name: An AI Security Engineer in Residence for the Rust Ecosystem
+org: alpha-omega
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: Alpha-Omega says the Rust Foundation is bringing on a full-time AI Security Engineer in
+  Residence for six months, funded through part of the Linux Foundation's $12.5M open source
+  security package. The role will triage AI-assisted vulnerability reports across Rust and
+  high-impact crates, coordinate fixes, and document methods for maintainers.
+rounds: []
+sources:
+  - https://alpha-omega.dev/blog/an-ai-security-engineer-in-residence-for-the-rust-ecosystem/

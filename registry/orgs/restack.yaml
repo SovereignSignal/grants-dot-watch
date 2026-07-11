@@ -1,0 +1,14 @@
+id: restack
+name: Restack
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.restack.io/
+status: active
+profile: Restack — Open Internet Stack cascade fund (NLnet/FSFE consortium) — dispatch from the
+  wire, no further detail on file.
+sources:
+  - https://fsfe.org/news/2026/news-20260528-01.en.html

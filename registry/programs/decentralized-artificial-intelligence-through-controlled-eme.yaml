@@ -1,0 +1,18 @@
+id: decentralized-artificial-intelligence-through-controlled-eme
+name: Decentralized Artificial Intelligence through Controlled Emergence (DICE)
+org: darpa-dice
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence
+summary: Decentralized Artificial Intelligence through Controlled Emergence (DICE) — dispatch from
+  the wire, no further detail on file.
+rounds:
+  - name: Rolling
+    status: open
+    closes: 2026-08-25
+    source: https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence
+sources:
+  - https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence

@@ -14,7 +14,7 @@ rounds:
   - name: 2026 RFP
     status: closed
     closes: 2026-07-02
-    size: $100K-$2M/yr per grant
+    size: $100K–$2M/yr
     source: https://www.longview.org/request-for-proposals-on-extreme-power-concentration/
 sources:
   - https://www.longview.org/request-for-proposals-on-extreme-power-concentration/
