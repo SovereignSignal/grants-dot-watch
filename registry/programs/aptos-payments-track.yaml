@@ -1,0 +1,13 @@
+id: aptos-payments-track
+name: Aptos Payments Track
+org: aptos-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://aptosnetwork.com/grants
+summary: Aptos Payments Track — dispatch from the wire, no further detail on file.
+rounds: []
+sources:
+  - https://aptosnetwork.com/use-cases/payments
