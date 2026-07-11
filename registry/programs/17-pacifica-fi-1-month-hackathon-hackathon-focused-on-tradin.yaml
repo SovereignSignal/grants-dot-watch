@@ -1,0 +1,21 @@
+id: 17-pacifica-fi-1-month-hackathon-hackathon-focused-on-tradin
+name: 17. Pacifica Fi 1-Month Hackathon — Hackathon focused on trading, DeFi, and analytics using
+  Pacifica API, for solo build
+org: pacifica
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://pacifica.fi/
+summary: >-
+  **Pacifica Fi launches a 1-month hackathon** focused on trading, DeFi, and analytics using its
+  API. Solo builders or teams of up to 5 are eligible. The deadline is April 16, 2026. 
+
+
+  The Ethereum Foundation also opened Project Odin, a 12-month embedded advisory program to help
+  critical open-source Web3 teams develop sustainable revenue models. No application deadline is
+  listed.
+rounds: []
+sources:
+  - https://x.com/Onoja_Cee/status/2029839451292160453
