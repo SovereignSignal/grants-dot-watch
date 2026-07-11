@@ -1,0 +1,13 @@
+id: avalanche-team1-builder-grants
+name: Avalanche Team1 Builder Grants
+org: avalanche-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+mechanism: grants
+summary: Accelerator Grants up to $30K; Mini Grants up to $10K
+rounds: []
+sources:
+  - https://x.com/AvaxFusion/status/2073065867274031322
