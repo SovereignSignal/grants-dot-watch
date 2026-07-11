@@ -1,0 +1,17 @@
+id: the-british-academy
+name: The British Academy
+aka: []
+systems:
+  - uk-public-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.thebritishacademy.ac.uk/
+status: active
+profile: The British Academy is the UK's national academy for the humanities and social sciences, a
+  government-sponsored body that runs more than 30 funding schemes each year for researchers in the
+  UK and internationally. Grants range from small-scale seed funding to longer-term fellowships and
+  challenge-led collaborative awards.
+sources:
+  - https://www.thebritishacademy.ac.uk/funding/
