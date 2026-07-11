@@ -1,0 +1,23 @@
+id: darpa-dice-baa-hr001126s0010
+name: DICE Broad Agency Announcement HR001126S0010
+org: darpa-dice
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: rfp
+apply_url: https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view
+summary: Broad Agency Announcement soliciting proposals for the DICE program's research into theory,
+  algorithms, and multi-agent systems for scalable, resilient decentralized AI collectives under
+  human control. Contract-style awards rather than traditional grants.
+rounds:
+  - name: HR001126S0010
+    status: open
+    opens: 2026-06-10
+    closes: 2026-08-25
+    source: https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view
+sources:
+  - https://www.darpa.mil/research/programs/decentralized-artificial-intelligence-through-controlled-emergence
+  - https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view
