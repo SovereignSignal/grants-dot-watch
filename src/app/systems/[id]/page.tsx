@@ -122,9 +122,8 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
               <thead>
                 <tr className="border-b border-line text-left">
                   <th className="coord py-2.5 pr-4 font-normal">Name</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Live rounds</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Live rounds</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Open now</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                   <th className="coord py-2.5 pr-4 font-normal">Status</th>
                 </tr>
@@ -137,14 +136,13 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                         {org.name}
                       </Link>
                     </td>
+                    <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
                     <td className="py-3 pr-4 text-right tabular-nums text-dim">
                       <span className="inline-flex items-center gap-2">
                         {stats?.live_rounds || 0}
                         {(stats?.live_rounds || 0) > 0 && <RoundStatus status="open" />}
                       </span>
                     </td>
-                    <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
-                    <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.live_rounds ?? 0} live</td>
                     <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     <td className="coord py-3 pr-4 normal-case tracking-normal text-dim">{orgStatusLabel(org.status)}</td>
                   </tr>

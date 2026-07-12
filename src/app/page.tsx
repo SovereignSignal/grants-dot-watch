@@ -47,7 +47,19 @@ export default function Home() {
   const dated = openRounds
     .filter((r) => r.round.closes)
     .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
-  const standing = openRounds.filter((r) => !r.round.closes);
+  // Standing (rolling) programs: dedupe by program name + org so the same
+  // program listed under several rounds shows once, and cap the front-page
+  // preview. The full board lives on /programs.
+  const seenStanding = new Set<string>();
+  const standing = openRounds
+    .filter((r) => !r.round.closes)
+    .filter((r) => {
+      const k = `${r.program.name}::${r.orgName}`;
+      if (seenStanding.has(k)) return false;
+      seenStanding.add(k);
+      return true;
+    });
+  const standingPreview = standing.slice(0, 10);
   const departures = dated.slice(0, 5);
 
   // group departures by close month — a month's label carries the year once,
@@ -184,24 +196,34 @@ export default function Home() {
         {standing.length === 0 ? (
           <p className="serif-statement mt-4 text-dim">No standing open calls on file.</p>
         ) : (
-          <div className="mt-3 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-            {standing.map((r) => {
-              const wire = (r.program.wires || [])[0] || null;
-              return (
-                <Link
-                  key={r.key}
-                  href={`/programs/${r.program.id}`}
-                  className="flex items-start gap-2.5 border-b border-line py-2.5 transition-colors hover:bg-raised/40"
-                >
-                  <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm text-paper">{r.program.name}</div>
-                    <div className="coord mt-0.5 truncate">{r.orgName}</div>
-                  </div>
+          <>
+            <div className="mt-3 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+              {standingPreview.map((r) => {
+                const wire = (r.program.wires || [])[0] || null;
+                return (
+                  <Link
+                    key={r.key}
+                    href={`/programs/${r.program.id}`}
+                    className="flex items-start gap-2.5 border-b border-line py-2.5 transition-colors hover:bg-raised/40"
+                  >
+                    <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-sm text-paper">{r.program.name}</div>
+                      <div className="coord mt-0.5 truncate">{r.orgName}</div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            {standing.length > standingPreview.length && (
+              <div className="mt-3 text-xs text-faint">
+                {standingPreview.length} of {standing.length} standing calls shown.{' '}
+                <Link href="/programs" className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                  see all programs →
                 </Link>
-              );
-            })}
-          </div>
+              </div>
+            )}
+          </>
         )}
       </section>
     </>

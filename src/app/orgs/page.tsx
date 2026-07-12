@@ -88,7 +88,7 @@ export default async function OrgsPage({
                   <th className="coord py-2.5 pr-4 font-normal">Systems</th>
                   <th className="coord py-2.5 pr-4 font-normal">Wires</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Open now</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                 </tr>
               </thead>
@@ -136,8 +136,8 @@ export default async function OrgsPage({
                           ))}
                         </div>
                       </td>
-                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.programs ?? 0}</td>
                       <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
+                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.live_rounds ?? 0}</td>
                       <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     </tr>
                   );
