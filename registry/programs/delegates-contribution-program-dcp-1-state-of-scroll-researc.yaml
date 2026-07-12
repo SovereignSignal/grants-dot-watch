@@ -4,19 +4,18 @@ org: scroll
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403
-summary: Summary This document outlines the first pilot of the Delegates Contribution Program (DCP)
-  which in this occasion will have a comprehensive State of Scroll research as main output,
-  combining regional chapters and vertical deep dives to provide a clear view of Scroll’s ecosystem
-  position globally. A total of 18,000 USDC will be split among participants based on different
-  requirements for the develo
+summary: Summary This document outlines the first pilot of the Delegates Contribution Program (DCP) which
+  in this occasion will have a comprehensive State of Scroll research as main output, combining regional
+  chapters and vertical deep dives to provide a clear view of Scroll’s ecosystem position globally. A
+  total of 18,000 USDC will be split among participants based on different requirements for the develo
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-31
-    size: 18,000 USDC
-    source: https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403
+- name: Rolling
+  status: closed
+  closes: 2026-05-31
+  size: 18,000 USDC
+  source: https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403
 sources:
-  - https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403
+- https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403

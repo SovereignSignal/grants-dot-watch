@@ -4,19 +4,20 @@ org: foresight-institute
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://foresight.org/grants/grants-ai-for-science-safety
-summary: |-
-  open to researchers? Not specified. We'll just mention AI-first projects in those domains.
+summary: 'open to researchers? Not specified. We''ll just mention AI-first projects in those domains.
 
-  We need 2-4 sentences, max 120 words. Let's craft:
 
-  "Foresight
+  We need 2-4 sentences, max 120 words. Let''s craft:
+
+
+  "Foresight'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-31
-    source: https://foresight.org/grants/grants-ai-for-science-safety
+- name: Rolling
+  status: closed
+  closes: 2026-05-31
+  source: https://foresight.org/grants/grants-ai-for-science-safety
 sources:
-  - https://foresight.org/grants/grants-ai-for-science-safety
+- https://foresight.org/grants/grants-ai-for-science-safety

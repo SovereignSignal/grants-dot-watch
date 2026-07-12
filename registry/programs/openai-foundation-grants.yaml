@@ -4,22 +4,21 @@ org: openai-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://openai.com/
-summary: >-
-  not, but we can note that source is provided.
+summary: 'not, but we can note that source is provided.
 
 
-  Eligibility requirements not specified; maybe "open to organizations working on AI resilience in
-  biology, cybersecurity, etc." We can phrase.
+  Eligibility requirements not specified; maybe "open to organizations working on AI resilience in biology,
+  cybersecurity, etc." We can phrase.
 
 
-  We need to lead with organization/program name and a strong action verb, e.g.,
+  We need to lead with organization/program name and a strong action verb, e.g.,'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-01-01
-    source: https://openaifoundation.org/news/resilience-in-the-age-of-ai
+- name: Rolling
+  status: closed
+  closes: 2026-01-01
+  source: https://openaifoundation.org/news/resilience-in-the-age-of-ai
 sources:
-  - https://openaifoundation.org/news/resilience-in-the-age-of-ai
+- https://openaifoundation.org/news/resilience-in-the-age-of-ai

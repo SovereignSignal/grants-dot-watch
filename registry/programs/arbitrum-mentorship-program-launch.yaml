@@ -4,20 +4,19 @@ org: arbitrum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://arbitrum.foundation/
-summary: Arbitrum has announced an eight-week Mentorship Program starting April 13th, targeting 15
-  early-stage teams at MVP, pre-seed, or seed stages. Participants will receive guidance on
-  launching on the Arbitrum platform, mentorship from leading ecosystem teams like RobinhoodApp
-  Chain, and curated investor access with sessions and introductions to top venture firms. The
-  program also offers a chance to win a share of $100K in awards at Demo Day. Interested teams can
-  apply via the provided application link.
+summary: Arbitrum has announced an eight-week Mentorship Program starting April 13th, targeting 15 early-stage
+  teams at MVP, pre-seed, or seed stages. Participants will receive guidance on launching on the Arbitrum
+  platform, mentorship from leading ecosystem teams like RobinhoodApp Chain, and curated investor access
+  with sessions and introductions to top venture firms. The program also offers a chance to win a share
+  of $100K in awards at Demo Day. Interested teams can apply via the provided application link.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-04-13
-    size: $100K
-    source: https://x.com/arbitrum/status/2026363897587142971
+- name: Rolling
+  status: closed
+  closes: 2026-04-13
+  size: $100K
+  source: https://x.com/arbitrum/status/2026363897587142971
 sources:
-  - https://x.com/arbitrum/status/2026363897587142971
+- https://x.com/arbitrum/status/2026363897587142971

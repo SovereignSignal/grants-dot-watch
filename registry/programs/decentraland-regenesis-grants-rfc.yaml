@@ -4,20 +4,19 @@ org: decentraland
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://decentraland.org/dao
-summary: DCL Regenesis Labs has proposed a new season-based Grants Program for the Decentraland
-  builder community to fund high-quality experiences, interactive content, and ecosystem
-  improvements with a focus on mobile-friendly design. The program aims to address issues from the
-  previous grants system, which was paused in February 2024 and deprecated in October 2024, by
-  providing clearer strategic direction, consistent budget comparability, and a focus on outcomes
-  over outputs. This Request for Comments (RFC) seeks community feedback on the draft structure
-  before the official launch, with comments acce
+summary: DCL Regenesis Labs has proposed a new season-based Grants Program for the Decentraland builder
+  community to fund high-quality experiences, interactive content, and ecosystem improvements with a focus
+  on mobile-friendly design. The program aims to address issues from the previous grants system, which
+  was paused in February 2024 and deprecated in October 2024, by providing clearer strategic direction,
+  consistent budget comparability, and a focus on outcomes over outputs. This Request for Comments (RFC)
+  seeks community feedback on the draft structure before the official launch, with comments acce
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-02-24
-    source: https://forum.decentraland.org/t/rfc-regenesis-grants-program-request-for-comments/25003
+- name: Rolling
+  status: closed
+  closes: 2026-02-24
+  source: https://forum.decentraland.org/t/rfc-regenesis-grants-program-request-for-comments/25003
 sources:
-  - https://forum.decentraland.org/t/rfc-regenesis-grants-program-request-for-comments/25003
+- https://forum.decentraland.org/t/rfc-regenesis-grants-program-request-for-comments/25003

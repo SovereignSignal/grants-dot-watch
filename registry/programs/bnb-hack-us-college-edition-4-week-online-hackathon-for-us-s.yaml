@@ -1,25 +1,21 @@
 id: bnb-hack-us-college-edition-4-week-online-hackathon-for-us-s
-name: "BNB Hack: US College Edition — 4-week online hackathon for US student developers on BNB Chain
-  focused on DeFi, AI, and"
+name: 'BNB Hack: US College Edition — 4-week online hackathon for US student developers on BNB Chain focused
+  on DeFi, AI, and'
 org: bnb-chain
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://www.bnbchain.org/
-summary: >-
-  **BNB Chain launches BNB Hack: US College Edition**, a 4-week online hackathon for US student
-  developers. The event focuses on DeFi, AI, and platform technology on BNB Chain and offers a
-  $10,000 USD prize pool. 
-
-
-  Eligible participants must be US college students. The deadline to join is April 20, 2026. Full
-  details are available at https://dorahacks.io/hackathon/bnbcollegedition.
+summary: "**BNB Chain launches BNB Hack: US College Edition**, a 4-week online hackathon for US student\
+  \ developers. The event focuses on DeFi, AI, and platform technology on BNB Chain and offers a $10,000\
+  \ USD prize pool. \n\nEligible participants must be US college students. The deadline to join is April\
+  \ 20, 2026. Full details are available at https://dorahacks.io/hackathon/bnbcollegedition."
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-04-20
-    source: https://dorahacks.io/hackathon/bnbcollegedition
+- name: Rolling
+  status: closed
+  closes: 2026-04-20
+  source: https://dorahacks.io/hackathon/bnbcollegedition
 sources:
-  - https://dorahacks.io/hackathon/bnbcollegedition
+- https://dorahacks.io/hackathon/bnbcollegedition

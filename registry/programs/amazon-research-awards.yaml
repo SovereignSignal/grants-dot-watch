@@ -4,19 +4,19 @@ org: amazon-research-awards-amazon-science
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: grants
 apply_url: https://www.amazon.science/research-awards
-summary: Amazon Research Awards give university researchers up to $100,000 in unrestricted funds
-  plus up to $50,000 in AWS Promotional Credits, awarded across periodic calls for proposals.
+summary: Amazon Research Awards give university researchers up to $100,000 in unrestricted funds plus
+  up to $50,000 in AWS Promotional Credits, awarded across periodic calls for proposals.
 rounds:
-  - name: Rolling
-    status: announced
-    closes: 2026-05-06
-    size: ", B"
-    source: https://www.amazon.science/research-awards/latest-news/amazon-research-awards-issues-spring-2026-call-for-proposals
+- name: Rolling
+  status: closed
+  closes: 2026-05-06
+  size: ', B'
+  source: https://www.amazon.science/research-awards/latest-news/amazon-research-awards-issues-spring-2026-call-for-proposals
 sources:
-  - https://www.amazon.science/research-awards
-  - https://www.amazon.science/research-awards/call-for-proposals
-  - https://www.amazon.science/research-awards/latest-news/amazon-research-awards-issues-spring-2026-call-for-proposals
+- https://www.amazon.science/research-awards
+- https://www.amazon.science/research-awards/call-for-proposals
+- https://www.amazon.science/research-awards/latest-news/amazon-research-awards-issues-spring-2026-call-for-proposals

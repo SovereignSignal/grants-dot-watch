@@ -4,23 +4,22 @@ org: long-term-future-fund
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://docsout.org
-summary: >-
-  The AI Safety community has successfully recruited top engineers and policy experts... it has
-  however, failed to recruit top storytellers! The Automation & Humanity Documentary Fund aims to
-  solve this talent constraint!
+summary: 'The AI Safety community has successfully recruited top engineers and policy experts... it has
+  however, failed to recruit top storytellers! The Automation & Humanity Documentary Fund aims to solve
+  this talent constraint!
 
 
 
-  Who Let The Docs Out, a new filmmaker-led nonprofit, is launching its Spring 2026 Automation &
-  Humanity Fund to find real stories that will engage with millions. The fund address
+  Who Let The Docs Out, a new filmmaker-led nonprofit, is launching its Spring 2026 Automation & Humanity
+  Fund to find real stories that will engage with millions. The fund address'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-03-16
-    size: $8,000
-    source: https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking
+- name: Rolling
+  status: closed
+  closes: 2026-03-16
+  size: $8,000
+  source: https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking
 sources:
-  - https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking
+- https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking

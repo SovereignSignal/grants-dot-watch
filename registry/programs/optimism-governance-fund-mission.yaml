@@ -4,19 +4,18 @@ org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://gov.optimism.io/t/closed-governance-fund-mission-request-cross-chain-key-management-for-safe/10294
-summary: "Season 8 Intent: A set of interoperable Stage 1 chains doing $100m per month in
-  cross-chain asset transfer Total grant amount: Up to 126,000 OP (funding 63,000 OP per team, up to
-  2 teams) Should this Governance Fund Mission be fulfilled by one or multiple teams: Up to 2 OP
-  Labs or Optimism Unlimited Sponsor: Pierce Reviewing Body: Developer Advisory Board Foundation
-  Mission Team Submit by: October"
+summary: 'Season 8 Intent: A set of interoperable Stage 1 chains doing $100m per month in cross-chain
+  asset transfer Total grant amount: Up to 126,000 OP (funding 63,000 OP per team, up to 2 teams) Should
+  this Governance Fund Mission be fulfilled by one or multiple teams: Up to 2 OP Labs or Optimism Unlimited
+  Sponsor: Pierce Reviewing Body: Developer Advisory Board Foundation Mission Team Submit by: October'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2025-10-10
-    size: 63,000–126,000 OP
-    source: https://gov.optimism.io/t/closed-governance-fund-mission-request-cross-chain-key-management-for-safe/10294
+- name: Rolling
+  status: closed
+  closes: 2025-10-10
+  size: 63,000–126,000 OP
+  source: https://gov.optimism.io/t/closed-governance-fund-mission-request-cross-chain-key-management-for-safe/10294
 sources:
-  - https://gov.optimism.io/t/closed-governance-fund-mission-request-cross-chain-key-management-for-safe/10294
+- https://gov.optimism.io/t/closed-governance-fund-mission-request-cross-chain-key-management-for-safe/10294

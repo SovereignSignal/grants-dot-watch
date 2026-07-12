@@ -4,16 +4,16 @@ org: avalanche-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://build.avax.network/grants
-summary: Avalanche Foundation Research Grants up to $50K on Avalanche Network Economics — dispatch
-  from the wire, no further detail on file.
+summary: Avalanche Foundation Research Grants up to $50K on Avalanche Network Economics — dispatch from
+  the wire, no further detail on file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-06-01
-    size: Up to $50K
-    source: https://www.avax.network/about/blog/research-grants-avalanche-network-economics
+- name: Rolling
+  status: closed
+  closes: 2026-06-01
+  size: Up to $50K
+  source: https://www.avax.network/about/blog/research-grants-avalanche-network-economics
 sources:
-  - https://www.avax.network/about/blog/research-grants-avalanche-network-economics
+- https://www.avax.network/about/blog/research-grants-avalanche-network-economics

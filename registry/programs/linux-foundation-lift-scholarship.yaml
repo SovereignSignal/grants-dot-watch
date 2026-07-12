@@ -4,22 +4,17 @@ org: linux-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://www.linuxfoundation.org/
-summary: >-
-  **Linux Foundation LiFT Scholarship** offers 500 scholarships across 16 categories to support
-  learning and careers in open source, Linux, cloud native, Kubernetes, cybersecurity, DevOps and
-  related fields. The program provides funding for training, certifications, and professional
-  development opportunities. 
-
-
-  Deadline is April 30, 2026. Apply at
-  https://app.smarterselect.com/programs/109146-Linux-Foundation-Education.
+summary: "**Linux Foundation LiFT Scholarship** offers 500 scholarships across 16 categories to support\
+  \ learning and careers in open source, Linux, cloud native, Kubernetes, cybersecurity, DevOps and related\
+  \ fields. The program provides funding for training, certifications, and professional development opportunities.\
+  \ \n\nDeadline is April 30, 2026. Apply at https://app.smarterselect.com/programs/109146-Linux-Foundation-Education."
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-04-30
-    source: https://app.smarterselect.com/programs/109146-Linux-Foundation-Education
+- name: Rolling
+  status: closed
+  closes: 2026-04-30
+  source: https://app.smarterselect.com/programs/109146-Linux-Foundation-Education
 sources:
-  - https://app.smarterselect.com/programs/109146-Linux-Foundation-Education
+- https://app.smarterselect.com/programs/109146-Linux-Foundation-Education

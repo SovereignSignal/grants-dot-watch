@@ -16,7 +16,8 @@ function collectOpenRounds(programs: Program[], orgs: Org[]): OpenRound[] {
   const rounds: OpenRound[] = [];
   for (const p of programs) {
     for (const r of p.rounds || []) {
-      if (r.status === 'open' || r.status === 'announced') {
+      const todayISO = new Date().toISOString().slice(0, 10);
+      if ((r.status === 'open' || r.status === 'announced') && (!r.closes || r.closes >= todayISO)) {
         rounds.push({ key: `${p.id}::${r.name}`, program: p, orgName: orgName.get(p.org) || p.org, round: r });
       }
     }

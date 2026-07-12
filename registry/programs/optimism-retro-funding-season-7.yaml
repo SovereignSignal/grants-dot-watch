@@ -4,19 +4,18 @@ org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://gov.optimism.io/t/season-7-retro-funding-missions/9295
-summary: Special thanks to members of the Feedback Commission for discussion and review. In 2025,
-  Retro Funding will focus on data-driven impact measurement with a human-centered approach. These
-  Missions have been chosen to focus the Collective on being able to accurately measure an important
-  sub-set of contributions. We must first refine and perfect the ability to reward these
-  contributions before expandi
+summary: Special thanks to members of the Feedback Commission for discussion and review. In 2025, Retro
+  Funding will focus on data-driven impact measurement with a human-centered approach. These Missions
+  have been chosen to focus the Collective on being able to accurately measure an important sub-set of
+  contributions. We must first refine and perfect the ability to reward these contributions before expandi
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2025-02-01
-    size: 16,000,000 OP
-    source: https://gov.optimism.io/t/season-7-retro-funding-missions/9295
+- name: Rolling
+  status: closed
+  closes: 2025-02-01
+  size: 16,000,000 OP
+  source: https://gov.optimism.io/t/season-7-retro-funding-missions/9295
 sources:
-  - https://gov.optimism.io/t/season-7-retro-funding-missions/9295
+- https://gov.optimism.io/t/season-7-retro-funding-missions/9295

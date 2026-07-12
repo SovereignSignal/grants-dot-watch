@@ -4,16 +4,16 @@ org: zama
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
-summary: Confidential application development program for FHE-powered smart contracts, private token
-  distribution, and composable privacy on Ethereum.
+summary: Confidential application development program for FHE-powered smart contracts, private token distribution,
+  and composable privacy on Ethereum.
 rounds:
-  - name: Season 3
-    status: open
-    closes: 2026-07-07
-    size: 12,500 cUSDT
-    source: https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key
+- name: Season 3
+  status: closed
+  closes: 2026-07-07
+  size: 12,500 cUSDT
+  source: https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key
 sources:
-  - https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key
+- https://www.zama.org/post/zama-developer-program-mainnet-season-3-composable-privacy-is-the-key

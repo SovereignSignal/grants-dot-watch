@@ -4,15 +4,15 @@ org: aria
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.aria.org.uk/
 summary: ARIA Activation Partners Cohort 2 — dispatch from the wire, no further detail on file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-21
-    size: £100M total
-    source: https://aria.org.uk/activation-partners/become-an-activation-partner/
+- name: Rolling
+  status: closed
+  closes: 2026-05-21
+  size: £100M total
+  source: https://aria.org.uk/activation-partners/become-an-activation-partner/
 sources:
-  - https://aria.org.uk/activation-partners/become-an-activation-partner/
+- https://aria.org.uk/activation-partners/become-an-activation-partner/

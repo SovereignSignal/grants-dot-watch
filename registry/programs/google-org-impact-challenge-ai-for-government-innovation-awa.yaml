@@ -1,21 +1,20 @@
 id: google-org-impact-challenge-ai-for-government-innovation-awa
-name: "Google.org Impact Challenge: AI for Government Innovation, awards $1M-$3M, deadline April 3"
+name: 'Google.org Impact Challenge: AI for Government Innovation, awards $1M-$3M, deadline April 3'
 org: googleorg
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://google.org/
-summary: "Applications now open! @Googleorg Impact Challenge: AI for Government Innovation -
-  Transform how public services function for social good Awards range $1M and $3M USD. Deadline:
-  April 3, 2026 Apply: https://www.google.org/impact-challenges/ai-government-innovation Feb 27,
-  2026"
+summary: 'Applications now open! @Googleorg Impact Challenge: AI for Government Innovation - Transform
+  how public services function for social good Awards range $1M and $3M USD. Deadline: April 3, 2026 Apply:
+  https://www.google.org/impact-challenges/ai-government-innovation Feb 27, 2026'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-04-03
-    size: $1M
-    source: https://x.com/PluralityInst/status/2027453176740515940
+- name: Rolling
+  status: closed
+  closes: 2026-04-03
+  size: $1M
+  source: https://x.com/PluralityInst/status/2027453176740515940
 sources:
-  - https://x.com/PluralityInst/status/2027453176740515940
+- https://x.com/PluralityInst/status/2027453176740515940

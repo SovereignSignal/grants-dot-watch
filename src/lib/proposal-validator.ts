@@ -455,6 +455,14 @@ async function validateFactUpdate(p: Proposal): Promise<ValidationResult> {
   }
   checks.push({ name: 'has-checkable-literal', pass: true, detail: literals.join(', ') });
 
+  // Recency rule: a claim whose every date is already in the past is history,
+  // not an actionable update — the committer would auto-close it anyway, and
+  // approving it as "open" is how years-old rounds ended up on the front page.
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const allPast = literals.every((d) => d < todayISO);
+  checks.push({ name: 'claim-is-current', pass: !allPast, detail: allPast ? `all dates before ${todayISO}` : 'has future/current dates' });
+  if (allPast) return fail(checks, 'deadline already passed — historical, not actionable');
+
   const unmatched = literals.filter((d) => !pageContainsDate(page.text, d));
   const allMatch = unmatched.length === 0;
   checks.push({

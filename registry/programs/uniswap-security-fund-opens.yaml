@@ -4,18 +4,18 @@ org: uniswap-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://uniswapfoundation.org/
-summary: The Uniswap Foundation has announced the opening of its Security Fund cohort for March
-  2026, targeting teams building with Uniswap v4 hooks or Trading APIs. The fund offers up to 100%
-  audit subsidies, pre-audit scans, and comprehensive security guidance to help teams ship securely.
-  Applications for this cohort are open until March 7, 2026, at 23:59 UTC.
+summary: The Uniswap Foundation has announced the opening of its Security Fund cohort for March 2026,
+  targeting teams building with Uniswap v4 hooks or Trading APIs. The fund offers up to 100% audit subsidies,
+  pre-audit scans, and comprehensive security guidance to help teams ship securely. Applications for this
+  cohort are open until March 7, 2026, at 23:59 UTC.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-03-07
-    size: 100% audit subsidies
-    source: https://x.com/0xboo/status/2028401618333389136
+- name: Rolling
+  status: closed
+  closes: 2026-03-07
+  size: 100% audit subsidies
+  source: https://x.com/0xboo/status/2028401618333389136
 sources:
-  - https://x.com/0xboo/status/2028401618333389136
+- https://x.com/0xboo/status/2028401618333389136

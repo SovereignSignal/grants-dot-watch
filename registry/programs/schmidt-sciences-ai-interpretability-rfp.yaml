@@ -4,19 +4,18 @@ org: schmidt-sciences
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.schmidtsciences.org/
-summary: "**Schmidt Sciences AI Interpretability RFP** offers up to $1M for projects developing new
-  tools to detect and mitigate deceptive behaviors in large language models. Awards range from $300k
-  to $1M, with a deadline of May 26, 2026. The program is open to researchers and teams seeking to
-  advance interpretability methods for safer AI systems. Full details and application are available
-  at https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/."
+summary: '**Schmidt Sciences AI Interpretability RFP** offers up to $1M for projects developing new tools
+  to detect and mitigate deceptive behaviors in large language models. Awards range from $300k to $1M,
+  with a deadline of May 26, 2026. The program is open to researchers and teams seeking to advance interpretability
+  methods for safer AI systems. Full details and application are available at https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/.'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-26
-    size: $300k
-    source: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
+- name: Rolling
+  status: closed
+  closes: 2026-05-26
+  size: $300k
+  source: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
 sources:
-  - https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
+- https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/

@@ -4,19 +4,18 @@ org: gitcoin
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770
-summary: The Interop Standards, Infra, and Analytics Domain funds support Open Data initiatives and
-  accelerate the development of standards, infrastructure, analytics, research, and pilots that
-  strengthen Ethereum’s multi-chain ecosystem and create a strong foundation for the adoption of the
-  Open Intents Framework (OIF) . Domains are the vehicles through which trusted and experienced
-  stewards manage capita
+summary: The Interop Standards, Infra, and Analytics Domain funds support Open Data initiatives and accelerate
+  the development of standards, infrastructure, analytics, research, and pilots that strengthen Ethereum’s
+  multi-chain ecosystem and create a strong foundation for the adoption of the Open Intents Framework
+  (OIF) . Domains are the vehicles through which trusted and experienced stewards manage capita
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2025-10-15
-    size: $300,000
-    source: https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770
+- name: Rolling
+  status: closed
+  closes: 2025-10-15
+  size: $300,000
+  source: https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770
 sources:
-  - https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770
+- https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770

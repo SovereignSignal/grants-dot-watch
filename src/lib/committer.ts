@@ -182,6 +182,13 @@ function mergeRounds(existing: Round[], incoming: unknown, evidenceUrl?: string 
       size: r.size ?? base.size,
       source: r.source ?? base.source ?? evidenceUrl ?? undefined,
     };
+    // Recency guard: a round whose deadline has already passed is closed by
+    // definition — never written as open/announced regardless of what the
+    // (possibly historical) evidence page states.
+    const todayISO = new Date().toISOString().slice(0, 10);
+    if (merged.closes && String(merged.closes) < todayISO && (merged.status === 'open' || merged.status === 'announced')) {
+      merged.status = 'closed';
+    }
     const clean = Object.fromEntries(Object.entries(merged).filter(([, v]) => v !== undefined)) as unknown as Round;
     if (idx >= 0) rounds[idx] = clean;
     else rounds.push(clean);

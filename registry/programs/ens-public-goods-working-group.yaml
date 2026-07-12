@@ -4,19 +4,18 @@ org: ens
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679
-summary: Status Draft Voting Targeting Oct 9th, 2024 Authors @simona_pop , @Coltron.eth , @vegayp
-  ENS Public Goods Working Group Funding Request Abstract The ENS Public Goods Working Group
-  requests funding to support operations until the next funding window in April 2025. The Public
-  Goods working group funds projects and builders improving the Web3 ecosystem. This funding stream
-  is authorized in Article II
+summary: Status Draft Voting Targeting Oct 9th, 2024 Authors @simona_pop , @Coltron.eth , @vegayp ENS
+  Public Goods Working Group Funding Request Abstract The ENS Public Goods Working Group requests funding
+  to support operations until the next funding window in April 2025. The Public Goods working group funds
+  projects and builders improving the Web3 ecosystem. This funding stream is authorized in Article II
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2024-10-09
-    size: 226,000 USDC
-    source: https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679
+- name: Rolling
+  status: closed
+  closes: 2024-10-09
+  size: 226,000 USDC
+  source: https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679
 sources:
-  - https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679
+- https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679

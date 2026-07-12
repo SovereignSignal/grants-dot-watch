@@ -4,15 +4,15 @@ org: ens
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://ens.domains/
 summary: ENS Service Provider Program Season 3 (SPP3) — dispatch from the wire, no further detail on file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-07-01
-    size: $2.89M cohort budget
-    source: https://discuss.ens.domains/t/spp3-applications-now-open/22131
+- name: Rolling
+  status: closed
+  closes: 2026-07-01
+  size: $2.89M cohort budget
+  source: https://discuss.ens.domains/t/spp3-applications-now-open/22131
 sources:
-  - https://discuss.ens.domains/t/spp3-applications-now-open/22131
+- https://discuss.ens.domains/t/spp3-applications-now-open/22131

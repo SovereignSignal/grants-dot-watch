@@ -4,19 +4,18 @@ org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867
-summary: "Intent 3: Grow Application Developers on the Superchain Objective : Establish a
-  comprehensive repository of open-source, on-chain contracts for the Optimism ecosystem. This
-  repository will serve as a critical resource for developers building on the Superchain, providing
-  backend solutions for DeFi products and NFT marketplaces. Baseline grant amount: 50,000 OP Submit
-  by: To be set by Grants Council"
+summary: 'Intent 3: Grow Application Developers on the Superchain Objective : Establish a comprehensive
+  repository of open-source, on-chain contracts for the Optimism ecosystem. This repository will serve
+  as a critical resource for developers building on the Superchain, providing backend solutions for DeFi
+  products and NFT marketplaces. Baseline grant amount: 50,000 OP Submit by: To be set by Grants Council'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2024-12-31
-    size: 50,000 OP
-    source: https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867
+- name: Rolling
+  status: closed
+  closes: 2024-12-31
+  size: 50,000 OP
+  source: https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867
 sources:
-  - https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867
+- https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867

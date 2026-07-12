@@ -4,15 +4,15 @@ org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://www.optimism.io/
 summary: Optimism Season 9 - Audit Grants — dispatch from the wire, no further detail on file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-20
-    size: "0"
-    source: https://www.opgrants.io
+- name: Rolling
+  status: closed
+  closes: 2026-05-20
+  size: '0'
+  source: https://www.opgrants.io
 sources:
-  - https://www.opgrants.io
+- https://www.opgrants.io

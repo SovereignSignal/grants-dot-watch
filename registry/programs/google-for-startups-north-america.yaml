@@ -4,27 +4,25 @@ org: googleorg
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://google.org/
-summary: >-
-  not required in summary. Just include source maybe. Provide plain prose.
+summary: 'not required in summary. Just include source maybe. Provide plain prose.
 
 
-  We need: Google for Startups North America, deadline June 30 2026, 10-week program, AI for Energy
-  focus, for pre-seed to Series A startups, no equity taken. No amount given. So just mention no
-  equity.
+  We need: Google for Startups North America, deadline June 30 2026, 10-week program, AI for Energy focus,
+  for pre-seed to Series A startups, no equity taken. No amount given. So just mention no equity.
 
 
   Write 2-4 sentences, under 120 words.
 
 
-  Let's craft: "Google for Startups North America invites pre‑seed to Series A startups focused on
-  AI for Energy to apply to
+  Let''s craft: "Google for Startups North America invites pre‑seed to Series A startups focused on AI
+  for Energy to apply to'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-06-30
-    source: https://startup.google.com/programs/accelerator/north-america/
+- name: Rolling
+  status: closed
+  closes: 2026-06-30
+  source: https://startup.google.com/programs/accelerator/north-america/
 sources:
-  - https://startup.google.com/programs/accelerator/north-america/
+- https://startup.google.com/programs/accelerator/north-america/

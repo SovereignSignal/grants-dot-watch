@@ -1,26 +1,25 @@
 id: who-let-the-docs-out-2026-coexistence-documentary-fund-2026-
-name: Who Let The Docs Out - 2026 Coexistence Documentary Fund & 2026 Automation & Humanity
-  Documentary Fund
+name: Who Let The Docs Out - 2026 Coexistence Documentary Fund & 2026 Automation & Humanity Documentary
+  Fund
 org: long-term-future-fund
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film
-summary: >-
-  Who Let The Docs Out, a new non-profit documentary film fund and alliance, officially announced
-  its public launch of two grant programs: the 2026 Coexistence Documentary Fund and the 2026
-  Automation & Humanity Documentary Fund.
+summary: 'Who Let The Docs Out, a new non-profit documentary film fund and alliance, officially announced
+  its public launch of two grant programs: the 2026 Coexistence Documentary Fund and the 2026 Automation
+  & Humanity Documentary Fund.
 
 
-  The organisation supports documentary filmmakers investigating the structural and economic systems
-  that connect humans, animals, and emerging technologies - a subject matt
+  The organisation supports documentary filmmakers investigating the structural and economic systems that
+  connect humans, animals, and emerging technologies - a subject matt'
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-03-16
-    size: $4,000–15,000
-    source: https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film
+- name: Rolling
+  status: closed
+  closes: 2026-03-16
+  size: $4,000–15,000
+  source: https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film
 sources:
-  - https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film
+- https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film

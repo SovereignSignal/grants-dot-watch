@@ -4,16 +4,16 @@ org: enel-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: prize
 apply_url: https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition
-summary: EUR 10,000 prize for youth-led African start-ups in renewable energy, AI, smart grids, and
-  climate tech; 2nd edition.
+summary: EUR 10,000 prize for youth-led African start-ups in renewable energy, AI, smart grids, and climate
+  tech; 2nd edition.
 rounds:
-  - name: Rolling
-    status: announced
-    closes: 2026-01-01
-    source: https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition
+- name: Rolling
+  status: closed
+  closes: 2026-01-01
+  source: https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition
 sources:
-  - https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition
+- https://www.enelfoundation.org/all-news/news/2026/06/watt-boost-call-for-application-2nd-edition

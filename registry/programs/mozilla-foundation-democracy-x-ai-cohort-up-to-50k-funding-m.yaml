@@ -4,18 +4,17 @@ org: mozilla-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.mozillafoundation.org/
-summary: Apply Now! Mozilla Foundation Democracy x AI Cohort 2026 — Innovate With Impact! Are you
-  building AI technologies that strengthen democratic systems and civic engagement? If your solution
-  uses AI to enhance transparency, elevate quality information, or expand civic space, this is your
-  moment to acce
+summary: Apply Now! Mozilla Foundation Democracy x AI Cohort 2026 — Innovate With Impact! Are you building
+  AI technologies that strengthen democratic systems and civic engagement? If your solution uses AI to
+  enhance transparency, elevate quality information, or expand civic space, this is your moment to acce
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-03-16
-    size: $50k
-    source: https://x.com/studysustainhub/status/2026658478157135939
+- name: Rolling
+  status: closed
+  closes: 2026-03-16
+  size: $50k
+  source: https://x.com/studysustainhub/status/2026658478157135939
 sources:
-  - https://x.com/studysustainhub/status/2026658478157135939
+- https://x.com/studysustainhub/status/2026658478157135939

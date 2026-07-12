@@ -4,15 +4,16 @@ org: sovereign-tech-agency
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://www.sovereign.tech/
-summary: Sovereign Tech Standards Network applications — dispatch from the wire, no further detail on file.
+summary: Sovereign Tech Standards Network applications — dispatch from the wire, no further detail on
+  file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-05-19
-    size: Support for maintainers, amount not stated
-    source: https://www.sovereign.tech/news/join-sovereign-tech-standards-network
+- name: Rolling
+  status: closed
+  closes: 2026-05-19
+  size: Support for maintainers, amount not stated
+  source: https://www.sovereign.tech/news/join-sovereign-tech-standards-network
 sources:
-  - https://www.sovereign.tech/news/join-sovereign-tech-standards-network
+- https://www.sovereign.tech/news/join-sovereign-tech-standards-network

@@ -55,7 +55,10 @@ function StandingRow({ d }: { d: Departure }) {
 export function DeparturesBoard({ programs, orgs }: { programs: Program[]; orgs: Org[] }) {
   const orgById = new Map(orgs.map((o) => [o.id, o]));
   const openRounds = collectOpenRounds(programs, orgById);
-  const dated = openRounds.filter((r) => r.round.closes).sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const dated = openRounds
+    .filter((r) => r.round.closes && r.round.closes >= todayISO)
+    .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
   const standing = openRounds.filter((r) => !r.round.closes);
 
   const groups: { label: string; rows: Departure[] }[] = [];

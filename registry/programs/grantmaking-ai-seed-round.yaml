@@ -4,16 +4,16 @@ org: grantmaking-ai
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: grants
-summary: "Seed round to test and populate the grantmaking.ai platform: $1M for rapid distribution of
-  $5K-$50K AI-safety grants."
+summary: 'Seed round to test and populate the grantmaking.ai platform: $1M for rapid distribution of $5K-$50K
+  AI-safety grants.'
 rounds:
-  - name: 2026 seed round
-    status: open
-    closes: 2026-06-30
-    size: $1M ($5K-$50K per grant)
-    source: https://www.grantmaking.ai/
+- name: 2026 seed round
+  status: closed
+  closes: 2026-06-30
+  size: $1M ($5K-$50K per grant)
+  source: https://www.grantmaking.ai/
 sources:
-  - https://www.grantmaking.ai/
+- https://www.grantmaking.ai/

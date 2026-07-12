@@ -4,14 +4,14 @@ org: stacks-endowment
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
 summary: Stacks Endowment Q2 Grants — dispatch from the wire, no further detail on file.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-06-26
-    source: https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
+- name: Rolling
+  status: closed
+  closes: 2026-06-26
+  source: https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
 sources:
-  - https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
+- https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance

@@ -4,19 +4,18 @@ org: openai-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: other
 apply_url: https://openai.com/index/economic-research-exchange/
-summary: Open call for external researchers in applied causal inference, labor economics, and
-  productivity to run empirical studies on AI's economic impact via structured collaborations with
-  OpenAI's Economic Research division; research support and data access, no fixed grant figure
-  published.
+summary: Open call for external researchers in applied causal inference, labor economics, and productivity
+  to run empirical studies on AI's economic impact via structured collaborations with OpenAI's Economic
+  Research division; research support and data access, no fixed grant figure published.
 rounds:
-  - name: 2026 cohort
-    status: open
-    opens: 2026-06-08
-    closes: 2026-07-05
-    source: https://openai.com/index/economic-research-exchange/
+- name: 2026 cohort
+  status: closed
+  opens: 2026-06-08
+  closes: 2026-07-05
+  source: https://openai.com/index/economic-research-exchange/
 sources:
-  - https://openai.com/index/economic-research-exchange/
+- https://openai.com/index/economic-research-exchange/
