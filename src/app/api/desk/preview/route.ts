@@ -39,7 +39,7 @@ function headingFor(path: string, op: AppliedChange['op']): string {
           : 'file';
   if (op === 'create') return `Creates a new ${kind} file`;
   if (op === 'append') return `Appends a new ${kind === 'award' ? 'award record' : 'record'}`;
-  return `Updates the ${kind} file — changed fields only`;
+  return `Updates the ${kind} file, changed fields only`;
 }
 
 function renderValue(v: unknown): string {

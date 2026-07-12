@@ -87,7 +87,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
             .map((r) => ({ r, p: dayOfYearPct(r.closes || r.opens, y) }))
             .filter((x): x is { r: Round; p: number } => x.p != null);
           const hasAnyRounds = (program.rounds || []).length > 0;
-          const caption = dated.length > 0 ? null : hasAnyRounds ? `No ${y} rounds on file` : 'Rolling — by engagement';
+          const caption = dated.length > 0 ? null : hasAnyRounds ? `No ${y} rounds on file` : 'Rolling, by engagement';
 
           return (
             <div key={program.id} className="relative z-10 flex items-center border-b border-line">
@@ -111,7 +111,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
                   dated.map(({ r, p }, i) => (
                     <span
                       key={i}
-                      title={`${r.name} — ${r.status}${r.closes ? ` — closes ${r.closes}` : r.opens ? ` — opens ${r.opens}` : ''}`}
+                      title={`${r.name}: ${r.status}${r.closes ? `, closes ${r.closes}` : r.opens ? `, opens ${r.opens}` : ''}`}
                       className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2"
                       style={{ left: `${p}%`, background: ROUND_DOT[r.status] || 'var(--color-faint)' }}
                     />

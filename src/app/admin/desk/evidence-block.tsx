@@ -16,19 +16,19 @@ export function EvidenceBlock({ proposal }: { proposal: QueueProposal }) {
         <p className="serif-statement text-[15.5px] leading-[1.62] text-dim">&ldquo;{quote}&rdquo;</p>
       ) : (
         <p className="text-[13px] leading-relaxed text-faint">
-          No wire signal on file{proposal.signal_id != null ? ` for signal ${proposal.signal_id}` : ''} — the proposal
+          No wire signal on file{proposal.signal_id != null ? ` for signal ${proposal.signal_id}` : ''}. The proposal
           carries only: <span className="text-dim">&ldquo;{proposal.title}&rdquo;</span>
-          {proposal.summary ? <span className="text-dim"> — {proposal.summary}</span> : null}.
+          {proposal.summary ? <span className="text-dim">, {proposal.summary}</span> : null}.
         </p>
       )}
       <div className="mt-2 text-[11.5px] tracking-[.02em] text-faint">
         {evidence ? (
           <>
-            — wire signal, {citeDate(evidence.seen_at)}
+            Wire signal, {citeDate(evidence.seen_at)}
             {evidence.quality_score != null ? ` · quality ${evidence.quality_score}` : ''}
           </>
         ) : (
-          '— no source on file'
+          'No source on file'
         )}
         {proposal.evidence_url && (
           <>

@@ -338,7 +338,7 @@ function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposa
     for (const [sk, sv] of Object.entries(map.socials as Record<string, unknown>))
       (map.socials as Record<string, unknown>)[sk] = urlish(sv);
   if ('status' in map && typeof map.status === 'string' && !ORG_STATUSES.has(map.status)) {
-    notes.push(`status "${map.status}" is not a valid org status — skipped, never guessed`);
+    notes.push(`status "${map.status}" is not a valid org status, skipped, never guessed`);
     delete map.status;
   }
 
@@ -357,7 +357,7 @@ function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposa
 
   for (const [field, value] of Object.entries(map)) {
     if (field === 'id') {
-      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}" — a file's identity is its path`);
+      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}", a file's identity is its path`);
       continue;
     }
     if (ORG_SET_FIELDS.has(field)) {
@@ -386,7 +386,7 @@ function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposa
       touched = true;
       continue;
     }
-    notes.push(`${fileRel}: field "${field}" needs the owner's hand — skipped, never guessed`);
+    notes.push(`${fileRel}: field "${field}" needs the owner's hand, skipped, never guessed`);
   }
 
   if (!touched) {
@@ -404,7 +404,7 @@ function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Pro
   const path = join(REGISTRY, fileRel);
   const existing = existsSync(path) ? safeParseYaml<Program>(path) : null;
   if (!existing) {
-    notes.push(`no-op ${fileRel}: file not found — profile_note never creates program files`);
+    notes.push(`no-op ${fileRel}: file not found, profile_note never creates program files`);
     return null;
   }
   const next = { ...existing } as Record<string, unknown>;
@@ -412,7 +412,7 @@ function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Pro
 
   for (const [field, value] of Object.entries(map)) {
     if (field === 'id') {
-      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}" — a file's identity is its path`);
+      if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}", a file's identity is its path`);
       continue;
     }
     if (PROGRAM_SET_FIELDS.has(field)) {
@@ -440,7 +440,7 @@ function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Pro
       touched = true;
       continue;
     }
-    notes.push(`${fileRel}: field "${field}" needs the owner's hand — skipped, never guessed`);
+    notes.push(`${fileRel}: field "${field}" needs the owner's hand, skipped, never guessed`);
   }
 
   if (!touched) {
@@ -486,8 +486,8 @@ function buildProfileNoteChanges(p: Proposal, notes: string[]): AppliedChange[] 
   }
 
   // shape (3): advisory / destructive top-level keys — named honestly, never executed
-  if (typeof pc.action === 'string') notes.push(`action "${pc.action}" is not automated — the owner's hand`);
-  if (typeof pc.remove === 'string') notes.push(`destructive remove of ${pc.remove} skipped — deletions are never automated from a proposal`);
+  if (typeof pc.action === 'string') notes.push(`action "${pc.action}" is not automated, needs the owner's hand`);
+  if (typeof pc.remove === 'string') notes.push(`destructive remove of ${pc.remove} skipped, deletions are never automated from a proposal`);
 
   if (changes.length === 0 && notes.length === 0) notes.push('no-op: proposed_change has nothing auto-applicable');
   return changes;

@@ -58,7 +58,7 @@ export function DeskHeader({
         </span>
       </div>
 
-      {dev && <p className="serif-statement mt-3 text-[12.5px] text-signal">Dev mode — ADMIN_TOKEN unset, the gate is open.</p>}
+      {dev && <p className="serif-statement mt-3 text-[12.5px] text-signal">Dev mode. ADMIN_TOKEN unset, the gate is open.</p>}
       {seedMsg && <p className="coord mt-3">{seedMsg}</p>}
       {validateMsg && <p className="coord mt-3">{validateMsg}</p>}
 
@@ -84,10 +84,9 @@ function ExplainerParagraph() {
   return (
     <div className="mt-1 flex max-w-[760px] items-start gap-4">
       <p className="flex-1 text-[13.5px] leading-[1.6] text-dim">
-        Two queues: Judgment (a new organization, a merge, a new program, or written profile text) needs your call —
-        Approve writes the change to the registry and commits it; Reject records the decision and changes nothing.
-        Facts (round dates, deadlines, sourced awards) go through the same two buttons for now, ahead of automatic
-        apply.
+        Two queues. Judgment (a new organization, a merge, a new program, or written profile text) needs your call.
+        Approve writes the change to the registry and commits it. Reject records the decision and changes nothing.
+        Facts (round dates, deadlines, sourced awards) use the same two buttons for now, ahead of automatic apply.
       </p>
       <button
         type="button"

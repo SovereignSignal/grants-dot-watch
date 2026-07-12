@@ -19,7 +19,7 @@ export function ChangePreview({ changes, notes }: { changes: PreviewChange[]; no
   if (changes.length === 0) {
     return (
       <p className="text-[12.5px] italic text-faint">
-        {notes[0] || 'No file changes — this proposal is recorded as a decision only.'}
+        {notes[0] || 'No file changes. This proposal is recorded as a decision only.'}
       </p>
     );
   }

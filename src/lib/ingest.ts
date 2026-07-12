@@ -375,7 +375,7 @@ function decide(input: {
           org: org.id,
           org_name: org.name,
           program: programMatch.name,
-          title: `${org.name} — ${programMatch.name}: deadline ${deadline}`,
+          title: `${org.name} · ${programMatch.name}: deadline ${deadline}`,
           summary,
           evidence_url: evidenceUrl,
           proposed_change: { [`programs/${programMatch.id}.yaml`]: { rounds: [round] } },
@@ -404,7 +404,7 @@ function decide(input: {
           org: org.id,
           org_name: org.name,
           program: programNameCandidate,
-          title: `${org.name} — ${programNameCandidate}`,
+          title: `${org.name} · ${programNameCandidate}`,
           summary,
           evidence_url: evidenceUrl,
           proposed_change: { [`programs/${slug}.yaml`]: payload },
@@ -437,7 +437,7 @@ function decide(input: {
         type: 'new_org',
         org: null,
         org_name: plausibleName,
-        title: `${plausibleName} — new org signal (${wire || 'unknown wire'})`,
+        title: `${plausibleName}: new org signal (${wire || 'unknown wire'})`,
         summary,
         evidence_url: evidenceUrl,
         proposed_change: { [`orgs/${slug}.yaml`]: payload },
@@ -460,7 +460,7 @@ function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
   const deadline = isoDateOnly(row.deadline_iso) || isoDateOnly(row.deadline);
   const amount = row.amount ? row.amount.trim() || null : null;
   const programNameCandidate = (row.name || '').trim() || null;
-  const summaryFallback = `${programNameCandidate || row.name || 'Wire signal'} — dispatch from the wire, no further detail on file.`;
+  const summaryFallback = `${programNameCandidate || row.name || 'Wire signal'}: dispatch from the wire, no further detail on file.`;
   const summary = safeSummary(row.enriched_summary || row.description, summaryFallback);
 
   // Resolution only has real signal when org_id is set (org_profiles.name/
@@ -500,7 +500,7 @@ function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
   const confidence = Math.max(CONFIDENCE_FLOOR, item.confidence ?? 0);
   const deadline = isoDateOnly(item.deadline);
   const amount = formatDiscussAmount(item);
-  const summaryFallback = `${title || orgNameCandidate || 'A funder'} — funding signal from discuss.watch, no further detail on file.`;
+  const summaryFallback = `${title || orgNameCandidate || 'A funder'}: funding signal from discuss.watch, no further detail on file.`;
   const summary = safeSummary(item.excerpt || title, summaryFallback);
 
   // applyUrl (when present) is the org's own "apply here" link, a much

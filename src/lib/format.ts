@@ -1,7 +1,7 @@
 import type { Wire } from './types';
 
 export function money(n: number | null | undefined, text?: string | null): string {
-  if (n == null || n === 0) return text || '—';
+  if (n == null || n === 0) return text || '–';
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `$${Math.round(n / 1_000)}K`;
@@ -9,7 +9,7 @@ export function money(n: number | null | undefined, text?: string | null): strin
 }
 
 export function dateShort(d: string | null | undefined): string {
-  if (!d) return '—';
+  if (!d) return '–';
   const [y, m, day] = d.split('-');
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if (!m) return y;
@@ -25,18 +25,18 @@ export const MONTHS_LONG = [
  *  YYYY-MM-DD or a full ISO timestamp like registry.loadedAt) and renders
  *  "July 10, 2026". */
 export function dateLong(d: string | null | undefined): string {
-  if (!d) return '—';
+  if (!d) return '–';
   const dt = new Date(d);
-  if (Number.isNaN(dt.getTime())) return '—';
+  if (Number.isNaN(dt.getTime())) return '–';
   return `${MONTHS_LONG[dt.getUTCMonth()]} ${dt.getUTCDate()}, ${dt.getUTCFullYear()}`;
 }
 
 /** Masthead edition code — "2026.07.10" from the same kind of input as
  *  dateLong(). */
 export function editionCode(d: string | null | undefined): string {
-  if (!d) return '—';
+  if (!d) return '–';
   const dt = new Date(d);
-  if (Number.isNaN(dt.getTime())) return '—';
+  if (Number.isNaN(dt.getTime())) return '–';
   const y = dt.getUTCFullYear();
   const m = String(dt.getUTCMonth() + 1).padStart(2, '0');
   const day = String(dt.getUTCDate()).padStart(2, '0');

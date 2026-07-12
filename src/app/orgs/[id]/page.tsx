@@ -57,7 +57,7 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
           ...(primarySystem ? [{ label: primarySystem.name, href: `/systems/${primarySystem.id}` }] : []),
           { label: org.name },
         ]}
-        note="Org profile — sourced & linked"
+        note="Org profile: sourced & linked"
       />
 
       <Dossier
@@ -112,7 +112,7 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
               <SourceCitations sources={org.sources} />
             </>
           ) : (
-            <span className="text-dim">No public profile on file yet — we&apos;ll add one as we find more sources.</span>
+            <span className="text-dim">No public profile on file yet. We&apos;ll add one as we find more sources.</span>
           )
         }
       />

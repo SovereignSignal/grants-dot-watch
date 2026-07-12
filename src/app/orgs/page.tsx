@@ -60,7 +60,7 @@ export default async function OrgsPage({
 
   return (
     <>
-      <PageHeader eyebrow="THE REGISTER" title="Organizations" sub="Every org grants.watch tracks — funders curated in depth, others as thin records." />
+      <PageHeader eyebrow="THE REGISTER" title="Organizations" sub="Every org grants.watch tracks: funders curated in depth, others as thin records." />
       <OrgFilterBar
         current={current}
         roleOptions={ROLE_OPTIONS.map((r) => ({ value: r, label: ORG_ROLE_LABEL[r] }))}
@@ -73,7 +73,7 @@ export default async function OrgsPage({
           {total === 0
             ? 'no organizations match'
             : total > CAP
-              ? `showing ${CAP} of ${total} — refine your filters`
+              ? `showing ${CAP} of ${total}, refine your filters`
               : `${total} organization${total === 1 ? '' : 's'} on file`}
         </div>
         {total === 0 ? (
@@ -108,7 +108,7 @@ export default async function OrgsPage({
                       <td className="coord py-3 pr-4 text-dim normal-case tracking-normal">{orgTypeLabel(o)}</td>
                       <td className="coord py-3 pr-4 normal-case tracking-normal">
                         {shown.length === 0 ? (
-                          <span className="text-faint">—</span>
+                          <span className="text-faint">–</span>
                         ) : (
                           <>
                             {shown.map((s, i) => (

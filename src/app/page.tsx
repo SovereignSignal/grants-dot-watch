@@ -74,13 +74,13 @@ export default function Home() {
       <section className="mx-auto max-w-6xl border-b border-line px-4 pt-8 pb-7">
         <div className="coord mb-2.5">Grant funding across crypto, AI, and open source</div>
         <p className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
-          Every funder, every program, every open round —{' '}
+          Funders, programs, and the open rounds they run,{' '}
           <em className="border-b border-paper not-italic">tracked in one register, sourced in the open.</em>
         </p>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
-          grants.watch indexes funding systems (ecosystems with their own treasury, like Ethereum or Cardano), the
-          funders and programs inside them, across three wires of capital — crypto, AI, and open source — linking
-          every figure back to a primary source. No aggregation without a citation.
+          grants.watch indexes funding systems: ecosystems with their own treasury, like Ethereum or Cardano. It
+          tracks the funders and programs inside each one, across three wires of capital: crypto, AI, and open
+          source. Every figure links back to a primary source.
         </p>
       </section>
 
@@ -88,14 +88,14 @@ export default function Home() {
         {/* DEPARTURES — lead story */}
         <section className="min-w-0">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Departures — What Closes Next</h2>
+            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Departures: What Closes Next</h2>
             <span className="coord shrink-0">
               {departures.length} of {counts.programs.toLocaleString()} programs
             </span>
           </div>
 
           {departures.length === 0 && standing.length === 0 ? (
-            <Empty>No open funding rounds on file right now. Check back soon — new rounds are added continuously.</Empty>
+            <Empty>No open funding rounds on file right now. New rounds are added continuously.</Empty>
           ) : (
             <>
               {groups.map((g) => (
@@ -127,7 +127,7 @@ export default function Home() {
                           </div>
                         </div>
                         <div className="col-span-2 text-[12.5px] leading-snug text-dim tabular-nums sm:col-span-1">
-                          {r.round.size || '—'}
+                          {r.round.size || '–'}
                         </div>
                         <div className="col-span-2 sm:col-span-1 sm:text-right">
                           <span className={`text-[12px] font-bold ${closingSoon ? 'text-closing' : 'text-paper'}`}>
@@ -140,7 +140,7 @@ export default function Home() {
                 </div>
               ))}
               <div className="mt-3 border-t border-line pt-3 text-xs text-faint">
-                Programs board, in full, ordered by close —{' '}
+                Programs board, in full, ordered by close:{' '}
                 <Link href="/programs" className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
                   see all {counts.programs.toLocaleString()} →
                 </Link>
@@ -178,7 +178,7 @@ export default function Home() {
       {/* STANDING — quiet section for rolling programs */}
       <section className="mx-auto max-w-6xl border-t-[2.5px] border-paper px-4 pt-5 pb-12">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-          <h2 className="coord text-dim">Standing — No Fixed Deadline</h2>
+          <h2 className="coord text-dim">Standing: No Fixed Deadline</h2>
           <span className="coord">Applications run on a rolling or continuous basis</span>
         </div>
         {standing.length === 0 ? (

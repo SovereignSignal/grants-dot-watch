@@ -16,7 +16,7 @@ export default function SystemsPage() {
       <PageHeader
         eyebrow="TAXONOMY"
         title="Systems"
-        sub="The funding ecosystems: each with its own treasury or allocating identity, and the orgs and programs that organize under it."
+        sub="Ecosystems with their own treasury, like Ethereum or Cardano, and the orgs and programs that organize under them."
       />
       <div className="mx-auto max-w-6xl px-4 pb-16">
         {systems.length === 0 ? (
@@ -62,7 +62,7 @@ export default function SystemsPage() {
                       </td>
                       <td className="coord py-3 pr-4 normal-case tracking-normal">
                         {parents.length === 0 ? (
-                          <span className="text-faint">—</span>
+                          <span className="text-faint">–</span>
                         ) : (
                           parents.map((p, i) => (
                             <span key={p.id}>

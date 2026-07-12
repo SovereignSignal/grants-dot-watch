@@ -44,7 +44,7 @@ export function ProposalGroup({
             {open ? '▾' : '▸'}
           </span>
           <span className="text-[11px] font-bold tracking-[.13em] text-paper uppercase whitespace-nowrap">
-            {TYPE_SLUG_LABEL[type]} — {items.length} item{items.length === 1 ? '' : 's'}
+            {TYPE_SLUG_LABEL[type]}: {items.length} item{items.length === 1 ? '' : 's'}
           </span>
         </button>
         <span aria-hidden className="h-px flex-1 bg-line" />

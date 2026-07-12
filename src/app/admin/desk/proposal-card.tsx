@@ -160,10 +160,10 @@ export function ProposalCard({
         {destination === null ? (
           <span className="not-italic text-closing">{proposal.destination_error || 'Destination could not be resolved.'}</span>
         ) : destination.length === 0 ? (
-          <span>No files change — recorded as a decision only.</span>
+          <span>No files change. Recorded as a decision only.</span>
         ) : (
           <>
-            Destination — {DESTINATION_NOTE[proposal.type]}{' '}
+            Destination: {DESTINATION_NOTE[proposal.type]}{' '}
             <span className="font-mono text-[11.5px] font-semibold not-italic text-dim">{destination.join(' · ')}</span>
           </>
         )}
@@ -177,7 +177,7 @@ export function ProposalCard({
           {proposal.validation.never_auto ? (
             <span className="text-faint">Needs the owner</span>
           ) : (
-            <span className="text-closing">Machine check failed — {proposal.validation.reason}</span>
+            <span className="text-closing">Machine check failed: {proposal.validation.reason}</span>
           )}
         </p>
       )}
@@ -186,7 +186,7 @@ export function ProposalCard({
         <VerdictActions
           onApprove={() => decide('approved')}
           onReject={() => decide('rejected')}
-          approveLabel={busy === 'approved' ? 'Approving…' : 'Approve — set in registry'}
+          approveLabel={busy === 'approved' ? 'Approving…' : 'Approve: set in registry'}
           rejectLabel={busy === 'rejected' ? 'Rejecting…' : 'Reject'}
           disabled={busy !== null}
         />

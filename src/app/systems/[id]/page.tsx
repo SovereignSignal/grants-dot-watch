@@ -39,7 +39,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
     <>
       <Breadcrumb
         trail={[{ label: 'Registry', href: '/' }, { label: 'Systems', href: '/systems' }, { label: system.name }]}
-        note="System profile — sourced & linked"
+        note="System profile: sourced & linked"
       />
 
       <Dossier
@@ -63,7 +63,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
           system.summary?.trim() ? (
             system.summary.trim()
           ) : (
-            <span className="text-dim">No public summary on file yet — we&apos;ll add one as we find more sources.</span>
+            <span className="text-dim">No public summary on file yet. We&apos;ll add one as we find more sources.</span>
           )
         }
       />

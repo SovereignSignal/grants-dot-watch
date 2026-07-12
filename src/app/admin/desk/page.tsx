@@ -432,8 +432,8 @@ export default function DeskPage() {
       {tab === 'fact' && (
         <div className="flex flex-col gap-6">
           <p className="serif-statement max-w-[640px] text-[13.5px] leading-[1.6] text-dim">
-            These apply automatically with provenance; undo is <span className="font-mono not-italic">git revert</span>.
-            Auto-apply arrives with the live feed; for now you&apos;re the loop.
+            These apply automatically with provenance. Undo is <span className="font-mono not-italic">git revert</span>.
+            Auto-apply arrives with the live feed. For now, you&apos;re the loop.
           </p>
           {factPending.length === 0 ? (
             <Empty>No fact-lane items on file.</Empty>
@@ -441,7 +441,7 @@ export default function DeskPage() {
             <>
               <VerdictActions
                 onApprove={applyAllFacts}
-                approveLabel={bulkBusy ? 'Applying…' : `Apply all ${factPending.length} facts — set in registry`}
+                approveLabel={bulkBusy ? 'Applying…' : `Apply all ${factPending.length} facts: set in registry`}
                 disabled={bulkBusy}
               />
               <div className="flex flex-col">

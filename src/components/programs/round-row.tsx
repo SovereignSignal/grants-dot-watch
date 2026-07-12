@@ -10,7 +10,7 @@ import type { ReactNode } from 'react';
  * and the program detail page's rounds list (title=round name).
  *
  * `day`/`monthYear` are null for undated rounds — the date cell renders an
- * em dash rather than fabricating one.
+ * en dash rather than fabricating one.
  *
  * Client Component: the nested source `<a>` inside the row's own `<Link>`
  * needs onClick/stopPropagation so clicking it doesn't also trigger the
@@ -46,15 +46,15 @@ export function RoundRow({
   const inner = (
     <>
       <div className="flex flex-col">
-        <span className={`serif-statement text-[26px] leading-none not-italic tabular-nums ${dateTone}`}>{day ?? '—'}</span>
+        <span className={`serif-statement text-[26px] leading-none not-italic tabular-nums ${dateTone}`}>{day ?? '–'}</span>
         {monthYear && <span className={`coord mt-1 whitespace-nowrap ${closingSoon ? 'text-closing' : ''}`}>{monthYear}</span>}
       </div>
       <div className="min-w-0">
         <div className="display truncate text-[15.5px] leading-tight text-paper">{title}</div>
         {subtitle && <div className="coord mt-0.5 truncate">{subtitle}</div>}
       </div>
-      <div className="col-span-2 text-[12.5px] leading-snug text-dim tabular-nums sm:col-span-1">{size || '—'}</div>
-      <div className="col-span-2 text-[12.5px] capitalize leading-snug text-dim sm:col-span-1">{mechanism || '—'}</div>
+      <div className="col-span-2 text-[12.5px] leading-snug text-dim tabular-nums sm:col-span-1">{size || '–'}</div>
+      <div className="col-span-2 text-[12.5px] capitalize leading-snug text-dim sm:col-span-1">{mechanism || '–'}</div>
       <div className="col-span-2 flex items-center gap-2 sm:col-span-1 sm:justify-end">
         <span aria-hidden className="size-1.5 shrink-0" style={{ background: wireColor || 'var(--color-faint)' }} />
         <span className={`text-[12px] font-bold ${closingSoon ? 'text-closing' : 'text-paper'}`}>{statusWord}</span>

@@ -167,6 +167,9 @@ from the funding wires, edition-stamped, sourced like a paper of record.
   incoming signal streams. "Ledger" only ever means the awards ledger.
 - NO pastiche: no distressed textures, no faux-aged paper, no period typefaces beyond the
   serif/sans system already chosen. Modern hairline discipline, era-true voice.
+- PLAIN PROSE (Sov, 2026-07-12): short sentences. No em dashes. Cut adjectives and
+  filler. If a sentence sounds like AI wrote it, rewrite it. Applies to product copy,
+  docs, and reports.
 - NO aphorisms (Sov, 2026-07-11): display statements DESCRIBE the product or STATE fact —
   never maxims or process-philosophy ("Nothing joins the registry until someone reads it
   and says so" is the canonical counter-example: killed on sight).

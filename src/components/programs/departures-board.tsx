@@ -41,7 +41,7 @@ function StandingRow({ d }: { d: Departure }) {
         <div className="coord mt-0.5 truncate">{d.orgName}</div>
       </div>
       <div className="shrink-0 text-right">
-        <div className="text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '—'}</div>
+        <div className="text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '–'}</div>
         <div className="coord mt-0.5">{MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}</div>
       </div>
     </Link>
@@ -118,7 +118,7 @@ export function DeparturesBoard({ programs, orgs }: { programs: Program[]; orgs:
 
           <section className="mt-9 border-t-[2.5px] border-paper pt-4">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-              <h2 className="coord text-dim">Standing — No Fixed Deadline</h2>
+              <h2 className="coord text-dim">Standing: No Fixed Deadline</h2>
               <span className="coord">Applications run on a rolling or continuous basis</span>
             </div>
             {standing.length === 0 ? (

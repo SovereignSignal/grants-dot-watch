@@ -307,7 +307,7 @@ async function validateNewOrg(p: Proposal): Promise<ValidationResult> {
 
   const badOrgValue = validateKnownValueFields(true, val);
   checks.push({ name: 'known-fields-hold-valid-values', pass: !badOrgValue, detail: badOrgValue });
-  if (badOrgValue) return fail(checks, `invalid field value — ${badOrgValue}`);
+  if (badOrgValue) return fail(checks, `invalid field value: ${badOrgValue}`);
 
   const page = await fetchPage(website!);
   checks.push({
@@ -371,7 +371,7 @@ async function validateNewProgram(p: Proposal): Promise<ValidationResult> {
 
   const badProgramValue = validateKnownValueFields(false, val);
   checks.push({ name: 'known-fields-hold-valid-values', pass: !badProgramValue, detail: badProgramValue });
-  if (badProgramValue) return fail(checks, `invalid field value — ${badProgramValue}`);
+  if (badProgramValue) return fail(checks, `invalid field value: ${badProgramValue}`);
 
   const candidateUrls = [p.evidence_url, val.apply_url as string | undefined].filter((u): u is string => !!u);
   if (candidateUrls.length === 0) {
@@ -461,7 +461,7 @@ async function validateFactUpdate(p: Proposal): Promise<ValidationResult> {
   const todayISO = new Date().toISOString().slice(0, 10);
   const allPast = literals.every((d) => d < todayISO);
   checks.push({ name: 'claim-is-current', pass: !allPast, detail: allPast ? `all dates before ${todayISO}` : 'has future/current dates' });
-  if (allPast) return fail(checks, 'deadline already passed — historical, not actionable');
+  if (allPast) return fail(checks, 'deadline already passed: historical, not actionable');
 
   const unmatched = literals.filter((d) => !pageContainsDate(page.text, d));
   const allMatch = unmatched.length === 0;
@@ -483,8 +483,8 @@ async function validateFactUpdate(p: Proposal): Promise<ValidationResult> {
 function validateNewAward(): ValidationResult {
   return {
     pass: false,
-    checks: [{ name: 'awards-deprioritized', pass: false, detail: 'owner retreat — awards are manual-only for now' }],
-    reason: 'awards deprioritized — manual only',
+    checks: [{ name: 'awards-deprioritized', pass: false, detail: 'owner retreat: awards are manual-only for now' }],
+    reason: 'awards deprioritized: manual only',
     neverAuto: true,
   };
 }
@@ -619,7 +619,7 @@ async function validateProfileNote(p: Proposal): Promise<ValidationResult> {
     pass: allowed,
     detail: badValue || (touched.length ? touched.join(', ') : '(no field-keyed changes)'),
   });
-  if (!allowed) return fail(checks, badValue ? `invalid field value — ${badValue}` : 'editorial — needs the owner');
+  if (!allowed) return fail(checks, badValue ? `invalid field value: ${badValue}` : 'editorial: needs the owner');
 
   if (!p.evidence_url) {
     checks.push({ name: 'evidence-url-present', pass: false });

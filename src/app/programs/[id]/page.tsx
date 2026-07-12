@@ -45,7 +45,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
           ...(org ? [{ label: org.name, href: `/orgs/${org.id}` }] : []),
           { label: program.name },
         ]}
-        note="Program profile — sourced & linked"
+        note="Program profile: sourced & linked"
       />
 
       <PageHeader
@@ -98,7 +98,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
           </div>
           {rounds.length === 0 ? (
             <Empty>
-              No rounds with a published date on file. Some programs accept applications on a rolling basis; others
+              No rounds with a published date on file. Some programs accept applications on a rolling basis. Others
               just haven&apos;t had a dated round surface yet.
             </Empty>
           ) : (

@@ -104,7 +104,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
             className="absolute top-[14px] whitespace-nowrap text-[9.5px] font-extrabold uppercase tracking-[.06em] text-paper"
             style={captionStyle(todayPct, 4)}
           >
-            ◆ Today — {monthDayShort(todayStr)}
+            ◆ Today: {monthDayShort(todayStr)}
           </span>
         </div>
       </div>
@@ -148,7 +148,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
                           style={{ borderColor: wireColor }}
                         />
                         <span className="coord absolute top-1/2 left-[44%] -translate-y-1/2 bg-void px-2 text-faint italic">
-                          rolling — by engagement
+                          rolling, by engagement
                         </span>
                       </>
                     ) : (
@@ -195,7 +195,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[2.5px] border-paper pt-3">
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block size-[6px] rotate-45 bg-paper" />
-          Round mark — full color is open or ahead of today, faded is past
+          Round mark: full color is open or ahead of today, faded is past
         </span>
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block h-[6px] w-4 rounded-[1px] bg-paper opacity-70" />

@@ -57,7 +57,7 @@ export function BulkBar({
         <VerdictActions
           onApprove={handleApprove}
           onReject={handleReject}
-          approveLabel={busy ? 'Working…' : `Approve ${n} — set in registry`}
+          approveLabel={busy ? 'Working…' : `Approve ${n}: set in registry`}
           rejectLabel={busy ? 'Working…' : `Reject ${n}`}
           disabled={busy}
         />

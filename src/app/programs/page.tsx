@@ -53,7 +53,7 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
       <PageHeader
         eyebrow="Funding Vehicles"
         title="Programs"
-        sub="What closes next across every program we track — and the year's rhythm, plotted lane by lane."
+        sub="What closes next across every program we track. The year's rhythm, plotted lane by lane."
         right={<Stat label="on file" value={filtered.length.toLocaleString()} />}
       />
 

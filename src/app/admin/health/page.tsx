@@ -79,7 +79,7 @@ export default async function HealthPage() {
       <PageHeader
         eyebrow="THE INSTRUMENT PANEL"
         title="Health"
-        sub="Registry counts, load state, and the curation desk — ledgered, not dashboarded."
+        sub="Registry counts, load state, and the curation desk: ledgered, not dashboarded."
       />
       <div className="mx-auto max-w-6xl px-4 pb-16 space-y-8">
         <Card>
@@ -141,27 +141,27 @@ export default async function HealthPage() {
           <Coord>Ingest</Coord>
           {!ingest ? (
             <div className="mt-3">
-              <Empty>No ingest run yet — the daily timer is off (INGEST_ENABLED unset) or hasn&apos;t fired.</Empty>
+              <Empty>No ingest run yet. The daily timer is off (INGEST_ENABLED unset) or hasn&apos;t fired.</Empty>
             </div>
           ) : (
             <>
               <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-4">
                 <div className="px-4 py-3.5 pl-0">
-                  <Stat label="Proposals created" value={ingest.proposals_created ?? '—'} />
+                  <Stat label="Proposals created" value={ingest.proposals_created ?? '–'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Dropped" value={ingest.dropped ?? '—'} />
+                  <Stat label="Dropped" value={ingest.dropped ?? '–'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Machine-passed" value={ingest.validation?.passed ?? '—'} />
+                  <Stat label="Machine-passed" value={ingest.validation?.passed ?? '–'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Machine-failed" value={ingest.validation?.failed ?? '—'} />
+                  <Stat label="Machine-failed" value={ingest.validation?.failed ?? '–'} />
                 </div>
               </div>
               <div className="mt-4 border-t border-line pt-3 coord">
                 Last run {ingest.at ? formatLoadedAt(ingest.at) : 'unknown time'}
-                {ingest.skipped_lock ? ' — skipped (another instance held the lock)' : ''}
+                {ingest.skipped_lock ? '. Skipped (another instance held the lock).' : ''}
               </div>
               {ingest.source_counts && (
                 <div className="mt-1.5 coord text-faint">
