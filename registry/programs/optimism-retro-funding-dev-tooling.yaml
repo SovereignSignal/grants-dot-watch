@@ -1,22 +1,27 @@
 id: optimism-retro-funding-dev-tooling
-name: "Retro Funding: Dev Tooling"
+name: 'Retro Funding: Dev Tooling'
 org: optimism-foundation
 parent: null
-systems: [optimism, web3-public-goods]
-wires: [crypto]
+systems:
+- optimism
+- web3-public-goods
+wires:
+- crypto
 status: active
 mechanism: retro
 apply_url: https://atlas.optimism.io/missions
-summary: >
-  Retro Funding Mission rewarding developer tooling that has already
-  delivered measurable impact to the Optimism Collective and Superchain
-  ecosystem, distributing up to 8M OP in H1 2025. Builders join via rolling
-  application windows with metrics-driven evaluation; the Season 8
-  Measurement Period 11 results list 26 rewarded projects.
+summary: Retro Funding Mission rewarding developer tooling that has already delivered measurable impact
+  to the Optimism Collective and Superchain ecosystem, distributing up to 8M OP in H1 2025. Builders join
+  via rolling application windows with metrics-driven evaluation; the Season 8 Measurement Period 11 results
+  list 26 rewarded projects.
 rounds:
-  - name: "Season 8, Measurement Period 11"
-    status: deployed
-    source: https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/devtooling__results.json
+- name: Season 8, Measurement Period 11
+  status: deployed
+  source: https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/devtooling__results.json
+- name: Season 7
+  status: closed
+  source: https://gov.optimism.io/t/retro-funding-dev-tooling-mission-details/9598
 sources:
-  - https://atlas.optimism.io/missions
-  - https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/devtooling__results.json
+- https://atlas.optimism.io/missions
+- https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/devtooling__results.json
+- https://gov.optimism.io/t/retro-funding-dev-tooling-mission-details/9598

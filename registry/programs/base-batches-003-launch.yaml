@@ -1,17 +1,24 @@
 id: base-batches-003-launch
-name: Base Batches 003 Launch
+name: Base Batches 003
 org: base-coinbase
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://base.org/
-summary: Base has announced the launch of Base Batches 003, a funding and mentorship program for
-  onchain builders. The program offers three tracks—Startup, Student, and Robotics (in collaboration
-  with @virtuals_io)—with up to $50,000 in funding available per participant. Successful applicants
-  will also receive expert mentorship and the opportunity to present at Demo Day in San Francisco.
-  Applications are now open for interested builders.
-rounds: []
+summary: Base has announced the launch of Base Batches 003, a funding and mentorship program for onchain
+  builders. The program offers three tracks—Startup, Student, and Robotics (in collaboration with @virtuals_io)—with
+  up to $50,000 in funding available per participant. Successful applicants will also receive expert mentorship
+  and the opportunity to present at Demo Day in San Francisco. Applications are now open for interested
+  builders.
+rounds:
+- name: Startup Track
+  status: closed
+  closes: '2026-03-09'
+  size: $50K
+  source: https://x.com/BasedWestAfrica/status/2029208317441007985
 sources:
-  - https://x.com/base/status/2023881590359945226
+- https://x.com/base/status/2023881590359945226
+- https://x.com/BasedIndia/status/2026284157543084148
+- https://x.com/BasedWestAfrica/status/2029208317441007985

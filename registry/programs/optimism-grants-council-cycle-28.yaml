@@ -6,11 +6,13 @@ systems: []
 wires:
 - crypto
 status: unknown
-summary: 'This thread is to propose mission requests for the Grants Council to consider. The remaining
-  budget is 15.000 OP. Steps: Copy the provided template . Create a new forum post, paste the template,
-  and fill out all the questions. Add the tag “S6 mission request” to your post. Add the Cycle tag to
-  your post Add [Looking for sponsor] at the beginning of the title if you are not a Grants Council member.'
+summary: 'Optimism Grants Council Cycle 28 mission requests: delegates propose mission requests against
+  a remaining budget of 15,000 OP via the forum template, tagged with "S6 mission request" and the Cycle
+  tag. Cycle 28 also opened applications for a new audit mission request process, approved by the Token
+  House, letting eligible auditors apply directly for specific audits from the mission request budget
+  without pre-approved budgets.'
 rounds: []
 sources:
 - https://gov.optimism.io/t/cycle-28-intent-3a-mission-request-and-sponsorship/8905
 - https://gov.optimism.io/t/please-sponsor-the-mission-of-spreading-cryptocurrency/9042
+- https://gov.optimism.io/t/cycle-28-grants-council-audits-implementation/8906

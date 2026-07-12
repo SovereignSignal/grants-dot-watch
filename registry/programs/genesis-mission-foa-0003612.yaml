@@ -1,36 +1,38 @@
 id: genesis-mission-foa-0003612
-name: "The Genesis Mission: Transforming Science and Energy with AI (DE-FOA-0003612)"
+name: 'The Genesis Mission: Transforming Science and Energy with AI (DE-FOA-0003612)'
 org: the-genesis-mission
 parent: null
 systems:
-  - us-federal-rd
+- us-federal-rd
 wires:
-  - ai
+- ai
 status: active
 mechanism: rfp
 apply_url: https://science.osti.gov/grants/FOAs/Open
-summary: DOE Office of Science funding opportunity announcement DE-FOA-0003612 for interdisciplinary
-  teams applying AI to energy, nuclear, environmental, and national-security science; phased Phase
-  I/II review with a final Phase II application deadline of 2026-12-17.
+summary: DOE Office of Science funding opportunity announcement DE-FOA-0003612 for interdisciplinary teams
+  applying AI to energy, nuclear, environmental, and national-security science; phased Phase I/II review
+  with a final Phase II application deadline of 2026-12-17. Phase I grants have been reported at $500K-$750K,
+  with total program funding around $293.76M.
 rounds:
-  - name: Phase I applications / Phase II letters of intent
-    status: closed
-    closes: 2026-05-01
-    source: https://science.osti.gov/grants/FOAs/Open
-  - name: Phase II applications
-    status: closed
-    closes: 2026-05-19
-    source: https://science.osti.gov/grants/FOAs/Open
-  - name: Final Phase II deadline
-    status: open
-    closes: 2026-12-17
-    source: https://science.osti.gov/grants/FOAs/Open
-  - name: FY2026 FOA
-    status: open
-    closes: 2026-12-17
-    size: ~$293.76M total program funding
-    source: https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
+- name: Phase I applications / Phase II letters of intent
+  status: closed
+  closes: 2026-05-01
+  source: https://science.osti.gov/grants/FOAs/Open
+- name: Phase II applications
+  status: closed
+  closes: 2026-05-19
+  source: https://science.osti.gov/grants/FOAs/Open
+- name: Final Phase II deadline
+  status: open
+  closes: 2026-12-17
+  source: https://science.osti.gov/grants/FOAs/Open
+- name: FY2026 FOA
+  status: open
+  closes: 2026-12-17
+  size: ~$293.76M total program funding
+  source: https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
 sources:
-  - https://www.energy.gov/
-  - https://science.osti.gov/grants/FOAs/Open
-  - https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
+- https://www.energy.gov/
+- https://science.osti.gov/grants/FOAs/Open
+- https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
+- https://www.energy.gov/articles/energy-department-announces-293-million-funding-support-genesis-mission-national-science

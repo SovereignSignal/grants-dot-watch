@@ -4,13 +4,14 @@ org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "Governance Fund Missions Grants Council Mission Expected impact on the Intent: The Grants
-  Council makes grants, on behalf of the Token House. In Season 9, the Grants Council will work
-  towards the below success metrics. Primary: DEX TVL for collateral-borrow pairs that exist on
-  lending markets (e.g., Morpho, Aave, etc.) (click for more details) Secondary: DEX trading volume
-  per TVL for collateral-b"
+summary: 'Grants Council Mission funded on behalf of the Token House to make progress toward Optimism''s
+  Season 9 success metrics: primarily DEX TVL for collateral-borrow pairs on lending markets (e.g. Morpho,
+  Aave) and secondarily DEX trading volume per TVL for those pairs. Eligible initiatives include incentives,
+  vaults, routing, tooling, and integrations that target these liquidity and fee metrics.'
 rounds: []
 sources:
-  - https://gov.optimism.io/t/season-9-governance-fund-missions/10526
+- https://gov.optimism.io/t/season-9-governance-fund-missions/10526
+- https://app.opgrants.io/programs/1045/apply
+apply_url: https://app.opgrants.io/programs/1045/apply

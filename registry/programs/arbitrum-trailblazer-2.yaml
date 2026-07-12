@@ -8,9 +8,9 @@ wires:
 - crypto
 status: concluded
 mechanism: grants
-summary: A concluded $1M Arbitrum Foundation grants pool for agentic DeFi on Arbitrum — autonomous DeFi
-  agents, trading strategies, and yield optimization tools — marked "Program Complete" on the Foundation's
-  grants page.
+summary: A concluded $1M Arbitrum Foundation grants pool for agentic DeFi on Arbitrum, paying up to $10,000
+  per project for deployed AI agents, Vibekit open-source templates, or capability integrations already
+  live on Arbitrum chains. Marked "Program Complete" on the Foundation's grants page.
 rounds:
 - name: Trailblazer 2.0
   status: closed
@@ -19,3 +19,4 @@ rounds:
 sources:
 - https://arbitrum.io/grants
 - https://arbitrumfoundation.medium.com/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum-9534aa3fe541
+- https://blog.arbitrum.foundation/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum/

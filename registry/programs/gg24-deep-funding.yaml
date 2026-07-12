@@ -1,5 +1,5 @@
 id: gg24-deep-funding
-name: GG24 Deep Funding
+name: Gitcoin GG24 Deep Funding
 org: gitcoin
 parent: null
 systems: []
@@ -14,5 +14,9 @@ rounds:
   status: closed
   size: $350,000
   source: https://gov.gitcoin.co/t/deep-funding-gg24-web3-tooling-and-infra-round/25040
+- name: Model Submissions Challenge
+  status: closed
+  size: $25,000
+  source: https://gov.gitcoin.co/t/model-submissions-gg24-deep-funding/25151
 sources:
 - https://gov.gitcoin.co/t/model-submissions-gg24-deep-funding/25151

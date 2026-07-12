@@ -4,10 +4,12 @@ org: arbitrum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://arbitrum.foundation/
-summary: Arbitrum Foundation Grants — dispatch from the wire, no further detail on file.
+summary: Arbitrum Foundation Grants supports builders building on Arbitrum and Orbit through its ongoing
+  ecosystem fund, with no fixed application deadline. Grant amounts are uncapped and determined case-by-case
+  based on project scope and needs; all projects must demonstrate clear value to the Arbitrum ecosystem.
 rounds: []
 sources:
-  - https://arbitrum.foundation/grants
+- https://arbitrum.foundation/grants

@@ -4,13 +4,13 @@ org: scroll
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "Proposal: Security Subsidy Program for Scroll Builders This proposal introduces the first
-  security subsidy program for Scroll. It’s the result of months of conversation and collaboration,
-  building on this RFI . I’d like to thank everyone who helped shape this proposal - Unicircle,
-  @Immunefi , @Areta , @ACI , @danielo , @Sinkas , @SEEDGov , @404Gov , @PGov , @eugene , @Jamilya
-  and everyone else who"
+summary: 'Proposal: Security Subsidy Program for Scroll Builders This proposal introduces the first security
+  subsidy program for Scroll. It’s the result of months of conversation and collaboration, building on
+  this RFI . I’d like to thank everyone who helped shape this proposal - Unicircle, @Immunefi , @Areta
+  , @ACI , @danielo , @Sinkas , @SEEDGov , @404Gov , @PGov , @eugene , @Jamilya and everyone else who'
 rounds: []
 sources:
-  - https://forum.scroll.io/t/proposal-security-subsidy-program-for-scroll-builders/872
+- https://forum.scroll.io/t/proposal-security-subsidy-program-for-scroll-builders/872
+- https://forum.scroll.io/t/security-audit-subsidy-program-for-scroll-builders/645

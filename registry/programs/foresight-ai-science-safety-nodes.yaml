@@ -3,28 +3,27 @@ name: AI for Science & Safety Nodes
 org: foresight-institute
 parent: null
 systems:
-  - ai-safety
+- ai-safety
 wires:
-  - ai
+- ai
 status: active
 mechanism: grants
 apply_url: https://airtable.com/appyVXc5SMPAvIKpP/pagzBRWeiG3HjH6Qn/form
-summary: >
-  Funds AI-first projects that use artificial intelligence as the primary engine for progress in
-  science and safety, combining grant funding ($10,000-$100,000, higher for AI safety-oriented
-  areas) with office space and compute at hubs in San Francisco and Berlin. Applications are rolling
-  with a deadline on the last day of every month and decisions within 8-12 weeks; applicants are
-  strongly expected to be active in-person members at a hub. The program lists 79 previously funded
-  projects and six 2026 grantees.
+summary: Funds AI-first projects that use artificial intelligence as the primary engine for progress in
+  science and safety, combining grant funding ($10,000-$100,000, higher for AI safety-oriented areas)
+  with office space and compute at hubs in San Francisco and Berlin. Applications are rolling with a deadline
+  on the last day of every month and decisions within 8-12 weeks; applicants are strongly expected to
+  be active in-person members at a hub. The program lists 79 previously funded projects and six 2026 grantees.
 rounds:
-  - name: 2026 Grantees
-    status: deployed
-    source: https://foresight.org/grants/grants-ai-for-science-safety/
-  - name: 2027 cohort
-    status: open
-    closes: 2026-07-31
-    source: https://foresight.org/foresight-fellowships/
+- name: 2026 Grantees
+  status: deployed
+  source: https://foresight.org/grants/grants-ai-for-science-safety/
+- name: 2027 cohort
+  status: open
+  closes: 2026-07-31
+  source: https://foresight.org/foresight-fellowships/
 sources:
-  - https://foresight.org/grants/grants-ai-for-science-safety/
-  - https://airtable.com/appyVXc5SMPAvIKpP/pagzBRWeiG3HjH6Qn/form
-  - https://foresight.org/foresight-fellowships/
+- https://foresight.org/grants/grants-ai-for-science-safety/
+- https://airtable.com/appyVXc5SMPAvIKpP/pagzBRWeiG3HjH6Qn/form
+- https://foresight.org/foresight-fellowships/
+- https://x.com/DeepFunding/status/2028097222806495512

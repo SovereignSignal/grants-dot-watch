@@ -4,12 +4,18 @@ org: astera-institute
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: fellowship
-summary: 12-18 month fully funded residency for scientists, engineers, and entrepreneurs across
-  Neuro-AI, AI-enabled life sciences, open science, and public-goods infrastructure; $125k-$250k/yr
-  salary plus $0-$1.5M per-project budget. Application cycles run about twice a year.
-rounds: []
+summary: 12-18 month fully funded residency for scientists, engineers, and entrepreneurs across Neuro-AI,
+  AI-enabled life sciences, open science, and public-goods infrastructure; $125k-$250k/yr salary plus
+  $0-$1.5M per-project budget. Application cycles run about twice a year.
+rounds:
+- name: Fall 2026 cohort
+  status: closed
+  closes: '2026-04-19'
+  source: https://x.com/damienscott/status/2026783954100170797
 sources:
-  - https://astera.org/residency/
+- https://astera.org/residency/
+- https://x.com/damienscott/status/2026783954100170797
+- https://x.com/PracheeAC/status/2026034790697517553

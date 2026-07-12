@@ -7,9 +7,12 @@ wires:
 - ai
 status: unknown
 apply_url: https://google.org/
-summary: Big move from @0G_labs . 0G Labs has launched the 0G Apollo Accelerator; a new program offering
-  up to $20M to fund and scale revenue-generating AI startups building on decentralized infrastructure.
-  Apollo is built alongside Blockchain Builders Fund (Stanford’s blockchain ecosystem), with backing fro
+summary: 0G Labs' Apollo Accelerator, built with Stanford's Blockchain Builders Fund, offers up to $20M
+  total to fund and scale revenue-generating AI startups building on decentralized infrastructure. Up
+  to 12 teams each receive up to $2M in non-dilutive funding plus $200K in Google Cloud credits, with
+  mentorship from the Stanford blockchain community.
 rounds: []
 sources:
 - https://x.com/Snowizzie/status/2027390754864197905
+- https://x.com/vargs_g/status/2027208360639320322
+- https://x.com/APEXIKARU/status/2027591483717546193

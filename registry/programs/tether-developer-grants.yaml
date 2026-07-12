@@ -4,15 +4,15 @@ org: tether
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
 apply_url: https://qvac.tether.io/
-summary: >
-  Tether's developer grants program funding local-first AI and payments infrastructure,
-  structured as task-based awards of roughly $1,500-$4,000 per task, with applications
-  through the QVAC platform. Announced in 2026.
+summary: Tether's developer grants program funds local-first AI and payments infrastructure built on QVAC
+  and Tether's open-source Wallet Development Kit (WDK), with task-based awards of roughly $1,500-$4,000
+  paid in USD₮ or Bitcoin. Open tasks include wallet infrastructure, browser extensions, and e-commerce
+  integrations; there is no cap on total payouts. Applications go through the QVAC platform.
 rounds: []
 sources:
-  - https://tether.io/news/tether-launches-developer-grants-program-to-fund-local-first-ai-and-payments-infrastructure/
-  - https://qvac.tether.io/
+- https://tether.io/news/tether-launches-developer-grants-program-to-fund-local-first-ai-and-payments-infrastructure/
+- https://qvac.tether.io/

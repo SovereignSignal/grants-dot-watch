@@ -1,5 +1,5 @@
 id: automation-humanity-documentary-fund-spring-2026
-name: Automation & Humanity Documentary Fund - Spring 2026
+name: Automation & Humanity Documentary Fund
 org: long-term-future-fund
 parent: null
 systems: []
@@ -16,10 +16,11 @@ summary: 'The AI Safety community has successfully recruited top engineers and p
   Who Let The Docs Out, a new filmmaker-led nonprofit, is launching its Spring 2026 Automation & Humanity
   Fund to find real stories that will engage with millions. The fund address'
 rounds:
-- name: Rolling
+- name: Spring 2026
   status: closed
   closes: 2026-03-16
   size: $8,000
   source: https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking
 sources:
 - https://forum.effectivealtruism.org/posts/qehdYYSqtXDnw5vp9/ai-safety-apply-for-an-usd8k-documentary-film-grant-looking
+- https://forum.effectivealtruism.org/posts/D95d8kAP7uyRcw9y5/what-ai-safely-topics-are-missing-from-the-mainstream-media

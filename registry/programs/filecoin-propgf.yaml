@@ -17,6 +17,11 @@ rounds:
   closes: 2026-06-16
   size: reported as $2M-$4M (source figures conflict)
   source: https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+- name: Batch 2
+  status: deployed
+  size: $3,220,200 across 16 projects (from 102 applications, 42 advanced to review)
+  source: https://x.com/FilecoinTLDR/status/2031367223780999569
 sources:
 - https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
 - https://x.com/FilFoundation/status/2060424226209771724
+- https://x.com/FilecoinTLDR/status/2031367223780999569

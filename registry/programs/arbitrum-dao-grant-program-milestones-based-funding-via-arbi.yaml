@@ -7,11 +7,15 @@ wires:
 - crypto
 status: unknown
 apply_url: https://arbitrum.foundation/
-summary: "Arbitrum DAO Grant Program offers milestones-based funding to builders, dApps, technical\
-  \ infrastructure projects, adoption initiatives, and community growth efforts on Arbitrum chains. \n\
-  \nThe program operates on a rolling deadline with no fixed application window. Grants are approved and\
-  \ disbursed through the Arbitrum DAO governance process. \n\nEligible applicants include teams building\
-  \ directly on Arbitrum One or Arbitrum Nova."
-rounds: []
+summary: Arbitrum DAO Grant Program offers milestone-based funding to builders, dApps, technical infrastructure
+  projects, adoption initiatives, and community growth efforts on Arbitrum One and Arbitrum Nova. The
+  program runs on a rolling deadline with no fixed application window; grants are approved and disbursed
+  through Arbitrum DAO governance. Season 3, the program's current one-year phase, is divided into five
+  domains led by Domain Allocators who distribute funds across predefined focus areas.
+rounds:
+- name: Season 3
+  status: open
+  source: https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753
 sources:
 - https://arbitrum.foundation/grants
+- https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753

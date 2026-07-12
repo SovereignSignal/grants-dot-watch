@@ -4,14 +4,14 @@ org: goat-network
 parent: null
 systems: []
 wires:
-  - crypto
-  - ai
+- crypto
+- ai
 status: active
 mechanism: grants
 apply_url: https://www.goat.network/builder-program
-summary: Base grants plus up to $1M pool for teams building agent-native AI applications with real
-  economic utility on GOAT Network.
+summary: Base grants plus up to $1M pool for teams building agent-native AI applications with real economic
+  utility on GOAT Network.
 rounds: []
 sources:
-  - https://www.goat.network/builder-program
-  - https://www.goat.network/news/goat-ai-builder-grants-program
+- https://www.goat.network/builder-program
+- https://www.goat.network/news/goat-ai-builder-grants-program

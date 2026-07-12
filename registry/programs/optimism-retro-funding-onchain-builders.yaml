@@ -1,23 +1,27 @@
 id: optimism-retro-funding-onchain-builders
-name: "Retro Funding: Onchain Builders"
+name: 'Retro Funding: Onchain Builders'
 org: optimism-foundation
 parent: null
-systems: [optimism, web3-public-goods]
-wires: [crypto]
+systems:
+- optimism
+- web3-public-goods
+wires:
+- crypto
 status: active
 mechanism: retro
 apply_url: https://atlas.optimism.io/missions
-summary: >
-  Retro Funding Mission rewarding onchain applications that have already
-  delivered measurable, provable impact to the Optimism Collective and
-  Superchain, with demonstrated significant adoption. Builders join via
-  rolling application windows and rewards in OP are computed with
-  metrics-driven evaluation; the Season 8 Measurement Period 11 results list
-  123 rewarded projects.
+summary: Retro Funding Mission rewarding onchain applications that have already delivered measurable,
+  provable impact to the Optimism Collective and Superchain, with demonstrated significant adoption. Builders
+  join via rolling application windows and rewards in OP are computed with metrics-driven evaluation;
+  the Season 8 Measurement Period 11 results list 123 rewarded projects.
 rounds:
-  - name: "Season 8, Measurement Period 11"
-    status: deployed
-    source: https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/onchain__results.json
+- name: Season 8, Measurement Period 11
+  status: deployed
+  source: https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/onchain__results.json
+- name: Season 7
+  status: closed
+  source: https://gov.optimism.io/t/retro-funding-s7-onchain-builders-eval-algos/9708
 sources:
-  - https://atlas.optimism.io/missions
-  - https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/onchain__results.json
+- https://atlas.optimism.io/missions
+- https://github.com/ethereum-optimism/Retro-Funding/blob/main/results/S8/M11/outputs/onchain__results.json
+- https://gov.optimism.io/t/retro-funding-s7-onchain-builders-eval-algos/9708

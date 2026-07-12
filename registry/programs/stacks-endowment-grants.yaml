@@ -3,14 +3,22 @@ name: Stacks Endowment Grants
 org: stacks-endowment
 parent: null
 systems:
-  - stacks
+- stacks
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
 apply_url: https://portal.stacksendowment.co/
-summary: "Two tracks: Builder Grants (up to $50,000, for teams with proven traction) and Getting
-  Started Grants (up to $10,000, for early prototypes)."
-rounds: []
+summary: 'Two tracks: Builder Grants (up to $50,000, for teams with proven traction) and Getting Started
+  Grants (up to $10,000, for early prototypes).'
+rounds:
+- name: Q2 2026
+  status: closed
+  closes: '2026-06-26'
+  source: https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
 sources:
-  - https://stacksendowment.co/grants
+- https://stacksendowment.co/grants
+- https://x.com/StacksOrg/status/2026413808919474438
+- https://x.com/moonseeker77/status/2026730285040054405
+- https://stacksendowment.co/blog/q2-2026-grants-are-open-fund-bitcoin-native-finance
+- https://x.com/cryptodotnews/status/2026532031661007323
