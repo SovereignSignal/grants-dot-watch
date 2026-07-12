@@ -8,7 +8,7 @@ wires:
 status: unknown
 apply_url: https://obol.org/
 summary: >-
-  **Obol Technical Grants** are now open for applications. The program offers funding for four
+  Obol Technical Grants are now open for applications. The program offers funding for four
   specific open-source projects: DVT-TEE security research, Dappnode validator features, GotEth data
   indexer, and a token monitoring dashboard. 
 

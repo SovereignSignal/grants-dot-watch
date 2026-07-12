@@ -1,14 +1,14 @@
 id: nsf-sbir-sttr-250m-relaunch-40m-instrumentation-pilot
-name: NSF SBIR/STTR $250M Relaunch + $40M Instrumentation Pilot
+name: NSF SBIR/STTR Relaunch
 org: national-science-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://www.nsf.gov/
-summary: NSF SBIR/STTR $250M Relaunch + $40M Instrumentation Pilot — dispatch from the wire, no
-  further detail on file.
+summary: NSF relaunched its SBIR/STTR small-business innovation research program with $250M, including
+  a new $40M instrumentation pilot track.
 rounds: []
 sources:
-  - https://www.nsf.gov/news/nsf-deploys-250-million-restart-small-business-innovation
+- https://www.nsf.gov/news/nsf-deploys-250-million-restart-small-business-innovation

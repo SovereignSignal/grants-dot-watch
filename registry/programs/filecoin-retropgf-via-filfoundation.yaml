@@ -7,7 +7,7 @@ wires:
   - crypto
 status: unknown
 apply_url: https://fil.org/
-summary: "**Filecoin RetroPGF (via FilFoundation)** has announced its third round, allocating
+summary: "Filecoin RetroPGF (via FilFoundation) has announced its third round, allocating
   500,000 FIL to 91 projects. This follows previous rounds that distributed 270,000 FIL to 97
   projects, bringing total FY2025 support to more than 150 teams working on core infrastructure and
   tooling for the Filecoin ecosystem."

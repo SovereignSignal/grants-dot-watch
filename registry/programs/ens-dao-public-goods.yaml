@@ -4,10 +4,16 @@ org: ens
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://ens.domains/
-summary: ENS DAO Public Goods — dispatch from the wire, no further detail on file.
-rounds: []
+summary: ENS DAO's Public Goods Working Group highlights and funds initiatives across the ENS ecosystem,
+  including a Women-Led Initiatives pilot spotlighting women-led projects in protocol development, education,
+  and advocacy.
+rounds:
+- name: Women-Led Initiatives Pilot
+  status: announced
+  source: https://discuss.ens.domains/t/ens-dao-public-goods-highlights/14370
 sources:
-  - https://x.com/CryptoPlanet247/status/2072749574029025349
+- https://x.com/CryptoPlanet247/status/2072749574029025349
+- https://discuss.ens.domains/t/ens-dao-public-goods-highlights/14370

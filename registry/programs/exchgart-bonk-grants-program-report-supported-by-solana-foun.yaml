@@ -1,15 +1,15 @@
 id: exchgart-bonk-grants-program-report-supported-by-solana-foun
-name: exchgART + BONK Grants Program report, supported by Solana Foundation
+name: exchgART + BONK Grants Program
 org: solana-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://solana.org/
-summary: When artists are empowered, they don’t just produce work, they create culture. Below you
-  can read a detailed account of the past 6 months of the @exchgART + @bonk_inu Grants Program.
-  Possible thanks to the support of the @SolanaFndn and EA President @JTLissPhotoArt
+summary: When artists are empowered, they don’t just produce work, they create culture. Below you can
+  read a detailed account of the past 6 months of the @exchgART + @bonk_inu Grants Program. Possible thanks
+  to the support of the @SolanaFndn and EA President @JTLissPhotoArt
 rounds: []
 sources:
-  - https://x.com/jairo_ema25/status/2027064981611569494
+- https://x.com/jairo_ema25/status/2027064981611569494

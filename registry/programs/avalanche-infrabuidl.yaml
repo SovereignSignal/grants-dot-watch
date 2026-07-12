@@ -4,13 +4,10 @@ org: avalanche-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "CoinOffering – Fair Token Launch Infrastructure Hi everyone! I’m Lidia, BD of
-  CoinOffering. We’re building infrastructure for fair token launches: a Diamond Hands Score (holder
-  reputation) + auction mechanics that help teams avoid pure farming and get better price discovery.
-  Right now we’re preparing applications to the Avalanche infraBUIDL() program and other grant
-  tracks. Before submitting, I’d"
+summary: Avalanche's infraBUIDL() program funds decentralized infrastructure projects building on Avalanche,
+  distinct from the AI-focused infraBUIDL(AI) track.
 rounds: []
 sources:
-  - https://forum.avax.network/t/coinoffering-fair-token-launch-infra-and-questions-about-avalanche-grants/6999
+- https://forum.avax.network/t/coinoffering-fair-token-launch-infra-and-questions-about-avalanche-grants/6999

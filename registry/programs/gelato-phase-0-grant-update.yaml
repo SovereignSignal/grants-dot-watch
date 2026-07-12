@@ -6,7 +6,7 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "**Gelato** has published a Phase 0 grant update after receiving its Optimism tokens. The
+summary: "Gelato has published a Phase 0 grant update after receiving its Optimism tokens. The
   team shares progress on its initial Cycle-1 proposal, which passed governance at
   https://gov.optimism.io/t/gf-phase-0-proposal-gelato/873. The update details work completed since
   the grant award and outlines next steps for the Gelato ecosystem on Optimism."

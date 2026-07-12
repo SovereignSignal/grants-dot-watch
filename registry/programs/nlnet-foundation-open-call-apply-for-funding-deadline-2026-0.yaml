@@ -1,18 +1,17 @@
 id: nlnet-foundation-open-call-apply-for-funding-deadline-2026-0
-name: NLnet Foundation Open Call — Apply for Funding (deadline 2026-08-01)
+name: NLnet Foundation Open Call
 org: nlnet-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://nlnet.nl/
-summary: NLnet Foundation Open Call — Apply for Funding (deadline 2026-08-01) — dispatch from the
-  wire, no further detail on file.
+summary: NLnet Foundation runs a recurring Open Call for funding proposals; the next deadline is 2026-08-01.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-08-01
-    source: https://nlnet.nl/news/2026/20260601-call.html
+- name: Rolling
+  status: open
+  closes: 2026-08-01
+  source: https://nlnet.nl/news/2026/20260601-call.html
 sources:
-  - https://nlnet.nl/news/2026/20260601-call.html
+- https://nlnet.nl/news/2026/20260601-call.html

@@ -7,7 +7,9 @@ wires:
 - ai
 status: unknown
 apply_url: https://www.aria.org.uk/
-summary: ARIA Activation Partners Cohort 2 — dispatch from the wire, no further detail on file.
+summary: ARIA (UK's Advanced Research and Invention Agency) is recruiting its second cohort of Activation
+  Partners — organizations that help translate ARIA-funded research into real-world impact — with up to
+  £100M available across the cohort.
 rounds:
 - name: Rolling
   status: closed
@@ -16,3 +18,4 @@ rounds:
   source: https://aria.org.uk/activation-partners/become-an-activation-partner/
 sources:
 - https://aria.org.uk/activation-partners/become-an-activation-partner/
+- https://aria.org.uk/media/ltnnjubg/activation-partners-cohort-2_rfp.pdf

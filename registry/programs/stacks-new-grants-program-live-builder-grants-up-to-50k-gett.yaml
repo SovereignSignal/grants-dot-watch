@@ -1,15 +1,15 @@
 id: stacks-new-grants-program-live-builder-grants-up-to-50k-gett
-name: "Stacks new grants program live: Builder Grants up to $50k, Getting Started up to $10k"
+name: Stacks Endowment Grants
 org: stacks-endowment
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://stacksendowment.co/
-summary: "LATEST: A new @StacksOrg grants program is now live. Whether you are a team with proven
-  traction or an early-stage builder, there is a track for you: - Builder Grants  (up to $50,000) -
-  Getting Started Grants (up to $10,000)"
+summary: 'LATEST: A new @StacksOrg grants program is now live. Whether you are a team with proven traction
+  or an early-stage builder, there is a track for you: - Builder Grants  (up to $50,000) - Getting Started
+  Grants (up to $10,000)'
 rounds: []
 sources:
-  - https://x.com/cryptodotnews/status/2026532031661007323
+- https://x.com/cryptodotnews/status/2026532031661007323

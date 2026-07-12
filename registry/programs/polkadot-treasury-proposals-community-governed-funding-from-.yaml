@@ -1,17 +1,16 @@
 id: polkadot-treasury-proposals-community-governed-funding-from-
-name: Polkadot Treasury Proposals — Community-governed funding from network treasury for projects
-  benefiting the Polkadot
+name: Polkadot Treasury Proposals
 org: web3-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://web3.foundation/
-summary: "**Polkadot Treasury Proposals** accepts rolling community-governed funding requests from
-  its network treasury for projects that benefit the Polkadot ecosystem. Any DOT holder can submit a
-  proposal at any time. There is no fixed funding cap or deadline. Full details and submission
-  process are available at the Polkadot wiki."
+summary: 'Polkadot Treasury Proposals accepts rolling community-governed funding requests from its
+  network treasury for projects that benefit the Polkadot ecosystem. Any DOT holder can submit a proposal
+  at any time. There is no fixed funding cap or deadline. Full details and submission process are available
+  at the Polkadot wiki.'
 rounds: []
 sources:
-  - https://wiki.polkadot.network/learn/learn-polkadot-opengov-treasury/
+- https://wiki.polkadot.network/learn/learn-polkadot-opengov-treasury/

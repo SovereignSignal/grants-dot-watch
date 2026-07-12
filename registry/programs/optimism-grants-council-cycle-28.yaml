@@ -1,16 +1,16 @@
 id: optimism-grants-council-cycle-28
-name: Optimism Grants Council Cycle 28
+name: Optimism Grants Council (Cycle 28)
 org: optimism-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "This thread is to propose mission requests for the Grants Council to consider. The
-  remaining budget is 15.000 OP. Steps: Copy the provided template . Create a new forum post, paste
-  the template, and fill out all the questions. Add the tag “S6 mission request” to your post. Add
-  the Cycle tag to your post Add [Looking for sponsor] at the beginning of the title if you are not
-  a Grants Council member."
+summary: 'This thread is to propose mission requests for the Grants Council to consider. The remaining
+  budget is 15.000 OP. Steps: Copy the provided template . Create a new forum post, paste the template,
+  and fill out all the questions. Add the tag “S6 mission request” to your post. Add the Cycle tag to
+  your post Add [Looking for sponsor] at the beginning of the title if you are not a Grants Council member.'
 rounds: []
 sources:
-  - https://gov.optimism.io/t/cycle-28-intent-3a-mission-request-and-sponsorship/8905
+- https://gov.optimism.io/t/cycle-28-intent-3a-mission-request-and-sponsorship/8905
+- https://gov.optimism.io/t/please-sponsor-the-mission-of-spreading-cryptocurrency/9042

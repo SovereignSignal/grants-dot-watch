@@ -1,16 +1,15 @@
 id: ston-fi-community-grants-program-for-ton-defi-builders-up-to
-name: ston.fi community grants program for TON DeFi builders (up to $10k USDT, open)
+name: ston.fi Community Grants
 org: stonfi
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://ston.fi/
-summary: Got a killer TON DeFi idea but need funding + support to ship it? https://ston.fi/
-  community grants program is wide open - no deadlines, up to $10k in USDT, and it's built exactly
-  for builders like you. If you're integrating their SDK, widgets, or pools... this could be your
-  launchpad. 🧵
+summary: Got a killer TON DeFi idea but need funding + support to ship it? https://ston.fi/ community
+  grants program is wide open - no deadlines, up to $10k in USDT, and it's built exactly for builders
+  like you. If you're integrating their SDK, widgets, or pools... this could be your launchpad. 🧵
 rounds: []
 sources:
-  - https://x.com/crypto_vazima/status/2029517116328612202
+- https://x.com/crypto_vazima/status/2029517116328612202

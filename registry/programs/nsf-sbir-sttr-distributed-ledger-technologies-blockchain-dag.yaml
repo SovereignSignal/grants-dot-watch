@@ -4,16 +4,16 @@ org: nsf-sbir-sttr
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://seedfund.nsf.gov/
-summary: NSF SBIR / STTR — Distributed Ledger Technologies (Blockchain, DAGs, Smart Contracts) —
-  dispatch from the wire, no further detail on file.
+summary: NSF's SBIR/STTR program funds small businesses developing distributed ledger technologies — blockchain,
+  DAGs, and smart contracts.
 rounds:
-  - name: Rolling
-    status: open
-    closes: 2026-07-27
-    size: up to $275,000 (Phase I); up to $1,000,000+ (Phase II)
-    source: https://seedfund.nsf.gov/topics/distributed-ledger/
+- name: Rolling
+  status: open
+  closes: 2026-07-27
+  size: up to $275,000 (Phase I); up to $1,000,000+ (Phase II)
+  source: https://seedfund.nsf.gov/topics/distributed-ledger/
 sources:
-  - https://seedfund.nsf.gov/topics/distributed-ledger/
+- https://seedfund.nsf.gov/topics/distributed-ledger/

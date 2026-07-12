@@ -1,13 +1,13 @@
 id: strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-sha
-name: "Strengthening LFX Mentoring: A Fairer Stipend Model and a Shared Standard of Excellence"
+name: LFX Mentoring Program (Stipend Model Update)
 org: linux-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
-summary: "Strengthening LFX Mentoring: A Fairer Stipend Model and a Shared Standard of Excellence —
-  dispatch from the wire, no further detail on file."
+summary: The Linux Foundation's LFX Mentoring program updated its stipend model and standards of excellence
+  for mentees and mentors.
 rounds: []
 sources:
-  - https://www.linuxfoundation.org/blog/strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-shared-standard-of-excellence
+- https://www.linuxfoundation.org/blog/strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-shared-standard-of-excellence

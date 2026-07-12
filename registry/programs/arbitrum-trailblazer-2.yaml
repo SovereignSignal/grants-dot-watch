@@ -3,17 +3,19 @@ name: Arbitrum Trailblazer 2.0
 org: arbitrum-foundation
 parent: null
 systems:
-  - arbitrum
+- arbitrum
 wires:
-  - crypto
+- crypto
 status: concluded
 mechanism: grants
-summary: A concluded $1M Arbitrum Foundation funding program for ecosystem builders, marked "Program
-  Complete" on the Foundation's grants page.
+summary: A concluded $1M Arbitrum Foundation grants pool for agentic DeFi on Arbitrum — autonomous DeFi
+  agents, trading strategies, and yield optimization tools — marked "Program Complete" on the Foundation's
+  grants page.
 rounds:
-  - name: Trailblazer 2.0
-    status: closed
-    size: $1M funding program
-    source: https://arbitrum.io/grants
+- name: Trailblazer 2.0
+  status: closed
+  size: $1M funding program
+  source: https://arbitrum.io/grants
 sources:
-  - https://arbitrum.io/grants
+- https://arbitrum.io/grants
+- https://arbitrumfoundation.medium.com/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum-9534aa3fe541

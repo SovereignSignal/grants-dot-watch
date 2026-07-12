@@ -7,8 +7,8 @@ wires:
 - crypto
 status: unknown
 apply_url: https://forum.celo.org/t/prezenti-season-2-update-introducing-the-frontier-pool-ai-agent-economy-infrastructure/13277
-summary: Prezenti Celo Season 2 — Frontier Pool (AI & Agent Economy Infrastructure) — dispatch from the
-  wire, no further detail on file.
+summary: Prezenti's Celo Season 2 Frontier Pool funds AI and agent-economy infrastructure projects on
+  Celo, with awards up to $25,000 per project.
 rounds:
 - name: Rolling
   status: closed

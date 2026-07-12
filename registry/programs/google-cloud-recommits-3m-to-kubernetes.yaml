@@ -1,13 +1,14 @@
 id: google-cloud-recommits-3m-to-kubernetes
-name: Google Cloud Recommits $3M to Kubernetes
+name: Google Cloud Kubernetes Funding Commitment
 org: googleorg
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://google.org/
-summary: Google Cloud Recommits $3M to Kubernetes — dispatch from the wire, no further detail on file.
+summary: Google Cloud renewed its funding commitment to the Kubernetes project via the Cloud Native Computing
+  Foundation, contributing $3M.
 rounds: []
 sources:
-  - https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/
+- https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/

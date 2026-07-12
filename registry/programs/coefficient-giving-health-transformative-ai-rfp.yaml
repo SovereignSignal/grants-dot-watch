@@ -1,20 +1,20 @@
 id: coefficient-giving-health-transformative-ai-rfp
-name: "RFP: Global Health and Wellbeing in an Era of Transformative AI"
+name: 'RFP: Global Health and Wellbeing in an Era of Transformative AI'
 org: coefficient-giving
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: active
 mechanism: rfp
-summary: Coefficient Giving (formerly Open Philanthropy) opened an RFP expecting to allocate $10-30
-  million to research, policy development, implementation, and field-building aimed at ensuring AI
-  improves human health and wellbeing, with attention to the global poor. Grant tiers run from
-  exploratory (<$100k) through standard ($100k-$1m) to large ($1m+).
+summary: Coefficient Giving (formerly Open Philanthropy) opened an RFP expecting to allocate $10-30 million
+  to research, policy development, implementation, and field-building aimed at ensuring AI improves human
+  health and wellbeing, with attention to the global poor. Grant tiers run from exploratory (<$100k) through
+  standard ($100k-$1m) to large ($1m+).
 rounds:
-  - name: 2026 RFP
-    status: open
-    size: $10-30M expected allocation
-    source: https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/
+- name: 2026 RFP
+  status: open
+  size: $10-30M expected allocation
+  source: https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/
 sources:
-  - https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/
+- https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/

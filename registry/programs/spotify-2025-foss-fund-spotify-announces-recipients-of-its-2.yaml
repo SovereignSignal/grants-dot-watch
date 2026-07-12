@@ -1,24 +1,17 @@
 id: spotify-2025-foss-fund-spotify-announces-recipients-of-its-2
-name: Spotify 2025 FOSS Fund — Spotify announces recipients of its 2025 FOSS Fund, providing
-  financial support to three open
+name: Spotify FOSS Fund (2025)
 org: spotify
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://open.spotify.com/
-summary: >-
-  **Spotify 2025 FOSS Fund** has announced its 2025 recipients, awarding financial support to three
-  open source projects focused on tools and libraries for audio, video, and digital experiences. 
-
-
-  The fund provides direct grants to maintainers of projects that power Spotify’s infrastructure and
-  broader open source ecosystem. Specific project names and grant amounts are listed in the official
-  announcement. 
-
-
-  This is the latest cycle of Spotify’s ongoing FOSS Fund program.
+summary: "Spotify 2025 FOSS Fund has announced its 2025 recipients, awarding financial support to\
+  \ three open source projects focused on tools and libraries for audio, video, and digital experiences.\
+  \ \n\nThe fund provides direct grants to maintainers of projects that power Spotify’s infrastructure\
+  \ and broader open source ecosystem. Specific project names and grant amounts are listed in the official\
+  \ announcement. \n\nThis is the latest cycle of Spotify’s ongoing FOSS Fund program."
 rounds: []
 sources:
-  - https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund/
+- https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund/

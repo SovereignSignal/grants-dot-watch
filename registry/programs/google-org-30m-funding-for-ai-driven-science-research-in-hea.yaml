@@ -1,17 +1,15 @@
 id: google-org-30m-funding-for-ai-driven-science-research-in-hea
-name: Google.org $30M funding for AI-driven science research in health and climate resilience,
-  global appl
+name: 'Google.org Impact Challenge: AI for Science'
 org: googleorg
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://google.org/
-summary: "🚀 $30 MILLION FOR AI-DRIVEN SCIENCE — APPLY NOW! https://www.google.org/ is funding
-  breakthrough research using AI to transform human health and climate resilience. 💰 $500K–$3M
-  funding 🌍 Global applicants welcome 🤖 AI-powered solutions only ✨ Benefits: ✅ Major research
-  funding ✅ 6-month https://"
+summary: '🚀 $30 MILLION FOR AI-DRIVEN SCIENCE — APPLY NOW! https://www.google.org/ is funding breakthrough
+  research using AI to transform human health and climate resilience. 💰 $500K–$3M funding 🌍 Global applicants
+  welcome 🤖 AI-powered solutions only ✨ Benefits: ✅ Major research funding ✅ 6-month https://'
 rounds: []
 sources:
-  - https://x.com/fundsforngos/status/2026198086188757207
+- https://x.com/fundsforngos/status/2026198086188757207

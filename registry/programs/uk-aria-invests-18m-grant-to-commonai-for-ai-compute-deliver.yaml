@@ -1,15 +1,15 @@
 id: uk-aria-invests-18m-grant-to-commonai-for-ai-compute-deliver
-name: UK ARIA invests €18M grant to CommonAI for AI compute delivery and Scaling Inference Lab
+name: ARIA — CommonAI Compute Grant
 org: aria
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.aria.org.uk/
-summary: 🇬🇧 UK's ARIA invests €18 million to boost AI compute delivery The UK's Advanced Research
-  and Invention Agency (ARIA) has joined CommonAI, bringing an €18 million grant to enhance AI
-  compute delivery in the UK. This funding is part of a larger €57 million commitment...
+summary: 🇬🇧 UK's ARIA invests €18 million to boost AI compute delivery The UK's Advanced Research and
+  Invention Agency (ARIA) has joined CommonAI, bringing an €18 million grant to enhance AI compute delivery
+  in the UK. This funding is part of a larger €57 million commitment...
 rounds: []
 sources:
-  - https://x.com/mrjuliogomez/status/2027821515434041478
+- https://x.com/mrjuliogomez/status/2027821515434041478

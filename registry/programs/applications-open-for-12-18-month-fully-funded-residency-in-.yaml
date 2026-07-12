@@ -1,17 +1,16 @@
 id: applications-open-for-12-18-month-fully-funded-residency-in-
-name: Applications open for 12-18 month fully funded residency in neuro, AI, life sciences (open
-  track too
+name: Astera Institute Residency
 org: astera-institute
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://astera.org/
-summary: "``` Astera's Fall 2026 residency applications are open. Deadline April 19th. 12-18 months
-  fully funded. Focus is neuro, AI and life sciences. Open track too. $2.5B foundation, unlike
-  anything else out there. I'm a current resident working on sub-1¢/kWh fusion. Apply.
-  https://t.co/vWWQ5ZMWyG ``` **Go"
+summary: '``` Astera''s Fall 2026 residency applications are open. Deadline April 19th. 12-18 months fully
+  funded. Focus is neuro, AI and life sciences. Open track too. $2.5B foundation, unlike anything else
+  out there. I''m a current resident working on sub-1¢/kWh fusion. Apply. https://t.co/vWWQ5ZMWyG ```
+  Go'
 rounds: []
 sources:
-  - https://x.com/damienscott/status/2026783954100170797
+- https://x.com/damienscott/status/2026783954100170797

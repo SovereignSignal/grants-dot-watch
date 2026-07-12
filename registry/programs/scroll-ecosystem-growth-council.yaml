@@ -1,5 +1,5 @@
 id: scroll-ecosystem-growth-council
-name: Scroll Ecosystem Growth Council
+name: Scroll Ecosystem Growth Council (EGC)
 org: scroll
 parent: null
 systems: []
@@ -19,3 +19,4 @@ rounds:
   source: https://forum.scroll.io/t/ecosystem-growth-council-charter/1027
 sources:
 - https://forum.scroll.io/t/ecosystem-growth-council-charter/1027
+- https://forum.scroll.io/t/proposal-ecosystem-growth-council-formation/718

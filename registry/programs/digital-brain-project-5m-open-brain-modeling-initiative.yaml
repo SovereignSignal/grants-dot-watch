@@ -1,14 +1,14 @@
 id: digital-brain-project-5m-open-brain-modeling-initiative
-name: Digital Brain Project — $5M Open Brain Modeling Initiative
+name: Digital Brain Project (Open Brain Modeling Initiative)
 org: digital-brain-project
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://digitalbrainproject.org/
-summary: Digital Brain Project — $5M Open Brain Modeling Initiative — dispatch from the wire, no
-  further detail on file.
+summary: The Digital Brain Project funds a $5M Open Brain Modeling Initiative to support open, collaborative
+  brain-modeling research.
 rounds: []
 sources:
-  - https://x.com/JeanRemiKing/status/2044349477952123281
+- https://x.com/JeanRemiKing/status/2044349477952123281

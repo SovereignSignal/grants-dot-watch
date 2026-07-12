@@ -4,13 +4,11 @@ org: celo
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "Receiver Entity: Build Union Status: [DRAFT] Title: Grant Progress Tracking Platform for
-  Celo Authors: Emmmanuel, Lisa Type of Request: Funding Funding Request: $3999 Website:
-  https://www.linkedin.com/in/emmanueleclipsewebsite/ Track spending, grant impact, and deliverables
-  — all in one place, with full transparency and real-time insights. TL;DR This proposal outlines
-  the development of a Grant Pr"
+summary: Celo's community grants and RFP process funds ecosystem projects on Celo. Proposals are submitted
+  via the Celo forum for community review and funding requests.
 rounds: []
 sources:
-  - https://forum.celo.org/t/grant-progress-tracking-platform-for-celo/11847
+- https://forum.celo.org/t/grant-progress-tracking-platform-for-celo/11847
+- https://forum.celo.org/t/draft-integration-of-celo-into-vottun-ecosystem/8057

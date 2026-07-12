@@ -1,16 +1,16 @@
 id: 0g-labs-apollo-ai-accelerator-up-to-2m-non-dilutive-google-c
-name: 0G labs Apollo AI accelerator up to $2M non-dilutive + Google Cloud $200k for AI projects.
+name: 0G Apollo Accelerator
 org: googleorg
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://google.org/
-summary: "Excited for @0G_labs Apollo program: the Largest AI accelerator program this space has
-  ever seen! Open to web 2 or web 3 projects with AI focus. - up to 12 teams, up to $2M non dilutive
-  funding per team + $200k @googlecloud + many more perks to be announced. - mentors from Stanford
-  blockchain commu"
+summary: 'Excited for @0G_labs Apollo program: the Largest AI accelerator program this space has ever
+  seen! Open to web 2 or web 3 projects with AI focus. - up to 12 teams, up to $2M non dilutive funding
+  per team + $200k @googlecloud + many more perks to be announced. - mentors from Stanford blockchain
+  commu'
 rounds: []
 sources:
-  - https://x.com/vargs_g/status/2027208360639320322
+- https://x.com/vargs_g/status/2027208360639320322

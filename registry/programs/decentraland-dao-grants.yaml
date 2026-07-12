@@ -4,12 +4,12 @@ org: decentraland
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
-summary: Decentraland's DAO Grants let users submit and vote on funding proposals across defined
-  grant categories, tracked publicly, with enacted proposals including the Decentraland Ambassador's
-  Program.
+summary: Decentraland's DAO Grants let users submit and vote on funding proposals across defined grant
+  categories, tracked publicly, with enacted proposals including the Decentraland Ambassador's Program.
 rounds: []
 sources:
-  - https://decentraland.org/dao/grants/
+- https://decentraland.org/dao/grants/
+- https://forum.decentraland.org/t/grant-proposal-decentraland-survivors-content-development-cutm/25179

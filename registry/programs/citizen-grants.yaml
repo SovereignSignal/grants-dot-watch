@@ -4,13 +4,21 @@ org: gitcoin
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: Continuing from Mathilda’s Updated Citizen Grants strategy & Owocki’s 6.9M Citizen’s Fund
-  Temp Check - Gitcoin presents the latest RFP for the community to weigh in on. We expect to have
-  more as we march towards Devcon, and a backlog of ideas and projects we like to include our
-  community in helping us build. For further context on previous initiatives like this, check out
-  the Citizen’s Grant Progr
-rounds: []
+summary: Citizen Grants (GCP) is Gitcoin's community proposal process for funding tools, onboarding programs,
+  and public-goods infrastructure across the Gitcoin ecosystem. Proposals are submitted and reviewed on
+  the Gitcoin governance forum and funded through Gitcoin's Citizens' Fund.
+rounds:
+- name: Rolling
+  status: closed
+  closes: '2025-03-31'
+  size: $20,000–1,000,000
+  source: https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852
 sources:
-  - https://gov.gitcoin.co/t/rfp-allo-yeeter-build/19277
+- https://gov.gitcoin.co/t/rfp-allo-yeeter-build/19277
+- https://gov.gitcoin.co/t/citizen-grants-gcp-impact-passports-and-impact-quadratic-funding-impactqf/19712
+- https://gov.gitcoin.co/t/gcp-xxx-yollow-xyz-making-public-goods-funding-fun-and-accessible/19721
+- https://gov.gitcoin.co/t/rfp-gg22-grantee-onboarding-education-program/19364
+- https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852
+apply_url: https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852

@@ -1,16 +1,15 @@
 id: new-stacks-grants-program-launched-under-endowment-builder-g
-name: New Stacks grants program launched under Endowment (Builder Grants up to $50k, Getting Started
-  up to
+name: Stacks Endowment Grants
 org: stacks-endowment
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://stacksendowment.co/
-summary: "A new Stacks grants program is now live. Whether you are a team with proven traction or an
-  early-stage builder, there is a track for you: - Builder Grants  (up to $50,000) - Getting Started
-  Grants (up to $10,000) Apply and start building the Bitcoin economy on Stacks.] [Tue, 24 Feb"
+summary: 'A new Stacks grants program is now live. Whether you are a team with proven traction or an early-stage
+  builder, there is a track for you: - Builder Grants  (up to $50,000) - Getting Started Grants (up to
+  $10,000) Apply and start building the Bitcoin economy on Stacks.] [Tue, 24 Feb'
 rounds: []
 sources:
-  - https://x.com/StacksOrg/status/2026413808919474438
+- https://x.com/StacksOrg/status/2026413808919474438

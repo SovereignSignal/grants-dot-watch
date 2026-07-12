@@ -1,16 +1,16 @@
 id: gitcoin-voting-on-2026-dao-budget-including-500k-for-12-vent
-name: Gitcoin voting on 2026 DAO budget including $500k for 12 venture-scale grant bets
+name: Gitcoin DAO 2026 Budget (Venture-Scale Grants)
 org: gitcoin
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://gitcoin.co/
-summary: '@gitcoin voting on its 2026 DAO budget - $1.05M to fund what founder @owocki calls a "make
-  or break year." Grants Lab dissolved mid-2025. Owocki returned as Executive Steward. Now he wants
-  $500K for roughly 12 venture-scale bets. Under his first stint (2018-2021) he pioneered quadratic
-  funding, said'
+summary: '@gitcoin voting on its 2026 DAO budget - $1.05M to fund what founder @owocki calls a "make or
+  break year." Grants Lab dissolved mid-2025. Owocki returned as Executive Steward. Now he wants $500K
+  for roughly 12 venture-scale bets. Under his first stint (2018-2021) he pioneered quadratic funding,
+  said'
 rounds: []
 sources:
-  - https://x.com/SnapshotLabs/status/2023442764403536110
+- https://x.com/SnapshotLabs/status/2023442764403536110

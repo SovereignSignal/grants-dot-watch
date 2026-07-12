@@ -4,10 +4,16 @@ org: national-science-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://www.nsf.gov/
-summary: NSF PESOSE — dispatch from the wire, no further detail on file.
-rounds: []
+summary: NSF PESOSE invites proposals to translate open-source research into sustainable, secure ecosystems
+  that address national and societal needs — scoping, establishing, and improving the safety, security,
+  and privacy of open-source projects. Total program funding is approximately $40 million.
+rounds:
+- name: Rolling
+  status: open
+  closes: '2026-09-01'
+  source: https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation
 sources:
-  - https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation
+- https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation

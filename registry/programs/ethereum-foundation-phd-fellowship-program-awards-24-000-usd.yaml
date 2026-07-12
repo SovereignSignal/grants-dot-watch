@@ -1,21 +1,16 @@
 id: ethereum-foundation-phd-fellowship-program-awards-24-000-usd
-name: Ethereum Foundation PhD Fellowship Program — Awards $24,000 USD stipends (9-10 fellowships
+name: Ethereum Foundation PhD Fellowship Program
 org: ethereum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://esp.ethereum.foundation/
-summary: >-
-  **Ethereum Foundation PhD Fellowship Program** awards $24,000 USD stipends to 9-10 current PhD
-  students conducting Ethereum-related academic research. 
-
-
-  Eligible topics include open source license compatibility and “profit-left” clauses. 
-
-
-  Applications are open via the Ethereum Foundation’s ESP portal.
+summary: "Ethereum Foundation PhD Fellowship Program awards $24,000 USD stipends to 9-10 current PhD\
+  \ students conducting Ethereum-related academic research. \n\nEligible topics include open source license\
+  \ compatibility and “profit-left” clauses. \n\nApplications are open via the Ethereum Foundation’s ESP\
+  \ portal."
 rounds: []
 sources:
-  - https://esp.ethereum.foundation/rounds/phdfp26
+- https://esp.ethereum.foundation/rounds/phdfp26

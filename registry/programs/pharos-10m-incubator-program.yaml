@@ -1,17 +1,16 @@
 id: pharos-10m-incubator-program
-name: Pharos $10M Incubator Program
+name: Pharos Incubator Program
 org: pharos-network
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
-summary: "The Pharos Incubator Program offers a $10M fund supporting visionary projects building on
-  the Pharos Layer-1 network. The program targets three innovation paths: RWA/Payments, DeFi, and
-  Innovative Infrastructure. Selected projects receive capital, direct technical mentorship from the
-  core development team, go-to-market support, fundraising connections, and financial and legal
-  expertise. Applications are currently open via an online submission form followed by an internal
-  review process."
+summary: 'The Pharos Incubator Program offers a $10M fund supporting visionary projects building on the
+  Pharos Layer-1 network. The program targets three innovation paths: RWA/Payments, DeFi, and Innovative
+  Infrastructure. Selected projects receive capital, direct technical mentorship from the core development
+  team, go-to-market support, fundraising connections, and financial and legal expertise. Applications
+  are currently open via an online submission form followed by an internal review process.'
 rounds: []
 sources:
-  - https://www.pharos.xyz/ecosystem
+- https://www.pharos.xyz/ecosystem

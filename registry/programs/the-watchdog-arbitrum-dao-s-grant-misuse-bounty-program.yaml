@@ -6,7 +6,7 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "**The Watchdog: Arbitrum DAO's Grant Misuse Bounty Program** launches a bounty program to
+summary: "The Watchdog: Arbitrum DAO's Grant Misuse Bounty Program launches a bounty program to
   identify and report misuse of DAO-allocated grant funds. Entropy Advisors proposes the initiative
   to uncover additional undetected cases of misused funds through community incentives. The program
   establishes an incentive mechanism for reporting violations."

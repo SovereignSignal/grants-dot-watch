@@ -1,16 +1,14 @@
 id: rust-foundation-outreachy-internships-grants-fellowship-prog
-name: "Rust Foundation: Outreachy Internships + Grants & Fellowship Program Revamp"
+name: 'Rust Foundation: Outreachy Internships & Fellowship Program'
 org: rust-foundation
 parent: null
 systems: []
 wires:
-  - oss
+- oss
 status: unknown
 apply_url: https://foundation.rust-lang.org/
-summary: "2026 b\" meaning $2026? Actually \"2026 b\" maybe $2026? Could be $2026? Might be a typo.
-  We'll include as given: \"2026 b\". Dates: May–August 2026 internship round, posted April 9, 2026.
-  Eligibility: people underrepresented in tech, three internship slots, five projects. Also mention
-  12-month financial support"
+summary: Rust Foundation's Outreachy internship and grants/fellowship program supports people underrepresented
+  in tech, offering paid internships and up to 12 months of financial support.
 rounds: []
 sources:
-  - https://blog.rust-lang.org/inside-rust/2026/04/09/program-management-update-2026-03/
+- https://blog.rust-lang.org/inside-rust/2026/04/09/program-management-update-2026-03/

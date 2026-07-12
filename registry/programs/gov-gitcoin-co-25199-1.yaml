@@ -6,7 +6,7 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "**Gitcoin Governance** shares lessons from building Verdict, its deep funding juror data
+summary: "Gitcoin Governance shares lessons from building Verdict, its deep funding juror data
   collection system. The report details improvements in juror onboarding, data quality, and
   evaluation processes for quadratic funding rounds. It outlines specific technical and procedural
   changes implemented to enhance participant data collection and analysis. The full case study is

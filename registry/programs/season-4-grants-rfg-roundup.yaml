@@ -6,7 +6,7 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "**Optimism** has published a full roundup of its Season 4 Requests for Grants (RFG)
+summary: "Optimism has published a full roundup of its Season 4 Requests for Grants (RFG)
   program. The RFG process introduced demand-based granting to complement the existing supply-based
   grants, allowing the Optimism community to specify needed projects and solicit targeted proposals.
   The post details every RFG issued during Season 4, including the specific problem statements,

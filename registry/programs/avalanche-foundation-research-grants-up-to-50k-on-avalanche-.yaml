@@ -1,5 +1,5 @@
 id: avalanche-foundation-research-grants-up-to-50k-on-avalanche-
-name: Avalanche Foundation Research Grants up to $50K on Avalanche Network Economics
+name: Avalanche Network Economics Research Grants
 org: avalanche-foundation
 parent: null
 systems: []
@@ -7,8 +7,8 @@ wires:
 - crypto
 status: unknown
 apply_url: https://build.avax.network/grants
-summary: Avalanche Foundation Research Grants up to $50K on Avalanche Network Economics — dispatch from
-  the wire, no further detail on file.
+summary: Avalanche Foundation Research Grants fund academic and applied research on Avalanche network
+  economics, with awards up to $50,000.
 rounds:
 - name: Rolling
   status: closed

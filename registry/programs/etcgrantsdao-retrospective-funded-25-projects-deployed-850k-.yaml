@@ -1,17 +1,15 @@
 id: etcgrantsdao-retrospective-funded-25-projects-deployed-850k-
-name: "ETCGrantsDAO retrospective: funded 25+ projects, deployed $850k+ into Ethereum Classic
-  ecosystem inc"
+name: ETC Grants DAO
 org: etc-grants-dao
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://etcgrantsdao.io/
-summary: "Many projects have weak ecosystem and are made of short term. @ETCGrantsDao solves that.
-  Its goal is simple: give grants to real builders and make the Ethereum Classic ecosystem stronger.
-  It does not chase hype or quick trends. It focuses on important but less exciting work like: •
-  Core infrastructu"
+summary: 'Many projects have weak ecosystem and are made of short term. @ETCGrantsDao solves that. Its
+  goal is simple: give grants to real builders and make the Ethereum Classic ecosystem stronger. It does
+  not chase hype or quick trends. It focuses on important but less exciting work like: • Core infrastructu'
 rounds: []
 sources:
-  - https://x.com/Crypt0_DeFi/status/2026112537557602786
+- https://x.com/Crypt0_DeFi/status/2026112537557602786

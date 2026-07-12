@@ -1,14 +1,13 @@
 id: nsf-x-labs-1-5b-for-independent-milestone-based-research-tea
-name: NSF X Labs — $1.5B for independent milestone based research teams
+name: NSF X Labs
 org: national-science-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.nsf.gov/funding/initiatives/nsf-x-labs
-summary: NSF X Labs — $1.5B for independent milestone based research teams — dispatch from the wire,
-  no further detail on file.
+summary: NSF X Labs funds independent, milestone-based research teams, part of a $1.5B initiative.
 rounds: []
 sources:
-  - https://www.nsf.gov/news/nsf-announces-15b-nsf-x-labs-initiative-pursue-generational
+- https://www.nsf.gov/news/nsf-announces-15b-nsf-x-labs-initiative-pursue-generational

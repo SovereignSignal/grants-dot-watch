@@ -1,16 +1,15 @@
 id: foresight-institute
-name: Foresight Institute
+name: Foresight Institute AI for Science & Safety Grants
 org: foresight-institute
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: "**Foresight Institute** is accepting applications for its AI for Science & Safety grants.
-  The program funds projects that accelerate beneficial AGI development through improved scientific
-  discovery or enhanced AI safety measures. Grants range from $50,000 to $500,000 with no fixed
-  deadlines. Open to researchers and teams worldwide working at the intersection of AI, science, and
-  safety."
+summary: 'Foresight Institute is accepting applications for its AI for Science & Safety grants. The
+  program funds projects that accelerate beneficial AGI development through improved scientific discovery
+  or enhanced AI safety measures. Grants range from $50,000 to $500,000 with no fixed deadlines. Open
+  to researchers and teams worldwide working at the intersection of AI, science, and safety.'
 rounds: []
 sources:
-  - https://foresight.org/grants/grants-ai-for-science-safety/
+- https://foresight.org/grants/grants-ai-for-science-safety/

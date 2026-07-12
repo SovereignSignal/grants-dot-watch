@@ -1,21 +1,17 @@
 id: filecointldr-filecoin-announces-3-22m-in-public-goods-fundin
-name: "FilecoinTLDR: Filecoin announces $3.22M in Public Goods Funding this week"
+name: Filecoin Public Goods Funding Update
 org: filecoin-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://fil.org/
-summary: >-
-  **Filecoin announces $3.22 million in Public Goods Funding.** 
-
-
-  Between March 2 and March 9, Filecoin distributed $3.22 million to support public goods
-  initiatives. The funding forms part of the network’s broader March 2025 updates, which also
-  include the Filecoin Foundation’s FY2025 data report, Akave’s latest releases and funding,
-  Snowflake records stored on Filecoin, the 2026 network strategy, and progress on verifiable
-  compute via Filecoin Onchain Cloud.
+summary: "Filecoin announces $3.22 million in Public Goods Funding. \n\nBetween March 2 and March\
+  \ 9, Filecoin distributed $3.22 million to support public goods initiatives. The funding forms part\
+  \ of the network’s broader March 2025 updates, which also include the Filecoin Foundation’s FY2025 data\
+  \ report, Akave’s latest releases and funding, Snowflake records stored on Filecoin, the 2026 network\
+  \ strategy, and progress on verifiable compute via Filecoin Onchain Cloud."
 rounds: []
 sources:
-  - https://x.com/FilecoinTLDR/status/2031367205846159853
+- https://x.com/FilecoinTLDR/status/2031367205846159853

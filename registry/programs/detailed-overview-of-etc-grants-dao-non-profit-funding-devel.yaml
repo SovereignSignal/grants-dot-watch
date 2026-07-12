@@ -1,17 +1,16 @@
 id: detailed-overview-of-etc-grants-dao-non-profit-funding-devel
-name: Detailed overview of ETC Grants DAO non-profit funding developers, infrastructure, community
-  on Ethe
+name: ETC Grants DAO
 org: etc-grants-dao
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://etcgrantsdao.io/
-summary: Most people talk about hype. I look at principles. That’s why I pay attention to
-  @ETCGrantsDao . Step by step, here’s what it is 👇 1️⃣ It’s a non-profit. No CEO. No central boss.
-  2️⃣ It supports builders inside Ethereum Classic. Not by changing the chain. But by funding people
-  building on it. ... [
+summary: Most people talk about hype. I look at principles. That’s why I pay attention to @ETCGrantsDao
+  . Step by step, here’s what it is 👇 1️⃣ It’s a non-profit. No CEO. No central boss. 2️⃣ It supports
+  builders inside Ethereum Classic. Not by changing the chain. But by funding people building on it. ...
+  [
 rounds: []
 sources:
-  - https://x.com/Cryptoiconn/status/2024784963871141968
+- https://x.com/Cryptoiconn/status/2024784963871141968

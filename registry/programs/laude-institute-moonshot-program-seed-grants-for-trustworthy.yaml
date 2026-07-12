@@ -4,12 +4,10 @@ org: laude-institute
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.laude.org/moonshots
-summary: not. Just include numbers. Also include date? Not given. Could include "as of April 2026".
-  But not required. The prompt says include all specific numbers (amounts, dates, eligibility
-  requirements). Since no dates or eligibility given, just amounts.
+summary: The Laude Institute's Moonshot Program offers seed grants for research on trustworthy AI.
 rounds: []
 sources:
-  - https://x.com/ghadfield/status/2044487188402802859
+- https://x.com/ghadfield/status/2044487188402802859

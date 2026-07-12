@@ -7,7 +7,7 @@ wires:
 - oss
 status: unknown
 apply_url: https://google.org/
-summary: '**Google Summer of Code (GSoC) 2026** is now accepting applications. The global program offers
+summary: 'Google Summer of Code (GSoC) 2026 is now accepting applications. The global program offers
   students and beginners a $6,000 stipend to contribute to open-source projects with experienced mentors
   over 12+ weeks. The deadline to apply is March 31, 2026.'
 rounds:

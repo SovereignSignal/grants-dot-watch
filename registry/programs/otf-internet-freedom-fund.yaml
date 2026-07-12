@@ -2,15 +2,20 @@ id: otf-internet-freedom-fund
 name: Internet Freedom Fund
 org: free-and-open-source-software-sustainability-fund
 parent: null
-systems: []
+systems:
+- internet-freedom
 wires:
-  - oss
+- oss
 status: active
 mechanism: grants
 apply_url: https://www.opentech.fund/funds/internet-freedom-fund/
-summary: The Open Technology Fund's Internet Freedom Fund supports innovative technology and
-  research projects that help people facing repressive censorship and/or surveillance. Sourced from
-  the official OTF funds page.
+summary: The Open Technology Fund's flagship fund for internet freedom worldwide — censorship circumvention,
+  privacy and secure communications, digital-security capacity building, and applied research. Concept
+  notes are accepted on a rolling basis; most requests fall between $50,000 and $200,000 (range $10,000-$900,000),
+  open to individuals and organizations of any nationality except those under OFAC sanctions, with priority
+  for those working in repressive environments.
 rounds: []
 sources:
-  - https://www.opentech.fund/funds/internet-freedom-fund/
+- https://www.opentech.fund/funds/internet-freedom-fund/
+- https://www.opentech.fund/projects-we-support/supported-projects/amigo-secure-shutdown-resilient-group-messaging/
+- https://www.opentech.fund/projects-we-support/supported-projects/bitpart/

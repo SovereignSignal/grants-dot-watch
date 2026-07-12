@@ -1,18 +1,17 @@
 id: openai-foundation-250m-economic-futures
-name: OpenAI Foundation $250M Economic Futures
+name: OpenAI Foundation Economic Futures
 org: openai-foundation
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
-summary: "The OpenAI Foundation is committing an initial $250M to grants, partnerships, and direct
-  work aimed at building secure and abundant economic futures in the age of AI. The program will
-  work across three areas: investing in independent measurement and forecasting of AI's economic
-  impacts, resourcing workers and communities through near-term disruption, and supporting new
-  approaches to sharing economic gains broadly. The Foundation is also inviting public input on what
-  people are seeing in their work and economic lives to inform the program's direction. The
-  announcement was published on May 27, 2"
+summary: 'The OpenAI Foundation is committing an initial $250M to grants, partnerships, and direct work
+  aimed at building secure and abundant economic futures in the age of AI. The program will work across
+  three areas: investing in independent measurement and forecasting of AI''s economic impacts, resourcing
+  workers and communities through near-term disruption, and supporting new approaches to sharing economic
+  gains broadly. The Foundation is also inviting public input on what people are seeing in their work
+  and economic lives to inform the program''s direction. The announcement was published on May 27, 2'
 rounds: []
 sources:
-  - https://openaifoundation.org/news/economic-futures-in-the-age-of-ai
+- https://openaifoundation.org/news/economic-futures-in-the-age-of-ai

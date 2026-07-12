@@ -1,24 +1,17 @@
 id: zcash-coinholder-directed-grants-program-q1-2026-retroactive
-name: Zcash Coinholder Directed Grants Program Q1 2026 — Retroactive grant proposals under review
-  for public goods and
+name: Zcash Coinholder-Directed Grants Program (Q1 2026)
 org: zcash-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://zfnd.org/
-summary: >-
-  **Zcash Coinholder Directed Grants Program Q1 2026** is reviewing retroactive grant proposals for
-  public goods and ecosystem contributions. 
-
-
-  The community-directed funding program is currently accepting reviews of completed work that
-  delivered public goods to the Zcash ecosystem. Proposals are under review during the open period
-  announced on the Zcash Community Forum. 
-
-
-  All community members may review and comment on submitted grants before final funding decisions.
+summary: "Zcash Coinholder Directed Grants Program Q1 2026 is reviewing retroactive grant proposals\
+  \ for public goods and ecosystem contributions. \n\nThe community-directed funding program is currently\
+  \ accepting reviews of completed work that delivered public goods to the Zcash ecosystem. Proposals\
+  \ are under review during the open period announced on the Zcash Community Forum. \n\nAll community\
+  \ members may review and comment on submitted grants before final funding decisions."
 rounds: []
 sources:
-  - https://forum.zcashcommunity.com/t/review-period-open-coinholder-directed-grants-program-q1-2026/54720
+- https://forum.zcashcommunity.com/t/review-period-open-coinholder-directed-grants-program-q1-2026/54720

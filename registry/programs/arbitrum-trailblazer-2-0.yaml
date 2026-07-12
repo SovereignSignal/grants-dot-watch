@@ -1,20 +1,19 @@
 id: arbitrum-trailblazer-2-0
-name: Trailblazer 2.0 — Agentic DeFi Grants
+name: Arbitrum Trailblazer 2.0
 org: arbitrum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
-summary: Arbitrum Foundation's Trailblazer 2.0 targets agentic DeFi with a $1M pool paying up to
-  $10K per project for deployed AI agents, Vibekit open-source templates, or capability integrations
-  already live on Arbitrum chains. Submissions go through a public Google Form with no stated
-  closing date.
+summary: Arbitrum Foundation's Trailblazer 2.0 targets agentic DeFi with a $1M pool paying up to $10K
+  per project for deployed AI agents, Vibekit open-source templates, or capability integrations already
+  live on Arbitrum chains. Submissions go through a public Google Form with no stated closing date.
 rounds:
-  - name: Trailblazer 2.0
-    status: open
-    size: $1,000,000 pool; up to $10,000 per project
-    source: https://blog.arbitrum.foundation/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum/
+- name: Trailblazer 2.0
+  status: open
+  size: $1,000,000 pool; up to $10,000 per project
+  source: https://blog.arbitrum.foundation/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum/
 sources:
-  - https://blog.arbitrum.foundation/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum/
+- https://blog.arbitrum.foundation/trailblazer-2-0-1m-in-grants-to-power-agentic-defi-on-arbitrum/

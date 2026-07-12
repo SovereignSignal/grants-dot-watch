@@ -1,15 +1,14 @@
 id: icts-ncbs-india-ai-in-biology-postdoctoral-fellowship-progra
-name: ICTS/NCBS India AI in Biology Postdoctoral Fellowship Program (deadline March 1)
+name: ICTS/NCBS AI in Biology Postdoctoral Fellowship
 org: icts
 parent: null
 systems: []
 wires:
-  - ai
+- ai
 status: unknown
 apply_url: https://www.icts.res.in/
-summary: "📢 AI in Biology - Postdoctoral Fellowship Program The International Centre for
-  Theoretical Sciences (ICTS) in collaboration with NCBS, Bangalore, India is inviting applications.
-  Deadline: March 1, 2026"
+summary: '📢 AI in Biology - Postdoctoral Fellowship Program The International Centre for Theoretical Sciences
+  (ICTS) in collaboration with NCBS, Bangalore, India is inviting applications. Deadline: March 1, 2026'
 rounds: []
 sources:
-  - https://x.com/GipsonE/status/2027050504472375743
+- https://x.com/GipsonE/status/2027050504472375743

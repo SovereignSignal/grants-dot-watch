@@ -1,5 +1,5 @@
 id: we-re-building-grantmaking-ai-public-funding-infrastructure-
-name: We’re building grantmaking.ai - public funding infrastructure for AI safety
+name: grantmaking.ai
 org: grantmaking-ai
 parent: null
 systems: []
@@ -7,8 +7,8 @@ wires:
 - ai
 status: unknown
 apply_url: https://www.grantmaking.ai/
-summary: We’re building grantmaking.ai - public funding infrastructure for AI safety — dispatch from the
-  wire, no further detail on file.
+summary: grantmaking.ai is public funding infrastructure connecting people and projects working to reduce
+  existential risk from AI with funders and grant opportunities.
 rounds:
 - name: Rolling
   status: closed

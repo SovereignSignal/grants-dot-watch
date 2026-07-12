@@ -4,12 +4,13 @@ org: ethereum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
+- oss
 status: unknown
 apply_url: https://esp.ethereum.foundation/
-summary: "**Project Odin** embeds strategic advisors in critical open-source teams for 12 months to
-  help them develop sustainable revenue models. The Ethereum Foundation program is now accepting
-  applications. No deadline or funding amount is listed."
+summary: 'Project Odin embeds strategic advisors in critical open-source teams for 12 months to help
+  them develop sustainable revenue models. The Ethereum Foundation program is now accepting applications.
+  No deadline or funding amount is listed.'
 rounds: []
 sources:
-  - https://x.com/CornaroLabs/status/2028713660630049189
+- https://x.com/CornaroLabs/status/2028713660630049189

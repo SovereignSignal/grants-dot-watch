@@ -1,14 +1,13 @@
 id: arbitrum-open-house-london-415k-buildathon-founder-house
-name: Arbitrum Open House London — $415K Buildathon + Founder House
+name: Arbitrum Open House London
 org: arbitrum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
 apply_url: https://arbitrum.foundation/
-summary: Arbitrum Open House London — $415K Buildathon + Founder House — dispatch from the wire, no
-  further detail on file.
+summary: Arbitrum's Open House London combined a $415K buildathon with a Founder House track.
 rounds: []
 sources:
-  - https://blog.arbitrum.foundation/open-house-london-registration-is-now-open/
+- https://blog.arbitrum.foundation/open-house-london-registration-is-now-open/

@@ -6,7 +6,7 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "**Polygon Labs** has launched a bounty program to reward outstanding Polygon Improvement
+summary: "Polygon Labs has launched a bounty program to reward outstanding Polygon Improvement
   Proposal (PIP) submissions. The program incentivizes high-quality proposals that contribute to
   Polygon’s decentralized governance by offering bounties for meritorious ideas. Full details,
   including bounty amounts and submission requirements, are available in the official announcement."

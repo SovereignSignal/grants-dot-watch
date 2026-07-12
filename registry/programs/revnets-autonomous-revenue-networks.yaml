@@ -8,7 +8,7 @@ wires:
 status: unknown
 apply_url: https://revnet.eth.limo/
 summary: >-
-  **Revnets Autonomous Revenue Networks** launches a new onchain public goods funding experiment
+  Revnets Autonomous Revenue Networks launches a new onchain public goods funding experiment
   that creates perpetual project treasuries without grants committees, governance votes, or owners.
   Built on JuiceboxETH, the program enables projects to fund themselves autonomously through
   revenue-generating mechanisms onchain. 

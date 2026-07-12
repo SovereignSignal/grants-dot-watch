@@ -1,20 +1,16 @@
 id: firestarter-grant-program-arbitrum-opco-program-funding-earl
-name: Firestarter Grant Program — Arbitrum OpCo program funding early ignition work for revenue,
-  non-DeFi verticals (RWAs,
+name: Firestarter Grant Program (Arbitrum OpCo)
 org: arbitrum-foundation
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: >-
-  **Firestarter Grant Program** from Arbitrum OpCo is now accepting applications for early ignition
-  funding. The program supports revenue-generating projects in non-DeFi verticals including RWAs,
-  DePIN, and AI, as well as unification efforts or open-track proposals. 
-
-
-  It targets early-stage work that drives adoption and revenue on Arbitrum. Specific funding
-  amounts, deadlines, and detailed eligibility criteria are available on the Arbitrum forum.
+summary: "Firestarter Grant Program from Arbitrum OpCo is now accepting applications for early ignition\
+  \ funding. The program supports revenue-generating projects in non-DeFi verticals including RWAs, DePIN,\
+  \ and AI, as well as unification efforts or open-track proposals. \n\nIt targets early-stage work that\
+  \ drives adoption and revenue on Arbitrum. Specific funding amounts, deadlines, and detailed eligibility\
+  \ criteria are available on the Arbitrum forum."
 rounds: []
 sources:
-  - https://forum.arbitrum.foundation/t/firestarter-grant-program-info-application/30409
+- https://forum.arbitrum.foundation/t/firestarter-grant-program-info-application/30409

@@ -6,7 +6,7 @@ systems: []
 wires:
   - oss
 status: unknown
-summary: "**Alpha-Omega (OpenSSF) Grants** is now accepting applications for its 2025 funding round.
+summary: "Alpha-Omega (OpenSSF) Grants is now accepting applications for its 2025 funding round.
   The program awards grants of $580K and above to support critical open source security improvements
   and ecosystem projects. Recent recipients include the OpenJS Foundation ($580K), Eclipse
   Foundation ($800K), and Rust (~$695K). Total Alpha-Omega investments now exceed $14M."

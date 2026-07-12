@@ -1,21 +1,21 @@
 id: uniswap-arbitrum-grant-program
-name: Uniswap-Arbitrum Grant Program
+name: Uniswap-Arbitrum Grant Program (UAGP)
 org: arbitrum-foundation
 parent: null
 systems:
-  - arbitrum
-  - ethereum
+- arbitrum
+- ethereum
 wires:
-  - crypto
+- crypto
 status: concluded
 mechanism: grants
-summary: A concluded co-branded grant program between Uniswap and the Arbitrum Foundation, awarding
-  $50,000-$250,000 in ARB tokens to protocols, marked "Program Complete" on the Foundation's grants
-  page.
+summary: A concluded co-branded grant program between Uniswap and the Arbitrum Foundation, awarding $50,000-$250,000
+  in ARB tokens to protocols, marked "Program Complete" on the Foundation's grants page.
 rounds:
-  - name: Uniswap-Arbitrum Grant Program
-    status: closed
-    size: $50,000-$250,000 in ARB tokens
-    source: https://arbitrum.io/grants
+- name: Uniswap-Arbitrum Grant Program
+  status: closed
+  size: $50,000-$250,000 in ARB tokens
+  source: https://arbitrum.io/grants
 sources:
-  - https://arbitrum.io/grants
+- https://arbitrum.io/grants
+- https://forum.arbitrum.foundation/t/official-launch-1m-arb-uniswap-arbitrum-grant-program-uagp/19433

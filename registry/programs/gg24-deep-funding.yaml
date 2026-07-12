@@ -4,13 +4,15 @@ org: gitcoin
 parent: null
 systems: []
 wires:
-  - crypto
+- crypto
 status: unknown
-summary: Hello Model Builders, This thread is your home for submitting writeups detailing your
-  strategy for submissions in the ongoing contests and market assigning weights to open source
-  repositories valuable to Ethereum Prizes worth $10,000 will be allotted based on quality of
-  writeup, as assessed by a committee. You should view this as a valuable opportunity to get
-  feedback from the expert ML committee
-rounds: []
+summary: GG24 Deep Funding is Gitcoin's mechanism for allocating funding to open-source repositories valuable
+  to Ethereum, using model-weighted submissions reviewed by round operators and an expert committee. The
+  Web3 Tooling and Infra Round approved $350,000 for allocation under this mechanism.
+rounds:
+- name: Web3 Tooling and Infra Round
+  status: closed
+  size: $350,000
+  source: https://gov.gitcoin.co/t/deep-funding-gg24-web3-tooling-and-infra-round/25040
 sources:
-  - https://gov.gitcoin.co/t/model-submissions-gg24-deep-funding/25151
+- https://gov.gitcoin.co/t/model-submissions-gg24-deep-funding/25151

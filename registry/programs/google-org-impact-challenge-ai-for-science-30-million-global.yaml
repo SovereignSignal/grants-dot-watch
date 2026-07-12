@@ -1,6 +1,5 @@
 id: google-org-impact-challenge-ai-for-science-30-million-global
-name: 'Google.org Impact Challenge: AI for Science — $30 million global funding for nonprofits, social
-  enterprises, and'
+name: 'Google.org Impact Challenge: AI for Science'
 org: googleorg
 parent: null
 systems: []
@@ -8,7 +7,7 @@ wires:
 - ai
 status: unknown
 apply_url: https://google.org/
-summary: '**Google.org Impact Challenge: AI for Science** is offering $30 million in grants for nonprofits,
+summary: 'Google.org Impact Challenge: AI for Science is offering $30 million in grants for nonprofits,
   social enterprises, and academic institutions. The program funds AI projects that accelerate breakthroughs
   in health and life sciences or climate and environmental science, with individual grants ranging from
   $500K to $3M. Selected teams may also join the Google.org Accelerator for technical support and Cloud

@@ -3,19 +3,20 @@ name: Filecoin ProPGF
 org: filecoin-foundation
 parent: null
 systems:
-  - filecoin
+- filecoin
 wires:
-  - crypto
+- crypto
 status: active
 mechanism: grants
-summary: Proactive, milestone-based public-goods funding for core Filecoin infrastructure
-  maintenance and RFPs in Web3 Builders and Web2 Object Storage verticals, distinct from Filecoin's
-  Retroactive PGF rounds.
+summary: Proactive, milestone-based public-goods funding for core Filecoin infrastructure maintenance
+  and RFPs in Web3 Builders and Web2 Object Storage verticals, distinct from Filecoin's Retroactive PGF
+  rounds.
 rounds:
-  - name: Batch 3
-    status: closed
-    closes: 2026-06-16
-    size: reported as $2M-$4M (source figures conflict)
-    source: https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+- name: Batch 3
+  status: closed
+  closes: 2026-06-16
+  size: reported as $2M-$4M (source figures conflict)
+  source: https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
 sources:
-  - https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+- https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+- https://x.com/FilFoundation/status/2060424226209771724
