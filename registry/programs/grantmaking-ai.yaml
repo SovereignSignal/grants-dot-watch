@@ -14,7 +14,7 @@ summary: "Some AI safety funders can take months to decide; others confirm in da
   \n * Si"
 rounds:
 - name: Rolling
-  status: open
+  status: closed
   closes: 2026-07-13
   size: $5,000–1,000,000
   source: https://forum.effectivealtruism.org/posts/YfwQMLFgSe9K8Y6dg/find-funding-fast

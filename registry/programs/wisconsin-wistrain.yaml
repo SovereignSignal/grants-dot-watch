@@ -16,7 +16,7 @@ summary: >
   reviewed on a rolling basis until funds are awarded.
 rounds:
   - name: Initial funding round
-    status: open
+    status: closed
     closes: "2026-07-13"
     size: Up to $330,000 per grantee or consortium
     source: https://dwd.wisconsin.gov/wistrain/

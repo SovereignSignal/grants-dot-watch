@@ -17,7 +17,7 @@ rounds:
     closes: 2026-07-17
     source: https://retro9000.avax.network
   - name: L1s & Infrastructure Tooling snapshot
-    status: open
+    status: closed
     closes: 2026-07-14
     source: https://retro9000.avax.network
 sources:

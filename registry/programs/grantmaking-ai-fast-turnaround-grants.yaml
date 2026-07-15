@@ -10,7 +10,7 @@ apply_url: https://www.grantmaking.ai
 summary: Grantmaking.ai Fast Turnaround Grants — dispatch from the wire, no further detail on file.
 rounds:
   - name: Rolling
-    status: open
+    status: closed
     closes: 2026-07-13
     source: https://www.grantmaking.ai
 sources:

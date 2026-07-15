@@ -11,7 +11,10 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "validate": "node scripts/validate-registry.mjs"
+    "validate": "node scripts/validate-registry.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:public": "node scripts/check-public-boundary.mjs",
+    "ci": "npm run check:public && npm run validate && npm test && npm run typecheck && npm run build"
   },
   "keywords": [],
   "author": "",

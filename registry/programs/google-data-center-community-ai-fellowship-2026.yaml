@@ -11,7 +11,7 @@ summary: Google Data Center Community AI Fellowship 2026 — dispatch from the w
   on file.
 rounds:
   - name: Rolling
-    status: open
+    status: closed
     closes: 2026-07-12
     source: https://watson.is/google-data-center-community-ai-fellowship-application
 sources:

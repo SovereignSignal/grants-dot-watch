@@ -516,7 +516,7 @@ const PROFILE_NOTE_PROGRAM_ALLOWED = new Set([
 // `website: "(dead — 404 confirmed ...)"` and `status: closed` (not a valid
 // org status) onto an existing org, and the field-name check alone would
 // have waved both through.
-const ORG_STATUS_VALUES = new Set(['active', 'winding-down', 'dormant', 'unknown']);
+const ORG_STATUS_VALUES = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const ORG_TYPE_VALUES = new Set(['foundation', 'dao', 'company', 'nonprofit', 'government', 'education']);
 const ORG_ROLE_VALUES = new Set(['funder', 'grantee', 'ecosystem']);
 const PROGRAM_STATUS_VALUES = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
