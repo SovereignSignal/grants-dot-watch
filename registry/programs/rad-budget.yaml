@@ -1,12 +1,19 @@
 id: rad-budget
-name: RAD Budget
+name: Arbitrum Rewarding Active Delegates (RAD)
 org: arbitrum-foundation
 parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: RAD Budget — dispatch from the wire, no further detail on file.
+status: active
+mechanism: other
+apply_url: https://forum.arbitrum.foundation/t/rewarding-active-delegates-rad-program-application-thread/30342
+summary: Arbitrum's 2026 delegate incentive program rewards eligible delegates for voting and timely
+  public rationales. Arbitrum OpCo administers monthly rewards through December 31, 2026, with budgets
+  set by proposal type and reviewed quarterly. RAD replaced the earlier Delegate Incentive Program.
 rounds: []
 sources:
   - https://forum.arbitrum.foundation/t/rad-budget-quarterly-review-2q2026/31031
+  - https://forum.arbitrum.foundation/t/rad-kick-off-update/30487
+  - https://forum.arbitrum.foundation/t/rad-bi-annual-transparency-report-june-2026/30964
+  - https://forum.arbitrum.foundation/t/dip-v1-51a-delegate-incentive-program-results-january-2025/28494

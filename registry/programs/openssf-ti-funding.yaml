@@ -10,12 +10,16 @@ status: active
 mechanism: grants
 apply_url: https://openssf.org/about/tac/technical-initiative-funding/
 summary: >
-  The funding channel through which OpenSSF allocates resources — audits, technical writers,
-  interns, and other needs — to its technical initiatives, working groups, and projects, following a
-  defined request process with tiers up to $70k-$150k. OpenSSF recently announced $12.5M in new
-  grants from industry backers including AWS, Google, Microsoft, and OpenAI, managed with
-  Alpha-Omega, for sustainable security work on critical open source infrastructure.
+  The funding channel through which OpenSSF allocates resources for audits, technical writers,
+  interns, and other needs across its technical initiatives, working groups, and projects. Its
+  defined request process includes tiers up to $70,000-$150,000. A separate $12.5 million coalition
+  investment announced in March 2026 supplies OpenSSF and Alpha-Omega with capital for sustainable
+  open source security work; it is not a standalone public application round.
 rounds: []
 sources:
   - https://openssf.org/community/technical-initiatives/
   - https://openssf.org/about/tac/technical-initiative-funding/
+  - https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/
+  - https://www.linuxfoundation.org/press/linux-foundation-announces-12.5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security
+  - https://openssf.org/blog/2026/03/17/leading-tech-coalition-invests-12-5-million-through-openssf-and-alpha-omega-to-strengthen-open-source-security/
+  - https://aws.amazon.com/blogs/opensource/aws-and-others-invest-12-5m-to-defend-the-open-source-ecosystem-from-ai-threats/

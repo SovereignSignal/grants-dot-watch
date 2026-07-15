@@ -5,11 +5,14 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Delegate mission requests under Optimism Grants Council Season 6, including efforts to grow application
-  developers on the Superchain (e.g. onchain social games) and a continuation of subsidized smart-contract
-  audit grants for projects selected by the Grants Council.
+status: concluded
+mechanism: grants
+summary: Optimism Grants Council Season 6 funded mission requests for Superchain growth, developer
+  adoption, experimental applications, and subsidized smart-contract audits. The season concluded in
+  November 2024 after receiving 91 applications and approving 22.
 rounds: []
 sources:
 - https://gov.optimism.io/t/looking-for-sponsor-develop-onchain-social-games-that-attract-builders-to-optimism-v4/8928
 - https://gov.optimism.io/t/mission-request-subsidized-audit-grants-v2/8856
+- https://gov.optimism.io/t/superchain-grants-review-process/8758
+- https://gov.optimism.io/t/cycle-30-grants-final-roundup/9291

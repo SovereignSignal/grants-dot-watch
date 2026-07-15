@@ -1,16 +1,15 @@
 id: season-4-grants-rfg-roundup
-name: "Season 4 Grants: RFG Roundup"
+name: Optimism Season 4 Requests for Grants
 org: optimism-foundation
 parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: "Optimism has published a full roundup of its Season 4 Requests for Grants (RFG)
-  program. The RFG process introduced demand-based granting to complement the existing supply-based
-  grants, allowing the Optimism community to specify needed projects and solicit targeted proposals.
-  The post details every RFG issued during Season 4, including the specific problem statements,
-  funding amounts allocated, and projects that were ultimately approved and funded."
+status: concluded
+mechanism: rfp
+summary: Optimism's experimental demand-led grants track for Season 4. Eight requests defined work the
+  ecosystem needed across data tooling, contract interfaces, audits, RPC services, academic research,
+  token-bound accounts, and interoperability; 72 proposals produced 17 funded finalists.
 rounds: []
 sources:
   - https://gov.optimism.io/t/season-4-grants-rfg-roundup/6859

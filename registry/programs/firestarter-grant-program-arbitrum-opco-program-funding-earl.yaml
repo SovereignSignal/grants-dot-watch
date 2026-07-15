@@ -5,12 +5,13 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: "Firestarter Grant Program from Arbitrum OpCo is now accepting applications for early ignition\
-  \ funding. The program supports revenue-generating projects in non-DeFi verticals including RWAs, DePIN,\
-  \ and AI, as well as unification efforts or open-track proposals. \n\nIt targets early-stage work that\
-  \ drives adoption and revenue on Arbitrum. Specific funding amounts, deadlines, and detailed eligibility\
-  \ criteria are available on the Arbitrum forum."
+status: active
+mechanism: grants
+apply_url: https://form.typeform.com/to/cmQPnAIR
+summary: Rolling Arbitrum OpCo grants for feasibility research and groundwork that can lead to larger
+  DAO initiatives. The $50,000 fund offers up to $10,000 per grant across revenue, non-DeFi builder
+  support, ecosystem unification, and open-track work.
 rounds: []
 sources:
 - https://forum.arbitrum.foundation/t/firestarter-grant-program-info-application/30409
+- https://forum.arbitrum.foundation/t/firestarters-february-monthly-update/30586

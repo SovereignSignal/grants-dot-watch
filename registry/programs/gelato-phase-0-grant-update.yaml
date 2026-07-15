@@ -1,15 +1,16 @@
 id: gelato-phase-0-grant-update
-name: Gelato Phase 0 Grant Update
+name: Gelato x Optimism Builder Bounties
 org: optimism-foundation
 parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: "Gelato has published a Phase 0 grant update after receiving its Optimism tokens. The
-  team shares progress on its initial Cycle-1 proposal, which passed governance at
-  https://gov.optimism.io/t/gf-phase-0-proposal-gelato/873. The update details work completed since
-  the grant award and outlines next steps for the Gelato ecosystem on Optimism."
+status: concluded
+mechanism: prize
+summary: A 50,000 OP builder-bounty pool for projects integrating Gelato and Optimism. The program
+  was funded from Gelato's 300,000 OP Phase 0 allocation, which also subsidized executor fees for
+  applications operating on Optimism.
 rounds: []
 sources:
   - https://gov.optimism.io/t/gelato-phase-0-grant-update/4613
+  - https://gov.optimism.io/t/gf-phase-0-proposal-gelato/873

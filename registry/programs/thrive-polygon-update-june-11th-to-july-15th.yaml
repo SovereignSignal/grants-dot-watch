@@ -1,15 +1,20 @@
 id: thrive-polygon-update-june-11th-to-july-15th
-name: "Thrive Polygon Update: June 11th to July 15th 🚀"
+name: Thrive Polygon Consumer Crypto Grants Season 1
 org: polygon
 parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: "Season 1 Thrive Polygon Kickoff :tada: Greetings everyone! On June 11th, we proudly
-  launched https://thrive.polygon.technology/ Thrive Polygon 's Consumer Crypto Grants Program for
-  builders on Polygon. Partnering with Polygon's Community Treasury Board, Thrive Protocol is
-  distributing $800,000 in..."
-rounds: []
+status: concluded
+mechanism: grants
+summary: Polygon Community Treasury grants administered by Thrive Protocol for consumer crypto
+  builders across eight categories. Season 1 offered $800,000 in MATIC, received 255 applications,
+  and selected 25 projects.
+rounds:
+  - name: Season 1
+    status: closed
+    closes: 2024-07-01
+    size: $800,000 in MATIC
+    source: https://forum.polygon.technology/t/thrive-polygon-update-june-11th-to-july-15th/18370
 sources:
   - https://forum.polygon.technology/t/thrive-polygon-update-june-11th-to-july-15th/18370
