@@ -9,11 +9,16 @@ import { timelineOrder } from '@/components/ledger/rounds';
 import { RoundRow } from '@/components/programs/round-row';
 import { isClosingSoon, monthYearShort } from '@/components/programs/date-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
+import { pageMetadata } from '@/lib/site-metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const program = getProgram(id);
-  return { title: program?.name || 'Program' };
+  return pageMetadata(
+    `/programs/${id}`,
+    program?.name || 'Program',
+    program?.summary || 'Funding program profile on grants.watch.'
+  );
 }
 
 export default async function ProgramPage({ params }: { params: Promise<{ id: string }> }) {

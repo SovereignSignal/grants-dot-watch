@@ -23,6 +23,10 @@ const HREF: Record<ItemType, (id: string) => string> = {
 
 const MAX_RESULTS = 8;
 
+function optionId(item: SearchIndexItem): string {
+  return `search-option-${item.t}-${item.id}`;
+}
+
 /** 0 = no match, higher = better. */
 function matchTier(text: string, q: string): number {
   if (!text) return 0;
@@ -190,6 +194,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           aria-expanded={panelOpen}
           aria-controls="search-results"
           aria-autocomplete="list"
+          aria-activedescendant={panelOpen && activeIndex >= 0 ? optionId(flatResults[activeIndex]) : undefined}
           aria-label="Search the register"
         />
       </div>
@@ -213,6 +218,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
                   return (
                     <button
                       key={`${item.t}-${item.id}`}
+                      id={optionId(item)}
                       type="button"
                       role="option"
                       aria-selected={active}

@@ -9,8 +9,13 @@ import { FilterRow, FilterLink, ActiveFilterLink } from '@/components/ui-filters
 import { ProgramsTabs, type ProgramsView } from '@/components/programs/tabs';
 import { DeparturesBoard } from '@/components/programs/departures-board';
 import { CadenceChart } from '@/components/programs/cadence-chart';
+import { pageMetadata } from '@/lib/site-metadata';
 
-export const metadata: Metadata = { title: 'Programs' };
+export const metadata: Metadata = pageMetadata(
+  '/programs',
+  'Programs',
+  'Track open calls, deadlines, and funding cadence across every program in the registry.'
+);
 
 const STATUS_ORDER = ['active', 'announced', 'paused', 'concluded', 'unknown'];
 const MECHANISM_ORDER = ['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other'];

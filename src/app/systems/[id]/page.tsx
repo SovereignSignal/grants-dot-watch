@@ -7,11 +7,12 @@ import { money, dateShort, WIRE_LABEL } from '@/lib/format';
 import { systemKindLabel, orgStatusLabel, mechanismLabel, mostLiveRound } from '@/components/browse/registry-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { Dossier, FactSep } from '@/components/browse/dossier';
+import { pageMetadata } from '@/lib/site-metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const s = getSystem(id);
-  return { title: s ? s.name : 'System' };
+  return pageMetadata(`/systems/${id}`, s ? s.name : 'System', s?.summary || 'Funding system profile on grants.watch.');
 }
 
 export default async function SystemPage({ params }: { params: Promise<{ id: string }> }) {

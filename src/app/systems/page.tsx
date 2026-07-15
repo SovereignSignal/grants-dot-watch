@@ -4,8 +4,13 @@ import { loadRegistry } from '@/lib/registry';
 import { PageHeader, Empty } from '@/components/ui';
 import { systemKindLabel } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL } from '@/lib/format';
+import { pageMetadata } from '@/lib/site-metadata';
 
-export const metadata: Metadata = { title: 'Systems' };
+export const metadata: Metadata = pageMetadata(
+  '/systems',
+  'Systems',
+  'Browse funding ecosystems and domains across crypto, AI, and open source.'
+);
 
 export default function SystemsPage() {
   const { systems, bySystem } = loadRegistry();

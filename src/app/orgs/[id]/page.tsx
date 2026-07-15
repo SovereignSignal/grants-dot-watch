@@ -7,11 +7,12 @@ import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { Dossier, FactSep, FactsPanel } from '@/components/browse/dossier';
 import { SourceCitations, SourcesList } from '@/components/browse/sources';
 import { CadenceLane, type CadenceRow } from '@/components/browse/cadence-lane';
+import { pageMetadata } from '@/lib/site-metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const o = getOrg(id);
-  return { title: o ? o.name : 'Organization' };
+  return pageMetadata(`/orgs/${id}`, o ? o.name : 'Organization', o?.profile || 'Funding organization profile on grants.watch.');
 }
 
 const SOCIAL_LABEL: Record<string, string> = { x: 'X', github: 'GitHub', forum: 'Forum', discord: 'Discord', telegram: 'Telegram' };

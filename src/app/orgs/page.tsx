@@ -6,16 +6,34 @@ import { OrgFilterBar, type OrgFilterState } from '@/components/browse/filters';
 import { ORG_ROLE_LABEL, ORG_STATUS_LABEL, orgTypeLabel } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL, dateShort } from '@/lib/format';
 import type { Org, Wire } from '@/lib/types';
+import { paginate, paginationItems, parsePage } from '@/lib/pagination';
+import { pageMetadata } from '@/lib/site-metadata';
 
-export const metadata: Metadata = { title: 'Organizations' };
+export const metadata: Metadata = pageMetadata(
+  '/orgs',
+  'Organizations',
+  'Browse funding organizations across crypto, AI, and open source.'
+);
 
 const ROLE_OPTIONS: Org['roles'][number][] = ['funder', 'grantee', 'ecosystem'];
 const WIRE_OPTIONS: Wire[] = ['crypto', 'ai', 'oss'];
-const STATUS_OPTIONS: Org['status'][] = ['active', 'winding-down', 'dormant', 'unknown'];
-const CAP = 200;
+const STATUS_OPTIONS: Org['status'][] = ['active', 'winding-down', 'dormant', 'dead', 'unknown'];
+const PAGE_SIZE = 50;
 
 function first(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;
+}
+
+function pageHref(current: OrgFilterState, page: number): string {
+  const params = new URLSearchParams();
+  if (current.role) params.set('role', current.role);
+  if (current.wire) params.set('wire', current.wire);
+  if (current.system) params.set('system', current.system);
+  if (current.status) params.set('status', current.status);
+  if (current.q) params.set('q', current.q);
+  if (page > 1) params.set('page', String(page));
+  const query = params.toString();
+  return query ? `/orgs?${query}` : '/orgs';
 }
 
 export default async function OrgsPage({
@@ -51,8 +69,8 @@ export default async function OrgsPage({
     return sb - sa || a.name.localeCompare(b.name);
   });
 
-  const total = sorted.length;
-  const rows = sorted.slice(0, CAP);
+  const page = paginate(sorted, parsePage(first(sp.page)), PAGE_SIZE);
+  const rows = page.items;
 
   const systemOptions = registry.systems
     .filter((s) => (registry.bySystem.get(s.id)?.orgs.length || 0) > 0)
@@ -70,17 +88,16 @@ export default async function OrgsPage({
       />
       <div className="mx-auto max-w-6xl px-4 pb-16">
         <div className="coord border-b border-line py-3">
-          {total === 0
+          {page.total === 0
             ? 'no organizations match'
-            : total > CAP
-              ? `showing ${CAP} of ${total}, refine your filters`
-              : `${total} organization${total === 1 ? '' : 's'} on file`}
+            : `showing ${page.start}-${page.end} of ${page.total} · page ${page.page} of ${page.totalPages}`}
         </div>
-        {total === 0 ? (
+        {page.total === 0 ? (
           <Empty>No organizations match these filters.</Empty>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[880px] text-sm">
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[880px] text-sm">
               <thead>
                 <tr className="border-b-[1.5px] border-paper text-left">
                   <th className="coord py-2.5 pr-4 font-normal">Name</th>
@@ -143,8 +160,49 @@ export default async function OrgsPage({
                   );
                 })}
               </tbody>
-            </table>
-          </div>
+              </table>
+            </div>
+            {page.totalPages > 1 && (
+              <nav aria-label="Organization pages" className="coord flex flex-wrap items-center justify-between gap-4 border-t border-line py-4">
+                <Link
+                  href={pageHref(current, page.page - 1)}
+                  aria-disabled={page.page === 1}
+                  className={page.page === 1 ? 'pointer-events-none text-faint' : 'text-dim hover:text-paper'}
+                >
+                  ← Previous
+                </Link>
+                <div className="flex flex-wrap items-center justify-center gap-1">
+                  {paginationItems(page.page, page.totalPages).map((item, index) =>
+                    item === 'ellipsis' ? (
+                      <span key={`ellipsis-${index}`} aria-hidden className="inline-flex size-8 items-center justify-center text-faint">
+                        ...
+                      </span>
+                    ) : (
+                      <Link
+                        key={item}
+                        href={pageHref(current, item)}
+                        aria-current={item === page.page ? 'page' : undefined}
+                        className={`inline-flex size-8 items-center justify-center border transition-colors ${
+                          item === page.page
+                            ? 'border-paper bg-paper text-void'
+                            : 'border-line text-dim hover:border-paper hover:text-paper'
+                        }`}
+                      >
+                        {item}
+                      </Link>
+                    )
+                  )}
+                </div>
+                <Link
+                  href={pageHref(current, page.page + 1)}
+                  aria-disabled={page.page === page.totalPages}
+                  className={page.page === page.totalPages ? 'pointer-events-none text-faint' : 'text-dim hover:text-paper'}
+                >
+                  Next →
+                </Link>
+              </nav>
+            )}
+          </>
         )}
       </div>
     </>

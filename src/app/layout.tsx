@@ -13,12 +13,29 @@ import ThemeToggle from '@/components/theme-toggle';
 import { loadRegistry } from '@/lib/registry';
 import { WIRE_LABEL, dateLong, editionCode } from '@/lib/format';
 import type { Wire } from '@/lib/types';
+import { publicSiteOrigin } from '@/lib/site-metadata';
 
 export const dynamic = 'force-dynamic';
 
+const SITE_DESCRIPTION = 'The registry of the funding world: systems, organizations, and programs across crypto, AI, and open source.';
+const siteOrigin = publicSiteOrigin();
+
 export const metadata: Metadata = {
+  ...(siteOrigin ? { metadataBase: siteOrigin, alternates: { canonical: new URL('/', siteOrigin) } } : {}),
   title: { default: 'grants.watch', template: '%s · grants.watch' },
-  description: 'The registry of the funding world: systems, organizations, and programs across crypto, AI, and open source.',
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: 'website',
+    siteName: 'grants.watch',
+    title: 'grants.watch',
+    description: SITE_DESCRIPTION,
+    ...(siteOrigin ? { url: siteOrigin } : {}),
+  },
+  twitter: {
+    card: 'summary',
+    title: 'grants.watch',
+    description: SITE_DESCRIPTION,
+  },
 };
 
 // Pre-paint theme script — reads the stored choice (or prefers-color-scheme
