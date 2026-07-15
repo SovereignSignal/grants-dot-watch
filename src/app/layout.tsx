@@ -14,6 +14,8 @@ import { loadRegistry } from '@/lib/registry';
 import { WIRE_LABEL, dateLong, editionCode } from '@/lib/format';
 import type { Wire } from '@/lib/types';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: { default: 'grants.watch', template: '%s · grants.watch' },
   description: 'The registry of the funding world: systems, organizations, and programs across crypto, AI, and open source.',
@@ -27,16 +29,16 @@ export const metadata: Metadata = {
 const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('gw-theme');if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(s==='light'){document.documentElement.setAttribute('data-theme','light');}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`;
 
 const NAV = [
-  { href: '/programs', label: 'Now Open' },
-  { href: '/systems', label: 'Systems' },
-  { href: '/orgs', label: 'Organizations' },
-  { href: '/admin/desk', label: 'The Desk' },
+  { href: '/programs', label: 'Now Open', shortLabel: 'Open' },
+  { href: '/systems', label: 'Systems', shortLabel: 'Systems' },
+  { href: '/orgs', label: 'Organizations', shortLabel: 'Orgs' },
+  { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk' },
 ];
 
 const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const { counts, loadedAt } = loadRegistry();
+  const { counts, updatedAt } = loadRegistry();
 
   return (
     <html lang="en">
@@ -56,11 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   The Registry of the Funding World
                 </span>
               </Link>
-              <div className="flex w-full items-center gap-4 md:w-auto md:gap-6">
-                <nav aria-label="Primary" className="coord no-scrollbar flex min-w-0 flex-1 gap-5 overflow-x-auto md:flex-initial md:gap-7">
+              <div className="flex w-full items-center justify-between gap-2 md:w-auto md:gap-6">
+                <nav aria-label="Primary" className="coord flex items-center gap-2 sm:gap-5 md:gap-7">
                   {NAV.map((n) => (
                     <Link key={n.href} href={n.href} className="whitespace-nowrap transition-colors hover:text-paper">
-                      {n.label}
+                      <span className="sm:hidden">{n.shortLabel}</span>
+                      <span className="hidden sm:inline">{n.label}</span>
                     </Link>
                   ))}
                 </nav>
@@ -71,11 +74,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="rule-heavy" />
             <div className="flex flex-col gap-1 border-b border-line py-2 text-[11px] uppercase tracking-[.07em] text-faint sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <span>
-                Registry as of <b className="font-bold text-dim">{dateLong(loadedAt)}</b> · {counts.orgs.toLocaleString()}{' '}
-                organizations tracked
+                Registry updated <b className="font-bold text-dim">{dateLong(updatedAt)}</b> · {counts.orgs.toLocaleString()} organizations
               </span>
-              <span>
-                <b className="font-bold text-dim">Edition {editionCode(loadedAt)}</b>{' '}
+              <span className="hidden sm:inline">
+                <b className="font-bold text-dim">Edition {editionCode(updatedAt)}</b>{' '}
                 · Sourced &amp; linked, updated continuously
               </span>
             </div>

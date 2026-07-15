@@ -27,7 +27,6 @@ const DEFAULT_REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const TRAILERS = [
   'Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>',
-  'Claude-Session: https://claude.ai/code/session_01Vi8zyJH5buofwRqv3fLQdL',
 ];
 
 function parseArgs(argv) {

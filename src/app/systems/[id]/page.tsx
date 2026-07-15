@@ -8,10 +8,6 @@ import { systemKindLabel, orgStatusLabel, mechanismLabel, mostLiveRound } from '
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { Dossier, FactSep } from '@/components/browse/dossier';
 
-export function generateStaticParams() {
-  return loadRegistry().systems.map((s) => ({ id: s.id }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const s = getSystem(id);

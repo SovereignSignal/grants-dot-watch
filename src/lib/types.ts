@@ -103,6 +103,7 @@ export interface RegistryIndex {
   orgStats: Map<string, OrgStats>;
   bySystem: Map<string, { orgs: Org[]; programs: Program[] }>;
   loadedAt: string;
+  updatedAt: string;
   counts: { systems: number; orgs: number; funders: number; programs: number; awards: number; grantees: number };
 }
 
@@ -145,8 +146,9 @@ export interface Proposal {
   signal_id?: number | string;
   wire?: Wire | null;
   lane: 'judgment' | 'fact';
-  state: 'pending' | 'approved' | 'rejected';
+  state: 'pending' | 'applying' | 'approved' | 'rejected';
   created_at: string;
+  applying_at?: string;
   decided_at?: string;
   decision_note?: string;
   /** Set by validation-runner.ts on a FAIL — cleared implicitly once the

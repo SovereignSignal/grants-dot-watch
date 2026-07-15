@@ -10,11 +10,6 @@ import { RoundRow } from '@/components/programs/round-row';
 import { isClosingSoon, monthYearShort } from '@/components/programs/date-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 
-export async function generateStaticParams() {
-  const { programs } = loadRegistry();
-  return programs.map((p) => ({ id: p.id }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const program = getProgram(id);

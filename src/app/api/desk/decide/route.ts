@@ -1,5 +1,5 @@
 import { applyProposal, commitChange, commitMessageFor } from '@/lib/committer';
-import { getProposal, recordVerdict } from '@/lib/desk-store';
+import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from '@/lib/desk-store';
 import { checkAuth, unauthorized } from '../lib';
 
 export const runtime = 'nodejs';
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     return Response.json({ error: 'id and decision (approved|rejected) are required' }, { status: 400 });
   }
 
-  const proposal = await getProposal(id);
+  let proposal = await getProposal(id);
   if (!proposal) return Response.json({ error: 'not found' }, { status: 404 });
   if (proposal.state !== 'pending') return Response.json({ error: 'already decided' }, { status: 409 });
 
@@ -35,6 +35,9 @@ export async function POST(req: Request) {
   let mergedNote = note;
 
   if (decision === 'approved') {
+    const claimed = await claimProposal(id);
+    if (!claimed) return Response.json({ error: 'already claimed or decided' }, { status: 409 });
+    proposal = claimed;
     try {
       const { changes, notes } = applyProposal(proposal);
       if (changes.length > 0) {
@@ -42,10 +45,15 @@ export async function POST(req: Request) {
       }
       if (notes.length) mergedNote = [note, ...notes].filter(Boolean).join(' | ');
     } catch (e) {
+      await releaseProposalClaim(id);
       return Response.json({ error: e instanceof Error ? e.message : 'apply failed' }, { status: 500 });
     }
   }
 
-  const { proposal: updated, verdict } = await recordVerdict(id, decision, { note: mergedNote, commit });
+  const { proposal: updated, verdict } = await recordVerdict(id, decision, {
+    note: mergedNote,
+    commit,
+    from: decision === 'approved' ? 'applying' : 'pending',
+  });
   return Response.json({ ok: true, commit, proposal: updated, verdict });
 }

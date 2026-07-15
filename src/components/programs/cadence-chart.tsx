@@ -56,6 +56,17 @@ function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
   return out;
 }
 
+function cadenceFallback(program: Program, year: number): { label: string; rolling: boolean } {
+  const rounds = program.rounds || [];
+  const rolling = rounds.some(
+    (round) => !round.opens && !round.closes && (round.status === 'open' || round.status === 'announced')
+  );
+  if (rolling) return { label: 'Rolling intake', rolling: true };
+  if (rounds.length === 0) return { label: 'No cadence on file', rolling: false };
+  if (rounds.some((round) => round.opens || round.closes)) return { label: `No ${year} dates`, rolling: false };
+  return { label: 'No dates on file', rolling: false };
+}
+
 /** Tab 2: the year-at-a-glance chart. Programs grouped under small-caps
  *  system headings, each a 12-month lane; rounds plotted as marks in wire
  *  hue, faded once past. `programs`/`orgs`/`systems` are the page's already
@@ -91,8 +102,9 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
     });
 
   return (
-    <div className="pt-5">
-      <div className="flex items-end border-b-[1.5px] border-paper pb-1">
+    <div className="overflow-x-auto pt-5">
+      <div className="min-w-[880px]">
+        <div className="flex items-end border-b-[1.5px] border-paper pb-1">
         <div style={{ width: LABEL_W }} className="shrink-0" />
         <div className="relative h-6 flex-1">
           {MONTH_LABELS.map((m, i) => (
@@ -107,9 +119,9 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
             ◆ Today: {monthDayShort(todayStr)}
           </span>
         </div>
-      </div>
+        </div>
 
-      <div className="relative">
+        <div className="relative">
         <div aria-hidden className="pointer-events-none absolute inset-y-0 z-0" style={{ left: LABEL_W, right: 0 }}>
           {MONTH_LABELS.map((m, i) => (
             <span key={m} className="absolute inset-y-0 w-px bg-line" style={{ left: `${monthTickPercent(i, year)}%` }} />
@@ -133,6 +145,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
               const wire = (p.wires || [])[0] || null;
               const wireColor = wire ? WIRE_COLOR[wire] : 'var(--color-faint)';
               const marks = plotRounds(p, year, todayStr);
+              const fallback = cadenceFallback(p, year);
               return (
                 <div key={p.id} className="flex items-center border-b border-line py-1.5">
                   <Link href={`/programs/${p.id}`} className="shrink-0 pr-4 hover:opacity-70" style={{ width: LABEL_W }}>
@@ -142,13 +155,15 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
                   <div className="relative h-7 flex-1">
                     {marks.length === 0 ? (
                       <>
-                        <span
-                          aria-hidden
-                          className="absolute top-1/2 right-0 left-0 -translate-y-1/2 border-t-[1.5px] border-dashed opacity-30"
-                          style={{ borderColor: wireColor }}
-                        />
+                        {fallback.rolling && (
+                          <span
+                            aria-hidden
+                            className="absolute top-1/2 right-0 left-0 -translate-y-1/2 border-t-[1.5px] border-dashed opacity-30"
+                            style={{ borderColor: wireColor }}
+                          />
+                        )}
                         <span className="coord absolute top-1/2 left-[44%] -translate-y-1/2 bg-void px-2 text-faint italic">
-                          rolling, by engagement
+                          {fallback.label}
                         </span>
                       </>
                     ) : (
@@ -190,9 +205,9 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
             })}
           </div>
         ))}
-      </div>
+        </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[2.5px] border-paper pt-3">
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[2.5px] border-paper pt-3">
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block size-[6px] rotate-45 bg-paper" />
           Round mark: full color is open or ahead of today, faded is past
@@ -203,8 +218,9 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
         </span>
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block w-4 border-t-[1.5px] border-dashed border-faint" />
-          Rolling intake, by engagement
+          Rolling intake
         </span>
+        </div>
       </div>
     </div>
   );

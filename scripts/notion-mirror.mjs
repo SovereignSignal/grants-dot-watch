@@ -12,7 +12,7 @@
 //   --create-new     also create rows for funders not yet in the CRM
 //                    (omit to update existing rows only)
 //
-// Env: NOTION_TOKEN (or reads the vault secret), NOTION_ORGS_DB (defaults set).
+// Env: NOTION_TOKEN, NOTION_ORGS_DB, GRANTS_WATCH_PUBLIC_URL.
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -20,11 +20,16 @@ import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DB = process.env.NOTION_ORGS_DB || '301000c0d59081c48435c6db7782db12';
-const SITE = 'https://grants-dot-watch-production-8b58.up.railway.app';
-const TOKEN =
-  process.env.NOTION_TOKEN ||
-  readFileSync('/Users/home/Documents/Sovereign Signal/workstreams/grant-wires/.secrets/notion_token', 'utf8').trim();
+
+function requiredEnv(name) {
+  const value = process.env[name]?.trim();
+  if (!value) throw new Error(`${name} is required`);
+  return value;
+}
+
+const DB = requiredEnv('NOTION_ORGS_DB');
+const SITE = requiredEnv('GRANTS_WATCH_PUBLIC_URL').replace(/\/$/, '');
+const TOKEN = requiredEnv('NOTION_TOKEN');
 
 const args = new Set(process.argv.slice(2));
 const EXECUTE = args.has('--execute');

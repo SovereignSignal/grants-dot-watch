@@ -493,15 +493,17 @@ async function queueCountsLocal(): Promise<{ pendingJudgment: number; pendingFac
 async function recordVerdictLocal(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   const store = readLocalStore();
   const idx = store.proposals.findIndex((p) => p.id === id);
   if (idx === -1) throw new Error(`proposal not found: ${id}`);
-  if (store.proposals[idx].state !== 'pending') throw new Error(`proposal ${id} already decided`);
+  const expectedState = opts?.from ?? 'pending';
+  if (store.proposals[idx].state !== expectedState) throw new Error(`proposal ${id} is no longer ${expectedState}`);
 
   const at = new Date().toISOString();
-  const proposal: Proposal = { ...store.proposals[idx], state: decision, decided_at: at, decision_note: opts?.note };
+  const { applying_at: _applyingAt, ...current } = store.proposals[idx];
+  const proposal: Proposal = { ...current, state: decision, decided_at: at, decision_note: opts?.note };
   store.proposals[idx] = proposal;
   const verdict: Verdict = {
     proposal_id: id,
@@ -523,9 +525,29 @@ async function recordVerdictLocal(
 async function setProposalValidationLocal(id: string, validation: Proposal['validation']): Promise<void> {
   const store = readLocalStore();
   const idx = store.proposals.findIndex((p) => p.id === id);
-  if (idx === -1) return;
+  if (idx === -1 || store.proposals[idx].state !== 'pending') return;
   store.proposals[idx] = { ...store.proposals[idx], validation };
   writeLocalStore(store);
+}
+
+async function claimProposalLocal(id: string): Promise<Proposal | null> {
+  const store = readLocalStore();
+  const idx = store.proposals.findIndex((p) => p.id === id);
+  if (idx === -1 || store.proposals[idx].state !== 'pending') return null;
+  const proposal: Proposal = { ...store.proposals[idx], state: 'applying', applying_at: new Date().toISOString() };
+  store.proposals[idx] = proposal;
+  writeLocalStore(store);
+  return proposal;
+}
+
+async function releaseProposalClaimLocal(id: string, validation?: Proposal['validation']): Promise<boolean> {
+  const store = readLocalStore();
+  const idx = store.proposals.findIndex((p) => p.id === id);
+  if (idx === -1 || store.proposals[idx].state !== 'applying') return false;
+  const { applying_at: _applyingAt, ...current } = store.proposals[idx];
+  store.proposals[idx] = { ...current, state: 'pending', ...(validation ? { validation } : {}) };
+  writeLocalStore(store);
+  return true;
 }
 
 // ============================================================
@@ -697,7 +719,7 @@ async function queueCountsPg(): Promise<{ pendingJudgment: number; pendingFact: 
 async function recordVerdictPg(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   await ensureSchema();
   const db = getPool();
@@ -706,10 +728,12 @@ async function recordVerdictPg(
     await client.query('BEGIN');
     const { rows } = await client.query('SELECT data, state FROM desk_proposals WHERE id = $1 FOR UPDATE', [id]);
     if (rows.length === 0) throw new Error(`proposal not found: ${id}`);
-    if (rows[0].state !== 'pending') throw new Error(`proposal ${id} already decided`);
+    const expectedState = opts?.from ?? 'pending';
+    if (rows[0].state !== expectedState) throw new Error(`proposal ${id} is no longer ${expectedState}`);
 
     const at = new Date().toISOString();
-    const proposal: Proposal = { ...(rows[0].data as Proposal), state: decision, decided_at: at, decision_note: opts?.note };
+    const { applying_at: _applyingAt, ...current } = rows[0].data as Proposal;
+    const proposal: Proposal = { ...current, state: decision, decided_at: at, decision_note: opts?.note };
     await client.query('UPDATE desk_proposals SET data = $2, state = $3 WHERE id = $1', [id, proposal, decision]);
     const verdict: Verdict = {
       proposal_id: id,
@@ -734,10 +758,41 @@ async function recordVerdictPg(
 async function setProposalValidationPg(id: string, validation: Proposal['validation']): Promise<void> {
   await ensureSchema();
   const db = getPool();
-  const { rows } = await db.query('SELECT data FROM desk_proposals WHERE id = $1', [id]);
-  if (rows.length === 0) return;
-  const proposal: Proposal = { ...(rows[0].data as Proposal), validation };
-  await db.query('UPDATE desk_proposals SET data = $2 WHERE id = $1', [id, proposal]);
+  await db.query(
+    `UPDATE desk_proposals
+       SET data = data || $2::jsonb
+     WHERE id = $1 AND state = 'pending'`,
+    [id, JSON.stringify({ validation })]
+  );
+}
+
+async function claimProposalPg(id: string): Promise<Proposal | null> {
+  await ensureSchema();
+  const db = getPool();
+  const applyingAt = new Date().toISOString();
+  const { rows } = await db.query(
+    `UPDATE desk_proposals
+       SET state = 'applying',
+           data = data || $2::jsonb
+     WHERE id = $1 AND state = 'pending'
+     RETURNING data`,
+    [id, JSON.stringify({ state: 'applying', applying_at: applyingAt })]
+  );
+  return (rows[0]?.data as Proposal | undefined) ?? null;
+}
+
+async function releaseProposalClaimPg(id: string, validation?: Proposal['validation']): Promise<boolean> {
+  await ensureSchema();
+  const db = getPool();
+  const patch = { state: 'pending', ...(validation ? { validation } : {}) };
+  const { rowCount } = await db.query(
+    `UPDATE desk_proposals
+       SET state = 'pending',
+           data = (data - 'applying_at') || $2::jsonb
+     WHERE id = $1 AND state = 'applying'`,
+    [id, JSON.stringify(patch)]
+  );
+  return (rowCount ?? 0) > 0;
 }
 
 // ============================================================
@@ -776,7 +831,7 @@ export async function queueCounts(): Promise<{ pendingJudgment: number; pendingF
 export async function recordVerdict(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner' }
+  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   return DATABASE_URL ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
 }
@@ -786,6 +841,16 @@ export async function recordVerdict(
  *  missing proposal; a run racing a manual decision just no-ops. */
 export async function setProposalValidation(id: string, validation: Proposal['validation']): Promise<void> {
   return DATABASE_URL ? setProposalValidationPg(id, validation) : setProposalValidationLocal(id, validation);
+}
+
+/** Atomically owns a pending proposal before any registry write. */
+export async function claimProposal(id: string): Promise<Proposal | null> {
+  return DATABASE_URL ? claimProposalPg(id) : claimProposalLocal(id);
+}
+
+/** Returns an owned proposal to the queue when no registry write landed. */
+export async function releaseProposalClaim(id: string, validation?: Proposal['validation']): Promise<boolean> {
+  return DATABASE_URL ? releaseProposalClaimPg(id, validation) : releaseProposalClaimLocal(id, validation);
 }
 
 // ---- durable applied-changes ledger ----

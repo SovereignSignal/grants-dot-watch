@@ -20,15 +20,13 @@ import {
 import { loadRegistry } from './registry';
 import { runValidation } from './validation-runner';
 import type { Org, Program, Round, Wire } from './types';
+import { buildNewProgramSourceFields } from './ingest-policy';
 
 const WIRE_DATABASE_URL = process.env.WIRE_DATABASE_URL;
 // NOT https://discuss.watch/api/v1/grants — verified live (2026-07-11) that the bare
 // apex domain 302s to Squarespace, which redirects the WHOLE domain (path dropped) to
 // https://www.discuss.watch/, the marketing homepage. The `www` host is the actual
-// Next.js app and preserves the path; wire-room-ops's own default (src/config/index.ts)
-// bypasses the custom domain entirely and hits the Railway origin
-// (discuss-dot-watch-production.up.railway.app) for the same reason. No auth/API key
-// needed either way — verified against both hosts with no credentials.
+// Next.js app and preserves the path. No auth or API key is required.
 const DISCUSS_WATCH_GRANTS_URL = process.env.DISCUSS_WATCH_GRANTS_URL || 'https://www.discuss.watch/api/v1/grants';
 
 const WIRE_STATUS_FILTER = ['approved', 'queued'];
@@ -346,6 +344,7 @@ function decide(input: {
   org: Org | null;
   orgNameCandidate: string | null;
   orgWebsiteGuess: string | null;
+  programApplyUrl: string | null;
   programNameCandidate: string | null;
   deadline: string | null;
   amount: string | null;
@@ -389,14 +388,18 @@ function decide(input: {
     if (programNameCandidate && programNameCandidate.trim().length >= 3) {
       const slug = slugify(programNameCandidate);
       if (!slug) return DROPPED;
-      const payload: Record<string, unknown> = { id: slug, name: programNameCandidate, org: org.id };
-      if (input.orgWebsiteGuess) payload.apply_url = input.orgWebsiteGuess;
-      else if (deadline) payload.apply_url = evidenceUrl;
-      if (deadline) {
-        const round: Record<string, unknown> = { name: 'Rolling', status: 'open', closes: deadline, source: evidenceUrl };
-        if (amount) round.size = amount;
-        payload.rounds = [round];
-      }
+      const payload: Record<string, unknown> = {
+        id: slug,
+        name: programNameCandidate,
+        org: org.id,
+        ...buildNewProgramSourceFields({
+          orgWebsite: input.orgWebsiteGuess,
+          applicationUrl: input.programApplyUrl,
+          evidenceUrl,
+          deadline,
+          amount,
+        }),
+      };
       return {
         dropped: false,
         candidate: {
@@ -477,6 +480,7 @@ function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
     org,
     orgNameCandidate: row.org_id != null ? row.org_name : null,
     orgWebsiteGuess: row.org_website || null,
+    programApplyUrl: null,
     programNameCandidate,
     deadline,
     amount,
@@ -510,7 +514,8 @@ function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
   return decide({
     org,
     orgNameCandidate,
-    orgWebsiteGuess: item.applyUrl || null,
+    orgWebsiteGuess: null,
+    programApplyUrl: item.applyUrl || null,
     programNameCandidate,
     deadline,
     amount,

@@ -8,10 +8,6 @@ import { Dossier, FactSep, FactsPanel } from '@/components/browse/dossier';
 import { SourceCitations, SourcesList } from '@/components/browse/sources';
 import { CadenceLane, type CadenceRow } from '@/components/browse/cadence-lane';
 
-export function generateStaticParams() {
-  return loadRegistry().orgs.map((o) => ({ id: o.id }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const o = getOrg(id);

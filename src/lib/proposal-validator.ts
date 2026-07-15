@@ -9,6 +9,7 @@ import { join } from 'node:path';
 import { buildProposalChanges } from './committer';
 import { getOrg, loadRegistry } from './registry';
 import type { Org, Proposal } from './types';
+import { neverAutoReasonFor } from './machine-approval-policy';
 
 const REPO_ROOT = process.cwd();
 const REGISTRY = join(REPO_ROOT, 'registry');
@@ -285,11 +286,20 @@ async function validateNewOrg(p: Proposal): Promise<ValidationResult> {
   const checks: CheckResult[] = [];
   const pc = (p.proposed_change || {}) as Record<string, unknown>;
   const orgEntries = Object.entries(pc).filter(([k]) => /^orgs\/(.+)\.yaml$/.test(k));
+  const registryEntries = Object.entries(pc).filter(([k]) => /^(orgs|programs)\/(.+)\.yaml$/.test(k));
 
   if (orgEntries.length === 0) {
     checks.push({ name: 'has-org-entry', pass: false });
     return fail(checks, 'no orgs/<slug>.yaml entry in proposed_change');
   }
+
+  const hasOneValidatedEntry = orgEntries.length === 1 && registryEntries.length === 1;
+  checks.push({
+    name: 'has-one-validated-registry-entry',
+    pass: hasOneValidatedEntry,
+    detail: `${orgEntries.length} org entries, ${registryEntries.length} total registry entries`,
+  });
+  if (!hasOneValidatedEntry) return fail(checks, 'multi-entry new org proposals require owner review');
 
   const [key, rawVal] = orgEntries[0];
   const slug = /^orgs\/(.+)\.yaml$/.exec(key)![1];
@@ -658,11 +668,14 @@ function neverAuto(detail: string): ValidationResult {
  *  still wraps the call defensively, but this function's own contract is
  *  "always resolves to a ValidationResult." */
 export async function validateProposal(p: Proposal): Promise<ValidationResult> {
+  const neverAutoReason = neverAutoReasonFor(p.type);
+  if (neverAutoReason) return neverAuto(neverAutoReason);
+
   switch (p.type) {
     case 'new_org':
       return validateNewOrg(p);
     case 'new_program':
-      return validateNewProgram(p);
+      return neverAuto('new programs require owner review');
     case 'round_update':
     case 'deadline_change':
     case 'status_change':

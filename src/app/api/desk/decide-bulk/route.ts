@@ -1,5 +1,5 @@
 import { type AppliedChange, commitChange, writeProposalChanges } from '@/lib/committer';
-import { getProposal, recordVerdict } from '@/lib/desk-store';
+import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from '@/lib/desk-store';
 import { invalidateRegistryCache } from '@/lib/registry';
 import type { Proposal } from '@/lib/types';
 import { typeCountsSummary } from '@/proposal-lanes';
@@ -44,7 +44,6 @@ function bulkCommitMessage(proposals: Proposal[]): string {
     header,
     '',
     'Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>',
-    'Claude-Session: https://claude.ai/code/session_01Vi8zyJH5buofwRqv3fLQdL',
   ].join('\n');
 }
 
@@ -102,13 +101,10 @@ export async function POST(req: Request) {
   const allChanges: AppliedChange[] = [];
 
   for (const id of ids) {
-    const proposal = await getProposal(id);
+    const proposal = await claimProposal(id);
     if (!proposal) {
-      failed.push({ id, error: 'not found' });
-      continue;
-    }
-    if (proposal.state !== 'pending') {
-      failed.push({ id, error: 'already decided' });
+      const existing = await getProposal(id);
+      failed.push({ id, error: existing ? 'already claimed or decided' : 'not found' });
       continue;
     }
     try {
@@ -116,6 +112,7 @@ export async function POST(req: Request) {
       allChanges.push(...changes);
       applied.push({ id, proposal, notes });
     } catch (e) {
+      await releaseProposalClaim(id);
       failed.push({ id, error: e instanceof Error ? e.message : 'apply failed' });
     }
   }
@@ -135,7 +132,7 @@ export async function POST(req: Request) {
   for (const { id, notes } of applied) {
     const mergedNote = notes.length ? [note, ...notes].filter(Boolean).join(' | ') : note;
     try {
-      await recordVerdict(id, 'approved', { note: mergedNote, commit });
+      await recordVerdict(id, 'approved', { note: mergedNote, commit, from: 'applying' });
       decided.push(id);
     } catch (e) {
       failed.push({ id, error: e instanceof Error ? e.message : 'verdict record failed' });

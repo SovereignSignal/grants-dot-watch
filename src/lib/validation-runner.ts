@@ -5,7 +5,7 @@
 // everything else so it stays pending — the Desk becomes an exception queue.
 // No LLM calls anywhere in this file.
 import { type AppliedChange, commitChange, writeProposalChanges } from './committer';
-import { listProposals, recordVerdict, setProposalValidation } from './desk-store';
+import { claimProposal, listProposals, recordVerdict, releaseProposalClaim, setProposalValidation } from './desk-store';
 import { invalidateRegistryCache } from './registry';
 import type { Proposal, ProposalType, ProposalValidation } from './types';
 import { validateProposal } from './proposal-validator';
@@ -151,10 +151,16 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
     const applied: Outcome[] = [];
 
     for (const item of chunk) {
+      const claimed = await claimProposal(item.proposal.id);
+      if (!claimed) {
+        errors.push({ id: item.proposal.id, error: 'proposal was claimed or decided during validation' });
+        skipped++;
+        continue;
+      }
       try {
-        const { changes } = writeProposalChanges(item.proposal);
+        const { changes } = writeProposalChanges(claimed);
         allChanges.push(...changes);
-        applied.push(item);
+        applied.push({ ...item, proposal: claimed });
       } catch (e) {
         // Validation passed (including its own dry-run check) but the write
         // still failed — e.g. the registry moved under us mid-run. Fall back
@@ -165,11 +171,7 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
           reason: `dry run passed but apply failed: ${detail}`,
           checked_at: new Date().toISOString(),
         };
-        try {
-          await setProposalValidation(item.proposal.id, validation);
-        } catch {
-          /* best effort — the item just stays pending with no validation note */
-        }
+        await releaseProposalClaim(item.proposal.id, validation);
         bump(byType, item.proposal.type, 'failed');
         errors.push({ id: item.proposal.id, error: `apply failed after passing validation: ${detail}` });
       }
@@ -192,6 +194,7 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
           note: `machine-validated: ${passedChecksSummary(item.validation)}`,
           commit,
           by: 'machine',
+          from: 'applying',
         });
         bump(byType, item.proposal.type, 'passed');
       } catch (e) {

@@ -8,46 +8,42 @@ import type { Award, Grantee, Org, OrgStats, Program, RegistryIndex, System } fr
 const ROOT = join(process.cwd(), 'registry');
 
 let cache: RegistryIndex | null = null;
-let cacheStamp = '';
 
-/** Per-file stamp for one registry subdir: path + mtimeMs + size for every
- *  matching file, so editing (not just adding/removing) a file busts the
- *  cache. A missing dir or a stat race degrades to an empty entry rather
- *  than throwing — loadRegistry() must never fail on this. */
-function dirFileStamp(dir: string, ext: string): string {
+/** Reads path, size, and mtime for every registry source on a cold load. The
+ *  newest source mtime drives the public update date. A missing dir or stat
+ *  race degrades to an empty entry rather than taking down the site. */
+function newestFileMtime(dir: string, ext: string): number {
   let files: string[];
   try {
     files = readdirSync(dir).filter((f) => f.endsWith(ext)).sort();
   } catch {
-    return '';
+    return 0;
   }
-  return files
-    .map((f) => {
-      const p = join(dir, f);
-      try {
-        const st = statSync(p);
-        return `${p}:${st.mtimeMs}:${st.size}`;
-      } catch {
-        return `${p}:0:0`;
-      }
-    })
-    .join('|');
+  let newestMtimeMs = 0;
+  for (const f of files) {
+    try {
+      newestMtimeMs = Math.max(newestMtimeMs, statSync(join(dir, f)).mtimeMs);
+    } catch {
+      // A file can disappear between readdir and stat during a Desk write.
+    }
+  }
+  return newestMtimeMs;
 }
 
-function registryStamp(): string {
-  return [
-    dirFileStamp(join(ROOT, 'systems'), '.yaml'),
-    dirFileStamp(join(ROOT, 'orgs'), '.yaml'),
-    dirFileStamp(join(ROOT, 'programs'), '.yaml'),
-    dirFileStamp(join(ROOT, 'awards'), '.jsonl'),
-  ].join('||');
+function registryUpdatedAt(): string {
+  const newestMtimeMs = Math.max(
+    newestFileMtime(join(ROOT, 'systems'), '.yaml'),
+    newestFileMtime(join(ROOT, 'orgs'), '.yaml'),
+    newestFileMtime(join(ROOT, 'programs'), '.yaml'),
+    newestFileMtime(join(ROOT, 'awards'), '.jsonl')
+  );
+  return new Date(newestMtimeMs || Date.now()).toISOString();
 }
 
-/** Force the next loadRegistry() call to re-read from disk regardless of the
- *  stamp. Call after any write to registry/ files (e.g. applyProposal). */
+/** Force the next loadRegistry() call to re-read from disk. Call after any
+ *  write to registry files. */
 export function invalidateRegistryCache(): void {
   cache = null;
-  cacheStamp = '';
 }
 
 function loadYamlDir<T>(sub: string): T[] {
@@ -83,8 +79,8 @@ function loadAwards(): Award[] {
 }
 
 export function loadRegistry(force = false): RegistryIndex {
-  const stamp = registryStamp();
-  if (cache && !force && stamp === cacheStamp) return cache;
+  if (cache && !force) return cache;
+  const updatedAt = registryUpdatedAt();
 
   const systems = loadYamlDir<System>('systems').sort((a, b) => a.name.localeCompare(b.name));
   const orgs = loadYamlDir<Org>('orgs').sort((a, b) => a.name.localeCompare(b.name));
@@ -149,6 +145,7 @@ export function loadRegistry(force = false): RegistryIndex {
     orgStats,
     bySystem,
     loadedAt: new Date().toISOString(),
+    updatedAt,
     counts: {
       systems: systems.length,
       orgs: orgs.length,
@@ -158,7 +155,6 @@ export function loadRegistry(force = false): RegistryIndex {
       grantees: grantees.length,
     },
   };
-  cacheStamp = stamp;
   return cache;
 }
 
