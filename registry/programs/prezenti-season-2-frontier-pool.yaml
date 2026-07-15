@@ -5,14 +5,13 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
+mechanism: grants
 apply_url: https://forum.celo.org/t/prezenti-season-2-update-introducing-the-frontier-pool-ai-agent-economy-infrastructure/13277
-summary: 'The Prezenti Season 2 grant round has been open since 25 February 2026. The Anchor and Boost
-  pools are active, and we’ve been reviewing applications on a rolling basis, offering contracts to promising
-  teams. Adapting to a quickly changing landscape, this post reviews current status and introduces a new
-  addition to Season 2: the Frontier Pool, focused on AI and agent economy infrastructure deployed'
+summary: The Prezenti Season 2 Frontier Pool funded AI and agent-economy infrastructure deployed on
+  Celo, with awards of up to $25,000 per project. The application window closed June 30, 2026.
 rounds:
-- name: Rolling
+- name: Season 2 Frontier Pool
   status: closed
   closes: 2026-06-30
   size: $25,000

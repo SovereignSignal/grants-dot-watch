@@ -1,19 +1,19 @@
 id: ethereum-project-odin-launch
-name: Ethereum Project Odin Launch
+name: Project Odin
 org: ethereum-foundation
 parent: null
-systems: []
+systems:
+  - ethereum
+  - oss-sustainability
 wires:
   - crypto
-status: unknown
-apply_url: https://esp.ethereum.foundation/
-summary: On February 27, 2026, the Ethereum Foundation introduced Project Odin, a structured support
-  program aimed at helping strategic grantees achieve sustainability over a two-year horizon. The
-  initiative targets critical open-source projects like Libp2p, which powers multiple Ethereum
-  clients and Web3 infrastructure, by providing embedded strategic advisors for hands-on
-  sustainability planning over 12 months. It addresses the chronic underfunding of essential
-  Ethereum ecosystem infrastructure by reducing long-term dependency on single funding sources. The
-  program focuses on building operational and
+  - oss
+status: active
+mechanism: incubator
+summary: >
+  Ethereum Foundation program embedding strategic advisors with a small set of prior grantees for
+  12 months of sustainability planning and execution. The two-year objective is to help critical
+  open-source teams diversify funding and reduce dependency on a single grant source.
 rounds: []
 sources:
   - https://blog.ethereum.org/2026/02/27/project-odin

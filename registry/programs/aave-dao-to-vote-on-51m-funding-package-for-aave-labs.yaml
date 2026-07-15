@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://aavegrants.org/
 summary: 'Aave DAO prepares to vote on a $51 million funding package for Aave Labs; critics say Aave Labs
   has previously received more than $86 million from grants, ICO proceeds and swap fees; AAVE hit an intraday
   high of $119.35 and traded at $116.60, up 2.8% over 24 hours. 📊 Market Data:'

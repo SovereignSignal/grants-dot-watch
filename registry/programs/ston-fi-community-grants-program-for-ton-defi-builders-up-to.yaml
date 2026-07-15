@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://ston.fi/
 summary: Got a killer TON DeFi idea but need funding + support to ship it? https://ston.fi/ community
   grants program is wide open - no deadlines, up to $10k in USDT, and it's built exactly for builders
   like you. If you're integrating their SDK, widgets, or pools... this could be your launchpad. 🧵

@@ -6,7 +6,6 @@ systems: []
 wires:
 - ai
 status: unknown
-apply_url: https://www.aria.org.uk/
 summary: 🇬🇧 UK's ARIA invests €18 million to boost AI compute delivery The UK's Advanced Research and
   Invention Agency (ARIA) has joined CommonAI, bringing an €18 million grant to enhance AI compute delivery
   in the UK. This funding is part of a larger €57 million commitment...

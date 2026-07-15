@@ -6,10 +6,9 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://developers.flow.com/
-summary: Less than a week left to submit to Grants DAO Round 2 with @dorahacks. $100K+ in funding available
-  for Flow builders right now. 50,000 FLOW available in prizing. But if you are a serious builder, ongoing
-  advisory and fundraising support from Flow Foundation for teams that show traction are the true
+summary: >
+  Less than a week left to submit to Grants DAO Round 2 with @dorahacks. $100K+ in funding available
+  for Flow builders right now. 50,000 FLOW available in prizing.
 rounds: []
 sources:
 - https://x.com/flow_developers/status/2024537643841900718

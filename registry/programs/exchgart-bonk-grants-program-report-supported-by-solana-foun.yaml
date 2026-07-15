@@ -6,10 +6,9 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://solana.org/
-summary: When artists are empowered, they don’t just produce work, they create culture. Below you can
-  read a detailed account of the past 6 months of the @exchgART + @bonk_inu Grants Program. Possible thanks
-  to the support of the @SolanaFndn and EA President @JTLissPhotoArt
+summary: >
+  When artists are empowered, they don’t just produce work, they create culture. Below you can read a
+  detailed account of the past 6 months of the @exchgART + @bonk_inu Grants Program.
 rounds: []
 sources:
 - https://x.com/jairo_ema25/status/2027064981611569494

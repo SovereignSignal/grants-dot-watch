@@ -6,7 +6,6 @@ systems: []
 wires:
   - ai
 status: unknown
-apply_url: https://nosana.com/
 summary: >-
   Nosana AI Grants is offering up to $50K in funding plus free GPU compute credits to startups,
   researchers, and solo builders working at the intersection of AI and Solana. 

@@ -7,11 +7,11 @@ wires:
   - crypto
 status: unknown
 apply_url: https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996
-summary: This thread is for applications for Rocket Pool’s July 7, 2026 - August 7, 2026 bounties.
-  Please only post bounty applications in this thread. If you would like to discuss and/or ask
-  questions about any applications you see in this thread, we ask that you do so in this forum
-  thread which has been established for all community discussions related to this round of
-  applications. Only those grant appl
+summary: >
+  This thread is for applications for Rocket Pool’s July 7, 2026 - August 7, 2026 bounties. Please
+  only post bounty applications in this thread. If you would like to discuss and/or ask questions
+  about any applications you see in this thread, we ask that you do so in this forum thread which has
+  been established for all community discussions related to this round of applications.
 rounds:
   - name: Rolling
     status: open

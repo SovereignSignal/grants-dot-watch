@@ -6,11 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: 1inch DAO Aqua Revenue Stream Incubator — Build a Funded, Revenue-Sharing Strategy on Aqua
-  TL;DR The 1inch DAO funds builders to ship novel Aqua strategies and swapVM instructions . Up to
-  $50,000 per team , milestone-based, plus revenue share to the DAO from the first dollar . $436,000
-  total pool from the DAO treasury; we expect to fund 8–10 teams . Reviewed by StableLab,
-  DAOPlomats, and Arana Dig
+summary: >
+  1inch DAO Aqua Revenue Stream Incubator — Build a Funded, Revenue-Sharing Strategy on Aqua TL;DR The
+  1inch DAO funds builders to ship novel Aqua strategies and swapVM instructions . Up to $50,000 per
+  team , milestone-based, plus revenue share to the DAO from the first dollar . $436,000 total pool
+  from the DAO treasury; we expect to fund 8–10 teams .
 rounds: []
 sources:
   - https://gov.1inch.io/t/1inch-dao-aqua-revenue-stream-incubator-build-a-funded-revenue-sharing-strategy-on-aqua/965

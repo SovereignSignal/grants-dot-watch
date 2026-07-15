@@ -6,11 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "Compound Grants is sponsoring three ETHGlobal events in 2023. Each event features a
-  hackathon and a summit with popular builders in the Ethereum community. Hackathon sponsors are
-  bolstering the grand prize with specific bounty prizes so participants have even more chances to
-  win. Compound Grants will have a $5000 prize for builders that integrate Compound. Hackathon
-  bounty prize: $5000 USD to the"
+summary: >
+  Compound Grants is sponsoring three ETHGlobal events in 2023. Each event features a hackathon and a
+  summit with popular builders in the Ethereum community. Hackathon sponsors are bolstering the grand
+  prize with specific bounty prizes so participants have even more chances to win. Compound Grants
+  will have a $5000 prize for builders that integrate Compound.
 rounds: []
 sources:
   - https://www.comp.xyz/t/ethglobal-2023-16-hackathon-project-ideas/4399

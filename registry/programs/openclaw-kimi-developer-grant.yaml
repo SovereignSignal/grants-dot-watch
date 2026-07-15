@@ -6,14 +6,13 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.voiverse.app/
-summary: "The Voiverse team, behind WeatherPal-AI, has launched a Developer Grant Program for the
-  OpenClaw ecosystem, previously known as MoltBot, to support contributors focusing on agent
-  security and multi-agent orchestration. They are offering 10 Kimi Code Plan (Tier-5) accounts,
-  valued at a total of $6,000, to active OpenClaw contributors with merged pull requests. Applicants
-  must share their contribution links in a verification thread on X or comment on the Hugging Face
-  discussion post for manual audit of their commit impact. The announcement was made on February 8,
-  2026, to encourage high-quality "
+summary: >
+  The Voiverse team, behind WeatherPal-AI, has launched a Developer Grant Program for the OpenClaw
+  ecosystem, previously known as MoltBot, to support contributors focusing on agent security and
+  multi-agent orchestration. They are offering 10 Kimi Code Plan (Tier-5) accounts, valued at a total
+  of $6,000, to active OpenClaw contributors with merged pull requests. Applicants must share their
+  contribution links in a verification thread on X or comment on the Hugging Face discussion post for
+  manual audit of their commit impact.
 rounds: []
 sources:
   - https://discuss.huggingface.co/t/empower-openclaw-agents-with-kimi-2-5-6-000-developer-grant-for-contributors/173209

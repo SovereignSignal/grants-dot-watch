@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.kubchain.com/
 summary: KUB Chain has introduced a developer grants program structured around three pillars of
   support to foster innovation within its ecosystem. The program aims to empower builders by
   providing a supportive environment for growth and development on the KUB network. Specific details

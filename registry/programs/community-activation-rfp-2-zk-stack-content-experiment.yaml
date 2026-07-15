@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.zksync.io/
 summary: >-
   ZK Nation is offering $15k grants through its Community Activation RFP 2 for the ZK Stack
   Content Experiment. 

@@ -5,11 +5,16 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-apply_url: https://uniswapfoundation.org/
+status: concluded
+mechanism: grants
 summary: 'Uniswap Foundation Security Fund is offering audit subsidies of up to 100% coverage for
   teams building with Uniswap v4 hooks or Trading APIs. The program also provides pre-audit scans and
   security guidance. Eligible projects can receive full audit cost coverage through the fund.'
-rounds: []
+rounds:
+- name: March 2026 cohort
+  status: closed
+  closes: 2026-03-07
+  size: Up to 100% audit subsidy
+  source: https://x.com/0xboo/status/2028401618333389136
 sources:
 - https://x.com/0xboo/status/2028401618333389136

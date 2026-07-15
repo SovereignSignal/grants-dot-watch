@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://somnia.network/
 summary: 'new hackathon with a $3,000 prize pool! build reactive dapps on somnia''s layer 1 blockchain
   and showcase the future of real-time web3 applications. february 25 - march 20, 2026 register here:
   https://dorahacks.io/hackathon/somnia-reactivity/detail [Mon, 23 Feb 2026 17:38:02 GMT]'

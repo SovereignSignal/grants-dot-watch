@@ -6,15 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: >-
-  Background:
-
-
-  Beginning in June, the UAC internally recognized votable supply, which at the time stood at ~41M
-  UNI (relative to the 40M UNI quorum), as a potentially imminent and systemic risk to the DAO. In
-  response, and in efforts to protect the DAO, the UAC proactively began the first Governance
-  Logistics Improvement research report and RFC. The report sought to identify the greatest issues
-  Unis
+summary: >
+  Background: Beginning in June, the UAC internally recognized votable supply, which at the time stood
+  at ~41M UNI (relative to the 40M UNI quorum), as a potentially imminent and systemic risk to the
+  DAO. In response, and in efforts to protect the DAO, the UAC proactively began the first Governance
+  Logistics Improvement research report and RFC.
 rounds: []
 sources:
   - https://snapshot.org/#/uniswapgovernance.eth/proposal/0x1423731999c4ddd17568ac01b1b0f64f12c26138f0c3f9284dd688fa1d665989

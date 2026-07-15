@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.gooddollar.org/
 summary: GoodDollar has launched Season 3 applications for its GoodBuilders program, offering a
   $50,000 USD streaming fund in G$ to support projects building and growing on the Celo network. The
   application window is currently open, and interested parties can apply through the provided link.

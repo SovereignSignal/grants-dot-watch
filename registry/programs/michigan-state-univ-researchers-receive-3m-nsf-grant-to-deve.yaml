@@ -6,7 +6,6 @@ systems: []
 wires:
 - ai
 status: unknown
-apply_url: https://www.nsf.gov/
 summary: 'Researchers from @MSU_EGR received a $3 million @NSF grant to explore how AI can be used to
   grow high-quality diamond in labs, which could be the key to the future of semiconductor manufacturing
   and advancing workforce talent in the U.S. #NSFfunded Feb 19, 2026'

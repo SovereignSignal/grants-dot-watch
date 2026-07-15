@@ -1,24 +1,20 @@
 id: openai-foundation-grants
-name: OpenAI Foundation Grants
+name: OpenAI Foundation AI Resilience
 org: openai-foundation
 parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://openai.com/
-summary: 'not, but we can note that source is provided.
-
-
-  Eligibility requirements not specified; maybe "open to organizations working on AI resilience in biology,
-  cybersecurity, etc." We can phrase.
-
-
-  We need to lead with organization/program name and a strong action verb, e.g.,'
+status: active
+mechanism: grants
+summary: The OpenAI Foundation's AI Resilience program funds work in bio-resilience, cyber-resilience,
+  AI model safety, and research on AI's effects on young people. As of June 1, 2026, the Foundation
+  said it was finalizing more than $130 million in grants and had not announced a public application route.
 rounds:
-- name: Rolling
-  status: closed
-  closes: 2026-01-01
+- name: Initial AI Resilience grants
+  status: announced
+  opens: 2026-06-01
+  size: More than $130M
   source: https://openaifoundation.org/news/resilience-in-the-age-of-ai
 sources:
 - https://openaifoundation.org/news/resilience-in-the-age-of-ai

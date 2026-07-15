@@ -7,14 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://docsout.org
-summary: 'The AI Safety community has successfully recruited top engineers and policy experts... it has
-  however, failed to recruit top storytellers! The Automation & Humanity Documentary Fund aims to solve
-  this talent constraint!
-
-
-
-  Who Let The Docs Out, a new filmmaker-led nonprofit, is launching its Spring 2026 Automation & Humanity
-  Fund to find real stories that will engage with millions. The fund address'
+summary: >
+  The AI Safety community has successfully recruited top engineers and policy experts... it has
+  however, failed to recruit top storytellers! The Automation & Humanity Documentary Fund aims to
+  solve this talent constraint! Who Let The Docs Out, a new filmmaker-led nonprofit, is launching its
+  Spring 2026 Automation & Humanity Fund to find real stories that will engage with millions.
 rounds:
 - name: Spring 2026
   status: closed

@@ -7,17 +7,11 @@ wires:
   - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/NLGaeqAmWzcawjutt/seeking-feedback-and-collaborators-for-an-ai-welfare-project
-summary: >-
+summary: >
   The ask: Seeking feedback and collaborators on a proposal for a multi-lineage AI model panel that
-  reviews evaluations for welfare concerns
-
-
-  About me: I’m a public health physician and epidemiologist with 20+ years of experience with human
-  subjects research, community engagement, and research program leadership. I am pivoting to work on
-  AI safety with a focus on model welfare.
-
-
-  Project status and r
+  reviews evaluations for welfare concerns About me: I’m a public health physician and epidemiologist
+  with 20+ years of experience with human subjects research, community engagement, and research
+  program leadership. I am pivoting to work on AI safety with a focus on model welfare.
 rounds:
   - name: Rolling
     status: open

@@ -6,7 +6,6 @@ systems: []
 wires:
 - ai
 status: unknown
-apply_url: https://www.nsf.gov/
 summary: 'NSF AI Funding Opportunities announces multiple active solicitations for AI research, infrastructure,
   education, and workforce development. These include the National AI Research Resource Operating Collaborative
   (NAIRR-OC), CyberAI Scholarship for Service (SFS) program, and general AI research infrastructure grants.

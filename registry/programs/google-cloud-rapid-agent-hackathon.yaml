@@ -6,7 +6,6 @@ systems: []
 wires:
   - ai
 status: unknown
-apply_url: https://google.org/
 summary: Google Cloud Rapid Agent Hackathon — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

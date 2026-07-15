@@ -6,16 +6,10 @@ systems: []
 wires:
   - ai
 status: unknown
-summary: >-
-  By Abhi Kumar, Associate Program Officer in Farm Animal Welfare
-
-
-  Note: We used AI (Claude) to draft this post from other documents related to this RFP. All content
-  was reviewed by Abhi and the CG team for accuracy.   
-
-
-  Over 100 billion animals are farmed and slaughtered for food every year. At Coefficient Giving, we
-  think one of the highest-leverage, long-term ways to reduce that number is to fund
+summary: >
+  By Abhi Kumar, Associate Program Officer in Farm Animal Welfare Note: We used AI (Claude) to draft
+  this post from other documents related to this RFP. All content was reviewed by Abhi and the CG team
+  for accuracy. Over 100 billion animals are farmed and slaughtered for food every year.
 rounds: []
 sources:
   - https://forum.effectivealtruism.org/posts/bDqdfMXe6YuYnwMDA/good-tasting-alt-meat-is-a-scientific-problem-we-can-solve

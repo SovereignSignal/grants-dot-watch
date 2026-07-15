@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://pacifica.fi/
 summary: "Pacifica Fi launches a 1-month hackathon focused on trading, DeFi, and analytics using its\
   \ API. Solo builders or teams of up to 5 are eligible. The deadline is April 16, 2026. \n\nThe Ethereum\
   \ Foundation also opened Project Odin, a 12-month embedded advisory program to help critical open-source\

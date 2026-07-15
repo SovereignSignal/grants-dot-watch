@@ -6,19 +6,10 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: >-
-  # Simple Summary
-
-
-
-
-  1inch Foundation is requesting a USD 300 000 equivalent in 1INCH tokens to cover the ETHGlobal
-  Title-partner fee for Unite DeFi hackathon, the first global 1inch hackathon (online, 25 July – 6
-  August 2025): https://ethglobal.com/events/unite. 
-
-
-  The goal of the hackathon is to accelerate innovation across the Ethereum ecosystem by engaging
-  top global developers to build real sol
+summary: >
+  # Simple Summary 1inch Foundation is requesting a USD 300 000 equivalent in 1INCH tokens to cover
+  the ETHGlobal Title-partner fee for Unite DeFi hackathon, the first global 1inch hackathon (online,
+  25 July – 6 August 2025): https://ethglobal.com/events/unite.
 rounds: []
 sources:
   - https://snapshot.org/#/1inch.eth/proposal/0x0038d9737ae5d0283e3adbb9ce463d13940e3d01ed004756bb743fcd586e1955

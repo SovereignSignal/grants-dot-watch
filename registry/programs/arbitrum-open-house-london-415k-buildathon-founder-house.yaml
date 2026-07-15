@@ -2,12 +2,21 @@ id: arbitrum-open-house-london-415k-buildathon-founder-house
 name: Arbitrum Open House London
 org: arbitrum-foundation
 parent: null
-systems: []
+systems:
+- arbitrum
 wires:
 - crypto
-status: unknown
-apply_url: https://arbitrum.foundation/
-summary: Arbitrum's Open House London combined a $415K buildathon with a Founder House track.
-rounds: []
+status: concluded
+mechanism: incubator
+summary: Arbitrum Open House London combined a three-week online Buildathon with a three-day Founder
+  House, technical workshops, mentorship, product sessions, and live pitches. The combined prize and
+  grant pool was $415,000 across general, Robinhood Chain, agentic AI, and milestone-based grant tracks.
+rounds:
+- name: Open House London 2026
+  status: closed
+  closes: 2026-06-25
+  size: $415K in prizes and grants
+  source: https://blog.arbitrum.foundation/open-house-london-registration-is-now-open/
 sources:
 - https://blog.arbitrum.foundation/open-house-london-registration-is-now-open/
+- https://blog.arbitrum.foundation/arbitrum-founder-house-london-apply-now-to-launch-businesses-powering-the-programmable-economy/

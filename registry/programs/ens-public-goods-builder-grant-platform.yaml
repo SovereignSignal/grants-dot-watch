@@ -6,11 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: co-authored by @Coltron.eth , @vegayp and @simona_pop The Public Goods Working group is
-  proud to announce the Builder Grant platform, built in partnership with Build Guild. Brief History
-  of ENS Public Goods Grants The Ethereum Name Service is recognized as a public good and benefited
-  significantly from early funding through Ethereum Foundation grants in 2017. This support played a
-  crucial role in
+summary: >
+  co-authored by @Coltron.eth , @vegayp and @simona_pop The Public Goods Working group is proud to
+  announce the Builder Grant platform, built in partnership with Build Guild. Brief History of ENS
+  Public Goods Grants The Ethereum Name Service is recognized as a public good and benefited
+  significantly from early funding through Ethereum Foundation grants in 2017.
 rounds: []
 sources:
   - https://discuss.ens.domains/t/think-big-build-in-good/19943

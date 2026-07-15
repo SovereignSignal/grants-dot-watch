@@ -6,11 +6,10 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: Hi everyone! My name is Gonzalo, I’m a Senior Engineer and I’m currently part of a small
-  team building some innovative web3 solutions. For the past couple of months we’ve been thoroughly
-  researching the ENS ecosystem and recently started developing an mvp. Our main goal is to succeed
-  onboarding a large number of people to the full capabilities of ENS and by that grow the ecosystem
-  past the financi
+summary: >
+  Hi everyone! My name is Gonzalo, I’m a Senior Engineer and I’m currently part of a small team
+  building some innovative web3 solutions. For the past couple of months we’ve been thoroughly
+  researching the ENS ecosystem and recently started developing an mvp.
 rounds: []
 sources:
   - https://discuss.ens.domains/t/requesting-resources-to-build-ens-based-product/14424

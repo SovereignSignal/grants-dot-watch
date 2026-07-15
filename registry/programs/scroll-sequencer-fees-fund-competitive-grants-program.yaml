@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://scroll.io/
 summary: >-
   Scroll Sequencer Fees Fund Competitive Grants Program invites applications for grants funded
   by sequencer fees. The program allocates a percentage of Scroll’s sequencer revenue to support

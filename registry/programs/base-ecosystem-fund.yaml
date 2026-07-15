@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://base.org/
 summary: Base Ecosystem Fund — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

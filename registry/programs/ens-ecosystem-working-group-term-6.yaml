@@ -6,19 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: >-
-  ## Abstract
-
-
-  The ENS Ecosystem Working Group requests funding of 470,000 USDC to support operations through
-  April 2026. This is the only funding request of Term 6. 
-
-
-  The ENS Ecosystem Working Group is responsible for growing and improving the ENS Ecosystem by
-  funding builders and projects that are ENS-specific or ENS-centric. 
-
-
-  This social proposal is submitted to satisfy the requirements set out
+summary: >
+  ## Abstract The ENS Ecosystem Working Group requests funding of 470,000 USDC to support operations
+  through April 2026. This is the only funding request of Term 6. The ENS Ecosystem Working Group is
+  responsible for growing and improving the ENS Ecosystem by funding builders and projects that are
+  ENS-specific or ENS-centric.
 rounds: []
 sources:
   - https://snapshot.org/#/ens.eth/proposal/0x9b3f5463e52aadc35155e686f8416297b24e6c7e30cb527747e61cf17b42a5f6

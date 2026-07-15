@@ -6,11 +6,9 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "Grants Council Mission Expected impact on the Intent: The Grants Council makes grants, on
-  behalf of the Token House, in an effort to make progress towards the Intent. In Season 8, the
-  Grants Council will work towards the below success metrics, which the Foundation believes will
-  create progress towards the Intent: Interop-ready TVL (click for more details) Interop Transaction
-  Fees (click for more d"
+summary: >
+  Grants Council Mission Expected impact on the Intent: The Grants Council makes grants, on behalf of
+  the Token House, in an effort to make progress towards the Intent.
 rounds: []
 sources:
   - https://gov.optimism.io/t/s8-governance-fund-missions/10004

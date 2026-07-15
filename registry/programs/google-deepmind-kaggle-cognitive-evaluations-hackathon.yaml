@@ -6,7 +6,6 @@ systems: []
 wires:
   - ai
 status: unknown
-apply_url: https://google.org/
 summary: "Google DeepMind Kaggle Cognitive Evaluations Hackathon offers $200K in prizes for
   global participants to build new cognitive evaluations and benchmarks to measure progress toward
   AGI. The hackathon invites teams worldwide to develop evaluations that assess AI systems on

@@ -7,11 +7,12 @@ wires:
   - crypto
 status: unknown
 apply_url: https://naijalancers.name.ng/developer
-summary: "Project Details Project Name: NaijaLancers Developer Portal Founder: Awwal Dayyabu Support
-  Email: support@naijalancers.name.ng Live Portal: naijalancers.name.ng/developer GitHub:
+summary: >
+  Project Details Project Name: NaijaLancers Developer Portal Founder: Awwal Dayyabu Support Email:
+  support@naijalancers.name.ng Live Portal: naijalancers.name.ng/developer GitHub:
   github.com/Awwal1111/naija-onboard-hero Project Type: Developer Infrastructure / Payments / Web3
   Tooling Requested Funding: 10,000 cUSD Hello Celo Community I’m Awwal Dayyabu, founder of
-  NaijaLancers. We are building a de"
+  NaijaLancers.
 rounds: []
 sources:
   - https://forum.celo.org/t/naijalancers-developer-portal-api-infrastructure-for-payments-escrow-web3-onboarding-on-celo/13376

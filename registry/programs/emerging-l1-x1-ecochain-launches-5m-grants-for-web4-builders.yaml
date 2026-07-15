@@ -6,10 +6,9 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://x1ecochain.com/
-summary: 'Hey builders! If you have a project that aims to bring real value to Web4, X1 EcoChain provides
-  $5M in grant support for teams building highly utilitarian products with measurable on-chain activity.
-  🔗Learn more and apply: https://grant.x1ecochain.com/ Supported projects include DePIN, GameFi, Socia'
+summary: >
+  Hey builders! If you have a project that aims to bring real value to Web4, X1 EcoChain provides $5M
+  in grant support for teams building highly utilitarian products with measurable on-chain activity.
 rounds: []
 sources:
 - https://x.com/X1_EcoChain/status/2027674209061629984

@@ -6,11 +6,10 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "CGWG: Compound Governance Metrics Analysis Request Proposed Governance Research Request:
-  Analysis of Delegate Voting Patterns and Impact Intent: Strengthen the governance framework by
-  analyzing delegate behavior, voting patterns, and their overall impact on the Compound ecosystem.
-  Baseline grant amount: 10,000 USDC Should this request be fulfilled by one or multiple teams: One
-  Sponsor: Compound Go"
+summary: >
+  CGWG: Compound Governance Metrics Analysis Request Proposed Governance Research Request: Analysis of
+  Delegate Voting Patterns and Impact Intent: Strengthen the governance framework by analyzing
+  delegate behavior, voting patterns, and their overall impact on the Compound ecosystem.
 rounds: []
 sources:
   - https://www.comp.xyz/t/cgwg-compound-governance-metrics-analysis-request/5826

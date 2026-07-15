@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://esp.ethereum.foundation/
 summary: Ethereum Foundation Audit Subsidy Program — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

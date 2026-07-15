@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://solana.org/
 summary: 'If you need some fund for startup as a builder or a vibecoder Here are some of the grants you
   can apply for: 1). Ethereum Foundation Ecosystem Support Program: • $24K stipends for Ethereum-related
   academic and PhD work • apply via esp(.)ethereum(.)foundation 2). Solana Foundation & Ecosystem Grants:'

@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
+const ROOT = process.env.PROGRAM_AUDIT_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
 const jsonOutput = process.argv.includes('--json');
 
 const readYamlDir = (name) =>
@@ -44,7 +44,25 @@ const semanticRules = [
   ['results-or-award', /\b(?:results?|grant awarded|grants? approved|awards? \$?[\d])/i, 4],
   ['update-or-roundup', /\b(?:updates?|roundups?|reminders?|press releases?|member list)\b/i, 3],
   ['content-artifact', /^(?:source:|blog post:|analysis of|request for feedback)|\b(?:review process|final reviewer|update thread|program thread)\b/i, 3],
+  ['applicant-submission', /^(?:grant\s+)?application\b|\bnomination\b/i, 5],
+  ['proposal-artifact-title', /\b(?:grant|governance|funding|research) proposal\b|^proposal:/i, 5],
+  ['governance-artifact', /\b(?:charter|communication thread)\b/i, 4],
+  ['directory-or-map', /\b(?:funding map|funding directory|program directory)\b/i, 5],
+  ['retrospective-or-digest', /\b(?:retrospective|weekly digest)\b/i, 5],
+  ['cohort-announcement', /\b(?:organizations announced|funding announcement|meet the new .+ fellows)\b/i, 5],
+  ['single-award-story', /\b(?:grant to|receives? .{0,40}\bgrant|awards? .{0,40}\bgrant to|invests? .{0,40}\bgrant to|funding package .{0,20}\bfor)\b/i, 5],
   ['announcement', /\b(?:announces?|announcing)\b/i, 2],
+];
+
+const sourceSemanticRules = [
+  ['applicant-submission', /\/t\/(?:grant-application|application-|nomination-)/i, 5],
+  ['applicant-submission', /\/t\/grant-proposal-/i, 5],
+  ['help-request', /\/t\/(?:how-can-i|how-do-i|help-|question-)/i, 5],
+];
+
+const summarySemanticRules = [
+  ['proposal-artifact', /^(?:i[’']?m|i am|we are) proposing\b|\bthis proposal (?:outlines|requests?|introduces|proposes)\b|\bwe propose that .{0,80}\bfund\b/i, 5],
+  ['prompt-leak', /\b(?:the prompt says|must include|should we include|so start with|we can say|didn[’']t specify eligibility|need to lead with|must be max \d+ words)\b/i, 6],
 ];
 
 function refsFor(id) {
@@ -66,7 +84,32 @@ function inspectProgram(entry) {
     }
   }
 
+  const sourceText = (doc.sources || []).join('\n');
+  for (const [label, pattern, weight] of sourceSemanticRules) {
+    if (pattern.test(sourceText)) {
+      if (!signals.includes(label)) signals.push(label);
+      score += weight;
+    }
+  }
+
+  for (const [label, pattern, weight] of summarySemanticRules) {
+    if (pattern.test((doc.summary || '').trim())) {
+      signals.push(label);
+      score += weight;
+    }
+  }
+
+  const summary = (doc.summary || '').trim();
+  if (summary.length >= 180 && /[a-z]{1,3}$/.test(summary)) {
+    signals.push('summary-truncated');
+    score += 6;
+  }
+
   const rounds = Array.isArray(doc.rounds) ? doc.rounds : [];
+  if (doc.status === 'unknown' && !doc.mechanism && rounds.length === 0 && /\/t\/(?:[^/]*-)?(?:proposal|grant-request|funding-request|budget-request|temperature-check|temp-check)(?:-|\/)/i.test(sourceText)) {
+    signals.push('forum-proposal-source');
+    score += 5;
+  }
   const thin = [];
   if (doc.status === 'unknown') thin.push('unknown-status');
   if (rounds.length === 0) thin.push('no-rounds');
@@ -83,6 +126,11 @@ function inspectProgram(entry) {
   if (doc.apply_url && org?.website && doc.apply_url.replace(/\/$/, '') === org.website.replace(/\/$/, '')) {
     signals.push('org-homepage-apply');
     score += 2;
+    const pathname = new URL(doc.apply_url).pathname.replace(/\/$/, '');
+    if (!pathname && doc.status === 'unknown' && !doc.mechanism && rounds.length === 0) {
+      signals.push('homepage-only-apply');
+      score += 5;
+    }
   }
 
   const refs = refsFor(doc.id);
@@ -101,7 +149,25 @@ function inspectProgram(entry) {
 }
 
 const inspected = programEntries.map(inspectProgram);
-const strongSemanticSignals = new Set(['report', 'results-or-award', 'update-or-roundup', 'content-artifact']);
+const strongSemanticSignals = new Set([
+  'report',
+  'results-or-award',
+  'update-or-roundup',
+  'content-artifact',
+  'applicant-submission',
+  'proposal-artifact-title',
+  'governance-artifact',
+  'directory-or-map',
+  'retrospective-or-digest',
+  'cohort-announcement',
+  'single-award-story',
+  'help-request',
+  'proposal-artifact',
+  'prompt-leak',
+  'homepage-only-apply',
+  'summary-truncated',
+  'forum-proposal-source',
+]);
 const candidates = inspected
   .filter((item) => item.signals.some((signal) => strongSemanticSignals.has(signal)) && item.score >= 6)
   .sort((a, b) => b.score - a.score || a.org.localeCompare(b.org) || a.name.localeCompare(b.name));
@@ -118,15 +184,14 @@ const census = {
 };
 
 if (jsonOutput) {
-  console.log(JSON.stringify({ census, candidates }, null, 2));
-  process.exit(0);
-}
-
-console.log('PROGRAM QUALITY CENSUS');
-for (const [key, value] of Object.entries(census)) console.log(`${key}: ${value}`);
-console.log('\nSEMANTIC REVIEW QUEUE');
-console.log('score\trefs\torg\tid\tsignals');
-for (const item of candidates) {
-  const refs = item.refs.awards + item.refs.children + item.refs.systems;
-  console.log(`${item.score}\t${refs}\t${item.org}\t${item.id}\t${[...item.signals, ...item.thin].join(',')}`);
+  process.stdout.write(`${JSON.stringify({ census, candidates }, null, 2)}\n`);
+} else {
+  console.log('PROGRAM QUALITY CENSUS');
+  for (const [key, value] of Object.entries(census)) console.log(`${key}: ${value}`);
+  console.log('\nSEMANTIC REVIEW QUEUE');
+  console.log('score\trefs\torg\tid\tsignals');
+  for (const item of candidates) {
+    const refs = item.refs.awards + item.refs.children + item.refs.systems;
+    console.log(`${item.score}\t${refs}\t${item.org}\t${item.id}\t${[...item.signals, ...item.thin].join(',')}`);
+  }
 }

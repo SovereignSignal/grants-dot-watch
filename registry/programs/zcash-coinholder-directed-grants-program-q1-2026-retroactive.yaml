@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://zfnd.org/
 summary: "Zcash Coinholder Directed Grants Program Q1 2026 is reviewing retroactive grant proposals\
   \ for public goods and ecosystem contributions. \n\nThe community-directed funding program is currently\
   \ accepting reviews of completed work that delivered public goods to the Zcash ecosystem. Proposals\

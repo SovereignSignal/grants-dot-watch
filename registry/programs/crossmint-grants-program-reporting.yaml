@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://polygon.technology/
 summary: "Crossmint Grants Program Reporting details how the team allocated Polygon grants this
   season to high-quality developers building agentic and onchain applications. As allocators,
   Crossmint focused on projects with meaningful product-market fit and strong execution potential.

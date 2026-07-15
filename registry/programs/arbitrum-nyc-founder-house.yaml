@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://arbitrum.foundation/
 summary: Arbitrum is hosting the NYC Founder House, an in-person builder experience starting March 6 for
   early-stage teams. The program offers up to $340,000 in prizes and grants, hands-on mentorship in product,
   infrastructure, and go-to-market strategies, and access to ecosystem leaders like Robinhood and Alchemy.

@@ -6,10 +6,9 @@ systems: []
 wires:
 - ai
 status: unknown
-apply_url: https://www.nccu.edu/
-summary: '🛠️ Build with IBM watsonx Orchestrate. 📘 Earn IBM SkillsBuild badges. 🏆 Compete for $10K in
-  prizes. The NCCU AI Hackathon March 19–20, 2026 Open to all university students. Register: https://ibmskillsbuild-nccuhack.bemyapp.com/?utm_source=bma&utm_medium=x
-  #IBM #agenticAI [@PulseBriefHQ](https://x'
+summary: >
+  🛠️ Build with IBM watsonx Orchestrate. 📘 Earn IBM SkillsBuild badges. 🏆 Compete for $10K in
+  prizes. The NCCU AI Hackathon March 19–20, 2026 Open to all university students.
 rounds: []
 sources:
 - https://x.com/bemyapp/status/2027833936500379958

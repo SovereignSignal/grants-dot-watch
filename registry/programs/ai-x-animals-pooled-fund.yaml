@@ -7,11 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals
-summary: "TL;DR\n\n * We are launching a pooled fund for projects at the AIxAnimals intersection.\n *\
-  \ We are open to a broad set of ideas, but prioritize those in the following categories:\n   * Empowering\
-  \ Animal Advocates\n   * Strategic Field-building and Coordination\n   * Actionable Research and Strategic\
-  \ Foresight\n * Apply here by April 30th.\n\n\nIntroduction\n\nOver the next decade, AI will increasingly\
-  \ shape h"
+summary: >
+  TL;DR * We are launching a pooled fund for projects at the AIxAnimals intersection. * We are open to
+  a broad set of ideas, but prioritize those in the following categories: * Empowering Animal
+  Advocates * Strategic Field-building and Coordination * Actionable Research and Strategic Foresight
+  * Apply here by April 30th.
 rounds:
 - name: Rolling
   status: closed

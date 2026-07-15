@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://polygon.technology/
 summary: >-
   Polygon Community Grants Program is calling for Grant Allocator applications. The Community
   Treasury Board seeks experienced grant distributors to manage funding for new and existing

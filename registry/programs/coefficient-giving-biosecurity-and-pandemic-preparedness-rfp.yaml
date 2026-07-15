@@ -7,16 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/RvK9sEGoe46co8H4L/coefficient-giving-is-seeking-proposals-for-biosecurity
-summary: 'Coefficient Giving’s Biosecurity and Pandemic Preparedness team is launching a new Request for
-  Proposals to support work aimed at preventing engineered biological threats from emerging and improving
-  our response to these threats should prevention fail. 
-
-
-  Applications start with a simple expression of interest form (≤500 words), with a submission deadline
-  of May 11 2026 at 11:59pm PT.
-
-
-  Click here t'
+summary: >
+  Coefficient Giving’s Biosecurity and Pandemic Preparedness team is launching a new Request for
+  Proposals to support work aimed at preventing engineered biological threats from emerging and
+  improving our response to these threats should prevention fail. Applications start with a simple
+  expression of interest form (≤500 words), with a submission deadline of May 11 2026 at 11:59pm PT.
 rounds:
 - name: Rolling
   status: closed

@@ -6,7 +6,6 @@ systems: []
 wires:
   - oss
 status: unknown
-apply_url: https://nlnet.nl/
 summary: "NLnet General Grants offers €5,000 funding for open-source projects. The program
   awards grants from €5,000 to €50,000 to individuals, non-profits, and companies building software
   under free and libre licenses that benefits society. Projects must align with one of NLnet’s open

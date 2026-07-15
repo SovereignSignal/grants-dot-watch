@@ -7,14 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/QKWsxxQHni7cy3oq9/the-usda-is-investing-usd100m-in-innovation-for-screwworm
-summary: 'The USDA New World Screwworm Grand Challenge represents the largest single funding opportunity
-  for screwworm research and control technologies in decades. Applications are due February 23, 2026.
-
-
-  What''s happening?
-
-  The New World Screwworm (NWS) is a flesh-eating fly endemic to the Americas that lays eggs in open wounds
-  of warm-blooded animals. The larvae burrow into living flesh, consuming the host'
+summary: >
+  The USDA New World Screwworm Grand Challenge represents the largest single funding opportunity for
+  screwworm research and control technologies in decades. Applications are due February 23, 2026.
+  What's happening? The New World Screwworm (NWS) is a flesh-eating fly endemic to the Americas that
+  lays eggs in open wounds of warm-blooded animals.
 rounds:
 - name: Rolling
   status: closed

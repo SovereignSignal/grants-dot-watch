@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://uniswapfoundation.org/
 summary: >-
   Uniswap Acceleration Season is featured in an aggregator thread by @crecimientoar highlighting
   multiple crypto grant and acceleration opportunities.

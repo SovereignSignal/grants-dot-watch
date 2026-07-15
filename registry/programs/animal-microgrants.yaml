@@ -7,16 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/fP9hvx8A9MG9F4rEb/animal-microgrants-request-for-proposals
-summary: 'Summary
-
-
-  We’re a funding circle looking to give microgrants to promising individuals (and very small organisations)
-  focused on farm animal advocacy. The microgrants will be around £500 to £2500 ($670 to $3300). We’re
-  more likely to fund smaller requests, but we’ll consider exceptional opportunities up to £5000 ($6700).
-  Applicants should expect to hear back from us by the end of March.
-
-
-  In total, w'
+summary: >
+  Summary We’re a funding circle looking to give microgrants to promising individuals (and very small
+  organisations) focused on farm animal advocacy. The microgrants will be around £500 to £2500 ($670
+  to $3300). We’re more likely to fund smaller requests, but we’ll consider exceptional opportunities
+  up to £5000 ($6700). Applicants should expect to hear back from us by the end of March.
 rounds:
 - name: Rolling
   status: closed

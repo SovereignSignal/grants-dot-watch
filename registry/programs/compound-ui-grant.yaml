@@ -6,11 +6,11 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: "Hello, Here is an information and tracking post for the Compound UI grant. The project’s
-  source code is available here: GitHub - Nma-DeFi/compound-ui As of today, the farming screen is
-  completed: Farm And HTML mockups of the other screens have been created:
-  http://compound-proto.mywire.org Further updates will be posted in this thread. Best regards Nma 4
-  posts - 2 participants Read full topic"
+summary: >
+  Hello, Here is an information and tracking post for the Compound UI grant. The project’s source code
+  is available here: GitHub - Nma-DeFi/compound-ui As of today, the farming screen is completed: Farm
+  And HTML mockups of the other screens have been created: http://compound-proto.mywire.org Further
+  updates will be posted in this thread.
 rounds: []
 sources:
   - https://www.comp.xyz/t/compound-ui-grant/4994

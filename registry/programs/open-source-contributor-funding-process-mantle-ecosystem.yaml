@@ -6,11 +6,10 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: We’ve recently finished a proposal outlining the opportunity to experiment with an open
-  source contributor funding process. This suggested funding process could become a highly effective
-  and scalable approach for Web3 ecosystems to more consistently generate impact. The opportunity to
-  experiment with a contributor funding approach is better highlighted by understanding some of the
-  problems that ex
+summary: >
+  We’ve recently finished a proposal outlining the opportunity to experiment with an open source
+  contributor funding process. This suggested funding process could become a highly effective and
+  scalable approach for Web3 ecosystems to more consistently generate impact.
 rounds: []
 sources:
   - https://forum.mantle.xyz/t/open-source-contributors-a-promising-alternative-to-idea-based-funding/8693

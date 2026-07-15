@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://bittensor.com/
 summary: "Bittensor Subnet Ideathon invites developers to submit innovative subnet ideas for
   Bittensor. Selected teams will receive compute credits to advance their projects. The competition
   targets builders actively developing on the Bittensor network. Submit your subnet proposal through

@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.nsf.gov/
 summary: >-
   NSF Official DCL invites proposals for advancing artificial intelligence agent ecosystems. The
   Dear Colleague Letter supports research on AI agents that can perceive, reason, and act in complex

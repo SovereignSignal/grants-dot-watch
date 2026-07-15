@@ -6,7 +6,6 @@ systems: []
 wires:
 - oss
 status: unknown
-apply_url: https://www.nsf.gov/
 summary: NSF relaunched its SBIR/STTR small-business innovation research program with $250M, including
   a new $40M instrumentation pilot track.
 rounds: []

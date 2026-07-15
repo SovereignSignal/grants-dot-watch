@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://polygon.technology/
 summary: "Polygon Governance has issued a Call for Proposals for The Three Pillars of Polygon Governance.\
   \ \n\nThe initiative seeks submissions to strengthen protocol governance across three pillars: the Polygon\
   \ Improvement Proposal (PIP) framework, the Polygon Community Treasury, and the Governance Participation\

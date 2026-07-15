@@ -6,11 +6,10 @@ systems: []
 wires:
   - crypto
 status: unknown
-summary: Hey everyone, Following internal discussion and a GMC vote, we’re introducing a microgrant
-  framework to continue recognizing contributions across the Rocket Pool ecosystem. Given current
-  treasury constraints, the GMC does not have the capacity to fund many contributions at historical
-  levels. At the same time, it’s important that valuable work continues to be acknowledged and that
-  contributors rema
+summary: >
+  Hey everyone, Following internal discussion and a GMC vote, we’re introducing a microgrant framework
+  to continue recognizing contributions across the Rocket Pool ecosystem. Given current treasury
+  constraints, the GMC does not have the capacity to fund many contributions at historical levels.
 rounds: []
 sources:
   - https://dao.rocketpool.net/t/introducing-microgrants/3939

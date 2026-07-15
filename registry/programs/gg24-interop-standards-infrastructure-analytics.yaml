@@ -7,10 +7,11 @@ wires:
 - crypto
 status: unknown
 apply_url: https://gov.gitcoin.co/t/domain-announcement-interop-standards-infrastructure-analytics/24631
-summary: 'TL;DR: In its inaugural edition under GG24 , the Interop Standards, Infrastructure & Analytics
-  domain thanks Gitcoin and Celo for their support in advancing open data and interoperability for Ethereum’s
-  multi-chain future. The QF round will be hosted on Giveth (Applications: Oct 3 – 17 | Donations: Oct
-  14 – 28) to help fund the standards, infra & analytics that keep Ethereum connected. Interop Sta'
+summary: >
+  TL;DR: In its inaugural edition under GG24 , the Interop Standards, Infrastructure & Analytics
+  domain thanks Gitcoin and Celo for their support in advancing open data and interoperability for
+  Ethereum’s multi-chain future. The QF round will be hosted on Giveth (Applications: Oct 3 – 17 |
+  Donations: Oct 14 – 28) to help fund the standards, infra & analytics that keep Ethereum connected.
 rounds:
 - name: Rolling
   status: closed

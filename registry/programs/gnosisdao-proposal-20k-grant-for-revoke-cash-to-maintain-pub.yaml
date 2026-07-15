@@ -6,11 +6,9 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://gnosis.io/
-summary: 💰 GnosisDAO proposal seeks $20,000 grant for https://revoke.cash/ to maintain and enhance its
-  public good services—critical for securing user wallets from approval exploits. This funding aligns
-  with GnosisDAO’s commitment to ecosystem safety and sustainability, ensuring continued support for a
-  tool
+summary: >
+  💰 GnosisDAO proposal seeks $20,000 grant for https://revoke.cash/ to maintain and enhance its
+  public good services—critical for securing user wallets from approval exploits.
 rounds: []
 sources:
 - https://x.com/degov_x/status/2027005781678178337

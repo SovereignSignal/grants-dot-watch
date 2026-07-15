@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://web3.foundation/
 summary: Polkadot Community Fund (PCF) — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

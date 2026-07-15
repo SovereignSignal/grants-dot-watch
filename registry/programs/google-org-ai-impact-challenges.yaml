@@ -6,7 +6,6 @@ systems: []
 wires:
   - ai
 status: unknown
-apply_url: https://google.org/
 summary: >-
   Google.org AI Impact Challenges invites organizations and researchers to apply for funding to
   advance AI projects in government innovation and scientific breakthroughs. 

@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://arbitrum.foundation/
 summary: Arbitrum Foundation Grants supports builders building on Arbitrum and Orbit through its ongoing
   ecosystem fund, with no fixed application deadline. Grant amounts are uncapped and determined case-by-case
   based on project scope and needs; all projects must demonstrate clear value to the Arbitrum ecosystem.

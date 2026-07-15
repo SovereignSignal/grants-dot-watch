@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://arbitrum.foundation/
 summary: "Arbitrum DeFi Renaissance Incentive Program (DRIP) Season 2 offers 16.7M ARB in
   incentives for DeFi protocols focused on lending and liquidity growth. Season 1 used approximately
   16.7M ARB of its 24M ARB budget. Season 2 is targeting a mid-late April 2026 launch and must begin

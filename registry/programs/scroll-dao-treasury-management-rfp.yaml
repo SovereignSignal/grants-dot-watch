@@ -7,10 +7,9 @@ wires:
 - crypto
 status: unknown
 apply_url: https://forum.scroll.io/t/request-for-comments-dao-treasury-management-rfp/1000
-summary: tldr This Request for Comments (RFC) is to review the treasury management Request for Proposals
-  (RFP). If you only have time for one thing, please review the ‘Open Questions for the DAO’ below. Summary
-  The Governance team at the Scroll Foundation putting forth a Request for Comments on the proposed Request
-  for Proposals (RFP) that will invite qualified service providers to support the DAO in desig
+summary: >
+  tldr This Request for Comments (RFC) is to review the treasury management Request for Proposals
+  (RFP). If you only have time for one thing, please review the ‘Open Questions for the DAO’ below.
 rounds:
 - name: Rolling
   status: closed

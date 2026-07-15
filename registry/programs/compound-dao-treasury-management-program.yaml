@@ -5,17 +5,17 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: active
+mechanism: rfp
 apply_url: https://www.comp.xyz/t/request-for-proposals-rfp-compound-dao-treasury-management-program/7867
-summary: 'Category: Treasury Management Posted by: Compound Treasury Management Committee ( TMC ) Status:
-  Screening and Interviews Submission Deadline: June 24, 2026 (11:59pm ET) Executive Summary The Treasury
-  Management Committee (TMC) is seeking one or more professional treasury managers to manage an initial
-  approximately $20–25M allocation of Compound DAO reserves, with potential additional capital as th'
+summary: The Compound DAO Treasury Management Committee sought one or more professional treasury
+  managers for an initial allocation of approximately $20-25 million in DAO reserves. Applications
+  closed June 24, 2026, and the committee moved into screening and interviews.
 rounds:
 - name: Rolling
   status: closed
   closes: 2026-06-24
-  size: $20,000,000–38,000,000
+  size: Initial allocation of approximately $20M-$25M
   source: https://www.comp.xyz/t/request-for-proposals-rfp-compound-dao-treasury-management-program/7867
 sources:
 - https://www.comp.xyz/t/request-for-proposals-rfp-compound-dao-treasury-management-program/7867

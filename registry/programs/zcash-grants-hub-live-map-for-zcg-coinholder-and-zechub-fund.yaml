@@ -6,7 +6,6 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://zfnd.org/
 summary: Zcash Grants Hub is a live map tracking funding across Zcash's ZCG, Coinholder, and ZecHub grant
   lanes.
 rounds: []

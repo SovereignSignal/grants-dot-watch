@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.zksync.io/
 summary: https://vote.zknation.io/dao/proposal/19993014537746296636853362219247192671631735482612670856590540039176244970638
   [TPP-8] ZKsync Community Activation Pilot Program (2025–2026 ) allocates a total of 13.6M ZK
   (approximately USD $680,000 at $0.05 per token) to an RFP Pool that aims to support in-p...

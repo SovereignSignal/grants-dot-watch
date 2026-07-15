@@ -6,7 +6,6 @@ systems: []
 wires:
 - ai
 status: unknown
-apply_url: https://google.org/
 summary: "Google AI for Science Fund is offering $2 million in grants to support 12 international\
   \ research projects at its new AI research center in Germany. The fund is open to researchers worldwide\
   \ with no listed deadline. \n\nThis represents one of 16 deduplicated AI funding opportunities identified\

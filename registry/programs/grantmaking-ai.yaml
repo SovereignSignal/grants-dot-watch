@@ -7,11 +7,11 @@ wires:
 - ai
 status: unknown
 apply_url: https://forum.effectivealtruism.org/posts/YfwQMLFgSe9K8Y6dg/find-funding-fast
-summary: "Some AI safety funders can take months to decide; others confirm in days. I’ve been on both\
-  \ sides of the grant application and know how crucial an early “yes” can be; “funding projects fast”\
-  \ has always been a core tenet of Manifund.\n\nFour new opportunities have popped up around the extended\
-  \ Manifund universe, several with a short-fuse (that is, due in the next few days):\n\n\n1. grantmaking.ai\n\
-  \n * Si"
+summary: >
+  Some AI safety funders can take months to decide; others confirm in days. I’ve been on both sides of
+  the grant application and know how crucial an early “yes” can be; “funding projects fast” has always
+  been a core tenet of Manifund. Four new opportunities have popped up around the extended Manifund
+  universe, several with a short-fuse (that is, due in the next few days): 1.
 rounds:
 - name: Rolling
   status: closed

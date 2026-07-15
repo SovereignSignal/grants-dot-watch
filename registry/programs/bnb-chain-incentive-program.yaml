@@ -6,7 +6,6 @@ systems: []
 wires:
   - crypto
 status: unknown
-apply_url: https://www.bnbchain.org/
 summary: BNB Chain has launched a new ecosystem incentive program targeting DeFi and AI-powered
   projects on BSC. The initiative offers fresh liquidity, builder grants, and enhanced
   infrastructure support to accelerate development. This program is now live for projects building
