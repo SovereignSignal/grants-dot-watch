@@ -1,15 +1,24 @@
 id: blog-post-announcing-bounty-program-for-pip-submissions
-name: "Blog post: Announcing Bounty Program for PIP Submissions"
+name: Polygon PIP Bounty Program
 org: polygon
 parent: null
-systems: []
+systems:
+  - ethereum
 wires:
   - crypto
-status: unknown
-summary: "Polygon Labs has launched a bounty program to reward outstanding Polygon Improvement
-  Proposal (PIP) submissions. The program incentivizes high-quality proposals that contribute to
-  Polygon’s decentralized governance by offering bounties for meritorious ideas. Full details,
-  including bounty amounts and submission requirements, are available in the official announcement."
-rounds: []
+status: concluded
+mechanism: prize
+summary: Polygon Labs launched a one-year bounty program in April 2023 with $40,000 in
+  USDC-denominated awards for high-quality Polygon Improvement Proposals. The governance team
+  evaluated eligible core, contracts, interface, and informational PIPs quarterly, with award sizes
+  based on proposal quality, complexity, impact, and implementation work.
+rounds:
+  - name: 2023 PIP Bounty Program
+    status: closed
+    opens: '2023-04-20'
+    size: $40,000 in USDC-denominated awards over one year
+    source: https://polygon.technology/blog/announcing-bounty-program-for-pip-submissions
 sources:
   - https://forum.polygon.technology/t/blog-post-announcing-bounty-program-for-pip-submissions/11800
+  - https://polygon.technology/blog/announcing-bounty-program-for-pip-submissions
+  - https://forum.polygon.technology/t/pip-bounty-program-terms-and-conditions/11794
