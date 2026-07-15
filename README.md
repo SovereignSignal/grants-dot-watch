@@ -28,6 +28,7 @@ npm install
 npm run dev        # site on :3000, reads registry/ directly
 npm run validate   # schema + membrane checks over registry/
 npm run build && npm run start
+npm run test:browser # production-route Chromium smoke suite; build first
 ```
 
 Environment (all optional in dev): `ADMIN_TOKEN` gates The Desk; `GRANTS_WATCH_NO_GIT=1`
@@ -43,6 +44,18 @@ marketing homepage and drops the path). `INGEST_ENABLED=1` starts a daily in-pro
 (`src/instrumentation.ts`, nodejs runtime) guarded by a Postgres advisory lock so multiple
 Railway replicas never double-run; last-run status lands in `ingest_state` and shows on
 `/admin/health`.
+
+## Release
+
+Production tracks the `main` branch of `SovereignSignal/grants-dot-watch` through Railway's
+GitHub source integration. CI must pass before merge or push. Railway then builds with the
+checked-in `railway.json` and `nixpacks.toml` contract and verifies the `/` health check.
+
+The two optional-module warnings emitted by Privy's client bundle are known upstream feature
+edges for Stripe onramp and Farcaster Solana support. Neither feature is used by grants.watch.
+The remaining npm audit findings are moderate transitive advisories inside the route-scoped
+Privy and wallet tree. There are no high or critical advisories. Do not force-downgrade Privy
+to silence them; review a supported upgrade or an auth replacement separately.
 
 ## Layout
 

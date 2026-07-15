@@ -7,6 +7,7 @@
 // percentages computed at render time.
 import Link from 'next/link';
 import type { Program, Round } from '@/lib/types';
+import { cadenceFallback } from '@/lib/cadence';
 
 const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // Cumulative day-of-year at the 1st of each month (non-leap approximation —
@@ -86,8 +87,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
           const dated = (program.rounds || [])
             .map((r) => ({ r, p: dayOfYearPct(r.closes || r.opens, y) }))
             .filter((x): x is { r: Round; p: number } => x.p != null);
-          const hasAnyRounds = (program.rounds || []).length > 0;
-          const caption = dated.length > 0 ? null : hasAnyRounds ? `No ${y} rounds on file` : 'Rolling, by engagement';
+          const caption = dated.length > 0 ? null : cadenceFallback(program, y).label;
 
           return (
             <div key={program.id} className="relative z-10 flex items-center border-b border-line">

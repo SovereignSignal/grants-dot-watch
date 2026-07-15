@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Empty } from '@/components/ui';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Org, Program, System } from '@/lib/types';
+import { cadenceFallback } from '@/lib/cadence';
 import { isPast, monthDayShort, monthTickPercent, todayISO, yearPercent } from './date-helpers';
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -23,8 +24,8 @@ type Plot =
 /** Positions a program's rounds against a Jan 1–Dec 31 axis for `year`. A
  *  round with distinct opens+closes both falling in-year becomes a window
  *  bar; a round with just one dated end becomes a diamond mark. Rounds with
- *  no date, or whose date falls outside `year`, contribute nothing — the
- *  caller reads an empty result as "plot the rolling band instead." */
+ *  no date, or whose date falls outside `year`, contribute nothing. The
+ *  caller then renders an evidence-aware fallback state. */
 function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
   const out: Plot[] = [];
   for (const r of program.rounds || []) {
@@ -54,17 +55,6 @@ function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
     }
   }
   return out;
-}
-
-function cadenceFallback(program: Program, year: number): { label: string; rolling: boolean } {
-  const rounds = program.rounds || [];
-  const rolling = rounds.some(
-    (round) => !round.opens && !round.closes && (round.status === 'open' || round.status === 'announced')
-  );
-  if (rolling) return { label: 'Rolling intake', rolling: true };
-  if (rounds.length === 0) return { label: 'No cadence on file', rolling: false };
-  if (rounds.some((round) => round.opens || round.closes)) return { label: `No ${year} dates`, rolling: false };
-  return { label: 'No dates on file', rolling: false };
 }
 
 /** Tab 2: the year-at-a-glance chart. Programs grouped under small-caps
@@ -102,7 +92,28 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
     });
 
   return (
-    <div className="overflow-x-auto pt-5">
+    <>
+      <div data-testid="cadence-mobile" className="pt-4 sm:hidden">
+        {programs.map((program) => {
+          const org = orgById.get(program.org);
+          const marks = plotRounds(program, year, todayStr);
+          const fallback = cadenceFallback(program, year);
+          const detail = marks.length > 0 ? marks.map((mark) => mark.caption).join(' · ') : fallback.label;
+          return (
+            <Link
+              key={program.id}
+              href={`/programs/${program.id}`}
+              className="block border-b border-line py-3 transition-colors hover:bg-raised/40"
+            >
+              <div className="display text-[15px] leading-tight text-paper">{program.name}</div>
+              <div className="coord mt-1">{org?.name || program.org}</div>
+              <div className="mt-1 text-[12px] leading-snug text-dim">{detail}</div>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div data-testid="cadence-chart" className="hidden overflow-x-auto pt-5 sm:block">
       <div className="min-w-[880px]">
         <div className="flex items-end border-b-[1.5px] border-paper pb-1">
         <div style={{ width: LABEL_W }} className="shrink-0" />
@@ -222,6 +233,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
         </span>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

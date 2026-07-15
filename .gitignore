@@ -16,3 +16,5 @@ tsconfig.tsbuildinfo
 
 # QA screenshot scratch stays local; canon mocks are committed
 /design/qa/
+/test-results/
+/playwright-report/
