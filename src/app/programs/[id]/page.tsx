@@ -10,6 +10,10 @@ import { RoundRow } from '@/components/programs/round-row';
 import { isClosingSoon, monthYearShort } from '@/components/programs/date-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { pageMetadata } from '@/lib/site-metadata';
+import { awardsForProgram } from '@/lib/awards';
+import { parsePage } from '@/lib/pagination';
+import { AwardLedger } from '@/components/awards/award-ledger';
+import { param, type SearchParams } from '@/components/ledger/query';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -21,13 +25,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   );
 }
 
-export default async function ProgramPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function ProgramPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const [{ id }, sp] = await Promise.all([params, searchParams]);
   const program = getProgram(id);
   if (!program) notFound();
 
   const org = getOrg(program.org);
-  const { programs } = loadRegistry();
+  const registry = loadRegistry();
+  const { programs } = registry;
 
   const rounds = timelineOrder(program.rounds || []);
   const parent = program.parent ? getProgram(program.parent) : null;
@@ -35,6 +46,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
   const wire = (program.wires || [])[0] || null;
   const wireColor = wire ? WIRE_COLOR[wire] : null;
   const mechanismLabel = MECHANISM_LABEL[program.mechanism || 'other'] || program.mechanism || 'Unspecified';
+  const awards = awardsForProgram(registry.awards, program);
 
   return (
     <>
@@ -131,6 +143,15 @@ export default async function ProgramPage({ params }: { params: Promise<{ id: st
             </>
           )}
         </section>
+
+        <AwardLedger
+          awards={awards}
+          requestedPage={parsePage(param(sp, 'awardPage'))}
+          basePath={`/programs/${program.id}`}
+          programs={programs}
+          orgIds={new Set(registry.orgs.map((item) => item.id))}
+          showProgram={false}
+        />
 
         {org && (
           <section className="mt-10 border-t border-line pt-6">

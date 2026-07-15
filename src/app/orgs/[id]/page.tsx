@@ -8,6 +8,11 @@ import { Dossier, FactSep, FactsPanel } from '@/components/browse/dossier';
 import { SourceCitations, SourcesList } from '@/components/browse/sources';
 import { CadenceLane, type CadenceRow } from '@/components/browse/cadence-lane';
 import { pageMetadata } from '@/lib/site-metadata';
+import { AwardLedger } from '@/components/awards/award-ledger';
+import { parsePage } from '@/lib/pagination';
+import { param, type SearchParams } from '@/components/ledger/query';
+import { money } from '@/lib/format';
+import { awardMatchesProgram } from '@/lib/awards';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -17,8 +22,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 const SOCIAL_LABEL: Record<string, string> = { x: 'X', github: 'GitHub', forum: 'Forum', discord: 'Discord', telegram: 'Telegram' };
 
-export default async function OrgPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function OrgPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const [{ id }, sp] = await Promise.all([params, searchParams]);
   const registry = loadRegistry();
   const org = registry.orgs.find((o) => o.id === id);
   if (!org) notFound();
@@ -27,19 +38,14 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
   const systemById = new Map(registry.systems.map((s) => [s.id, s]));
 
   const programs = programsOf(org.id);
-  // Awards are still loaded to count grants per program for the cadence
-  // lane below (kept per the awards-retreat decision) — nothing else on
-  // this page reads award records directly anymore.
   const given = awardsGivenBy(org.id);
 
   const primarySystem = org.systems?.[0] ? systemById.get(org.systems[0]) : null;
   const systemNames = (org.systems || []).map((sid) => systemById.get(sid)?.name).filter((n): n is string => Boolean(n));
 
-  // Award count per program — same funder/program-name matching the program
-  // detail page uses, so the two pages never disagree on a count.
+  // Keep cadence counts on the same matching rule as the visible ledger.
   const cadenceRows: CadenceRow[] = programs.map((p) => {
-    const nameLower = p.name.toLowerCase();
-    const grantCount = given.filter((a) => a.program === p.id || (a.program_name && a.program_name.toLowerCase() === nameLower)).length;
+    const grantCount = given.filter((award) => awardMatchesProgram(award, p)).length;
     return { program: p, grantCount };
   });
 
@@ -114,10 +120,8 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
         }
       />
 
-      {/* Everything below runs full-width, single column — the two-lane
-          magazine split (programs left, facts rail right) needed the award
-          tables to fill the left column; without them a narrow rail just
-          strands a lot of empty space beside a short programs list. */}
+      {/* Everything below runs full-width so long program and award ledgers
+          keep enough room for names, amounts, and source evidence. */}
       <div className="mx-auto max-w-6xl px-4 pb-16">
         <section className="pt-7">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
@@ -136,11 +140,23 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
           {programs.length === 0 ? <Empty>No programs on file for this org yet.</Empty> : <CadenceLane rows={cadenceRows} />}
         </section>
 
+        <AwardLedger
+          awards={given}
+          requestedPage={parsePage(param(sp, 'awardPage'))}
+          basePath={`/orgs/${org.id}`}
+          programs={registry.programs}
+          orgIds={new Set(registry.orgs.map((item) => item.id))}
+          showProgram
+        />
+
         <section className="mt-10 border-t border-line pt-7">
           <FactsPanel
             layout="horizontal"
             facts={[
               { label: 'Programs', value: stats?.programs ?? 0 },
+              { label: 'Awards', value: stats?.awards_given ?? 0 },
+              { label: 'Grantees', value: stats?.grantees ?? 0 },
+              { label: 'Known USD', value: money(stats?.awards_total_usd) },
               {
                 label: 'Live rounds',
                 value: stats?.live_rounds ?? 0,
