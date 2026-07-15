@@ -17,7 +17,7 @@ import { publicSiteOrigin } from '@/lib/site-metadata';
 
 export const dynamic = 'force-dynamic';
 
-const SITE_DESCRIPTION = 'The registry of the funding world: systems, organizations, and programs across crypto, AI, and open source.';
+const SITE_DESCRIPTION = 'The registry of the funding world: systems, organizations, programs, and awards across crypto, AI, and open source.';
 const siteOrigin = publicSiteOrigin();
 
 export const metadata: Metadata = {
@@ -49,7 +49,8 @@ const NAV = [
   { href: '/programs', label: 'Now Open', shortLabel: 'Open' },
   { href: '/systems', label: 'Systems', shortLabel: 'Systems' },
   { href: '/orgs', label: 'Organizations', shortLabel: 'Orgs' },
-  { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk' },
+  { href: '/awards', label: 'Awards', shortLabel: 'Awards' },
+  { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk', desktopOnly: true },
 ];
 
 const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
@@ -78,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="flex w-full items-center justify-between gap-2 md:w-auto md:gap-6">
                 <nav aria-label="Primary" className="coord flex items-center gap-2 sm:gap-5 md:gap-7">
                   {NAV.map((n) => (
-                    <Link key={n.href} href={n.href} className="whitespace-nowrap transition-colors hover:text-paper">
+                    <Link key={n.href} href={n.href} className={`${n.desktopOnly ? 'hidden md:inline' : ''} whitespace-nowrap transition-colors hover:text-paper`}>
                       <span className="sm:hidden">{n.shortLabel}</span>
                       <span className="hidden sm:inline">{n.label}</span>
                     </Link>

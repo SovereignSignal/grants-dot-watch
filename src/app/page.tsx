@@ -79,6 +79,7 @@ export default function Home() {
     { href: '/systems', label: 'Systems', n: counts.systems },
     { href: '/orgs', label: 'Organizations', n: counts.orgs },
     { href: '/programs', label: 'Programs', n: counts.programs },
+    { href: '/awards', label: 'Awards', n: counts.awards },
   ];
 
   return (
@@ -161,11 +162,11 @@ export default function Home() {
           )}
         </section>
 
-        {/* RAIL — THE REGISTER, the index alone now that awards has stepped back */}
+        {/* RAIL — THE REGISTER */}
         <aside className="min-w-0 lg:border-l lg:border-line lg:pl-11">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
             <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
-            <span className="coord shrink-0">3 measures</span>
+            <span className="coord shrink-0">4 measures</span>
           </div>
           <div className="flex flex-col">
             {REGISTER.map((r) => (
