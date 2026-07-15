@@ -16,6 +16,7 @@ rounds:
   - name: 2023 PIP Bounty Program
     status: closed
     opens: '2023-04-20'
+    closes: '2024-04-20'
     size: $40,000 in USDC-denominated awards over one year
     source: https://polygon.technology/blog/announcing-bounty-program-for-pip-submissions
 sources:
