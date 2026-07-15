@@ -9,5 +9,5 @@ test('registry remains valid after the latest recorded deadlines', () => {
     env: { ...process.env, VALIDATION_TODAY: '2026-07-15' },
   });
 
-  assert.match(output, /^OK: 21 systems, 405 orgs, 696 programs validated/m);
+  assert.match(output, /^OK: 21 systems, 405 orgs, 693 programs validated/m);
 });

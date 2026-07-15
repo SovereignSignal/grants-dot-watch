@@ -1,17 +1,16 @@
 id: filecointldr-filecoin-announces-3-22m-in-public-goods-fundin
-name: Filecoin Public Goods Funding Update
+name: Filecoin ProPGF Batch 2
 org: filecoin-foundation
 parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-apply_url: https://fil.org/
-summary: "Filecoin announces $3.22 million in Public Goods Funding. \n\nBetween March 2 and March\
-  \ 9, Filecoin distributed $3.22 million to support public goods initiatives. The funding forms part\
-  \ of the network’s broader March 2025 updates, which also include the Filecoin Foundation’s FY2025 data\
-  \ report, Akave’s latest releases and funding, Snowflake records stored on Filecoin, the 2026 network\
-  \ strategy, and progress on verifiable compute via Filecoin Onchain Cloud."
+status: concluded
+mechanism: grants
+summary: Filecoin ProPGF Batch 2 allocated $3,220,200 in milestone-based prospective funding to 16
+  projects spanning core infrastructure, developer tooling, ecosystem growth, coordination, and
+  integrations. The round received 102 applications and funded 15.7% of them.
 rounds: []
 sources:
 - https://x.com/FilecoinTLDR/status/2031367205846159853
+- https://www.filecoin.io/blog/filecoin-propgf-batch-2-general-track-322m-allocated-to-core-infrastructure-and-ecosystem-builders
