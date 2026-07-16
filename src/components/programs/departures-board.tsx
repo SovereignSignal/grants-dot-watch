@@ -40,8 +40,8 @@ function StandingRow({ d }: { d: Departure }) {
         <div className="truncate text-sm text-paper">{d.program.name}</div>
         <div className="coord mt-0.5 truncate">{d.orgName}</div>
       </div>
-      <div className="shrink-0 text-right">
-        <div className="text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '–'}</div>
+      <div className="max-w-[45%] shrink-0 text-right">
+        <div className="truncate text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '–'}</div>
         <div className="coord mt-0.5">{MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}</div>
       </div>
     </Link>

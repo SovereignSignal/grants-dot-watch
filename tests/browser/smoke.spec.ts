@@ -63,6 +63,9 @@ test.describe('mobile', () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await expect(page.locator('main ol > li')).toHaveCount(50);
 
+    await page.goto('/programs');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+
     await page.goto('/programs?view=cadence');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await expect(page.getByTestId('cadence-mobile').locator('a[href^="/programs/"]').first()).toBeVisible();
