@@ -7,13 +7,13 @@ wires:
   - ai
 status: active
 mechanism: grants
-summary: "Anthropic's 2026-06-30 Claude Science launch opened applications for up to 50 AI for
-  Science projects, each receiving up to USD 30,000 in Claude credits plus up to USD 2,000 in Modal
-  compute for select projects, starting with biology/life sciences and targeting researchers,
-  postdocs, and grad students. Deadline is July 15, 2026. Duplicate signals: 10935, 10814."
+summary: >
+  Anthropic's Claude Science program offered up to 50 biology and life-sciences projects as much
+  as $30,000 in Claude credits, plus up to $2,000 in Modal compute for select projects. The
+  inaugural application deadline was July 15, 2026, and submissions are now under review.
 rounds:
   - name: Inaugural round (biology/life sciences)
-    status: open
+    status: reviewing
     closes: 2026-07-15
     size: up to $30,000 in credits per project, up to 50 projects
     source: https://www.anthropic.com/news/claude-science-ai-workbench

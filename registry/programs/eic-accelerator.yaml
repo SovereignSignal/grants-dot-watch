@@ -2,13 +2,25 @@ id: eic-accelerator
 name: EIC Accelerator
 org: european-innovation-council-eic
 parent: null
-systems: []
+systems:
+  - eu-public-rd
 wires:
   - ai
-status: unknown
+status: active
+mechanism: other
 apply_url: https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
-summary: EIC Accelerator funds startups and SMEs with high-risk, high-impact deep-tech innovations,
-  combining a grant of up to EUR 2.5M with an optional equity investment component.
-rounds: []
+summary: >
+  EIC Accelerator supports high-risk, market-creating innovations from startups and SMEs through
+  grants below EUR 2.5 million, optional equity investments of EUR 1-10 million, and business
+  acceleration support. Short proposals are accepted continuously and full proposals use
+  scheduled batching dates.
+rounds:
+  - name: EIC Accelerator 2026
+    status: open
+    opens: 2025-11-06
+    closes: 2026-11-04
+    size: EUR 634 million across Accelerator Open and Challenges
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
 sources:
   - https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
+  - https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en

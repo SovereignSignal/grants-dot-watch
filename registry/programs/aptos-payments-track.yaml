@@ -1,13 +1,20 @@
 id: aptos-payments-track
-name: Aptos Payments Track
+name: Aptos Payment Grants
 org: aptos-foundation
-parent: null
+parent: aptos-grants
 systems: []
 wires:
   - crypto
-status: unknown
-apply_url: https://aptosnetwork.com/grants
-summary: Aptos Payments Track — dispatch from the wire, no further detail on file.
-rounds: []
+status: paused
+mechanism: grants
+summary: >
+  Aptos Foundation's Payment Grants provide up to $150,000 in milestone-based funding for
+  MVP+ teams building wallets, APIs, compliance layers, payment rails, and other infrastructure
+  for programmable payments on Aptos. The track is currently not accepting applications.
+rounds:
+  - name: Payment Grants
+    status: closed
+    size: Up to $150,000
+    source: https://aptosnetwork.com/grants/payments
 sources:
-  - https://aptosnetwork.com/use-cases/payments
+  - https://aptosnetwork.com/grants/payments

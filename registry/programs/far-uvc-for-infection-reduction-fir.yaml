@@ -1,21 +1,23 @@
 id: far-uvc-for-infection-reduction-fir
 name: Far-UVC for Infection Reduction (FIR)
-org: long-term-future-fund
+org: blueprint-biosecurity
 parent: null
-systems: []
+systems:
+  - global-health
 wires:
   - ai
-status: unknown
-apply_url: https://blueprintbiosecurity.org/calls-for-proposals/request-for-proposals-far-uvc-for-infection-reduction-fir-protocol/
-summary: >-
-  Good day, and compliments of the season.
-
-  I am preparing an Expression of Interest for the Far-UVC for Infection Reduction (FIR) program
-  through Blueprint Biosecurity. I plan to use a nasal swab–based protocol as the primary endpoint.
-
-
-  If you have experience with clinical trials, respiratory infection endpoints, or study design in
-  real-world settings, I would greatly value your feedback on the EOI.
-rounds: []
+status: concluded
+mechanism: rfp
+summary: >
+  Blueprint Biosecurity's FIR Protocol RFP funded the development of clinical-trial protocols
+  evaluating whether far-UVC can reduce respiratory infection transmission in congregate
+  settings. Academic, industry, and public-health institutions could submit short expressions
+  of interest.
+rounds:
+  - name: FIR Protocol RFP
+    status: closed
+    closes: 2026-01-23
+    source: https://blueprintbiosecurity.org/u/2025/11/Blueprint-Biosecurity-FIR-Protocol-RFP.pdf
 sources:
-  - https://forum.effectivealtruism.org/posts/uKvM36aJyaapba7f6/request-for-feedback-on-fir-eoi-far-uvc-protocol
+  - https://blueprintbiosecurity.org/u/2025/11/Blueprint-Biosecurity-FIR-Protocol-RFP.pdf
+  - https://www.linkedin.com/posts/blueprintbiosecurity_request-for-proposals-far-uvc-for-infection-activity-7391855570884132865-JjST

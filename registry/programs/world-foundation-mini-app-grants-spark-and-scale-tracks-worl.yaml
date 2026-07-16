@@ -1,14 +1,22 @@
 id: world-foundation-mini-app-grants-spark-and-scale-tracks-worl
-name: World Foundation Mini App Grants (Spark & Scale Tracks)
+name: World Foundation Mini App Grants
 org: world-foundation-mini-app-grants
 parent: null
-systems: []
+systems:
+  - ethereum
 wires:
-- crypto
-status: unknown
+  - crypto
+status: active
+mechanism: grants
 apply_url: https://world.org/grants
-summary: World Foundation's Mini App Grants fund builders through Spark and Scale tracks, part of the
-  World Build 2.0 initiative launching July 2026.
-rounds: []
+summary: >
+  World Foundation offers rolling Spark grants for teams turning validated ideas into working
+  Mini Apps and Scale grants for live Mini Apps with verified users and growth plans. The broader
+  World Grants allocation is 50 million WLD.
+rounds:
+  - name: Rolling Mini App Grants
+    status: open
+    size: Spark and Scale tracks within a 50 million WLD program allocation
+    source: https://world.org/grants
 sources:
-- https://world.org/grants
+  - https://world.org/grants

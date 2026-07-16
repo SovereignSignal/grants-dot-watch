@@ -2,15 +2,27 @@ id: unichain-growth-cfm-conditional-funding-markets
 name: Unichain growth CFM (Conditional Funding Markets)
 org: uniswap-foundation
 parent: null
-systems: []
+systems:
+  - ethereum
 wires:
   - crypto
-status: unknown
-apply_url: https://uniswap.org
+status: concluded
+mechanism: other
 summary: >
-  Welcome to the Unichain growth CFM category! This forum category will be used to share lending
-  protocol applications, post market results, and communicate other updates. Please note that posting
-  in this category is restricted to participating lending protocols and the UF and Butter teams.
-rounds: []
+  A Uniswap Foundation and Butter pilot that used conditional funding markets to direct up to
+  $900,000 in grants to lending protocols expected to grow Unichain TVL. The first market awarded
+  $100,000 to Morpho; the second offered two $400,000 grants.
+rounds:
+  - name: Unichain CFM 1
+    status: deployed
+    closes: 2025-07-11
+    size: One $100,000 grant
+    source: https://www.uniswapfoundation.org/blog/unichain-cfm-pilot-case-study
+  - name: Unichain CFM 2
+    status: closed
+    closes: 2025-08-01
+    size: Two $400,000 grants
+    source: https://www.uniswapfoundation.org/blog/grant-opportunity-usd900k-available-for-unichain-lending-protocols-through-conditional-funding-markets
 sources:
-  - https://gov.uniswap.org/t/about-the-conditional-funding-markets-cfm-category/25675
+  - https://www.uniswapfoundation.org/blog/grant-opportunity-usd900k-available-for-unichain-lending-protocols-through-conditional-funding-markets
+  - https://www.uniswapfoundation.org/blog/unichain-cfm-pilot-case-study

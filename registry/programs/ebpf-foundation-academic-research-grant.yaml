@@ -7,13 +7,13 @@ wires:
 - oss
 status: active
 mechanism: grants
-apply_url: https://ebpf.foundation/funding-opportunities/research-fund/
-summary: The eBPF Foundation's Academic Research Grant Program funds academic research benefiting the
-  eBPF community. It awarded five $50,000 grants in 2024, with a 2026 cycle open June 15 – July 15, 2026
-  for awards up to $50,000.
+summary: >
+  The eBPF Foundation's Academic Research Grant Program funds academic research benefiting the
+  eBPF community. It awarded five $50,000 grants in 2024, and its 2026 cycle accepted applications
+  from June 15 through July 15 for awards up to $50,000; submissions are now under review.
 rounds:
 - name: 2026 cycle
-  status: open
+  status: reviewing
   opens: 2026-06-15
   closes: 2026-07-15
   size: up to $50,000

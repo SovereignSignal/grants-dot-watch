@@ -8,12 +8,15 @@ wires:
   - crypto
 status: active
 mechanism: grants
+apply_url: https://www.alchemy.com/arbitrum-grant-contact
 summary: A co-branded grant program between Alchemy and the Arbitrum Foundation, combining a $10M
   grant pool with up to $500K in Alchemy infrastructure credits for builders on Arbitrum.
 rounds:
   - name: Alchemy-Arbitrum Grant Program
     status: open
     size: $10M grants + up to $500K Alchemy infra credits
-    source: https://arbitrum.io/grants
+    source: https://www.alchemy.com/arbitrum-grant
 sources:
   - https://arbitrum.io/grants
+  - https://www.alchemy.com/arbitrum-grant
+  - https://www.alchemy.com/arbitrum-grant-contact

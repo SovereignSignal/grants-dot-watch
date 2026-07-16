@@ -2,16 +2,20 @@ id: scroll-community-grants-support-program
 name: Scroll Community Grants Support Program
 org: scroll
 parent: null
-systems: []
+systems:
+  - ethereum
 wires:
-- crypto
-status: unknown
-apply_url: https://scroll.io/community-grants
+  - crypto
+status: concluded
+mechanism: grants
 summary: >
-  This framework has been authored by @Juansito , @gabriellamena , @Joey , @mimetista.eth and myself.
-  TL;DR Pilot a simple 3-month community grant stream. Owned and run by the Community Council. Focused
-  on events, meetups, hackathons, flex requests.
-rounds: []
+  A three-month Scroll Community Council pilot funding events, meetups, hackathons, and flexible
+  community requests worldwide. Individual awards ranged from $200 to $10,000 within an approved
+  SCR 312,500 program budget.
+rounds:
+  - name: Community Grants Support Program pilot
+    status: closed
+    size: $200-$10,000 per grant; SCR 312,500 program budget
+    source: https://forum.scroll.io/t/introducing-community-grants-support-program/1164
 sources:
-- https://forum.scroll.io/t/introducing-community-grants-support-program/1164
-- https://gitcoin.co/apps/scroll-grants
+  - https://forum.scroll.io/t/introducing-community-grants-support-program/1164

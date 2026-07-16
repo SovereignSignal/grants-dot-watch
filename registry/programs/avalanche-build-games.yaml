@@ -5,9 +5,18 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-apply_url: https://build.avax.network/grants
-summary: Avalanche Build Games — dispatch from the wire, no further detail on file.
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  Avalanche Build Games 2026 was a six-week online builder competition for solo developers
+  and small teams creating new products on Avalanche. It offered a $1 million prize pool,
+  including a $100,000 grand prize and category awards.
+rounds:
+  - name: Build Games 2026
+    status: closed
+    closes: 2026-02-10
+    size: $1 million prize pool
+    source: https://build.avax.network/build-games
 sources:
-  - https://x.com/avax/status/2038980963275866598
+  - https://build.avax.network/build-games
+  - https://www.linkedin.com/posts/avalanchefdn_its-been-a-busy-start-to-2026-across-the-activity-7424466541183741952-sIO_

@@ -13,11 +13,11 @@ socials:
 status: active
 profile: >
   The Avalanche Foundation supports the Avalanche layer-1 network through
-  several parallel funding tracks: the retroactive Retro9000 programme on
-  C-Chain (monthly rounds, over $1M distributed to 19 projects in June
-  2025), Team1 Builder Grants, research grants, and the Blizzard Fund for
-  venture-style investment. New research funding calls continued into 2026,
-  with no signs of the programmes winding down.
+  several funding tracks, including Retro9000, Team1 Builder Grants,
+  research grants, builder competitions, and venture-style investment
+  through the Blizzard Fund. The Foundation is winding down infraBUIDL()
+  and infraBUIDL(AI) after current allocations while continuing other
+  builder-support initiatives and redesigning future programs.
 funding:
   focus:
     - core protocol infrastructure
@@ -28,3 +28,4 @@ funding:
 sources:
   - https://build.avax.network/grants
   - https://www.avax.network/about/blog/the-avalanche-foundation-announces-retro9000-c-chain-round-2
+  - https://www.linkedin.com/posts/avalanchefdn_the-avalanche-foundation-is-evolving-how-activity-7450150985282371584-nGlp

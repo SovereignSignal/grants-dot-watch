@@ -1,0 +1,26 @@
+id: blueprint-biosecurity
+name: Blueprint Biosecurity
+aka: []
+systems:
+  - global-health
+wires:
+  - ai
+roles:
+  - funder
+org_type: nonprofit
+website: https://blueprintbiosecurity.org/
+status: active
+profile: >
+  Blueprint Biosecurity is a nonprofit advancing pathogen-agnostic countermeasures for pandemic
+  preparedness through research, policy work, strategic grantmaking, and support for real-world
+  deployment. Its programs cover far-UVC, respiratory protection, and other built-environment
+  interventions.
+funding:
+  focus:
+    - pandemic preparedness
+    - far-UVC
+    - respiratory protection
+    - pathogen-agnostic countermeasures
+sources:
+  - https://blueprintbiosecurity.org/
+  - https://blueprintbiosecurity.org/programs-overview/

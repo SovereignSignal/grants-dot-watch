@@ -5,9 +5,16 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Avalanche's infraBUIDL() program funds decentralized infrastructure projects building on Avalanche,
-  distinct from the AI-focused infraBUIDL(AI) track.
-rounds: []
+status: paused
+mechanism: grants
+summary: >
+  Avalanche infraBUIDL() funded core infrastructure projects building on Avalanche. The
+  Foundation is winding the program down after its current allocations are completed while
+  redesigning its broader builder-support model.
+rounds:
+  - name: Final allocations
+    status: reviewing
+    source: https://www.linkedin.com/posts/avalanchefdn_the-avalanche-foundation-is-evolving-how-activity-7450150985282371584-nGlp
 sources:
-- https://forum.avax.network/t/coinoffering-fair-token-launch-infra-and-questions-about-avalanche-grants/6999
+  - https://www.linkedin.com/posts/avalanchefdn_blockchain-crypto-grant-activity-7283067513389645824-2iOP
+  - https://www.linkedin.com/posts/avalanchefdn_the-avalanche-foundation-is-evolving-how-activity-7450150985282371584-nGlp

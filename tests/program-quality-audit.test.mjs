@@ -109,6 +109,48 @@ test('semantic audit catches forum submissions and non-program artifacts', () =>
       sources: ['https://forum.example/t/budget-request-committee/9'],
       signal: 'forum-proposal-source',
     },
+    {
+      id: 'secured-funding',
+      name: 'University Secures Funding',
+      summary: 'A news story about a single recipient.',
+      sources: ['https://news.example/award/10'],
+      signal: 'single-award-story',
+    },
+    {
+      id: 'partnership',
+      name: 'Platform Partners with Foundation',
+      summary: 'A partnership pilot rather than an applicant funding program.',
+      sources: ['https://news.example/partnership/11'],
+      signal: 'partnership-story',
+    },
+    {
+      id: 'umbrella-announcement',
+      name: 'Network Announces Grant Programs',
+      summary: 'An umbrella announcement duplicating canonical program records.',
+      sources: ['https://news.example/announcement/12'],
+      signal: 'umbrella-announcement',
+    },
+    {
+      id: 'unsupported',
+      name: 'Unverified Credits Program',
+      summary: 'A placeholder record without evidence.',
+      sources: ['https://manual/needs-source/13'],
+      signal: 'unsupported-placeholder',
+    },
+    {
+      id: 'applicant-feedback',
+      name: 'Clinical Trial Funding',
+      summary: 'I am preparing an Expression of Interest and would value feedback on the EOI.',
+      sources: ['https://forum.example/t/feedback/14'],
+      signal: 'applicant-feedback',
+    },
+    {
+      id: 'participant-funded',
+      name: 'Founder Residency',
+      summary: 'A month-long residency with a program fee paid in cash or equity.',
+      sources: ['https://residency.example/apply'],
+      signal: 'participant-funded-program',
+    },
   ];
 
   for (const fixture of fixtures) {

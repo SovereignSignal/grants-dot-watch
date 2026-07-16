@@ -5,18 +5,18 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-apply_url: https://build.avax.network/grants
+status: paused
+mechanism: grants
 summary: >-
-  Avalanche InfraBUIDL(AI) is offering $15M in direct and retroactive grants for projects at the
-  intersection of AI and decentralized infrastructure on Avalanche. 
-
-
-  The program supports teams building AI-native decentralized applications, infrastructure, and
-  tooling on the Avalanche network. 
-
-
-  All specific eligibility details are available in the original announcement.
-rounds: []
+  Avalanche infraBUIDL(AI) allocated up to $15 million in direct and retroactive grants for
+  AI-powered developer tools, autonomous agents, predictive systems, and AI integrations on
+  Avalanche. The Foundation is winding the program down after its current allocations are
+  completed.
+rounds:
+  - name: Final allocations
+    status: reviewing
+    size: Up to $15 million across the program
+    source: https://www.linkedin.com/posts/avalanchefdn_the-avalanche-foundation-is-evolving-how-activity-7450150985282371584-nGlp
 sources:
-  - https://x.com/Grants3_Labs/status/2033087895091949849
+  - https://www.linkedin.com/posts/avalancheavax_introducing-the-infrabuidlai-program-by-activity-7275747008206807041-YkzN
+  - https://www.linkedin.com/posts/avalanchefdn_the-avalanche-foundation-is-evolving-how-activity-7450150985282371584-nGlp

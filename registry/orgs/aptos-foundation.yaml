@@ -13,19 +13,19 @@ socials:
   github: https://github.com/aptos-foundation
 status: active
 profile: >
-  Aptos Foundation runs a non-dilutive grant program for builders on the Aptos network,
-  with tracks covering ecosystem grants (tools, apps, public goods), developer tooling,
-  payments, and vertical applications. Grants are milestone-based and typically range
-  $5K-$50K, open to global teams at MVP stage and beyond, with emphasis on open-source
-  value to the Aptos network.
+  Aptos Foundation runs non-dilutive, milestone-based grant tracks for builders on the Aptos
+  network, covering ecosystem tools, applications, public goods, payments, and other verticals.
+  Funding and eligibility vary by track; Payment Grants have offered up to $150,000 for MVP+
+  teams building payment products and infrastructure.
 funding:
   focus:
     - developer tools
     - apps
     - public goods
     - payments
-  typical_size: "$5K-$50K, milestone-based"
+  typical_size: Track-specific; Payment Grants up to $150,000
   apply_url: https://aptosnetwork.com/grants
 sources:
   - https://aptosnetwork.com/grants
+  - https://aptosnetwork.com/grants/payments
   - https://aptosfoundation.org/currents

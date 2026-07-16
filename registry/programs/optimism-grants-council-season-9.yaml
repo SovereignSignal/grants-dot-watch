@@ -1,19 +1,26 @@
 id: optimism-grants-council-season-9
 name: Optimism Grants Council Season 9
 org: optimism-foundation
-parent: null
-systems: []
+parent: optimism-growth-grants
+systems:
+  - optimism
+  - web3-public-goods
 wires:
-- crypto
-status: unknown
-summary: 'Grants Council Mission funded on behalf of the Token House to make progress toward Optimism''s
-  Season 9 success metrics: primarily DEX TVL for collateral-borrow pairs on lending markets (e.g. Morpho,
-  Aave) and secondarily DEX trading volume per TVL for those pairs. Eligible initiatives include incentives,
-  vaults, routing, tooling, and integrations that target these liquidity and fee metrics.'
-rounds: []
+  - crypto
+status: concluded
+mechanism: grants
+summary: >
+  Optimism's Season 9 Grants Council mission funded incentives, vaults, routing, tooling, and
+  integrations intended to increase DEX liquidity and trading efficiency for collateral-borrow
+  pairs used by lending markets across the Superchain.
+rounds:
+  - name: Season 9 Growth Grants
+    status: closed
+    closes: 2026-05-20
+    size: 3.89M OP
+    source: https://app.opgrants.io/programs/1045/apply
 sources:
-- https://gov.optimism.io/t/season-9-governance-fund-missions/10526
-- https://app.opgrants.io/programs/1045/apply
-- https://gov.optimism.io/t/cycle-50-grants-council-report/10653
-- https://gov.optimism.io/t/cycle-51-grants-council-report/10671
-apply_url: https://app.opgrants.io/programs/1045/apply
+  - https://gov.optimism.io/t/season-9-governance-fund-missions/10526
+  - https://app.opgrants.io/programs/1045/apply
+  - https://gov.optimism.io/t/cycle-50-grants-council-report/10653
+  - https://gov.optimism.io/t/cycle-51-grants-council-report/10671

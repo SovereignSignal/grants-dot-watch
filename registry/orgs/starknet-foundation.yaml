@@ -17,9 +17,9 @@ status: active
 profile: >
   Starknet Foundation runs the grant programs for the Starknet ecosystem. Seed Grants offer
   up to $25k in STRK for early teams with an MVP, and Growth Grants up to $1M for projects
-  with traction, alongside gas sponsorships, accelerator support, and follow-on investor
-  introductions. Funding is non-dilutive and focused on open-source tooling, applications,
-  and infrastructure that grow the ecosystem.
+  with traction, alongside guidance and follow-on funding opportunities. Funding is
+  non-dilutive and focused on tooling, applications, integrations, content, and
+  infrastructure that grow the ecosystem.
 funding:
   focus:
     - open-source tooling

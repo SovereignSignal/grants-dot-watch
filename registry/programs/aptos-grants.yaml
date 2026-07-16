@@ -9,10 +9,11 @@ status: active
 mechanism: grants
 apply_url: https://aptosnetwork.com/grants
 summary: >
-  Non-dilutive, milestone-based grants of $5K-$50K from the Aptos Foundation for MVP-stage
-  and beyond builders, with tracks for ecosystem grants (tools, apps, public goods),
-  developer tooling, payments, and vertical applications; open to global teams with
-  emphasis on open-source value to the Aptos network.
+  Aptos Foundation provides non-dilutive, milestone-based grants for teams building tools,
+  applications, public goods, payments infrastructure, and other products on Aptos. Funding
+  levels and eligibility vary by track; Payment Grants have offered up to $150,000 for MVP+
+  teams working on wallets, APIs, compliance layers, and payment infrastructure.
 rounds: []
 sources:
   - https://aptosnetwork.com/grants
+  - https://aptosnetwork.com/grants/payments

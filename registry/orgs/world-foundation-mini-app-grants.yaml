@@ -1,16 +1,30 @@
 id: world-foundation-mini-app-grants
-name: World Foundation Mini App Grants
-aka: []
-systems: []
+name: World Foundation
+aka:
+  - Worldcoin Foundation
+systems:
+  - ethereum
 wires:
   - crypto
 roles:
   - funder
-website: https://world.org/grants
-status: unknown
-profile: "World Foundation Mini App Grants (category: Foundation/Lab) has no matching org file in
-  the registry (checked by normalized name, aka, and website domain). Surfaced via a completeness
-  pass against Sov's org tracker, which flagged it as a likely funder — verify from the org's own
-  site before promoting; this is a lead, not a sourced fact."
+org_type: foundation
+website: https://foundation.world.org/
+socials:
+  x: https://x.com/worldcoinfnd
+status: active
+profile: >
+  World Foundation supports builders creating applications and infrastructure for World Chain
+  and World ID. Its grants program offers rolling Spark and Scale tracks for Mini App teams,
+  alongside usage-based developer rewards and earlier community and RFP grant waves.
+funding:
+  focus:
+    - Mini Apps
+    - digital identity
+    - financial inclusion
+    - developer infrastructure
+  cadence: Rolling
+  apply_url: https://world.org/grants
 sources:
   - https://world.org/grants
+  - https://foundation.world.org/

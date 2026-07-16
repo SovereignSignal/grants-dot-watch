@@ -1,16 +1,19 @@
 id: scroll
 name: Scroll
 aka: []
-systems: []
+systems:
+  - ethereum
 wires:
   - crypto
 roles:
   - funder
 website: https://scroll.io/
-status: unknown
-profile: "Scroll (category: Foundation/Lab) has no matching org file in the registry (checked by
-  normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org
-  tracker, which flagged it as a likely funder — verify from the org's own site before promoting;
-  this is a lead, not a sourced fact."
+status: active
+profile: >
+  Scroll is an Ethereum layer-2 ecosystem whose governance and community bodies have funded
+  ecosystem growth, community events, research, and other contributor programs. Funding
+  mechanisms and application windows vary by initiative and are documented through Scroll's
+  governance forum.
 sources:
   - https://scroll.io/
+  - https://forum.scroll.io/t/introducing-community-grants-support-program/1164

@@ -50,7 +50,9 @@ const semanticRules = [
   ['directory-or-map', /\b(?:funding map|funding directory|program directory)\b/i, 5],
   ['retrospective-or-digest', /\b(?:retrospective|weekly digest)\b/i, 5],
   ['cohort-announcement', /\b(?:organizations announced|funding announcement|meet the new .+ fellows)\b/i, 5],
-  ['single-award-story', /\b(?:grant to|receives? .{0,40}\bgrant|awards? .{0,40}\bgrant to|invests? .{0,40}\bgrant to|funding package .{0,20}\bfor)\b/i, 5],
+  ['single-award-story', /\b(?:grant to|receives? .{0,40}\bgrant|awards? .{0,40}\bgrant to|invests? .{0,40}\bgrant to|funding package .{0,20}\bfor|secures? funding)\b/i, 5],
+  ['partnership-story', /\bpartners? with\b/i, 5],
+  ['umbrella-announcement', /\bannounces? grant programs?\b/i, 5],
   ['announcement', /\b(?:announces?|announcing)\b/i, 2],
 ];
 
@@ -58,10 +60,13 @@ const sourceSemanticRules = [
   ['applicant-submission', /\/t\/(?:grant-application|application-|nomination-)/i, 5],
   ['applicant-submission', /\/t\/grant-proposal-/i, 5],
   ['help-request', /\/t\/(?:how-can-i|how-do-i|help-|question-)/i, 5],
+  ['unsupported-placeholder', /https?:\/\/manual\/needs-source\//i, 6],
 ];
 
 const summarySemanticRules = [
-  ['proposal-artifact', /^(?:i[’']?m|i am|we are) proposing\b|\bthis proposal (?:outlines|requests?|introduces|proposes)\b|\bwe propose that .{0,80}\bfund\b/i, 5],
+  ['proposal-artifact', /^(?:i[’']?m|i am|we are) proposing\b|\bthis proposal (?:is submitted|outlines|requests?|introduces|proposes)\b|\bwe propose that .{0,80}\bfund\b/i, 5],
+  ['applicant-feedback', /\bi am preparing an expression of interest\b|\brequest for feedback on .{0,40}\b(?:eoi|proposal|application)\b/i, 5],
+  ['participant-funded-program', /\bprogram fee\b|\bpay in cash or equity\b/i, 5],
   ['prompt-leak', /\b(?:the prompt says|must include|should we include|so start with|we can say|didn[’']t specify eligibility|need to lead with|must be max \d+ words)\b/i, 6],
 ];
 
@@ -161,8 +166,13 @@ const strongSemanticSignals = new Set([
   'retrospective-or-digest',
   'cohort-announcement',
   'single-award-story',
+  'partnership-story',
+  'umbrella-announcement',
   'help-request',
+  'unsupported-placeholder',
   'proposal-artifact',
+  'applicant-feedback',
+  'participant-funded-program',
   'prompt-leak',
   'homepage-only-apply',
   'summary-truncated',

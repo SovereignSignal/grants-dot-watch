@@ -11,15 +11,8 @@ status: active
 mechanism: grants
 apply_url: https://atlas.optimism.io/missions/growth-grants
 summary: >
-  A grants mission run through the Optimism Atlas missions portal supporting growth of projects in
-  the Optimism ecosystem; the Season 9 Growth Grants round listed an application deadline of May 20,
-  2026.
-rounds:
-  - name: Season 9 Growth Grants
-    status: closed
-    closes: 2026-05-20
-    size: 3.89M
-    source: https://x.com/soneium/status/2026907531084472666
+  A recurring Optimism grants mission supporting projects that grow activity, liquidity, and
+  adoption across the Superchain. Seasonal Grants Council programs are tracked as child programs.
+rounds: []
 sources:
   - https://atlas.optimism.io/missions/growth-grants
-  - https://x.com/soneium/status/2026907531084472666
