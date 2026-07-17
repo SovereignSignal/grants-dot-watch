@@ -5,8 +5,18 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
-summary: 2026 Mozilla Fellows nominations — dispatch from the wire, no further detail on file.
-rounds: []
+status: concluded
+mechanism: fellowship
+summary: >
+  Mozilla's 2026 Fellowship program offered up to 10 fellowships across embedded and independent
+  tracks. Nominations closed January 30, 2026; embedded fellows received a $75,000 stipend and
+  $25,000 project budget, while independent fellows received a $100,000 stipend and $25,000 budget.
+rounds:
+  - name: 2026 nominations
+    status: closed
+    opens: 2025-11-09
+    closes: 2026-01-30
+    size: Up to 10 fellowships; $100,000-$125,000 each
+    source: https://www.mozillafoundation.org/en/what-we-do/grantmaking/fellowship/2026-nominations-request/
 sources:
   - https://www.mozillafoundation.org/en/what-we-do/grantmaking/fellowship/2026-nominations-request/

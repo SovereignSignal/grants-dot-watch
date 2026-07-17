@@ -5,8 +5,18 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: AI Forge Program — dispatch from the wire, no further detail on file.
-rounds: []
+status: active
+mechanism: other
+summary: >
+  DARPA and NSF developed AI Forge to fund and manage university-led research in AI
+  interpretability, AI control, and adversarial robustness. Its initial university-capabilities
+  request for information closed June 22, 2026 after receiving nearly 130 responses.
+rounds:
+  - name: DARPA-SN-26-80 request for information
+    status: closed
+    opens: 2026-06-01
+    closes: 2026-06-22
+    source: https://www.darpa.mil/work-with-us/opportunities/darpa-sn-26-80
 sources:
   - https://www.darpa.mil/research/programs/ai-forge
+  - https://www.darpa.mil/work-with-us/opportunities/darpa-sn-26-80

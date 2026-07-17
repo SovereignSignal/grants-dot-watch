@@ -5,8 +5,17 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: Base Ecosystem Fund — dispatch from the wire, no further detail on file.
-rounds: []
+status: active
+mechanism: other
+apply_url: https://www.base.org/ecosystem-fund
+summary: >
+  Base Ecosystem Fund is Base's strategic investment arm, working with Coinbase Ventures to invest
+  in pre-seed and seed-stage startups building on Base. The fund accepts applications through its
+  current ecosystem funding page.
+rounds:
+  - name: Rolling early-stage investment intake
+    status: open
+    source: https://www.base.org/ecosystem-fund
 sources:
+  - https://www.base.org/ecosystem-fund
   - https://www.base.org/get-funded

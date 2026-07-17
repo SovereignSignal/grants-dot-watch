@@ -5,13 +5,18 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-summary: "AWS Build on Trainium: Accelerating Post-Training invites academic researchers to apply\
-  \ for its Spring 2026 call for proposals. The program offers up to $110M in total promotional compute\
-  \ credits, with individual awards of $50K or $250K+ for novel post-training AI research on Trainium\
-  \ chips, including new model architectures, optimizations, reinforcement learning, and alignment. \n\
-  \nEligible academic researchers receive AWS Promotional Credits, access to Trainium infrastructure,\
-  \ and training resources. Applications are open for the Spring 2026 cycle."
-rounds: []
+status: active
+mechanism: grants
+summary: >
+  Amazon Research Awards' Spring 2026 call supported academic post-training research using AWS
+  Trainium. The May 13 submission deadline has passed, with decisions scheduled for August 2026;
+  selected teams may receive up to $50,000 or $250,000 and beyond in AWS promotional credits.
+rounds:
+  - name: Spring 2026 call for proposals
+    status: reviewing
+    opens: 2026-03-25
+    closes: 2026-05-13
+    size: Up to $50,000 or $250,000+ in AWS credits
+    source: https://www.amazon.science/research-awards/call-for-proposals/build-on-trainium-accelerating-post-training-call-for-proposals-spring-2026
 sources:
 - https://www.amazon.science/research-awards/call-for-proposals/build-on-trainium-accelerating-post-training-call-for-proposals-spring-2026
