@@ -2,31 +2,9 @@ import Link from 'next/link';
 import { Empty } from '@/components/ui';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { WIRE_COLOR } from '@/lib/format';
-import type { Org, Program, Round } from '@/lib/types';
+import type { Departure } from '@/lib/departures';
 import { isClosingSoon, monthLabel, monthYearShort } from './date-helpers';
 import { RoundRow } from './round-row';
-
-interface Departure {
-  key: string;
-  program: Program;
-  orgName: string;
-  round: Round;
-}
-
-/** Every program's open/announced rounds — the departures board's raw
- *  material. Mirrors the collection the home page uses for its five-row
- *  preview, but this board runs the list in full. */
-function collectOpenRounds(programs: Program[], orgById: Map<string, Org>): Departure[] {
-  const out: Departure[] = [];
-  for (const p of programs) {
-    for (const r of p.rounds || []) {
-      if (r.status === 'open' || r.status === 'announced') {
-        out.push({ key: `${p.id}::${r.name}`, program: p, orgName: orgById.get(p.org)?.name || p.org, round: r });
-      }
-    }
-  }
-  return out;
-}
 
 function StandingRow({ d }: { d: Departure }) {
   const wire = (d.program.wires || [])[0] || null;
@@ -48,18 +26,11 @@ function StandingRow({ d }: { d: Departure }) {
   );
 }
 
-/** Tab 1: the full board. Every open/announced round, sorted by close date,
- *  under month-rule section breaks; rounds with no fixed close date fall to
- *  the Standing section below. `programs` has already had the page's
- *  status/mechanism/wire/org filters applied by the caller. */
-export function DeparturesBoard({ programs, orgs }: { programs: Program[]; orgs: Org[] }) {
-  const orgById = new Map(orgs.map((o) => [o.id, o]));
-  const openRounds = collectOpenRounds(programs, orgById);
-  const todayISO = new Date().toISOString().slice(0, 10);
-  const dated = openRounds
-    .filter((r) => r.round.closes && r.round.closes >= todayISO)
-    .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
-  const standing = openRounds.filter((r) => !r.round.closes);
+/** One page of open and announced calls. The caller applies filters, global
+ *  date ordering, and pagination before rendering this board. */
+export function DeparturesBoard({ departures }: { departures: Departure[] }) {
+  const dated = departures.filter((departure) => departure.round.closes);
+  const standing = departures.filter((departure) => !departure.round.closes);
 
   const groups: { label: string; rows: Departure[] }[] = [];
   for (const r of dated) {

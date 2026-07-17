@@ -53,6 +53,20 @@ test('cadence defaults to current evidence and bounds the all-program view', asy
   );
 });
 
+test('departures pagination preserves active filters', async ({ page }) => {
+  await page.goto('/programs?status=active');
+  await expect(page.getByText(/showing 1-50 of \d+ open calls/i)).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Next →' })).toHaveAttribute(
+    'href',
+    '/programs?status=active&page=2'
+  );
+
+  await page.getByRole('link', { name: 'Next →' }).click();
+  await expect(page).toHaveURL(/\/programs\?status=active&page=2$/);
+  await expect(page.getByText(/showing 51-\d+ of \d+ open calls/i)).toBeVisible();
+  await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
+});
+
 test.describe('mobile', () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
@@ -65,6 +79,7 @@ test.describe('mobile', () => {
 
     await page.goto('/programs');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await expect(page.locator('main a[href^="/programs/"]')).toHaveCount(50);
 
     await page.goto('/programs?view=cadence');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

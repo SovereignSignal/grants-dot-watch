@@ -12,6 +12,7 @@ import { CadenceChart } from '@/components/programs/cadence-chart';
 import { pageMetadata } from '@/lib/site-metadata';
 import { hasYearCadence } from '@/lib/cadence';
 import { paginate, parsePage } from '@/lib/pagination';
+import { collectCurrentDepartures } from '@/lib/departures';
 import { Pager } from '@/components/ledger/pager';
 
 export const metadata: Metadata = pageMetadata(
@@ -23,6 +24,7 @@ export const metadata: Metadata = pageMetadata(
 const STATUS_ORDER = ['active', 'announced', 'paused', 'concluded', 'unknown'];
 const MECHANISM_ORDER = ['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other'];
 const WIRE_ORDER: Wire[] = ['crypto', 'ai', 'oss'];
+const DEPARTURES_PAGE_SIZE = 50;
 const CADENCE_PAGE_SIZE = 60;
 
 function uniqueInOrder<T extends string>(values: T[], order: T[]): T[] {
@@ -58,9 +60,12 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   const wireValues = uniqueInOrder(programs.flatMap((p) => p.wires || []), WIRE_ORDER);
   const orgFilterName = orgF ? orgById.get(orgF)?.name || orgF : null;
   const year = new Date().getUTCFullYear();
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const departures = collectCurrentDepartures(filtered, orgs, todayISO);
+  const departuresPage = paginate(departures, parsePage(param(sp, 'page')), DEPARTURES_PAGE_SIZE);
   const cadenceFiltered = cadenceScope === 'all' ? filtered : filtered.filter((program) => hasYearCadence(program, year));
   const cadencePage = paginate(cadenceFiltered, parsePage(param(sp, 'page')), CADENCE_PAGE_SIZE);
-  const visibleCount = view === 'cadence' ? cadencePage.total : filtered.length;
+  const visibleCount = view === 'cadence' ? cadencePage.total : departuresPage.total;
 
   return (
     <>
@@ -68,7 +73,7 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
         eyebrow="Funding Vehicles"
         title="Programs"
         sub="What closes next across every program we track. The year's rhythm, plotted lane by lane."
-        right={<Stat label={view === 'cadence' ? 'in this cadence' : 'on file'} value={visibleCount.toLocaleString()} />}
+        right={<Stat label={view === 'cadence' ? 'in this cadence' : 'open calls'} value={visibleCount.toLocaleString()} />}
       />
 
       <div className="mx-auto max-w-6xl px-4 pt-5">
@@ -117,6 +122,11 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
               <ActiveFilterLink href={hrefWith('/programs', query, { org: undefined })}>{orgFilterName}</ActiveFilterLink>
             </FilterRow>
           )}
+          <div className="coord border-t border-line py-2.5">
+            {departuresPage.total === 0
+              ? 'no open calls match'
+              : `showing ${departuresPage.start}-${departuresPage.end} of ${departuresPage.total.toLocaleString()} open calls`}
+          </div>
         </div>
       )}
 
@@ -146,7 +156,10 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
 
       <div className="mx-auto max-w-6xl px-4 pb-16">
         {view === 'departures' ? (
-          <DeparturesBoard programs={filtered} orgs={orgs} />
+          <>
+            <DeparturesBoard departures={departuresPage.items} />
+            <Pager base="/programs" query={query} page={departuresPage.page} pageCount={departuresPage.totalPages} />
+          </>
         ) : (
           <>
             <CadenceChart programs={cadencePage.items} orgs={orgs} systems={systems} />
