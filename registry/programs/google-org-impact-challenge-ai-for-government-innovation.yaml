@@ -5,18 +5,18 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://google.org/
-summary: 'Google.org Impact Challenge: AI for Government Innovation is offering $30M in grants. The program
-  supports nonprofits, social enterprises, and academic institutions partnering with governments to deploy
-  generative and agentic AI for improving public services. Awards range from $1M to $3M per project and
-  include technical support and accelerator participation. Deadline is April 3, 2026.'
+status: active
+mechanism: grants
+summary: >
+  Google.org's $30 million AI for Government Innovation initiative supports nonprofits, social enterprises,
+  and academic institutions working with governments to improve public services using generative and agentic
+  AI. Applications closed April 3, 2026 and are under review; selected organizations will receive $1 million
+  to $3 million plus accelerator and technical support.
 rounds:
-- name: Rolling
-  status: closed
+- name: 2026 global open call
+  status: reviewing
   closes: 2026-04-03
   size: $1M-$3M per project ($30M total)
-  source: https://google.org/impact-challenges/ai-government-innovation
+  source: https://www.google.org/impact-challenges/ai-government-innovation/
 sources:
-- https://google.org/impact-challenges/ai-government-innovation
-- https://x.com/PluralityInst/status/2027453176740515940
+- https://www.google.org/impact-challenges/ai-government-innovation/

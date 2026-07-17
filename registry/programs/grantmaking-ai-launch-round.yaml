@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 mechanism: grants
 summary: grantmaking.ai, in partnership with Manifund, opened a launch round distributing $5k-$50k
   grants per applicant from a $1M total round for projects reducing x-risk from AI. One short
@@ -13,9 +13,10 @@ summary: grantmaking.ai, in partnership with Manifund, opened a launch round dis
   Deadline is July 13, 2026.
 rounds:
   - name: Launch round
-    status: closed
+    status: reviewing
     closes: 2026-07-13
     size: $1M total; $5k-$50k per grant
     source: https://www.grantmaking.ai/apply
 sources:
   - https://www.grantmaking.ai/apply
+  - https://forum.effectivealtruism.org/posts/JjxMWQqHKXbyuuJBZ/we-re-building-grantmaking-ai-public-funding-infrastructure

@@ -7,7 +7,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
-apply_url: https://dao.rocketpool.net/
+apply_url: https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996
 summary: Rocket Pool's Grants and Marketing Committee (GMC) funds grants, bounties, and
   retrospective awards for rETH/protocol infrastructure work, run in numbered rounds.
 rounds:
@@ -15,5 +15,20 @@ rounds:
     status: closed
     size: $25,000 across 3 awards
     source: https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951
+  - name: Round 37 (May 7-June 7 2026)
+    status: closed
+    closes: 2026-06-07
+    source: https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
+  - name: Round 38 (June 7-July 7 2026)
+    status: reviewing
+    closes: 2026-07-07
+    source: https://dao.rocketpool.net/t/round-38-gmc-call-for-grant-applications-deadline-is-july-7/3955
+  - name: Round 39 (July 7-August 7 2026)
+    status: open
+    closes: 2026-08-07
+    source: https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996
 sources:
   - https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951
+  - https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
+  - https://dao.rocketpool.net/t/round-38-gmc-call-for-grant-applications-deadline-is-july-7/3955
+  - https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996

@@ -5,16 +5,18 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://www.gitlabfoundation.org/
-summary: 'GitLab AI Hackathon invites developers to build AI agents on the GitLab Duo Agent Platform
-  for code planning, security, and deployments. The hackathon offers $65,000 in total prizes and runs
-  until March 25.'
+status: concluded
+mechanism: prize
+summary: >
+  GitLab's 2026 AI Hackathon invited developers to build agents on the GitLab Duo Agent Platform for
+  planning, security, compliance, and deployment workflows. The online competition ran from February 9
+  to March 25, attracted more than 6,900 participants, and offered $65,000 in cash prizes.
 rounds:
-- name: Rolling
-  status: closed
+- name: 2026 GitLab AI Hackathon
+  status: deployed
   closes: '2026-03-25'
-  source: https://devpost.com/hackathons
+  size: $65,000 in cash prizes
+  source: https://gitlab.devpost.com/
 sources:
-- https://x.com/devpost/status/2031384335765614743
-- https://devpost.com/hackathons
+- https://gitlab.devpost.com/
+- https://gitlab.devpost.com/rules

@@ -4,14 +4,12 @@ org: knight-foundation
 parent: null
 systems: []
 wires: []
-status: unknown
+status: concluded
 mechanism: grants
-apply_url: https://knightfoundation.org/apply/
 summary: >
-  A Knight Foundation fund for early-stage prototypes, supporting data and
-  storytelling projects and prototype-stage winners within Knight News
-  Challenge editions such as Libraries and Data. Award announcements live on
-  the foundation's legacy site.
+  Knight Foundation's Prototype Fund supported early-stage media, information, and arts-technology ideas
+  through small grants and structured prototyping support. The documented calls and award cohorts are legacy
+  programs from the 2010s; no current Prototype Fund application window is published.
 rounds:
   - name: Data & storytelling projects
     status: deployed
@@ -19,3 +17,4 @@ rounds:
 sources:
   - https://legacy.knightfoundation.org/articles/knight-prototype-fund-supports-10-new-data-storytelling-projects/
   - https://legacy.knightfoundation.org/articles/22-projects-win-knight-news-challenge-libraries/
+  - https://knightfoundation.org/press/releases/knight-foundation-offers-a-share-of-1-million-for-new-ideas-to-connect-people-to-the-arts/
