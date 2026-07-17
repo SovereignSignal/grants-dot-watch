@@ -9,5 +9,5 @@ test('registry remains valid after the July 15 deadline rollovers', () => {
     env: { ...process.env, VALIDATION_TODAY: '2026-07-16' },
   });
 
-  assert.match(output, /^OK: 21 systems, 410 orgs, 560 programs validated/m);
+  assert.match(output, /^OK: 21 systems, 411 orgs, 525 programs validated/m);
 });

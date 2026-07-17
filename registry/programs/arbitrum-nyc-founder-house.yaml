@@ -5,13 +5,14 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Arbitrum is hosting the NYC Founder House, an in-person builder experience starting March 6 for
-  early-stage teams. The program offers up to $340,000 in prizes and grants, hands-on mentorship in product,
-  infrastructure, and go-to-market strategies, and access to ecosystem leaders like Robinhood and Alchemy.
-  It targets teams building in AI, DeFi, or any onchain vertical aiming to launch on Arbitrum mainnet.
-  Applications are open with a deadline approaching in 3 days from the announcement date.
-rounds: []
+status: concluded
+mechanism: prize
+summary: Arbitrum's NYC Founder House concluded in March 2026 after selecting 88 teams from 473
+  applications. Fifty-five projects submitted builds and competed for $340,000 in prizes and grants.
+rounds:
+- name: NYC Founder House 2026
+  status: closed
+  size: $340,000 in prizes and grants
+  source: https://blog.arbitrum.foundation/nyc-founder-house-concludes-with-340k-in-awards-to-winning-teams/
 sources:
-- https://x.com/arbitrum/status/2026725868119405048
-- https://x.com/ArbitrumDevs/status/2029044490099671444
+- https://blog.arbitrum.foundation/nyc-founder-house-concludes-with-340k-in-awards-to-winning-teams/

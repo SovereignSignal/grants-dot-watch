@@ -1,19 +1,18 @@
 id: near-grants
-name: NEAR Foundation Grants Program
+name: NEAR Ecosystem Funding
 org: near-foundation
 parent: null
 systems: []
 wires: [crypto]
-status: unknown
+status: active
 mechanism: grants
 apply_url: https://www.near.org/funding
-summary: >
-  The NEAR Foundation's grants program funded builders on NEAR Protocol
-  across tiers (Small Builder, Builder, Advanced Builder, Activation,
-  Partner), with historic awards in the $10-100k range. The foundation has
-  since restructured its funding strategy toward a set of ecosystem programs
-  listed on near.org/funding.
+summary: NEAR's current funding page routes builders to active ecosystem programs including Protocol
+  Rewards, DevHub Grants, Potlock rounds, and Meta Pool Grants. This record represents that live
+  funding directory rather than the foundation's discontinued historical grant tiers.
+rounds:
+  - name: Ecosystem funding programs
+    status: open
+    source: https://www.near.org/funding
 sources:
-  - https://medium.com/nearprotocol/near-foundation-funding-team-report-september-2022-c56ef822dc27
-  - https://medium.com/nearprotocol/near-funding-updates-funding-beyond-grants-7f3721b14992
   - https://www.near.org/funding

@@ -5,13 +5,13 @@ Updated: 2026-07-16 PDT
 ## Current State
 
 The semantic cleanup queue is clear. `npm run audit:programs` reports zero semantic candidates
-and zero unreferenced semantic candidates across 560 programs.
+and zero unreferenced semantic candidates across 525 programs.
 
 The remaining gaps are source coverage, not known structural defects:
 
 | Coverage field | Programs missing it |
 | --- | ---: |
-| Confirmed status | 165 |
+| Confirmed status | 120 |
 | Dated or explicit rounds | 321 |
 | Mechanism | 201 |
 | System classification | 409 |

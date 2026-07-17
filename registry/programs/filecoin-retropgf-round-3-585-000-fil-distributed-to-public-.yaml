@@ -5,9 +5,13 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Filecoin's Retroactive Public Goods Funding (RetroPGF) distributed 585,000 FIL in Round 3 to
-  public goods projects.
-rounds: []
+status: concluded
+mechanism: retro
+summary: Filecoin RetroPGF Round 3 concluded after distributing 585,000 FIL to public-goods projects.
+rounds:
+- name: Round 3
+  status: closed
+  size: 585,000 FIL
+  source: https://filecoin.io/blog/posts/filecoin-retropgf-round-3-powering-proven-impact-with-585k-fil/
 sources:
 - https://filecoin.io/blog/posts/filecoin-retropgf-round-3-powering-proven-impact-with-585k-fil/

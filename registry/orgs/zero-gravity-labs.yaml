@@ -1,0 +1,16 @@
+id: zero-gravity-labs
+name: 0G Labs
+aka:
+  - Zero Gravity Labs
+systems: []
+wires:
+  - crypto
+  - ai
+roles:
+  - funder
+website: https://0g.ai/
+status: active
+profile: 0G Labs develops decentralized AI infrastructure and runs the Apollo accelerator with Blockchain Builders Fund.
+sources:
+  - https://apollo.0g.ai/
+  - https://0g.ai/

@@ -46,7 +46,7 @@ test('cadence defaults to current evidence and bounds the all-program view', asy
 
   await page.goto('/programs?view=cadence&scope=all&page=2');
   await expect(page.getByRole('link', { name: 'Include all programs' })).toHaveAttribute('aria-current', 'true');
-  await expect(page.getByText(/showing 61-120 of 560/i)).toBeVisible();
+  await expect(page.getByText(/showing 61-120 of 525/i)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Next →' })).toHaveAttribute(
     'href',
     '/programs?view=cadence&scope=all&page=3'

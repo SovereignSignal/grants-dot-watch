@@ -1,15 +1,20 @@
 id: google-for-startups-cloud-program-ai-tier
-name: Google for Startups Cloud Program (AI tier
+name: Google for Startups Cloud Program (AI tier)
 org: googleorg
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: "Google for Startups Cloud Program (AI tier) offers up to $350K in Google Cloud credits
-  over two years to eligible early-stage AI-first startups. Seed to Series A companies using or
-  planning to use Vertex AI or Gemini can apply for the credits, plus enhanced support, Workspace,
-  and Maps credits. The program operates on a rolling deadline."
-rounds: []
+status: active
+mechanism: other
+apply_url: https://cloud.google.com/startup/ai
+summary: Google for Startups Cloud Program's AI tier offers eligible venture-backed AI startups up
+  to $350,000 in Google Cloud credits over two years, plus technical support and access to Google's
+  AI ecosystem. The first-party page currently accepts applications.
+rounds:
+  - name: Rolling intake
+    status: open
+    size: up to $350,000 in Google Cloud credits
+    source: https://cloud.google.com/startup/ai
 sources:
   - https://cloud.google.com/startup/ai

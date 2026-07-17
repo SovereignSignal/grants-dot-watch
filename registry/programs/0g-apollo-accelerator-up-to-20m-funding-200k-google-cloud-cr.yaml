@@ -1,17 +1,20 @@
 id: 0g-apollo-accelerator-up-to-20m-funding-200k-google-cloud-cr
 name: 0G Apollo Accelerator
-org: googleorg
+org: zero-gravity-labs
 parent: null
 systems: []
 wires:
 - ai
-status: unknown
-summary: 0G Labs' Apollo Accelerator, built with Stanford's Blockchain Builders Fund, offers up to $20M
-  total to fund and scale revenue-generating AI startups building on decentralized infrastructure. Up
-  to 12 teams each receive up to $2M in non-dilutive funding plus $200K in Google Cloud credits, with
-  mentorship from the Stanford blockchain community.
-rounds: []
+status: concluded
+mechanism: incubator
+apply_url: https://apollo.0g.ai/
+summary: 0G Labs and Blockchain Builders Fund ran the 2026 Apollo accelerator for ten decentralized
+  AI teams. Applications are closed; the ten-week program ran from April 28 through June 25, 2026,
+  with a graduation event scheduled for July 29.
+rounds:
+- name: 2026 cohort
+  status: closed
+  size: up to $2 million investment per project
+  source: https://apollo.0g.ai/
 sources:
-- https://x.com/Snowizzie/status/2027390754864197905
-- https://x.com/vargs_g/status/2027208360639320322
-- https://x.com/APEXIKARU/status/2027591483717546193
+- https://apollo.0g.ai/

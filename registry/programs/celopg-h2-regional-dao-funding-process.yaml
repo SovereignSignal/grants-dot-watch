@@ -5,8 +5,14 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: CeloPG H2 - Regional DAO Funding Process
-rounds: []
+status: concluded
+mechanism: grants
+summary: CeloPG's H2 2024 Regional DAO process allocated 200,000 cUSD for existing and new regional
+  DAOs. The historical cycle used five-day steward votes and is no longer an open application round.
+rounds:
+  - name: H2 2024 Regional DAO Funding
+    status: closed
+    size: 200,000 cUSD
+    source: https://forum.celo.org/t/celopg-h2-regional-dao-funding-process/8383
 sources:
   - https://forum.celo.org/t/celopg-h2-regional-dao-funding-process/8383

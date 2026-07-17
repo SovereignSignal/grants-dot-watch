@@ -5,9 +5,17 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: Interledger Foundation Local Impact Mini-Grants — dispatch from the wire, no further detail
-  on file.
-rounds: []
+status: active
+mechanism: grants
+apply_url: https://submit.interledger.org/submit/356649/2026-interledger-local-impact-mini-grant
+summary: Interledger Foundation's 2026 Local Impact Mini-Grants provide $500 to $3,000 for
+  community-led open-payments and digital-financial-inclusion projects. Applications are reviewed
+  on a rolling basis through November 11, 2026.
+rounds:
+  - name: 2026 Local Impact Mini-Grants
+    status: open
+    closes: 2026-11-11
+    size: $500-$3,000
+    source: https://interledger.org/grant/local-impact
 sources:
   - https://interledger.org/grant/local-impact

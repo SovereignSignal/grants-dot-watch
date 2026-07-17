@@ -5,11 +5,16 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
-summary: "NLnet General Grants offers €5,000 funding for open-source projects. The program
-  awards grants from €5,000 to €50,000 to individuals, non-profits, and companies building software
-  under free and libre licenses that benefits society. Projects must align with one of NLnet’s open
-  theme funds. Applications are accepted on a rolling basis through the NLnet website."
-rounds: []
+status: active
+mechanism: grants
+apply_url: https://nlnet.nl/propose/
+summary: NLnet provides grants of €5,000 to €50,000 for free and open-source software, hardware,
+  data, and standards. It runs back-to-back open calls with deadlines on the first day of every even
+  month.
+rounds:
+  - name: Back-to-back open calls
+    status: open
+    size: €5,000-€50,000
+    source: https://nlnet.nl/funding.html
 sources:
   - https://nlnet.nl/funding.html
