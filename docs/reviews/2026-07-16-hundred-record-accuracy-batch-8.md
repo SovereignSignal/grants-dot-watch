@@ -29,6 +29,10 @@ Results:
 | NEAR Ecosystem Funding | Active directory of current ecosystem programs | https://www.near.org/funding |
 | Google for Startups Cloud Program AI tier | Active intake; up to $350,000 in credits | https://cloud.google.com/startup/ai |
 
+Post-deployment smoke testing also corrected the shared Interledger organization label from the
+program-specific "Interledger Fellowship Program" to "Interledger Foundation." The stable
+organization ID was retained so all existing program references inherit the corrected label.
+
 ## Removed Records
 
 The following records had no award, child-program, or system references and were removed because

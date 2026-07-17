@@ -1,9 +1,9 @@
 id: interledger-fellowship-program
-name: Interledger Fellowship Program
+name: Interledger Foundation
 aka:
-  - Interledger Foundation
+  - Interledger Fellowship Program
 systems: []
-wires: [oss]
+wires: [crypto, oss]
 roles: [funder]
 org_type: nonprofit
 website: https://interledger.org/
