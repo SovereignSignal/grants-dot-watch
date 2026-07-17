@@ -7,6 +7,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
+apply_url: https://share.hsforms.com/1Boe4wRQtShet_lfl2Z-nLArddfz
 summary: The COTI Builders Program is COTI Foundation's grants program funding developers building
   COTI-based solutions, run through a public GitHub repo of RFPs, alongside a separate $500K
   Gitcoin-partnered grants round for privacy projects.

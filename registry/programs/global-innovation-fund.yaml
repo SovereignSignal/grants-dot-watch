@@ -5,11 +5,15 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 mechanism: grants
-summary: The Global Innovation Fund is a non-profit, impact-first investment fund that funds social
-  innovations improving the lives of underserved and vulnerable people, with an open application for
-  funding.
-rounds: []
+summary: The Global Innovation Fund is a nonprofit, impact-first investment fund for social
+  innovations improving the lives of underserved and vulnerable people. Its latest published
+  application window closed January 15, 2025; the fund says future calls will be posted after review.
+rounds:
+  - name: 2024-25 application window
+    status: closed
+    closes: 2025-01-15
+    source: https://www.globalinnovation.fund/apply-for-funding
 sources:
   - https://www.globalinnovation.fund/apply-for-funding

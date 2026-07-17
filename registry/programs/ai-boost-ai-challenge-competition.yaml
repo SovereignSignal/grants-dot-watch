@@ -7,8 +7,22 @@ wires:
   - ai
 status: active
 mechanism: prize
-summary: AI-BOOST's AI Challenge Competition is an open competition with a €100,000 prize pool
-  across four generative AI challenges, part of a European AI ecosystem-building project.
-rounds: []
+apply_url: https://aiboost-project.eu/ai-challenge-competition/
+summary: AI-BOOST's 2026 AI Challenge Competition runs four generative AI challenges in two
+  application windows. Each challenge awards five EUR 28,500 Spark prizes, a EUR 100,000 final
+  prize, and two EUR 12,500 special awards.
+rounds:
+  - name: Challenges 1 and 2
+    status: open
+    opens: 2026-06-19
+    closes: 2026-08-25
+    size: Per challenge, 5 x EUR 28,500 Spark prizes plus a EUR 100,000 final prize
+    source: https://aiboost-project.eu/ai-challenge-competition/
+  - name: Challenges 3 and 4
+    status: open
+    opens: 2026-07-03
+    closes: 2026-09-08
+    size: Per challenge, 5 x EUR 28,500 Spark prizes plus a EUR 100,000 final prize
+    source: https://aiboost-project.eu/ai-challenge-competition/
 sources:
-  - https://aiboost-project.eu/
+  - https://aiboost-project.eu/ai-challenge-competition/

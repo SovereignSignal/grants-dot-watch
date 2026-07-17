@@ -8,6 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
+apply_url: https://suifoundation.notion.site/Sui-Ecosystem-Academic-Research-Awards-18537af41c6e80688ca0ff37cf2e617b
 summary: Sui Foundation awards of roughly $25,000 for academic blockchain science and security
   research, applied for via an external form.
 rounds:

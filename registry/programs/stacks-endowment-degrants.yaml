@@ -8,8 +8,10 @@ wires:
   - crypto
 status: active
 mechanism: grants
-summary: Community-run grants track for creative, inclusive, and educational Stacks projects, with
-  Stacks Endowment providing operational support.
+apply_url: https://zeroauthoritydao.com/funding/degrants
+summary: Community-run microgrants of $3,000-$5,000 for individual builders, creators, educators,
+  and contributors delivering practical projects for the Stacks ecosystem, with Stacks Endowment
+  funding and Community Stewards making award decisions.
 rounds: []
 sources:
   - https://stacksendowment.co/grants

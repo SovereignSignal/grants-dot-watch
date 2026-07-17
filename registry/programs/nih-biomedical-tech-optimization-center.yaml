@@ -7,6 +7,7 @@ wires:
   - oss
 status: active
 mechanism: grants
+apply_url: https://www.grants.gov/search-results-detail/360446
 summary: NIH's PAR-27-024 funds late-stage optimization and sustainable dissemination of research
   technologies and software via the RM1 mechanism, with recurring deadlines through 2029-01-29.
 rounds:

@@ -5,11 +5,16 @@ parent: null
 systems: []
 wires:
   - oss
-status: active
+status: concluded
 mechanism: grants
-summary: The Confidential Computing Consortium's Research Fund awards grants for practical academic
-  research in confidential computing, with applications submitted directly to the consortium's
-  research team.
-rounds: []
+summary: The Confidential Computing Consortium's 2026 Research Fund supported practical academic
+  research in confidential computing. Applications closed June 1 and the two recipients were
+  announced July 1.
+rounds:
+  - name: 2026 call
+    status: deployed
+    opens: 2026-05-01
+    closes: 2026-06-01
+    source: https://confidentialcomputing.io/resources/research-fund/
 sources:
   - https://confidentialcomputing.io/resources/research-fund/

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: concluded
 mechanism: fellowship
 summary: >
   A ten-week 2026 summer fellowship at the University of Chicago focused on reproducing AI safety

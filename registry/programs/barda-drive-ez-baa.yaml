@@ -6,10 +6,11 @@ systems:
   - us-federal-rd
 wires:
   - ai
-status: active
+status: paused
 mechanism: rfp
-summary: BARDA's DRIVe division runs EZ-BAA, a rolling funding mechanism partnering with early-stage
-  companies on health-security innovations; DRIVe's partnering approaches vary by project.
+summary: BARDA's DRIVe division uses EZ-BAA to partner with early-stage companies on health-security
+  innovations. The official EZ-BAA page currently reports no open Areas of Interest and directs
+  applicants to other active DRIVe opportunities.
 rounds: []
 sources:
   - https://drive.hhs.gov/ezbaa.html

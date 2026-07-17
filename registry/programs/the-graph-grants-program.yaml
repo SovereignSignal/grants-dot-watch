@@ -8,6 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
+apply_url: https://thegraph.typeform.com/applynow
 summary: The Graph Foundation runs Grants & RFPs for developers and teams contributing to protocol,
   tooling, subgraph, and dApp development across the Web3 ecosystem, alongside open requests for
   proposals from core contributors.

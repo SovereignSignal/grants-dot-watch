@@ -7,7 +7,9 @@ wires:
   - crypto
 status: active
 mechanism: grants
-summary: Gitcoin Flows / Continuous Grants — dispatch from the wire, no further detail on file.
+apply_url: https://gitcoin.co/apps/flows-wtf
+summary: Gitcoin's Flows directory connects applicants to continuous, community-curated funding
+  streams. Applicants select an active flow aligned with their project and apply through that flow.
 rounds: []
 sources:
   - https://gitcoin.co/apps/flows-wtf

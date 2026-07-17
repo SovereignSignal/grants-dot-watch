@@ -8,6 +8,7 @@ wires:
   - ai
 status: active
 mechanism: rfp
+apply_url: https://cepi.net/calls-for-proposals
 summary: CEPI's Calls for Proposals invite vaccine and biosecurity innovators worldwide to apply to
   its scientific programs, funding R&D across a diverse portfolio of vaccine candidates against
   epidemic threats.

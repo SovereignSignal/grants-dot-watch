@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: announced
 mechanism: grants
 summary: The OpenAI Foundation's AI Resilience program funds work in bio-resilience, cyber-resilience,
   AI model safety, and research on AI's effects on young people. As of June 1, 2026, the Foundation

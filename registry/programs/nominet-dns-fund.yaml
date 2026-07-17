@@ -7,6 +7,7 @@ wires:
   - oss
 status: active
 mechanism: grants
+apply_url: https://surveys.nominet.org.uk/s/DNS-Fund-application-2026/
 summary: Nominet's DNS Fund provides funding for open-source DNS projects and maintainers to improve
   security, sustainability, and resilience of critical internet infrastructure. Application deadline
   is August 17, 2026.

@@ -8,9 +8,16 @@ wires:
   - ai
 status: active
 mechanism: grants
+apply_url: https://coefficientgiving.org/apply-for-funding/
 summary: Coefficient Giving (formerly Open Philanthropy) runs a Global Catastrophic Risks
-  Opportunities Fund as one of several open-application funds, alongside Global Health and
-  Wellbeing, Farm Animal Welfare, and Effective Giving & Careers funds.
-rounds: []
+  Opportunities Fund with open routes for career development and transition support, plus programs
+  and events related to catastrophic risks, biosecurity, and effective altruism.
+rounds:
+  - name: Career development and transition funding
+    status: open
+    source: https://coefficientgiving.org/apply-for-funding/
+  - name: Programs and events funding
+    status: open
+    source: https://coefficientgiving.org/apply-for-funding/
 sources:
   - https://coefficientgiving.org/apply-for-funding/

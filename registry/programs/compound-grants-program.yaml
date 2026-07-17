@@ -6,11 +6,16 @@ systems:
   - ethereum
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
-summary: The Compound Grants Program (CGP) was a community-run grants program funding Compound
-  ecosystem contributions, administered independently via Questbook, with the community publishing a
-  lessons-and-next-steps retrospective on the forum.
-rounds: []
+summary: The Compound Grants Program was a community-run program for Compound ecosystem
+  contributions administered through Questbook. Its latest completed application cycle closed May
+  30, 2024, and no newer public intake is on file.
+rounds:
+  - name: November 2023 to May 2024 cycle
+    status: deployed
+    closes: 2024-05-30
+    source: https://www.comp.xyz/t/compound-grants-program-renewal/5595
 sources:
+  - https://www.comp.xyz/t/compound-grants-program-renewal/5595
   - https://www.comp.xyz/t/compound-grants-program-lessons-and-next-steps/2264

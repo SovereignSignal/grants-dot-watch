@@ -7,6 +7,7 @@ wires:
   - crypto
 status: active
 mechanism: other
+apply_url: https://xgov.algorand.co/
 summary: Algorand xGov is a decentralized, on-chain platform where xGov council members analyze
   community grant proposals and vote to select which ones receive funding.
 rounds:

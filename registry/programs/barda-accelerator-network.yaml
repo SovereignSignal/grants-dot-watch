@@ -8,6 +8,7 @@ wires:
   - ai
 status: active
 mechanism: grants
+apply_url: https://drive.hhs.gov/partner.html
 summary: The BARDA Accelerator Network offers proof-of-concept funding opportunities year-round with
   rolling application submissions and priority deadlines, part of BARDA's DRIVe partnering approach
   for health-security innovation.

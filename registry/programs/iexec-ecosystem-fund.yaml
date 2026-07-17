@@ -7,6 +7,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
+apply_url: https://airtable.com/appDiKrXe5wJgGpdP/pagzwtwd5pn7pgmgl/form
 summary: iExec promotes an Ecosystem Fund and Grants Program supporting dApps in DeFi, AI, RWA, and
   other use cases, per its official ecosystem fund page. iExec is absent from the org registry; a
   companion signal (10963) shows it also running a small privacy-focused hackathon ($1,500 pool).

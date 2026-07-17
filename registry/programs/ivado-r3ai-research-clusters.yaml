@@ -7,11 +7,14 @@ wires:
   - ai
 status: active
 mechanism: grants
-summary: Call for proposals to fund AI research clusters based in Quebec/Canada, 2027-2030 cycle.
+apply_url: https://ivado.ca/en/2026/06/08/ivado-launches-a-call-for-proposals-for-the-funding-of-its-2027-2030-r3ai-research-clusters/
+summary: IVADO's 2027-2030 call will invest up to C$20 million in roughly 8-12 AI research clusters.
+  Letters of intent are due July 31, 2026, with invited full proposals due November 19.
 rounds:
   - name: 2027-2030 cycle
     status: open
     closes: 2026-07-31
-    source: https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/
+    size: Up to C$20M total; up to C$1.95M per cluster
+    source: https://ivado.ca/en/2026/06/08/ivado-launches-a-call-for-proposals-for-the-funding-of-its-2027-2030-r3ai-research-clusters/
 sources:
-  - https://ivado.ca/en/scholarships-and-grants/2027-2030-r3ai-research-clusters/
+  - https://ivado.ca/en/2026/06/08/ivado-launches-a-call-for-proposals-for-the-funding-of-its-2027-2030-r3ai-research-clusters/

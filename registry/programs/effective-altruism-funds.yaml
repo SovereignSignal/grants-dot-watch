@@ -7,9 +7,14 @@ wires:
   - ai
 status: active
 mechanism: grants
-summary: Effective Ventures Foundation hosts Effective Altruism Funds, which fund high-impact
-  projects aiming to positively influence the long-term trajectory of civilization, alongside
-  separate Group Support Grants run by its Centre for Effective Altruism.
-rounds: []
+apply_url: https://av20jp3z.paperform.co/
+summary: Effective Altruism Funds accepts rolling applications for people, projects, nonprofits, and
+  institutions through its Animal Welfare, EA Infrastructure, and Long-Term Future funds. Requests
+  can range from $1,000 to $500,000; the Global Health and Development Fund is currently closed.
+rounds:
+  - name: Rolling applications
+    status: open
+    size: $1,000-$500,000
+    source: https://funds.effectivealtruism.org/apply-for-funding
 sources:
   - https://funds.effectivealtruism.org/apply-for-funding
