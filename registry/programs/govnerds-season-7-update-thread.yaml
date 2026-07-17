@@ -2,7 +2,7 @@ id: govnerds-season-7-update-thread
 name: Optimism govNERDs Season 7
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
   - crypto
 status: concluded

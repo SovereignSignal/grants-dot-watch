@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
 summary: Solana Foundation Perps & Derivatives Grants — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

@@ -2,7 +2,7 @@ id: thrive-polygon-update-june-11th-to-july-15th
 name: Thrive Polygon Consumer Crypto Grants Season 1
 org: polygon
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
 status: concluded

@@ -2,20 +2,15 @@ id: uniswap-acceleration-season
 name: Uniswap Acceleration Season
 org: uniswap-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: >-
-  Uniswap Acceleration Season is featured in an aggregator thread by @crecimientoar highlighting
-  multiple crypto grant and acceleration opportunities.
-
-
-  The Uniswap Foundation is running a 6-week online Acceleration Season program for early-stage
-  startups and projects integrating the Uniswap API suite. Applications are open until April 15. 15
-  to 20 startups will be selected worldwide. Participants will receive structured technical support,
-  hands-on guidance from the Uniswap team, curated mentorship, weekly masterclasses, $5,000 in AWS
-  credits, and a fast pass into the next Startup World Cup. 
+status: concluded
+mechanism: incubator
+summary: >
+  A completed six-week online Uniswap Foundation accelerator for early-stage startups and projects
+  integrating the Uniswap API suite. The program selected 15 to 20 teams for technical support,
+  mentorship, masterclasses, AWS credits, and a Startup World Cup fast pass.
 rounds: []
 sources:
   - https://x.com/crecimientoar/status/2039816746668880194

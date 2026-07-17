@@ -2,7 +2,7 @@ id: ethereum-foundation-github-dependency-mapping-bounty
 name: Ethereum Foundation GitHub Dependency Mapping Bounty
 org: ethereum-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

@@ -2,10 +2,11 @@ id: gitcoin-flows-continuous-grants
 name: Gitcoin Flows / Continuous Grants
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
 summary: Gitcoin Flows / Continuous Grants — dispatch from the wire, no further detail on file.
 rounds: []
 sources:

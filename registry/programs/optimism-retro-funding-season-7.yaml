@@ -2,7 +2,7 @@ id: optimism-retro-funding-season-7
 name: Optimism Retro Funding Season 7
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded

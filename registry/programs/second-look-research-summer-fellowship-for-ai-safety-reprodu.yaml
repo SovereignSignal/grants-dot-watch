@@ -5,10 +5,15 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-summary: I’m co-founding Second Look Research with @zephaniahbroe and we are accepting summer fellowship
-  applications for 2026! Fellows will come to the University of Chicago, complete 2-3 replications over
-  10 weeks (June 15-August 22), and work with external advisors. Fellows will receive a stipend of $10,
-rounds: []
+status: active
+mechanism: fellowship
+summary: >
+  A ten-week 2026 summer fellowship at the University of Chicago focused on reproducing AI safety
+  research. The fellowship runs from June 15 through August 22 and includes a stipend and work with
+  external advisors.
+rounds:
+  - name: Summer 2026
+    status: closed
+    source: https://x.com/Yixiong_Hao/status/2028942932170940764
 sources:
 - https://x.com/Yixiong_Hao/status/2028942932170940764

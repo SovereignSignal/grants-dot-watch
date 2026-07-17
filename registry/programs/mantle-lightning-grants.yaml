@@ -2,7 +2,7 @@ id: mantle-lightning-grants
 name: Mantle Lightning Grants
 org: mantle-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
 status: active

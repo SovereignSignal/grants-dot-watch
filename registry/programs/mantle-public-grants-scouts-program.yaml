@@ -1,18 +1,25 @@
 id: mantle-public-grants-scouts-program
-name: Mantle Public Grants / Scouts Program
+name: Mantle Builder Support Programs
 org: mantle-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: >-
-  Mantle Public Grants / Scouts Program offers up to $20,000 in MNT tokens to early-stage
-  projects and ecosystem contributors. The program accepts rolling applications for work in
-  consumer, DeFi, AI, and payments, with both public submissions and scout nominations eligible. 
-
-
-  Apply at https://www.mantle.xyz/grants/apply.
-rounds: []
+status: active
+mechanism: incubator
+apply_url: https://www.mantle.xyz/grants/apply
+summary: >
+  Mantle supports pre-product teams through Flagship Buildathon programs that run on a rolling basis
+  during the year, with top teams eligible for grants and ecosystem support. The separate Mantle
+  Scouts Season 2 nomination program ran from January through June 2025 and is closed.
+rounds:
+  - name: Flagship Buildathon programs
+    status: open
+    source: https://www.mantle.xyz/grants
+  - name: Mantle Scouts Season 2
+    status: closed
+    opens: 2025-01-01
+    closes: 2025-06-30
+    source: https://www.mantle.xyz/grants
 sources:
-  - https://www.mantle.xyz/grants/apply
+  - https://www.mantle.xyz/grants

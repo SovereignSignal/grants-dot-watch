@@ -2,7 +2,7 @@ id: optimism-grants-council-season-6
 name: Optimism Grants Council (Season 6)
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded

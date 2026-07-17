@@ -2,7 +2,7 @@ id: optimism-grants-council-intent-3-grow-application-developers
 name: Optimism Grants Council (Intent 3)
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded

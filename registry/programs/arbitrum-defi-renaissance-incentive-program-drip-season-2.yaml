@@ -2,7 +2,7 @@ id: arbitrum-defi-renaissance-incentive-program-drip-season-2
 name: Arbitrum DeFi Renaissance Incentive Program (DRIP) Season 2
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
   - crypto
 status: paused

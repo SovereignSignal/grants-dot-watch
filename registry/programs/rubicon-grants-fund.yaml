@@ -2,13 +2,15 @@ id: rubicon-grants-fund
 name: Rubicon Grants Fund
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
   - crypto
 status: unknown
+mechanism: grants
 summary: >
-  Summary We propose reallocating ~ 110,000 OP tokens from previously approved but unused sources into
-  the Rubicon Grants Fund.
+  A Rubicon developer fund that Optimism governance described as approved and active in October 2024.
+  The update authorized roughly 110,000 OP in unused allocations for builders and contributors, but
+  no current application route, intake status, or closure notice could be verified.
 rounds: []
 sources:
   - https://gov.optimism.io/t/reallocating-pre-approved-and-unused-grants-rubicon-phase-0-phase-1/9111

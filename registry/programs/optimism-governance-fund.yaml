@@ -2,7 +2,7 @@ id: optimism-governance-fund
 name: Optimism Governance Fund Missions
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded

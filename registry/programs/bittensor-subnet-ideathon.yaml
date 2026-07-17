@@ -5,11 +5,19 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: "Bittensor Subnet Ideathon invites developers to submit innovative subnet ideas for
-  Bittensor. Selected teams will receive compute credits to advance their projects. The competition
-  targets builders actively developing on the Bittensor network. Submit your subnet proposal through
-  the linked announcement for consideration."
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  A two-stage Bittensor builder competition for new subnet concepts and working prototypes. The
+  program ran from December 2025 through its March 31, 2026 demo day and awarded listed prizes plus
+  discretionary investment opportunities.
+rounds:
+  - name: 2025-2026 ideathon and hackathon
+    status: closed
+    opens: 2025-12-23
+    closes: 2026-03-31
+    size: About $23,000 in listed prizes plus discretionary investment
+    source: https://www.hackquest.io/ko/hackathons/Bittensor-Subnet-Ideathon
 sources:
   - https://x.com/covenant_ai/status/2031339552749875307
+  - https://www.hackquest.io/ko/hackathons/Bittensor-Subnet-Ideathon

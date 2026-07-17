@@ -2,22 +2,15 @@ id: mission-request-analysis-of-grant-programs
 name: "[Mission Request] Analysis of Grant Programs"
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
   - crypto
-status: unknown
-summary: >-
-  Optimism is requesting an analysis of grant programs and their failure modes to improve the
-  effectiveness and sustainability of future grant cycles, especially as Superchain participants
-  begin their own programs. 
-
-
-  The selected contributor will deliver a comprehensive report covering structural differences,
-  common pitfalls, success metrics, and actionable recommendations for Optimism’s governance. 
-
-
-  This is a Delegate Mission Request with a fixed 20,000 OP grant. Applications are open to any
-  individual or team.
+status: concluded
+mechanism: rfp
+summary: >
+  An Optimism Delegate Mission Request for research into grant program structures, failure modes,
+  success metrics, and recommendations for future governance funding. The completed call carried a
+  fixed 20,000 OP grant.
 rounds: []
 sources:
   - https://gov.optimism.io/t/mission-request-analysis-of-grant-programs/8524

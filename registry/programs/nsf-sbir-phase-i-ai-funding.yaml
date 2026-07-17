@@ -2,7 +2,7 @@ id: nsf-sbir-phase-i-ai-funding
 name: NSF SBIR Phase I AI Funding
 org: national-science-foundation
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
   - ai
 status: active

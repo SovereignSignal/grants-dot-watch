@@ -2,11 +2,16 @@ id: stellar-community-fund-scf
 name: Stellar Community Fund (SCF)
 org: stellar-development-foundation
 parent: null
-systems: []
+systems: [stellar]
 wires:
   - crypto
-status: unknown
-summary: Stellar Community Fund (SCF) — dispatch from the wire, no further detail on file.
+status: active
+mechanism: grants
+apply_url: https://communityfund.stellar.org/
+summary: >
+  A community-governed program funding teams from validated concept through launch and growth on
+  Stellar. Its Build track offers up to $150,000 in XLM across three award tracks, alongside smaller
+  Instawards and post-launch growth support.
 rounds: []
 sources:
-  - https://stellar.org/grants-and-funding
+  - https://communityfund.stellar.org/

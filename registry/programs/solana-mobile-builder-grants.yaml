@@ -5,7 +5,9 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
+apply_url: https://solanamobile.com/grants
 summary: >-
   Solana Mobile Builder Grants offers rolling funding for developers building apps, tools, and
   Saga Seeker-integrated products on the Solana Mobile ecosystem. 
@@ -18,4 +20,5 @@ summary: >-
   Applications are accepted on a rolling basis with no fixed deadline.
 rounds: []
 sources:
+  - https://solanamobile.com/grants
   - https://blog.solanamobile.com/post/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas

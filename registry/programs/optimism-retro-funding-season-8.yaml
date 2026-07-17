@@ -2,10 +2,11 @@ id: optimism-retro-funding-season-8
 name: Optimism Retro Funding Season 8
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: retro
 summary: >
   In 2025, Retro Funding sharpens its focus on data-driven impact measurement , using targeted
   Missions to develop robust methods for evaluating specific types of contributions. The Retro Funding

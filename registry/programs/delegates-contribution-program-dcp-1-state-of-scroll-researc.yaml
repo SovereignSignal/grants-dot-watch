@@ -2,7 +2,7 @@ id: delegates-contribution-program-dcp-1-state-of-scroll-researc
 name: Delegates Contribution Program (DCP) 1 - State of Scroll Research
 org: scroll
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

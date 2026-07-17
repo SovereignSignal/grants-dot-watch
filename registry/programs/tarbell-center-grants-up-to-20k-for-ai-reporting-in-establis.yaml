@@ -5,11 +5,12 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
+mechanism: grants
 summary: >
-  The @tarbellcenter is offering grants up to $20,000 to support original reporting in established
-  outlets on artificial intelligence (AI) and its impacts — open to both freelancers and staff
-  journalists. 🗓️ Deadline: March 8.
+  A completed Tarbell Center grant round offering up to $20,000 for original reporting in
+  established outlets on artificial intelligence and its impacts. The call was open to freelance
+  and staff journalists and closed on March 8, 2026.
 rounds: []
 sources:
 - https://x.com/gijnAfrica/status/2026995664295489907

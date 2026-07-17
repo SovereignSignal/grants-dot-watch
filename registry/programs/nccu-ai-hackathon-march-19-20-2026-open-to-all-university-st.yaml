@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
+mechanism: prize
 summary: >
   🛠️ Build with IBM watsonx Orchestrate. 📘 Earn IBM SkillsBuild badges. 🏆 Compete for $10K in
   prizes. The NCCU AI Hackathon March 19–20, 2026 Open to all university students.

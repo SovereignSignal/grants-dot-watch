@@ -2,7 +2,7 @@ id: nsf-pesose
 name: NSF PESOSE
 org: national-science-foundation
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
 - oss
 status: active

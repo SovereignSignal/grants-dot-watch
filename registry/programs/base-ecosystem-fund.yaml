@@ -2,7 +2,7 @@ id: base-ecosystem-fund
 name: Base Ecosystem Fund
 org: base-coinbase
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
 status: active

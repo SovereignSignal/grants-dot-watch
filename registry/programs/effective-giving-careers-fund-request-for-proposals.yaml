@@ -1,16 +1,20 @@
 id: effective-giving-careers-fund-request-for-proposals
 name: Effective Giving & Careers Fund - Request for Proposals
-org: long-term-future-fund
+org: coefficient-giving
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: concluded
+mechanism: rfp
 summary: >
-  We are excited to announce a new Request for Proposals (RFP) for effective giving organizations,
-  defined as initiatives that raise funds for highly effective charities. Through this RFP, we aim to
-  identify and support additional efforts in the effective giving space and streamline the application
-  process for potential grantees.
-rounds: []
+  A Coefficient Giving request for proposals supporting organizations that raise funds for effective
+  charities. Applications for one- or two-year grants closed June 26, 2026, with decisions expected
+  by the end of August.
+rounds:
+  - name: 2026 Effective Giving RFP
+    status: closed
+    closes: 2026-06-26
+    source: https://forum.effectivealtruism.org/posts/5xwZJwGiBXkFXpy9d/request-for-proposals-effective-giving-1
 sources:
   - https://forum.effectivealtruism.org/posts/5xwZJwGiBXkFXpy9d/request-for-proposals-effective-giving-1

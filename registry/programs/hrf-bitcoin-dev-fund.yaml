@@ -2,7 +2,7 @@ id: hrf-bitcoin-dev-fund
 name: HRF Bitcoin Dev Fund
 org: hrf-ai-for-individual-rights-fund
 parent: null
-systems: []
+systems: [internet-freedom]
 wires:
   - crypto
 status: active

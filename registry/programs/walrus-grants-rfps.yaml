@@ -2,7 +2,7 @@ id: walrus-grants-rfps
 name: Walrus Grants & RFPs
 org: walrus-foundation
 parent: null
-systems: []
+systems: [sui]
 wires:
   - crypto
 status: active

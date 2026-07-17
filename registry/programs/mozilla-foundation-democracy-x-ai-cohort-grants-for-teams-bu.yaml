@@ -2,7 +2,7 @@ id: mozilla-foundation-democracy-x-ai-cohort-grants-for-teams-bu
 name: Mozilla Foundation Democracy x AI Cohort
 org: mozilla-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
 - oss
 - ai

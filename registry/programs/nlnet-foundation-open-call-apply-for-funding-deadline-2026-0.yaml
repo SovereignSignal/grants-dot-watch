@@ -2,7 +2,7 @@ id: nlnet-foundation-open-call-apply-for-funding-deadline-2026-0
 name: NLnet Foundation Open Call
 org: nlnet-foundation
 parent: null
-systems: []
+systems: [eu-public-rd, sovereign-tech]
 wires:
 - oss
 status: active

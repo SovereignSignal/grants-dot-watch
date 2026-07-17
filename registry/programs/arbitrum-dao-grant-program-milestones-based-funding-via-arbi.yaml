@@ -2,7 +2,7 @@ id: arbitrum-dao-grant-program-milestones-based-funding-via-arbi
 name: Arbitrum DAO Grant Program
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
 - crypto
 status: concluded

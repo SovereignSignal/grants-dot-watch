@@ -2,7 +2,7 @@ id: rad-budget
 name: Arbitrum Rewarding Active Delegates (RAD)
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
   - crypto
 status: active

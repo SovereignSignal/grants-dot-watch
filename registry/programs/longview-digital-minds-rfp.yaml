@@ -2,7 +2,7 @@ id: longview-digital-minds-rfp
 name: Digital Minds RFP
 org: longview-philanthropy
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
 - ai
 status: active

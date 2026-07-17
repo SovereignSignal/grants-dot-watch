@@ -2,7 +2,7 @@ id: 2026-mozilla-fellows-nominations
 name: 2026 Mozilla Fellows nominations
 org: mozilla-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
   - oss
 status: concluded

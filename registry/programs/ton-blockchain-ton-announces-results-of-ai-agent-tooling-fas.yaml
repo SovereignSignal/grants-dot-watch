@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
+mechanism: grants
 summary: 'TON Blockchain announces results of its AI Agent Tooling Fast Grants. The program received
   40 submissions and selected 14 winners, distributing $14k in total. Winners developed tools, SDKs, infrastructure
   primitives, and A2A building blocks to accelerate AI agent development on TON. Results were announced

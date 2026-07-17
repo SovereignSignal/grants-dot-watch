@@ -2,15 +2,14 @@ id: gooddollar-season-3-funding
 name: GoodDollar Season 3 Funding
 org: gooddollar
 parent: null
-systems: []
+systems: [web3-public-goods]
 wires:
   - crypto
-status: unknown
-summary: GoodDollar has launched Season 3 applications for its GoodBuilders program, offering a
-  $50,000 USD streaming fund in G$ to support projects building and growing on the Celo network. The
-  application window is currently open, and interested parties can apply through the provided link.
-  This initiative aims to foster development within the Celo ecosystem by providing financial
-  support to builders.
+status: concluded
+mechanism: grants
+summary: >
+  Season 3 of GoodDollar's GoodBuilders program offered a $50,000 streaming fund in G$ for projects
+  building and growing on Celo. This season has ended; it is retained as a historical funding round.
 rounds: []
 sources:
   - https://x.com/gooddollarorg/status/2024430836054130770

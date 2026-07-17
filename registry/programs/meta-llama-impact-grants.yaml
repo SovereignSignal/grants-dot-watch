@@ -4,15 +4,20 @@ org: meta-llama-impact-grants
 parent: null
 systems: [open-source-ai]
 wires: [ai, oss]
-status: unknown
+status: concluded
 mechanism: grants
 apply_url: https://ai.meta.com/llama/llama-impact-grants/
 summary: >
-  Meta grant program tied to its Llama open AI models. The application page is
-  tracked at ai.meta.com/llama/llama-impact-grants/ and now redirects to
-  developer.meta.com; the fetched pages rendered only minimal content, so
-  current round details could not be confirmed from the site.
-rounds: []
+  Meta's second Llama Impact Grants call awarded more than $1.5 million to 10 companies, startups,
+  and universities using open-source Llama models for social and economic impact. Applications for
+  that round closed in November 2024, and recipients were announced in April 2025.
+rounds:
+  - name: Llama 3.1 Impact Grants
+    status: closed
+    closes: 2024-11-22
+    size: Up to $2 million total; up to $500,000 per open-call recipient
+    source: https://ai.meta.com/blog/llama-3-1-impact-grants-call-for-applications/
 sources:
   - https://ai.meta.com/llama/llama-impact-grants/
   - https://developer.meta.com/ai/llama-impact-grants/
+  - https://about.fb.com/news/2025/04/llama-impact-grant-recipients/

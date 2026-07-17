@@ -2,15 +2,19 @@ id: compound-security-service-provider-ssp-rfp
 name: Compound Security Service Provider (SSP) RFP
 org: compound-dao
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
+status: concluded
+mechanism: rfp
 summary: >
-  Following the [Compound Foundation’s
-  recommendations](https://www.comp.xyz/t/compound-foundations-security-service-provider-recommendation/7047)
-  around the DAO’s next Security Service Provider (SSP), the CGWG is coordinating next steps to
-  facilitate the election of Compound’s new SSP.
-rounds: []
+  Compound DAO's completed 2025 RFP for a new security service provider. ChainSecurity and Certora
+  were selected for audits, advisory, and formal verification, with zeroShadow selected for incident
+  response and monitoring.
+rounds:
+  - name: 2025 SSP selection
+    status: deployed
+    source: https://www.comp.xyz/t/compound-dao-s-new-ssp-team-chainsecurity-certora-and-zeroshadow/7171
 sources:
   - https://snapshot.org/#/comp-vote.eth/proposal/0x29f34f6cae855cb2605b81d490db7a13565be448a72b5f7a3d121db4b1a0cc49
+  - https://www.comp.xyz/t/compound-dao-s-new-ssp-team-chainsecurity-certora-and-zeroshadow/7171

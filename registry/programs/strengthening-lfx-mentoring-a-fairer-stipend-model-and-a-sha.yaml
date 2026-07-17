@@ -2,7 +2,7 @@ id: strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-sha
 name: LFX Mentoring
 org: linux-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
 - oss
 status: active

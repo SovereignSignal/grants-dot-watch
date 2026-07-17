@@ -2,7 +2,7 @@ id: nlnet-general-grants
 name: NLnet General Grants
 org: nlnet-foundation
 parent: null
-systems: []
+systems: [eu-public-rd, sovereign-tech]
 wires:
   - oss
 status: active

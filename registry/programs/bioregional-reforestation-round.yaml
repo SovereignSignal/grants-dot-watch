@@ -2,7 +2,7 @@ id: bioregional-reforestation-round
 name: Bioregional Reforestation Round
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
   - crypto
 status: concluded

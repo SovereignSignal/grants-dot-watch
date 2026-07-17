@@ -2,7 +2,7 @@ id: taiko-grants
 name: Taiko Grant Cycle 3
 org: taiko-grant-program
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
 status: active

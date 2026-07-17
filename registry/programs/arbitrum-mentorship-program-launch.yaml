@@ -2,7 +2,7 @@ id: arbitrum-mentorship-program-launch
 name: Arbitrum Mentorship Program Launch
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
 - crypto
 status: concluded

@@ -2,7 +2,7 @@ id: mozilla-moss-foundational-technology
 name: Mozilla MOSS Foundational Technology
 org: mozilla-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
   - oss
 status: active

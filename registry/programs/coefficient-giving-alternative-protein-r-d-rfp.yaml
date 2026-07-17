@@ -2,7 +2,7 @@ id: coefficient-giving-alternative-protein-r-d-rfp
 name: Coefficient Giving Alternative Protein R&D RFP
 org: coefficient-giving
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

@@ -2,7 +2,7 @@ id: citizen-grants
 name: Citizen Grants
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded

@@ -2,7 +2,7 @@ id: arbitrum-nyc-founder-house
 name: Arbitrum NYC Founder House
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
 - crypto
 status: concluded

@@ -1,13 +1,19 @@
 id: polygon-grants-general-direct-funding-tracks
-name: Polygon Grants (General & Direct Funding Tracks
-org: gitcoin
+name: Polygon Community Grants Program
+org: polygon
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: Polygon Grants (General & Direct Funding Tracks — dispatch from the wire, no further detail
-  on file.
+status: active
+mechanism: grants
+apply_url: https://polygon.questbook.xyz/
+summary: >
+  A community-governed, milestone-based grants program funded by the Polygon Community Treasury.
+  The treasury is designed to release about 100 million POL annually over ten years, while seasonal
+  direct and allocator-managed tracks fund builders across Polygon PoS and Polygon zkEVM.
 rounds: []
 sources:
+  - https://polygon.technology/blog/1-billion-unlocked-over-decade-in-community-grants-program-for-polygon-builders
+  - https://polygon.technology/blog/polygon-community-grants-program-announces-season-2-with-35m-pol-and-ai-leading-the-pack
   - https://gitcoin.co/apps/polygon-grants

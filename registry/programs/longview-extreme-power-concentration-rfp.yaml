@@ -2,7 +2,7 @@ id: longview-extreme-power-concentration-rfp
 name: Extreme Power Concentration RFP
 org: longview-philanthropy
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: concluded

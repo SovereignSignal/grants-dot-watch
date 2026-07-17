@@ -2,7 +2,7 @@ id: linux-foundation-travel-funding
 name: Linux Foundation Travel Funding
 org: linux-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
 - oss
 status: active

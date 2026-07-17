@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: active
+mechanism: grants
 summary: >
   Hey builders! If you have a project that aims to bring real value to Web4, X1 EcoChain provides $5M
   in grant support for teams building highly utilitarian products with measurable on-chain activity.

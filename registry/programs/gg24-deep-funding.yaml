@@ -2,10 +2,11 @@ id: gg24-deep-funding
 name: Gitcoin GG24 Deep Funding
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
-status: unknown
+status: concluded
+mechanism: other
 summary: GG24 Deep Funding is Gitcoin's mechanism for allocating funding to open-source repositories valuable
   to Ethereum, using model-weighted submissions reviewed by round operators and an expert committee. The
   Web3 Tooling and Infra Round approved $350,000 for allocation under this mechanism.

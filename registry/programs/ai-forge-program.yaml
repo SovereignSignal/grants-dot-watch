@@ -2,7 +2,7 @@ id: ai-forge-program
 name: AI Forge Program
 org: darpa-dice
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
   - ai
 status: active

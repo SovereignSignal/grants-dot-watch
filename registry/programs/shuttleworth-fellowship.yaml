@@ -4,16 +4,15 @@ org: shuttleworth-foundation
 parent: null
 systems: []
 wires: [ai, oss]
-status: unknown
+status: active
 mechanism: fellowship
-apply_url: https://shuttleworthfoundation.org/funding/fellowship-programme
+apply_url: https://www.shuttleworthfoundation.org/fellowship/apply/
 summary: >
   A fellowship funding individuals implementing an innovative idea for social
   change around openness, technology, knowledge, and learning. Fellows receive
   annual salary-equivalent funding, expense contributions, a travel allowance,
-  and project funding matched at a 10:1 ratio. The programme page carries
-  2014-era content and does not state whether fellowships are currently being
-  awarded.
+  and project funding matched at a 10:1 ratio. Applications are accepted
+  throughout the year for March and September intakes.
 rounds: []
 sources:
-  - https://shuttleworthfoundation.org/funding/fellowship-programme
+  - https://www.shuttleworthfoundation.org/fellowship/apply/new-application/

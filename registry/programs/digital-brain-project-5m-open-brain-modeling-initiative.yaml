@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: announced
+mechanism: grants
 summary: The Digital Brain Project funds a $5M Open Brain Modeling Initiative to support open, collaborative
   brain-modeling research.
 rounds: []

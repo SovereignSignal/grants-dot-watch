@@ -2,7 +2,7 @@ id: longview-frontier-ai-fund
 name: Frontier AI Fund
 org: longview-philanthropy
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

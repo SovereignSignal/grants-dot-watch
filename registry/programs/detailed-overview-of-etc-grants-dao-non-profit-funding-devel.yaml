@@ -5,12 +5,12 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Most people talk about hype. I look at principles. That’s why I pay attention to @ETCGrantsDao
-  . Step by step, here’s what it is 👇 1️⃣ It’s a non-profit. No CEO. No central boss. 2️⃣ It supports
-  builders inside Ethereum Classic. Not by changing the chain. But by funding people building on it. ...
-  [
+status: active
+mechanism: grants
+summary: >
+  ETC Grants DAO funds projects that contribute to the Ethereum Classic ecosystem. Its current site
+  reports more than 25 funded projects and over $850,000 deployed, and says the program remains
+  committed to future ecosystem funding backed by BITMAIN and ANTPOOL.
 rounds: []
 sources:
-- https://x.com/Cryptoiconn/status/2024784963871141968
-- https://x.com/Crypt0_DeFi/status/2026112537557602786
+- https://etcgrantsdao.io/en

@@ -5,10 +5,12 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: Got a killer TON DeFi idea but need funding + support to ship it? https://ston.fi/ community
-  grants program is wide open - no deadlines, up to $10k in USDT, and it's built exactly for builders
-  like you. If you're integrating their SDK, widgets, or pools... this could be your launchpad. 🧵
+status: active
+mechanism: grants
+apply_url: https://ston.fi/grant-program
+summary: >
+  An evergreen STON.fi grant program offering up to $10,000 in USDT for development work integrating
+  its SDK or widget into DeFi products, wallets, exchanges, and games. Applications have no deadline.
 rounds: []
 sources:
-- https://x.com/crypto_vazima/status/2029517116328612202
+  - https://ston.fi/grant-program

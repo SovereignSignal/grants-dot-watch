@@ -5,7 +5,9 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: active
+mechanism: incubator
+apply_url: https://www.pharos.xyz/ecosystem
 summary: 'The Pharos Incubator Program offers a $10M fund supporting visionary projects building on the
   Pharos Layer-1 network. The program targets three innovation paths: RWA/Payments, DeFi, and Innovative
   Infrastructure. Selected projects receive capital, direct technical mentorship from the core development

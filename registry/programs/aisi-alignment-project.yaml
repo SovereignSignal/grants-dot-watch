@@ -2,7 +2,7 @@ id: aisi-alignment-project
 name: AISI Alignment Project
 org: ai-security-institute
 parent: null
-systems: []
+systems: [ai-safety, uk-public-rd]
 wires:
   - ai
 status: concluded

@@ -2,7 +2,7 @@ id: otf-rapid-response-fund
 name: Rapid Response Fund
 org: free-and-open-source-software-sustainability-fund
 parent: null
-systems: []
+systems: [internet-freedom, sovereign-tech]
 wires:
   - oss
 status: active

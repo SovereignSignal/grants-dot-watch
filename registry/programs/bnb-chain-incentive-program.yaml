@@ -1,15 +1,17 @@
 id: bnb-chain-incentive-program
-name: BNB Chain Incentive Program
+name: BNB Chain $100M Liquidity Incentive Program
 org: bnb-chain
 parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: BNB Chain has launched a new ecosystem incentive program targeting DeFi and AI-powered
-  projects on BSC. The initiative offers fresh liquidity, builder grants, and enhanced
-  infrastructure support to accelerate development. This program is now live for projects building
-  on the BNB Chain network.
+status: active
+mechanism: other
+summary: >
+  An ongoing BNB Chain Foundation program that supports qualifying BNB Chain assets through direct
+  token purchases and targeted liquidity initiatives. The foundation continued making purchases
+  from the $100 million program in 2026; selection timing remains discretionary.
 rounds: []
 sources:
-  - https://x.com/bscpostplus/status/2027559541051691082
+  - https://www.bnbchain.org/en/blog/100m-bnb-chain-incentive-program-upgrade
+  - https://www.bnbchain.org/en/blog/bnb-chain-weekly-ecosystem-report-jan-8-14

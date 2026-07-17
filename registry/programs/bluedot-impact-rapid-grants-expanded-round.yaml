@@ -2,7 +2,7 @@ id: bluedot-impact-rapid-grants-expanded-round
 name: BlueDot Impact Rapid Grants (Expanded Round)
 org: bluedot-impact
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

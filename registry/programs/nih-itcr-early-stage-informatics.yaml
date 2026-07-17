@@ -2,7 +2,7 @@ id: nih-itcr-early-stage-informatics
 name: ITCR Early-Stage Informatics Technologies for Cancer Research (RFA-CA-27-019)
 org: national-institutes-of-health
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
   - oss
 status: active

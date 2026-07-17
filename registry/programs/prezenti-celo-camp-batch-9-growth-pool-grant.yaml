@@ -2,7 +2,7 @@ id: prezenti-celo-camp-batch-9-growth-pool-grant
 name: Prezenti Celo Camp Batch 9 Growth Pool Grant
 org: celo
 parent: null
-systems: []
+systems: [web3-public-goods]
 wires:
 - crypto
 status: concluded

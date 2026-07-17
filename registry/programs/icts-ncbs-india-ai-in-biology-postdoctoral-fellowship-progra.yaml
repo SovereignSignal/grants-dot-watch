@@ -5,9 +5,12 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-summary: '📢 AI in Biology - Postdoctoral Fellowship Program The International Centre for Theoretical Sciences
-  (ICTS) in collaboration with NCBS, Bangalore, India is inviting applications. Deadline: March 1, 2026'
+status: concluded
+mechanism: fellowship
+summary: >
+  A postdoctoral fellowship from the International Centre for Theoretical Sciences and the National
+  Centre for Biological Sciences in Bangalore focused on AI in biology. Applications closed on
+  March 1, 2026.
 rounds: []
 sources:
 - https://x.com/GipsonE/status/2027050504472375743

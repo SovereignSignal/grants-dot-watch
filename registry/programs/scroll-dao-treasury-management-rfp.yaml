@@ -2,7 +2,7 @@ id: scroll-dao-treasury-management-rfp
 name: Scroll DAO Treasury Management RFP
 org: scroll
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

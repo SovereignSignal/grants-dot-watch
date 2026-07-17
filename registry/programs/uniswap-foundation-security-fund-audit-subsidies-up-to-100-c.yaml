@@ -2,7 +2,7 @@ id: uniswap-foundation-security-fund-audit-subsidies-up-to-100-c
 name: Uniswap Foundation Security Fund
 org: uniswap-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

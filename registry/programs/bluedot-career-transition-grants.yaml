@@ -2,7 +2,7 @@ id: bluedot-career-transition-grants
 name: Career Transition Grants
 org: bluedot-impact
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

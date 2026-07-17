@@ -2,11 +2,18 @@ id: orion-fund-draper-dragon-ecosystem-fund
 name: Orion Fund (Draper Dragon Ecosystem Fund)
 org: cardano-foundation
 parent: null
-systems: []
+systems: [cardano]
 wires:
   - crypto
-status: unknown
-summary: Orion Fund (Draper Dragon Ecosystem Fund) — dispatch from the wire, no further detail on file.
+status: active
+mechanism: other
+apply_url: https://orion.draperdragon.com/
+summary: >
+  An $80 million equity-first ecosystem fund managed by Draper Dragon for high-growth companies
+  building on or integrating with Cardano. It focuses on real-world assets, institutional DeFi, and
+  links between Cardano and Bitcoin, with the Cardano Foundation serving as constitutional
+  administrator rather than fund manager.
 rounds: []
 sources:
   - https://cardanofoundation.org/blog/orion-fund-initial-phase
+  - https://cardanofoundation.org/blog/may-2026-activities

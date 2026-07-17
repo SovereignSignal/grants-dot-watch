@@ -4,14 +4,19 @@ org: pharos-network
 parent: null
 systems: []
 wires: [crypto]
-status: unknown
+status: concluded
 mechanism: prize
 apply_url: https://dorahacks.io/hackathon/pharos-phase1
 summary: >
-  A hackathon for developers building on Pharos Network, hosted on the
-  DoraHacks platform (listing slug pharos-phase1). It is the application route
-  listed for Pharos builder funding; the listing page could not be fetched for
-  further detail, so dates and prize pool are not recorded here.
-rounds: []
+  Phase 1 of Pharos Network's Skill-to-Agent developer season asked builders to create reusable
+  onchain agent skills. Submissions ran from June 8 through June 17, 2026; 40 selected developers
+  received 500 PROS and advanced to the second-stage Agent Arena.
+rounds:
+  - name: Skill Hackathon
+    status: closed
+    opens: 2026-06-08
+    closes: 2026-06-17
+    size: 500 PROS for each of 40 advancing developers
+    source: https://dorahacks.io/hackathon/pharos-phase1
 sources:
   - https://dorahacks.io/hackathon/pharos-phase1

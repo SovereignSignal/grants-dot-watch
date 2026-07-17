@@ -2,7 +2,7 @@ id: sff-speculation-grants
 name: Speculation Grants (Rolling Application)
 org: survival-and-flourishing-fund-sff
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

@@ -2,14 +2,20 @@ id: schmidt-sciences-rfp-for-ai-at-work-field-experiments
 name: Schmidt Sciences RFP for AI-at-Work Field Experiments
 org: schmidt-sciences
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
-status: unknown
-summary: "Schmidt Sciences RFP for AI-at-Work Field Experiments offers up to $200K for
-  early-career scientists to conduct empirical studies on how AI impacts work. The grant supports
-  field experiments and rigorous real-world research on AI’s effects in workplace settings. Eligible
-  applicants are early-career scientists. Applications are accepted on a rolling basis."
-rounds: []
+status: concluded
+mechanism: grants
+apply_url: https://www.schmidtsciences.org/ai-at-work/
+summary: >
+  Schmidt Sciences' 2026 AI at Work call offered up to $200,000 to early-career economists and other
+  quantitative social scientists for field experiments on worker displacement, adjustment, and
+  scientific productivity. Expressions of interest closed on April 10, 2026.
+rounds:
+  - name: 2026 research agenda
+    status: closed
+    closes: 2026-04-10
+    source: https://www.schmidtsciences.org/ai-at-work/
 sources:
-  - https://x.com/alexolegimas/status/2032647583600869567
+  - https://www.schmidtsciences.org/ai-at-work/

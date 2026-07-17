@@ -2,7 +2,7 @@ id: nih-primed-ai
 name: PRIMED-AI (Common Fund)
 org: national-institutes-of-health
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
   - ai
 status: active

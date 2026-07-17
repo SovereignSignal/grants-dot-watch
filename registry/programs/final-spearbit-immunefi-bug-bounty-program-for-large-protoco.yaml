@@ -2,15 +2,15 @@ id: final-spearbit-immunefi-bug-bounty-program-for-large-protoco
 name: Spearbit + Immunefi Bug Bounty Program
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
-status: unknown
-summary: 'Spearbit and Immunefi launch a bug bounty program for large protocols building on Optimism.
-  The program is funded under Proposal Tier 42: Phoenix and is open to protocols that meet the size and
-  impact criteria defined in the governance proposal. It provides competitive bounties for critical vulnerabilities
-  discovered in eligible Optimism-based projects. Full eligibility requirements and program details are
-  available in the Optimism governance post.'
+status: concluded
+mechanism: prize
+summary: >
+  A historical Optimism-funded security program delivered with Spearbit and Immunefi for large
+  protocols building on Optimism. It funded competitive bounties for critical vulnerabilities under
+  Proposal Tier 42: Phoenix. The governance proposal is archived and the program is concluded.
 rounds: []
 sources:
 - https://gov.optimism.io/t/final-spearbit-immunefi-bug-bounty-program-for-large-protocols-building-on-optimism/6187

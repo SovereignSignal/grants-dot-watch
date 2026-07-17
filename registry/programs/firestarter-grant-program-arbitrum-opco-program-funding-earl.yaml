@@ -2,7 +2,7 @@ id: firestarter-grant-program-arbitrum-opco-program-funding-earl
 name: Firestarter Grant Program (Arbitrum OpCo)
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
 - crypto
 status: active

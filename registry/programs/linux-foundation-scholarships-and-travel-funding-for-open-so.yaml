@@ -2,10 +2,11 @@ id: linux-foundation-scholarships-and-travel-funding-for-open-so
 name: Linux Foundation Scholarships and Travel Funding for Open Source Summit North America
 org: linux-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
   - oss
-status: unknown
+status: concluded
+mechanism: grants
 summary: >-
   Linux Foundation Scholarships and Travel Funding for Open Source Summit North America offers
   financial assistance to underrepresented groups and individuals who need support to attend the

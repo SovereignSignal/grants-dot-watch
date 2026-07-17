@@ -2,10 +2,11 @@ id: compound-grants-ethglobal-2023-hackathon-bounty
 name: Compound Grants ETHGlobal 2023 Hackathon Bounty
 org: compound-dao
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
+status: concluded
+mechanism: prize
 summary: >
   Compound Grants is sponsoring three ETHGlobal events in 2023. Each event features a hackathon and a
   summit with popular builders in the Ethereum community. Hackathon sponsors are bolstering the grand

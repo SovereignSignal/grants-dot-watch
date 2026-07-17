@@ -2,7 +2,7 @@ id: protocol-labs-genesis
 name: PL Genesis
 org: protocol-labs
 parent: null
-systems: []
+systems: [filecoin]
 wires: [crypto]
 status: active
 mechanism: prize

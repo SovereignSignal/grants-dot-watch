@@ -2,7 +2,7 @@ id: automation-humanity-documentary-fund-spring-2026
 name: Automation & Humanity Documentary Fund
 org: who-let-the-docs-out
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
 - ai
 status: active

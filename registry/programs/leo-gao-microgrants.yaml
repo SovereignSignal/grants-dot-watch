@@ -2,7 +2,7 @@ id: leo-gao-microgrants
 name: Leo Gao's Experimental Microgranting Program
 org: manifund-ai-safety-regranting
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
 status: active

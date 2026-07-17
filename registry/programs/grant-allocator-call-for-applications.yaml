@@ -2,18 +2,15 @@ id: grant-allocator-call-for-applications
 name: Grant Allocator - Call for Applications
 org: polygon
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: >-
-  Polygon Community Grants Program is calling for Grant Allocator applications. The Community
-  Treasury Board seeks experienced grant distributors to manage funding for new and existing
-  projects in Season One of the program. Selected allocators will onboard and fund promising
-  initiatives to support sustainable ecosystem growth. 
-
-
-  Apply via the Polygon forum by the posted deadline.
+status: concluded
+mechanism: rfp
+summary: >
+  Polygon's Community Treasury Board used this Season One call to select experienced grant
+  distributors to manage funding for new and existing ecosystem projects. The application period
+  has ended; this record documents the completed allocator selection process.
 rounds: []
 sources:
   - https://forum.polygon.technology/t/grant-allocator-call-for-applications/13960

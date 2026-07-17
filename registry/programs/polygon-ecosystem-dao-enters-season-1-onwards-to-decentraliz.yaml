@@ -2,21 +2,15 @@ id: polygon-ecosystem-dao-enters-season-1-onwards-to-decentraliz
 name: "Polygon Ecosystem DAO Enters Season 1: Onwards to Decentralization"
 org: polygon
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: >-
-  Polygon Ecosystem DAO Launches Season 1: Onwards to Decentralization
-
-
-  Polygon Ecosystem DAO has entered Season 1 and introduced a community bounty program that allows
-  anyone to claim small tasks and contribute directly to EcoDAO activities. The bounty program is
-  now live. 
-
-
-  Members can participate without hierarchical oversight and earn rewards for completed work.
-  Details and available bounties are available at https://app.dework.xyz/polygon-ecosystem-dao.
+status: concluded
+mechanism: prize
+summary: >
+  Polygon Ecosystem DAO Season 1 introduced a community bounty program for contributors to claim
+  tasks and earn rewards for completed work. This early ecosystem program has concluded and is
+  retained as a historical round.
 rounds: []
 sources:
   - https://forum.polygon.technology/t/polygon-ecosystem-dao-enters-season-1-onwards-to-decentralization/2113

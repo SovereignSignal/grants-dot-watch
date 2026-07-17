@@ -2,7 +2,7 @@ id: aria-activation-partners-cohort-2
 name: ARIA Activation Partners Cohort 2
 org: aria
 parent: null
-systems: []
+systems: [uk-public-rd]
 wires:
 - ai
 status: active

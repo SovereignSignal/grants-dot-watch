@@ -2,15 +2,15 @@ id: optimism-grants-council-cycle-28
 name: Optimism Grants Council (Cycle 28)
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
 - crypto
-status: unknown
-summary: 'Optimism Grants Council Cycle 28 mission requests: delegates propose mission requests against
-  a remaining budget of 15,000 OP via the forum template, tagged with "S6 mission request" and the Cycle
-  tag. Cycle 28 also opened applications for a new audit mission request process, approved by the Token
-  House, letting eligible auditors apply directly for specific audits from the mission request budget
-  without pre-approved budgets.'
+status: concluded
+mechanism: grants
+summary: >
+  Optimism Grants Council Cycle 28 allocated a remaining 15,000 OP budget through Season 6 mission
+  requests and introduced a Token House-approved audit mission process. The cycle has ended and is
+  retained as a historical governance funding round.
 rounds: []
 sources:
 - https://gov.optimism.io/t/cycle-28-intent-3a-mission-request-and-sponsorship/8905

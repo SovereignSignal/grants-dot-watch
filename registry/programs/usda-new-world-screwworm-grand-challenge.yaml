@@ -1,22 +1,21 @@
 id: usda-new-world-screwworm-grand-challenge
 name: USDA New World Screwworm Grand Challenge
-org: long-term-future-fund
+org: united-states-department-of-agriculture
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
 - ai
 status: concluded
-apply_url: https://forum.effectivealtruism.org/posts/QKWsxxQHni7cy3oq9/the-usda-is-investing-usd100m-in-innovation-for-screwworm
 summary: >
-  The USDA New World Screwworm Grand Challenge represents the largest single funding opportunity for
-  screwworm research and control technologies in decades. Applications are due February 23, 2026.
-  What's happening? The New World Screwworm (NWS) is a flesh-eating fly endemic to the Americas that
-  lays eggs in open wounds of warm-blooded animals.
+  A completed USDA Animal and Plant Health Inspection Service challenge for detection, control, and
+  eradication tools addressing New World screwworm. USDA selected 40 projects for about $105 million
+  in total funding after the February 23, 2026 application deadline.
 rounds:
 - name: Rolling
   status: closed
   closes: 2026-02-23
-  size: $5,000,000
-  source: https://forum.effectivealtruism.org/posts/QKWsxxQHni7cy3oq9/the-usda-is-investing-usd100m-in-innovation-for-screwworm
+  size: About $105 million awarded across 40 projects
+  source: https://www.aphis.usda.gov/news/agency-announcements/usda-invests-projects-strengthen-new-world-screwworm-preparedness
 sources:
-- https://forum.effectivealtruism.org/posts/QKWsxxQHni7cy3oq9/the-usda-is-investing-usd100m-in-innovation-for-screwworm
+  - https://www.aphis.usda.gov/funding/new-world-screwworm-grand-challenge-funding-opportunity
+  - https://www.aphis.usda.gov/news/agency-announcements/usda-invests-projects-strengthen-new-world-screwworm-preparedness

@@ -2,7 +2,7 @@ id: scroll-ecosystem-growth-council
 name: Scroll Ecosystem Growth Council (EGC)
 org: scroll
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

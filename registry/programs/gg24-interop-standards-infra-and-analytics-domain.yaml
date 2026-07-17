@@ -2,7 +2,7 @@ id: gg24-interop-standards-infra-and-analytics-domain
 name: GG24 Interop Standards, Infra and Analytics Domain
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded

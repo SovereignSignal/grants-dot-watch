@@ -2,14 +2,17 @@ id: the-watchdog-arbitrum-dao-s-grant-misuse-bounty-program
 name: "The Watchdog: Arbitrum DAO's Grant Misuse Bounty Program"
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
   - crypto
-status: unknown
-summary: "The Watchdog: Arbitrum DAO's Grant Misuse Bounty Program launches a bounty program to
-  identify and report misuse of DAO-allocated grant funds. Entropy Advisors proposes the initiative
-  to uncover additional undetected cases of misused funds through community incentives. The program
-  establishes an incentive mechanism for reporting violations."
+status: active
+mechanism: prize
+apply_url: https://watchdog.arbitrum.foundation/
+summary: >
+  An ongoing Arbitrum DAO bounty program for evidence-based reports of grant fund misuse. Valid
+  reports can earn a base ARB bounty plus a share of recovered funds, subject to severity-based caps.
+  The program runs until its 400,000 ARB budget is exhausted or it transitions to the OpCo.
 rounds: []
 sources:
+  - https://forum.arbitrum.foundation/t/the-watchdog-program-get-rewarded-for-reporting-suspected-grant-misuse/29919
   - https://forum.arbitrum.foundation/t/the-watchdog-arbitrum-daos-grant-misuse-bounty-program/27978

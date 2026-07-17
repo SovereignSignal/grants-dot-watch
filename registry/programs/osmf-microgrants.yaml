@@ -1,15 +1,20 @@
 id: osmf-microgrants
-name: OSMF Microgrants
+name: OSMF 2020 Microgrants Pilot
 org: openstreetmap-foundation
 parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: concluded
 mechanism: grants
-summary: OpenStreetMap Foundation microgrant program run by a dedicated Microgrants committee,
-  intended to help volunteers overcome financial barriers to OSM contribution. Award size, cadence,
-  and application process not yet confirmed from the org's own pages.
-rounds: []
+summary: >
+  OpenStreetMap Foundation's 2020 Microgrants pilot helped volunteers overcome financial barriers to
+  OpenStreetMap work. The official program page identifies it as the 2020 project; later board
+  discussions have not established a new public intake under this program.
+rounds:
+  - name: 2020 pilot
+    status: closed
+    source: https://osmfoundation.org/wiki/Microgrants
 sources:
   - https://osmfoundation.org/wiki/Microgrants
+  - https://osmfoundation.org/wiki/Board/Minutes/2026-01

@@ -5,14 +5,17 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: >-
-  World Build Labs Hackathon (via Optimism) is accepting applications from ambitious founders
-  building apps with Worldcoin’s real human network on OP Mainnet. The program offers up to $200K in
-  grant funding from the World Foundation, plus funded trips and mentorship. 
-
-
-  All projects must be built on OP Mainnet using Worldcoin’s proof of personhood.
-rounds: []
+status: concluded
+mechanism: incubator
+summary: >
+  World Build 3 supported founders building World apps on OP Mainnet with grants of up to $200,000,
+  travel support, and mentorship. Applications for this cohort closed on April 23, 2026.
+rounds:
+  - name: World Build 3
+    status: closed
+    closes: 2026-04-23
+    size: Up to $200,000
+    source: https://www.linkedin.com/posts/worldbuildlabs_why-should-you-build-with-world-world-activity-7441551778786996225-YSFx
 sources:
   - https://x.com/Optimism/status/2031467646521422210
+  - https://www.linkedin.com/posts/worldbuildlabs_why-should-you-build-with-world-world-activity-7441551778786996225-YSFx

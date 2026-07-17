@@ -1,0 +1,24 @@
+id: united-states-department-of-agriculture
+name: United States Department of Agriculture
+aka:
+  - USDA
+systems: [us-federal-rd]
+wires: [ai]
+roles: [funder]
+org_type: government
+website: https://www.usda.gov/
+socials: {}
+status: active
+profile: >
+  The United States Department of Agriculture is the federal department responsible for agriculture,
+  food, natural resources, rural development, nutrition, and related research. Its Animal and Plant
+  Health Inspection Service funds projects addressing animal and plant health threats.
+funding:
+  focus:
+    - agricultural research
+    - animal health
+    - plant health
+    - rural development
+sources:
+  - https://www.usda.gov/
+  - https://www.aphis.usda.gov/funding

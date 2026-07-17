@@ -2,7 +2,7 @@ id: rocket-pool-gmc-grants
 name: Rocket Pool GMC Grants, Bounties & Retrospective Awards
 org: rocket-pool
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
 status: active

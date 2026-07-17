@@ -2,7 +2,7 @@ id: gg23-grantee-onboarding-education-program
 name: GG23 Grantee Onboarding/Education Program
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded

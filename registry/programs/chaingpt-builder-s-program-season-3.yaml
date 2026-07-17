@@ -6,7 +6,8 @@ systems: []
 wires:
 - ai
 - crypto
-status: unknown
+status: active
+mechanism: incubator
 summary: "ChainGPT Builder’s Program Season 3 is accepting applications from Web3 teams. Selected\
   \ projects receive API credits, technical support, and full access to the ChainGPT AI stack to build\
   \ smarter on-chain products. There is no listed deadline. \n\nApply via the announcement: https://x.com/Chain_GPT/status/2030934365098905621"

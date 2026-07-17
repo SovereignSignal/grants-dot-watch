@@ -1,0 +1,19 @@
+id: the-chicken-coup
+name: The Chicken Coup
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+status: active
+profile: >
+  The Chicken Coup is an animal-advocacy publication and organizer of the Hatchery Fund, a 2026
+  pilot that offered small grants for frontline activists to test new movement strategies and share
+  the results publicly.
+funding:
+  focus:
+    - animal advocacy experiments
+    - activist recruitment
+    - movement strategy
+  typical_size: Up to $1,000
+sources:
+  - https://forum.effectivealtruism.org/posts/8grfQbZcJx6iAJkiv/the-hatchery-fund-microgrants-for-experiments-in-animal

@@ -2,7 +2,7 @@ id: sovereign-tech-standards-network-applications
 name: Sovereign Tech Standards Network applications
 org: sovereign-tech-agency
 parent: null
-systems: []
+systems: [sovereign-tech]
 wires:
 - oss
 status: concluded

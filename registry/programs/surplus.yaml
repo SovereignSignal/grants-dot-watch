@@ -1,8 +1,8 @@
 id: surplus
 name: Surplus
-org: long-term-future-fund
+org: manifund-ai-safety-regranting
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
 - ai
 status: concluded

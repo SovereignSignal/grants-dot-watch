@@ -2,7 +2,7 @@ id: scroll-delegates-contribution-program
 name: Scroll Delegates Contribution Program
 org: scroll
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: concluded

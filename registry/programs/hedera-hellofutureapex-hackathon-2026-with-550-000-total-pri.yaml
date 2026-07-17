@@ -5,10 +5,19 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: 'GBBC member @hedera is hosting the #HelloFutureApexHackathon2026, the final chapter of a global
-  three-part hackathon with a $550,000 total prize for #builders creating real-world applications across
-  multiple tracks 👨‍💻 Discover more ⤵️ https://hellofuturehackathon.dev/ Tue, 24 Feb 2026 19:30:00 GM'
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  The final chapter of Hedera's three-part Hello Future hackathon series ran from February 17 to
+  March 23, 2026. Builders competed across five tracks for $250,000 in Apex prizes, bringing the
+  trilogy's total prize pool to $550,000. Hedera announced the winners on May 12, 2026.
+rounds:
+  - name: Apex 2026
+    status: closed
+    opens: 2026-02-17
+    closes: 2026-03-23
+    size: $250,000
+    source: https://hedera.com/blog/these-are-the-winners-of-the-hello-future-apex-hackathon/
 sources:
-- https://x.com/GBBC_io/status/2026379099673887007
+  - https://hedera.com/blog/these-are-the-winners-of-the-hello-future-apex-hackathon/
+  - https://hackathon.stackup.dev/web/events/hedera-hello-future-apex-hackathon-2026

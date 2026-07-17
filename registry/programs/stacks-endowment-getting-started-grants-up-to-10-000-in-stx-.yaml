@@ -2,13 +2,17 @@ id: stacks-endowment-getting-started-grants-up-to-10-000-in-stx-
 name: Stacks Endowment — Getting Started Grants
 org: stacks-endowment
 parent: null
-systems: []
+systems: [stacks]
 wires:
 - crypto
-status: unknown
-summary: 'New builders in crypto want to build on Bitcoin. Builders want to start building on Stacks.
-  The @StacksEndowment Grants: up to $10,000 in STX to get started on @Stacks. Apply for a "Getting Started"
-  Grant below [@UNICEFinnovate via @BronerMatthias](https://x.com/BronerMatthias/status/202674310912895'
+status: active
+mechanism: grants
+apply_url: https://portal.stacksendowment.co/
+summary: >
+  The Stacks Endowment's active early-stage track supports pre-product-market-fit teams with concepts
+  or prototypes. The program site lists Getting Started Grants as active, names Q2 grantees, and says
+  Q3 grants open in August 2026.
 rounds: []
 sources:
-- https://x.com/BronerMatthias/status/2026743109128957967
+  - https://stacksendowment.co/grants
+  - https://www.stacks.co/blog/everything-you-need-to-know-about-applying-for-a-stacks-endowment-grant

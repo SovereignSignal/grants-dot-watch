@@ -5,12 +5,19 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
 summary: >
-  This thread is for general community questions about the Regenesis Grants Program If you have
-  general questions about the program, please use this thread, so answers stay visible and helpful for
-  everyone. Please also give the team some time to review and respond thoughtfully. If your question
-  is related to a specific grant proposal, please use the dedicated Grant Proposal thread.
-rounds: []
+  A season-based Decentraland funding program for small open-source projects that can ship within 90
+  days. Season 1 offered up to $15,000 in MANA for mobile content and AI-assisted builder tooling;
+  applications closed April 24 and funded projects are delivering through July 31, 2026.
+rounds:
+  - name: Season 1
+    status: closed
+    opens: 2026-04-01
+    closes: 2026-04-24
+    size: up to $15,000 per project
+    source: https://forum.decentraland.org/t/regenesis-grants-program-season-1-now-open/25113
 sources:
+  - https://forum.decentraland.org/t/regenesis-grants-program-season-1-now-open/25113
   - https://forum.decentraland.org/t/regenesis-grants-program-community-questions-thread/25267

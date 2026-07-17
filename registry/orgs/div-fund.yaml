@@ -1,0 +1,27 @@
+id: div-fund
+name: DIV Fund
+aka:
+  - Development Innovation Ventures Fund
+systems: []
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.div.fund/
+socials: {}
+status: active
+profile: >
+  The DIV Fund is an evidence-driven open innovation fund for global development. It supports
+  pilots, rigorous testing, and expansion of cost-effective solutions through three grant tiers,
+  and is run by former leaders of USAID's Development Innovation Ventures program.
+funding:
+  focus:
+    - global development
+    - evidence-driven innovation
+    - health and welfare in low- and middle-income countries
+  typical_size: Up to $200,000 for pilots, $500,000 for testing, and $1.5 million for scaling
+  cadence: Rolling applications
+  apply_url: https://www.div.fund/apply
+sources:
+  - https://www.div.fund/
+  - https://www.div.fund/about
+  - https://www.div.fund/apply/rfp

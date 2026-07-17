@@ -2,7 +2,7 @@ id: freebsd-community-grants
 name: Community Grants
 org: freebsd-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
   - oss
 status: active

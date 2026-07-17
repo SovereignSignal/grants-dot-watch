@@ -2,7 +2,7 @@ id: filecointldr-filecoin-announces-3-22m-in-public-goods-fundin
 name: Filecoin ProPGF Batch 2
 org: filecoin-foundation
 parent: null
-systems: []
+systems: [filecoin]
 wires:
 - crypto
 status: concluded

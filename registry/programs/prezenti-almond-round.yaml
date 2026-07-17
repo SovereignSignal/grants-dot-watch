@@ -2,7 +2,7 @@ id: prezenti-almond-round
 name: Prezenti Almond Round
 org: celo
 parent: null
-systems: []
+systems: [web3-public-goods]
 wires:
 - crypto
 status: concluded

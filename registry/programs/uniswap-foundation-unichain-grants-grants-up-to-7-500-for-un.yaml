@@ -1,15 +1,17 @@
 id: uniswap-foundation-unichain-grants-grants-up-to-7-500-for-un
-name: Uniswap Foundation / Unichain Grants
+name: Unichain Grants
 org: uniswap-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
-status: unknown
-summary: "Uniswap Foundation / Unichain Grants offers rolling grants up to $7,500 for Unichain DeFi\
-  \ projects with at least $250K TVL and for infrastructure projects. The program also provides product\
-  \ and go-to-market support as well as retroactive grants for projects that have demonstrated traction\
-  \ on Unichain. \n\nEligible teams can apply anytime via the Uniswap Foundation’s builder support page."
+status: active
+mechanism: grants
+apply_url: https://share.hsforms.com/1BYwSxZ6PTLmDgf20NZLrpQq8o53
+summary: >
+  Unichain Grants support teams building applications, infrastructure, and ecosystem tooling on
+  Unichain. The current Uniswap developer funding page provides a direct application route and
+  describes funding aligned to project scope and milestones.
 rounds: []
 sources:
-- https://docs.uniswap.org/builder-support/get-funded
+  - https://developers.uniswap.org/docs/ecosystem/builder-support/get-funded

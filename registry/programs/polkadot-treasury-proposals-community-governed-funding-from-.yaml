@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: active
+mechanism: other
 summary: 'Polkadot Treasury Proposals accepts rolling community-governed funding requests from its
   network treasury for projects that benefit the Polkadot ecosystem. Any DOT holder can submit a proposal
   at any time. There is no fixed funding cap or deadline. Full details and submission process are available

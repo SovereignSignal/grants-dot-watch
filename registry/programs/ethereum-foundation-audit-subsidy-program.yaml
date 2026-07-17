@@ -1,12 +1,18 @@
 id: ethereum-foundation-audit-subsidy-program
-name: Ethereum Foundation Audit Subsidy Program
+name: Ethereum Security Subsidy Program
 org: ethereum-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: Ethereum Foundation Audit Subsidy Program — dispatch from the wire, no further detail on file.
+status: active
+mechanism: grants
+apply_url: https://ethereum.areta.market/
+summary: >
+  A $1 million Ethereum Foundation-backed program administered through Areta Market that subsidizes
+  professional security reviews for Ethereum mainnet builders. Applications are organized into
+  recurring cohorts, with eligible projects receiving support toward audit costs.
 rounds: []
 sources:
+  - https://ethereum.areta.market/
   - https://www.coindesk.com/tech/2026/04/14/ethereum-foundation-unveils-usd1m-audit-subsidy-program-to-boost-crypto-security-and-cut-costs-for-builders

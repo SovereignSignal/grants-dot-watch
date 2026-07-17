@@ -2,7 +2,7 @@ id: filecoin-retropgf-round-3-585-000-fil-distributed-to-public-
 name: Filecoin RetroPGF (Round 3)
 org: filecoin-foundation
 parent: null
-systems: []
+systems: [filecoin]
 wires:
 - crypto
 status: concluded

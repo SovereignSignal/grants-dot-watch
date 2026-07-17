@@ -2,7 +2,7 @@ id: gg24-interop-standards-infrastructure-analytics
 name: 'GG24: Interop Standards, Infrastructure & Analytics'
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded

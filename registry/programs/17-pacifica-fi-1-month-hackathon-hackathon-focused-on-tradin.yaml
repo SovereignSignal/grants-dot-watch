@@ -5,11 +5,15 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-summary: "Pacifica Fi launches a 1-month hackathon focused on trading, DeFi, and analytics using its\
-  \ API. Solo builders or teams of up to 5 are eligible. The deadline is April 16, 2026. \n\nThe Ethereum\
-  \ Foundation also opened Project Odin, a 12-month embedded advisory program to help critical open-source\
-  \ Web3 teams develop sustainable revenue models. No application deadline is listed."
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  A one-month hackathon for trading, DeFi, and analytics projects using Pacifica's API. Solo builders
+  and teams of up to five were eligible; submissions closed on April 16, 2026.
+rounds:
+  - name: 2026 hackathon
+    status: closed
+    closes: 2026-04-16
+    source: https://x.com/Onoja_Cee/status/2029839451292160453
 sources:
 - https://x.com/Onoja_Cee/status/2029839451292160453

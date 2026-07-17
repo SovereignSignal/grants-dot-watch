@@ -2,7 +2,7 @@ id: arbitrum-foundation-grants
 name: Arbitrum Foundation Grants
 org: arbitrum-foundation
 parent: null
-systems: []
+systems: [arbitrum]
 wires:
 - crypto
 status: concluded

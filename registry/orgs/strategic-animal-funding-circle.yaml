@@ -1,0 +1,22 @@
+id: strategic-animal-funding-circle
+name: Strategic Animal Funding Circle
+aka:
+  - SAFC
+systems: []
+wires: [ai]
+roles: [funder]
+status: active
+profile: >
+  The Strategic Animal Funding Circle is a donor network supporting scalable, high-impact animal
+  welfare and protection nonprofits. It coordinates funding rounds while individual donors retain
+  control of their donations, and operates as a project of Ambitious Impact.
+funding:
+  focus:
+    - farmed animal welfare
+    - wild animal welfare
+    - scalable animal protection organizations
+  typical_size: About $50,000, with roughly $500,000 allocated per round
+  cadence: Twice yearly
+sources:
+  - https://forum.effectivealtruism.org/topics/strategic-animal-funding-circle
+  - https://forum.effectivealtruism.org/posts/snznHCwhCfSuX8qQP/request-for-proposals-strategic-animal-funding-circle-spring

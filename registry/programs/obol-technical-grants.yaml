@@ -2,10 +2,11 @@ id: obol-technical-grants
 name: Obol Technical Grants
 org: obol
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
 summary: >-
   Obol Technical Grants are now open for applications. The program offers funding for four
   specific open-source projects: DVT-TEE security research, Dappnode validator features, GotEth data

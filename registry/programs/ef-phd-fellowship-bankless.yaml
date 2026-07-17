@@ -2,18 +2,21 @@ id: ef-phd-fellowship-bankless
 name: EF PhD Fellowship (Bankless)
 org: ethereum-foundation
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
-summary: >-
-  EF PhD Fellowship (Bankless) invites applications from PhD students conducting research on
-  Ethereum or related technologies. The fellowship provides $40,000 USD in funding plus additional
-  resources and mentorship from the Ethereum Foundation. 
-
-
-  Eligible applicants must be currently enrolled in a PhD program and demonstrate relevant research
-  focus. Applications are open now through the Bankless portal.
-rounds: []
+status: concluded
+mechanism: fellowship
+summary: >
+  The Ethereum Foundation's 2026 PhD Fellowship supported Ethereum-related academic research across
+  multiple disciplines. It planned nine to ten fellowships of $24,000 each for one year.
+  Applications closed April 22, 2026.
+rounds:
+  - name: 2026 PhD Fellowship
+    status: closed
+    opens: 2026-02-02
+    closes: 2026-04-22
+    size: $24,000 per fellow
+    source: https://esp.ethereum.foundation/rounds/phdfp26
 sources:
-  - https://www.bankless.com/read/ethereum-foundation-anoui
+  - https://esp.ethereum.foundation/rounds/phdfp26

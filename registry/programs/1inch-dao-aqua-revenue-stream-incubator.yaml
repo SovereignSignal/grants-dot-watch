@@ -2,15 +2,20 @@ id: 1inch-dao-aqua-revenue-stream-incubator
 name: 1inch DAO Aqua Revenue Stream Incubator
 org: 1inch-network
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: incubator
+apply_url: https://curious-soprano-a2d.notion.site/31f1985bc1518024945cce35fdcd89e6
 summary: >
-  1inch DAO Aqua Revenue Stream Incubator — Build a Funded, Revenue-Sharing Strategy on Aqua TL;DR The
-  1inch DAO funds builders to ship novel Aqua strategies and swapVM instructions . Up to $50,000 per
-  team , milestone-based, plus revenue share to the DAO from the first dollar . $436,000 total pool
-  from the DAO treasury; we expect to fund 8–10 teams .
-rounds: []
+  A rolling 1inch DAO incubator for teams building Aqua strategies and swapVM instructions. It offers
+  milestone-based grants of up to $50,000 per team from a $436,000 pool, plus a negotiated revenue
+  share. Applications remain open while funding is available.
+rounds:
+  - name: Rolling 2026 intake
+    status: open
+    size: Up to $50,000 per team; $436,000 total pool
+    source: https://gov.1inch.io/t/1inch-dao-aqua-revenue-stream-incubator-build-a-funded-revenue-sharing-strategy-on-aqua/965
 sources:
   - https://gov.1inch.io/t/1inch-dao-aqua-revenue-stream-incubator-build-a-funded-revenue-sharing-strategy-on-aqua/965

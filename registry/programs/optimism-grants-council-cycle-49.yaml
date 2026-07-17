@@ -2,10 +2,11 @@ id: optimism-grants-council-cycle-49
 name: Optimism Grants Council Cycle 49
 org: optimism-foundation
 parent: null
-systems: []
+systems: [optimism, web3-public-goods]
 wires:
   - crypto
-status: unknown
+status: concluded
+mechanism: grants
 summary: >-
   Optimism Grants Council Cycle 49 awarded multiple grants, including a Growth Grant to
   ArcadiaFi for automated liquidity management, one-click concentrated liquidity positions,

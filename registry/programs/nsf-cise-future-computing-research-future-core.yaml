@@ -2,7 +2,7 @@ id: nsf-cise-future-computing-research-future-core
 name: NSF CISE Future Computing Research (Future CoRe)
 org: national-science-foundation
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
 - ai
 status: concluded

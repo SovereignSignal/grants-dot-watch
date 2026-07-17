@@ -5,12 +5,17 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: The Institute for Security and Technology has launched the Andrew Carnegie AI-Nuclear
-  Policy Accelerator, a new initiative focused on enhancing decision-making at the intersection of
-  AI and nuclear policy. This program targets mid-career professionals in the national security
-  space, offering hands-on technical literacy and engagement. Interested individuals can learn more
-  and apply through the provided resources on the IST website.
-rounds: []
+status: concluded
+mechanism: fellowship
+summary: >
+  A practitioner program for mid-career nuclear-policy professionals combining an in-person AI
+  bootcamp, virtual seminars, and applied policy labs. Applications for the inaugural cohort closed
+  on February 28, 2026, and IST announced the 26 selected participants in April.
+rounds:
+  - name: Inaugural 2026 cohort
+    status: closed
+    closes: 2026-02-28
+    source: https://securityandtechnology.org/blog/ist-launches-the-andrew-carnegie-ai-nuclear-policy-accelerator/
 sources:
-  - https://x.com/IST_org/status/2024956885397561604
+  - https://securityandtechnology.org/blog/ist-launches-the-andrew-carnegie-ai-nuclear-policy-accelerator/
+  - https://securityandtechnology.org/blog/meet-the-andrew-carnegie-ai-nuclear-policy-accelerator-inaugural-cohort/

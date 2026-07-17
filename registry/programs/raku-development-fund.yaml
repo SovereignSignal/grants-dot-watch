@@ -2,7 +2,7 @@ id: raku-development-fund
 name: Raku Development Fund
 org: the-perl-raku-foundation
 parent: null
-systems: []
+systems: [oss-sustainability]
 wires:
   - oss
 status: active

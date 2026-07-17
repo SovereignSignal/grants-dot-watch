@@ -5,10 +5,19 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: "Deep Funding Contest offers a $20,000 prize pool to ML developers who build models
-  that weight Ethereum open-source contributions. The challenge is run by Kleros and targets machine
-  learning practitioners. The total prize pool is $20,000. No application deadline is specified."
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  A GG24 data-science contest that awarded $20,000 for models estimating the relative value of 98
+  Ethereum repositories and 3,677 dependencies. Submissions closed on May 10, 2026, and the model
+  outputs informed a $350,000 Deep Funding allocation.
+rounds:
+  - name: GG24 Deep Funding model contest
+    status: closed
+    opens: 2026-03-10
+    closes: 2026-05-10
+    size: $20,000 prize pool
+    source: https://gitcoin.co/campaigns/gitcoin-grants-24-gg24
 sources:
   - https://x.com/Kleros_io/status/2031100906578592162
+  - https://gitcoin.co/campaigns/gitcoin-grants-24-gg24

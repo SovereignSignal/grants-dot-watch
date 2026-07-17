@@ -2,7 +2,7 @@ id: rfp-reboot-the-gitcoin-community-for-the-3-3-era
 name: 'RFP: Reboot the Gitcoin Community for the 3.3 Era'
 org: gitcoin
 parent: null
-systems: []
+systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded

@@ -2,14 +2,16 @@ id: rocket-pool-microgrants
 name: Rocket Pool Microgrants
 org: rocket-pool
 parent: null
-systems: []
+systems: [ethereum]
 wires:
   - crypto
-status: unknown
+status: active
+mechanism: grants
+apply_url: https://dao.rocketpool.net/t/introducing-microgrants/3939
 summary: >
-  Hey everyone, Following internal discussion and a GMC vote, we’re introducing a microgrant framework
-  to continue recognizing contributions across the Rocket Pool ecosystem. Given current treasury
-  constraints, the GMC does not have the capacity to fund many contributions at historical levels.
+  A Grants Management Committee framework for smaller contributions across the Rocket Pool
+  ecosystem. It provides a lower-cost route for recognizing completed or scoped work while the
+  committee operates under tighter treasury constraints.
 rounds: []
 sources:
   - https://dao.rocketpool.net/t/introducing-microgrants/3939

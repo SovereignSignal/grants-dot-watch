@@ -1,19 +1,22 @@
 id: div-fund-rfp-givewell-water-innovation
 name: DIV Fund RFP (GiveWell Water Innovation)
-org: long-term-future-fund
+org: div-fund
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: >-
-  This post was originally published on the GiveWell blog. You can view the original version here.
-
-
-  GiveWell has granted $5 million to the DIV Fund to identify and support promising water quality
-  and access innovations. Our grant aims to build a pipeline of high-potential, cost-effective
-  opportunities that GiveWell could consider for future funding. If you’re working on piloting or
-  testing an early-
-rounds: []
+status: active
+mechanism: rfp
+apply_url: https://www.div.fund/apply
+summary: >
+  A rolling DIV Fund request for proposals supporting evidence-driven innovations across global
+  development. GiveWell provided $5 million over three years for selected water quality and access
+  projects; awards range from pilot grants up to $200,000 to scaling grants up to $1.5 million.
+rounds:
+  - name: Safe water innovation RFP
+    status: open
+    size: up to $1.5 million by stage
+    source: https://forum.effectivealtruism.org/posts/QEP5aayQtJHgvBfcK/building-our-safe-water-grantmaking-apply-to-the-div-fund-s
 sources:
+  - https://www.div.fund/apply/rfp
   - https://forum.effectivealtruism.org/posts/QEP5aayQtJHgvBfcK/building-our-safe-water-grantmaking-apply-to-the-div-fund-s

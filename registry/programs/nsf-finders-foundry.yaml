@@ -2,10 +2,11 @@ id: nsf-finders-foundry
 name: NSF FINDERS FOUNDRY
 org: national-science-foundation
 parent: null
-systems: []
+systems: [us-federal-rd]
 wires:
   - ai
-status: unknown
+status: concluded
+mechanism: grants
 summary: >-
   NSF FINDERS FOUNDRY announces planning grants for K-12 educators, technologists, researchers,
   and parents/guardians to develop and scale evidence-based tools for an AI-driven future. 

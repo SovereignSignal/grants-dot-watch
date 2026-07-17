@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: concluded
+mechanism: prize
 summary: Ethereum runs on trust and now, that trust has rewards. The @ENS_DAO’s Contract Naming
   Season is funding projects that turn unreadable contract addresses into clear, verifiable names
   with Enscribe. 🏆 10,000 $ENS in incentives 🛠️ For builders, DAOs, L2s, and DeFi protocols 📅

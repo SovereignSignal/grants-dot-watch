@@ -1,22 +1,22 @@
 id: google-org-ai-impact-challenges
-name: Google.org AI Impact Challenges
+name: "Google.org Impact Challenge: AI for Government Innovation"
 org: googleorg
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: >-
-  Google.org AI Impact Challenges invites organizations and researchers to apply for funding to
-  advance AI projects in government innovation and scientific breakthroughs. 
-
-
-  Eligible applicants may submit proposals for the government track by April 3, 2026 or the science
-  track by April 17, 2026. 
-
-
-  The program supports AI initiatives that drive measurable impact in public-sector innovation and
-  scientific discovery.
-rounds: []
+status: concluded
+mechanism: grants
+summary: >
+  A $30 million Google.org challenge for nonprofits, social enterprises, and academic institutions
+  working with governments to improve public services using generative or agentic AI. Applications
+  closed on April 3, 2026; selected organizations receive $1 million to $3 million and technical
+  support through a multi-month Google.org Accelerator.
+rounds:
+  - name: 2026 challenge
+    status: closed
+    closes: 2026-04-03
+    size: $30 million total; $1 million to $3 million per selected organization
+    source: https://www.google.org/impact-challenges/ai-government-innovation/
 sources:
-  - https://x.com/opportunitiesfy/status/2029466946929082852
+  - https://www.google.org/impact-challenges/ai-government-innovation/

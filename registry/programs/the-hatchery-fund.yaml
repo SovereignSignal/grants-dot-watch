@@ -1,16 +1,20 @@
 id: the-hatchery-fund
 name: The Hatchery Fund
-org: long-term-future-fund
+org: the-chicken-coup
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: concluded
+mechanism: grants
 summary: >
-  Do you have an idea for how the animal advocacy movement could be better - a new recruiting
-  strategy, community building model, or campaign tactic? The Hatchery Fund is for you. We’re giving
-  away microgrants up to $1,000 for advocates to experiment with creative approaches to the ongoing
-  challenges that the animal activism movement faces.
-rounds: []
+  A first-round microgrant fund for animal advocates testing new recruitment, community-building,
+  and campaign tactics. The $5,000 round offered grants of up to $1,000 and closed June 12, 2026.
+rounds:
+  - name: 2026 pilot round
+    status: closed
+    closes: 2026-06-12
+    size: $5,000 total; up to $1,000 per project
+    source: https://forum.effectivealtruism.org/posts/8grfQbZcJx6iAJkiv/the-hatchery-fund-microgrants-for-experiments-in-animal
 sources:
   - https://forum.effectivealtruism.org/posts/8grfQbZcJx6iAJkiv/the-hatchery-fund-microgrants-for-experiments-in-animal

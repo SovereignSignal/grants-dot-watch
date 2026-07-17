@@ -2,7 +2,7 @@ id: celopg-h2-regional-dao-funding-process
 name: CeloPG H2 - Regional DAO Funding Process
 org: celo
 parent: null
-systems: []
+systems: [web3-public-goods]
 wires:
   - crypto
 status: concluded

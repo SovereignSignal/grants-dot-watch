@@ -1,21 +1,15 @@
 id: nsf-official-dcl
-name: NSF Official DCL
+name: NSF PESOSE AI Agent Ecosystems DCL
 org: national-science-foundation
 parent: null
-systems: []
-wires:
-  - crypto
-status: unknown
-summary: >-
-  NSF Official DCL invites proposals for advancing artificial intelligence agent ecosystems. The
-  Dear Colleague Letter supports research on AI agents that can perceive, reason, and act in complex
-  environments, including multi-agent systems, human-AI collaboration, and safe deployment of
-  autonomous agents. 
-
-
-  No specific funding amounts, deadlines, or eligibility restrictions are listed in the DCL;
-  interested researchers should submit proposals through existing NSF programs that align with the
-  described research themes.
+systems: [us-federal-rd]
+wires: [ai, oss]
+status: active
+mechanism: rfp
+summary: >
+  An active NSF Dear Colleague Letter encouraging PESOSE proposals on secure, open protocols for AI
+  agent ecosystems. Proposals may address interoperability, scalability, security, open science,
+  partnerships, education, and training, and must follow the underlying PESOSE solicitation.
 rounds: []
 sources:
   - https://www.nsf.gov/funding/opportunities/dcl-advancing-artificial-intelligence-ai-agent-ecosystems

@@ -1,12 +1,17 @@
 id: ripple-xrpl-grants-program
-name: Ripple XRPL Grants Program
+name: XRPL Grants
 org: xrpl-accelerator
 parent: null
-systems: []
+systems: [xrpl]
 wires:
   - crypto
-status: unknown
-summary: Ripple XRPL Grants Program — dispatch from the wire, no further detail on file.
+status: active
+mechanism: grants
+apply_url: https://xrplgrants.org/
+summary: >
+  XRPL Grants funds projects building on the XRP Ledger. Its current unified application considers
+  applicants for regional and thematic funds as well as accelerator programs, with active fall 2026
+  accelerator applications listed on the program site.
 rounds: []
 sources:
   - https://xrplgrants.org/

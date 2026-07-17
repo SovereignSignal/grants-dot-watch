@@ -2,7 +2,7 @@ id: coefficient-giving-health-transformative-ai-rfp
 name: 'RFP: Global Health and Wellbeing in an Era of Transformative AI'
 org: coefficient-giving
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
 - ai
 status: active

@@ -1,16 +1,22 @@
 id: google-deepmind-kaggle-cognitive-evaluations-hackathon
 name: Google DeepMind Kaggle Cognitive Evaluations Hackathon
-org: googleorg
+org: google-deepmind
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
-summary: "Google DeepMind Kaggle Cognitive Evaluations Hackathon offers $200K in prizes for
-  global participants to build new cognitive evaluations and benchmarks to measure progress toward
-  AGI. The hackathon invites teams worldwide to develop evaluations that assess AI systems on
-  cognitive capabilities relevant to AGI development. All specific eligibility details and deadlines
-  are available in the official announcement."
-rounds: []
+status: concluded
+mechanism: prize
+summary: >
+  A Google DeepMind and Kaggle competition with $200,000 in prizes for new evaluations of learning,
+  metacognition, attention, executive functions, and social cognition in AI systems. Submissions
+  closed on April 16, 2026, with results scheduled for June 1.
+rounds:
+  - name: Measuring Progress Toward AGI - Cognitive Abilities
+    status: closed
+    opens: 2026-03-17
+    closes: 2026-04-16
+    size: $200,000 prize pool
+    source: https://x.com/GoogleDeepMind/status/2034014385941975298
 sources:
   - https://x.com/GoogleDeepMind/status/2034014385941975298

@@ -5,7 +5,8 @@ parent: null
 systems: []
 wires:
 - oss
-status: unknown
+status: active
+mechanism: fellowship
 summary: Rust Foundation's Outreachy internship and grants/fellowship program supports people underrepresented
   in tech, offering paid internships and up to 12 months of financial support.
 rounds: []

@@ -2,7 +2,7 @@ id: lido-lego
 name: LEGO (Lido Ecosystem Grants Organisation)
 org: lido
 parent: null
-systems: []
+systems: [ethereum]
 wires:
 - crypto
 status: active
