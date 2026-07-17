@@ -1,0 +1,19 @@
+id: ai-x-animals-fund
+name: AI x Animals Pooled Fund
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+status: active
+profile: >
+  AI x Animals Pooled Fund supports projects using or responding to artificial intelligence in ways
+  that could improve animal welfare. Its initial request for proposals covered tools for advocates,
+  field-building and coordination, and actionable research on AI's effects on animals.
+funding:
+  focus:
+    - animal welfare
+    - AI tools for animal advocates
+    - field-building and coordination
+    - AI and animal-welfare research
+sources:
+  - https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals

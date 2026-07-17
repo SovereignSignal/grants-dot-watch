@@ -5,15 +5,16 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
-apply_url: https://build.avax.network/grants
+status: active
+mechanism: grants
+apply_url: https://build.avax.network/grants/avalanche-research-proposals
 summary: Avalanche Foundation Research Grants fund academic and applied research on Avalanche network
   economics, with awards up to $50,000.
 rounds:
-- name: Rolling
-  status: closed
-  closes: 2026-06-01
+- name: Rolling research proposals
+  status: open
   size: Up to $50K
   source: https://www.avax.network/about/blog/research-grants-avalanche-network-economics
 sources:
 - https://www.avax.network/about/blog/research-grants-avalanche-network-economics
+- https://build.avax.network/grants/avalanche-research-proposals

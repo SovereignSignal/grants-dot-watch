@@ -1,21 +1,22 @@
 id: ai-x-animals-pooled-fund
 name: AI x Animals Pooled Fund
-org: long-term-future-fund
+org: ai-x-animals-fund
 parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals
+status: active
+mechanism: grants
 summary: >
-  TL;DR * We are launching a pooled fund for projects at the AIxAnimals intersection. * We are open to
-  a broad set of ideas, but prioritize those in the following categories: * Empowering Animal
-  Advocates * Strategic Field-building and Coordination * Actionable Research and Strategic Foresight
-  * Apply here by April 30th.
+  AI x Animals Pooled Fund is a targeted, experimental pooled fund supporting projects that help
+  animal advocates respond to AI. The 2026 request for proposals had more than $300,000 available,
+  expected to support 5-20 projects, and prioritized advocate tools, field-building, and actionable
+  research.
 rounds:
-- name: Rolling
-  status: closed
+- name: 2026 request for proposals
+  status: reviewing
   closes: 2026-04-30
+  size: '>$300,000 total; $10,000-$50,000 typical'
   source: https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals
 sources:
 - https://forum.effectivealtruism.org/posts/6zKrXJDcNgSeCNZxB/request-for-proposals-for-ai-x-animals

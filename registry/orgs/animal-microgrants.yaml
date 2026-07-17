@@ -1,0 +1,18 @@
+id: animal-microgrants
+name: Animal Microgrants
+aka: []
+systems: []
+wires: [ai]
+roles: [funder]
+status: unknown
+profile: >
+  Animal Microgrants is an independent funding circle that ran a 2026 request for proposals for
+  individuals and very small organizations working on farm-animal advocacy. Its grants were designed
+  as small, rapid awards for projects that might be too early or too small for institutional funders.
+funding:
+  focus:
+    - farm-animal advocacy
+    - early-stage animal-welfare projects
+  typical_size: £500 to £2,500, with exceptional grants up to £5,000
+sources:
+  - https://forum.effectivealtruism.org/posts/fP9hvx8A9MG9F4rEb/animal-microgrants-request-for-proposals
