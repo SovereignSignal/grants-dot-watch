@@ -5,9 +5,8 @@ parent: null
 systems: [ai-safety]
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://www.docsout.org/2026-automation-humanity-documentary-fund
 summary: >
   Who Let The Docs Out runs the Automation & Humanity Documentary Fund for independent nonfiction films
   examining AI safety, alignment, autonomous systems, and their social effects. Its 2026 research grants

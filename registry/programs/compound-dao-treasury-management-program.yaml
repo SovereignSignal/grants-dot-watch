@@ -5,9 +5,8 @@ parent: null
 systems: [ethereum]
 wires:
 - crypto
-status: active
+status: concluded
 mechanism: rfp
-apply_url: https://www.comp.xyz/t/request-for-proposals-rfp-compound-dao-treasury-management-program/7867
 summary: The Compound DAO Treasury Management Committee sought one or more professional treasury
   managers for an initial allocation of approximately $20-25 million in DAO reserves. Applications
   closed June 24, 2026, and the committee moved into screening and interviews.

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
 summary: "Open call for artists using AI in creative projects, run with compute partner Modal:
   $2,000 honorarium, up to $5,000 production funding, and up to $20,000 in Modal compute credits."
@@ -13,6 +13,6 @@ rounds:
   - name: 2026 cycle
     status: reviewing
     closes: 2026-07-15
-    source: https://x.com/GrayAreaorg/status/2067658757572857968
+    source: https://grayarea.org/initiative/modal-exhibition-open-call/
 sources:
-  - https://x.com/GrayAreaorg/status/2067658757572857968
+  - https://grayarea.org/initiative/modal-exhibition-open-call/

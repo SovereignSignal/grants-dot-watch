@@ -5,7 +5,7 @@ parent: null
 systems: [ai-safety]
 wires:
 - ai
-status: active
+status: concluded
 mechanism: rfp
 summary: Longview Philanthropy announced a request for proposals for research and applied work on digital
   minds, seeking applications for project grants, research fellowships, and career development fellowships

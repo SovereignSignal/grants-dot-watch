@@ -5,9 +5,8 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: fellowship
-apply_url: https://www.baseresearch.org/base-fellowship-f26
 summary: 13-week remote part-time program building Black leadership in AI Safety, AI Governance, and
   AI Security, with mentorship and research projects.
 rounds:

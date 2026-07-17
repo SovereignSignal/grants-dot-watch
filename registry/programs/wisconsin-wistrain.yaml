@@ -4,9 +4,8 @@ org: wisconsin-department-of-workforce-development
 parent: null
 systems: []
 wires: [ai]
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://dwd.wisconsin.gov/wistrain/
 summary: >
   Employer-led workforce training grant program from the Wisconsin Department
   of Workforce Development, focused on advanced manufacturing and artificial

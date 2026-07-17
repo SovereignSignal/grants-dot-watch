@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
 summary: >
   Anthropic's Claude Science program offered up to 50 biology and life-sciences projects as much

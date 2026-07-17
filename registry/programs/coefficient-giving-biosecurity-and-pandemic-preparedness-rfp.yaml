@@ -5,7 +5,7 @@ parent: null
 systems: [ai-safety]
 wires:
 - ai
-status: active
+status: concluded
 mechanism: rfp
 summary: >
   Coefficient Giving's Biosecurity and Pandemic Preparedness team sought expressions of interest for

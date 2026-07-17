@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: active
+status: concluded
 mechanism: grants
 summary: Confidential application development program for FHE-powered smart contracts, private token distribution,
   and composable privacy on Ethereum.

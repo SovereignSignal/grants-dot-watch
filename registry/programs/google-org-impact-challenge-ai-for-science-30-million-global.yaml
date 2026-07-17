@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
 summary: >
   Google.org's $30 million AI for Science open call supports nonprofits, social enterprises, and academic

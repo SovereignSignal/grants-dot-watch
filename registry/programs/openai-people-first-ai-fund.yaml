@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
 summary: >
   A $50 million fund for 2026 from the OpenAI Foundation making unrestricted, one-time grants to US

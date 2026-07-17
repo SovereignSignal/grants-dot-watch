@@ -5,7 +5,7 @@ parent: null
 systems: [uk-public-rd]
 wires:
 - ai
-status: active
+status: concluded
 mechanism: rfp
 summary: >
   ARIA committed £100 million to recruit up to ten organizations for its second Activation Partners cohort.

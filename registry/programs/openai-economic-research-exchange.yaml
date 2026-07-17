@@ -5,9 +5,8 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: concluded
 mechanism: other
-apply_url: https://openai.com/index/economic-research-exchange/
 summary: Open call for external researchers in applied causal inference, labor economics, and productivity
   to run empirical studies on AI's economic impact via structured collaborations with OpenAI's Economic
   Research division; research support and data access, no fixed grant figure published.

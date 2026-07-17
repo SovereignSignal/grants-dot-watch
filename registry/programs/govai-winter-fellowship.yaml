@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: fellowship
 summary: Three-month bipartisan fellowship for AI governance/policy research, with DC and London (UK
   GovAI) tracks; London track fully funded with up to GBP 12,000 stipend, travel support, and visa

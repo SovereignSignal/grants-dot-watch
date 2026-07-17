@@ -5,9 +5,8 @@ parent: null
 systems: []
 wires:
 - crypto
-status: active
+status: concluded
 mechanism: incubator
-apply_url: https://www.cvlabs.com/accelerator/stellar
 summary: Accelerator for startups building DeFi, payments, and RWA products on Stellar or for EMEA; up
   to $150,000 in XLM initial development funding from the Stellar Development Foundation, with possible
   follow-on grants.

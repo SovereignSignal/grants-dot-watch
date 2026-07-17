@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
 summary: >
   AI x Animals Pooled Fund is a targeted, experimental pooled fund supporting projects that help

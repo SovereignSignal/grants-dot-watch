@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
 summary: >
   Amazon Research Awards' Spring 2026 call supported academic post-training research using AWS

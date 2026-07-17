@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
 summary: grantmaking.ai, in partnership with Manifund, opened a launch round distributing $5k-$50k
   grants per applicant from a $1M total round for projects reducing x-risk from AI. One short

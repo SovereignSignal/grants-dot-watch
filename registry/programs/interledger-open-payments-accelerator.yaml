@@ -5,9 +5,8 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: incubator
-apply_url: https://interledger.org/grant/open-payments-accelerator
 summary: Four-month accelerator providing $50,000 plus mentorship and technical workshops to
   early-stage teams building proof-of-concept digital financial services for underserved populations
   using Open Payments and the Interledger Protocol.

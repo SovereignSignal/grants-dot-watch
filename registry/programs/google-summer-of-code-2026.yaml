@@ -6,9 +6,8 @@ systems:
   - oss-sustainability
 wires:
   - oss
-status: active
+status: concluded
 mechanism: fellowship
-apply_url: https://summerofcode.withgoogle.com/get-started
 summary: Annual global program pairing new open-source contributors with mentoring organizations for
   12+ week projects, with PPP-adjusted stipends of $750-$6,600.
 rounds:

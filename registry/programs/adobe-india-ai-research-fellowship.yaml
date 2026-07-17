@@ -5,9 +5,8 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: fellowship
-apply_url: https://research.adobe.com/india-ai-research-fellowship/
 summary: >
   A 12-month fellowship from Adobe Research for full-time PhD candidates enrolled at recognized
   universities in India with at least 12 months remaining in their PhD, working in AI-related fields

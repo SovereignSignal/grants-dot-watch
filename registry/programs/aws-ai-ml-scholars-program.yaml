@@ -5,13 +5,16 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: fellowship
-summary: Fully funded AI/ML education and research program targeted at Global South participants.
+summary: >-
+  AWS's 2026 AI & ML Scholars program offered free foundational AI training globally, followed by
+  fully funded Udacity Nanodegrees for the top 4,500 Challenge participants. Applications closed on
+  June 24, 2026.
 rounds:
   - name: 2026 cohort
     status: closed
     closes: 2026-06-24
-    source: https://x.com/AndroOxinu/status/2059091674001822006
+    source: https://aws.amazon.com/blogs/training-and-certification/aws-ai-ml-scholars-is-open-for-2026-get-started-on-your-ai-learning-journey/
 sources:
-  - https://x.com/AndroOxinu/status/2059091674001822006
+  - https://aws.amazon.com/blogs/training-and-certification/aws-ai-ml-scholars-is-open-for-2026-get-started-on-your-ai-learning-journey/

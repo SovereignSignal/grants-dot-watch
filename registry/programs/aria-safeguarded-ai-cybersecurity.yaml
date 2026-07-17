@@ -7,9 +7,8 @@ systems:
 - ai-safety
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://aria.org.uk/opportunity-spaces/mathematics-for-safe-ai/safeguarded-ai/funding
 summary: Cybersecurity call within ARIA's GBP 59M Safeguarded AI programme, allocating GBP 20M across
   Blue Team awards (3-6, production-grade security-critical software with machine-checked proofs) and
   one Red Team for adversarial evaluation.
