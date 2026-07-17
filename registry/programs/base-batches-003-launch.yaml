@@ -6,14 +6,13 @@ systems: []
 wires:
 - crypto
 status: unknown
-apply_url: https://base.org/
-summary: Base has announced the launch of Base Batches 003, a funding and mentorship program for onchain
-  builders. The program offers three tracks—Startup, Student, and Robotics (in collaboration with @virtuals_io)—with
-  up to $50,000 in funding available per participant. Successful applicants will also receive expert mentorship
-  and the opportunity to present at Demo Day in San Francisco. Applications are now open for interested
-  builders.
+mechanism: incubator
+summary: >
+  Base announced Base Batches 003 as a funding and mentorship program for onchain builders, with Startup,
+  Student, and Robotics tracks and up to $50,000 in funding per selected participant. The recorded Startup
+  Track application window closed in March 2026; no current general application page has been confirmed.
 rounds:
-- name: Startup Track
+- name: 2026 Startup Track
   status: closed
   closes: '2026-03-09'
   size: $50K

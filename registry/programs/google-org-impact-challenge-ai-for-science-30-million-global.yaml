@@ -5,19 +5,18 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://google.org/
-summary: 'Google.org Impact Challenge: AI for Science is offering $30 million in grants for nonprofits,
-  social enterprises, and academic institutions. The program funds AI projects that accelerate breakthroughs
-  in health and life sciences or climate and environmental science, with individual grants ranging from
-  $500K to $3M. Selected teams may also join the Google.org Accelerator for technical support and Cloud
-  credits. Applications are due by April 17, 2026.'
+status: active
+mechanism: grants
+summary: >
+  Google.org's $30 million AI for Science open call supports nonprofits, social enterprises, and academic
+  institutions using AI to accelerate scientific work. Awards range from $500,000 to $3 million and may
+  include accelerator support, Google technical assistance, and Cloud credits. Applications closed May 1,
+  2026 and are under review.
 rounds:
-- name: Rolling
-  status: closed
-  closes: 2026-04-17
-  source: https://google.org/impact-challenges/ai-science
+- name: 2026 global open call
+  status: reviewing
+  closes: 2026-05-01
+  size: $30M total; $500K–$3M per award
+  source: https://www.google.org/impact-challenges/ai-science/
 sources:
-- https://google.org/impact-challenges/ai-science
-- https://x.com/fundsforngos/status/2026198086188757207
 - https://www.google.org/impact-challenges/ai-science/

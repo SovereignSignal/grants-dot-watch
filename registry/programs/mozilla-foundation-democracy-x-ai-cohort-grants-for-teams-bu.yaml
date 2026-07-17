@@ -6,20 +6,15 @@ systems: []
 wires:
 - oss
 - ai
-status: unknown
-apply_url: https://www.mozillafoundation.org/
-summary: Mozilla Foundation — Democracy x AI Cohort is offering $50,000 initial grants to approximately
-  10 teams building open-source AI tools that protect democracy. Selected teams receive 12 months of funding
-  and may become eligible for an additional $250,000, for a maximum of $300,000 total. Initial proposals
-  are due March 16, 2026. Projects must have functional technology, a committed team, and a clear commitment
-  to openness, including some code open-sourced or a public roadmap during the grant period.
+status: active
+mechanism: incubator
+summary: >
+  Mozilla Foundation selected ten projects for its global Democracy x AI Cohort. The teams are spending
+  12 months in Mozilla's Incubator with coaching, expert advice, and peer mentorship while building and
+  testing AI tools intended to strengthen democratic participation and accountability.
 rounds:
-- name: Rolling
-  status: closed
-  closes: 2026-03-16
-  size: $50k
-  source: https://x.com/studysustainhub/status/2026658478157135939
+- name: 2026 cohort
+  status: deployed
+  source: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/democracy-ai-cohort/
 sources:
 - https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/democracy-ai-cohort/
-- https://x.com/studysustainhub/status/2026658478157135939
-- https://x.com/fundsforngos/status/2024355962644287833

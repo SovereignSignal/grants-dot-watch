@@ -6,19 +6,14 @@ systems: []
 wires:
 - crypto
 status: unknown
-summary: Citizen Grants (GCP) is Gitcoin's community proposal process for funding tools, onboarding programs,
-  and public-goods infrastructure across the Gitcoin ecosystem. Proposals are submitted and reviewed on
-  the Gitcoin governance forum and funded through Gitcoin's Citizens' Fund.
-rounds:
-- name: Rolling
-  status: closed
-  closes: '2025-03-31'
-  size: $20,000–1,000,000
-  source: https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852
+mechanism: grants
+summary: >
+  Gitcoin launched Citizen Grants in 2024 with Citizens Retro, Citizens Innovate, and Citizens Forward.
+  After the initial pilot, Gitcoin concluded the Innovate and Forward formats and shifted toward selective
+  RFPs and direct grants. The governance forum category remains available, but no current general application
+  window has been confirmed.
+rounds: []
 sources:
-- https://gov.gitcoin.co/t/rfp-allo-yeeter-build/19277
-- https://gov.gitcoin.co/t/citizen-grants-gcp-impact-passports-and-impact-quadratic-funding-impactqf/19712
-- https://gov.gitcoin.co/t/gcp-xxx-yollow-xyz-making-public-goods-funding-fun-and-accessible/19721
-- https://gov.gitcoin.co/t/rfp-gg22-grantee-onboarding-education-program/19364
-- https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852
-apply_url: https://gov.gitcoin.co/t/gcp-xxx-allo-yeeter-recycling-growing-gmv-with-simple-allocation/19852
+- https://gov.gitcoin.co/t/proposal-gitcoin-s-citizen-grants-program/17470
+- https://gov.gitcoin.co/t/citizen-grants-program-updated-strategy/19203
+- https://gov.gitcoin.co/c/citizen-grants/20

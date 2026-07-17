@@ -1,0 +1,31 @@
+id: who-let-the-docs-out
+name: Who Let The Docs Out
+aka:
+  - WLTDO
+systems: [ai-safety]
+wires: [ai]
+roles: [funder]
+org_type: nonprofit
+website: https://www.docsout.org/
+socials:
+  instagram: https://www.instagram.com/wholethedocsout/
+status: active
+profile: >
+  Who Let The Docs Out is a filmmaker-led nonprofit that funds and supports impact documentary projects.
+  It combines grants with mentorship, community, production strategy, and distribution support, including
+  a dedicated Automation & Humanity fund for nonfiction work examining advanced AI and autonomous systems.
+funding:
+  focus:
+    - impact documentary film
+    - AI safety and alignment
+    - climate and environmental justice
+    - animal justice
+    - human rights
+  typical_size: $4,000 to $50,000, depending on project stage
+  cadence: Two grant cycles per year with separate application windows
+  apply_url: https://www.docsout.org/grants
+sources:
+  - https://www.docsout.org/
+  - https://www.docsout.org/about
+  - https://www.docsout.org/grants
+  - https://www.docsout.org/2026-automation-humanity-documentary-fund

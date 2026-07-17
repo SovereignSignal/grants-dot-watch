@@ -4,9 +4,8 @@ org: google-chrome
 parent: null
 systems: [oss-sustainability]
 wires: [oss]
-status: unknown
+status: concluded
 mechanism: grants
-apply_url: https://opencollective.com/chrome
 summary: >
   A Google Chrome-run fund, fiscally hosted by Open Source Collective, that
   paid out to 10 open-source projects in the "advanced apps" space

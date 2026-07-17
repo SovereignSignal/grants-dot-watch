@@ -5,19 +5,15 @@ parent: null
 systems: []
 wires:
 - oss
-status: unknown
-apply_url: https://www.linuxfoundation.org/
-summary: Linux Foundation travel funding support for conference attendees, offered per-event with rolling
-  application windows tied to specific Linux Foundation events.
+status: active
+mechanism: grants
+summary: >
+  The Linux Foundation offers event-specific travel support for open-source developers and community members
+  who otherwise could not attend. Each participating event has its own application window and decision date.
 rounds:
 - name: OpenSearchCon North America travel funding
   status: closed
   closes: 2026-07-08
   source: https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
-- name: Event travel support (Aug 2026 window)
-  status: open
-  closes: 2026-08-02
-  source: https://x.com/linuxfoundation/status/2074388028533989547
 sources:
 - https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
-- https://x.com/linuxfoundation/status/2074388028533989547

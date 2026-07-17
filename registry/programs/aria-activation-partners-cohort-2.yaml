@@ -5,17 +5,18 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
-apply_url: https://www.aria.org.uk/
-summary: ARIA (UK's Advanced Research and Invention Agency) is recruiting its second cohort of Activation
-  Partners — organizations that help translate ARIA-funded research into real-world impact — with up to
-  £100M available across the cohort.
+status: active
+mechanism: rfp
+summary: >
+  ARIA committed £100 million to recruit up to ten organizations for its second Activation Partners cohort.
+  Applications are closed and ARIA says it will announce the selected partners later in 2026.
 rounds:
-- name: Rolling
-  status: closed
+- name: Cohort 2 request for proposals
+  status: reviewing
   closes: 2026-05-21
   size: £100M total
-  source: https://aria.org.uk/activation-partners/become-an-activation-partner/
+  source: https://aria.org.uk/activation-partners
 sources:
+- https://aria.org.uk/activation-partners
 - https://aria.org.uk/activation-partners/become-an-activation-partner/
 - https://aria.org.uk/media/ltnnjubg/activation-partners-cohort-2_rfp.pdf
