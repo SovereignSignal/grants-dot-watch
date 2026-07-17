@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
 apply_url: https://google.org/
 summary: >
   not required in summary. Just include source maybe. Provide plain prose. We need: Google for

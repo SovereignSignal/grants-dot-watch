@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://forum.celo.org/t/prezenti-grant-award-x-celo-camp/8215
 summary: >
   We are thrilled to announce that a selected team from Celo Camp Batch 9 or the Startup Pathway will

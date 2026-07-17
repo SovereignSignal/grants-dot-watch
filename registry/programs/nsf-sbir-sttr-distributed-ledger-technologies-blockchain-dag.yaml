@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: active
 apply_url: https://seedfund.nsf.gov/
 summary: NSF's SBIR/STTR program funds small businesses developing distributed ledger technologies — blockchain,
   DAGs, and smart contracts.

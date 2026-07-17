@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.nsf.gov/
 summary: NSF SBIR Phase I AI Funding — dispatch from the wire, no further detail on file.
 rounds:

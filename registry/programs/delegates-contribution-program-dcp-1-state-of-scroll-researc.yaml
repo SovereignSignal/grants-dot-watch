@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403
 summary: >
   Summary This document outlines the first pilot of the Delegates Contribution Program (DCP) which in

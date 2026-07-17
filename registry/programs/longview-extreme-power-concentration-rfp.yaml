@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: concluded
 mechanism: rfp
 summary: Longview Philanthropy's RFP funds proposals to reduce risks of AI enabling extreme
   concentration of power, with grants of $100K-$2M/yr across 12 priority areas plus career

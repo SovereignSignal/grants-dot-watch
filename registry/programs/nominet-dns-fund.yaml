@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 mechanism: grants
 summary: Nominet's DNS Fund provides funding for open-source DNS projects and maintainers to improve
   security, sustainability, and resilience of critical internet infrastructure. Application deadline

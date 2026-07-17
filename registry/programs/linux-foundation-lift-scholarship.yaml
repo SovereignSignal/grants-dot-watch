@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - oss
-status: unknown
+status: concluded
 apply_url: https://www.linuxfoundation.org/
 summary: "Linux Foundation LiFT Scholarship offers 500 scholarships across 16 categories to support\
   \ learning and careers in open source, Linux, cloud native, Kubernetes, cybersecurity, DevOps and related\

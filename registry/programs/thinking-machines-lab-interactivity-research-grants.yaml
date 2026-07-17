@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
 apply_url: https://thinkingmachines.ai/news/interactivity-research-grants/
 summary: Thinking Machines Lab Interactivity Research Grants — dispatch from the wire, no further detail
   on file.

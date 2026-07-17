@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://ston.fi/hackathon
 summary: 'Ston.fi Vibe Coding Hackathon offers $250, $150, and $100 prizes plus a $700 shared pool
   for building TON apps using vibe coding and AI tools. The event provides real infrastructure from ston.fi

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - oss
-status: unknown
+status: active
 apply_url: https://nlnet.nl/
 summary: NLnet Foundation runs a recurring Open Call for funding proposals; the next deadline is 2026-08-01.
 rounds:

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
 apply_url: https://www.nsf.gov/
 summary: 'NSF CISE Future Computing Research (Future CoRe) offers up to $1 million over four years
   for computing and AI education interventions, workforce pathways, and Computing Education Research projects.

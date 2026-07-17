@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/gg24-public-goods-r-d-domain-proposal/23774
 summary: >
   The Public Goods R&D GG24 Domain drives research and development of digital public goods, funding

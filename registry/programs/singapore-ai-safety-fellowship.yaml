@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
 mechanism: fellowship
 summary: The Singapore AI Safety Hub (SASH) runs a 3-month full-time residential research fellowship (Sept
   21 - Dec 4, 2026) with an SGD 5,000/month stipend, housing and travel covered, and up to USD 30,000

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://forum.scroll.io/t/request-for-comments-dao-treasury-management-rfp/1000
 summary: >
   tldr This Request for Comments (RFC) is to review the treasury management Request for Proposals

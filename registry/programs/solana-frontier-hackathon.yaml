@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://solana.org/
 summary: 'Solana Frontier Hackathon offers $3M in prizes and pre-seed funding for teams building on
   Solana. Colosseum’s largest online startup competition and accelerator provides $3M+ in total prizes

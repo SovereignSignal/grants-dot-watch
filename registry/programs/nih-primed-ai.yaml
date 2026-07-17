@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 mechanism: grants
 summary: "NIH's Common Fund PRIMED-AI initiative posted two RFAs for AI precision medicine:
   RFA-RM-27-011 (multi-use AI frameworks playbook, due 2026-10-09; signal 10702) and RFA-RM-27-013

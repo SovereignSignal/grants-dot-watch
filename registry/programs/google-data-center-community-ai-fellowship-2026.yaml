@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: concluded
 apply_url: https://google.org/
 summary: Google Data Center Community AI Fellowship 2026 — dispatch from the wire, no further detail
   on file.

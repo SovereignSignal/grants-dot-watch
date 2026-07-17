@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://scroll.io/
 summary: >
   The Scroll Forum has opened applications for DCP 1 - State of Scroll Research, a pilot under the

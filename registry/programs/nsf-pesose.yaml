@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - oss
-status: unknown
+status: active
 apply_url: https://www.nsf.gov/
 summary: NSF PESOSE invites proposals to translate open-source research into sustainable, secure ecosystems
   that address national and societal needs — scoping, establishing, and improving the safety, security,

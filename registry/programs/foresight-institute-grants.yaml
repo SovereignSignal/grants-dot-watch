@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: concluded
 apply_url: https://foresight.org/grants/grants-ai-for-science-safety
 summary: 'open to researchers? Not specified. We''ll just mention AI-first projects in those domains.
 

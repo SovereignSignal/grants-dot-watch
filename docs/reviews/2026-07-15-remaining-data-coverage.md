@@ -11,7 +11,7 @@ The remaining gaps are source coverage, not known structural defects:
 
 | Coverage field | Programs missing it |
 | --- | ---: |
-| Confirmed status | 215 |
+| Confirmed status | 165 |
 | Dated or explicit rounds | 321 |
 | Mechanism | 201 |
 | System classification | 409 |

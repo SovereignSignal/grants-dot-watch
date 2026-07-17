@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/rfp-gg23-grantee-onboarding-education-program/19931
 summary: >
   Overview We are seeking experienced grantees within the Gitcoin ecosystem to lead our community-led

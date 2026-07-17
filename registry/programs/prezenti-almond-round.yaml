@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://www.prezenti.xyz
 summary: >
   Following on from the Celo Seasons 0 funding approval, Prezenti is pleased to open its ‘Almond

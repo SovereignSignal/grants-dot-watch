@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
 summary: >
   RFP: Reboot the Gitcoin Community for the 3.3 Era Issued by: Gitcoin DAO (sponsor: Kevin Owocki, ED)

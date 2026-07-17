@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.optimism.io/t/looking-for-sponsor-standardized-and-open-source-contract-repository/8867
 summary: >
   Intent 3: Grow Application Developers on the Superchain Objective : Establish a comprehensive

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - ai
-status: unknown
+status: active
 summary: Foresight Institute's Fellowship supports individuals working on AI safety and related frontier
   technologies. The 2027 cohort application deadline is July 31, 2026.
 rounds:

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770
 summary: >
   The Interop Standards, Infra, and Analytics Domain funds support Open Data initiatives and

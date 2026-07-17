@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 mechanism: fellowship
 summary: PIBBSS runs a ~3-month interdisciplinary AI safety/alignment fellowship (in-person Cape
   Town or remote) with a $3k/month stipend plus accommodation, travel, and meals, and mentorship.

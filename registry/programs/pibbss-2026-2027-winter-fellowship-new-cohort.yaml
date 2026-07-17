@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://princint.ai/programs/fellowship/
 summary: PIBBSS 2026-2027 Winter Fellowship (new cohort) — dispatch from the wire, no further detail
   on file.

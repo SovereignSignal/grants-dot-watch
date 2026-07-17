@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
 apply_url: https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228
 summary: "Abstract This is the on-chain executable proposal to fund the Delegation Incentives
   Program , already approved by ENS governance via Snapshot ([6.31] Delegation Incentives Program).

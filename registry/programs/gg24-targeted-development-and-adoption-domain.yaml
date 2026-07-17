@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/gg24-targeted-development-and-adoption-domain-proposal/23766
 summary: >
   The Targeted Development & Adoption GG24 Domain funds programs and initiatives that have clear

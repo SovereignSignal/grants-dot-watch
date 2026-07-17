@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 apply_url: https://gov.gitcoin.co/t/domain-announcement-interop-standards-infrastructure-analytics/24631
 summary: >
   TL;DR: In its inaugural edition under GG24 , the Interop Standards, Infrastructure & Analytics
