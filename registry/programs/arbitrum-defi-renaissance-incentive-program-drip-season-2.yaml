@@ -5,12 +5,17 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: "Arbitrum DeFi Renaissance Incentive Program (DRIP) Season 2 offers 16.7M ARB in
-  incentives for DeFi protocols focused on lending and liquidity growth. Season 1 used approximately
-  16.7M ARB of its 24M ARB budget. Season 2 is targeting a mid-late April 2026 launch and must begin
-  before July 1, 2026, with an extension proposal currently in progress. The program is not yet open
-  for applications."
-rounds: []
+status: paused
+mechanism: other
+summary: >
+  Arbitrum's DRIP incentive program completed Season 1 in February 2026. Season 2 remains paused
+  while its committee evaluates strategy; the DAO extended the program mandate through July 1,
+  2027 without adding funding.
+rounds:
+  - name: Season 2
+    status: announced
+    source: https://forum.arbitrum.foundation/t/entropy-advisors-monthly-update-june-2026/31045
 sources:
   - https://forum.arbitrum.foundation/t/drip-february-2026-update/30628
+  - https://forum.arbitrum.foundation/t/entropy-advisors-monthly-update-june-2026/31045
+  - https://forum.arbitrum.foundation/t/extending-drips-mandate/30985

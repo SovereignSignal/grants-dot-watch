@@ -1,12 +1,22 @@
 id: announcing-the-safe-pareto-improvements-spi-fundamentals-pro
-name: Announcing the Safe Pareto Improvements (SPI) Fundamentals Program
-org: long-term-future-fund
+name: Safe Pareto Improvements (SPI) Fundamentals Program
+org: center-on-long-term-risk
 parent: null
-systems: []
+systems: [ai-safety]
 wires:
   - ai
-status: unknown
-summary: We need to fetch the page.Probably need to simulate browsing.
-rounds: []
+status: active
+mechanism: fellowship
+apply_url: https://longtermrisk.org/safe-pareto-improvements-spi-fundamentals-program/
+summary: >
+  The Center on Long-Term Risk's SPI Fundamentals Program is an online course on AI conflict,
+  bargaining, and safe Pareto improvements. The August 2026 cohort includes an optional paid
+  capstone project and accepts applications through July 24.
+rounds:
+  - name: August 2026 cohort
+    status: open
+    closes: 2026-07-24
+    source: https://longtermrisk.org/safe-pareto-improvements-spi-fundamentals-program/
 sources:
+  - https://longtermrisk.org/safe-pareto-improvements-spi-fundamentals-program/
   - https://forum.effectivealtruism.org/posts/SACeBpFpctozx9BkQ/announcing-the-safe-pareto-improvements-spi-fundamentals

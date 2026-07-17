@@ -5,11 +5,16 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: concluded
+mechanism: quadratic
 summary: >
-  Gm Gitcoin community! Djimo here, founder at Silvi - wanted to share the first update for the
-  Bioregional Reforestation Round , announced here and here , now half way through the matching phase
-  ahead of the impact phase during Q1 and Q2 of 2026.
-rounds: []
+  The Bioregional Reforestation Round used quadratic funding to allocate roughly $100,000 across
+  nine bioregional pools, followed by impact-based payouts for verified tree planting during the
+  first half of 2026.
+rounds:
+  - name: 2025-2026 reforestation round
+    status: closed
+    size: Approximately $100,000
+    source: https://gov.gitcoin.co/t/bioregional-reforestation-round/24927
 sources:
   - https://gov.gitcoin.co/t/bioregional-reforestation-round/24927

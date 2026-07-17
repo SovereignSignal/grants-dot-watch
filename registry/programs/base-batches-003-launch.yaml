@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 mechanism: incubator
 summary: >
   Base announced Base Batches 003 as a funding and mentorship program for onchain builders, with Startup,

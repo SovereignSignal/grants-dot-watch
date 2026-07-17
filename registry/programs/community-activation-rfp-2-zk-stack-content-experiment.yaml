@@ -5,18 +5,16 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: >-
-  ZK Nation is offering $15k grants through its Community Activation RFP 2 for the ZK Stack
-  Content Experiment. 
-
-
-  The 8-week experimental initiative has a total budget of 300k ZK (approximately $15k at $0.05 per
-  ZK) and falls under Product Marketing and Community Activation. Submissions are accepted on a
-  rolling basis, with the first review closing soon. 
-
-
-  Apply at: https://forum.zknation.io/t/community-activation-rfp-2-zk-stack-content-experiment/835
-rounds: []
+status: concluded
+mechanism: rfp
+summary: >
+  ZKsync's second Community Activation RFP funded an eight-week ZK Stack content experiment. The
+  submission period ended December 3, 2025 and ZKnomist was selected to receive 300,000 ZK.
+rounds:
+  - name: 2025 ZK Stack content experiment
+    status: deployed
+    closes: 2025-12-03
+    size: 300,000 ZK
+    source: https://forum.zknation.io/t/community-activation-rfp-2-zk-stack-content-experiment/835
 sources:
   - https://forum.zknation.io/t/community-activation-rfp-2-zk-stack-content-experiment/835

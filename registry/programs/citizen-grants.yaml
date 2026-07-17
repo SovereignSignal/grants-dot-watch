@@ -5,14 +5,17 @@ parent: null
 systems: []
 wires:
 - crypto
-status: unknown
+status: concluded
 mechanism: grants
 summary: >
   Gitcoin launched Citizen Grants in 2024 with Citizens Retro, Citizens Innovate, and Citizens Forward.
   After the initial pilot, Gitcoin concluded the Innovate and Forward formats and shifted toward selective
   RFPs and direct grants. The governance forum category remains available, but no current general application
   window has been confirmed.
-rounds: []
+rounds:
+- name: Citizens Innovate and Forward pilot
+  status: closed
+  source: https://gov.gitcoin.co/t/citizen-grants-program-updated-strategy/19203
 sources:
 - https://gov.gitcoin.co/t/proposal-gitcoin-s-citizen-grants-program/17470
 - https://gov.gitcoin.co/t/citizen-grants-program-updated-strategy/19203

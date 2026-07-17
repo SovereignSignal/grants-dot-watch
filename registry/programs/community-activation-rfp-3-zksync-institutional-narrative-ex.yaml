@@ -5,19 +5,16 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
-summary: >-
-  ZKsync is offering a $15k grant for its Community Activation RFP 3: ZKsync Institutional
-  Narrative Experiment. 
-
-
-  The 10-week program has a total budget of 833k ZK (approximately $15k USD) and will award one
-  recipient. Applications are due by 20 March, with the first review closing three days after
-  posting. 
-
-
-  The initiative falls under Product Marketing and Community Activation. Full details are available
-  at the ZK Nation forum.
-rounds: []
+status: concluded
+mechanism: rfp
+summary: >
+  ZKsync's third Community Activation RFP funded an institutional narrative experiment. The March
+  20, 2026 deadline has passed and Rally was selected to receive 833,000 ZK for an eight-week program.
+rounds:
+  - name: 2026 institutional narrative experiment
+    status: deployed
+    closes: 2026-03-20
+    size: 833,000 ZK
+    source: https://forum.zknation.io/t/community-activation-rfp-3-zksync-institutional-narrative-experiment/922
 sources:
   - https://forum.zknation.io/t/community-activation-rfp-3-zksync-institutional-narrative-experiment/922

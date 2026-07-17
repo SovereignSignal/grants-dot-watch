@@ -1,15 +1,22 @@
 id: coefficient-giving-alternative-protein-r-d-rfp
 name: Coefficient Giving Alternative Protein R&D RFP
-org: long-term-future-fund
+org: coefficient-giving
 parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
+mechanism: rfp
+apply_url: https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd
 summary: >
-  By Abhi Kumar, Associate Program Officer in Farm Animal Welfare Note: We used AI (Claude) to draft
-  this post from other documents related to this RFP. All content was reviewed by Abhi and the CG team
-  for accuracy. Over 100 billion animals are farmed and slaughtered for food every year.
-rounds: []
+  Coefficient Giving's Alternative Protein R&D RFP offers up to $10 million for pre-competitive
+  research on taste, flavor, fat systems, egg replacement, and priority fish species. Individual
+  awards are expected to range from approximately $100,000 to $1 million.
+rounds:
+  - name: 2026 Alternative Protein R&D RFP
+    status: open
+    closes: 2026-08-10
+    size: Up to $10 million; approximately $100,000-$1 million per award
+    source: https://forum.effectivealtruism.org/posts/bDqdfMXe6YuYnwMDA/good-tasting-alt-meat-is-a-scientific-problem-we-can-solve
 sources:
   - https://forum.effectivealtruism.org/posts/bDqdfMXe6YuYnwMDA/good-tasting-alt-meat-is-a-scientific-problem-we-can-solve
