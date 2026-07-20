@@ -6,12 +6,13 @@ systems: [ethereum]
 wires:
 - crypto
 status: concluded
+mechanism: rfp
 apply_url: https://forum.scroll.io/t/request-for-comments-dao-treasury-management-rfp/1000
 summary: >
   tldr This Request for Comments (RFC) is to review the treasury management Request for Proposals
   (RFP). If you only have time for one thing, please review the ‘Open Questions for the DAO’ below.
 rounds:
-- name: Rolling
+- name: Treasury management RFP
   status: closed
   closes: 2025-08-15
   source: https://forum.scroll.io/t/request-for-comments-dao-treasury-management-rfp/1000

@@ -1,20 +1,23 @@
 id: pibbss-fellowship
 name: PIBBSS AI Safety Fellowship
-org: pibbss
+org: principles-of-intelligence
 parent: null
 systems: []
 wires:
   - ai
 status: active
 mechanism: fellowship
-summary: PIBBSS runs a ~3-month interdisciplinary AI safety/alignment fellowship (in-person Cape
-  Town or remote) with a $3k/month stipend plus accommodation, travel, and meals, and mentorship.
-  Application deadline is July 20, 2026. A companion signal (10614) describes the upcoming Winter
-  cohort as Nov 2026-Feb 2027 with ~20 fellows.
+apply_url: https://forms.gle/xK3R94zNbm1PGdJU8
+summary: >
+  Principles of Intelligence runs PIBBSS as a three-month interdisciplinary AI safety research
+  fellowship for about 20 researchers. The Winter 2026-2027 cohort is primarily based in Cape Town
+  and provides a $3,000 monthly stipend, accommodation, meals, travel, and dedicated mentorship;
+  remote participation is limited to exceptional cases.
 rounds:
   - name: Winter 2026-2027 cohort
     status: open
     closes: 2026-07-20
-    source: https://pibbss.ai
+    size: $3,000 per month plus accommodation and travel
+    source: https://princint.ai/programs/fellowship/
 sources:
-  - https://pibbss.ai
+  - https://princint.ai/programs/fellowship/

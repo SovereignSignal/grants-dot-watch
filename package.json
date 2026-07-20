@@ -28,7 +28,6 @@
     "@fontsource/newsreader": "^5.2.10",
     "@privy-io/node": "^0.9.0",
     "@privy-io/react-auth": "^3.34.0",
-    "@solana/kit": "^5.5.1",
     "next": "^16.2.10",
     "pg": "^8.22.0",
     "react": "^19.2.7",

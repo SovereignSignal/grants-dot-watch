@@ -14,7 +14,7 @@ summary: 'Schmidt Sciences AI Interpretability RFP offers up to $1M for projects
   with a deadline of May 26, 2026. The program is open to researchers and teams seeking to advance interpretability
   methods for safer AI systems. Full details and application are available at https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/.'
 rounds:
-- name: Rolling
+- name: AI Interpretability RFP
   status: closed
   closes: 2026-05-26
   size: $300k-$1M

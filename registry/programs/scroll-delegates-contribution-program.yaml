@@ -6,7 +6,7 @@ systems: [ethereum]
 wires:
 - crypto
 status: concluded
-apply_url: https://scroll.io/
+mechanism: rfp
 summary: >
   The Scroll Forum has opened applications for DCP 1 - State of Scroll Research, a pilot under the
   Delegates Contribution Program, with a total budget of 18,000 USDC for an 8-10 week project
@@ -14,10 +14,11 @@ summary: >
   Visualization (2,000 USDC), and Regional Researchers & Storytellers (2,200 USDC per region) focusing
   on regions like LATAM, Europe, Africa, Southeast Asia, and APAC.
 rounds:
-- name: Rolling
+- name: DCP 1 - State of Scroll Research
   status: closed
   closes: 2026-05-31
   size: 18,000 USDC
   source: https://forum.scroll.io/t/dcp-1-state-of-scroll-research-application-thread/1410
 sources:
 - https://forum.scroll.io/t/dcp-1-state-of-scroll-research-application-thread/1410
+- https://forum.scroll.io/t/final-dcp-1-state-of-scroll-research/1403

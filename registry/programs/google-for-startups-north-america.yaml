@@ -6,14 +6,15 @@ systems: []
 wires:
 - ai
 status: concluded
+mechanism: incubator
 apply_url: https://google.org/
 summary: >
-  not required in summary. Just include source maybe. Provide plain prose. We need: Google for
-  Startups North America, deadline June 30 2026, 10-week program, AI for Energy focus, for pre-seed to
-  Series A startups, no equity taken. No amount given. So just mention no equity. Write 2-4 sentences,
-  under 120 words.
+  A ten-week, equity-free accelerator for North American pre-seed through Series A startups using AI
+  in energy systems. The 2026 cohort focuses on grid optimization, demand flexibility, energy
+  affordability, and carbon-aware infrastructure, with Google mentorship, technical support, product
+  access, and eligible cloud credits. Applications closed June 30, 2026.
 rounds:
-- name: Rolling
+- name: 2026 North America cohort applications
   status: closed
   closes: 2026-06-30
   source: https://startup.google.com/programs/accelerator/north-america/

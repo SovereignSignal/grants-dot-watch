@@ -6,12 +6,13 @@ systems: []
 wires:
 - crypto
 status: concluded
+mechanism: prize
 apply_url: https://ston.fi/hackathon
 summary: 'Ston.fi Vibe Coding Hackathon offers $250, $150, and $100 prizes plus a $700 shared pool
   for building TON apps using vibe coding and AI tools. The event provides real infrastructure from ston.fi
   and tonstakers and is limited to 25 participants. Applications are due April 12, 2026.'
 rounds:
-- name: Rolling
+- name: 2026 Vibe Coding Hackathon
   status: closed
   closes: 2026-04-12
   size: $250

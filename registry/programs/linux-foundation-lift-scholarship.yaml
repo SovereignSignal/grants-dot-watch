@@ -6,12 +6,13 @@ systems: [oss-sustainability]
 wires:
 - oss
 status: concluded
+mechanism: fellowship
 summary: >
   The 2026 Linux Foundation LiFT Scholarship round offered 500 scholarships across 16 categories
   covering open source, Linux, cloud native, Kubernetes, cybersecurity, DevOps, and related fields.
   Applications closed on April 30, 2026.
 rounds:
-- name: Rolling
+- name: 2026 LiFT scholarships
   status: closed
   closes: 2026-04-30
   source: https://app.smarterselect.com/programs/109146-Linux-Foundation-Education

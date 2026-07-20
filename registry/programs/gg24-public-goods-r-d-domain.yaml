@@ -6,13 +6,14 @@ systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: other
 apply_url: https://gov.gitcoin.co/t/gg24-public-goods-r-d-domain-proposal/23774
 summary: >
   The Public Goods R&D GG24 Domain drives research and development of digital public goods, funding
   academic and applied studies. It supports open-source, neutral solutions with a strong focus on
   interoperability between tools.
 rounds:
-- name: Rolling
+- name: GG24 Public Goods R&D domain
   status: closed
   closes: 2025-10-31
   size: $332,500–532,500

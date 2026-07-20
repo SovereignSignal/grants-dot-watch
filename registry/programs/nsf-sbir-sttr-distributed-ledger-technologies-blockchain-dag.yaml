@@ -6,11 +6,12 @@ systems: [us-federal-rd]
 wires:
 - crypto
 status: active
+mechanism: grants
 apply_url: https://seedfund.nsf.gov/
 summary: NSF's SBIR/STTR program funds small businesses developing distributed ledger technologies — blockchain,
   DAGs, and smart contracts.
 rounds:
-- name: Rolling
+- name: SBIR/STTR solicitation
   status: open
   closes: 2026-07-27
   size: up to $275,000 (Phase I); up to $1,000,000+ (Phase II)

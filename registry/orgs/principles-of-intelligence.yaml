@@ -1,16 +1,27 @@
 id: principles-of-intelligence
 name: Principles of Intelligence
-aka: []
-systems: []
+aka:
+  - PIBBSS
+systems:
+  - ai-safety
 wires:
   - ai
 roles:
   - funder
+org_type: nonprofit
 website: https://princint.ai/
 status: active
-profile: "Principles of Intelligence (category: Non-Profit/NGO) has no matching org file in the
-  registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass
-  against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site
-  before promoting; this is a lead, not a sourced fact."
+profile: >
+  Principles of Intelligence is a Minnesota nonprofit that runs interdisciplinary research programs
+  focused on AI safety, including the PIBBSS Fellowship. Its fellowship connects researchers from
+  varied technical and academic fields with AI safety mentors for full-time projects.
+funding:
+  focus:
+    - AI safety research
+    - interdisciplinary research fellowships
+  typical_size: $3,000 per month plus accommodation and travel for PIBBSS fellows
+  cadence: Cohort-based
+  apply_url: https://princint.ai/programs/fellowship/
 sources:
   - https://princint.ai/
+  - https://princint.ai/programs/fellowship/

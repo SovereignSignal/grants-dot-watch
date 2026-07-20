@@ -173,6 +173,8 @@ for (const { file, base, doc } of programs) {
     if (r.source && !isUrl(r.source)) err(file, `round "${r.name}" bad source`);
     if (r.opens && !isRoundDate(r.opens)) err(file, `round "${r.name}" bad opens date "${r.opens}"`);
     if (r.closes && !isRoundDate(r.closes)) err(file, `round "${r.name}" bad closes date "${r.closes}"`);
+    if (/^rolling$/i.test(r.name || '') && r.closes)
+      err(file, `round "${r.name}" has a fixed close date; use a sourced call or cohort name`);
     if (isRoundDate(r.opens) && isRoundDate(r.closes) && r.opens > r.closes)
       err(file, `round "${r.name}" opens after it closes`);
     const live = r.status === 'open' || r.status === 'announced';

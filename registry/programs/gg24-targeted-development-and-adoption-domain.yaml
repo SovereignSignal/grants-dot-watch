@@ -6,6 +6,7 @@ systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: grants
 apply_url: https://gov.gitcoin.co/t/gg24-targeted-development-and-adoption-domain-proposal/23766
 summary: >
   The Targeted Development & Adoption GG24 Domain funds programs and initiatives that have clear
@@ -13,7 +14,7 @@ summary: >
   Ethereum. Domains are the vehicles through which trusted and experienced stewards manage capital
   within clearly defined areas to solve Ethereum’s Biggest problems per Gitcoin 3’s.* vision .
 rounds:
-- name: Rolling
+- name: GG24 Targeted Development and Adoption domain
   status: closed
   closes: 2025-10-01
   size: $445,000

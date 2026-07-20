@@ -6,14 +6,16 @@ systems: [sovereign-tech]
 wires:
 - oss
 status: concluded
-apply_url: https://www.sovereign.tech/
-summary: Sovereign Tech Standards Network applications — dispatch from the wire, no further detail on
-  file.
+mechanism: fellowship
+summary: >
+  A pilot supporting up to ten open-source maintainers to participate in standards work at the IETF,
+  W3C, and ISO. Participants receive training, mentoring, travel and participation support, and fixed
+  monthly compensation of EUR 4,800 to EUR 5,200; applications closed May 19, 2026.
 rounds:
-- name: Rolling
+- name: 2026 pilot applications
   status: closed
   closes: 2026-05-19
-  size: Support for maintainers, amount not stated
+  size: EUR 4,800-EUR 5,200 per month plus travel and participation support
   source: https://www.sovereign.tech/news/join-sovereign-tech-standards-network
 sources:
 - https://www.sovereign.tech/news/join-sovereign-tech-standards-network

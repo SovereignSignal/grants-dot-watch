@@ -6,8 +6,18 @@ wires:
   - oss
 roles:
   - funder
+org_type: company
 website: https://elevenlabs.io/
 status: active
-profile: ElevenLabs Engineers OSS Fund — dispatch from the wire, no further detail on file.
+profile: >
+  ElevenLabs is an AI audio company that operates the Engineers OSS Fund, a recurring program for
+  open-source tools used by its engineering teams. Engineers nominate projects every six months, and
+  the company assigns direct support across maintainers and projects in audio, web infrastructure,
+  testing, rendering, developer tooling, and language ecosystems.
+funding:
+  focus:
+    - open-source infrastructure used by ElevenLabs engineers
+  typical_size: $100-$300 per month per selected project in the published cycle
+  cadence: Six-month internal nomination cycles
 sources:
   - https://elevenlabs.io/blog/elevenlabs-oss-engineers-fund-supporting-the-open-source-projects-that-shape-our-work

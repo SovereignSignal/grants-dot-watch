@@ -6,12 +6,13 @@ systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: grants
 summary: The Optimism Governance Fund funds Missions — scoped funding requests reviewed by the Developer
   Advisory Board and the Foundation Mission Team — for measurable, onchain contributions across the Superchain.
   Individual missions specify budgets in OP tokens; recent cycles include Season 7 and cross-chain infrastructure
   mission requests.
 rounds:
-- name: Rolling
+- name: Governance Fund mission cycle
   status: closed
   closes: '2025-10-10'
   size: 63,000–126,000 OP

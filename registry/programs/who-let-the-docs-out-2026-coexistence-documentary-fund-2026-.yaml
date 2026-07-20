@@ -6,13 +6,14 @@ systems: [ai-safety]
 wires:
 - ai
 status: concluded
+mechanism: grants
 apply_url: https://forum.effectivealtruism.org/posts/ntzQ6HQnnDQxnjQw8/applications-now-open-for-usd8k-and-usd15k-documentary-film
 summary: >
   Who Let The Docs Out, a new non-profit documentary film fund and alliance, officially announced its
   public launch of two grant programs: the 2026 Coexistence Documentary Fund and the 2026 Automation &
   Humanity Documentary Fund.
 rounds:
-- name: Rolling
+- name: 2026 documentary funds
   status: closed
   closes: 2026-03-16
   size: $4,000–15,000

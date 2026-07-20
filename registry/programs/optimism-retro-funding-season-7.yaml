@@ -6,6 +6,7 @@ systems: [optimism, web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: retro
 apply_url: https://gov.optimism.io/t/season-7-retro-funding-missions/9295
 summary: >
   Special thanks to members of the Feedback Commission for discussion and review. In 2025, Retro
@@ -13,7 +14,7 @@ summary: >
   have been chosen to focus the Collective on being able to accurately measure an important sub-set of
   contributions.
 rounds:
-- name: Rolling
+- name: Season 7 Retro Funding missions
   status: closed
   closes: 2025-02-01
   size: 16,000,000 OP

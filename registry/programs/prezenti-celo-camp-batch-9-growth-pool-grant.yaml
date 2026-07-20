@@ -6,6 +6,7 @@ systems: [web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: grants
 apply_url: https://forum.celo.org/t/prezenti-grant-award-x-celo-camp/8215
 summary: >
   We are thrilled to announce that a selected team from Celo Camp Batch 9 or the Startup Pathway will
@@ -13,7 +14,7 @@ summary: >
   their next set of works, against agreed milestones. One payment of $12,500 upfront and the final
   payment of $12,500 upon successful completion.
 rounds:
-- name: Rolling
+- name: Celo Camp Batch 9 Growth Pool
   status: closed
   closes: 2024-12-08
   size: 25,000 CUSD

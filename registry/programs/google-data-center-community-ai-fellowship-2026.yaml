@@ -5,14 +5,22 @@ parent: null
 systems: []
 wires:
   - ai
-status: concluded
-apply_url: https://google.org/
-summary: Google Data Center Community AI Fellowship 2026 — dispatch from the wire, no further detail
-  on file.
+status: active
+mechanism: fellowship
+apply_url: https://watson.is/google-data-center-community-ai-fellowship-application/
+summary: >
+  A fully funded fellowship run by Watson Institute with Google for community leaders using AI or
+  technology in eligible Google data center communities. The 2026 program runs from September 2026
+  through January 2027 and includes training, mentorship, a virtual summit, and a $1,000 stipend for
+  each fellow's community workshop. The July 12 priority deadline has passed, but applications remain
+  open on a rolling basis until the cohort is filled.
 rounds:
-  - name: Rolling
-    status: closed
-    closes: 2026-07-12
-    source: https://watson.is/google-data-center-community-ai-fellowship-application
+  - name: 2026 fellowship applications
+    status: open
+    opens: 2026-04-21
+    size: $1,000 community development stipend
+    source: https://watson.is/google-data-center-community-ai-fellowship/
 sources:
-  - https://watson.is/google-data-center-community-ai-fellowship-application
+  - https://watson.is/google-data-center-community-ai-fellowship/
+  - https://watson.is/google-data-center-community-ai-fellowship-application/
+  - https://datacenters.google/workforce-development-and-education/

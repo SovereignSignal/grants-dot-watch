@@ -6,13 +6,14 @@ systems: [ai-safety]
 wires:
 - ai
 status: concluded
+mechanism: incubator
 apply_url: https://forum.effectivealtruism.org/posts/j5DKvbrBYwvgBTe8i/surplus-for-massive-public-good
 summary: >
   Surplus is an incubator for software startups, organized by Manifund and Mox — to create massive
   public good in the age of transformative AI. It’s a 3 month program, starting late July in SF. We
   provide seed funding, advice, peers, intros, and space to focus. Apply here by June 24!
 rounds:
-- name: Rolling
+- name: 2026 cohort applications
   status: closed
   closes: 2026-06-24
   source: https://forum.effectivealtruism.org/posts/j5DKvbrBYwvgBTe8i/surplus-for-massive-public-good

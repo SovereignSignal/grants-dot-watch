@@ -6,12 +6,16 @@ systems: []
 wires:
 - crypto
 status: concluded
-apply_url: https://ens.domains/
-summary: ENS Service Provider Program Season 3 (SPP3) — dispatch from the wire, no further detail on file.
+mechanism: rfp
+summary: >
+  The third season of ENS DAO's Service Provider Program invited teams to apply for DAO funding to
+  deliver ongoing services to the ENS ecosystem. Applications ran from May 19 through June 9, 2026,
+  followed by committee review and interviews for a cohort budget of approximately $2.89 million.
 rounds:
-- name: Rolling
+- name: "Season 3 applications"
   status: closed
-  closes: 2026-07-01
+  opens: 2026-05-19
+  closes: 2026-06-09
   size: $2.89M cohort budget
   source: https://discuss.ens.domains/t/spp3-applications-now-open/22131
 sources:

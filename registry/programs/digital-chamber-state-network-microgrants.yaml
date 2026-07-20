@@ -1,0 +1,22 @@
+id: digital-chamber-state-network-microgrants
+name: Digital Chamber State Network Microgrants
+org: digital-chamber
+parent: null
+systems: []
+wires:
+  - crypto
+status: concluded
+mechanism: grants
+summary: >
+  A 2026 call for state blockchain associations, university blockchain clubs, and community
+  innovation groups advancing blockchain policy engagement and programming in the United States.
+  The Digital Chamber's State Network offered five $2,000 grants, with applications due February 6
+  and recipients scheduled to be announced at the March 2026 DC Summit.
+rounds:
+  - name: 2026 microgrant call
+    status: closed
+    closes: 2026-02-06
+    size: Five grants of $2,000 each
+    source: https://digitalchamber.org/tdcs-state-network-opens-2026-microgrant-application-process/
+sources:
+  - https://digitalchamber.org/tdcs-state-network-opens-2026-microgrant-application-process/

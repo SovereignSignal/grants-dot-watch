@@ -8,6 +8,10 @@ roles:
   - funder
 website: https://devcon.org/
 status: active
-profile: Devcon 8 India — Community Hubs RFP-13 — dispatch from the wire, no further detail on file.
+profile: >
+  Devcon 8 is the Ethereum community conference scheduled for November 3-6, 2026 in Mumbai. Its
+  Community Hubs program selects community groups to operate educational, marketing-free spaces at
+  the venue and provides physical space, production equipment, tickets, coordination, and inclusion
+  in official Devcon programming.
 sources:
   - https://forum.devcon.org/t/rfp-13-devcon-8-india-community-hubs/8657

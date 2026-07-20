@@ -6,14 +6,14 @@ systems: [ai-safety]
 wires:
 - ai
 status: active
+mechanism: fellowship
 apply_url: https://airtable.com/appeQXXokEsv7GygM/pagAFxSWiTXtTdYtQ/form
 summary: Foresight Institute's Fellowship supports individuals working on AI safety and related frontier
   technologies. The 2027 cohort application deadline is July 31, 2026.
 rounds:
-- name: Rolling
+- name: 2027 cohort
   status: open
   closes: '2026-07-31'
-  source: https://foresight.org/foresight-fellowships/
+  source: https://foresight.org/engage/fellowship/
 sources:
 - https://foresight.org/engage/fellowship/
-- https://foresight.org/foresight-fellowships/

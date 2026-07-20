@@ -7,7 +7,13 @@ wires:
   - crypto
 status: active
 mechanism: grants
-summary: Solana Foundation Perps & Derivatives Grants — dispatch from the wire, no further detail on file.
+apply_url: https://share.hsforms.com/1GE1hYdApQGaDiCgaiWMXHA5lohw
+summary: >
+  Solana Foundation funding for teams building fully onchain perpetuals, derivatives, and related
+  trading infrastructure on Solana. The Foundation prioritizes Solana-first teams, real onchain price
+  discovery, open-source work, and applications whose revenue is structurally routed back to the
+  network; standard grant applications are reviewed on a rolling basis.
 rounds: []
 sources:
   - https://solana.com/news/build-onchain-perps
+  - https://solana.org/grants-funding

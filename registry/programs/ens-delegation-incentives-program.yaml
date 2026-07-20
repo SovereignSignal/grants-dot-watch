@@ -6,14 +6,14 @@ systems: []
 wires:
   - crypto
 status: active
-apply_url: https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228
-summary: "Abstract This is the on-chain executable proposal to fund the Delegation Incentives
-  Program , already approved by ENS governance via Snapshot ([6.31] Delegation Incentives Program).
-  It transfers 90,000 ENS and 5 ETH from the DAO treasury to the MetaGov stewards multisig , which
-  will manage distribution over the program’s three monthly rounds. The program is ready to launch:
-  Start date: July 1st, 2"
+mechanism: other
+summary: >
+  A 90-day ENS DAO pilot that distributes viewpoint-neutral incentives to active delegates and their
+  delegators using time-weighted balances, recipient caps, and monthly claimless transfers. Governance
+  authorized 90,000 ENS for rewards and 5 ETH for sponsored delegation gas, with unused funds returned
+  to the treasury after the pilot.
 rounds:
-  - name: Rolling
+  - name: Three-month pilot
     status: open
     closes: 2026-10-01
     size: 15,000–90,000 ENS

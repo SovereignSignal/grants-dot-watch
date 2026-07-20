@@ -1,0 +1,22 @@
+id: elevenlabs-oss-engineers-fund
+name: ElevenLabs Engineers OSS Fund
+org: elevenlabs
+parent: null
+systems:
+  - oss-sustainability
+wires:
+  - oss
+status: active
+mechanism: grants
+summary: >
+  A recurring internal-nomination fund supporting open-source projects that ElevenLabs engineers use
+  in their work. Every six months, engineers nominate projects and the company distributes direct
+  monthly support across maintainers and projects in audio, web infrastructure, testing, rendering,
+  developer tooling, and language ecosystems.
+rounds:
+  - name: December 2025 cycle
+    status: deployed
+    size: $22,000 over six months
+    source: https://elevenlabs.io/blog/elevenlabs-oss-engineers-fund-supporting-the-open-source-projects-that-shape-our-work
+sources:
+  - https://elevenlabs.io/blog/elevenlabs-oss-engineers-fund-supporting-the-open-source-projects-that-shape-our-work

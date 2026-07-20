@@ -6,17 +6,18 @@ systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded
-apply_url: https://gov.gitcoin.co/t/domain-announcement-interop-standards-infrastructure-analytics/24631
+mechanism: quadratic
 summary: >
-  TL;DR: In its inaugural edition under GG24 , the Interop Standards, Infrastructure & Analytics
-  domain thanks Gitcoin and Celo for their support in advancing open data and interoperability for
-  Ethereum’s multi-chain future. The QF round will be hosted on Giveth (Applications: Oct 3 – 17 |
-  Donations: Oct 14 – 28) to help fund the standards, infra & analytics that keep Ethereum connected.
+  A GG24 quadratic-funding domain for open data, interoperability standards, infrastructure,
+  analytics, research, and pilots serving Ethereum's multi-chain ecosystem. The final round was
+  hosted on Giveth with a $100,000 matching pool.
 rounds:
-- name: Rolling
+- name: GG24 quadratic funding round
   status: closed
+  opens: 2025-10-03
   closes: 2025-10-17
   size: $100,000
   source: https://gov.gitcoin.co/t/domain-announcement-interop-standards-infrastructure-analytics/24631
 sources:
 - https://gov.gitcoin.co/t/domain-announcement-interop-standards-infrastructure-analytics/24631
+- https://gov.gitcoin.co/t/gg24-interop-standards-infra-and-analytics-domain-proposal/23770

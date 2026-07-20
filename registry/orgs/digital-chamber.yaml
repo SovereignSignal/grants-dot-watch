@@ -6,8 +6,19 @@ wires:
   - crypto
 roles:
   - funder
+org_type: nonprofit
 website: https://digitalchamber.org/
 status: active
-profile: Digital Chamber’s State Network — dispatch from the wire, no further detail on file.
+profile: >
+  The Digital Chamber is a nonprofit focused on blockchain and digital-asset policy, education, and
+  adoption. Its State Network connects state-level policymakers, industry groups, universities, and
+  community organizations and has operated a microgrant program for local blockchain policy and
+  education initiatives.
+funding:
+  focus:
+    - state-level blockchain policy engagement
+    - community and university blockchain programming
+  typical_size: $2,000 microgrants in the 2026 call
+  cadence: Dated calls
 sources:
   - https://digitalchamber.org/tdcs-state-network-opens-2026-microgrant-application-process/

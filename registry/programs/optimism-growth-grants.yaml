@@ -13,6 +13,12 @@ apply_url: https://atlas.optimism.io/missions/growth-grants
 summary: >
   A recurring Optimism grants mission supporting projects that grow activity, liquidity, and
   adoption across the Superchain. Seasonal Grants Council programs are tracked as child programs.
-rounds: []
+rounds:
+  - name: Season 9 application window
+    status: closed
+    opens: 2026-02-11
+    closes: 2026-05-20
+    source: https://www.opgrants.io/seasons/current/season-9/
 sources:
   - https://atlas.optimism.io/missions/growth-grants
+  - https://www.opgrants.io/seasons/current/season-9/

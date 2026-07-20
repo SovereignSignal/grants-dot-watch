@@ -6,12 +6,13 @@ systems: [us-federal-rd]
 wires:
 - ai
 status: concluded
+mechanism: prize
 summary: >
   A completed USDA Animal and Plant Health Inspection Service challenge for detection, control, and
   eradication tools addressing New World screwworm. USDA selected 40 projects for about $105 million
   in total funding after the February 23, 2026 application deadline.
 rounds:
-- name: Rolling
+- name: 2026 Grand Challenge
   status: closed
   closes: 2026-02-23
   size: About $105 million awarded across 40 projects

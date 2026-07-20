@@ -67,7 +67,7 @@ const summarySemanticRules = [
   ['proposal-artifact', /^(?:i[’']?m|i am|we are) proposing\b|\bthis proposal (?:is submitted|outlines|requests?|introduces|proposes)\b|\bwe propose that .{0,80}\bfund\b/i, 5],
   ['applicant-feedback', /\bi am preparing an expression of interest\b|\brequest for feedback on .{0,40}\b(?:eoi|proposal|application)\b/i, 5],
   ['participant-funded-program', /\bprogram fee\b|\bpay in cash or equity\b/i, 5],
-  ['prompt-leak', /\b(?:the prompt says|must include|should we include|so start with|we can say|didn[’']t specify eligibility|need to lead with|must be max \d+ words)\b/i, 6],
+  ['prompt-leak', /\b(?:the prompt says|must include|should we include|so start with|we can say|didn[’']t specify eligibility|need to lead with|must be max \d+ words|not required in (?:the )?summary|provide plain prose|under \d+ words|let[’']?s craft|no amount given|just include (?:the )?source)\b/i, 6],
 ];
 
 function refsFor(id) {
@@ -124,7 +124,7 @@ function inspectProgram(entry) {
 
   if (/dispatch from the wire, no further detail on file/i.test(doc.summary || '')) {
     signals.push('dispatch-placeholder');
-    score += 2;
+    score += 6;
   }
 
   const org = orgById.get(doc.org);
@@ -174,6 +174,7 @@ const strongSemanticSignals = new Set([
   'applicant-feedback',
   'participant-funded-program',
   'prompt-leak',
+  'dispatch-placeholder',
   'homepage-only-apply',
   'summary-truncated',
   'forum-proposal-source',

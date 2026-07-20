@@ -88,6 +88,20 @@ test('semantic audit catches forum submissions and non-program artifacts', () =>
       signal: 'prompt-leak',
     },
     {
+      id: 'editorial-prompt-leak',
+      name: 'Another Fund',
+      summary: 'No amount given, so provide plain prose under 100 words and just include the source.',
+      sources: ['https://example.org/another-fund'],
+      signal: 'prompt-leak',
+    },
+    {
+      id: 'dispatch-placeholder',
+      name: 'Wire Dispatch',
+      summary: 'Dispatch from the wire, no further detail on file.',
+      sources: ['https://example.org/wire-dispatch'],
+      signal: 'dispatch-placeholder',
+    },
+    {
       id: 'homepage-apply',
       name: 'Unverified Opportunity',
       summary: 'No application endpoint is documented.',

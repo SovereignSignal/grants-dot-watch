@@ -6,12 +6,19 @@ systems: [us-federal-rd]
 wires:
   - ai
 status: active
-apply_url: https://www.nsf.gov/
-summary: NSF SBIR Phase I AI Funding — dispatch from the wire, no further detail on file.
+mechanism: grants
+apply_url: https://nsfgov.my.site.com/mywork/s/
+summary: >
+  NSF's active SBIR/STTR solicitation funds U.S. startups and small businesses developing
+  next-generation scientific instrumentation and enabling technologies, including infrastructure for
+  AI-driven discovery. Phase I proposals may request up to $305,000; applicants must first submit a
+  Project Pitch and receive an invitation to submit a full proposal.
 rounds:
-  - name: Rolling
+  - name: SBIR Phase I solicitation
     status: open
     closes: 2026-07-27
+    size: Up to $305,000 for Phase I
     source: https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation
 sources:
   - https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation
+  - https://seedfund.nsf.gov/apply/project-pitch/

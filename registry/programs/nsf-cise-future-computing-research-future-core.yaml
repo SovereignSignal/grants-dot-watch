@@ -5,17 +5,19 @@ parent: null
 systems: [us-federal-rd]
 wires:
 - ai
-status: concluded
-apply_url: https://www.nsf.gov/
-summary: 'NSF CISE Future Computing Research (Future CoRe) offers up to $1 million over four years
-  for computing and AI education interventions, workforce pathways, and Computing Education Research projects.
-  The program supports academic institutions developing these initiatives. Proposals are due February
-  5, 2026. Eligible applicants should review full details at https://answerr.ai/ai-education-grants-academics/.'
+status: active
+mechanism: rfp
+apply_url: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
+summary: >
+  NSF CISE's Future Computing Research solicitation supports foundational and interdisciplinary work
+  across algorithms, communications, computing education, systems, human-centered computing,
+  information systems, networking, robust intelligence, software, and hardware. Proposals are accepted
+  at any time, with recurring target dates for the corresponding review cycles.
 rounds:
-- name: Rolling
-  status: closed
-  closes: 2026-02-05
-  size: $1 million
-  source: https://answerr.ai/ai-education-grants-academics/
+- name: Future CoRe solicitation
+  status: open
+  closes: 2026-09-10
+  source: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
 sources:
-- https://answerr.ai/ai-education-grants-academics/
+- https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing
+- https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation

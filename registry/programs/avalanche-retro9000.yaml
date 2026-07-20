@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: paused
 mechanism: retro
 apply_url: https://retro9000.avax.network
 summary: Retroactive funding for projects built on Avalanche C-Chain and Avalanche L1s, run in
@@ -13,7 +13,7 @@ summary: Retroactive funding for projects built on Avalanche C-Chain and Avalanc
   final award decisions.
 rounds:
   - name: C-Chain Round 5
-    status: open
+    status: closed
     closes: 2026-07-17
     source: https://retro9000.avax.network
   - name: L1s & Infrastructure Tooling snapshot

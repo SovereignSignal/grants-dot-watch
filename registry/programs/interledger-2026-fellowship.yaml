@@ -6,13 +6,18 @@ systems: []
 wires:
 - oss
 status: concluded
+mechanism: fellowship
 apply_url: https://interledger.org/grant/fellowship
-summary: Interledger 2026 Fellowship — dispatch from the wire, no further detail on file.
+summary: >
+  A 12-month fellowship for researchers, advocates, educators, technical developers, and other
+  practitioners working to reduce barriers to digital financial participation. Each fellow receives
+  $72,000 in compensation plus a $20,000 project budget; the 2026 application window closed June 15
+  and is now under review.
 rounds:
-- name: Rolling
+- name: 2026 fellowship applications
   status: closed
   closes: 2026-06-15
-  size: $72,000
+  size: $72,000 compensation plus a $20,000 project budget
   source: https://interledger.org/grant/fellowship
 sources:
 - https://interledger.org/grant/fellowship

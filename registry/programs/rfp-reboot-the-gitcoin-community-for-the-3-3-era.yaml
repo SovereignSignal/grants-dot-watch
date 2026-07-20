@@ -6,6 +6,7 @@ systems: [ethereum, web3-public-goods]
 wires:
 - crypto
 status: concluded
+mechanism: rfp
 apply_url: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
 summary: >
   RFP: Reboot the Gitcoin Community for the 3.3 Era Issued by: Gitcoin DAO (sponsor: Kevin Owocki, ED)
@@ -13,7 +14,7 @@ summary: >
   – Q1 2027 (phased; see milestones) Budget envelope: Open — propose your number. Bias toward lean,
   milestone-gated engagements over a single large retainer.
 rounds:
-- name: Rolling
+- name: Gitcoin 3.3 community RFP
   status: closed
   closes: 2026-06-01
   source: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
