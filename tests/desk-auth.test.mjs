@@ -60,25 +60,13 @@ test('authorizes an allowlisted explicit email login', async () => {
   assert.deepEqual(await checkAuth(requestFor('did-email')), { ok: true });
 });
 
-test('authorizes an allowlisted Google-only login', async () => {
+test('rejects a Google-only login even when its email is allowlisted', async () => {
   records.set('did-google', {
     id: 'did-google',
     linked_accounts: [{ type: 'google_oauth', email: 'owner@example.com' }],
   });
 
-  assert.deepEqual(await checkAuth(requestFor('did-google')), { ok: true });
-});
-
-test('prefers the explicit email when Google and email accounts disagree', async () => {
-  records.set('did-conflict', {
-    id: 'did-conflict',
-    linked_accounts: [
-      { type: 'google_oauth', email: 'owner@example.com' },
-      { type: 'email', address: 'someone-else@example.com' },
-    ],
-  });
-
-  assert.deepEqual(await checkAuth(requestFor('did-conflict')), { ok: false });
+  assert.deepEqual(await checkAuth(requestFor('did-google')), { ok: false });
 });
 
 test('rejects unlisted and malformed linked accounts', async () => {
@@ -106,13 +94,13 @@ test('rejects unlisted and malformed linked accounts', async () => {
 test('caches the server-verified email for repeated requests', async () => {
   records.set('did-cache', {
     id: 'did-cache',
-    linked_accounts: [{ type: 'google_oauth', email: 'owner@example.com' }],
+    linked_accounts: [{ type: 'email', address: 'owner@example.com' }],
   });
 
   assert.deepEqual(await checkAuth(requestFor('did-cache')), { ok: true });
   records.set('did-cache', {
     id: 'did-cache',
-    linked_accounts: [{ type: 'google_oauth', email: 'someone-else@example.com' }],
+    linked_accounts: [{ type: 'email', address: 'someone-else@example.com' }],
   });
   assert.deepEqual(await checkAuth(requestFor('did-cache')), { ok: true });
   assert.equal(fetchCounts.get('did-cache'), 1);

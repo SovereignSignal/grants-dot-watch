@@ -6,7 +6,7 @@
 //     machine path. Dev convenience: with ADMIN_TOKEN also unset outside
 //     production, checkAuth() opens automatically and this gate passes
 //     without a form.
-//   - both public Privy IDs set: Privy email/Google login, then
+//   - both public Privy IDs set: Privy email OTP login, then
 //     a server-side check that the verified email is in DESK_OWNERS.
 // Once past the gate, both tabs (The Desk, Health) render behind one shell.
 import Link from 'next/link';
@@ -16,7 +16,6 @@ import { Coord } from '@/components/ui';
 import { tabClass } from '@/components/ui-filters';
 import { AdminAuthProvider } from './admin-auth';
 import {
-  beginPrivyGoogleLogin,
   bootstrapPrivySession,
   getPrivyAccessToken,
   isPrivyConfigured,
@@ -267,7 +266,7 @@ function PrivyLogin({
   const [step, setStep] = useState<'email' | 'code'>('email');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
-  const [busy, setBusy] = useState<'email' | 'code' | 'google' | null>(null);
+  const [busy, setBusy] = useState<'email' | 'code' | null>(null);
   const [error, setError] = useState<string | null>(initialError);
 
   async function sendCode(e: FormEvent) {
@@ -282,9 +281,8 @@ function PrivyLogin({
       setStep('code');
     } catch {
       // The core SDK accepts a CAPTCHA token but does not render the React
-      // SDK's challenge UI. Google remains available when the dashboard
-      // requires a challenge for passwordless email.
-      setError('Could not send a login code. If email verification is required, use Google or try again.');
+      // SDK's challenge UI. Keep CAPTCHA disabled for this email-only flow.
+      setError('Could not send a login code. Try again.');
     } finally {
       setBusy(null);
     }
@@ -305,17 +303,6 @@ function PrivyLogin({
     }
   }
 
-  async function loginWithGoogle() {
-    setBusy('google');
-    setError(null);
-    try {
-      await beginPrivyGoogleLogin();
-    } catch {
-      setError('Could not start Google sign-in. Try again.');
-      setBusy(null);
-    }
-  }
-
   return (
     <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
       <div className="coord mb-4">The Desk</div>
@@ -323,38 +310,26 @@ function PrivyLogin({
       <p className="mb-8 text-[13.5px] text-dim">Use an approved email account.</p>
 
       {step === 'email' ? (
-        <>
+        <form onSubmit={sendCode} className="flex flex-col gap-5">
+          <label className="sr-only" htmlFor="privy-email">Email address</label>
+          <input
+            id="privy-email"
+            type="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email address"
+            autoFocus
+            className="w-full border-b border-line bg-transparent px-1 py-2 text-center text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+          />
           <button
-            type="button"
-            disabled={busy !== null}
-            onClick={() => void loginWithGoogle()}
-            className="w-full border border-line px-4 py-3 text-[13px] font-bold tracking-[.02em] text-paper transition-colors hover:border-dim disabled:cursor-default disabled:opacity-50"
+            type="submit"
+            disabled={busy !== null || !email.trim()}
+            className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px] disabled:cursor-default disabled:opacity-50"
           >
-            {busy === 'google' ? 'Opening Google…' : 'Continue with Google'}
+            {busy === 'email' ? 'Sending…' : 'Email me a code →'}
           </button>
-          <div className="my-6 flex items-center gap-3 text-[10px] font-bold tracking-[.14em] text-faint uppercase">
-            <span className="h-px flex-1 bg-line" /> or <span className="h-px flex-1 bg-line" />
-          </div>
-          <form onSubmit={sendCode} className="flex flex-col gap-5">
-            <label className="sr-only" htmlFor="privy-email">Email address</label>
-            <input
-              id="privy-email"
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email address"
-              className="w-full border-b border-line bg-transparent px-1 py-2 text-center text-paper placeholder:text-faint focus:border-paper focus:outline-none"
-            />
-            <button
-              type="submit"
-              disabled={busy !== null || !email.trim()}
-              className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px] disabled:cursor-default disabled:opacity-50"
-            >
-              {busy === 'email' ? 'Sending…' : 'Email me a code →'}
-            </button>
-          </form>
-        </>
+        </form>
       ) : (
         <form onSubmit={verifyCode} className="flex flex-col gap-5">
           <p className="text-[13px] text-dim">Code sent to <span className="text-paper">{email}</span>.</p>

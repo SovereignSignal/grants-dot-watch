@@ -45,20 +45,18 @@ the persistent checkout.
 The Desk has independent owner and machine access paths:
 
 - **Privy owner access:** set `NEXT_PUBLIC_PRIVY_APP_ID`, `NEXT_PUBLIC_PRIVY_CLIENT_ID`,
-  server-only `PRIVY_APP_SECRET`, and comma-separated `DESK_OWNERS`. Register each deployment
-  origin in Privy with the exact callback path `/admin/auth/callback`, for example
-  `https://<deployment-origin>/admin/auth/callback`. Local OAuth uses
-  `http://localhost:3000/admin/auth/callback`. The server verifies every access token with
-  Privy, fetches the verified email from Privy, and checks `DESK_OWNERS`; client fields never
-  grant access.
+  server-only `PRIVY_APP_SECRET`, and comma-separated `DESK_OWNERS`. Allow each deployment
+  origin in the Privy app and Web client. Enable email OTP only, with CAPTCHA disabled. The
+  server verifies every access token with Privy, fetches the verified email account from Privy,
+  and checks `DESK_OWNERS`; client fields and OAuth accounts never grant access.
 - **Machine and fallback access:** `ADMIN_TOKEN` remains valid through the `x-admin-token`
   header and the Desk's HTTP-only cookie login. If either public Privy variable is omitted, the
   admin UI uses this token flow. Production fails closed when neither path is configured. An
   unset `ADMIN_TOKEN` opens the gate only outside production for local development.
 
 The browser integration deliberately uses `@privy-io/js-sdk-core` through a narrow auth-only
-adapter. Its boundary is session initialization, email OTP, Google OAuth, access-token refresh,
-and logout. Stripe funding and onramp, Farcaster, embedded or external wallets, Solana, signing,
+adapter. Its boundary is session initialization, email OTP, access-token refresh, and logout.
+Stripe funding and onramp, OAuth, Farcaster, embedded or external wallets, Solana, signing,
 and transaction APIs are disabled and their optional packages are not installed. Enabling any
 of those capabilities requires a separate security review. Privy describes Core as a low-level
 SDK; confirm this production use with Privy before enabling both public IDs in a deployment.
