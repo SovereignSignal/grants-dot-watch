@@ -1,23 +1,29 @@
 'use client';
 
 // The admin panel's owner gate, in two modes:
-//   - NEXT_PUBLIC_PRIVY_APP_ID unset: the pre-Privy machine-token form
+//   - either public Privy ID unset: the pre-Privy machine-token form
 //     (unchanged UX from the old Desk login), gated by /api/desk/lib's
 //     machine path. Dev convenience: with ADMIN_TOKEN also unset outside
 //     production, checkAuth() opens automatically and this gate passes
 //     without a form.
-//   - NEXT_PUBLIC_PRIVY_APP_ID set: "Log in with Privy" (email/Google), then
+//   - both public Privy IDs set: Privy email/Google login, then
 //     a server-side check that the verified email is in DESK_OWNERS.
 // Once past the gate, both tabs (The Desk, Health) render behind one shell.
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { PrivyProvider, usePrivy, useLogin, useLogout } from '@privy-io/react-auth';
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Coord } from '@/components/ui';
 import { tabClass } from '@/components/ui-filters';
 import { AdminAuthProvider } from './admin-auth';
-
-const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
+import {
+  beginPrivyGoogleLogin,
+  bootstrapPrivySession,
+  getPrivyAccessToken,
+  isPrivyConfigured,
+  loginWithPrivyEmail,
+  logoutPrivy,
+  sendPrivyEmailCode,
+} from './privy-core';
 
 const TABS = [
   { href: '/admin/desk', label: 'The Desk' },
@@ -25,21 +31,8 @@ const TABS = [
 ];
 
 export function AdminGate({ children }: { children: ReactNode }) {
-  if (!PRIVY_APP_ID) {
-    return <TokenGate>{children}</TokenGate>;
-  }
-  return (
-    <PrivyProvider
-      appId={PRIVY_APP_ID}
-      config={{
-        appearance: { theme: 'dark' },
-        loginMethods: ['email', 'google'],
-        embeddedWallets: { ethereum: { createOnLogin: 'off' } },
-      }}
-    >
-      <PrivyGate>{children}</PrivyGate>
-    </PrivyProvider>
-  );
+  if (!isPrivyConfigured) return <TokenGate>{children}</TokenGate>;
+  return <PrivyGate>{children}</PrivyGate>;
 }
 
 function AdminShell({ children }: { children: ReactNode }) {
@@ -150,56 +143,79 @@ function TokenLoginForm({ onAuthed }: { onAuthed: () => void }) {
 // --- Privy-mode gate ---
 
 function PrivyGate({ children }: { children: ReactNode }) {
-  const { ready, authenticated, getAccessToken } = usePrivy();
-  const { login } = useLogin();
-  const { logout } = useLogout();
+  const [ready, setReady] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [accessError, setAccessError] = useState<string | null>(null);
+
+  const handleAuthenticated = useCallback((authenticatedUserId: string) => {
+    setAuthError(null);
+    setAccessError(null);
+    setAuthorized(null);
+    setUserId(authenticatedUserId);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    void bootstrapPrivySession()
+      .then((restoredUserId) => {
+        if (!active) return;
+        setUserId(restoredUserId);
+      })
+      .catch(() => {
+        if (!active) return;
+        setUserId(null);
+        setAuthError('Could not restore the Privy session. Try signing in again.');
+      })
+      .finally(() => {
+        if (active) setReady(true);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const getAuthHeaders = useCallback(async (): Promise<Record<string, string>> => {
     try {
-      const token = await getAccessToken();
-      if (!token) return {};
+      const token = await getPrivyAccessToken();
+      if (!token) {
+        setUserId(null);
+        setAuthorized(null);
+        return {};
+      }
       return { Authorization: `Bearer ${token}` };
     } catch {
       return {};
     }
-  }, [getAccessToken]);
+  }, []);
 
   const probe = useCallback(async () => {
+    setAccessError(null);
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/desk/queue', { cache: 'no-store', headers });
-      setAuthorized(res.status !== 401 && res.status !== 403);
+      if (res.ok) setAuthorized(true);
+      else if (res.status === 401 || res.status === 403) setAuthorized(false);
+      else throw new Error(`Admin API returned ${res.status}`);
     } catch {
       setAuthorized(false);
+      setAccessError('Could not verify access with the admin API.');
     }
   }, [getAuthHeaders]);
 
   useEffect(() => {
-    if (ready && authenticated) {
-      probe();
+    if (ready && userId) {
+      void probe();
     } else if (ready) {
       setAuthorized(null);
     }
-  }, [ready, authenticated, probe]);
+  }, [ready, userId, probe]);
 
   if (!ready) return <Loading label="Loading the admin panel…" />;
 
-  if (!authenticated) {
-    return (
-      <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
-        <div className="coord mb-4">The Desk</div>
-        <h1 className="serif-statement mb-3 text-[26px] leading-[1.28] text-paper">Sign in to review the queue.</h1>
-        <p className="mb-8 text-[13.5px] text-dim">Log in to continue.</p>
-        <button
-          type="button"
-          onClick={() => login()}
-          className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px]"
-        >
-          Log in with Privy →
-        </button>
-      </div>
-    );
+  if (!userId) {
+    return <PrivyLogin initialError={authError} onAuthenticated={handleAuthenticated} />;
   }
 
   if (authorized === null) return <Loading label="Checking access…" />;
@@ -208,9 +224,26 @@ function PrivyGate({ children }: { children: ReactNode }) {
     return (
       <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
         <div className="coord mb-4">The Desk</div>
-        <h1 className="display mb-3 text-2xl text-paper">Not on the list.</h1>
-        <p className="mb-8 text-[13.5px] text-dim">This account isn&apos;t in the admin allowlist.</p>
-        <button type="button" onClick={() => logout()} className="coord underline decoration-line underline-offset-2 hover:text-dim">
+        <h1 className="display mb-3 text-2xl text-paper">{accessError ? 'Access check failed.' : 'Not on the list.'}</h1>
+        <p className="mb-8 text-[13.5px] text-dim">
+          {accessError || 'This account isn\'t in the admin allowlist.'}
+        </p>
+        {accessError && (
+          <button type="button" onClick={() => void probe()} className="coord mr-5 underline decoration-line underline-offset-2 hover:text-dim">
+            Try again
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => {
+            void logoutPrivy().finally(() => {
+              setAuthError(null);
+              setUserId(null);
+              setAuthorized(null);
+            });
+          }}
+          className="coord underline decoration-line underline-offset-2 hover:text-dim"
+        >
           Log out
         </button>
       </div>
@@ -221,5 +254,145 @@ function PrivyGate({ children }: { children: ReactNode }) {
     <AdminAuthProvider value={{ getAuthHeaders }}>
       <AdminShell>{children}</AdminShell>
     </AdminAuthProvider>
+  );
+}
+
+function PrivyLogin({
+  initialError,
+  onAuthenticated,
+}: {
+  initialError: string | null;
+  onAuthenticated: (userId: string) => void;
+}) {
+  const [step, setStep] = useState<'email' | 'code'>('email');
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [busy, setBusy] = useState<'email' | 'code' | 'google' | null>(null);
+  const [error, setError] = useState<string | null>(initialError);
+
+  async function sendCode(e: FormEvent) {
+    e.preventDefault();
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail) return;
+    setBusy('email');
+    setError(null);
+    try {
+      await sendPrivyEmailCode(normalizedEmail);
+      setEmail(normalizedEmail);
+      setStep('code');
+    } catch {
+      // The core SDK accepts a CAPTCHA token but does not render the React
+      // SDK's challenge UI. Google remains available when the dashboard
+      // requires a challenge for passwordless email.
+      setError('Could not send a login code. If email verification is required, use Google or try again.');
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function verifyCode(e: FormEvent) {
+    e.preventDefault();
+    const normalizedCode = code.replace(/\s/g, '');
+    if (!normalizedCode) return;
+    setBusy('code');
+    setError(null);
+    try {
+      onAuthenticated(await loginWithPrivyEmail(email, normalizedCode));
+    } catch {
+      setError('That code could not be verified. Check it and try again.');
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function loginWithGoogle() {
+    setBusy('google');
+    setError(null);
+    try {
+      await beginPrivyGoogleLogin();
+    } catch {
+      setError('Could not start Google sign-in. Try again.');
+      setBusy(null);
+    }
+  }
+
+  return (
+    <div className="mx-auto max-w-sm px-4 pt-24 pb-16 text-center">
+      <div className="coord mb-4">The Desk</div>
+      <h1 className="serif-statement mb-3 text-[26px] leading-[1.28] text-paper">Sign in to review the queue.</h1>
+      <p className="mb-8 text-[13.5px] text-dim">Use an approved email account.</p>
+
+      {step === 'email' ? (
+        <>
+          <button
+            type="button"
+            disabled={busy !== null}
+            onClick={() => void loginWithGoogle()}
+            className="w-full border border-line px-4 py-3 text-[13px] font-bold tracking-[.02em] text-paper transition-colors hover:border-dim disabled:cursor-default disabled:opacity-50"
+          >
+            {busy === 'google' ? 'Opening Google…' : 'Continue with Google'}
+          </button>
+          <div className="my-6 flex items-center gap-3 text-[10px] font-bold tracking-[.14em] text-faint uppercase">
+            <span className="h-px flex-1 bg-line" /> or <span className="h-px flex-1 bg-line" />
+          </div>
+          <form onSubmit={sendCode} className="flex flex-col gap-5">
+            <label className="sr-only" htmlFor="privy-email">Email address</label>
+            <input
+              id="privy-email"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              className="w-full border-b border-line bg-transparent px-1 py-2 text-center text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+            />
+            <button
+              type="submit"
+              disabled={busy !== null || !email.trim()}
+              className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px] disabled:cursor-default disabled:opacity-50"
+            >
+              {busy === 'email' ? 'Sending…' : 'Email me a code →'}
+            </button>
+          </form>
+        </>
+      ) : (
+        <form onSubmit={verifyCode} className="flex flex-col gap-5">
+          <p className="text-[13px] text-dim">Code sent to <span className="text-paper">{email}</span>.</p>
+          <label className="sr-only" htmlFor="privy-code">One-time code</label>
+          <input
+            id="privy-code"
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="One-time code"
+            autoFocus
+            className="w-full border-b border-line bg-transparent px-1 py-2 text-center tracking-[.18em] text-paper placeholder:tracking-normal placeholder:text-faint focus:border-paper focus:outline-none"
+          />
+          <button
+            type="submit"
+            disabled={busy !== null || !code.trim()}
+            className="mx-auto text-[13px] font-bold tracking-[.02em] text-paper underline decoration-1 underline-offset-[3px] disabled:cursor-default disabled:opacity-50"
+          >
+            {busy === 'code' ? 'Checking…' : 'Verify code →'}
+          </button>
+          <button
+            type="button"
+            disabled={busy !== null}
+            onClick={() => {
+              setStep('email');
+              setCode('');
+              setError(null);
+            }}
+            className="coord mx-auto text-faint underline decoration-line underline-offset-2 hover:text-dim disabled:opacity-50"
+          >
+            Use another method
+          </button>
+        </form>
+      )}
+
+      {error && <p className="mt-5 text-[13px] leading-5 text-closing">{error}</p>}
+    </div>
   );
 }
