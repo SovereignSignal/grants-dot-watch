@@ -14,12 +14,15 @@
 CREATE TABLE IF NOT EXISTS desk_applied_changes (
   id          serial PRIMARY KEY,
   proposal_id text,                       -- proposal id, or comma-joined ids for a bulk approve
-  files       jsonb NOT NULL,             -- [{path, content_after}] — full file contents post-write
+  files       jsonb NOT NULL,             -- [{path, content_before_hash, content_after}] compare-and-set snapshots
   message     text,                       -- the commit message that would have been used
+  state       text NOT NULL DEFAULT 'ready', -- prepared becomes ready atomically with the approved verdict
   sha         text,                       -- set by sync-desk-commits.mjs once committed locally
   synced_at   timestamptz,                -- set when synced (even if content already matched)
+  last_error  text,                       -- most recent replay conflict/error, cleared on success
+  last_attempt_at timestamptz,
   created_at  timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_unsynced
-  ON desk_applied_changes (id) WHERE synced_at IS NULL;
+CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_ready
+  ON desk_applied_changes (id) WHERE synced_at IS NULL AND state = 'ready';

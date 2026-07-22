@@ -9,7 +9,8 @@
 // notion_map upserts on org_id.
 //
 // Usage:
-//   node scripts/load-enrichment-pg.mjs [--db-url postgres://...] [--facts-applied N] [--proposals-created N]
+//   node scripts/load-enrichment-pg.mjs [--db-url postgres://...] --checked-at <ISO timestamp>
+//     [--facts-applied N] [--proposals-created N]
 
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -23,6 +24,7 @@ function parseArgs(argv) {
   const out = { factsApplied: 0, proposalsCreated: 0 };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--db-url') out.dbUrl = argv[++i];
+    if (argv[i] === '--checked-at') out.checkedAt = argv[++i];
     if (argv[i] === '--facts-applied') out.factsApplied = parseInt(argv[++i], 10) || 0;
     if (argv[i] === '--proposals-created') out.proposalsCreated = parseInt(argv[++i], 10) || 0;
   }
@@ -66,7 +68,6 @@ async function loadSourceChecks(client) {
     return { rows: 0, dead: 0 };
   }
   const checks = JSON.parse(readFileSync(path, 'utf8'));
-  const now = new Date().toISOString();
   let dead = 0;
   const rows = checks
     .filter((c) => c && c.org && c.url)
@@ -76,11 +77,17 @@ async function loadSourceChecks(client) {
         orgId: c.org,
         url: c.url,
         kind: c.kind || 'source',
-        lastChecked: now,
+        lastChecked: c.checked_at || c.checkedAt || args.checkedAt || null,
         httpStatus: typeof c.status === 'number' ? c.status : null,
         deadFlag: !!c.dead,
       };
     });
+  const missingTimestamp = rows.find((row) => !row.lastChecked || Number.isNaN(Date.parse(row.lastChecked)));
+  if (missingTimestamp) {
+    throw new Error(
+      'source checks need their real checked_at timestamp; add checked_at per row or pass --checked-at <ISO timestamp>'
+    );
+  }
 
   await client.query('BEGIN');
   try {

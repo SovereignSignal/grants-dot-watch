@@ -1,4 +1,4 @@
-import { applyProposal, commitChange, commitMessageFor } from '@/lib/committer';
+import { applyProposalDurably, registryMayHaveChanged } from '@/lib/committer';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from '@/lib/desk-store';
 import { checkAuth, unauthorized } from '../lib';
 
@@ -33,20 +33,27 @@ export async function POST(req: Request) {
 
   let commit: string | null = null;
   let mergedNote = note;
+  let ledgerRequired = false;
 
   if (decision === 'approved') {
     const claimed = await claimProposal(id);
     if (!claimed) return Response.json({ error: 'already claimed or decided' }, { status: 409 });
     proposal = claimed;
     try {
-      const { changes, notes } = applyProposal(proposal);
-      if (changes.length > 0) {
-        commit = await commitChange(changes.map((c) => c.path), commitMessageFor(proposal), proposal.id);
-      }
+      const { notes, changes, commit: appliedCommit } = await applyProposalDurably(proposal);
+      commit = appliedCommit;
+      ledgerRequired = Boolean(process.env.DATABASE_URL) && changes.length > 0 && appliedCommit === null;
       if (notes.length) mergedNote = [note, ...notes].filter(Boolean).join(' | ');
     } catch (e) {
-      await releaseProposalClaim(id);
-      return Response.json({ error: e instanceof Error ? e.message : 'apply failed' }, { status: 500 });
+      const held = registryMayHaveChanged(e);
+      if (!held) await releaseProposalClaim(id);
+      return Response.json(
+        {
+          error: e instanceof Error ? e.message : 'apply failed',
+          ...(held ? { reconciliation_hold: true } : {}),
+        },
+        { status: 500 }
+      );
     }
   }
 
@@ -54,6 +61,7 @@ export async function POST(req: Request) {
     note: mergedNote,
     commit,
     from: decision === 'approved' ? 'applying' : 'pending',
+    ledgerRequired,
   });
   return Response.json({ ok: true, commit, proposal: updated, verdict });
 }

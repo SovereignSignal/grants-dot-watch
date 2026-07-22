@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { dirname, extname, join, relative } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SCAN_ROOTS = ['src', 'scripts', '.github'];
-const ROOT_FILES = ['package.json', 'package-lock.json', 'railway.json', 'nixpacks.toml'];
-const TEXT_EXTENSIONS = new Set(['.js', '.jsx', '.mjs', '.cjs', '.ts', '.tsx', '.json', '.yml', '.yaml', '.toml']);
+const TEXT_EXTENSIONS = new Set([
+  '.css', '.graphql', '.html', '.js', '.jsx', '.md', '.mjs', '.cjs', '.sql',
+  '.svg', '.ts', '.tsx', '.txt', '.json', '.jsonl', '.yml', '.yaml', '.toml',
+]);
 const SELF = 'scripts/check-public-boundary.mjs';
 
 const rules = [
@@ -16,25 +18,19 @@ const rules = [
   { name: 'embedded Notion database id', pattern: /NOTION[^\n]{0,80}['"][0-9a-f]{32}['"]/i },
 ];
 
-function walk(path, out) {
-  if (!existsSync(path)) return;
-  const stat = statSync(path);
-  if (stat.isFile()) {
-    const rel = relative(ROOT, path);
-    if (rel !== SELF && TEXT_EXTENSIONS.has(extname(path))) out.push(path);
-    return;
-  }
-  for (const name of readdirSync(path)) walk(join(path, name), out);
-}
-
-const files = [];
-for (const root of SCAN_ROOTS) walk(join(ROOT, root), files);
-for (const file of ROOT_FILES) walk(join(ROOT, file), files);
+/** Scan everything that can enter the next commit, including non-ignored
+ *  untracked files. CI sees the tracked release boundary; local runs also
+ *  catch a leak before `git add`. */
+const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: ROOT })
+  .toString('utf8')
+  .split('\0')
+  .filter(Boolean)
+  .filter((rel) => rel !== SELF && TEXT_EXTENSIONS.has(extname(rel)))
+  .filter((rel) => existsSync(join(ROOT, rel)));
 
 const findings = [];
-for (const path of files) {
-  const rel = relative(ROOT, path);
-  const lines = readFileSync(path, 'utf8').split('\n');
+for (const rel of files) {
+  const lines = readFileSync(join(ROOT, rel), 'utf8').split('\n');
   for (let i = 0; i < lines.length; i++) {
     for (const rule of rules) {
       if (rule.pattern.test(lines[i])) findings.push(`${rel}:${i + 1}: ${rule.name}`);
@@ -48,4 +44,4 @@ if (findings.length) {
   process.exit(1);
 }
 
-console.log(`OK: public boundary clean across ${files.length} source/config files`);
+console.log(`OK: public boundary clean across ${files.length} tracked or untracked text files`);

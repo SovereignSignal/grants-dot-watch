@@ -1,4 +1,5 @@
 import { runIngest } from '@/lib/ingest';
+import { withIngestLock } from '@/lib/desk-store';
 import { checkAuth, unauthorized } from '../../desk/lib';
 
 export const runtime = 'nodejs';
@@ -29,8 +30,11 @@ export async function POST(req: Request) {
   const validationLimit = typeof body.limit === 'number' && body.limit > 0 ? body.limit : undefined;
 
   try {
-    const result = await runIngest({ backfill, validationLimit });
-    return Response.json(result);
+    const locked = await withIngestLock(() => runIngest({ backfill, validationLimit }));
+    if (!locked.ran) {
+      return Response.json({ error: 'an ingest run is already active' }, { status: 409 });
+    }
+    return Response.json(locked.result);
   } catch (e) {
     return Response.json({ error: e instanceof Error ? e.message : 'ingest run failed' }, { status: 500 });
   }

@@ -3,7 +3,8 @@ import { Empty } from '@/components/ui';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Org, Program, System } from '@/lib/types';
 import { cadenceFallback } from '@/lib/cadence';
-import { isPast, monthDayShort, monthTickPercent, todayISO, yearPercent } from './date-helpers';
+import { effectiveRoundLabel, isCurrentRound, productYear } from '@/lib/round-state';
+import { monthDayShort, monthTickPercent, todayISO, yearPercent } from './date-helpers';
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const LABEL_W = 220; // px — the lane label column, shared by the month header, gridline overlay, and every row
@@ -32,12 +33,13 @@ function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
     const opensPct = yearPercent(r.opens, year);
     const closesPct = yearPercent(r.closes, year);
     if (opensPct !== null && closesPct !== null && r.opens !== r.closes) {
+      const effective = effectiveRoundLabel(program, r, todayStr);
       out.push({
         kind: 'bar',
         startPct: Math.min(opensPct, closesPct),
         endPct: Math.max(opensPct, closesPct),
-        faded: isPast(r.closes as string, todayStr),
-        caption: `${monthDayShort(r.opens as string)}–${monthDayShort(r.closes as string)} round`,
+        faded: !isCurrentRound(program, r, todayStr),
+        caption: `${effective} · ${monthDayShort(r.opens as string)}–${monthDayShort(r.closes as string)}`,
       });
       continue;
     }
@@ -49,8 +51,10 @@ function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
     const dateStr = usingCloses ? r.closes : opensPct !== null ? r.opens : undefined;
     const pct = usingCloses ? closesPct : opensPct;
     if (dateStr && pct !== null) {
-      const faded = isPast(dateStr, todayStr);
-      const verb = usingCloses ? (faded ? 'Closed' : 'Closes') : faded ? 'Opened' : 'Opens';
+      const current = isCurrentRound(program, r, todayStr);
+      const faded = !current;
+      const effective = effectiveRoundLabel(program, r, todayStr);
+      const verb = current ? (usingCloses ? 'Closes' : 'Opens') : effective;
       out.push({ kind: 'mark', pct, faded, caption: `${verb} ${monthDayShort(dateStr)}` });
     }
   }
@@ -67,8 +71,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
 
   const orgById = new Map(orgs.map((o) => [o.id, o]));
   const systemById = new Map(systems.map((s) => [s.id, s]));
-  const now = new Date();
-  const year = now.getUTCFullYear();
+  const year = productYear();
   const todayStr = todayISO();
   const todayPct = yearPercent(todayStr, year) ?? 0;
 

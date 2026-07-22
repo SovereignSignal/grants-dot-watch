@@ -76,27 +76,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   The Registry of the Funding World
                 </span>
               </Link>
-              <div className="flex w-full items-center justify-between gap-2 md:w-auto md:gap-6">
-                <nav aria-label="Primary" className="coord flex items-center gap-2 sm:gap-5 md:gap-7">
+              <div className="relative flex w-full items-center justify-between gap-1 sm:gap-2 lg:w-auto lg:gap-6">
+                <nav
+                  aria-label="Primary"
+                  className="coord flex items-center gap-1 max-[340px]:text-[10px] max-[340px]:tracking-[.04em] sm:gap-5 lg:gap-7"
+                >
                   {NAV.map((n) => (
-                    <Link key={n.href} href={n.href} className={`${n.desktopOnly ? 'hidden md:inline' : ''} whitespace-nowrap transition-colors hover:text-paper`}>
-                      <span className="sm:hidden">{n.shortLabel}</span>
-                      <span className="hidden sm:inline">{n.label}</span>
+                    <Link key={n.href} href={n.href} className={`${n.desktopOnly ? 'hidden lg:inline' : ''} whitespace-nowrap transition-colors hover:text-paper`}>
+                      <span className="lg:hidden">{n.shortLabel}</span>
+                      <span className="hidden lg:inline">{n.label}</span>
                     </Link>
                   ))}
                 </nav>
-                <Search className="shrink-0" />
+                <Search />
                 <ThemeToggle className="shrink-0" />
               </div>
             </div>
             <div className="rule-heavy" />
             <div className="flex flex-col gap-1 border-b border-line py-2 text-[11px] uppercase tracking-[.07em] text-faint sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <span>
-                Registry updated <b className="font-bold text-dim">{dateLong(updatedAt)}</b> · {counts.orgs.toLocaleString()} organizations
+                Registry loaded <b className="font-bold text-dim">{dateLong(updatedAt)}</b> · {counts.orgs.toLocaleString()} organizations
               </span>
               <span className="hidden sm:inline">
-                <b className="font-bold text-dim">Edition {editionCode(updatedAt)}</b>{' '}
-                · Sourced &amp; linked, updated continuously
+                <b className="font-bold text-dim">Load {editionCode(updatedAt)}</b>{' '}
+                · Source-linked public index
               </span>
             </div>
           </div>

@@ -3,11 +3,13 @@
 // commit for provenance + undo. Field order in every written YAML file
 // follows registry/SCHEMA.md exactly.
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join } from 'node:path';
 import YAML from 'yaml';
-import { recordAppliedChanges } from './desk-store';
+import { recordAppliedChanges, type AppliedChangeReceipt } from './desk-store';
 import { invalidateRegistryCache, loadRegistry } from './registry';
+import { productDateISO } from './round-state';
 import type { Award, Org, Proposal, Program, Round, Wire } from './types';
 
 const REPO_ROOT = process.cwd();
@@ -17,11 +19,29 @@ export interface AppliedChange {
   path: string; // repo-relative, e.g. "registry/orgs/foo.yaml"
   content: string; // full new file contents (create/update) or the bytes to append (append)
   op: 'create' | 'update' | 'append';
+  /** Captured immediately before writing. These make durable replay
+   *  compare-and-set safe instead of a blind full-file overwrite. */
+  content_before?: string | null;
+  content_after?: string;
 }
 
 export interface ApplyResult {
   changes: AppliedChange[];
   notes: string[];
+}
+
+export class RegistryMutationError extends Error {
+  readonly registryMayHaveChanged: boolean;
+
+  constructor(message: string, registryMayHaveChanged: boolean, cause?: unknown) {
+    super(message, cause === undefined ? undefined : { cause });
+    this.name = 'RegistryMutationError';
+    this.registryMayHaveChanged = registryMayHaveChanged;
+  }
+}
+
+export function registryMayHaveChanged(error: unknown): boolean {
+  return error instanceof RegistryMutationError && error.registryMayHaveChanged;
 }
 
 // ---- small helpers ----
@@ -185,7 +205,7 @@ function mergeRounds(existing: Round[], incoming: unknown, evidenceUrl?: string 
     // Recency guard: a round whose deadline has already passed is closed by
     // definition — never written as open/announced regardless of what the
     // (possibly historical) evidence page states.
-    const todayISO = new Date().toISOString().slice(0, 10);
+    const todayISO = productDateISO();
     if (merged.closes && String(merged.closes) < todayISO && (merged.status === 'open' || merged.status === 'announced')) {
       merged.status = 'closed';
     }
@@ -594,15 +614,280 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
  *  /api/desk/decide-bulk) should invalidate once after the whole batch lands,
  *  not once per item. Single-proposal callers should use applyProposal below,
  *  which invalidates immediately. */
-export function writeProposalChanges(p: Proposal): ApplyResult {
+function materializeChanges(changes: AppliedChange[]): AppliedChange[] {
+  const virtual = new Map<string, string | null>();
+  for (const change of changes) {
+    const abs = join(REPO_ROOT, change.path);
+    const before = virtual.has(change.path)
+      ? virtual.get(change.path)!
+      : existsSync(abs)
+        ? readFileSync(abs, 'utf8')
+        : null;
+    const after = change.op === 'append' ? `${before ?? ''}${change.content}` : change.content;
+    change.content_before = before;
+    change.content_after = after;
+    virtual.set(change.path, after);
+  }
+  return changes;
+}
+
+function atomicWrite(path: string, content: string): void {
+  mkdirSync(dirname(path), { recursive: true });
+  const tmp = join(dirname(path), `.${basename(path)}.${process.pid}.${Date.now()}.tmp`);
+  try {
+    writeFileSync(tmp, content, 'utf8');
+    renameSync(tmp, path);
+  } catch (error) {
+    try {
+      if (existsSync(tmp)) unlinkSync(tmp);
+    } catch {
+      // The canonical destination was not affected by temp-file cleanup.
+    }
+    throw error;
+  }
+}
+
+function gitFileContent(spec: string): string | null {
+  try {
+    return execFileSync('git', ['show', spec], { cwd: REPO_ROOT, stdio: 'pipe' }).toString();
+  } catch {
+    return null;
+  }
+}
+
+/** Reject exact target paths that already carry owner edits. Paths changed by
+ *  an earlier proposal in the same batch are allowed only while their live
+ *  bytes still match the batch's last known snapshot. */
+export function assertCleanGitPaths(
+  changes: AppliedChange[],
+  allowedDirtySnapshots: ReadonlyMap<string, string> = new Map()
+): void {
+  if (process.env.GRANTS_WATCH_NO_GIT === '1') return;
+  try {
+    execFileSync('git', ['rev-parse', '--is-inside-work-tree'], { cwd: REPO_ROOT, stdio: 'pipe' });
+  } catch {
+    return;
+  }
+
+  const paths = [...new Set(changes.map((change) => change.path))];
+  const cleanRequired: string[] = [];
+  for (const path of paths) {
+    const expected = allowedDirtySnapshots.get(path);
+    if (expected === undefined) {
+      cleanRequired.push(path);
+      continue;
+    }
+    const abs = join(REPO_ROOT, path);
+    const live = existsSync(abs) ? readFileSync(abs, 'utf8') : null;
+    if (live !== expected) throw new Error(`${path} changed during the current Desk batch`);
+    try {
+      execFileSync('git', ['diff', '--cached', '--quiet', '--', path], { cwd: REPO_ROOT, stdio: 'pipe' });
+    } catch {
+      throw new Error(`${path} has an exact-path staged change; refusing to absorb it`);
+    }
+  }
+  if (cleanRequired.length === 0) return;
+  const status = execFileSync(
+    'git',
+    ['status', '--porcelain=v1', '--untracked-files=all', '--', ...cleanRequired],
+    { cwd: REPO_ROOT, stdio: 'pipe' }
+  )
+    .toString()
+    .trim();
+  if (status) throw new Error(`registry target already has owner edits: ${status.split('\n')[0]}`);
+}
+
+/** Captures complete before/after snapshots without mutating the filesystem. */
+export function prepareProposalChanges(p: Proposal): ApplyResult {
   const result = buildProposalChanges(p);
-  for (const c of result.changes) {
-    const abs = join(REPO_ROOT, c.path);
-    mkdirSync(dirname(abs), { recursive: true });
-    if (c.op === 'append') appendFileSync(abs, c.content, 'utf8');
-    else writeFileSync(abs, c.content, 'utf8');
+  materializeChanges(result.changes);
+  return result;
+}
+
+/** Atomically writes a prepared change set. One final rename is performed per
+ *  path, so readers never observe a partially written YAML or JSONL file. */
+export function writePreparedChanges(result: ApplyResult): ApplyResult {
+  const finalByPath = new Map<string, { before: string | null; after: string }>();
+  for (const change of result.changes) {
+    if (change.content_before === undefined || change.content_after === undefined) {
+      throw new Error(`change ${change.path} was not prepared before write`);
+    }
+    const prior = finalByPath.get(change.path);
+    finalByPath.set(change.path, {
+      before: prior ? prior.before : change.content_before,
+      after: change.content_after,
+    });
+  }
+  // Compare every live file before touching any path. JavaScript executes
+  // this synchronous preflight and write loop without in-process interleave;
+  // Postgres outbox path conflicts cover separate no-git instances.
+  for (const [path, snapshot] of finalByPath) {
+    const abs = join(REPO_ROOT, path);
+    const live = existsSync(abs) ? readFileSync(abs, 'utf8') : null;
+    if (live !== snapshot.before) {
+      throw new Error(`${path} changed after preparation; refusing to overwrite`);
+    }
+  }
+  const written: Array<[string, { before: string | null; after: string }]> = [];
+  try {
+    for (const entry of finalByPath) {
+      const [path, snapshot] = entry;
+      atomicWrite(join(REPO_ROOT, path), snapshot.after);
+      written.push(entry);
+    }
+  } catch (error) {
+    const rollbackErrors: string[] = [];
+    for (const [path, snapshot] of written.reverse()) {
+      const abs = join(REPO_ROOT, path);
+      try {
+        const live = existsSync(abs) ? readFileSync(abs, 'utf8') : null;
+        if (live !== snapshot.after) throw new Error('live bytes changed before rollback');
+        if (snapshot.before === null) unlinkSync(abs);
+        else atomicWrite(abs, snapshot.before);
+      } catch (rollbackError) {
+        rollbackErrors.push(`${path}: ${rollbackError instanceof Error ? rollbackError.message : String(rollbackError)}`);
+      }
+    }
+    const detail = error instanceof Error ? error.message : String(error);
+    if (rollbackErrors.length > 0) {
+      throw new RegistryMutationError(
+        `registry write failed (${detail}); rollback incomplete: ${rollbackErrors.join('; ')}`,
+        true,
+        error
+      );
+    }
+    throw new RegistryMutationError(`registry write failed and was rolled back: ${detail}`, false, error);
   }
   return result;
+}
+
+export function writeProposalChanges(p: Proposal): ApplyResult {
+  return writePreparedChanges(prepareProposalChanges(p));
+}
+
+function sha256(content: string): string {
+  return createHash('sha256').update(content).digest('hex');
+}
+
+function ledgerFilesFromChanges(
+  files: string[],
+  changes?: AppliedChange[]
+): { path: string; content_before_hash?: string | null; content_after: string }[] {
+  const snapshots = new Map<string, { before: string | null; after: string }>();
+  for (const change of changes || []) {
+    if (change.content_after === undefined || change.content_before === undefined) continue;
+    const previous = snapshots.get(change.path);
+    snapshots.set(change.path, {
+      before: previous ? previous.before : change.content_before,
+      after: change.content_after,
+    });
+  }
+  return files.map((path) => {
+    const snapshot = snapshots.get(path);
+    if (snapshot) {
+      return {
+        path,
+        content_before_hash: snapshot.before === null ? null : sha256(snapshot.before),
+        content_after: snapshot.after,
+      };
+    }
+    return { path, content_after: readFileSync(join(REPO_ROOT, path), 'utf8') };
+  });
+}
+
+function assertGitBaseSnapshots(changes: AppliedChange[] | undefined): void {
+  if (!changes || changes.length === 0) return;
+  try {
+    execFileSync('git', ['rev-parse', '--is-inside-work-tree'], { cwd: REPO_ROOT, stdio: 'pipe' });
+  } catch {
+    return;
+  }
+  const snapshots = new Map<string, { before: string | null; after: string }>();
+  for (const change of changes) {
+    if (change.content_before === undefined || change.content_after === undefined) {
+      throw new Error(`${change.path} has no prepared git base snapshot`);
+    }
+    const previous = snapshots.get(change.path);
+    snapshots.set(change.path, {
+      before: previous ? previous.before : change.content_before,
+      after: change.content_after,
+    });
+  }
+  for (const [path, snapshot] of snapshots) {
+    const head = gitFileContent(`HEAD:${path}`);
+    if (head !== snapshot.before) throw new Error(`${path} HEAD changed after Desk preparation`);
+    const index = gitFileContent(`:${path}`);
+    const live = existsSync(join(REPO_ROOT, path)) ? readFileSync(join(REPO_ROOT, path), 'utf8') : null;
+    const cleanIndex = index === head;
+    const resumableDeskIndex = index === snapshot.after && live === snapshot.after;
+    if (!cleanIndex && !resumableDeskIndex) {
+      throw new Error(`${path} has an exact-path staged change; refusing to overwrite it`);
+    }
+  }
+}
+
+/** Durably records a prepared change before an ephemeral production write.
+ *  Local git-backed callers can keep using commitChange's failure ledger. */
+export async function recordPreparedChangeIntent(
+  result: ApplyResult,
+  message: string,
+  proposalId?: string | null
+): Promise<AppliedChangeReceipt | null> {
+  if (result.changes.length === 0) return null;
+  const files = [...new Set(result.changes.map((change) => change.path))];
+  return recordAppliedChanges(
+    {
+      proposal_id: proposalId ?? null,
+      files: ledgerFilesFromChanges(files, result.changes),
+      message,
+    },
+    'prepared'
+  );
+}
+
+/** Prepare, ledger first on ephemeral production, then write and commit. */
+export async function applyProposalDurably(
+  p: Proposal,
+  message: string = commitMessageFor(p)
+): Promise<ApplyResult & { commit: string | null }> {
+  if (process.env.GRANTS_WATCH_NO_GIT === '1' && !process.env.DATABASE_URL) {
+    throw new Error('GRANTS_WATCH_NO_GIT=1 requires DATABASE_URL for durable approvals');
+  }
+  const result = prepareProposalChanges(p);
+  assertCleanGitPaths(result.changes);
+  const { validateStagedChanges } = await import('./proposal-validator');
+  const stagedError = validateStagedChanges(result.changes);
+  if (stagedError) throw new Error(`staged registry validation failed: ${stagedError}`);
+  if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+    await recordPreparedChangeIntent(result, message, p.id);
+  }
+  let writeCompleted = false;
+  try {
+    writePreparedChanges(result);
+    writeCompleted = true;
+    if (result.changes.length > 0) invalidateRegistryCache();
+    const commit =
+      process.env.GRANTS_WATCH_NO_GIT === '1'
+        ? null
+        : await commitChange(
+            result.changes.map((change) => change.path),
+            message,
+            p.id,
+            result.changes,
+            { fallbackState: 'prepared' }
+          );
+    return { ...result, commit };
+  } catch (error) {
+    if (error instanceof RegistryMutationError) throw error;
+    if (writeCompleted) {
+      throw new RegistryMutationError(
+        `registry changed but approval handoff did not finish: ${error instanceof Error ? error.message : String(error)}`,
+        true,
+        error
+      );
+    }
+    throw error;
+  }
 }
 
 /** Writes buildProposalChanges' output to disk. Invalidates the in-memory
@@ -621,22 +906,6 @@ export function commitMessageFor(p: Proposal): string {
   return lines.join('\n');
 }
 
-/** Reads each written file back off disk so the ledger row carries the full
- *  post-write content — enough to reconstruct the change on another machine
- *  without this filesystem (Railway's is ephemeral). */
-function filesWithContentAfter(files: string[]): { path: string; content_after: string }[] {
-  return files.map((path) => {
-    let content = '';
-    try {
-      content = readFileSync(join(REPO_ROOT, path), 'utf8');
-    } catch {
-      // written moments ago, so this should not happen; ledger an empty
-      // marker rather than dropping the path from the record
-    }
-    return { path, content_after: content };
-  });
-}
-
 /** Best-effort local git commit, scoped to exactly the files passed in — never
  *  a blanket `registry/` add, so approving one Desk proposal can never sweep
  *  up unrelated local registry changes. Whenever no sha is produced — the
@@ -646,23 +915,37 @@ function filesWithContentAfter(files: string[]): { path: string; content_after: 
  *  .data/pending-commits.jsonl) and this returns null; the file mutation
  *  already happened and is never rolled back. scripts/sync-desk-commits.mjs
  *  replays those ledger rows into real commits on a machine with git. */
-export async function commitChange(files: string[], message: string, proposalId?: string | null): Promise<string | null> {
+export async function commitChange(
+  files: string[],
+  message: string,
+  proposalId?: string | null,
+  changes?: AppliedChange[],
+  options: { recordFallback?: boolean; fallbackState?: 'prepared' | 'ready' } = {}
+): Promise<string | null> {
   if (files.length === 0) return null;
   const ledger = () =>
-    recordAppliedChanges({ proposal_id: proposalId ?? null, files: filesWithContentAfter(files), message });
+    recordAppliedChanges(
+      {
+        proposal_id: proposalId ?? null,
+        files: ledgerFilesFromChanges(files, changes),
+        message,
+      },
+      options.fallbackState ?? 'ready'
+    );
   if (process.env.GRANTS_WATCH_NO_GIT === '1') {
-    await ledger();
+    if (options.recordFallback !== false) await ledger();
     return null;
   }
   try {
+    assertGitBaseSnapshots(changes);
     execFileSync('git', ['add', '--', ...files], { cwd: REPO_ROOT, stdio: 'pipe' });
-    execFileSync('git', ['commit', '-m', message, '--author', 'The Desk <desk@grants.watch>'], {
+    execFileSync('git', ['commit', '--only', '-m', message, '--author', 'The Desk <desk@grants.watch>', '--', ...files], {
       cwd: REPO_ROOT,
       stdio: 'pipe',
     });
     return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO_ROOT, stdio: 'pipe' }).toString().trim();
   } catch {
-    await ledger();
+    if (options.recordFallback !== false) await ledger();
     return null;
   }
 }

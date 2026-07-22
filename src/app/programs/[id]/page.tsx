@@ -14,6 +14,7 @@ import { awardsForProgram } from '@/lib/awards';
 import { parsePage } from '@/lib/pagination';
 import { AwardLedger } from '@/components/awards/award-ledger';
 import { param, type SearchParams } from '@/components/ledger/query';
+import { effectiveRoundLabel, isCurrentRound } from '@/lib/round-state';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -124,7 +125,7 @@ export default async function ProgramPage({
               </div>
               {rounds.map((r, i) => {
                 const dateStr = r.closes || r.opens || null;
-                const closingSoon = isClosingSoon(r.closes);
+                const closingSoon = isCurrentRound(program, r) && isClosingSoon(r.closes);
                 return (
                   <RoundRow
                     key={`${r.name}-${i}`}
@@ -134,7 +135,7 @@ export default async function ProgramPage({
                     title={r.name}
                     size={r.size}
                     mechanism={mechanismLabel}
-                    statusWord={ROUND_STATUS_LABEL[r.status] || r.status}
+                    statusWord={effectiveRoundLabel(program, r) || ROUND_STATUS_LABEL[r.status] || r.status}
                     wireColor={wireColor}
                     sourceHref={r.source || undefined}
                   />

@@ -8,7 +8,7 @@
 // blocks the other, and watermarks only advance for a source that actually
 // succeeded.
 import { Pool } from 'pg';
-import { buildOrgDedupeIndex, domainOf, norm, type OrgDedupeIndex } from './proposal-validator';
+import { domainOf, norm } from './proposal-validator';
 import { slugify } from './committer';
 import {
   getIngestState,
@@ -21,6 +21,7 @@ import { loadRegistry } from './registry';
 import { runValidation } from './validation-runner';
 import type { Org, Program, Round, Wire } from './types';
 import { buildNewProgramSourceFields } from './ingest-policy';
+import { productDateISO } from './round-state';
 
 const WIRE_DATABASE_URL = process.env.WIRE_DATABASE_URL;
 // NOT https://discuss.watch/api/v1/grants — verified live (2026-07-11) that the bare
@@ -38,7 +39,6 @@ const DISCUSS_PAGE_LIMIT = 100;
 const DISCUSS_MAX_PAGES_INCREMENTAL = 20; // 2,000 items/run safety cap
 const DISCUSS_MAX_PAGES_BACKFILL = 100; // 10,000 items safety cap for "from its beginning"
 
-const CONFIDENCE_FLOOR = 55;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // ============================================================
@@ -145,12 +145,14 @@ async function fetchWireEntries(opts: {
 // discuss.watch pre-classified grants feed
 // ============================================================
 
-interface DiscussItem {
+export interface DiscussItem {
   id: number;
   name?: string | null;
   title?: string | null;
   url: string;
   wire?: string | null;
+  classification?: string | null;
+  kind?: string | null;
   protocol?: string | null;
   confidence?: number | null;
   program?: string | null;
@@ -166,9 +168,185 @@ interface DiscussItem {
 }
 
 interface DiscussFeedResponse {
-  items?: DiscussItem[];
+  items?: unknown[];
   meta?: { count?: number; nextCursor?: number | null };
   error?: string;
+}
+
+export interface DiscussQuarantineItem {
+  id: number | null;
+  reason: string;
+}
+
+export interface DiscussBoundary {
+  since: string;
+  last_id: number;
+}
+
+export interface DiscussPendingWindow {
+  mode: 'incremental' | 'backfill';
+  since: string | null;
+  next_cursor: number;
+  max_seen: DiscussBoundary | null;
+}
+
+export interface DiscussWatermark {
+  since?: string;
+  last_id?: number;
+  pending?: DiscussPendingWindow;
+}
+
+export interface DiscussFetchResult {
+  items: DiscussItem[];
+  error: string | null;
+  /** True only when the API explicitly ended the cursor chain. */
+  exhausted: boolean;
+  /** Cursor to persist and resume when a safety cap stops this run. */
+  nextCursor: number | null;
+  quarantined: DiscussQuarantineItem[];
+  quarantinedCount: number;
+  policyFiltered: DiscussQuarantineItem[];
+  policyFilteredCount: number;
+  policyReasons: Record<string, number>;
+  /** Newest valid timestamp/id pair seen, including malformed item bodies. */
+  maxSeen: DiscussBoundary | null;
+}
+
+interface DiscussWindow {
+  mode: 'incremental' | 'backfill';
+  since: string | null;
+  cursor: number | null;
+  maxSeen: DiscussBoundary | null;
+}
+
+const OPTIONAL_DISCUSS_STRINGS = [
+  'name',
+  'title',
+  'wire',
+  'classification',
+  'kind',
+  'protocol',
+  'program',
+  'currency',
+  'deadline',
+  'status',
+  'applyUrl',
+  'excerpt',
+  'topicCreatedAt',
+  'firstSeenAt',
+] as const;
+
+const OPTIONAL_DISCUSS_NUMBERS = ['confidence', 'amountMin', 'amountMax'] as const;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function validHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return (url.protocol === 'http:' || url.protocol === 'https:') && Boolean(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function asIsoTimestamp(value: unknown): string | null {
+  if (typeof value !== 'string' || !value.trim()) return null;
+  const milliseconds = Date.parse(value);
+  return Number.isFinite(milliseconds) ? new Date(milliseconds).toISOString() : null;
+}
+
+function rawDiscussBoundary(value: unknown): DiscussBoundary | null {
+  if (!isRecord(value) || !Number.isSafeInteger(value.id) || (value.id as number) < 0) return null;
+  const since = asIsoTimestamp(value.firstSeenAt) || asIsoTimestamp(value.topicCreatedAt);
+  return since ? { since, last_id: value.id as number } : null;
+}
+
+export function laterDiscussBoundary(a: DiscussBoundary | null, b: DiscussBoundary | null): DiscussBoundary | null {
+  if (!a) return b;
+  if (!b) return a;
+  if (a.since !== b.since) return a.since > b.since ? a : b;
+  return a.last_id >= b.last_id ? a : b;
+}
+
+/** Runtime contract for an untrusted feed item. A bad record is isolated and
+ *  reported instead of being allowed to throw while the rest of the page is
+ *  mapped. */
+export function parseDiscussItem(value: unknown): { item: DiscussItem | null; reason: string | null } {
+  if (!isRecord(value)) return { item: null, reason: 'item is not an object' };
+  if (!Number.isSafeInteger(value.id) || (value.id as number) < 0) {
+    return { item: null, reason: 'id must be a non-negative safe integer' };
+  }
+  if (typeof value.url !== 'string' || !validHttpUrl(value.url)) {
+    return { item: null, reason: 'url must be an absolute http(s) URL' };
+  }
+
+  for (const field of OPTIONAL_DISCUSS_STRINGS) {
+    const candidate = value[field];
+    if (candidate !== undefined && candidate !== null && typeof candidate !== 'string') {
+      return { item: null, reason: `${field} must be a string or null` };
+    }
+  }
+  for (const field of OPTIONAL_DISCUSS_NUMBERS) {
+    const candidate = value[field];
+    if (candidate !== undefined && candidate !== null && (typeof candidate !== 'number' || !Number.isFinite(candidate))) {
+      return { item: null, reason: `${field} must be a finite number or null` };
+    }
+  }
+  if (typeof value.confidence === 'number' && (value.confidence < 0 || value.confidence > 100)) {
+    return { item: null, reason: 'confidence must be between 0 and 100' };
+  }
+  for (const field of ['amountMin', 'amountMax'] as const) {
+    if (typeof value[field] === 'number' && value[field] < 0) {
+      return { item: null, reason: `${field} must be non-negative` };
+    }
+  }
+  if (typeof value.amountMin === 'number' && typeof value.amountMax === 'number' && value.amountMax < value.amountMin) {
+    return { item: null, reason: 'amountMax must be greater than or equal to amountMin' };
+  }
+  if (typeof value.applyUrl === 'string' && value.applyUrl && !validHttpUrl(value.applyUrl)) {
+    return { item: null, reason: 'applyUrl must be an absolute http(s) URL or null' };
+  }
+  for (const field of ['topicCreatedAt', 'firstSeenAt'] as const) {
+    if (typeof value[field] === 'string' && value[field] && asIsoTimestamp(value[field]) === null) {
+      return { item: null, reason: `${field} must be a valid timestamp or null` };
+    }
+  }
+  if (!asIsoTimestamp(value.firstSeenAt) && !asIsoTimestamp(value.topicCreatedAt)) {
+    return { item: null, reason: 'firstSeenAt or topicCreatedAt is required' };
+  }
+  if (typeof value.deadline === 'string' && value.deadline && isoDateOnly(value.deadline) === null) {
+    return { item: null, reason: 'deadline must be a real ISO calendar date or null' };
+  }
+
+  return { item: value as unknown as DiscussItem, reason: null };
+}
+
+function policyToken(value: string | null | undefined): string {
+  return (value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+const APPLICANT_SIGNAL_TOKENS = new Set(['applicant', 'applicant_observation', 'application', 'grant_application', 'proposal']);
+const CLOSED_SIGNAL_TOKENS = new Set(['closed', 'completed', 'ended', 'expired']);
+
+function applicantSignalReason(classification?: string | null, kind?: string | null, tags: string[] = []): string | null {
+  const tokens = [classification, kind, ...tags].map(policyToken).filter(Boolean);
+  const matched = tokens.find((token) => APPLICANT_SIGNAL_TOKENS.has(token));
+  return matched ? `applicant signal (${matched})` : null;
+}
+
+/** Applicant submissions are private observations, not evidence that a
+ *  funder program should be created or changed. Closed records are historical
+ *  observations and cannot establish a current opportunity. */
+export function discussPolicyExclusionReason(item: DiscussItem): string | null {
+  const applicantReason = applicantSignalReason(item.classification, item.kind);
+  if (applicantReason) return applicantReason;
+  const status = policyToken(item.status);
+  return CLOSED_SIGNAL_TOKENS.has(status) ? `non-current status (${status})` : null;
 }
 
 /** Paginates GET .../grants via its cursor (id-descending pages; nextCursor
@@ -177,11 +355,39 @@ interface DiscussFeedResponse {
  *  ("from its beginning"). No auth: the live feed takes no API key (verified
  *  against both discuss.watch and its Railway origin — see the report this
  *  ingest loop shipped with). Fails soft: a mid-pagination error returns
- *  whatever pages already landed, with an error string. */
-async function fetchDiscussItems(opts: { backfill: boolean; since: string | null }): Promise<{ items: DiscussItem[]; error: string | null }> {
+ *  whatever pages already landed, with an error string. A safety-cap stop is
+ *  a distinct incomplete result carrying the next cursor; callers persist it
+ *  and resume the same fixed `since` window before advancing their boundary. */
+export async function fetchDiscussItems(opts: {
+  backfill: boolean;
+  since: string | null;
+  cursor?: number | null;
+  /** Test seam. Production always uses the source-specific constants above. */
+  maxPages?: number;
+}): Promise<DiscussFetchResult> {
   const items: DiscussItem[] = [];
-  let cursor: number | null = null;
-  const maxPages = opts.backfill ? DISCUSS_MAX_PAGES_BACKFILL : DISCUSS_MAX_PAGES_INCREMENTAL;
+  const quarantined: DiscussQuarantineItem[] = [];
+  const policyFiltered: DiscussQuarantineItem[] = [];
+  let quarantinedCount = 0;
+  let policyFilteredCount = 0;
+  const policyReasons: Record<string, number> = {};
+  let maxSeen: DiscussBoundary | null = null;
+  let cursor = opts.cursor ?? null;
+  const maxPages = opts.maxPages ?? (opts.backfill ? DISCUSS_MAX_PAGES_BACKFILL : DISCUSS_MAX_PAGES_INCREMENTAL);
+  if (!Number.isSafeInteger(maxPages) || maxPages <= 0) {
+    return {
+      items,
+      error: 'discuss.watch maxPages must be a positive integer',
+      exhausted: false,
+      nextCursor: cursor,
+      quarantined,
+      quarantinedCount,
+      policyFiltered,
+      policyFilteredCount,
+      policyReasons,
+      maxSeen,
+    };
+  }
   try {
     for (let page = 0; page < maxPages; page++) {
       const params = new URLSearchParams({ limit: String(DISCUSS_PAGE_LIMIT) });
@@ -191,18 +397,71 @@ async function fetchDiscussItems(opts: { backfill: boolean; since: string | null
         headers: { Accept: 'application/json' },
         signal: AbortSignal.timeout(15_000),
       });
-      if (!res.ok) return { items, error: `discuss.watch returned ${res.status}` };
+      if (!res.ok) {
+        return { items, error: `discuss.watch returned ${res.status}`, exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
       const data = (await res.json()) as DiscussFeedResponse;
-      if (data.error) return { items, error: data.error };
-      if (!Array.isArray(data.items) || data.items.length === 0) break;
-      items.push(...data.items);
-      const next = data.meta?.nextCursor;
-      if (next == null) break;
-      cursor = next;
+      if (!isRecord(data)) {
+        return { items, error: 'discuss.watch returned a non-object payload', exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      if (typeof data.error === 'string' && data.error) {
+        return { items, error: data.error, exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      if (!Array.isArray(data.items)) {
+        return { items, error: 'discuss.watch payload is missing items[]', exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      if (data.items.length === 0) {
+        return { items, error: null, exhausted: true, nextCursor: null, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      for (const raw of data.items) {
+        maxSeen = laterDiscussBoundary(maxSeen, rawDiscussBoundary(raw));
+        const parsed = parseDiscussItem(raw);
+        if (parsed.item) {
+          const policyReason = discussPolicyExclusionReason(parsed.item);
+          if (policyReason) {
+            policyFilteredCount++;
+            policyReasons[policyReason] = (policyReasons[policyReason] || 0) + 1;
+            if (policyFiltered.length < 100) policyFiltered.push({ id: parsed.item.id, reason: policyReason });
+          } else {
+            items.push(parsed.item);
+          }
+        } else {
+          quarantinedCount++;
+          if (quarantined.length < 100) {
+            quarantined.push({ id: isRecord(raw) && Number.isSafeInteger(raw.id) ? (raw.id as number) : null, reason: parsed.reason || 'invalid item' });
+          }
+        }
+      }
+      if (data.meta !== undefined && !isRecord(data.meta)) {
+        return { items, error: 'discuss.watch returned invalid meta', exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      const next = isRecord(data.meta) ? data.meta.nextCursor : null;
+      if (next == null) {
+        return { items, error: null, exhausted: true, nextCursor: null, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      if (!Number.isSafeInteger(next) || (next as number) < 0) {
+        return { items, error: 'discuss.watch returned an invalid nextCursor', exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      const nextCursor = next as number;
+      if (nextCursor === cursor) {
+        return { items, error: 'discuss.watch cursor did not advance', exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
+      }
+      cursor = nextCursor;
     }
-    return { items, error: null };
+    return { items, error: null, exhausted: false, nextCursor: cursor, quarantined, quarantinedCount, policyFiltered, policyFilteredCount, policyReasons, maxSeen };
   } catch (e) {
-    return { items, error: e instanceof Error ? e.message : 'discuss.watch fetch failed' };
+    return {
+      items,
+      error: e instanceof Error ? e.message : 'discuss.watch fetch failed',
+      exhausted: false,
+      nextCursor: cursor,
+      quarantined,
+      quarantinedCount,
+      policyFiltered,
+      policyFilteredCount,
+      policyReasons,
+      maxSeen,
+    };
   }
 }
 
@@ -260,59 +519,156 @@ function normalizeWire(w: string | null | undefined): Wire | null {
   return w === 'crypto' || w === 'ai' || w === 'oss' ? w : null;
 }
 
-/** First 10 chars if they parse as YYYY-MM-DD, else null — never passes
- *  through a non-ISO string as though it were a checkable date literal
- *  (proposal-validator's findDateLiterals only recognizes that exact shape). */
-function isoDateOnly(s: string | null | undefined): string | null {
+/** Accepts an exact ISO date or the date component of a valid ISO timestamp.
+ *  Shape alone is insufficient: 2026-02-29 and 2026-99-99 must never become
+ *  proposed facts. */
+export function isoDateOnly(s: string | null | undefined): string | null {
   if (!s) return null;
-  const d = String(s).slice(0, 10);
-  return ISO_DATE_RE.test(d) ? d : null;
+  const value = String(s).trim();
+  const d = value.slice(0, 10);
+  if (!ISO_DATE_RE.test(d)) return null;
+  if (value.length > 10 && (value[10] !== 'T' || asIsoTimestamp(value) === null)) return null;
+
+  const year = Number(d.slice(0, 4));
+  const month = Number(d.slice(5, 7));
+  const day = Number(d.slice(8, 10));
+  if (month < 1 || month > 12 || day < 1) return null;
+  const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return day <= daysInMonth[month - 1] ? d : null;
+}
+
+/** Preserve only a score the upstream source actually supplied. Unknown,
+ *  non-numeric, and out-of-contract values stay unknown instead of being
+ *  promoted to an invented floor. */
+export function normalizeConfidence(value: unknown): number | undefined {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 100 ? value : undefined;
 }
 
 /** Which existing round a fact-type update should target. Zero rounds on
- *  file: safe to create one under a stable generic name so repeat updates to
- *  the same program keep re-targeting it. Exactly one: target it by its real
+ *  file: create a dated `Current call`, never a semantically rolling round.
+ *  Repeat updates keep re-targeting that stable name. Exactly one: use its real
  *  name (mergeRounds matches on name). Two or more: which round the new
  *  deadline belongs to is genuinely ambiguous from a wire/forum signal alone
  *  — never guess, the caller drops the candidate instead. */
-function pickRoundName(existingRounds: Round[]): string | null {
-  if (existingRounds.length === 0) return 'Rolling';
+export function pickRoundName(existingRounds: Round[]): string | null {
+  if (existingRounds.length === 0) return 'Current call';
   if (existingRounds.length === 1) return existingRounds[0].name;
   return null;
 }
 
-/** Exact normalized match first, then a loose substring match either
- *  direction — the same fallback resolveProgramSlug (committer.ts) uses when
- *  approving a hand-shaped fact proposal, so a wire-mapped one resolves the
- *  same way a human-authored one would. */
-function matchProgram(nameCandidate: string | null, candidates: Program[]): Program | null {
-  if (!nameCandidate) return null;
-  const n = norm(nameCandidate);
-  if (!n) return null;
-  const exact = candidates.find((p) => norm(p.name) === n);
-  if (exact) return exact;
-  return candidates.find((p) => norm(p.name).includes(n) || n.includes(norm(p.name))) || null;
+interface ProgramMatch {
+  program: Program | null;
+  ambiguous: boolean;
 }
 
-/** Domain candidates first (strong signal), then name candidates — mirrors
- *  proposal-validator's findDuplicateOrg, generalized to accept several
- *  candidate domains/names per item (a wire row can offer both the linked
- *  org_profiles.website and the entry's own source_url domain). */
-function resolveOrg(index: OrgDedupeIndex, domains: (string | null | undefined)[], names: (string | null | undefined)[]): Org | null {
-  for (const raw of domains) {
-    const d = domainOf(raw);
-    if (d && index.byDomain.has(d)) return index.byDomain.get(d)!;
+/** Match only when the selected tier has one result. An exact name wins over
+ *  broader substring candidates, while duplicate exact names and ambiguous
+ *  substring matches are quarantined instead of depending on registry order. */
+function matchProgram(nameCandidate: string | null, candidates: Program[]): ProgramMatch {
+  if (!nameCandidate) return { program: null, ambiguous: false };
+  const n = norm(nameCandidate);
+  if (!n) return { program: null, ambiguous: false };
+
+  const exact = candidates.filter((p) => norm(p.name) === n);
+  if (exact.length > 0) {
+    return exact.length === 1
+      ? { program: exact[0], ambiguous: false }
+      : { program: null, ambiguous: true };
   }
-  for (const raw of names) {
-    if (!raw) continue;
-    const key = norm(raw);
-    if (key && index.byName.has(key)) return index.byName.get(key)!;
+
+  const loose = candidates.filter((p) => {
+    const candidateName = norm(p.name);
+    return candidateName && (candidateName.includes(n) || n.includes(candidateName));
+  });
+  return loose.length === 1
+    ? { program: loose[0], ambiguous: false }
+    : { program: null, ambiguous: loose.length > 1 };
+}
+
+export interface IngestOrgIndex {
+  byCanonicalName: Map<string, Org[]>;
+  byAlias: Map<string, Org[]>;
+  byDomain: Map<string, Org[]>;
+}
+
+const SHARED_PLATFORM_DOMAINS = new Set([
+  'x.com', 'twitter.com', 'github.com', 'discord.gg', 'discord.com',
+  't.me', 'telegram.me', 'telegram.org', 'medium.com', 'mirror.xyz',
+  'warpcast.com', 'farcaster.xyz', 'youtube.com', 'youtu.be', 'linkedin.com',
+  'reddit.com', 'facebook.com', 'instagram.com', 'notion.site', 'linktr.ee',
+  'substack.com', 'bsky.app', 'lens.xyz', 'tiktok.com',
+]);
+
+function addOrg(index: Map<string, Org[]>, key: string | null, org: Org): void {
+  if (!key) return;
+  const matches = index.get(key) || [];
+  if (!matches.some((candidate) => candidate.id === org.id)) matches.push(org);
+  index.set(key, matches);
+}
+
+/** Preserve every registry collision. Resolution decides whether a key is
+ *  unique; index construction never picks a winner based on file order. */
+export function buildIngestOrgIndex(orgs: Org[]): IngestOrgIndex {
+  const byCanonicalName = new Map<string, Org[]>();
+  const byAlias = new Map<string, Org[]>();
+  const byDomain = new Map<string, Org[]>();
+
+  for (const org of orgs) {
+    addOrg(byCanonicalName, norm(org.name), org);
+    for (const alias of org.aka || []) addOrg(byAlias, norm(alias), org);
+
+    const socialUrls = org.socials ? Object.values(org.socials) : [];
+    for (const url of [org.website, ...socialUrls]) {
+      const domain = domainOf(url);
+      if (domain && !SHARED_PLATFORM_DOMAINS.has(domain)) addOrg(byDomain, domain, org);
+    }
   }
-  return null;
+
+  return { byCanonicalName, byAlias, byDomain };
+}
+
+interface OrgMatch {
+  org: Org | null;
+  ambiguous: boolean;
+  tier: 'canonical name' | 'alias' | 'domain' | null;
+}
+
+function matchesAtTier(index: Map<string, Org[]>, keys: string[]): Org[] {
+  const matches = new Map<string, Org>();
+  for (const key of keys) {
+    for (const org of index.get(key) || []) matches.set(org.id, org);
+  }
+  return [...matches.values()];
+}
+
+/** Resolve by the strongest available tier: canonical name, unique alias,
+ *  then unique domain. If the selected tier points at multiple orgs, stop
+ *  there and quarantine the item rather than falling through or picking the
+ *  first registry entry. */
+function resolveOrg(
+  index: IngestOrgIndex,
+  domains: (string | null | undefined)[],
+  names: (string | null | undefined)[]
+): OrgMatch {
+  const nameKeys = [...new Set(names.map((raw) => norm(raw || '')).filter(Boolean))];
+  const domainKeys = [...new Set(domains.map((raw) => domainOf(raw)).filter((value): value is string => Boolean(value)))];
+  const tiers: Array<{ name: OrgMatch['tier']; matches: Org[] }> = [
+    { name: 'canonical name', matches: matchesAtTier(index.byCanonicalName, nameKeys) },
+    { name: 'alias', matches: matchesAtTier(index.byAlias, nameKeys) },
+    { name: 'domain', matches: matchesAtTier(index.byDomain, domainKeys) },
+  ];
+
+  for (const tier of tiers) {
+    if (tier.matches.length === 0) continue;
+    if (tier.matches.length === 1) return { org: tier.matches[0], ambiguous: false, tier: tier.name };
+    return { org: null, ambiguous: true, tier: tier.name };
+  }
+  return { org: null, ambiguous: false, tier: null };
 }
 
 interface MapContext {
-  index: OrgDedupeIndex;
+  index: IngestOrgIndex;
   programs: Program[];
 }
 
@@ -323,10 +679,15 @@ interface MapOutcome {
    *  IngestResult.dropped. Both fields false/null means the item was
    *  filtered before mapping (e.g. no wire) and isn't counted either way. */
   dropped: boolean;
+  dropReason?: string;
 }
 
 const NO_OUTCOME: MapOutcome = { candidate: null, dropped: false };
 const DROPPED: MapOutcome = { candidate: null, dropped: true };
+
+function policyDropped(reason: string): MapOutcome {
+  return { candidate: null, dropped: true, dropReason: reason };
+}
 
 /** Shared decision tree for both sources once they're reduced to a common
  *  shape (an org resolver already tried, a program-name candidate, an
@@ -340,7 +701,7 @@ const DROPPED: MapOutcome = { candidate: null, dropped: true };
  *    unresolved org, a plausible org name + evidence url       -> new_org
  *    unresolved org, no plausible org name                     -> dropped
  */
-function decide(input: {
+export function decide(input: {
   org: Org | null;
   orgNameCandidate: string | null;
   orgWebsiteGuess: string | null;
@@ -350,7 +711,7 @@ function decide(input: {
   amount: string | null;
   evidenceUrl: string;
   wire: Wire | null;
-  confidence: number;
+  confidence?: number;
   signalId: string;
   summary: string;
   programs: Program[];
@@ -359,7 +720,9 @@ function decide(input: {
 
   if (org) {
     const orgPrograms = programs.filter((p) => p.org === org.id);
-    const programMatch = matchProgram(programNameCandidate, orgPrograms);
+    const programResolution = matchProgram(programNameCandidate, orgPrograms);
+    if (programResolution.ambiguous) return policyDropped('ambiguous program identity');
+    const programMatch = programResolution.program;
 
     if (programMatch) {
       if (!deadline) return DROPPED; // matched an existing program but nothing new/dated to say
@@ -454,12 +817,14 @@ function decide(input: {
   return DROPPED; // no org_id/protocol at all — no plausible org name to build anything from
 }
 
-function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
+export function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
+  const applicantReason = applicantSignalReason(row.classification, null, row.tags || []);
+  if (applicantReason) return policyDropped(applicantReason);
   const wire = normalizeWire(row.wire);
   const evidenceUrl = row.source_url;
   if (!evidenceUrl) return NO_OUTCOME;
 
-  const confidence = Math.max(CONFIDENCE_FLOOR, row.quality_score ?? 0);
+  const confidence = normalizeConfidence(row.quality_score);
   const deadline = isoDateOnly(row.deadline_iso) || isoDateOnly(row.deadline);
   const amount = row.amount ? row.amount.trim() || null : null;
   const programNameCandidate = (row.name || '').trim() || null;
@@ -474,10 +839,11 @@ function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
   // new_org candidate; that's an honest limitation of the columns available.
   const domainCandidates = [row.org_website, evidenceUrl];
   const nameCandidates = row.org_id != null ? [row.org_name, ...(row.org_aliases || [])] : [];
-  const org = resolveOrg(ctx.index, domainCandidates, nameCandidates);
+  const orgResolution = resolveOrg(ctx.index, domainCandidates, nameCandidates);
+  if (orgResolution.ambiguous) return policyDropped(`ambiguous org identity (${orgResolution.tier} collision)`);
 
   return decide({
-    org,
+    org: orgResolution.org,
     orgNameCandidate: row.org_id != null ? row.org_name : null,
     orgWebsiteGuess: row.org_website || null,
     programApplyUrl: null,
@@ -493,7 +859,9 @@ function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
   });
 }
 
-function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
+export function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
+  const policyReason = discussPolicyExclusionReason(item);
+  if (policyReason) return policyDropped(policyReason);
   const wire = normalizeWire(item.wire);
   const evidenceUrl = item.url;
   if (!evidenceUrl) return NO_OUTCOME;
@@ -501,7 +869,7 @@ function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
   const title = (item.title || item.name || '').trim();
   const programNameCandidate = (item.program || title || '').trim() || null;
   const orgNameCandidate = (item.protocol || '').trim() || null;
-  const confidence = Math.max(CONFIDENCE_FLOOR, item.confidence ?? 0);
+  const confidence = normalizeConfidence(item.confidence);
   const deadline = isoDateOnly(item.deadline);
   const amount = formatDiscussAmount(item);
   const summaryFallback = `${title || orgNameCandidate || 'A funder'}: funding signal from discuss.watch, no further detail on file.`;
@@ -509,10 +877,11 @@ function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
 
   // applyUrl (when present) is the org's own "apply here" link, a much
   // better domain signal than the forum thread URL — tried first.
-  const org = resolveOrg(ctx.index, [item.applyUrl, item.url], [orgNameCandidate]);
+  const orgResolution = resolveOrg(ctx.index, [item.applyUrl, item.url], [orgNameCandidate]);
+  if (orgResolution.ambiguous) return policyDropped(`ambiguous org identity (${orgResolution.tier} collision)`);
 
   return decide({
-    org,
+    org: orgResolution.org,
     orgNameCandidate,
     orgWebsiteGuess: null,
     programApplyUrl: item.applyUrl || null,
@@ -528,6 +897,96 @@ function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
   });
 }
 
+function normalizeBoundary(value: unknown): DiscussBoundary | null {
+  if (!isRecord(value)) return null;
+  const since = asIsoTimestamp(value.since);
+  if (!since || !Number.isSafeInteger(value.last_id) || (value.last_id as number) < 0) return null;
+  return { since, last_id: value.last_id as number };
+}
+
+/** Reads both the original {since,last_id} state and the resumable-window
+ *  extension defensively. An invalid pending cursor is ignored so it cannot
+ *  wedge ingestion forever. */
+export function normalizeDiscussWatermark(value: unknown): DiscussWatermark {
+  if (!isRecord(value)) return {};
+  const completed = normalizeBoundary(value);
+  const normalized: DiscussWatermark = {};
+  if (completed) {
+    normalized.since = completed.since;
+    normalized.last_id = completed.last_id;
+  }
+
+  const pending = value.pending;
+  if (
+    isRecord(pending) &&
+    (pending.mode === 'incremental' || pending.mode === 'backfill') &&
+    Number.isSafeInteger(pending.next_cursor) &&
+    (pending.next_cursor as number) >= 0 &&
+    (pending.since === null || asIsoTimestamp(pending.since) !== null)
+  ) {
+    normalized.pending = {
+      mode: pending.mode,
+      since: pending.since === null ? null : asIsoTimestamp(pending.since),
+      next_cursor: pending.next_cursor as number,
+      max_seen: normalizeBoundary(pending.max_seen),
+    };
+  }
+  return normalized;
+}
+
+export function openDiscussWindow(value: unknown, requestedBackfill: boolean): DiscussWindow {
+  const state = normalizeDiscussWatermark(value);
+  if (state.pending) {
+    return {
+      mode: state.pending.mode,
+      since: state.pending.since,
+      cursor: state.pending.next_cursor,
+      maxSeen: state.pending.max_seen,
+    };
+  }
+  const completed = state.since != null && state.last_id != null ? { since: state.since, last_id: state.last_id } : null;
+  return {
+    mode: requestedBackfill ? 'backfill' : 'incremental',
+    since: requestedBackfill ? null : state.since || null,
+    cursor: null,
+    maxSeen: completed,
+  };
+}
+
+/** Returns the durable state after a clean page batch. A capped batch keeps
+ *  the completed boundary in place and stores its cursor/window. Exhaustion
+ *  atomically promotes the accumulated newest boundary and clears pending. */
+export function nextDiscussWatermark(value: unknown, window: DiscussWindow, result: DiscussFetchResult): DiscussWatermark | null {
+  if (result.error) return null;
+  const state = normalizeDiscussWatermark(value);
+  const maxSeen = laterDiscussBoundary(window.maxSeen, result.maxSeen);
+
+  if (!result.exhausted) {
+    if (result.nextCursor == null) return null;
+    const pending: DiscussPendingWindow = {
+      mode: window.mode,
+      since: window.since,
+      next_cursor: result.nextCursor,
+      max_seen: maxSeen,
+    };
+    return {
+      ...(state.since != null && state.last_id != null ? { since: state.since, last_id: state.last_id } : {}),
+      pending,
+    };
+  }
+
+  if (maxSeen) return { since: maxSeen.since, last_id: maxSeen.last_id };
+  if (state.since != null && state.last_id != null) return { since: state.since, last_id: state.last_id };
+  return {};
+}
+
+function discussItemAfterBoundary(item: DiscussItem, boundary: DiscussBoundary | null): boolean {
+  if (!boundary) return true;
+  const itemBoundary = rawDiscussBoundary(item);
+  if (!itemBoundary) return true;
+  return itemBoundary.since > boundary.since || (itemBoundary.since === boundary.since && itemBoundary.last_id > boundary.last_id);
+}
+
 // ============================================================
 // orchestration
 // ============================================================
@@ -539,8 +998,15 @@ export interface IngestOptions {
 
 export interface IngestResult {
   source_counts: {
-    wire: { fetched: number; error: string | null };
-    discuss: { fetched: number; error: string | null };
+    wire: { fetched: number; error: string | null; policy_filtered: number; policy_reasons: Record<string, number> };
+    discuss: {
+      fetched: number;
+      error: string | null;
+      incomplete: boolean;
+      quarantined: number;
+      policy_filtered: number;
+      policy_reasons: Record<string, number>;
+    };
   };
   proposals_created: number;
   deduped: number;
@@ -560,10 +1026,11 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
   const backfill = opts.backfill === true;
   const errors: string[] = [];
   const { orgs, programs } = loadRegistry();
-  const ctx: MapContext = { index: buildOrgDedupeIndex(orgs), programs };
+  const ctx: MapContext = { index: buildIngestOrgIndex(orgs), programs };
 
   const candidates: RawMinerProposal[] = [];
   let dropped = 0;
+  const wirePolicyReasons: Record<string, number> = {};
 
   // ---- wire ----
   const wireWatermarkRaw = await getIngestState('wire_scan_entries');
@@ -573,7 +1040,10 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
   for (const row of wireRows) {
     const outcome = mapWireRow(row, ctx);
     if (outcome.candidate) candidates.push(outcome.candidate);
-    else if (outcome.dropped) dropped++;
+    else if (outcome.dropped) {
+      dropped++;
+      if (outcome.dropReason) wirePolicyReasons[outcome.dropReason] = (wirePolicyReasons[outcome.dropReason] || 0) + 1;
+    }
   }
   const wireWatermarkCandidate: WireWatermark | null =
     !wireError && wireRows.length > 0
@@ -582,36 +1052,43 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
 
   // ---- discuss.watch ----
   const discussWatermarkRaw = await getIngestState('discuss_grants');
-  const discussWatermarkObj =
-    discussWatermarkRaw && typeof discussWatermarkRaw === 'object' ? (discussWatermarkRaw as { since?: unknown; last_id?: unknown }) : null;
-  const discussSince = typeof discussWatermarkObj?.since === 'string' ? discussWatermarkObj.since : null;
-  const discussLastId = typeof discussWatermarkObj?.last_id === 'number' ? discussWatermarkObj.last_id : null;
-
-  const { items: discussItemsRaw, error: discussError } = await fetchDiscussItems({ backfill, since: backfill ? null : discussSince });
+  const discussState = normalizeDiscussWatermark(discussWatermarkRaw);
+  const discussWindow = openDiscussWindow(discussState, backfill);
+  const discussFetch = await fetchDiscussItems({
+    backfill: discussWindow.mode === 'backfill',
+    since: discussWindow.since,
+    cursor: discussWindow.cursor,
+  });
+  const discussError = discussFetch.error;
   if (discussError) errors.push(`discuss: ${discussError}`);
-  // The feed's `since` is INCLUSIVE (verified live 2026-07-11: since=<an item's own
-  // firstSeenAt> returns that same item), so without this filter the boundary item
-  // would re-satisfy `since` and get "fetched" again on every subsequent run forever,
-  // the same failure shape the wire watermark had before its own id tie-break fix.
-  // Client-side id filter closes it: an id we've already advanced past is never
-  // reprocessed, regardless of what the server's inclusive boundary hands back.
-  const discussItems = !backfill && discussLastId != null ? discussItemsRaw.filter((it) => it.id > discussLastId) : discussItemsRaw;
+  if (!discussError && !discussFetch.exhausted) {
+    errors.push(`discuss: page cap reached; cursor ${discussFetch.nextCursor ?? 'unknown'} will resume the current window`);
+  }
+  if (discussFetch.quarantinedCount > 0) {
+    const sample = discussFetch.quarantined
+      .slice(0, 3)
+      .map((item) => `${item.id ?? 'unknown'}: ${item.reason}`)
+      .join('; ');
+    errors.push(`discuss: quarantined ${discussFetch.quarantinedCount} malformed item(s)${sample ? ` (${sample})` : ''}`);
+    dropped += discussFetch.quarantinedCount;
+  }
+  dropped += discussFetch.policyFilteredCount;
+
+  // The feed's `since` is inclusive. Compare the timestamp/id tuple only at
+  // the completed boundary; a global id-only filter can discard a later item
+  // whose source assigned a lower id.
+  const completedDiscussBoundary =
+    discussState.since != null && discussState.last_id != null ? { since: discussState.since, last_id: discussState.last_id } : null;
+  const discussItems =
+    discussWindow.mode === 'incremental'
+      ? discussFetch.items.filter((item) => discussItemAfterBoundary(item, completedDiscussBoundary))
+      : discussFetch.items;
   for (const item of discussItems) {
     const outcome = mapDiscussItem(item, ctx);
     if (outcome.candidate) candidates.push(outcome.candidate);
     else if (outcome.dropped) dropped++;
   }
-  const discussWatermarkCandidate: { since: string; last_id: number } | null = (() => {
-    if (discussError || discussItems.length === 0) return null;
-    let maxSince = discussSince || '';
-    let maxId = discussLastId ?? 0;
-    for (const item of discussItems) {
-      const t = item.firstSeenAt || item.topicCreatedAt;
-      if (t && t > maxSince) maxSince = t;
-      if (item.id > maxId) maxId = item.id;
-    }
-    return maxSince ? { since: maxSince, last_id: maxId } : null;
-  })();
+  const discussWatermarkCandidate = nextDiscussWatermark(discussState, discussWindow, discussFetch);
 
   // ---- insert (store-level dedupe: signal ref + type/org/program) ----
   let insertOk = false;
@@ -638,7 +1115,28 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
         errors.push(`wire watermark write failed: ${e instanceof Error ? e.message : 'unknown error'}`);
       }
     }
-    if (discussWatermarkCandidate) {
+    const discussExcludedCount = discussFetch.quarantinedCount + discussFetch.policyFilteredCount;
+    let quarantineStored = discussExcludedCount === 0;
+    if (discussExcludedCount > 0) {
+      try {
+        await setIngestState('discuss_grants_quarantine', {
+          at: new Date().toISOString(),
+          count: discussExcludedCount,
+          malformed_count: discussFetch.quarantinedCount,
+          policy_filtered_count: discussFetch.policyFilteredCount,
+          policy_reasons: discussFetch.policyReasons,
+          truncated: discussExcludedCount > discussFetch.quarantined.length + discussFetch.policyFiltered.length,
+          items: [
+            ...discussFetch.quarantined.map((item) => ({ ...item, category: 'malformed' })),
+            ...discussFetch.policyFiltered.map((item) => ({ ...item, category: 'policy' })),
+          ],
+        });
+        quarantineStored = true;
+      } catch (e) {
+        errors.push(`discuss quarantine write failed: ${e instanceof Error ? e.message : 'unknown error'}`);
+      }
+    }
+    if (discussWatermarkCandidate && quarantineStored) {
       try {
         await setIngestState('discuss_grants', discussWatermarkCandidate);
         watermarks.discuss_grants = discussWatermarkCandidate;
@@ -659,8 +1157,20 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
 
   return {
     source_counts: {
-      wire: { fetched: wireRows.length, error: wireError },
-      discuss: { fetched: discussItems.length, error: discussError },
+      wire: {
+        fetched: wireRows.length,
+        error: wireError,
+        policy_filtered: Object.values(wirePolicyReasons).reduce((sum, count) => sum + count, 0),
+        policy_reasons: wirePolicyReasons,
+      },
+      discuss: {
+        fetched: discussItems.length,
+        error: discussError,
+        incomplete: !discussError && !discussFetch.exhausted,
+        quarantined: discussFetch.quarantinedCount,
+        policy_filtered: discussFetch.policyFilteredCount,
+        policy_reasons: discussFetch.policyReasons,
+      },
     },
     proposals_created: insertOk ? inserted!.inserted.length : 0,
     deduped: insertOk ? inserted!.skipped : 0,
@@ -674,6 +1184,72 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
 // ============================================================
 // scheduler (src/instrumentation.ts, INGEST_ENABLED=1)
 // ============================================================
+
+interface DailyIngestClaim {
+  day: string;
+  status: 'claimed' | 'completed' | 'failed';
+  claimed_at: string;
+  completed_at?: string;
+  failed_at?: string;
+  error?: string;
+}
+
+interface DailyIngestDependencies {
+  getState?: typeof getIngestState;
+  setState?: typeof setIngestState;
+  run?: () => Promise<IngestResult>;
+}
+
+const DAILY_CLAIM_LEASE_MS = 2 * 60 * 60 * 1000;
+
+function dailyClaimKey(day: string): string {
+  return `daily_ingest_claim:${day}`;
+}
+
+function blocksDailyRun(value: unknown, now: Date): boolean {
+  if (!isRecord(value)) return false;
+  if (value.status === 'completed') return true;
+  if (value.status !== 'claimed' || typeof value.claimed_at !== 'string') return false;
+  const claimedAt = Date.parse(value.claimed_at);
+  return Number.isFinite(claimedAt) && now.getTime() - claimedAt < DAILY_CLAIM_LEASE_MS;
+}
+
+/** Must run inside withIngestLock. The advisory lock serializes the read and
+ *  write; this durable day-keyed claim keeps a second replica from starting a
+ *  sequential run as soon as the first replica releases that lock. */
+export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyIngestDependencies = {}): Promise<{
+  executed: boolean;
+  day: string;
+  result?: IngestResult;
+}> {
+  const getState = deps.getState ?? getIngestState;
+  const setState = deps.setState ?? setIngestState;
+  const run = deps.run ?? (() => runIngest({}));
+  const day = productDateISO(now);
+  const key = dailyClaimKey(day);
+  if (blocksDailyRun(await getState(key), now)) return { executed: false, day };
+
+  const claimedAt = now.toISOString();
+  const claim: DailyIngestClaim = { day, status: 'claimed', claimed_at: claimedAt };
+  await setState(key, claim);
+  try {
+    const result = await run();
+    await setState(key, { ...claim, status: 'completed', completed_at: new Date().toISOString() } satisfies DailyIngestClaim);
+    return { executed: true, day, result };
+  } catch (e) {
+    try {
+      await setState(key, {
+        ...claim,
+        status: 'failed',
+        failed_at: new Date().toISOString(),
+        error: e instanceof Error ? e.message : 'daily ingest failed',
+      } satisfies DailyIngestClaim);
+    } catch {
+      // Preserve the original run error. A failed claim write must not hide it.
+    }
+    throw e;
+  }
+}
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const JITTER_MS = 30 * 60 * 1000; // ±30 min
@@ -697,9 +1273,17 @@ export function startDailyIngestTimer(): void {
 
   const tick = async () => {
     try {
-      const { ran, result } = await withIngestLock(() => runIngest({}));
+      const { ran, result } = await withIngestLock(() => runDailyIngestOnce());
+      // Another replica already completed or claimed this product day. Keep
+      // its full last_run record instead of replacing it with a skip record.
+      if (ran && result && !result.executed) return;
       const at = new Date().toISOString();
-      await setIngestState('last_run', ran ? { at, skipped_lock: false, ...result } : { at, skipped_lock: true });
+      await setIngestState(
+        'last_run',
+        ran && result?.executed
+          ? { at, skipped_lock: false, ...result.result }
+          : { at, skipped_lock: true }
+      );
     } catch (e) {
       try {
         await setIngestState('last_run', { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'ingest timer failed' });

@@ -6,15 +6,17 @@
 //
 // Usage:
 //   node scripts/load-registry-pg.mjs [--db-url postgres://...]
+//   node scripts/load-registry-pg.mjs --check-only
 //   DATABASE_URL=postgres://... node scripts/load-registry-pg.mjs
 //
 // Safe to run repeatedly: index tables are TRUNCATE+reload in one transaction,
 // org_sources upserts with ON CONFLICT DO NOTHING (never clobbers
 // last_checked/http_status/dead), migrations apply once via a ledger table.
 
+import { execFileSync } from 'node:child_process';
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { dirname, join, basename } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { Pool } from 'pg';
 import YAML from 'yaml';
@@ -26,16 +28,17 @@ const MIGRATIONS_DIR = join(ROOT, 'db', 'migrations');
 // ---- args / connection string ----
 
 function parseArgs(argv) {
-  const out = {};
+  const out = { checkOnly: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--db-url') out.dbUrl = argv[++i];
+    else if (argv[i] === '--check-only') out.checkOnly = true;
   }
   return out;
 }
 
 const args = parseArgs(process.argv.slice(2));
 const connectionString = args.dbUrl || process.env.DATABASE_URL;
-if (!connectionString) {
+if (!connectionString && !args.checkOnly) {
   console.error('No Postgres URL: pass --db-url <url> or set DATABASE_URL.');
   process.exit(1);
 }
@@ -43,7 +46,7 @@ if (!connectionString) {
 // Mirrors src/lib/desk-store.ts: no explicit ssl override, so pg's default
 // TLS behavior (and any sslmode= in the connection string) applies as-is —
 // never disable certificate verification here.
-const pool = new Pool({ connectionString });
+const pool = connectionString ? new Pool({ connectionString }) : null;
 
 // ---- content hashing (dedup / change detection per row) ----
 
@@ -61,32 +64,31 @@ function contentHash(record) {
   return createHash('sha1').update(JSON.stringify(canonical(record))).digest('hex');
 }
 
-// ---- registry parsing: reuse src/lib/registry.ts if importable, else parse directly ----
+// ---- strict registry parsing, always anchored to this checkout ----
 
-async function loadRegistryData() {
-  const tsPath = join(ROOT, 'src', 'lib', 'registry.ts');
-  if (existsSync(tsPath)) {
-    try {
-      const mod = await import(pathToFileURL(tsPath).href);
-      const idx = mod.loadRegistry(true);
-      return { systems: idx.systems, orgs: idx.orgs, programs: idx.programs, awards: idx.awards };
-    } catch (e) {
-      console.warn(`could not import src/lib/registry.ts (${e.message}); falling back to direct YAML/JSONL parse`);
-    }
-  }
-  return loadRegistryDataDirect();
+function runRegistryValidation() {
+  execFileSync(process.execPath, [join(ROOT, 'scripts', 'validate-registry.mjs')], {
+    cwd: ROOT,
+    env: process.env,
+    stdio: 'inherit',
+  });
 }
 
 function loadYamlDir(sub) {
   const dir = join(REGISTRY_DIR, sub);
-  if (!existsSync(dir)) return [];
+  if (!existsSync(dir)) throw new Error(`missing registry/${sub} directory`);
   const out = [];
-  for (const f of readdirSync(dir).filter((f) => f.endsWith('.yaml'))) {
+  const files = readdirSync(dir).filter((f) => f.endsWith('.yaml')).sort();
+  if (files.length === 0) throw new Error(`registry/${sub} contains no YAML files`);
+  for (const f of files) {
     try {
       const doc = YAML.parse(readFileSync(join(dir, f), 'utf8'));
-      if (doc && typeof doc === 'object') out.push(doc);
-    } catch {
-      // a broken file never takes the loader down; validate-registry.mjs catches it in CI
+      if (!doc || typeof doc !== 'object' || Array.isArray(doc)) {
+        throw new Error('document must be a mapping');
+      }
+      out.push(doc);
+    } catch (e) {
+      throw new Error(`registry/${sub}/${f}: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
   return out;
@@ -94,24 +96,29 @@ function loadYamlDir(sub) {
 
 function loadAwardsDirect() {
   const dir = join(REGISTRY_DIR, 'awards');
-  if (!existsSync(dir)) return [];
+  if (!existsSync(dir)) throw new Error('missing registry/awards directory');
   const out = [];
-  for (const f of readdirSync(dir).filter((f) => f.endsWith('.jsonl'))) {
-    for (const line of readFileSync(join(dir, f), 'utf8').split('\n')) {
+  const files = readdirSync(dir).filter((f) => f.endsWith('.jsonl')).sort();
+  if (files.length === 0) throw new Error('registry/awards contains no JSONL files');
+  for (const f of files) {
+    const lines = readFileSync(join(dir, f), 'utf8').split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
       if (!line.trim()) continue;
       try {
         const rec = JSON.parse(line);
+        if (!rec || typeof rec !== 'object' || Array.isArray(rec)) throw new Error('record must be an object');
         rec.__year_file = f;
         out.push(rec);
-      } catch {
-        /* skip bad line */
+      } catch (e) {
+        throw new Error(`registry/awards/${f}:${i + 1}: ${e instanceof Error ? e.message : String(e)}`);
       }
     }
   }
   return out;
 }
 
-function loadRegistryDataDirect() {
+function loadRegistryData() {
   return {
     systems: loadYamlDir('systems'),
     orgs: loadYamlDir('orgs'),
@@ -338,6 +345,26 @@ async function reloadIndexTables(client, data) {
       }
     );
 
+    const expected = {
+      systems: data.systems.length,
+      orgs: data.orgs.length,
+      programs: data.programs.length,
+      rounds: data.programs.reduce((n, p) => n + (Array.isArray(p.rounds) ? p.rounds.length : 0), 0),
+      awards: data.awards.length,
+    };
+    for (const [table, key] of [
+      ['registry_systems', 'systems'],
+      ['registry_orgs', 'orgs'],
+      ['registry_programs', 'programs'],
+      ['registry_rounds', 'rounds'],
+      ['registry_awards', 'awards'],
+    ]) {
+      const { rows } = await client.query(`SELECT count(*)::int AS n FROM ${table}`);
+      if (rows[0]?.n !== expected[key]) {
+        throw new Error(`${table} reload invariant failed: expected ${expected[key]}, got ${rows[0]?.n ?? 'unknown'}`);
+      }
+    }
+
     await client.query('COMMIT');
   } catch (e) {
     await client.query('ROLLBACK');
@@ -417,11 +444,23 @@ function fileCounts() {
 
 async function main() {
   const started = new Date();
+  // Refuse to touch disposable index tables unless the canonical files pass
+  // the same validation gate used in CI. This runs before any transaction or
+  // TRUNCATE and is independent of the caller's working directory.
+  runRegistryValidation();
+  const data = loadRegistryData();
+  if (args.checkOnly) {
+    const rounds = data.programs.reduce((n, p) => n + (Array.isArray(p.rounds) ? p.rounds.length : 0), 0);
+    console.log(
+      `Loader preflight OK: ${data.systems.length} systems, ${data.orgs.length} orgs, ` +
+        `${data.programs.length} programs, ${rounds} rounds, ${data.awards.length} awards`
+    );
+    return;
+  }
+  if (!pool) throw new Error('Postgres pool unavailable');
   const client = await pool.connect();
   try {
     await applyMigrations(client);
-
-    const data = await loadRegistryData();
     await reloadIndexTables(client, data);
     const orgSourcesInserted = await seedOrgSources(client, data.orgs);
 

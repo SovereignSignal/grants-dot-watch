@@ -4,13 +4,15 @@ import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import YAML from 'yaml';
 import type { Award, Grantee, Org, OrgStats, Program, RegistryIndex, System } from './types';
+import { currentRounds, productDateISO } from './round-state';
 
 const ROOT = join(process.cwd(), 'registry');
 
 let cache: RegistryIndex | null = null;
+let cacheDateISO: string | null = null;
 
 /** Reads path, size, and mtime for every registry source on a cold load. The
- *  newest source mtime drives the public update date. A missing dir or stat
+ *  newest source mtime drives the public load date. A missing dir or stat
  *  race degrades to an empty entry rather than taking down the site. */
 function newestFileMtime(dir: string, ext: string): number {
   let files: string[];
@@ -44,6 +46,7 @@ function registryUpdatedAt(): string {
  *  write to registry files. */
 export function invalidateRegistryCache(): void {
   cache = null;
+  cacheDateISO = null;
 }
 
 function loadYamlDir<T>(sub: string): T[] {
@@ -79,7 +82,8 @@ function loadAwards(): Award[] {
 }
 
 export function loadRegistry(force = false): RegistryIndex {
-  if (cache && !force) return cache;
+  const todayISO = productDateISO();
+  if (cache && cacheDateISO === todayISO && !force) return cache;
   const updatedAt = registryUpdatedAt();
 
   const systems = loadYamlDir<System>('systems').sort((a, b) => a.name.localeCompare(b.name));
@@ -115,7 +119,7 @@ export function loadRegistry(force = false): RegistryIndex {
   for (const o of orgs) {
     const given = awards.filter((a) => a.funder === o.id);
     const progs = progByOrg.get(o.id) || [];
-    const liveRounds = progs.flatMap((p) => p.rounds || []).filter((r) => r.status === 'open' || r.status === 'announced');
+    const liveRounds = progs.flatMap((program) => currentRounds(program, todayISO));
     const dates = [
       ...given.map((a) => a.date).filter(Boolean),
       ...progs.flatMap((p) => (p.rounds || []).map((r) => r.closes || r.opens)).filter(Boolean),
@@ -155,6 +159,7 @@ export function loadRegistry(force = false): RegistryIndex {
       grantees: grantees.length,
     },
   };
+  cacheDateISO = todayISO;
   return cache;
 }
 

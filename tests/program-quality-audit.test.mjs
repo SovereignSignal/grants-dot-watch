@@ -165,6 +165,14 @@ test('semantic audit catches forum submissions and non-program artifacts', () =>
       sources: ['https://residency.example/apply'],
       signal: 'participant-funded-program',
     },
+    {
+      id: 'enriched-directory',
+      name: 'Ecosystem Funding Directory',
+      summary: 'A maintained directory of ecosystem funding routes and contacts rather than a grant program.',
+      sources: ['https://directory.example/funding'],
+      signal: 'directory-or-map',
+      enriched: true,
+    },
   ];
 
   for (const fixture of fixtures) {
@@ -172,8 +180,12 @@ test('semantic audit catches forum submissions and non-program artifacts', () =>
       id: fixture.id,
       name: fixture.name,
       org: 'funder',
-      status: 'unknown',
-      rounds: [],
+      status: fixture.enriched ? 'active' : 'unknown',
+      mechanism: fixture.enriched ? 'grants' : undefined,
+      systems: fixture.enriched ? ['test-system'] : [],
+      rounds: fixture.enriched
+        ? [{ name: 'Current call', status: 'open', closes: '2099-01-01', source: fixture.sources[0] }]
+        : [],
       summary: fixture.summary,
       apply_url: fixture.apply_url,
       sources: fixture.sources,

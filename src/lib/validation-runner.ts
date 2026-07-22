@@ -4,11 +4,19 @@
 // exactly the way a human Approve would, and persists a failure record onto
 // everything else so it stays pending — the Desk becomes an exception queue.
 // No LLM calls anywhere in this file.
-import { type AppliedChange, commitChange, writeProposalChanges } from './committer';
+import {
+  type AppliedChange,
+  assertCleanGitPaths,
+  commitChange,
+  prepareProposalChanges,
+  recordPreparedChangeIntent,
+  registryMayHaveChanged,
+  writePreparedChanges,
+} from './committer';
 import { claimProposal, listProposals, recordVerdict, releaseProposalClaim, setProposalValidation } from './desk-store';
 import { invalidateRegistryCache } from './registry';
 import type { Proposal, ProposalType, ProposalValidation } from './types';
-import { validateProposal } from './proposal-validator';
+import { validateProposal, validateStagedChanges } from './proposal-validator';
 
 // Bounds one run's wall-clock time: FETCH_CONCURRENCY in-flight fetches at
 // once, each capped at proposal-validator.ts's 10s timeout, DEFAULT_LIMIT
@@ -80,9 +88,8 @@ interface Outcome {
 
 /** Runs the validator over up to `limit` pending proposals (both lanes) and
  *  applies the ones that pass. Safe to call repeatedly / on a schedule —
- *  every write goes through the same applyProposal-equivalent path
- *  (writeProposalChanges + commitChange + recordVerdict) The Desk's manual
- *  approve uses, so undo is the same `git revert` story. */
+ *  every write is staged, durably intent-ledgered on ephemeral production,
+ *  atomically written, then committed/verdict-recorded. */
 export async function runValidation(opts: RunValidationOptions = {}): Promise<RunValidationResult> {
   const limit = opts.limit && opts.limit > 0 ? Math.floor(opts.limit) : DEFAULT_LIMIT;
   // Never-checked proposals come first — otherwise a standing exception list
@@ -149,6 +156,10 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
     const chunk = passedList.slice(i, i + COMMIT_CHUNK_SIZE);
     const allChanges: AppliedChange[] = [];
     const applied: Outcome[] = [];
+    const appliedChanges = new Map<string, AppliedChange[]>();
+    const appliedNotes = new Map<string, string[]>();
+    const dirtySnapshots = new Map<string, string>();
+    const claimedPaths = new Set<string>();
 
     for (const item of chunk) {
       const claimed = await claimProposal(item.proposal.id);
@@ -158,8 +169,37 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
         continue;
       }
       try {
-        const { changes } = writeProposalChanges(claimed);
+        const prepared = prepareProposalChanges(claimed);
+        assertCleanGitPaths(prepared.changes, dirtySnapshots);
+        const paths = [...new Set(prepared.changes.map((change) => change.path))];
+        const overlap = paths.find((path) => claimedPaths.has(path));
+        if (overlap) throw new Error(`${overlap} is already targeted by another proposal in this validation chunk`);
+        const stagedError = validateStagedChanges(prepared.changes);
+        if (stagedError) {
+          const validation: ProposalValidation = {
+            checks: [
+              ...item.validation.checks,
+              { name: 'pre-write-staged-registry-valid', pass: false, detail: stagedError },
+            ],
+            reason: `registry changed after validation: ${stagedError}`,
+            checked_at: new Date().toISOString(),
+          };
+          await releaseProposalClaim(item.proposal.id, validation);
+          bump(byType, item.proposal.type, 'failed');
+          errors.push({ id: item.proposal.id, error: `pre-write staged validation failed: ${stagedError}` });
+          continue;
+        }
+        if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+          await recordPreparedChangeIntent(prepared, machineCommitMessage([claimed]), claimed.id);
+        }
+        const { changes, notes } = writePreparedChanges(prepared);
         allChanges.push(...changes);
+        for (const change of changes) {
+          if (change.content_after !== undefined) dirtySnapshots.set(change.path, change.content_after);
+          claimedPaths.add(change.path);
+        }
+        appliedChanges.set(claimed.id, changes);
+        appliedNotes.set(claimed.id, notes);
         applied.push({ ...item, proposal: claimed });
       } catch (e) {
         // Validation passed (including its own dry-run check) but the write
@@ -171,30 +211,49 @@ export async function runValidation(opts: RunValidationOptions = {}): Promise<Ru
           reason: `dry run passed but apply failed: ${detail}`,
           checked_at: new Date().toISOString(),
         };
-        await releaseProposalClaim(item.proposal.id, validation);
+        if (!registryMayHaveChanged(e)) await releaseProposalClaim(item.proposal.id, validation);
         bump(byType, item.proposal.type, 'failed');
         errors.push({ id: item.proposal.id, error: `apply failed after passing validation: ${detail}` });
       }
     }
 
-    if (allChanges.length === 0) continue;
-    invalidateRegistryCache();
+    if (allChanges.length > 0) invalidateRegistryCache();
 
     const uniquePaths = [...new Set(allChanges.map((c) => c.path))];
-    const commit = await commitChange(
-      uniquePaths,
-      machineCommitMessage(applied.map((a) => a.proposal)),
-      applied.map((a) => a.proposal.id).join(',')
-    );
+    const commit =
+      uniquePaths.length === 0 || process.env.GRANTS_WATCH_NO_GIT === '1'
+        ? null
+        : await commitChange(
+            uniquePaths,
+            machineCommitMessage(applied.map((a) => a.proposal)),
+            applied.map((a) => a.proposal.id).join(','),
+            allChanges,
+            { recordFallback: false }
+          );
     if (commit) commits.push(commit);
 
+    if (uniquePaths.length > 0 && process.env.GRANTS_WATCH_NO_GIT !== '1' && commit === null) {
+      for (const item of applied) {
+        await recordPreparedChangeIntent(
+          {
+            changes: appliedChanges.get(item.proposal.id) ?? [],
+            notes: appliedNotes.get(item.proposal.id) ?? [],
+          },
+          machineCommitMessage([item.proposal]),
+          item.proposal.id
+        );
+      }
+    }
+
     for (const item of applied) {
+      const changes = appliedChanges.get(item.proposal.id) ?? [];
       try {
         await recordVerdict(item.proposal.id, 'approved', {
           note: `machine-validated: ${passedChecksSummary(item.validation)}`,
           commit,
           by: 'machine',
           from: 'applying',
+          ledgerRequired: Boolean(process.env.DATABASE_URL) && changes.length > 0 && commit === null,
         });
         bump(byType, item.proposal.type, 'passed');
       } catch (e) {

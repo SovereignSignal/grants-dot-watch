@@ -20,6 +20,10 @@ test('awards search, filters, evidence, and pagination stay connected', async ({
 });
 
 test('profile award pagination remains available', async ({ page }) => {
+  await page.goto('/orgs/optimism-foundation#awards');
+  await expect(page.locator('#awards').getByRole('link', { name: '← Previous' })).toHaveCount(0);
+  await expect(page.locator('#awards').locator('[aria-disabled="true"]', { hasText: '← Previous' })).toBeVisible();
+
   await page.goto('/orgs/optimism-foundation?awardPage=2#awards');
   await expect(page.locator('#awards ol > li')).toHaveCount(25);
   await expect(page.locator('#awards').getByRole('link', { name: '2', exact: true })).toHaveAttribute('aria-current', 'page');
@@ -36,6 +40,22 @@ test('header search supports keyboard navigation', async ({ page }) => {
   await expect(page.getByRole('option', { name: 'OpenAI Foundation', exact: true })).toBeVisible();
   await search.press('Enter');
   await expect(page).toHaveURL(/\/orgs\/openai-foundation$/);
+});
+
+test('header search reports a failed index and retries', async ({ page }) => {
+  let attempts = 0;
+  await page.route('**/api/search-index', async (route) => {
+    attempts += 1;
+    if (attempts === 1) await route.fulfill({ status: 503, body: 'unavailable' });
+    else await route.continue();
+  });
+  await page.goto('/');
+  const search = page.getByRole('combobox', { name: 'Search the register' });
+  await search.focus();
+  await expect(page.getByText('Search index unavailable.')).toBeVisible();
+  await page.getByRole('button', { name: 'Retry' }).click();
+  await search.fill('OpenAI Foundation');
+  await expect(page.getByRole('option', { name: 'OpenAI Foundation', exact: true })).toBeVisible();
 });
 
 test('cadence defaults to current evidence and bounds the all-program view', async ({ page }) => {
@@ -74,15 +94,51 @@ test.describe('mobile', () => {
     await page.goto('/awards?wire=crypto&year=2026');
     await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Awards' })).toBeVisible();
     await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Desk' })).toBeHidden();
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     await expect(page.locator('main ol > li')).toHaveCount(50);
 
     await page.goto('/programs');
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     await expect(page.locator('main a[href^="/programs/"]')).toHaveCount(50);
 
     await page.goto('/programs?view=cadence');
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     await expect(page.getByTestId('cadence-mobile').locator('a[href^="/programs/"]').first()).toBeVisible();
+
+    await page.goto('/orgs/optimism-foundation');
+    await expect(page.getByTestId('org-cadence-mobile').locator('a[href^="/programs/"]').first()).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  });
+});
+
+test.describe('narrow mobile', () => {
+  test.use({ viewport: { width: 320, height: 760 } });
+
+  test('header and expanded search use the available width', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Use dark theme' })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+
+    await page.getByRole('button', { name: 'Open search' }).click();
+    const search = page.getByRole('combobox', { name: 'Search the register' });
+    await expect(search).toBeVisible();
+    const box = await search.boundingBox();
+    expect(box?.width || 0).toBeGreaterThan(230);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  });
+});
+
+test.describe('tablet edge', () => {
+  test.use({ viewport: { width: 768, height: 900 } });
+
+  test('header and organization cadence stay inside the viewport', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('button', { name: 'Use dark theme' })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+
+    await page.goto('/orgs/optimism-foundation');
+    await expect(page.getByTestId('org-cadence-chart')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   });
 });

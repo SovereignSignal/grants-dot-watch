@@ -2,7 +2,7 @@
 // the curation desk queue depth. Server component — reads loadRegistry()
 // directly and the desk store.
 import { loadRegistry } from '@/lib/registry';
-import { getIngestState, listProposals } from '@/lib/desk-store';
+import { getAppliedChangeLedgerHealth, getIngestState, listProposals } from '@/lib/desk-store';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
@@ -13,6 +13,7 @@ export const dynamic = 'force-dynamic';
 
 interface DeskSummary {
   pending: number;
+  applying: number;
   decided: number;
 }
 
@@ -52,8 +53,9 @@ async function loadLastIngestRun(): Promise<LastIngestRun | null> {
 async function loadDeskSummary(): Promise<DeskSummary> {
   const proposals = await listProposals();
   const pending = proposals.filter((p) => p.state === 'pending').length;
-  const decided = proposals.length - pending;
-  return { pending, decided };
+  const applying = proposals.filter((p) => p.state === 'applying').length;
+  const decided = proposals.filter((p) => p.state === 'approved' || p.state === 'rejected').length;
+  return { pending, applying, decided };
 }
 
 function formatLoadedAt(iso: string): string {
@@ -64,7 +66,11 @@ function formatLoadedAt(iso: string): string {
 
 export default async function HealthPage() {
   const { counts, awards, loadedAt } = loadRegistry();
-  const [desk, ingest] = await Promise.all([loadDeskSummary(), loadLastIngestRun()]);
+  const [desk, ingest, ledger] = await Promise.all([
+    loadDeskSummary(),
+    loadLastIngestRun(),
+    getAppliedChangeLedgerHealth(),
+  ]);
 
   const byYear = new Map<string, number>();
   for (const a of awards) {
@@ -127,12 +133,29 @@ export default async function HealthPage() {
 
         <Card>
           <Coord>The Desk</Coord>
-          <div className="mt-4 grid max-w-xs grid-cols-2 divide-x divide-line border-t border-line">
+          <div className="mt-4 grid max-w-md grid-cols-3 divide-x divide-line border-t border-line">
             <div className="py-3.5 pr-4">
               <Stat label="Pending" value={desk.pending} />
             </div>
+            <div className="px-4 py-3.5">
+              <Stat label="Applying / hold" value={desk.applying} />
+            </div>
             <div className="py-3.5 pl-4">
               <Stat label="Decided" value={desk.decided} />
+            </div>
+          </div>
+          <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-4">
+            <div className="py-3.5 pr-4">
+              <Stat label="Ready to sync" value={ledger.ready} />
+            </div>
+            <div className="px-4 py-3.5">
+              <Stat label="Reconciling" value={ledger.prepared} />
+            </div>
+            <div className="px-4 py-3.5">
+              <Stat label="Sync conflicts" value={ledger.conflicts} />
+            </div>
+            <div className="py-3.5 pl-4">
+              <Stat label="Oldest ready" value={ledger.oldestReadyAt ? formatLoadedAt(ledger.oldestReadyAt) : '–'} />
             </div>
           </div>
         </Card>

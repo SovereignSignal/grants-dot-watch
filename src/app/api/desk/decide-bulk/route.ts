@@ -1,5 +1,15 @@
-import { type AppliedChange, commitChange, writeProposalChanges } from '@/lib/committer';
+import {
+  type AppliedChange,
+  assertCleanGitPaths,
+  commitChange,
+  commitMessageFor,
+  prepareProposalChanges,
+  recordPreparedChangeIntent,
+  registryMayHaveChanged,
+  writePreparedChanges,
+} from '@/lib/committer';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from '@/lib/desk-store';
+import { validateStagedChanges } from '@/lib/proposal-validator';
 import { invalidateRegistryCache } from '@/lib/registry';
 import type { Proposal } from '@/lib/types';
 import { typeCountsSummary } from '@/proposal-lanes';
@@ -97,8 +107,16 @@ export async function POST(req: Request) {
   // decision === 'approved': apply every proposal's file changes (no per-item
   // commit), then one commit for the whole batch. A single proposal's apply
   // failure is collected and skipped — it must never abort the rest.
-  const applied: { id: string; proposal: Proposal; notes: string[] }[] = [];
+  if (process.env.GRANTS_WATCH_NO_GIT === '1' && !process.env.DATABASE_URL) {
+    return Response.json(
+      { error: 'GRANTS_WATCH_NO_GIT=1 requires DATABASE_URL for durable approvals' },
+      { status: 503 }
+    );
+  }
+  const applied: { id: string; proposal: Proposal; notes: string[]; changes: AppliedChange[] }[] = [];
   const allChanges: AppliedChange[] = [];
+  const dirtySnapshots = new Map<string, string>();
+  const claimedPaths = new Set<string>();
 
   for (const id of ids) {
     const proposal = await claimProposal(id);
@@ -108,11 +126,28 @@ export async function POST(req: Request) {
       continue;
     }
     try {
-      const { changes, notes } = writeProposalChanges(proposal);
+      const prepared = prepareProposalChanges(proposal);
+      assertCleanGitPaths(prepared.changes, dirtySnapshots);
+      const paths = [...new Set(prepared.changes.map((change) => change.path))];
+      const overlap = paths.find((path) => claimedPaths.has(path));
+      if (overlap) throw new Error(`${overlap} is already targeted by another proposal in this batch`);
+      const stagedError = validateStagedChanges(prepared.changes);
+      if (stagedError) throw new Error(`staged registry validation failed: ${stagedError}`);
+      // Railway has an ephemeral filesystem. Persist each proposal's complete
+      // compare-and-set snapshot before its local write so a crash cannot erase
+      // the only durable copy of an approved change.
+      if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+        await recordPreparedChangeIntent(prepared, commitMessageFor(proposal), proposal.id);
+      }
+      const { changes, notes } = writePreparedChanges(prepared);
       allChanges.push(...changes);
-      applied.push({ id, proposal, notes });
+      for (const change of changes) {
+        if (change.content_after !== undefined) dirtySnapshots.set(change.path, change.content_after);
+        claimedPaths.add(change.path);
+      }
+      applied.push({ id, proposal, notes, changes });
     } catch (e) {
-      await releaseProposalClaim(id);
+      if (!registryMayHaveChanged(e)) await releaseProposalClaim(id);
       failed.push({ id, error: e instanceof Error ? e.message : 'apply failed' });
     }
   }
@@ -121,18 +156,35 @@ export async function POST(req: Request) {
 
   const changedPaths = uniquePaths(allChanges);
   const commit =
-    changedPaths.length > 0
+    changedPaths.length > 0 && process.env.GRANTS_WATCH_NO_GIT !== '1'
       ? await commitChange(
           changedPaths,
           bulkCommitMessage(applied.map((a) => a.proposal)),
-          applied.map((a) => a.id).join(',')
+          applied.map((a) => a.id).join(','),
+          allChanges,
+          { recordFallback: false }
         )
       : null;
 
-  for (const { id, notes } of applied) {
+  if (changedPaths.length > 0 && process.env.GRANTS_WATCH_NO_GIT !== '1' && commit === null) {
+    for (const item of applied) {
+      await recordPreparedChangeIntent(
+        { changes: item.changes, notes: item.notes },
+        commitMessageFor(item.proposal),
+        item.id
+      );
+    }
+  }
+
+  for (const { id, notes, changes } of applied) {
     const mergedNote = notes.length ? [note, ...notes].filter(Boolean).join(' | ') : note;
     try {
-      await recordVerdict(id, 'approved', { note: mergedNote, commit, from: 'applying' });
+      await recordVerdict(id, 'approved', {
+        note: mergedNote,
+        commit,
+        from: 'applying',
+        ledgerRequired: Boolean(process.env.DATABASE_URL) && changes.length > 0 && commit === null,
+      });
       decided.push(id);
     } catch (e) {
       failed.push({ id, error: e instanceof Error ? e.message : 'verdict record failed' });

@@ -180,7 +180,10 @@ const strongSemanticSignals = new Set([
   'forum-proposal-source',
 ]);
 const candidates = inspected
-  .filter((item) => item.signals.some((signal) => strongSemanticSignals.has(signal)) && item.score >= 6)
+  // A strong semantic rule is independently review-worthy. Thinness is useful
+  // context and ranking weight, never a prerequisite that lets a polished
+  // non-program artifact evade the queue.
+  .filter((item) => item.signals.some((signal) => strongSemanticSignals.has(signal)))
   .sort((a, b) => b.score - a.score || a.org.localeCompare(b.org) || a.name.localeCompare(b.name));
 
 const metric = (predicate) => inspected.filter(predicate).length;

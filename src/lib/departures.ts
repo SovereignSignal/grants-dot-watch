@@ -1,4 +1,5 @@
 import type { Org, Program, Round } from './types';
+import { isCurrentRound, productDateISO } from './round-state';
 
 export interface Departure {
   key: string;
@@ -7,15 +8,14 @@ export interface Departure {
   round: Round;
 }
 
-export function collectCurrentDepartures(programs: Program[], orgs: Org[], todayISO: string): Departure[] {
+export function collectCurrentDepartures(programs: Program[], orgs: Org[], todayISO: string = productDateISO()): Departure[] {
   const orgById = new Map(orgs.map((org) => [org.id, org]));
   const dated: Departure[] = [];
   const standing: Departure[] = [];
 
   for (const program of programs) {
     for (const round of program.rounds || []) {
-      if (round.status !== 'open' && round.status !== 'announced') continue;
-      if (round.closes && round.closes < todayISO) continue;
+      if (!isCurrentRound(program, round, todayISO)) continue;
 
       const departure = {
         key: `${program.id}::${round.name}`,

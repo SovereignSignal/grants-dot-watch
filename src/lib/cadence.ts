@@ -1,9 +1,8 @@
 import type { Program } from './types';
+import { isVerifiedRollingRound, productDateISO } from './round-state';
 
-export function hasVerifiedRollingIntake(program: Program): boolean {
-  return (program.rounds || []).some(
-    (round) => !round.opens && !round.closes && (round.status === 'open' || round.status === 'announced')
-  );
+export function hasVerifiedRollingIntake(program: Program, today: string = productDateISO()): boolean {
+  return (program.rounds || []).some((round) => isVerifiedRollingRound(program, round, today));
 }
 
 export function hasYearCadence(program: Program, year: number): boolean {

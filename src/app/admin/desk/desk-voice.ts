@@ -1,15 +1,9 @@
 // Wire-service microcopy for The Desk (design/mocks/c-desk.html is canon;
 // docs/DESIGN.md "Voice & era" is the law behind it) — proposal-type names,
-// destination footnotes, and the confidence threshold that reads as "trusted
-// on sight." Kept separate from desk-format.ts (pure formatting functions):
-// this is copy, not logic.
+// destination footnotes, and wire labels. Kept separate from desk-format.ts
+// (pure formatting functions): this is copy, not logic.
 import type { ProposalType, Wire } from '@/lib/types';
 import { WIRE_LABEL } from '@/lib/format';
-
-/** Confidence at or above this reads in the amber "trusted on sight" tone;
- *  below it reads as plain ink. Matches the canon mock: 85 plain, 91 and 97
- *  gold. */
-export const CONFIDENCE_GOLD_THRESHOLD = 90;
 
 /** The proposal type, in the register's own words — for the slug line and
  *  the group's month-rule bar. Deliberately not proposal-lanes.ts's
