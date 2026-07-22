@@ -1,5 +1,17 @@
 import { expect, test } from '@playwright/test';
 
+const browserAdminToken = process.env.ADMIN_TOKEN || 'grants-watch-browser-test-token';
+
+test('admin token gate completes an authenticated browser session', async ({ page }) => {
+  await page.goto('/admin/desk');
+
+  await page.getByPlaceholder('Admin token').fill(browserAdminToken);
+  await page.getByRole('button', { name: 'Enter →' }).click();
+
+  await expect(page.getByText("The owner's daily curation gate", { exact: true })).toBeVisible();
+  await expect(page.getByRole('main').getByRole('link', { name: 'The Desk', exact: true })).toBeVisible();
+});
+
 test('awards search, filters, evidence, and pagination stay connected', async ({ page }) => {
   await page.goto('/awards?wire=crypto&year=2026&currency=op&funder=optimism-foundation&q=Gamma');
 
