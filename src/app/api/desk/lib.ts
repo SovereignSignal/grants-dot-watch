@@ -66,7 +66,6 @@ function isDeskOwnerEmail(email: string | null | undefined): boolean {
 interface PrivyLinkedAccount {
   type?: unknown;
   address?: unknown;
-  email?: unknown;
 }
 
 function nonEmptyString(value: unknown): string | null {
@@ -75,9 +74,8 @@ function nonEmptyString(value: unknown): string | null {
   return normalized || null;
 }
 
-/** Extract an email only from Privy's verified email-bearing account shapes.
- * The explicit email login remains authoritative when both it and a Google
- * OAuth account are linked. Unknown and malformed account shapes fail closed. */
+/** Extract an email only from Privy's verified email account shape.
+ * OAuth and malformed account shapes fail closed. */
 function verifiedEmailFromPrivyUser(user: unknown): string | null {
   if (!user || typeof user !== 'object') return null;
   const linkedAccounts = (user as { linked_accounts?: unknown }).linked_accounts;
@@ -86,16 +84,10 @@ function verifiedEmailFromPrivyUser(user: unknown): string | null {
   const accounts = linkedAccounts.filter(
     (account): account is PrivyLinkedAccount => Boolean(account) && typeof account === 'object',
   );
-  const explicitAddress = accounts
+  return accounts
     .filter((account) => account.type === 'email')
     .map((account) => nonEmptyString(account.address))
-    .find((address): address is string => Boolean(address));
-  if (explicitAddress) return explicitAddress;
-
-  return accounts
-    .filter((account) => account.type === 'google_oauth')
-    .map((account) => nonEmptyString(account.email))
-    .find((email): email is string => Boolean(email)) || null;
+    .find((address): address is string => Boolean(address)) || null;
 }
 
 // Short-TTL cache of DID → verified email, so a burst of admin requests
