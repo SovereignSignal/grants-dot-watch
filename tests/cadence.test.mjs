@@ -4,14 +4,16 @@ import test from 'node:test';
 import { cadenceFallback, hasVerifiedRollingIntake, hasYearCadence } from '../src/lib/cadence.ts';
 
 function program(rounds = []) {
-  return { rounds };
+  return { status: 'active', rounds };
 }
 
 test('only explicit live undated rounds count as rolling intake', () => {
   assert.equal(hasVerifiedRollingIntake(program([])), false);
   assert.equal(hasVerifiedRollingIntake(program([{ status: 'closed' }])), false);
   assert.equal(hasVerifiedRollingIntake(program([{ status: 'open' }])), true);
+  assert.equal(hasVerifiedRollingIntake(program([{ status: 'announced' }])), false);
   assert.equal(hasVerifiedRollingIntake(program([{ status: 'open', closes: '2026-08-01' }])), false);
+  assert.equal(hasVerifiedRollingIntake({ status: 'paused', rounds: [{ status: 'open' }] }), false);
 });
 
 test('current cadence includes year dates and verified rolling rounds', () => {

@@ -1,5 +1,7 @@
 // Small formatting helpers local to The Desk (created_at/decided_at are full
 // ISO timestamps, unlike the date-only strings src/lib/format.ts handles).
+import { PRODUCT_TIME_ZONE } from '../../../lib/round-state';
+
 export function timeAgo(iso: string | undefined | null): string {
   if (!iso) return '–';
   const then = new Date(iso).getTime();
@@ -12,7 +14,12 @@ export function timeAgo(iso: string | undefined | null): string {
   if (hr < 24) return `${hr}h ago`;
   const day = Math.round(hr / 24);
   if (day < 30) return `${day}d ago`;
-  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return new Date(iso).toLocaleDateString('en-US', {
+    timeZone: PRODUCT_TIME_ZONE,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }
 
 export function shortUrl(url: string | null | undefined): string {
@@ -32,10 +39,13 @@ export function dateShortIso(iso: string | undefined | null): string {
   if (!iso) return '–';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return '–';
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString('en-US', {
+    timeZone: PRODUCT_TIME_ZONE,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }
-
-const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 /** Wire-service dateline for a citation line — "Jul 3", no year (the wire is
  *  read same-week; the year is the masthead's job, not every quote's). */
@@ -43,7 +53,11 @@ export function citeDate(iso: string | undefined | null): string {
   if (!iso) return '–';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return '–';
-  return `${MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCDate()}`;
+  return d.toLocaleDateString('en-US', {
+    timeZone: PRODUCT_TIME_ZONE,
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 /** Collapses multi-line text to the first N lines, reporting whether there

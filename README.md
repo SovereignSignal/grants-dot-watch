@@ -11,9 +11,10 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
 - **`registry/` is the truth.** Systems, orgs, and programs are YAML; awards are append-only
   JSONL. Every fact carries provenance. The app's database is disposable — burn it down and
   the registry has lost nothing. See `registry/SCHEMA.md`.
-- **Two-lane curation.** Machine-verifiable facts (round dates, award records, dead links)
-  auto-apply as commits with the source in the commit message — undo is `git revert`.
-  Editorial judgments (new orgs, merges, taxonomy) queue at **The Desk** for the owner.
+- **Two-lane curation.** Exact current round and deadline facts can auto-apply only when an
+  organization-owned source supports the full changed value and the staged registry passes its
+  complete validation gate. New entities and programs, status/profile changes, awards, merges,
+  and taxonomy always queue at **The Desk** for the owner.
 - **Signals in, registry out.** Wire scanning systems feed candidate changes; nothing enters
   the registry without either machine-verifiable provenance or an owner verdict.
 - **The taxonomy:** a *system* is a funding ecosystem with its own capital gravity (a treasury,
@@ -27,12 +28,17 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
 npm install
 npm run dev        # site on :3000, reads registry/ directly
 npm run validate   # schema + membrane checks over registry/
+npm run lint       # Next.js + TypeScript lint gate
+npm run check:loader # strict, cwd-independent loader preflight
 npm run build && npm run start
 npm run test:browser # production-route Chromium smoke suite; build first
 ```
 
-Environment (all optional in dev): `ADMIN_TOKEN` gates The Desk; `GRANTS_WATCH_NO_GIT=1`
-disables commit-on-approve (decisions ledger to `.data/pending-commits.jsonl` instead).
+Environment: `ADMIN_TOKEN` gates The Desk. `GRANTS_WATCH_NO_GIT=1` disables
+commit-on-approve and requires `DATABASE_URL`. The no-git approval path writes a
+non-replayable prepared snapshot to Postgres before touching the ephemeral filesystem. That
+snapshot becomes replayable in the same transaction as the approved verdict. Failed writes
+are abandoned. Local git failures use `.data/pending-commits.jsonl` on the persistent checkout.
 
 **Daily ingest loop** (`src/lib/ingest.ts`, `POST /api/ingest/run`, same auth as The Desk):
 `WIRE_DATABASE_URL` — read-only Postgres URL for the wire-room-ops canonical database

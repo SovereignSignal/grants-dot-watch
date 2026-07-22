@@ -2,34 +2,10 @@ import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { Empty } from '@/components/ui';
 import { MONTHS_LONG } from '@/lib/format';
-import type { Org, Program, Round } from '@/lib/types';
-
-interface OpenRound {
-  key: string;
-  program: Program;
-  orgName: string;
-  round: Round;
-}
-
-function collectOpenRounds(programs: Program[], orgs: Org[]): OpenRound[] {
-  const orgName = new Map(orgs.map((o) => [o.id, o.name]));
-  const rounds: OpenRound[] = [];
-  for (const p of programs) {
-    for (const r of p.rounds || []) {
-      const todayISO = new Date().toISOString().slice(0, 10);
-      if ((r.status === 'open' || r.status === 'announced') && (!r.closes || r.closes >= todayISO)) {
-        rounds.push({ key: `${p.id}::${r.name}`, program: p, orgName: orgName.get(p.org) || p.org, round: r });
-      }
-    }
-  }
-  return rounds;
-}
-
-function daysUntil(date: string | undefined): number | null {
-  if (!date) return null;
-  const d = new Date(date + 'T23:59:59Z').getTime() - Date.now();
-  return Math.ceil(d / 86_400_000);
-}
+import type { Departure } from '@/lib/departures';
+import { collectCurrentDepartures } from '@/lib/departures';
+import { isVerifiedRollingRound } from '@/lib/round-state';
+import { daysUntil } from '@/components/programs/date-helpers';
 
 function monthLabel(dateStr: string): string {
   const [y, m] = dateStr.split('-');
@@ -43,7 +19,7 @@ function wireDot(wire: string | null | undefined) {
 export default function Home() {
   const { orgs, programs, counts } = loadRegistry();
 
-  const openRounds = collectOpenRounds(programs, orgs);
+  const openRounds = collectCurrentDepartures(programs, orgs);
   const dated = openRounds
     .filter((r) => r.round.closes)
     .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
@@ -52,7 +28,7 @@ export default function Home() {
   // preview. The full board lives on /programs.
   const seenStanding = new Set<string>();
   const standing = openRounds
-    .filter((r) => !r.round.closes)
+    .filter((r) => isVerifiedRollingRound(r.program, r.round))
     .filter((r) => {
       const k = `${r.program.name}::${r.orgName}`;
       if (seenStanding.has(k)) return false;
@@ -64,7 +40,7 @@ export default function Home() {
 
   // group departures by close month — a month's label carries the year once,
   // so individual rows show only the day (no repeated "Jul 2026" per row).
-  const groups: { label: string; rows: OpenRound[] }[] = [];
+  const groups: { label: string; rows: Departure[] }[] = [];
   for (const r of departures) {
     const label = monthLabel(r.round.closes!);
     let g = groups[groups.length - 1];
@@ -86,10 +62,10 @@ export default function Home() {
     <>
       <section className="mx-auto max-w-6xl border-b border-line px-4 pt-8 pb-7">
         <div className="coord mb-2.5">Grant funding across crypto, AI, and open source</div>
-        <p className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
+        <h1 className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
           Funders, programs, and the open rounds they run,{' '}
           <em className="border-b border-paper not-italic">tracked in one register, sourced in the open.</em>
-        </p>
+        </h1>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
           grants.watch indexes funding systems: ecosystems with their own treasury, like Ethereum or Cardano. It
           tracks the funders and programs inside each one, across three wires of capital: crypto, AI, and open

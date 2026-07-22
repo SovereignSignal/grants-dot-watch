@@ -43,7 +43,8 @@ export interface DecideBulkResponse {
 export type ConfidenceBand = 'all' | 'high' | 'mid' | 'low';
 
 /** Judgment-tab filter state, lifted to page.tsx so it survives group
- *  collapse/expand and is shared with the bulk-approve breakdown. */
+ *  collapse/expand. `confidence` stays as the compatibility field name for
+ *  the source-supplied score. */
 export interface FilterState {
   types: Set<ProposalType>; // empty = all types
   wires: Set<Wire>; // empty = all wires

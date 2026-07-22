@@ -8,6 +8,7 @@
 import Link from 'next/link';
 import type { Program, Round } from '@/lib/types';
 import { cadenceFallback } from '@/lib/cadence';
+import { effectiveRoundLabel, productDateISO, productYear } from '@/lib/round-state';
 
 const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // Cumulative day-of-year at the 1st of each month (non-leap approximation —
@@ -28,6 +29,11 @@ function dayOfYearPct(dateStr: string | undefined, year: number): number | null 
   return pct(days);
 }
 
+function roundDescription(program: Program, round: Round): string {
+  const date = round.closes ? `closes ${round.closes}` : round.opens ? `opens ${round.opens}` : 'no dates published';
+  return `${round.name}: ${effectiveRoundLabel(program, round).toLowerCase()}, ${date}`;
+}
+
 const ROUND_DOT: Record<string, string> = {
   open: 'var(--color-live)',
   announced: 'var(--color-signal)',
@@ -42,11 +48,33 @@ export interface CadenceRow {
 }
 
 export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number }) {
-  const y = year ?? new Date().getUTCFullYear();
-  const todayPct = dayOfYearPct(new Date().toISOString().slice(0, 10), y);
+  const y = year ?? productYear();
+  const todayPct = dayOfYearPct(productDateISO(), y);
 
   return (
     <div className="mt-1">
+      <div data-testid="org-cadence-mobile" className="md:hidden">
+        {rows.map(({ program, grantCount }) => {
+          const dated = (program.rounds || []).filter((round) => dayOfYearPct(round.closes || round.opens, y) != null);
+          const detail = dated.length > 0 ? dated.map((round) => roundDescription(program, round)).join('; ') : cadenceFallback(program, y).label;
+          return (
+            <Link
+              key={program.id}
+              href={`/programs/${program.id}`}
+              className="block border-b border-line py-3 transition-colors hover:bg-raised/40"
+            >
+              <div className="display text-[15px] leading-tight text-paper">{program.name}</div>
+              <div className="coord mt-1">
+                {grantCount} grant{grantCount === 1 ? '' : 's'} tracked
+              </div>
+              <div className="mt-1 text-[12px] leading-snug text-dim">{detail}</div>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div data-testid="org-cadence-chart" className="hidden overflow-x-auto md:block">
+      <div className="min-w-[720px]">
       {/* month ruler */}
       <div className="flex pt-3.5 pb-1">
         <div className="shrink-0" style={{ width: LABEL_W }} />
@@ -88,13 +116,20 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
             .map((r) => ({ r, p: dayOfYearPct(r.closes || r.opens, y) }))
             .filter((x): x is { r: Round; p: number } => x.p != null);
           const caption = dated.length > 0 ? null : cadenceFallback(program, y).label;
+          const description = dated.length > 0 ? dated.map(({ r }) => roundDescription(program, r)).join('; ') : caption || 'No cadence on file';
+          const descriptionId = `cadence-${program.id}-description`;
 
           return (
             <div key={program.id} className="relative z-10 flex items-center border-b border-line">
               <div className="shrink-0 py-2.5 pr-3" style={{ width: LABEL_W }}>
-                <Link href={`/programs/${program.id}`} className="display block truncate text-[14px] leading-tight text-paper hover:text-signal">
+                <Link
+                  href={`/programs/${program.id}`}
+                  aria-describedby={descriptionId}
+                  className="display block truncate text-[14px] leading-tight text-paper hover:text-signal"
+                >
                   {program.name}
                 </Link>
+                <span id={descriptionId} className="sr-only">{description}</span>
                 <div className="coord mt-0.5 text-[9.5px]">
                   {grantCount} grant{grantCount === 1 ? '' : 's'} tracked
                 </div>
@@ -111,9 +146,15 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
                   dated.map(({ r, p }, i) => (
                     <span
                       key={i}
-                      title={`${r.name}: ${r.status}${r.closes ? `, closes ${r.closes}` : r.opens ? `, opens ${r.opens}` : ''}`}
+                      aria-hidden
+                      title={roundDescription(program, r)}
                       className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2"
-                      style={{ left: `${p}%`, background: ROUND_DOT[r.status] || 'var(--color-faint)' }}
+                      style={{
+                        left: `${p}%`,
+                        background: ['Open', 'Announced'].includes(effectiveRoundLabel(program, r))
+                          ? ROUND_DOT[r.status] || 'var(--color-faint)'
+                          : 'var(--color-faint)',
+                      }}
                     />
                   ))
                 )}
@@ -121,6 +162,8 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
             </div>
           );
         })}
+      </div>
+      </div>
       </div>
     </div>
   );

@@ -52,6 +52,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   const router = useRouter();
   const [items, setItems] = useState<SearchIndexItem[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -65,6 +66,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
     if (fetchedRef.current) return;
     fetchedRef.current = true;
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch('/api/search-index');
       if (!res.ok) throw new Error(String(res.status));
@@ -72,6 +74,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
       setItems(data);
     } catch {
       fetchedRef.current = false; // allow a retry on next focus
+      setError('Search index unavailable.');
     } finally {
       setLoading(false);
     }
@@ -94,7 +97,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   }, [items, query]);
 
   const flatResults = useMemo(() => groups.flatMap((g) => g.items), [groups]);
-  const panelOpen = open && (loading || query.trim().length > 0);
+  const panelOpen = open && (loading || error !== null || query.trim().length > 0);
 
   function go(item: SearchIndexItem) {
     router.push(HREF[item.t](item.id));
@@ -158,7 +161,15 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   }, [panelOpen, query]);
 
   return (
-    <div ref={containerRef} className={`relative flex-1 min-w-0 flex justify-end self-center ${className}`}>
+    <div
+      ref={containerRef}
+      data-search-open={mobileOpen ? 'true' : 'false'}
+      className={`${
+        mobileOpen
+          ? 'absolute inset-x-0 z-20 flex min-w-0 bg-void'
+          : 'relative flex w-8 shrink-0 justify-end'
+      } self-center lg:relative lg:inset-auto lg:z-auto lg:w-64 lg:flex-none lg:bg-transparent ${className}`}
+    >
       {!mobileOpen && (
         <button
           type="button"
@@ -166,13 +177,16 @@ export default function Search({ className = '' }: { className?: string } = {}) 
             setMobileOpen(true);
             requestAnimationFrame(() => inputRef.current?.focus());
           }}
-          className="md:hidden inline-flex size-8 items-center justify-center border border-line text-dim hover:text-paper hover:border-faint transition-colors"
+          className="inline-flex size-8 items-center justify-center border border-line text-dim transition-colors hover:border-faint hover:text-paper lg:hidden"
           aria-label="Open search"
         >
-          <span aria-hidden>🔍</span>
+          <svg viewBox="0 0 20 20" width="15" height="15" fill="none" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="4.75" stroke="currentColor" strokeWidth="1.4" />
+            <path d="m12 12 4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
         </button>
       )}
-      <div className={`${mobileOpen ? 'flex' : 'hidden'} md:flex w-full sm:w-56 md:w-64`}>
+      <div className={`${mobileOpen ? 'flex' : 'hidden'} w-full min-w-0 items-center gap-2 lg:flex`}>
         <input
           ref={inputRef}
           type="text"
@@ -189,7 +203,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           onBlur={() => closePanel()}
           onKeyDown={onKeyDown}
           placeholder="Search the register… ⌘K"
-          className="w-full border-b border-line bg-transparent px-1 py-1.5 text-sm text-paper placeholder:text-faint focus:outline-none focus:border-paper transition-colors"
+          className="min-w-0 flex-1 border-b border-line bg-transparent px-1 py-1.5 text-sm text-paper transition-colors placeholder:text-faint focus:border-paper focus:outline-none"
           role="combobox"
           aria-expanded={panelOpen}
           aria-controls="search-results"
@@ -197,18 +211,45 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           aria-activedescendant={panelOpen && activeIndex >= 0 ? optionId(flatResults[activeIndex]) : undefined}
           aria-label="Search the register"
         />
+        {mobileOpen && (
+          <button
+            type="button"
+            onClick={() => {
+              setQuery('');
+              setOpen(false);
+              setMobileOpen(false);
+            }}
+            className="coord inline-flex size-8 shrink-0 items-center justify-center border border-line text-dim hover:border-paper hover:text-paper lg:hidden"
+            aria-label="Close search"
+          >
+            <span aria-hidden>×</span>
+          </button>
+        )}
       </div>
       {panelOpen && (
         <div
           id="search-results"
           role="listbox"
-          className="absolute right-0 top-full mt-1 w-72 max-h-96 overflow-y-auto border border-line bg-raised z-50"
+          className="absolute right-0 top-full z-50 mt-1 max-h-96 w-full overflow-y-auto border border-line bg-raised lg:w-72"
         >
           {loading && <div className="px-3 py-3 text-sm text-dim">Loading…</div>}
-          {!loading && query.trim() && groups.length === 0 && (
+          {!loading && error && (
+            <div className="flex items-center justify-between gap-3 px-3 py-3 text-sm text-dim" role="status">
+              <span>{error}</span>
+              <button
+                type="button"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => ensureIndex()}
+                className="shrink-0 border-b border-line font-semibold text-paper hover:border-paper"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+          {!loading && !error && items && query.trim() && groups.length === 0 && (
             <div className="px-3 py-3 text-sm text-dim">No matches on file.</div>
           )}
-          {!loading &&
+          {!loading && !error &&
             groups.map((g) => (
               <div key={g.type}>
                 <div className="coord px-3 pt-2.5 pb-1">{GROUP_LABEL[g.type]}</div>

@@ -28,7 +28,7 @@ interface QueuePayload {
 // (a big "select all" or the Facts "apply all") get chunked client-side.
 const MAX_IDS_PER_REQUEST = 60;
 
-function matchesConfidence(band: FilterState['confidence'], confidence: number | undefined): boolean {
+function matchesSourceScore(band: FilterState['confidence'], confidence: number | undefined): boolean {
   if (band === 'all') return true;
   const c = confidence ?? -1;
   if (band === 'high') return c >= 80;
@@ -41,7 +41,7 @@ function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposa
   return list.filter((p) => {
     if (filters.types.size > 0 && !filters.types.has(p.type)) return false;
     if (filters.wires.size > 0 && (!p.wire || !filters.wires.has(p.wire))) return false;
-    if (!matchesConfidence(filters.confidence, p.confidence)) return false;
+    if (!matchesSourceScore(filters.confidence, p.confidence)) return false;
     if (text) {
       const hay = `${p.title} ${p.org_name ?? ''} ${p.org ?? ''}`.toLowerCase();
       if (!hay.includes(text)) return false;
@@ -50,8 +50,14 @@ function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposa
   });
 }
 
+function isInteractiveTarget(target: EventTarget | null): boolean {
+  return target instanceof Element && Boolean(
+    target.closest('input, textarea, select, button, a, [role="textbox"], [role="combobox"], [contenteditable]:not([contenteditable="false"])')
+  );
+}
+
 /** Group by proposal type (a stable, spec'd order), sort within a group by
- *  org then confidence desc — matches the two-line rule in the build brief. */
+ *  org then source score descending. */
 function groupAndSort(list: QueueProposal[]): { type: ProposalType; items: QueueProposal[] }[] {
   const map = new Map<ProposalType, QueueProposal[]>();
   for (const p of list) {
@@ -135,7 +141,7 @@ export default function DeskPage() {
     });
   }, []);
 
-  /** Shared by the bulk bar, the Facts "apply all" button, and the a/r
+  /** Shared by the bulk bar, the Facts "apply all" button, and the Alt+A/R
    *  keyboard shortcuts. Optimistic: marks ids decided immediately, then
    *  reconciles against the server — any id the server reports as failed is
    *  put back to pending with its error attached, then a full requery keeps
@@ -282,6 +288,10 @@ export default function DeskPage() {
     () => (data ? data.proposals.filter((p) => p.lane === 'fact' && p.state === 'pending') : []),
     [data]
   );
+  const reconciliationHolds = useMemo(
+    () => (data ? data.proposals.filter((p) => p.state === 'applying') : []),
+    [data]
+  );
 
   const filteredJudgment = useMemo(() => applyFilters(judgmentPending, filters), [judgmentPending, filters]);
   const groups = useMemo(() => groupAndSort(filteredJudgment), [filteredJudgment]);
@@ -292,38 +302,39 @@ export default function DeskPage() {
     [data, selected]
   );
 
-  // Keyboard triage: j/k moves the focus mark, x toggles selection, a/r
-  // approve/reject the focused card. Judgment tab only — it's the big queue
-  // this is for; Facts leans on "apply all" instead.
+  // Keyboard triage: j/k moves the focus mark, x toggles selection, and
+  // Alt+A/R approves/rejects the focused card. Interactive and editable
+  // targets always keep their native keyboard behavior.
   useEffect(() => {
     if (tab !== 'judgment') return;
     function onKeyDown(e: KeyboardEvent) {
-      const tag = (document.activeElement?.tagName || '').toLowerCase();
-      if (tag === 'input' || tag === 'textarea') return;
+      if (e.defaultPrevented || e.isComposing || isInteractiveTarget(e.target)) return;
       if (judgmentFlatIds.length === 0) return;
+      const key = e.key.toLowerCase();
+      const plainKey = !e.altKey && !e.metaKey && !e.ctrlKey;
 
-      if (e.key === 'j' || e.key === 'k') {
+      if (plainKey && (key === 'j' || key === 'k')) {
         e.preventDefault();
         setFocusedId((prev) => {
           const idx = prev ? judgmentFlatIds.indexOf(prev) : -1;
-          const nextIdx = e.key === 'j' ? Math.min(idx + 1, judgmentFlatIds.length - 1) : Math.max(idx - 1, 0);
+          const nextIdx = key === 'j' ? Math.min(idx + 1, judgmentFlatIds.length - 1) : Math.max(idx - 1, 0);
           const nextId = judgmentFlatIds[nextIdx];
           document.getElementById(`proposal-${nextId}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
           return nextId;
         });
-      } else if (e.key === 'x') {
+      } else if (plainKey && key === 'x') {
         if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
         e.preventDefault();
         toggleSelect(focusedId);
-      } else if (e.key === 'a' || e.key === 'r') {
-        if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
+      } else if (e.altKey && !e.metaKey && !e.ctrlKey && (key === 'a' || key === 'r')) {
+        if (e.repeat || bulkBusy || !focusedId || !judgmentFlatIds.includes(focusedId)) return;
         e.preventDefault();
-        bulkDecide([focusedId], e.key === 'a' ? 'approved' : 'rejected');
+        bulkDecide([focusedId], key === 'a' ? 'approved' : 'rejected');
       }
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [tab, judgmentFlatIds, focusedId, toggleSelect, bulkDecide]);
+  }, [tab, judgmentFlatIds, focusedId, toggleSelect, bulkDecide, bulkBusy]);
 
   async function applyAllFacts() {
     if (factPending.length === 0) return;
@@ -361,11 +372,37 @@ export default function DeskPage() {
         onValidate={runValidate}
       />
 
-      <div className="mb-8 grid grid-cols-3 gap-3 sm:gap-4">
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         <Stat label="Pending judgment" value={data.counts.pendingJudgment} />
         <Stat label="Pending facts" value={data.counts.pendingFact} />
+        <Stat label="Reconciliation hold" value={reconciliationHolds.length} />
         <Stat label="Decided today" value={data.counts.decidedToday} />
       </div>
+
+      {reconciliationHolds.length > 0 && (
+        <section className="mb-8 border border-closing/40 bg-closing/5 p-4" aria-labelledby="reconciliation-heading">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 id="reconciliation-heading" className="text-[13px] font-extrabold uppercase tracking-[.09em] text-paper">
+              Reconciliation hold
+            </h2>
+            <span className="coord">{reconciliationHolds.length} blocked from another decision</span>
+          </div>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-dim">
+            These apply attempts did not finish cleanly. They stay locked until the durable ledger and registry are reconciled.
+          </p>
+          <ul className="mt-3 divide-y divide-line border-t border-line">
+            {reconciliationHolds.map((proposal) => (
+              <li key={proposal.id} className="grid gap-1 py-2.5 text-sm sm:grid-cols-[90px_1fr] sm:gap-4">
+                <span className="font-mono text-[11px] text-faint">{proposal.id}</span>
+                <span>
+                  <span className="text-paper">{proposal.title}</span>
+                  {proposal.validation?.reason && <span className="mt-0.5 block text-xs text-closing">{proposal.validation.reason}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="mb-6 flex gap-7 border-b border-line">
         {(['judgment', 'fact', 'log'] as Tab[]).map((t) => (
@@ -373,6 +410,7 @@ export default function DeskPage() {
             key={t}
             type="button"
             onClick={() => setTab(t)}
+            aria-pressed={tab === t}
             className={tabClass(tab === t)}
           >
             {t === 'judgment'

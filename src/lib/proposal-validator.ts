@@ -2,18 +2,34 @@
 // (docs/DESIGN.md's two-lane law, graduation clause). Each proposal type gets
 // a fixed set of checks against live evidence + the registry itself; PASS
 // means validation-runner.ts may apply + commit it without a human. This
-// file never writes anything — buildProposalChanges' dry run is the only
-// "write" it performs, and that's pure (computes, doesn't touch disk).
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+// file never touches the canonical registry. Dry-run changes are copied into
+// a disposable staging directory for full schema/reference validation.
+import { execFileSync } from 'node:child_process';
+import { lookup } from 'node:dns/promises';
+import {
+  appendFileSync,
+  copyFileSync,
+  cpSync,
+  mkdirSync,
+  mkdtempSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
+import { isIP } from 'node:net';
+import { dirname, join, relative, resolve } from 'node:path';
 import { buildProposalChanges } from './committer';
 import { getOrg, loadRegistry } from './registry';
+import { productDateISO } from './round-state';
 import type { Org, Proposal } from './types';
 import { neverAutoReasonFor } from './machine-approval-policy';
 
 const REPO_ROOT = process.cwd();
 const REGISTRY = join(REPO_ROOT, 'registry');
 const FETCH_TIMEOUT_MS = 10_000;
+const FETCH_MAX_BYTES = 2 * 1024 * 1024;
+const FETCH_MAX_REDIRECTS = 5;
+const ALLOWED_CONTENT_TYPES = new Set(['text/html', 'application/xhtml+xml', 'text/plain', 'application/xml', 'text/xml']);
+const DEFAULT_TRUSTED_EVIDENCE_DOMAINS = new Set(['grants.gov']);
 
 export interface CheckResult {
   name: string;
@@ -27,10 +43,8 @@ export interface ValidationResult {
   /** Present whenever pass is false — the single human-readable reason the
    *  Desk's exception queue shows. */
   reason?: string;
-  /** True for classes that are never machine-validated by design (new_award,
-   *  merge_orgs, anything unrecognized) — the Desk shows these as "needs the
-   *  owner" rather than "machine check failed", since there was never a
-   *  check to fail. */
+  /** True for classes that are owner-only by design, plus anything
+   * unrecognized. Desk presents these as "needs the owner." */
   neverAuto?: boolean;
 }
 
@@ -44,34 +58,191 @@ export interface FetchedPage {
   error?: string;
 }
 
-/** 10s timeout, redirects followed (fetch's default), final URL + status +
- *  body text captured. Never throws — network/timeout/parse failures come
- *  back as ok:false with an error string, so a validator can always turn
- *  this into a check result. */
-export async function fetchPage(url: string, timeoutMs: number = FETCH_TIMEOUT_MS): Promise<FetchedPage> {
+interface LookupAddress {
+  address: string;
+  family: number;
+}
+
+export interface FetchPageDependencies {
+  /** Test seam. Production callers use Node's DNS resolver. */
+  lookupImpl?: (hostname: string) => Promise<LookupAddress[]>;
+  /** Test seam. Production callers use the platform fetch implementation. */
+  fetchImpl?: typeof fetch;
+}
+
+function ipv4Parts(address: string): number[] | null {
+  const parts = address.split('.').map(Number);
+  if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) return null;
+  return parts;
+}
+
+function isBlockedIpv4(address: string): boolean {
+  const parts = ipv4Parts(address);
+  if (!parts) return true;
+  const [a, b] = parts;
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) ||
+    (a === 198 && (b === 18 || b === 19)) ||
+    a >= 224
+  );
+}
+
+function ipv6ToBigInt(address: string): bigint | null {
+  let input = address.toLowerCase().split('%')[0];
+  const ipv4Tail = /(?:^|:)(\d+\.\d+\.\d+\.\d+)$/.exec(input);
+  if (ipv4Tail) {
+    const parts = ipv4Parts(ipv4Tail[1]);
+    if (!parts) return null;
+    const high = ((parts[0] << 8) | parts[1]).toString(16);
+    const low = ((parts[2] << 8) | parts[3]).toString(16);
+    input = `${input.slice(0, input.length - ipv4Tail[1].length)}${high}:${low}`;
+  }
+
+  const sides = input.split('::');
+  if (sides.length > 2) return null;
+  const left = sides[0] ? sides[0].split(':') : [];
+  const right = sides.length === 2 && sides[1] ? sides[1].split(':') : [];
+  if (sides.length === 1 && left.length !== 8) return null;
+  const zeros = sides.length === 2 ? 8 - left.length - right.length : 0;
+  if (zeros < 1 && sides.length === 2) return null;
+  const groups = [...left, ...Array.from({ length: zeros }, () => '0'), ...right];
+  if (groups.length !== 8 || groups.some((group) => !/^[0-9a-f]{1,4}$/.test(group))) return null;
+  return groups.reduce((value, group) => (value << 16n) | BigInt(`0x${group}`), 0n);
+}
+
+function isBlockedIpv6(address: string): boolean {
+  const value = ipv6ToBigInt(address);
+  if (value == null) return true;
+  if (value === 0n || value === 1n) return true; // unspecified and loopback
+  if ((value >> 121n) === 0x7en) return true; // fc00::/7 unique-local
+  if ((value >> 118n) === 0x3fan) return true; // fe80::/10 link-local
+  if ((value >> 120n) === 0xffn) return true; // multicast
+  if ((value >> 32n) === 0n) return true; // IPv4-compatible and other reserved ::/96 forms
+  // IPv4-mapped IPv6 (::ffff:0:0/96) inherits the IPv4 restrictions.
+  if ((value >> 32n) === 0xffffn) {
+    const low = Number(value & 0xffffffffn);
+    return isBlockedIpv4(`${(low >>> 24) & 255}.${(low >>> 16) & 255}.${(low >>> 8) & 255}.${low & 255}`);
+  }
+  return false;
+}
+
+export function isBlockedNetworkAddress(address: string): boolean {
+  const family = isIP(address);
+  if (family === 4) return isBlockedIpv4(address);
+  if (family === 6) return isBlockedIpv6(address);
+  return true;
+}
+
+async function assertPublicDestination(url: URL, deps: FetchPageDependencies): Promise<void> {
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') throw new Error('only http(s) evidence URLs are allowed');
+  if (url.username || url.password) throw new Error('evidence URLs with embedded credentials are not allowed');
+
+  const hostname = url.hostname.replace(/^\[|\]$/g, '').toLowerCase();
+  if (!hostname || hostname === 'localhost' || hostname.endsWith('.localhost')) {
+    throw new Error('localhost evidence destinations are blocked');
+  }
+
+  const literalFamily = isIP(hostname);
+  const addresses = literalFamily
+    ? [{ address: hostname, family: literalFamily }]
+    : await (deps.lookupImpl ?? (async (host) => lookup(host, { all: true, verbatim: true })))(hostname);
+  if (addresses.length === 0) throw new Error('evidence hostname resolved to no addresses');
+  const blocked = addresses.find(({ address }) => isBlockedNetworkAddress(address));
+  if (blocked) throw new Error(`private, local, or link-local evidence destination blocked (${blocked.address})`);
+}
+
+function redirectLocation(response: Response, currentUrl: URL): URL | null {
+  if (![301, 302, 303, 307, 308].includes(response.status)) return null;
+  const location = response.headers.get('location');
+  if (!location) throw new Error(`redirect response ${response.status} had no Location header`);
+  return new URL(location, currentUrl);
+}
+
+async function readCappedText(response: Response, maxBytes: number): Promise<string> {
+  const declared = Number(response.headers.get('content-length'));
+  if (Number.isFinite(declared) && declared > maxBytes) throw new Error(`evidence response exceeded ${maxBytes} bytes`);
+  if (!response.body) return '';
+
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel('response too large');
+      throw new Error(`evidence response exceeded ${maxBytes} bytes`);
+    }
+    chunks.push(value);
+  }
+  const combined = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(combined);
+}
+
+/** Fail-closed evidence fetcher. Every request and redirect target is DNS
+ * checked before fetch; response type and size are bounded. Never throws to
+ * callers: all failures become ok:false so the proposal stays in Desk. */
+export async function fetchPage(
+  url: string,
+  timeoutMs: number = FETCH_TIMEOUT_MS,
+  deps: FetchPageDependencies = {}
+): Promise<FetchedPage> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let current = url;
   try {
-    const res = await fetch(url, {
-      signal: controller.signal,
-      redirect: 'follow',
-      headers: {
-        'user-agent': 'Mozilla/5.0 (compatible; grants-watch-validator/1.0; +https://grants.watch)',
-        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      },
-    });
-    let text = '';
-    try {
-      text = await res.text();
-    } catch {
-      text = '';
+    const fetchImpl = deps.fetchImpl ?? fetch;
+    for (let redirects = 0; redirects <= FETCH_MAX_REDIRECTS; redirects++) {
+      const parsed = new URL(current);
+      await assertPublicDestination(parsed, deps);
+      const res = await fetchImpl(parsed, {
+        signal: controller.signal,
+        redirect: 'manual',
+        headers: {
+          'user-agent': 'Mozilla/5.0 (compatible; grants-watch-validator/1.0; +https://grants.watch)',
+          accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,application/xml;q=0.8',
+        },
+      });
+
+      const next = redirectLocation(res, parsed);
+      if (next) {
+        if (redirects === FETCH_MAX_REDIRECTS) throw new Error(`more than ${FETCH_MAX_REDIRECTS} evidence redirects`);
+        await assertPublicDestination(next, deps);
+        await res.body?.cancel();
+        current = next.toString();
+        continue;
+      }
+
+      // Some fetch implementations expose a different final URL even in
+      // manual mode. Apply the same destination guard before accepting it.
+      const finalUrl = res.url || parsed.toString();
+      await assertPublicDestination(new URL(finalUrl), deps);
+      const mediaType = (res.headers.get('content-type') || '').split(';', 1)[0].trim().toLowerCase();
+      if (!ALLOWED_CONTENT_TYPES.has(mediaType)) {
+        throw new Error(`unsupported evidence content type "${mediaType || '(missing)'}"`);
+      }
+      const text = await readCappedText(res, FETCH_MAX_BYTES);
+      return { ok: res.ok, status: res.status, finalUrl, text };
     }
-    return { ok: res.ok, status: res.status, finalUrl: res.url || url, text };
+    throw new Error(`more than ${FETCH_MAX_REDIRECTS} evidence redirects`);
   } catch (e) {
     return {
       ok: false,
       status: 0,
-      finalUrl: url,
+      finalUrl: current,
       text: '',
       error: e instanceof Error ? e.message : 'fetch failed',
     };
@@ -90,7 +261,11 @@ function stripDiacritics(s: string): string {
  *  single space. Applied identically to page text and to name/date strings
  *  so both sides of a fuzzy comparison land in the same shape. */
 function normalizeForMatch(s: string): string {
-  return stripDiacritics((s || '').toLowerCase())
+  const visibleText = (s || '')
+    .replace(/<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&(?:nbsp|amp|quot|apos|lt|gt|#\d+|#x[0-9a-f]+);/gi, ' ');
+  return stripDiacritics(visibleText.toLowerCase())
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
 }
@@ -118,65 +293,41 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-/** Common ways a human-written page might render one ISO date: month names
- *  (full/abbreviated) in both orders, numeric MM/DD and DD/MM with and
- *  without zero-padding, dotted/slashed ISO order. Not exhaustive by
- *  design — a miss here means the proposal queues for Sov, which is the
- *  safe direction to fail in. */
+export function isValidIsoDate(value: string): boolean {
+  if (!ISO_DATE_RE.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+/** Common year-bearing ways a human-written page might render one exact ISO
+ * date. Month/day-only variants are deliberately excluded: they let a stale
+ * or wrong-year page approve a current claim. */
 function dateVariants(iso: string): string[] {
-  const m = ISO_DATE_RE.exec(iso);
-  if (!m) return [iso];
+  if (!isValidIsoDate(iso)) return [];
   const [, y, mo, d] = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)!;
   const monthIdx = parseInt(mo, 10) - 1;
-  if (monthIdx < 0 || monthIdx > 11) return [iso];
   const monthName = MONTHS[monthIdx];
   const monthAbbr = monthName.slice(0, 3);
   const dayNum = String(parseInt(d, 10));
-  const moNum = String(parseInt(mo, 10));
 
   return [
     iso,
-    `${monthAbbr} ${dayNum}`,
-    `${monthName} ${dayNum}`,
-    `${dayNum} ${monthAbbr}`,
-    `${dayNum} ${monthName}`,
     `${monthAbbr} ${dayNum}, ${y}`,
     `${monthName} ${dayNum}, ${y}`,
     `${dayNum} ${monthAbbr} ${y}`,
     `${dayNum} ${monthName} ${y}`,
-    `${mo}/${d}/${y}`,
-    `${moNum}/${dayNum}/${y}`,
-    `${mo}/${d}`,
-    `${moNum}/${dayNum}`,
-    `${d}/${mo}/${y}`,
-    `${dayNum}/${moNum}/${y}`,
     `${y}/${mo}/${d}`,
     `${y}.${mo}.${d}`,
-    `${y}-${moNum}-${dayNum}`,
   ];
 }
 
 export function pageContainsDate(pageText: string, iso: string): boolean {
   const page = normalizeForMatch(pageText);
-  if (!page) return false;
+  if (!page || !isValidIsoDate(iso)) return false;
   return dateVariants(iso).some((v) => {
     const nv = normalizeForMatch(v);
-    return nv && page.includes(nv);
+    return nv && ` ${page} `.includes(` ${nv} `);
   });
-}
-
-/** Recursively pulls every ISO-shaped (`YYYY-MM-DD`) string literal out of a
- *  proposed_change tree — round `opens`/`closes`, or anything shaped that
- *  way regardless of key name. */
-function findDateLiterals(value: unknown, out: string[] = []): string[] {
-  if (typeof value === 'string') {
-    if (ISO_DATE_RE.test(value)) out.push(value);
-  } else if (Array.isArray(value)) {
-    for (const v of value) findDateLiterals(v, out);
-  } else if (value && typeof value === 'object') {
-    for (const v of Object.values(value as Record<string, unknown>)) findDateLiterals(v, out);
-  }
-  return out;
 }
 
 // ---- org resolver dedupe (pattern reused from scripts/resolve-orgs.mjs) ----
@@ -203,6 +354,37 @@ export function domainOf(url?: string | null): string | null {
   } catch {
     return null;
   }
+}
+
+function domainMatches(hostname: string, allowedDomain: string): boolean {
+  return hostname === allowedDomain || hostname.endsWith(`.${allowedDomain}`);
+}
+
+function configuredTrustedEvidenceDomains(): Set<string> {
+  const configured = (process.env.GRANTS_WATCH_TRUSTED_EVIDENCE_DOMAINS || '')
+    .split(',')
+    .map((value) => domainOf(value.trim()) || value.trim().toLowerCase().replace(/^\.+|\.+$/g, ''))
+    .filter(Boolean);
+  return new Set([...DEFAULT_TRUSTED_EVIDENCE_DOMAINS, ...configured]);
+}
+
+/** A fact may auto-apply only from the target organization's own web domain
+ * or from a domain explicitly trusted in code/config. Matching includes
+ * subdomains but never sibling or lookalike domains. */
+export function isAuthoritativeEvidenceUrl(
+  evidenceUrl: string,
+  org: Org | null,
+  trustedDomains: Iterable<string> = configuredTrustedEvidenceDomains()
+): boolean {
+  const evidenceDomain = domainOf(evidenceUrl);
+  if (!evidenceDomain) return false;
+  const orgDomain = domainOf(org?.website);
+  if (orgDomain && !SHARED_PLATFORM_DOMAINS.has(orgDomain) && domainMatches(evidenceDomain, orgDomain)) return true;
+  for (const raw of trustedDomains) {
+    const trusted = domainOf(raw) || raw.toLowerCase().replace(/^\.+|\.+$/g, '');
+    if (trusted && domainMatches(evidenceDomain, trusted)) return true;
+  }
+  return false;
 }
 
 // Multi-tenant platform hostnames — an org's `socials.x`/`socials.github`/...
@@ -266,12 +448,62 @@ function fail(checks: CheckResult[], reason: string): ValidationResult {
   return { pass: false, checks, reason };
 }
 
+function conciseProcessError(error: unknown): string {
+  if (!(error instanceof Error)) return String(error);
+  const withStderr = error as Error & { stderr?: Buffer | string; stdout?: Buffer | string };
+  const raw = withStderr.stderr?.toString() || withStderr.stdout?.toString() || error.message;
+  return raw.replace(/\s+/g, ' ').trim().slice(0, 600);
+}
+
+/** Applies a pure change set to an isolated copy of registry/ and runs the
+ * canonical validator there. This catches schema, reference, duplicate,
+ * date, and membrane violations before the live registry is touched. */
+export function validateStagedChanges(changes: ReturnType<typeof buildProposalChanges>['changes']): string | null {
+  const dataDir = join(REPO_ROOT, '.data');
+  mkdirSync(dataDir, { recursive: true });
+  const stageRoot = mkdtempSync(join(dataDir, 'validation-stage-'));
+  try {
+    const stageRegistry = join(stageRoot, 'registry');
+    const stageScripts = join(stageRoot, 'scripts');
+    cpSync(REGISTRY, stageRegistry, { recursive: true });
+    mkdirSync(stageScripts, { recursive: true });
+    copyFileSync(join(REPO_ROOT, 'scripts', 'validate-registry.mjs'), join(stageScripts, 'validate-registry.mjs'));
+
+    for (const change of changes) {
+      const destination = resolve(stageRoot, change.path);
+      const registryRelative = relative(stageRegistry, destination);
+      if (registryRelative.startsWith('..') || registryRelative === '') {
+        throw new Error(`change path escapes staged registry: ${change.path}`);
+      }
+      mkdirSync(dirname(destination), { recursive: true });
+      if (change.op === 'append') appendFileSync(destination, change.content, 'utf8');
+      else writeFileSync(destination, change.content, 'utf8');
+    }
+
+    execFileSync(process.execPath, [join(stageScripts, 'validate-registry.mjs')], {
+      cwd: stageRoot,
+      encoding: 'utf8',
+      env: { ...process.env, VALIDATION_TODAY: productDateISO() },
+      stdio: 'pipe',
+    });
+    return null;
+  } catch (error) {
+    return conciseProcessError(error);
+  } finally {
+    rmSync(stageRoot, { recursive: true, force: true });
+  }
+}
+
 function tryDryRun(p: Proposal, checks: CheckResult[]): { ok: true } | { ok: false; result: ValidationResult } {
   try {
     const { changes } = buildProposalChanges(p);
     const ok = changes.length > 0;
     checks.push({ name: 'dry-run-builds', pass: ok, detail: ok ? undefined : 'no changes produced' });
     if (!ok) return { ok: false, result: fail(checks, 'dry run produced no changes') };
+
+    const stagedError = validateStagedChanges(changes);
+    checks.push({ name: 'staged-registry-valid', pass: !stagedError, detail: stagedError || undefined });
+    if (stagedError) return { ok: false, result: fail(checks, `staged registry validation failed: ${stagedError}`) };
     return { ok: true };
   } catch (e) {
     const detail = e instanceof Error ? e.message : String(e);
@@ -280,211 +512,201 @@ function tryDryRun(p: Proposal, checks: CheckResult[]): { ok: true } | { ok: fal
   }
 }
 
-// ---- new_org ----
+// ---- round_update / deadline_change ----
 
-async function validateNewOrg(p: Proposal): Promise<ValidationResult> {
-  const checks: CheckResult[] = [];
-  const pc = (p.proposed_change || {}) as Record<string, unknown>;
-  const orgEntries = Object.entries(pc).filter(([k]) => /^orgs\/(.+)\.yaml$/.test(k));
-  const registryEntries = Object.entries(pc).filter(([k]) => /^(orgs|programs)\/(.+)\.yaml$/.test(k));
+const FACT_PATCH_FIELDS = new Set(['rounds']);
+const ROUND_PATCH_FIELDS = new Set(['name', 'status', 'opens', 'closes', 'size', 'source']);
+const FACT_ROUND_STATUSES = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
+const STATUS_EVIDENCE_PHRASES: Record<string, string[]> = {
+  announced: ['announced', 'coming soon', 'launching', 'opens on'],
+  open: ['applications open', 'applications are open', 'submissions open', 'now open', 'open call', 'apply now', 'accepting applications'],
+  reviewing: ['under review', 'reviewing applications', 'applications are being reviewed', 'selection in progress'],
+  closed: ['applications closed', 'applications are closed', 'submissions closed', 'now closed', 'call closed', 'deadline has passed'],
+  deployed: ['awarded', 'funded projects', 'selected projects', 'funds distributed', 'recipients announced'],
+};
 
-  if (orgEntries.length === 0) {
-    checks.push({ name: 'has-org-entry', pass: false });
-    return fail(checks, 'no orgs/<slug>.yaml entry in proposed_change');
-  }
-
-  const hasOneValidatedEntry = orgEntries.length === 1 && registryEntries.length === 1;
-  checks.push({
-    name: 'has-one-validated-registry-entry',
-    pass: hasOneValidatedEntry,
-    detail: `${orgEntries.length} org entries, ${registryEntries.length} total registry entries`,
-  });
-  if (!hasOneValidatedEntry) return fail(checks, 'multi-entry new org proposals require owner review');
-
-  const [key, rawVal] = orgEntries[0];
-  const slug = /^orgs\/(.+)\.yaml$/.exec(key)![1];
-  const val = (rawVal || {}) as Record<string, unknown>;
-  const name = (val.name as string) || p.org_name || null;
-  const website = (val.website as string) || null;
-
-  const hasNameAndWebsite = !!name && !!website;
-  checks.push({
-    name: 'name-and-website-present',
-    pass: hasNameAndWebsite,
-    detail: `name=${name ?? '(none)'} website=${website ?? '(none)'}`,
-  });
-  if (!hasNameAndWebsite) return fail(checks, 'missing org name or website');
-
-  const badOrgValue = validateKnownValueFields(true, val);
-  checks.push({ name: 'known-fields-hold-valid-values', pass: !badOrgValue, detail: badOrgValue });
-  if (badOrgValue) return fail(checks, `invalid field value: ${badOrgValue}`);
-
-  const page = await fetchPage(website!);
-  checks.push({
-    name: 'website-fetches-200',
-    pass: page.ok,
-    detail: page.error ? page.error : `status ${page.status} @ ${page.finalUrl}`,
-  });
-  if (!page.ok) return fail(checks, `website did not return 200 (status ${page.status}${page.error ? `, ${page.error}` : ''})`);
-
-  const nameMatch = nameOnPage(page.text, name!);
-  checks.push({ name: 'page-contains-org-name', pass: nameMatch });
-  if (!nameMatch) return fail(checks, 'org name not found on its own website');
-
-  const { orgs } = loadRegistry();
-  const index = buildOrgDedupeIndex(orgs);
-  const fileAlreadyExists = existsSync(join(REGISTRY, 'orgs', `${slug}.yaml`));
-  const dupe = fileAlreadyExists ? null : findDuplicateOrg(index, { name, aka: val.aka as string[] | undefined, website });
-  const isDupe = fileAlreadyExists || !!dupe;
-  checks.push({
-    name: 'not-a-duplicate',
-    pass: !isDupe,
-    detail: fileAlreadyExists ? `orgs/${slug}.yaml already exists` : dupe ? `matches existing org "${dupe.id}"` : undefined,
-  });
-  if (isDupe) return fail(checks, 'looks like a duplicate of an existing org');
-
-  const dryRun = tryDryRun(p, checks);
-  if (!dryRun.ok) return dryRun.result;
-
-  return { pass: true, checks };
+export function pageContainsLiteralClaim(pageText: string, value: string | number): boolean {
+  const page = normalizeForMatch(pageText);
+  const claim = normalizeForMatch(String(value));
+  return !!page && !!claim && ` ${page} `.includes(` ${claim} `);
 }
 
-// ---- new_program ----
+export function pageContainsStatusClaim(pageText: string, status: string): boolean {
+  const phrases = STATUS_EVIDENCE_PHRASES[status] || [];
+  return phrases.some((phrase) => pageContainsLiteralClaim(pageText, phrase));
+}
 
-async function validateNewProgram(p: Proposal): Promise<ValidationResult> {
-  const checks: CheckResult[] = [];
-  const pc = (p.proposed_change || {}) as Record<string, unknown>;
-  const programEntries = Object.entries(pc).filter(([k]) => /^programs\/(.+)\.yaml$/.test(k));
+interface FactPatch {
+  targetProgramId: string;
+  patch: Record<string, unknown>;
+  rounds: Record<string, unknown>[];
+  dates: string[];
+}
 
-  if (programEntries.length === 0) {
-    checks.push({ name: 'has-program-entry', pass: false });
-    return fail(checks, 'no programs/<slug>.yaml entry in proposed_change');
+function parseFactPatch(p: Proposal): { value?: FactPatch; error?: string } {
+  const proposed = (p.proposed_change || {}) as Record<string, unknown>;
+  const programEntries = Object.entries(proposed).filter(
+    ([key, value]) => /^programs\/(.+)\.yaml$/.test(key) && value != null && typeof value === 'object' && !Array.isArray(value)
+  );
+  const orgEntries = Object.keys(proposed).filter((key) => /^orgs\/(.+)\.yaml$/.test(key));
+  if (orgEntries.length) return { error: 'fact auto-approval cannot mutate organization files' };
+  if (programEntries.length !== 1 || Object.keys(proposed).length !== 1) {
+    return { error: 'fact auto-approval requires exactly one explicit programs/<id>.yaml target' };
   }
 
-  const [key, rawVal] = programEntries[0];
-  const slug = /^programs\/(.+)\.yaml$/.exec(key)![1];
-  const val = (rawVal || {}) as Record<string, unknown>;
-  const programName = p.program || (val.name as string) || null;
-  const orgId = (val.org as string) || p.org || null;
+  const [targetKey, rawPatch] = programEntries[0];
+  const targetProgramId = /^programs\/(.+)\.yaml$/.exec(targetKey)![1];
+  const patch = rawPatch as Record<string, unknown>;
+  const unsupported = Object.keys(patch).filter((field) => !FACT_PATCH_FIELDS.has(field));
+  if (unsupported.length) return { error: `unsupported auto-fact fields: ${unsupported.join(', ')}` };
+  if (!Array.isArray(patch.rounds) || patch.rounds.length === 0) return { error: 'fact update has no round changes' };
 
-  const hasNameAndOrg = !!programName && !!orgId;
-  checks.push({
-    name: 'program-name-and-org-present',
-    pass: hasNameAndOrg,
-    detail: `program=${programName ?? '(none)'} org=${orgId ?? '(none)'}`,
-  });
-  if (!hasNameAndOrg) return fail(checks, 'missing program name or org');
-
-  const org = getOrg(orgId!);
-  checks.push({ name: 'org-exists-in-registry', pass: !!org, detail: org ? org.name : `"${orgId}" not found` });
-  if (!org) return fail(checks, `org "${orgId}" is not in the registry`);
-
-  const badProgramValue = validateKnownValueFields(false, val);
-  checks.push({ name: 'known-fields-hold-valid-values', pass: !badProgramValue, detail: badProgramValue });
-  if (badProgramValue) return fail(checks, `invalid field value: ${badProgramValue}`);
-
-  const candidateUrls = [p.evidence_url, val.apply_url as string | undefined].filter((u): u is string => !!u);
-  if (candidateUrls.length === 0) {
-    checks.push({ name: 'evidence-or-apply-url-fetches-200', pass: false, detail: 'no evidence_url or apply_url' });
-    return fail(checks, 'no evidence_url or apply_url to check');
-  }
-
-  let page: FetchedPage | null = null;
-  for (const url of candidateUrls) {
-    const attempt = await fetchPage(url);
-    if (!page) page = attempt;
-    if (attempt.ok) {
-      page = attempt;
-      break;
+  const rounds: Record<string, unknown>[] = [];
+  const dates: string[] = [];
+  let materialClaims = 0;
+  for (const [index, rawRound] of patch.rounds.entries()) {
+    if (!rawRound || typeof rawRound !== 'object' || Array.isArray(rawRound)) {
+      return { error: `round ${index + 1} is not an object` };
     }
+    const round = rawRound as Record<string, unknown>;
+    const badFields = Object.keys(round).filter((field) => !ROUND_PATCH_FIELDS.has(field));
+    if (badFields.length) return { error: `round ${index + 1} has unsupported fields: ${badFields.join(', ')}` };
+    if (typeof round.name !== 'string' || !round.name.trim()) return { error: `round ${index + 1} has no name` };
+    if (round.status !== undefined && (typeof round.status !== 'string' || !FACT_ROUND_STATUSES.has(round.status))) {
+      return { error: `round ${index + 1} has invalid status "${String(round.status)}"` };
+    }
+    if (round.status !== undefined) materialClaims++;
+    if (round.size !== undefined && (typeof round.size !== 'string' || !round.size.trim())) {
+      return { error: `round ${index + 1} has an invalid size claim` };
+    }
+    if (round.size !== undefined) materialClaims++;
+    for (const field of ['opens', 'closes'] as const) {
+      if (round[field] === undefined) continue;
+      if (typeof round[field] !== 'string' || !isValidIsoDate(round[field])) {
+        return { error: `round ${index + 1} has invalid ${field} date "${String(round[field])}"` };
+      }
+      dates.push(round[field]);
+      materialClaims++;
+    }
+    if (round.source !== undefined && !isUrlLike(round.source)) {
+      return { error: `round ${index + 1} has an invalid source URL` };
+    }
+    rounds.push(round);
   }
-  checks.push({
-    name: 'evidence-or-apply-url-fetches-200',
-    pass: !!page?.ok,
-    detail: page ? (page.error ?? `status ${page.status} @ ${page.finalUrl}`) : undefined,
-  });
-  if (!page || !page.ok) return fail(checks, `evidence/apply url did not return 200 (status ${page?.status ?? 0})`);
-
-  const programNameMatch = nameOnPage(page.text, programName!);
-  const orgNameMatch = nameOnPage(page.text, org.name);
-  const orgDomain = domainOf(org.website);
-  const pageDomain = domainOf(page.finalUrl);
-  const onOrgDomain = !!orgDomain && !!pageDomain && (pageDomain === orgDomain || pageDomain.endsWith(`.${orgDomain}`));
-  const orgSignal = orgNameMatch || onOrgDomain;
-
-  checks.push({ name: 'page-contains-program-name', pass: programNameMatch });
-  checks.push({
-    name: 'page-contains-org-name-or-on-org-domain',
-    pass: orgSignal,
-    detail: onOrgDomain ? `page is on the org's own domain (${pageDomain})` : orgNameMatch ? 'org name found' : undefined,
-  });
-  if (!programNameMatch || !orgSignal) return fail(checks, 'program/org identity not confirmed on the evidence page');
-
-  const fileAlreadyExists = existsSync(join(REGISTRY, 'programs', `${slug}.yaml`));
-  checks.push({
-    name: 'program-id-not-already-registered',
-    pass: !fileAlreadyExists,
-    detail: fileAlreadyExists ? `programs/${slug}.yaml already exists` : undefined,
-  });
-  if (fileAlreadyExists) return fail(checks, 'program id already exists in the registry');
-
-  const dryRun = tryDryRun(p, checks);
-  if (!dryRun.ok) return dryRun.result;
-
-  return { pass: true, checks };
+  if (p.type === 'deadline_change' && dates.length === 0) return { error: 'deadline change has no exact calendar date' };
+  if (materialClaims === 0) return { error: 'round update has no machine-checkable status, date, or size claim' };
+  return { value: { targetProgramId, patch, rounds, dates: [...new Set(dates)] } };
 }
 
-// ---- round_update / deadline_change / status_change ----
+function sameUrl(left: string, right: string): boolean {
+  try {
+    const normalize = (raw: string) => {
+      const parsed = new URL(raw);
+      parsed.hash = '';
+      return parsed.toString().replace(/\/$/, '');
+    };
+    return normalize(left) === normalize(right);
+  } catch {
+    return false;
+  }
+}
+
+function pageLinksTo(pageText: string, url: string): boolean {
+  const decoded = pageText.replace(/&amp;/gi, '&');
+  return decoded.includes(url) || decoded.includes(url.replace(/\/$/, ''));
+}
 
 async function validateFactUpdate(p: Proposal): Promise<ValidationResult> {
   const checks: CheckResult[] = [];
+  const parsedPatch = parseFactPatch(p);
+  checks.push({ name: 'fact-patch-shape-safe', pass: !!parsedPatch.value, detail: parsedPatch.error });
+  if (!parsedPatch.value) return fail(checks, parsedPatch.error || 'invalid fact patch');
+  const { targetProgramId, rounds, dates } = parsedPatch.value;
+
+  const registry = loadRegistry();
+  const targetProgram = registry.programs.find((program) => program.id === targetProgramId) || null;
+  checks.push({ name: 'target-program-exists', pass: !!targetProgram, detail: targetProgramId });
+  if (!targetProgram) return fail(checks, `program "${targetProgramId}" is not in the registry`);
+  if (p.org && p.org !== targetProgram.org) {
+    checks.push({ name: 'proposal-org-matches-target', pass: false, detail: `${p.org} != ${targetProgram.org}` });
+    return fail(checks, 'proposal org does not own the target program');
+  }
+  for (const round of rounds) {
+    const existing = targetProgram.rounds.some(
+      (candidate) => normalizeForMatch(candidate.name) === normalizeForMatch(String(round.name))
+    );
+    if (!existing && typeof round.status !== 'string') {
+      checks.push({ name: 'new-round-status-explicit', pass: false, detail: String(round.name) });
+      return fail(checks, `new round "${String(round.name)}" requires an explicit evidenced status`);
+    }
+  }
 
   if (!p.evidence_url) {
     checks.push({ name: 'evidence-url-present', pass: false });
     return fail(checks, 'no evidence_url');
   }
+  const org = getOrg(targetProgram.org);
+  const initialAuthority = isAuthoritativeEvidenceUrl(p.evidence_url, org);
+  checks.push({
+    name: 'evidence-domain-authoritative',
+    pass: initialAuthority,
+    detail: initialAuthority ? domainOf(p.evidence_url) || undefined : `${domainOf(p.evidence_url) || '(invalid)'} is not owned/trusted`,
+  });
+  if (!initialAuthority) return fail(checks, 'evidence is not on the target organization or a trusted domain');
 
   const page = await fetchPage(p.evidence_url);
   checks.push({
-    name: 'evidence-fetches-200',
+    name: 'evidence-fetches-safe-200',
     pass: page.ok,
     detail: page.error ? page.error : `status ${page.status} @ ${page.finalUrl}`,
   });
-  if (!page.ok) return fail(checks, `evidence url did not return 200 (status ${page.status}${page.error ? `, ${page.error}` : ''})`);
+  if (!page.ok) return fail(checks, `evidence url did not return a safe 200 (${page.error || `status ${page.status}`})`);
 
-  const org = p.org ? getOrg(p.org) : null;
-  const nameToCheck = p.program || org?.name || p.org_name || null;
-  const nameMatch = nameToCheck ? nameOnPage(page.text, nameToCheck) : false;
-  checks.push({ name: 'page-contains-program-or-org-name', pass: nameMatch, detail: nameToCheck ?? '(none)' });
-  if (!nameMatch) return fail(checks, 'program/org name not found on the evidence page');
+  const finalAuthority = isAuthoritativeEvidenceUrl(page.finalUrl, org);
+  checks.push({ name: 'final-evidence-domain-authoritative', pass: finalAuthority, detail: domainOf(page.finalUrl) || '(invalid)' });
+  if (!finalAuthority) return fail(checks, 'evidence redirected away from the target organization or trusted domain');
 
-  const literals = [...new Set(findDateLiterals(p.proposed_change))];
-  if (literals.length === 0) {
-    checks.push({ name: 'has-checkable-literal', pass: false });
-    return fail(checks, 'no machine-checkable claim');
-  }
-  checks.push({ name: 'has-checkable-literal', pass: true, detail: literals.join(', ') });
+  const nameMatch = pageContainsLiteralClaim(page.text, targetProgram.name);
+  checks.push({ name: 'page-contains-target-program-name', pass: nameMatch, detail: targetProgram.name });
+  if (!nameMatch) return fail(checks, 'target program name not found on the evidence page');
 
-  // Recency rule: a claim whose every date is already in the past is history,
-  // not an actionable update — the committer would auto-close it anyway, and
-  // approving it as "open" is how years-old rounds ended up on the front page.
-  const todayISO = new Date().toISOString().slice(0, 10);
-  const allPast = literals.every((d) => d < todayISO);
-  checks.push({ name: 'claim-is-current', pass: !allPast, detail: allPast ? `all dates before ${todayISO}` : 'has future/current dates' });
+  const todayISO = productDateISO();
+  const allPast = dates.length > 0 && dates.every((date) => date < todayISO);
+  checks.push({ name: 'claim-is-current', pass: !allPast, detail: allPast ? `all dates before ${todayISO}` : 'current, future, or undated' });
   if (allPast) return fail(checks, 'deadline already passed: historical, not actionable');
 
-  const unmatched = literals.filter((d) => !pageContainsDate(page.text, d));
-  const allMatch = unmatched.length === 0;
-  checks.push({
-    name: 'page-contains-claimed-date',
-    pass: allMatch,
-    detail: allMatch ? literals.join(', ') : `not found on page: ${unmatched.join(', ')}`,
-  });
-  if (!allMatch) return fail(checks, 'claimed date not found on the evidence page');
+  for (const [index, round] of rounds.entries()) {
+    const nameSupported = pageContainsLiteralClaim(page.text, round.name as string);
+    checks.push({ name: `round-${index + 1}-name-supported`, pass: nameSupported, detail: String(round.name) });
+    if (!nameSupported) return fail(checks, `round name "${String(round.name)}" not found on the evidence page`);
+
+    if (typeof round.status === 'string') {
+      const statusSupported = pageContainsStatusClaim(page.text, round.status);
+      checks.push({ name: `round-${index + 1}-status-supported`, pass: statusSupported, detail: round.status });
+      if (!statusSupported) return fail(checks, `round status "${round.status}" is not supported by the evidence page`);
+    }
+    for (const field of ['opens', 'closes'] as const) {
+      if (typeof round[field] !== 'string') continue;
+      const dateSupported = pageContainsDate(page.text, round[field]);
+      checks.push({ name: `round-${index + 1}-${field}-supported`, pass: dateSupported, detail: round[field] });
+      if (!dateSupported) return fail(checks, `claimed ${field} date ${round[field]} not found with its year on the evidence page`);
+    }
+    if (typeof round.size === 'string') {
+      const sizeSupported = pageContainsLiteralClaim(page.text, round.size);
+      checks.push({ name: `round-${index + 1}-size-supported`, pass: sizeSupported, detail: round.size });
+      if (!sizeSupported) return fail(checks, `round size "${round.size}" is not supported by the evidence page`);
+    }
+    if (typeof round.source === 'string') {
+      const sourceSupported =
+        sameUrl(round.source, p.evidence_url) || sameUrl(round.source, page.finalUrl) ||
+        (isAuthoritativeEvidenceUrl(round.source, org) && pageLinksTo(page.text, round.source));
+      checks.push({ name: `round-${index + 1}-source-supported`, pass: sourceSupported, detail: round.source });
+      if (!sourceSupported) return fail(checks, 'round source is unrelated to the authoritative evidence page');
+    }
+  }
 
   const dryRun = tryDryRun(p, checks);
   if (!dryRun.ok) return dryRun.result;
-
   return { pass: true, checks };
 }
 
@@ -499,154 +721,8 @@ function validateNewAward(): ValidationResult {
   };
 }
 
-// ---- profile_note ----
-
-const PROFILE_NOTE_ORG_ALLOWED = new Set([
-  'aka', 'systems', 'wires', 'roles', 'org_type', 'website', 'status', 'socials', 'funding', 'sources', 'sources_add',
-]);
-const PROFILE_NOTE_PROGRAM_ALLOWED = new Set([
-  'parent', 'status', 'mechanism', 'apply_url', 'sources', 'sources_add', 'rounds', 'add_round',
-]);
-
-// Mirror registry/SCHEMA.md's enums (also enforced by scripts/validate-registry.mjs)
-// — field-NAME allowlisting alone isn't enough proof a value is safe to write:
-// an "identity" field like `website` or `status` can still carry garbage (a
-// sentence instead of a URL, an enum value that isn't in the schema). Found
-// live in this pipeline's own smoke test: a profile_note wrote
-// `website: "(dead — 404 confirmed ...)"` and `status: closed` (not a valid
-// org status) onto an existing org, and the field-name check alone would
-// have waved both through.
-const ORG_STATUS_VALUES = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
-const ORG_TYPE_VALUES = new Set(['foundation', 'dao', 'company', 'nonprofit', 'government', 'education']);
-const ORG_ROLE_VALUES = new Set(['funder', 'grantee', 'ecosystem']);
-const PROGRAM_STATUS_VALUES = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
-const MECHANISM_VALUES = new Set(['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other']);
-const WIRE_VALUES = new Set(['crypto', 'ai', 'oss']);
-const ROUND_STATUS_VALUES = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
-
 function isUrlLike(v: unknown): boolean {
   return typeof v === 'string' && /^https?:\/\/\S+$/.test(v);
-}
-
-/** Value-level sanity for one (field, value) pair inside a profile_note field
- *  map — returns a human reason on failure, undefined on pass. Deliberately
- *  narrow: only fields with a known shape/enum get checked; free-text arrays
- *  (aka, sources) and the loosely-shaped `funding` object pass through
- *  unchecked, same as before. */
-function invalidFieldValueReason(isOrg: boolean, field: string, value: unknown): string | undefined {
-  if (field === 'website' || field === 'apply_url') {
-    return isUrlLike(value) ? undefined : `${field} is not a URL: "${String(value).slice(0, 80)}"`;
-  }
-  if (field === 'status') {
-    const allowed = isOrg ? ORG_STATUS_VALUES : PROGRAM_STATUS_VALUES;
-    return allowed.has(value as string) ? undefined : `status "${String(value)}" is not a valid ${isOrg ? 'org' : 'program'} status`;
-  }
-  if (field === 'org_type') {
-    return ORG_TYPE_VALUES.has(value as string) ? undefined : `org_type "${String(value)}" is not valid`;
-  }
-  if (field === 'roles') {
-    const ok = Array.isArray(value) && value.length > 0 && value.every((r) => ORG_ROLE_VALUES.has(r as string));
-    return ok ? undefined : `roles ${JSON.stringify(value)} is invalid`;
-  }
-  if (field === 'wires') {
-    const ok = Array.isArray(value) && value.every((w) => WIRE_VALUES.has(w as string));
-    return ok ? undefined : `wires ${JSON.stringify(value)} is invalid`;
-  }
-  if (field === 'mechanism') {
-    return MECHANISM_VALUES.has(value as string) ? undefined : `mechanism "${String(value)}" is not valid`;
-  }
-  if (field === 'socials' && value && typeof value === 'object' && !Array.isArray(value)) {
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      if (!isUrlLike(v)) return `socials.${k} is not a URL: "${String(v).slice(0, 80)}"`;
-    }
-    return undefined;
-  }
-  if (field === 'rounds' || field === 'add_round') {
-    const rounds = Array.isArray(value) ? value : [value];
-    for (const r of rounds) {
-      if (r && typeof r === 'object' && 'status' in (r as Record<string, unknown>)) {
-        const s = (r as Record<string, unknown>).status;
-        if (!ROUND_STATUS_VALUES.has(s as string)) return `round status "${String(s)}" is not valid`;
-      }
-    }
-    return undefined;
-  }
-  return undefined;
-}
-
-/** Same value-sanity pass as profile_note's, reused by new_org/new_program
- *  for the handful of enum/URL-shaped fields a miner-drafted proposal might
- *  carry directly (roles, wires, status, org_type, mechanism, socials) —
- *  the same "a field can have the right name and a garbage value" risk
- *  applies there too, it's just less common since those proposals are
- *  usually simpler than an editorial profile_note. */
-function validateKnownValueFields(isOrg: boolean, val: Record<string, unknown>): string | undefined {
-  const fieldsToCheck = isOrg ? ['status', 'org_type', 'roles', 'wires', 'socials'] : ['status', 'mechanism', 'apply_url', 'rounds'];
-  for (const field of fieldsToCheck) {
-    if (!(field in val)) continue;
-    const reason = invalidFieldValueReason(isOrg, field, val[field]);
-    if (reason) return `${field}: ${reason}`;
-  }
-  return undefined;
-}
-
-/** Whether a profile_note's field map touches only identity/funding/socials
- *  fields, with values that hold their declared shape — never prose
- *  (`profile`, `profile_update`, `summary*`, `name`), never the
- *  advisory/destructive `action`/`remove` keys, and never a field-name match
- *  hiding a bad value. The literal top-level `{ profile: "<text>" }` shape
- *  (proposal-lanes shape (1), committer.ts's original behavior) is prose by
- *  construction — not allowed. */
-function profileNoteFieldsAllowed(pc: Record<string, unknown>): { allowed: boolean; touched: string[]; badValue?: string } {
-  const fileEntries = Object.entries(pc).filter(
-    ([k, v]) => /^(orgs|programs)\/.+\.yaml$/.test(k) && v != null && typeof v === 'object'
-  );
-  if (fileEntries.length === 0) return { allowed: false, touched: [] };
-
-  const touched: string[] = [];
-  for (const [key, value] of fileEntries) {
-    const isOrg = key.startsWith('orgs/');
-    const allowedSet = isOrg ? PROFILE_NOTE_ORG_ALLOWED : PROFILE_NOTE_PROGRAM_ALLOWED;
-    for (const [field, fieldValue] of Object.entries(value as Record<string, unknown>)) {
-      if (field === 'id') continue;
-      touched.push(field);
-      if (!allowedSet.has(field)) return { allowed: false, touched };
-      const badValue = invalidFieldValueReason(isOrg, field, fieldValue);
-      if (badValue) return { allowed: false, touched, badValue: `${key} ${field}: ${badValue}` };
-    }
-  }
-  if (typeof pc.action === 'string' || typeof pc.remove === 'string') return { allowed: false, touched };
-  return { allowed: true, touched };
-}
-
-async function validateProfileNote(p: Proposal): Promise<ValidationResult> {
-  const checks: CheckResult[] = [];
-  const pc = (p.proposed_change || {}) as Record<string, unknown>;
-
-  const { allowed, touched, badValue } = profileNoteFieldsAllowed(pc);
-  checks.push({
-    name: 'fields-are-identity-funding-socials-only',
-    pass: allowed,
-    detail: badValue || (touched.length ? touched.join(', ') : '(no field-keyed changes)'),
-  });
-  if (!allowed) return fail(checks, badValue ? `invalid field value: ${badValue}` : 'editorial: needs the owner');
-
-  if (!p.evidence_url) {
-    checks.push({ name: 'evidence-url-present', pass: false });
-    return fail(checks, 'no evidence_url');
-  }
-  const page = await fetchPage(p.evidence_url);
-  checks.push({
-    name: 'evidence-fetches-200',
-    pass: page.ok,
-    detail: page.error ? page.error : `status ${page.status} @ ${page.finalUrl}`,
-  });
-  if (!page.ok) return fail(checks, `evidence url did not return 200 (status ${page.status}${page.error ? `, ${page.error}` : ''})`);
-
-  const dryRun = tryDryRun(p, checks);
-  if (!dryRun.ok) return dryRun.result;
-
-  return { pass: true, checks };
 }
 
 // ---- merge_orgs + anything unrecognized: never auto ----
@@ -655,7 +731,7 @@ function neverAuto(detail: string): ValidationResult {
   return {
     pass: false,
     checks: [{ name: 'never-auto-class', pass: false, detail }],
-    reason: 'never auto',
+    reason: detail,
     neverAuto: true,
   };
 }
@@ -673,17 +749,18 @@ export async function validateProposal(p: Proposal): Promise<ValidationResult> {
 
   switch (p.type) {
     case 'new_org':
-      return validateNewOrg(p);
+      return neverAuto('new organizations require owner review');
     case 'new_program':
       return neverAuto('new programs require owner review');
     case 'round_update':
     case 'deadline_change':
-    case 'status_change':
       return validateFactUpdate(p);
+    case 'status_change':
+      return neverAuto('status changes require owner review');
     case 'new_award':
       return validateNewAward();
     case 'profile_note':
-      return validateProfileNote(p);
+      return neverAuto('profile and identity changes require owner review');
     case 'merge_orgs':
       return neverAuto('org merges are never automated');
     default:

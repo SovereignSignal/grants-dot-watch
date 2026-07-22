@@ -15,7 +15,7 @@ summary: >
   remote participation is limited to exceptional cases.
 rounds:
   - name: Winter 2026-2027 cohort
-    status: open
+    status: closed
     closes: 2026-07-20
     size: $3,000 per month plus accommodation and travel
     source: https://princint.ai/programs/fellowship/

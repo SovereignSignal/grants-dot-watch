@@ -39,7 +39,13 @@ export function ProposalGroup({
     <section className="mb-8">
       <div className="flex items-center gap-3.5 border-b-[1.5px] border-paper pb-1.5">
         <InkCheckbox checked={allSelected} indeterminate={someSelected} onChange={() => onToggleSelectAll(ids)} label={`Select all in ${TYPE_SLUG_LABEL[type]}`} />
-        <button type="button" onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 hover:opacity-80">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls={`proposal-group-${type}`}
+          className="flex items-center gap-2 hover:opacity-80"
+        >
           <span aria-hidden className="text-[10px] text-faint">
             {open ? '▾' : '▸'}
           </span>
@@ -50,7 +56,7 @@ export function ProposalGroup({
         <span aria-hidden className="h-px flex-1 bg-line" />
       </div>
       {open && (
-        <div className="flex flex-col">
+        <div id={`proposal-group-${type}`} className="flex flex-col">
           {items.map((p) => (
             <ProposalCard
               key={p.id}

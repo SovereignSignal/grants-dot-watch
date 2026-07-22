@@ -3,13 +3,17 @@
 // and src/components/programs/**) rather than in src/lib/format.ts, which is
 // shared by pages outside this phase's scope.
 import { MONTHS_LONG } from '@/lib/format';
+import { productDateISO } from '@/lib/round-state';
 
-/** Days from now until `date` (end-of-day UTC), or null if undated. Negative
- *  once the date has passed. */
-export function daysUntil(date: string | undefined | null): number | null {
+function isoDay(date: string): number {
+  const [year, month, day] = date.split('-').map(Number);
+  return Math.floor(Date.UTC(year, month - 1, day) / 86_400_000);
+}
+
+/** Date-only days from the product's current business date until `date`. */
+export function daysUntil(date: string | undefined | null, today: string = productDateISO()): number | null {
   if (!date) return null;
-  const d = new Date(date + 'T23:59:59Z').getTime() - Date.now();
-  return Math.ceil(d / 86_400_000);
+  return isoDay(date) - isoDay(today);
 }
 
 /** The "gold treatment" rule: a dated close inside the next 14 days. */
@@ -50,7 +54,7 @@ function daysInYear(year: number): number {
 /** Today as a YYYY-MM-DD string, computed at render (server) time — the
  *  "today-rule" the cadence chart plots against. */
 export function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  return productDateISO();
 }
 
 /** True if `dateStr` (YYYY-MM-DD) is strictly before `todayStr` — used to

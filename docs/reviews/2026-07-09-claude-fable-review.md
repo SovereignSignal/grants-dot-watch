@@ -2,7 +2,7 @@
 
 Date: 2026-07-09
 
-Live site reviewed: <https://grants-dot-watch-production-8b58.up.railway.app/>
+Live site reviewed: the production grants.watch deployment.
 
 Repo reviewed: `grants-dot-watch`
 
@@ -333,4 +333,3 @@ Verify:
 3. Award funder integrity pass.
 4. Registry cache and Desk staging pass.
 5. Public launch membrane pass.
-

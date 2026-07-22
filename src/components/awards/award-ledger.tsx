@@ -48,13 +48,13 @@ export function AwardLedger({
 
           {page.totalPages > 1 && (
             <nav aria-label="Award pages" className="coord flex flex-wrap items-center justify-between gap-4 border-t border-line py-4">
-              <Link
-                href={awardPageHref(basePath, page.page - 1)}
-                aria-disabled={page.page === 1}
-                className={page.page === 1 ? 'pointer-events-none text-faint' : 'text-dim hover:text-paper'}
-              >
-                ← Previous
-              </Link>
+              {page.page > 1 ? (
+                <Link href={awardPageHref(basePath, page.page - 1)} className="text-dim hover:text-paper">
+                  ← Previous
+                </Link>
+              ) : (
+                <span aria-disabled="true" className="text-faint">← Previous</span>
+              )}
               <div className="flex flex-wrap items-center justify-center gap-1">
                 {paginationItems(page.page, page.totalPages).map((item, index) =>
                   item === 'ellipsis' ? (
@@ -77,13 +77,13 @@ export function AwardLedger({
                   )
                 )}
               </div>
-              <Link
-                href={awardPageHref(basePath, page.page + 1)}
-                aria-disabled={page.page === page.totalPages}
-                className={page.page === page.totalPages ? 'pointer-events-none text-faint' : 'text-dim hover:text-paper'}
-              >
-                Next →
-              </Link>
+              {page.page < page.totalPages ? (
+                <Link href={awardPageHref(basePath, page.page + 1)} className="text-dim hover:text-paper">
+                  Next →
+                </Link>
+              ) : (
+                <span aria-disabled="true" className="text-faint">Next →</span>
+              )}
             </nav>
           )}
         </>

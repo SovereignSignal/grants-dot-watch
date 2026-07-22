@@ -8,13 +8,13 @@ import type { ConfidenceBand, FilterState } from './desk-types';
 import type { QueueProposal } from './desk-types';
 
 const CONFIDENCE_BANDS: { key: ConfidenceBand; label: string }[] = [
-  { key: 'all', label: 'All confidence' },
-  { key: 'high', label: '80+' },
-  { key: 'mid', label: '60–79' },
-  { key: 'low', label: '<60' },
+  { key: 'all', label: 'All source scores' },
+  { key: 'high', label: 'Score 80+' },
+  { key: 'mid', label: 'Score 60–79' },
+  { key: 'low', label: 'Score <60' },
 ];
 
-/** Type words, wire words, confidence bands, and a text filter — telegraphic
+/** Type words, wire words, source-score bands, and a text filter — telegraphic
  *  small caps on a single hairline, no pill chrome. Counts are derived from
  *  the current pending set so they always match what's actually in the
  *  queue right now. */
@@ -98,6 +98,7 @@ function Word({ active, onClick, children }: { active: boolean; onClick: () => v
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={`coord ${active ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint hover:text-dim'}`}
     >
       {children}

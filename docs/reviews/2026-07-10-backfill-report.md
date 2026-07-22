@@ -1,7 +1,7 @@
 # 2026-07-10 backfill report — registry backend + Notion reconcile + enrichment sweep
 
 Ship commit: `c960c43` ("Registry backend + Notion reconcile + enrichment sweep"), deployed to
-`grants-dot-watch-production-8b58.up.railway.app` from a clean clone of `origin/main`.
+the production grants.watch service from a clean clone of `origin/main`.
 
 ## What shipped
 

@@ -16,6 +16,8 @@ test('current departures sort dated calls first and omit closed or stale rounds'
     program('closed', [{ name: 'Closed', status: 'closed', closes: '2026-08-01' }]),
     program('past', [{ name: 'Past', status: 'open', closes: '2026-07-01' }]),
     program('sooner', [{ name: 'Sooner', status: 'open', closes: '2026-08-01' }]),
+    { ...program('paused', [{ name: 'Paused', status: 'open', closes: '2026-08-01' }]), status: 'paused' },
+    { ...program('concluded', [{ name: 'Concluded', status: 'announced', closes: '2026-08-01' }]), status: 'concluded' },
   ];
 
   const departures = collectCurrentDepartures(programs, orgs, '2026-07-16');

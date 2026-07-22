@@ -12,6 +12,7 @@ import { createHash } from 'node:crypto';
 import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
+import { productDateISO } from './round-state';
 import type { Proposal, ProposalType, Verdict, Wire } from './types';
 import { laneFor } from '../proposal-lanes';
 
@@ -22,6 +23,17 @@ const PENDING_COMMITS_PATH = join(DATA_DIR, 'pending-commits.jsonl');
 const SEED_DIR = join(REPO_ROOT, 'seed');
 
 const DATABASE_URL = process.env.DATABASE_URL;
+const APPLY_LEASE_MS = 15 * 60 * 1000;
+
+interface RecordVerdictOptions {
+  note?: string;
+  commit?: string | null;
+  by?: 'machine' | 'owner';
+  from?: 'pending' | 'applying';
+  /** A no-git filesystem mutation may become replayable only in the same
+   * Postgres transaction that records its approved verdict. */
+  ledgerRequired?: boolean;
+}
 
 interface Store {
   proposals: Proposal[];
@@ -416,7 +428,7 @@ function computeQueueCounts(
   proposals: Proposal[],
   verdicts: Verdict[]
 ): { pendingJudgment: number; pendingFact: number; decidedToday: number; total: number } {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = productDateISO();
   let pendingJudgment = 0;
   let pendingFact = 0;
   let decidedToday = 0;
@@ -426,7 +438,8 @@ function computeQueueCounts(
     else pendingFact++;
   }
   for (const v of verdicts) {
-    if (v.at.slice(0, 10) === today) decidedToday++;
+    const decidedAt = new Date(v.at);
+    if (!Number.isNaN(decidedAt.getTime()) && productDateISO(decidedAt) === today) decidedToday++;
   }
   return { pendingJudgment, pendingFact, decidedToday, total: proposals.length };
 }
@@ -493,8 +506,11 @@ async function queueCountsLocal(): Promise<{ pendingJudgment: number; pendingFac
 async function recordVerdictLocal(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
+  opts?: RecordVerdictOptions
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
+  if (opts?.ledgerRequired) {
+    throw new Error('GRANTS_WATCH_NO_GIT=1 requires DATABASE_URL for durable approvals');
+  }
   const store = readLocalStore();
   const idx = store.proposals.findIndex((p) => p.id === id);
   if (idx === -1) throw new Error(`proposal not found: ${id}`);
@@ -548,6 +564,31 @@ async function releaseProposalClaimLocal(id: string, validation?: Proposal['vali
   store.proposals[idx] = { ...current, state: 'pending', ...(validation ? { validation } : {}) };
   writeLocalStore(store);
   return true;
+}
+
+function recoveredValidation(at: string): Proposal['validation'] {
+  return {
+    checks: [{ name: 'apply-reconciliation-required', pass: false, detail: 'stale applying state is quarantined' }],
+    reason: 'prior apply attempt did not finish; reconcile the durable ledger before changing this proposal',
+    checked_at: at,
+  };
+}
+
+async function recoverStaleProposalClaimsLocal(maxAgeMs: number): Promise<number> {
+  const store = readLocalStore();
+  const now = new Date();
+  const cutoff = now.getTime() - maxAgeMs;
+  let recovered = 0;
+  store.proposals = store.proposals.map((proposal) => {
+    if (proposal.state !== 'applying') return proposal;
+    const appliedAt = proposal.applying_at ? Date.parse(proposal.applying_at) : Number.NaN;
+    if (Number.isFinite(appliedAt) && appliedAt >= cutoff) return proposal;
+    if (proposal.validation?.checks.some((check) => check.name === 'apply-reconciliation-required')) return proposal;
+    recovered++;
+    return { ...proposal, validation: recoveredValidation(now.toISOString()) };
+  });
+  if (recovered > 0) writeLocalStore(store);
+  return recovered;
 }
 
 // ============================================================
@@ -604,14 +645,22 @@ async function initSchema(): Promise<void> {
       proposal_id text,
       files jsonb NOT NULL,
       message text,
+      state text NOT NULL DEFAULT 'ready',
       sha text,
       synced_at timestamptz,
+      last_error text,
+      last_attempt_at timestamptz,
       created_at timestamptz NOT NULL DEFAULT now()
     )
   `);
+  // Existing installations may predate the outbox lifecycle columns. These
+  // additive migrations are safe to run repeatedly at application startup.
+  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS state text NOT NULL DEFAULT 'ready'`);
+  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS last_error text`);
+  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS last_attempt_at timestamptz`);
   await db.query(`
-    CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_unsynced
-      ON desk_applied_changes (id) WHERE synced_at IS NULL
+    CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_ready
+      ON desk_applied_changes (id) WHERE synced_at IS NULL AND state = 'ready'
   `);
   await maybeImportLocalStore(db);
 }
@@ -719,7 +768,7 @@ async function queueCountsPg(): Promise<{ pendingJudgment: number; pendingFact: 
 async function recordVerdictPg(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
+  opts?: RecordVerdictOptions
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   await ensureSchema();
   const db = getPool();
@@ -730,6 +779,25 @@ async function recordVerdictPg(
     if (rows.length === 0) throw new Error(`proposal not found: ${id}`);
     const expectedState = opts?.from ?? 'pending';
     if (rows[0].state !== expectedState) throw new Error(`proposal ${id} is no longer ${expectedState}`);
+
+    if (decision === 'approved') {
+      const ledger = await client.query(
+        `UPDATE desk_applied_changes
+            SET state = 'ready', last_error = NULL
+          WHERE proposal_id = $1 AND state = 'prepared'
+          RETURNING id`,
+        [id]
+      );
+      if (opts?.ledgerRequired && (ledger.rowCount ?? 0) === 0) {
+        throw new Error(`proposal ${id} has no prepared durable ledger entry`);
+      }
+    } else {
+      await client.query(
+        `UPDATE desk_applied_changes SET state = 'abandoned'
+          WHERE proposal_id = $1 AND state = 'prepared'`,
+        [id]
+      );
+    }
 
     const at = new Date().toISOString();
     const { applying_at: _applyingAt, ...current } = rows[0].data as Proposal;
@@ -769,30 +837,81 @@ async function setProposalValidationPg(id: string, validation: Proposal['validat
 async function claimProposalPg(id: string): Promise<Proposal | null> {
   await ensureSchema();
   const db = getPool();
+  const client = await db.connect();
   const applyingAt = new Date().toISOString();
-  const { rows } = await db.query(
-    `UPDATE desk_proposals
-       SET state = 'applying',
-           data = data || $2::jsonb
-     WHERE id = $1 AND state = 'pending'
-     RETURNING data`,
-    [id, JSON.stringify({ state: 'applying', applying_at: applyingAt })]
-  );
-  return (rows[0]?.data as Proposal | undefined) ?? null;
+  try {
+    await client.query('BEGIN');
+    const { rows } = await client.query(
+      `UPDATE desk_proposals
+         SET state = 'applying',
+             data = data || $2::jsonb
+       WHERE id = $1 AND state = 'pending'
+       RETURNING data`,
+      [id, JSON.stringify({ state: 'applying', applying_at: applyingAt })]
+    );
+    if (rows.length > 0) {
+      // A proposal can only become pending again through an explicit release.
+      // Any older unfinished intent must stay non-replayable before retry.
+      await client.query(
+        `UPDATE desk_applied_changes SET state = 'abandoned'
+          WHERE proposal_id = $1 AND state = 'prepared'`,
+        [id]
+      );
+    }
+    await client.query('COMMIT');
+    return (rows[0]?.data as Proposal | undefined) ?? null;
+  } catch (e) {
+    await client.query('ROLLBACK');
+    throw e;
+  } finally {
+    client.release();
+  }
 }
 
 async function releaseProposalClaimPg(id: string, validation?: Proposal['validation']): Promise<boolean> {
   await ensureSchema();
   const db = getPool();
+  const client = await db.connect();
   const patch = { state: 'pending', ...(validation ? { validation } : {}) };
+  try {
+    await client.query('BEGIN');
+    const { rowCount } = await client.query(
+      `UPDATE desk_proposals
+         SET state = 'pending',
+             data = (data - 'applying_at') || $2::jsonb
+       WHERE id = $1 AND state = 'applying'`,
+      [id, JSON.stringify(patch)]
+    );
+    await client.query(
+      `UPDATE desk_applied_changes SET state = 'abandoned'
+        WHERE proposal_id = $1 AND state = 'prepared'`,
+      [id]
+    );
+    await client.query('COMMIT');
+    return (rowCount ?? 0) > 0;
+  } catch (e) {
+    await client.query('ROLLBACK');
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+async function recoverStaleProposalClaimsPg(maxAgeMs: number): Promise<number> {
+  await ensureSchema();
+  const db = getPool();
+  const now = new Date();
+  const cutoff = new Date(now.getTime() - maxAgeMs).toISOString();
+  const patch = { validation: recoveredValidation(now.toISOString()) };
   const { rowCount } = await db.query(
     `UPDATE desk_proposals
-       SET state = 'pending',
-           data = (data - 'applying_at') || $2::jsonb
-     WHERE id = $1 AND state = 'applying'`,
-    [id, JSON.stringify(patch)]
+       SET data = data || $2::jsonb
+     WHERE state = 'applying'
+       AND ((data->>'applying_at') IS NULL OR (data->>'applying_at') < $1)
+       AND COALESCE(data->'validation'->'checks'->0->>'name', '') <> 'apply-reconciliation-required'`,
+    [cutoff, JSON.stringify(patch)]
   );
-  return (rowCount ?? 0) > 0;
+  return rowCount ?? 0;
 }
 
 // ============================================================
@@ -808,10 +927,12 @@ export async function seedFromFiles(): Promise<{ imported: number; skipped: numb
 }
 
 export async function listProposals(filter?: { lane?: 'judgment' | 'fact'; state?: Proposal['state'] }): Promise<Proposal[]> {
+  await recoverStaleProposalClaims();
   return DATABASE_URL ? listProposalsPg(filter) : listProposalsLocal(filter);
 }
 
 export async function getProposal(id: string): Promise<Proposal | null> {
+  await recoverStaleProposalClaims();
   return DATABASE_URL ? getProposalPg(id) : getProposalLocal(id);
 }
 
@@ -831,7 +952,7 @@ export async function queueCounts(): Promise<{ pendingJudgment: number; pendingF
 export async function recordVerdict(
   id: string,
   decision: 'approved' | 'rejected',
-  opts?: { note?: string; commit?: string | null; by?: 'machine' | 'owner'; from?: 'pending' | 'applying' }
+  opts?: RecordVerdictOptions
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   return DATABASE_URL ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
 }
@@ -853,41 +974,156 @@ export async function releaseProposalClaim(id: string, validation?: Proposal['va
   return DATABASE_URL ? releaseProposalClaimPg(id, validation) : releaseProposalClaimLocal(id, validation);
 }
 
+/** Applying is a lease, not a terminal state. Interrupted workers remain
+ *  quarantined and surface in the Desk's reconciliation hold. */
+export async function recoverStaleProposalClaims(maxAgeMs: number = APPLY_LEASE_MS): Promise<number> {
+  return DATABASE_URL ? recoverStaleProposalClaimsPg(maxAgeMs) : recoverStaleProposalClaimsLocal(maxAgeMs);
+}
+
 // ---- durable applied-changes ledger ----
 
 export interface AppliedChangeEntry {
   proposal_id: string | null; // one id, or comma-joined ids for a bulk approve
-  files: { path: string; content_after: string }[];
+  files: {
+    path: string;
+    /** sha256 of the canonical file before this change; null means it did not
+     *  exist. Omitted only for legacy rows, which replay must treat as a
+     *  manual conflict rather than overwrite blindly. */
+    content_before_hash?: string | null;
+    content_after: string;
+  }[];
   message: string;
 }
 
-function appendPendingCommitLocal(entry: AppliedChangeEntry): void {
+export type AppliedChangeState = 'prepared' | 'ready' | 'abandoned';
+
+export interface AppliedChangeReceipt {
+  backend: 'postgres' | 'local';
+  id: number | null;
+  state: AppliedChangeState;
+}
+
+export interface AppliedChangeLedgerHealth {
+  ready: number;
+  prepared: number;
+  conflicts: number;
+  oldestReadyAt: string | null;
+}
+
+function appendPendingCommitLocal(entry: AppliedChangeEntry): AppliedChangeReceipt {
   mkdirSync(DATA_DIR, { recursive: true });
-  appendFileSync(PENDING_COMMITS_PATH, `${JSON.stringify({ ...entry, at: new Date().toISOString() })}\n`, 'utf8');
+  appendFileSync(PENDING_COMMITS_PATH, `${JSON.stringify({ ...entry, state: 'ready', at: new Date().toISOString() })}\n`, 'utf8');
+  return { backend: 'local', id: null, state: 'ready' };
 }
 
 /** Durably persist an applied-but-uncommitted change set (committer.ts calls
  *  this whenever a commit produced no sha: the GRANTS_WATCH_NO_GIT guard, or
  *  a git failure). Postgres (desk_applied_changes) when DATABASE_URL is set —
  *  the Railway case, where the filesystem is ephemeral — with the local
- *  .data/pending-commits.jsonl as the no-DB backend AND as the fallback if
- *  the insert itself fails; the ledger write must never take the approve
- *  down. scripts/sync-desk-commits.mjs replays unsynced rows into real
- *  commits. */
-export async function recordAppliedChanges(entry: AppliedChangeEntry): Promise<void> {
+ *  .data/pending-commits.jsonl as the persistent-checkout fallback for a git
+ *  failure. Production no-git writes require Postgres and fail closed. */
+export async function recordAppliedChanges(
+  entry: AppliedChangeEntry,
+  state: AppliedChangeState = 'ready'
+): Promise<AppliedChangeReceipt> {
   if (!DATABASE_URL) {
-    appendPendingCommitLocal(entry);
-    return;
+    if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+      throw new Error('GRANTS_WATCH_NO_GIT=1 requires DATABASE_URL for durable approvals');
+    }
+    // A persistent local checkout has no transactional database. A prepared
+    // git-failure handoff is immediately replayable from its append-only file.
+    return appendPendingCommitLocal(entry);
   }
+
+  if (state === 'prepared') {
+    await ensureSchema();
+    const db = getPool();
+    const client = await db.connect();
+    try {
+      await client.query('BEGIN');
+      await client.query('SELECT pg_advisory_xact_lock($1)', [8892012]);
+      const paths = entry.files.map((file) => file.path);
+      const conflict = await client.query(
+        `SELECT id, proposal_id
+           FROM desk_applied_changes AS pending
+          WHERE synced_at IS NULL
+            AND state IN ('prepared', 'ready')
+            AND EXISTS (
+              SELECT 1 FROM jsonb_array_elements(pending.files) AS file
+               WHERE file->>'path' = ANY($1::text[])
+            )
+          ORDER BY id ASC
+          LIMIT 1`,
+        [paths]
+      );
+      if (conflict.rows.length > 0) {
+        const row = conflict.rows[0];
+        throw new Error(
+          `registry path has unsynced Desk ledger row ${row.id}${row.proposal_id ? ` (${row.proposal_id})` : ''}`
+        );
+      }
+      const inserted = await client.query(
+        `INSERT INTO desk_applied_changes (proposal_id, files, message, state)
+         VALUES ($1, $2, $3, 'prepared') RETURNING id`,
+        [entry.proposal_id, JSON.stringify(entry.files), entry.message]
+      );
+      await client.query('COMMIT');
+      return { backend: 'postgres', id: Number(inserted.rows[0].id), state };
+    } catch (e) {
+      await client.query('ROLLBACK');
+      throw e;
+    } finally {
+      client.release();
+    }
+  }
+
   try {
     await ensureSchema();
     const db = getPool();
-    await db.query(`INSERT INTO desk_applied_changes (proposal_id, files, message) VALUES ($1, $2, $3)`, [
-      entry.proposal_id,
-      JSON.stringify(entry.files),
-      entry.message,
-    ]);
-  } catch {
-    appendPendingCommitLocal(entry);
+    const inserted = await db.query(
+      `INSERT INTO desk_applied_changes (proposal_id, files, message, state) VALUES ($1, $2, $3, $4) RETURNING id`,
+      [entry.proposal_id, JSON.stringify(entry.files), entry.message, state]
+    );
+    return { backend: 'postgres', id: Number(inserted.rows[0].id), state };
+  } catch (e) {
+    if (process.env.GRANTS_WATCH_NO_GIT === '1') {
+      throw new Error(`durable Desk ledger unavailable: ${e instanceof Error ? e.message : String(e)}`);
+    }
+    return appendPendingCommitLocal(entry);
   }
+}
+
+export async function getAppliedChangeLedgerHealth(): Promise<AppliedChangeLedgerHealth> {
+  if (!DATABASE_URL) {
+    if (!existsSync(PENDING_COMMITS_PATH)) return { ready: 0, prepared: 0, conflicts: 0, oldestReadyAt: null };
+    const rows = readFileSync(PENDING_COMMITS_PATH, 'utf8')
+      .split('\n')
+      .filter(Boolean)
+      .flatMap((line) => {
+        try {
+          return [JSON.parse(line) as { state?: string; at?: string }];
+        } catch {
+          return [];
+        }
+      })
+      .filter((row) => !row.state || row.state === 'ready');
+    const oldestReadyAt = rows.map((row) => row.at).filter((at): at is string => !!at).sort()[0] ?? null;
+    return { ready: rows.length, prepared: 0, conflicts: 0, oldestReadyAt };
+  }
+  await ensureSchema();
+  const db = getPool();
+  const { rows } = await db.query(`
+    SELECT
+      count(*) FILTER (WHERE synced_at IS NULL AND state = 'ready')::int AS ready,
+      count(*) FILTER (WHERE synced_at IS NULL AND state = 'prepared')::int AS prepared,
+      count(*) FILTER (WHERE synced_at IS NULL AND state = 'ready' AND last_error IS NOT NULL)::int AS conflicts,
+      min(created_at) FILTER (WHERE synced_at IS NULL AND state = 'ready') AS oldest_ready_at
+    FROM desk_applied_changes
+  `);
+  return {
+    ready: rows[0]?.ready ?? 0,
+    prepared: rows[0]?.prepared ?? 0,
+    conflicts: rows[0]?.conflicts ?? 0,
+    oldestReadyAt: rows[0]?.oldest_ready_at ? new Date(rows[0].oldest_ready_at).toISOString() : null,
+  };
 }

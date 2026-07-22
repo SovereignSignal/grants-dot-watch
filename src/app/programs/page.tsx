@@ -14,6 +14,7 @@ import { hasYearCadence } from '@/lib/cadence';
 import { paginate, parsePage } from '@/lib/pagination';
 import { collectCurrentDepartures } from '@/lib/departures';
 import { Pager } from '@/components/ledger/pager';
+import { productDateISO, productYear } from '@/lib/round-state';
 
 export const metadata: Metadata = pageMetadata(
   '/programs',
@@ -59,8 +60,8 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   const mechValues = uniqueInOrder(programs.map((p) => p.mechanism || 'other'), MECHANISM_ORDER);
   const wireValues = uniqueInOrder(programs.flatMap((p) => p.wires || []), WIRE_ORDER);
   const orgFilterName = orgF ? orgById.get(orgF)?.name || orgF : null;
-  const year = new Date().getUTCFullYear();
-  const todayISO = new Date().toISOString().slice(0, 10);
+  const year = productYear();
+  const todayISO = productDateISO();
   const departures = collectCurrentDepartures(filtered, orgs, todayISO);
   const departuresPage = paginate(departures, parsePage(param(sp, 'page')), DEPARTURES_PAGE_SIZE);
   const cadenceFiltered = cadenceScope === 'all' ? filtered : filtered.filter((program) => hasYearCadence(program, year));

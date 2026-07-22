@@ -9,7 +9,18 @@ import YAML from 'yaml';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
 const errs = [];
 const err = (f, m) => errs.push(`${f}: ${m}`);
-const todayISO = process.env.VALIDATION_TODAY || new Date().toISOString().slice(0, 10);
+const PRODUCT_TIME_ZONE = 'America/Los_Angeles';
+const calendarDateIn = (date, timeZone) => {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day}`;
+};
+const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
 
 const WIRES = new Set(['crypto', 'ai', 'oss']);
 const ORG_ROLES = new Set(['funder', 'grantee', 'ecosystem']);

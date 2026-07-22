@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { loadRegistry, getSystem } from '@/lib/registry';
 import { Card, RoundStatus, Empty } from '@/components/ui';
-import { money, dateShort, WIRE_LABEL } from '@/lib/format';
+import { dateShort, WIRE_LABEL } from '@/lib/format';
 import { systemKindLabel, orgStatusLabel, mechanismLabel, mostLiveRound } from '@/components/browse/registry-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { Dossier, FactSep } from '@/components/browse/dossier';
@@ -161,7 +161,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
           <div>
             {members.programs.map((p) => {
               const org = orgById.get(p.org);
-              const live = mostLiveRound(p.rounds);
+              const live = mostLiveRound(p);
               return (
                 <Card key={p.id} href={`/programs/${p.id}`} className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
@@ -185,7 +185,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                         {live.closes && <div className="coord mt-1">closes {dateShort(live.closes)}</div>}
                       </>
                     ) : (
-                      <span className="coord opacity-50">no rounds on file</span>
+                      <span className="coord opacity-50">no current rounds</span>
                     )}
                   </div>
                 </Card>

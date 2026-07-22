@@ -3,10 +3,11 @@ import { Empty } from '@/components/ui';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Departure } from '@/lib/departures';
+import { isVerifiedRollingRound } from '@/lib/round-state';
 import { isClosingSoon, monthLabel, monthYearShort } from './date-helpers';
 import { RoundRow } from './round-row';
 
-function StandingRow({ d }: { d: Departure }) {
+function UndatedRow({ d, status }: { d: Departure; status?: string }) {
   const wire = (d.program.wires || [])[0] || null;
   return (
     <Link
@@ -20,7 +21,7 @@ function StandingRow({ d }: { d: Departure }) {
       </div>
       <div className="max-w-[45%] shrink-0 text-right">
         <div className="truncate text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '–'}</div>
-        <div className="coord mt-0.5">{MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}</div>
+        <div className="coord mt-0.5">{status || MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}</div>
       </div>
     </Link>
   );
@@ -30,7 +31,10 @@ function StandingRow({ d }: { d: Departure }) {
  *  date ordering, and pagination before rendering this board. */
 export function DeparturesBoard({ departures }: { departures: Departure[] }) {
   const dated = departures.filter((departure) => departure.round.closes);
-  const standing = departures.filter((departure) => !departure.round.closes);
+  const standing = departures.filter((departure) => isVerifiedRollingRound(departure.program, departure.round));
+  const datesPending = departures.filter(
+    (departure) => !departure.round.closes && !isVerifiedRollingRound(departure.program, departure.round)
+  );
 
   const groups: { label: string; rows: Departure[] }[] = [];
   for (const r of dated) {
@@ -45,7 +49,7 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
 
   return (
     <div>
-      {dated.length === 0 && standing.length === 0 ? (
+      {dated.length === 0 && standing.length === 0 && datesPending.length === 0 ? (
         <Empty>No open rounds on file for this filter.</Empty>
       ) : (
         <>
@@ -87,6 +91,20 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
             </div>
           ))}
 
+          {datesPending.length > 0 && (
+            <section className="mt-9 border-t-[2.5px] border-paper pt-4">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <h2 className="coord text-dim">Announced: Dates Pending</h2>
+                <span className="coord">Published calls without a closing date on file</span>
+              </div>
+              <div className="mt-2 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+                {datesPending.map((d) => (
+                  <UndatedRow key={d.key} d={d} status={d.round.status === 'announced' ? 'Announced' : 'No closing date'} />
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="mt-9 border-t-[2.5px] border-paper pt-4">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
               <h2 className="coord text-dim">Standing: No Fixed Deadline</h2>
@@ -97,7 +115,7 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
             ) : (
               <div className="mt-2 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
                 {standing.map((d) => (
-                  <StandingRow key={d.key} d={d} />
+                  <UndatedRow key={d.key} d={d} />
                 ))}
               </div>
             )}
