@@ -50,6 +50,7 @@ const NAV = [
   { href: '/systems', label: 'Systems', shortLabel: 'Systems' },
   { href: '/orgs', label: 'Organizations', shortLabel: 'Orgs' },
   { href: '/awards', label: 'Awards', shortLabel: 'Awards' },
+  { href: '/method', label: 'Method', shortLabel: 'Method', desktopOnly: true },
   { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk', desktopOnly: true },
 ];
 
@@ -107,13 +108,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <footer className="border-t border-line mt-16">
           <div className="mx-auto max-w-6xl px-4 py-5 flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-            <span className="coord">the registry of the funding world</span>
+            <div className="flex min-w-0 flex-col gap-2">
+              <span className="coord">the registry of the funding world</span>
+              <nav aria-label="About" className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                <Link href="/method" className="coord text-dim hover:text-paper">
+                  Method
+                </Link>
+                <a href="https://discuss.watch" className="coord text-dim hover:text-paper">
+                  discuss.watch
+                </a>
+                <a href="https://sovereignsignal.substack.com/" className="coord text-dim hover:text-paper">
+                  Sovereign Signal
+                </a>
+              </nav>
+            </div>
             <div className="flex shrink-0 items-center gap-4">
               {WIRES.map((w) => (
-                <span key={w} className="coord flex items-center gap-1.5">
+                <Link key={w} href={`/programs?wire=${w}`} className="coord flex items-center gap-1.5 hover:text-paper">
                   <span aria-hidden className="inline-block size-1.5" style={{ background: `var(--color-${w})` }} />
                   {WIRE_LABEL[w]}
-                </span>
+                </Link>
               ))}
             </div>
           </div>

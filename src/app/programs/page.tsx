@@ -12,7 +12,7 @@ import { CadenceChart } from '@/components/programs/cadence-chart';
 import { pageMetadata } from '@/lib/site-metadata';
 import { hasYearCadence } from '@/lib/cadence';
 import { paginate, parsePage } from '@/lib/pagination';
-import { collectCurrentDepartures } from '@/lib/departures';
+import { collectCurrentDepartures, collapseStandingDepartures } from '@/lib/departures';
 import { Pager } from '@/components/ledger/pager';
 import { productDateISO, productYear } from '@/lib/round-state';
 
@@ -62,7 +62,7 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   const orgFilterName = orgF ? orgById.get(orgF)?.name || orgF : null;
   const year = productYear();
   const todayISO = productDateISO();
-  const departures = collectCurrentDepartures(filtered, orgs, todayISO);
+  const departures = collapseStandingDepartures(collectCurrentDepartures(filtered, orgs, todayISO));
   const departuresPage = paginate(departures, parsePage(param(sp, 'page')), DEPARTURES_PAGE_SIZE);
   const cadenceFiltered = cadenceScope === 'all' ? filtered : filtered.filter((program) => hasYearCadence(program, year));
   const cadencePage = paginate(cadenceFiltered, parsePage(param(sp, 'page')), CADENCE_PAGE_SIZE);

@@ -31,3 +31,22 @@ export function collectCurrentDepartures(programs: Program[], orgs: Org[], today
   dated.sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
   return [...dated, ...standing];
 }
+
+/** Keep the first current round per program. Standing and dates-pending
+ *  lists otherwise repeat the same vehicle once for every undated round. */
+export function uniqueDeparturesByProgram(departures: Departure[]): Departure[] {
+  const seen = new Set<string>();
+  return departures.filter((departure) => {
+    if (seen.has(departure.program.id)) return false;
+    seen.add(departure.program.id);
+    return true;
+  });
+}
+
+/** Dated rounds stay distinct. Undated standing and announced calls collapse
+ *  to one row per program so the board and its counts stay honest. */
+export function collapseStandingDepartures(departures: Departure[]): Departure[] {
+  const dated = departures.filter((departure) => departure.round.closes);
+  const undated = uniqueDeparturesByProgram(departures.filter((departure) => !departure.round.closes));
+  return [...dated, ...undated];
+}
