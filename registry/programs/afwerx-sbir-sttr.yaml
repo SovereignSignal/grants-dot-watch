@@ -14,7 +14,7 @@ summary: AFWERX's SBIR/STTR program funds dual-use technology for the U.S. Air F
   numbered cycles (e.g. "26.BZ").
 rounds:
   - name: 26.BZ Release 3 Specific Topic
-    status: open
+    status: closed
     closes: 2026-07-22
     source: https://afwerx.com
   - name: 26.BZ Release 4 Specific Topic
