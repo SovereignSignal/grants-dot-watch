@@ -14,7 +14,7 @@ summary: Annual global challenge mobilizing developers to build AI solutions to 
   communities worldwide.
 rounds:
   - name: "2026: United Against Trafficking"
-    status: open
+    status: closed
     opens: 2026-06-11
     closes: 2026-07-30
     source: https://callforcode.org/

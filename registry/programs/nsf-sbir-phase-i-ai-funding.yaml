@@ -15,7 +15,7 @@ summary: >
   Project Pitch and receive an invitation to submit a full proposal.
 rounds:
   - name: SBIR Phase I solicitation
-    status: open
+    status: closed
     closes: 2026-07-27
     size: Up to $305,000 for Phase I
     source: https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation

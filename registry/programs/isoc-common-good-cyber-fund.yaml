@@ -14,7 +14,7 @@ summary: >
   The 2026 call will award at least $3.5 million through two-year operating grants.
 rounds:
   - name: 2026 global call
-    status: open
+    status: closed
     opens: 2026-06-23
     closes: 2026-08-04
     size: at least $3.5M; ~15 grants of $100K-$300K over two years

@@ -30,7 +30,7 @@ rounds:
     status: deployed
     source: https://nlnet.nl/news/2026/20260409-announce-commons-fund.html
   - name: Open call (August 2026 deadline)
-    status: open
+    status: closed
     closes: 2026-08-01
     source: https://nlnet.nl/propose/
 sources:

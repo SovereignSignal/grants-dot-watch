@@ -18,17 +18,8 @@ covers the product model.
   Playwright starts its own `npm start -- --port 3100` with a test `ADMIN_TOKEN`, so don't have a
   server already bound to 3100.
 - **Quality gates:** `npm run lint`, `npm run typecheck`, `npm test` (Node built-in test runner),
-  `npm run check:public`, `npm run test:browser` (needs Chromium via
-  `npx playwright install --with-deps chromium`).
-
-### Known time-sensitive failures (NOT environment problems)
-
-`npm run validate`, `npm run check:loader` (which invokes validate), and one unit test in
-`tests/proposal-validator-safety.test.mjs` ("staged registry validation catches schema and
-reference violations before write") fail **only because the registry data is time-sensitive**.
-Many `registry/programs/*.yaml` rounds have `close` dates in mid-2026; once the system clock is
-past those dates, the validator reports them as `round "..." is open with past close <date>`.
-This flood of expected-past-close errors is what breaks `validate` and drowns out the injected
-error the unit test greps for. These failures reflect stale round data relative to the current
-date, not a broken setup — do not "fix" them by editing the environment. `lint`, `typecheck`,
-`build`, the other 60 unit tests, and all 10 Playwright browser tests pass cleanly.
+  `npm run validate`, `npm run check:loader`, `npm run check:public`, `npm run test:browser`
+  (needs Chromium via `npx playwright install --with-deps chromium`).
+- **Recency law:** a round whose `closes` date is already past must not stay `open` or
+  `announced` — set it to `closed` (the committer auto-closes on write; `npm run validate`
+  fails the registry otherwise). Prefer closing stale rounds over weakening the validator.
