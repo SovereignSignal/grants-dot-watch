@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
-import { PageHeader, Empty } from '@/components/ui';
-import { systemKindLabel } from '@/components/browse/registry-helpers';
+import { Card, Empty, PageHeader } from '@/components/ui';
+import { firstSentence } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL } from '@/lib/format';
 import { pageMetadata } from '@/lib/site-metadata';
+import { currentRounds } from '@/lib/round-state';
+import type { System } from '@/lib/types';
 
 export const metadata: Metadata = pageMetadata(
   '/systems',
@@ -12,9 +13,40 @@ export const metadata: Metadata = pageMetadata(
   'Browse funding ecosystems and domains across crypto, AI, and open source.'
 );
 
+const KIND_ORDER: System['kind'][] = ['protocol-ecosystem', 'funding-domain'];
+const KIND_TITLE: Record<System['kind'], string> = {
+  'protocol-ecosystem': 'Protocol ecosystems',
+  'funding-domain': 'Funding domains',
+};
+const KIND_INTRO: Record<System['kind'], string> = {
+  'protocol-ecosystem': 'Worlds with their own treasury, foundation, or allocating identity.',
+  'funding-domain': 'Subject areas where capital organizes across many institutions.',
+};
+
 export default function SystemsPage() {
   const { systems, bySystem } = loadRegistry();
   const byId = new Map(systems.map((s) => [s.id, s]));
+
+  const rows = systems.map((system) => {
+    const members = bySystem.get(system.id) || { orgs: [], programs: [] };
+    const funderCount = members.orgs.filter((o) => o.roles?.includes('funder')).length;
+    const openCount = members.programs.filter((program) => currentRounds(program).length > 0).length;
+    const parents = (system.part_of || []).map((pid) => byId.get(pid)).filter((p): p is NonNullable<typeof p> => !!p);
+    return {
+      system,
+      funderCount,
+      programCount: members.programs.length,
+      openCount,
+      parents,
+    };
+  });
+
+  const groups = KIND_ORDER.map((kind) => ({
+    kind,
+    items: rows
+      .filter((row) => row.system.kind === kind)
+      .sort((a, b) => b.programCount - a.programCount || a.system.name.localeCompare(b.system.name)),
+  })).filter((group) => group.items.length > 0);
 
   return (
     <>
@@ -27,65 +59,42 @@ export default function SystemsPage() {
         {systems.length === 0 ? (
           <Empty>No systems on file.</Empty>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-sm">
-              <thead>
-                <tr className="border-b-[1.5px] border-paper text-left">
-                  <th className="coord py-2.5 pr-4 font-normal">Name</th>
-                  <th className="coord py-2.5 pr-4 font-normal">Kind</th>
-                  <th className="coord py-2.5 pr-4 font-normal">Wires</th>
-                  <th className="coord py-2.5 pr-4 font-normal">Part of</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Funders</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {systems.map((s) => {
-                  const members = bySystem.get(s.id) || { orgs: [], programs: [] };
-                  const funderCount = members.orgs.filter((o) => o.roles?.includes('funder')).length;
-                  const parents = (s.part_of || []).map((pid) => byId.get(pid)).filter((p): p is NonNullable<typeof p> => !!p);
-                  return (
-                    <tr key={s.id} className="border-b border-line transition-colors hover:bg-raised/40">
-                      <td className="py-3 pr-4">
-                        <Link href={`/systems/${s.id}`} className="display text-[14.5px] text-paper hover:text-signal">
-                          {s.name}
-                        </Link>
-                      </td>
-                      <td className="coord py-3 pr-4 text-dim normal-case tracking-normal">{systemKindLabel(s.kind)}</td>
-                      <td className="py-3 pr-4">
-                        <div className="flex flex-wrap gap-1.5">
-                          {(s.wires || []).map((w) => (
-                            <span
-                              key={w}
-                              aria-label={WIRE_LABEL[w]}
-                              title={WIRE_LABEL[w]}
-                              className="inline-block size-1.5 shrink-0"
-                              style={{ background: `var(--color-${w})` }}
-                            />
-                          ))}
-                        </div>
-                      </td>
-                      <td className="coord py-3 pr-4 normal-case tracking-normal">
-                        {parents.length === 0 ? (
-                          <span className="text-faint">–</span>
-                        ) : (
-                          parents.map((p, i) => (
-                            <span key={p.id}>
-                              {i > 0 && ', '}
-                              <Link href={`/systems/${p.id}`} className="text-dim hover:text-paper">
-                                {p.name}
-                              </Link>
-                            </span>
-                          ))
-                        )}
-                      </td>
-                      <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{funderCount}</td>
-                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{members.programs.length}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="flex flex-col gap-12">
+            {groups.map((group) => (
+              <section key={group.kind}>
+                <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+                  <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">{KIND_TITLE[group.kind]}</h2>
+                  <span className="coord shrink-0">{group.items.length} on file</span>
+                </div>
+                <p className="coord mt-2 mb-1">{KIND_INTRO[group.kind]}</p>
+                <div className="grid grid-cols-1 gap-x-10 md:grid-cols-2">
+                  {group.items.map((row) => (
+                    <Card key={row.system.id} href={`/systems/${row.system.id}`}>
+                      <div className="coord mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                        {(row.system.wires || []).map((wire) => (
+                          <span key={wire} className="inline-flex items-center gap-1.5">
+                            <span aria-hidden className="inline-block size-1.5 shrink-0" style={{ background: `var(--color-${wire})` }} />
+                            {WIRE_LABEL[wire]}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="display text-[22px] leading-tight text-paper">{row.system.name}</h3>
+                      {row.parents.length > 0 && (
+                        <div className="coord mt-1">Part of {row.parents.map((parent) => parent.name).join(', ')}</div>
+                      )}
+                      <p className="mt-3 text-sm leading-relaxed text-dim">
+                        {firstSentence(row.system.summary) || 'No public summary on file yet.'}
+                      </p>
+                      <div className="coord mt-4 flex flex-wrap gap-x-3 gap-y-1">
+                        <span>{row.funderCount} funders</span>
+                        <span>{row.programCount} programs</span>
+                        <span>{row.openCount} open now</span>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            ))}
           </div>
         )}
       </div>

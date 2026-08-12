@@ -13,7 +13,7 @@ summary: $10M fund jointly run by Google DeepMind, Schmidt Sciences, the Coopera
   ARIA, and Google.org, kick-starting independent research on multi-agent AI safety.
 rounds:
   - name: 2026 call
-    status: open
+    status: closed
     closes: 2026-08-08
     size: $10M
     source: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/

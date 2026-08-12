@@ -4,8 +4,10 @@ import { PageHeader } from '@/components/ui';
 
 const LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/orgs', label: 'Organizations' },
   { href: '/programs', label: 'Programs' },
+  { href: '/orgs', label: 'Organizations' },
+  { href: '/awards', label: 'Awards' },
+  { href: '/method', label: 'Method' },
 ];
 
 export default function NotFound() {

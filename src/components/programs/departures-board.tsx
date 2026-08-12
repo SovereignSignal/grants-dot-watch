@@ -3,6 +3,7 @@ import { Empty } from '@/components/ui';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Departure } from '@/lib/departures';
+import { uniqueDeparturesByProgram } from '@/lib/departures';
 import { isVerifiedRollingRound } from '@/lib/round-state';
 import { isClosingSoon, monthLabel, monthYearShort } from './date-helpers';
 import { RoundRow } from './round-row';
@@ -31,9 +32,13 @@ function UndatedRow({ d, status }: { d: Departure; status?: string }) {
  *  date ordering, and pagination before rendering this board. */
 export function DeparturesBoard({ departures }: { departures: Departure[] }) {
   const dated = departures.filter((departure) => departure.round.closes);
-  const standing = departures.filter((departure) => isVerifiedRollingRound(departure.program, departure.round));
-  const datesPending = departures.filter(
-    (departure) => !departure.round.closes && !isVerifiedRollingRound(departure.program, departure.round)
+  const standing = uniqueDeparturesByProgram(
+    departures.filter((departure) => isVerifiedRollingRound(departure.program, departure.round))
+  );
+  const datesPending = uniqueDeparturesByProgram(
+    departures.filter(
+      (departure) => !departure.round.closes && !isVerifiedRollingRound(departure.program, departure.round)
+    )
   );
 
   const groups: { label: string; rows: Departure[] }[] = [];

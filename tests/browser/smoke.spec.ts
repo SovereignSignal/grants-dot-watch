@@ -45,6 +45,37 @@ test('profile award pagination remains available', async ({ page }) => {
   await expect(page.locator('#awards').getByText('46 on file', { exact: true })).toBeVisible();
 });
 
+test('header search can jump to the awards register', async ({ page }) => {
+  await page.goto('/');
+  const search = page.getByRole('combobox', { name: 'Search the register' });
+  await search.fill('Gamma');
+  await expect(page.getByRole('option', { name: 'Search awards for Gamma' })).toBeVisible();
+  await page.getByRole('option', { name: 'Search awards for Gamma' }).click();
+  await expect(page).toHaveURL(/\/awards\?q=Gamma$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Awards' })).toBeVisible();
+});
+
+test('front page, systems, and method stay connected', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 2, name: 'Latest Awards' })).toBeVisible();
+  await expect(page.getByText(/of \d+ dated calls/)).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'About' }).getByRole('link', { name: 'Method' })).toBeVisible();
+  await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Crypto' })).toHaveAttribute(
+    'href',
+    '/programs?wire=crypto'
+  );
+
+  await page.goto('/systems');
+  await expect(page.getByRole('heading', { level: 2, name: 'Protocol ecosystems' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Funding domains' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Ethereum/ }).first()).toBeVisible();
+
+  await page.goto('/method');
+  await expect(page.getByRole('heading', { level: 1, name: 'Method' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'What this is' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Open calls' })).toHaveAttribute('href', '/programs');
+});
+
 test('header search supports keyboard navigation', async ({ page }) => {
   await page.goto('/');
   const search = page.getByRole('combobox', { name: 'Search the register' });

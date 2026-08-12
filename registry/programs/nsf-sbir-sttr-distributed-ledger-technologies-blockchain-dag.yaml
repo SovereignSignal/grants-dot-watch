@@ -12,7 +12,7 @@ summary: NSF's SBIR/STTR program funds small businesses developing distributed l
   DAGs, and smart contracts.
 rounds:
 - name: SBIR/STTR solicitation
-  status: open
+  status: closed
   closes: 2026-07-27
   size: up to $275,000 (Phase I); up to $1,000,000+ (Phase II)
   source: https://seedfund.nsf.gov/topics/distributed-ledger/

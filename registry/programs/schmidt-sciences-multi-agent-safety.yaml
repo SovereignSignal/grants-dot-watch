@@ -13,7 +13,7 @@ summary: Schmidt Sciences is funding research studying the safety of large netwo
   Apply portal.
 rounds:
   - name: 2026 call
-    status: open
+    status: closed
     closes: 2026-08-08
     size: up to $1M over 1-2 years
     source: https://schmidtsciences.smapply.io/prog/scaling_ai_safety_for_a_multi_agent_world/

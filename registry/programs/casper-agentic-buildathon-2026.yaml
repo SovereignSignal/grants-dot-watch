@@ -13,7 +13,7 @@ summary: Buildathon for AI-native applications for autonomous systems and machin
   is currently suspended, making this the network's active funding vehicle.
 rounds:
   - name: 2026 Buildathon
-    status: open
+    status: closed
     opens: 2026-06-01
     closes: 2026-07-31
     size: $150,000 (cash + in-kind)

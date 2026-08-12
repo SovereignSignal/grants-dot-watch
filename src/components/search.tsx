@@ -97,15 +97,29 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   }, [items, query]);
 
   const flatResults = useMemo(() => groups.flatMap((g) => g.items), [groups]);
+  const awardQuery = query.trim();
+  const hasAwardAction = awardQuery.length > 0;
+  const awardOptionId = 'search-option-awards-query';
+  const awardIndex = hasAwardAction ? flatResults.length : -1;
+  const navCount = flatResults.length + (hasAwardAction ? 1 : 0);
   const panelOpen = open && (loading || error !== null || query.trim().length > 0);
 
-  function go(item: SearchIndexItem) {
-    router.push(HREF[item.t](item.id));
+  function resetSearch() {
     setQuery('');
     setOpen(false);
     setActiveIndex(-1);
     setMobileOpen(false);
     inputRef.current?.blur();
+  }
+
+  function go(item: SearchIndexItem) {
+    router.push(HREF[item.t](item.id));
+    resetSearch();
+  }
+
+  function goAwards() {
+    router.push(`/awards?q=${encodeURIComponent(awardQuery)}`);
+    resetSearch();
   }
 
   function closePanel() {
@@ -116,14 +130,19 @@ export default function Search({ className = '' }: { className?: string } = {}) 
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
-      if (flatResults.length === 0) return;
+      if (navCount === 0) return;
       e.preventDefault();
-      setActiveIndex((i) => (i + 1) % flatResults.length);
+      setActiveIndex((i) => (i + 1) % navCount);
     } else if (e.key === 'ArrowUp') {
-      if (flatResults.length === 0) return;
+      if (navCount === 0) return;
       e.preventDefault();
-      setActiveIndex((i) => (i <= 0 ? flatResults.length - 1 : i - 1));
+      setActiveIndex((i) => (i <= 0 ? navCount - 1 : i - 1));
     } else if (e.key === 'Enter') {
+      if (hasAwardAction && (activeIndex === awardIndex || (flatResults.length === 0 && activeIndex < 0))) {
+        e.preventDefault();
+        goAwards();
+        return;
+      }
       const target = flatResults[activeIndex >= 0 ? activeIndex : 0];
       if (target) {
         e.preventDefault();
@@ -208,7 +227,13 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           aria-expanded={panelOpen}
           aria-controls="search-results"
           aria-autocomplete="list"
-          aria-activedescendant={panelOpen && activeIndex >= 0 ? optionId(flatResults[activeIndex]) : undefined}
+          aria-activedescendant={
+            panelOpen && activeIndex >= 0
+              ? activeIndex === awardIndex
+                ? awardOptionId
+                : optionId(flatResults[activeIndex])
+              : undefined
+          }
           aria-label="Search the register"
         />
         {mobileOpen && (
@@ -276,6 +301,22 @@ export default function Search({ className = '' }: { className?: string } = {}) 
                 })}
               </div>
             ))}
+          {hasAwardAction && (
+            <button
+              id={awardOptionId}
+              type="button"
+              role="option"
+              aria-selected={activeIndex === awardIndex}
+              onMouseDown={(e) => e.preventDefault()}
+              onMouseEnter={() => setActiveIndex(awardIndex)}
+              onClick={() => goAwards()}
+              className={`block w-full truncate border-t border-line px-3 py-2 text-left text-sm transition-colors ${
+                activeIndex === awardIndex ? 'bg-line text-paper' : 'text-dim hover:bg-line/60 hover:text-paper'
+              }`}
+            >
+              Search awards for {awardQuery}
+            </button>
+          )}
         </div>
       )}
     </div>

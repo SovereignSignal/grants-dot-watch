@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { Empty } from '@/components/ui';
+import { LatestAwards } from '@/components/browse/latest-awards';
 import { MONTHS_LONG } from '@/lib/format';
+import { sortAwardsNewest } from '@/lib/awards';
 import type { Departure } from '@/lib/departures';
-import { collectCurrentDepartures } from '@/lib/departures';
+import { collectCurrentDepartures, uniqueDeparturesByProgram } from '@/lib/departures';
 import { isVerifiedRollingRound } from '@/lib/round-state';
 import { daysUntil } from '@/components/programs/date-helpers';
+
+const DATED_PREVIEW = 8;
+const STANDING_PREVIEW = 10;
+const AWARD_PREVIEW = 5;
 
 function monthLabel(dateStr: string): string {
   const [y, m] = dateStr.split('-');
@@ -17,29 +23,18 @@ function wireDot(wire: string | null | undefined) {
 }
 
 export default function Home() {
-  const { orgs, programs, counts } = loadRegistry();
+  const { orgs, programs, awards, counts } = loadRegistry();
 
   const openRounds = collectCurrentDepartures(programs, orgs);
-  const dated = openRounds
-    .filter((r) => r.round.closes)
-    .sort((a, b) => a.round.closes!.localeCompare(b.round.closes!));
-  // Standing (rolling) programs: dedupe by program name + org so the same
-  // program listed under several rounds shows once, and cap the front-page
-  // preview. The full board lives on /programs.
-  const seenStanding = new Set<string>();
-  const standing = openRounds
-    .filter((r) => isVerifiedRollingRound(r.program, r.round))
-    .filter((r) => {
-      const k = `${r.program.name}::${r.orgName}`;
-      if (seenStanding.has(k)) return false;
-      seenStanding.add(k);
-      return true;
-    });
-  const standingPreview = standing.slice(0, 10);
-  const departures = dated.slice(0, 5);
+  const dated = openRounds.filter((r) => r.round.closes);
+  const standing = uniqueDeparturesByProgram(
+    openRounds.filter((r) => isVerifiedRollingRound(r.program, r.round))
+  );
+  const standingPreview = standing.slice(0, STANDING_PREVIEW);
+  const departures = dated.slice(0, DATED_PREVIEW);
+  const latestAwards = sortAwardsNewest(awards).slice(0, AWARD_PREVIEW);
+  const orgIds = new Set(orgs.map((org) => org.id));
 
-  // group departures by close month — a month's label carries the year once,
-  // so individual rows show only the day (no repeated "Jul 2026" per row).
   const groups: { label: string; rows: Departure[] }[] = [];
   for (const r of departures) {
     const label = monthLabel(r.round.closes!);
@@ -74,12 +69,13 @@ export default function Home() {
       </section>
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-11 gap-y-10 px-4 py-9 lg:grid-cols-[1fr_300px]">
-        {/* DEPARTURES — lead story */}
         <section className="min-w-0">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
             <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Departures: What Closes Next</h2>
             <span className="coord shrink-0">
-              {departures.length} of {counts.programs.toLocaleString()} programs
+              {dated.length === 0
+                ? 'no dated calls'
+                : `${departures.length} of ${dated.length.toLocaleString()} dated calls`}
             </span>
           </div>
 
@@ -138,33 +134,35 @@ export default function Home() {
           )}
         </section>
 
-        {/* RAIL — THE REGISTER */}
         <aside className="min-w-0 lg:border-l lg:border-line lg:pl-11">
-          <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-            <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
-            <span className="coord shrink-0">4 measures</span>
-          </div>
-          <div className="flex flex-col">
-            {REGISTER.map((r) => (
-              <Link
-                key={r.href}
-                href={r.href}
-                className="group flex items-baseline justify-between gap-4 border-b border-line py-6 first:pt-5"
-              >
-                <div>
-                  <div className="serif-statement text-[40px] leading-none tabular-nums text-paper">{r.n.toLocaleString()}</div>
-                  <div className="coord mt-2">{r.label}</div>
-                </div>
-                <div className="coord shrink-0 border-b border-line pb-0.5 text-dim group-hover:border-paper group-hover:text-paper">
-                  Browse →
-                </div>
-              </Link>
-            ))}
+          <LatestAwards awards={latestAwards} total={counts.awards} orgIds={orgIds} />
+
+          <div className="mt-10">
+            <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+              <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">The Register</h2>
+              <span className="coord shrink-0">4 measures</span>
+            </div>
+            <div className="flex flex-col">
+              {REGISTER.map((r) => (
+                <Link
+                  key={r.href}
+                  href={r.href}
+                  className="group flex items-baseline justify-between gap-4 border-b border-line py-6 first:pt-5"
+                >
+                  <div>
+                    <div className="serif-statement text-[40px] leading-none tabular-nums text-paper">{r.n.toLocaleString()}</div>
+                    <div className="coord mt-2">{r.label}</div>
+                  </div>
+                  <div className="coord shrink-0 border-b border-line pb-0.5 text-dim group-hover:border-paper group-hover:text-paper">
+                    Browse →
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </aside>
       </div>
 
-      {/* STANDING — quiet section for rolling programs */}
       <section className="mx-auto max-w-6xl border-t-[2.5px] border-paper px-4 pt-5 pb-12">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
           <h2 className="coord text-dim">Standing: No Fixed Deadline</h2>
