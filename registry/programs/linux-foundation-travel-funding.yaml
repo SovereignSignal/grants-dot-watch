@@ -1,19 +1,37 @@
 id: linux-foundation-travel-funding
-name: Linux Foundation Travel Funding
+name: Linux Foundation Travel Fund
 org: linux-foundation
 parent: null
 systems: [oss-sustainability]
 wires:
-- oss
+  - oss
 status: active
 mechanism: grants
+apply_url: https://events.linuxfoundation.org/about/travel-fund-request/
 summary: >
-  The Linux Foundation offers event-specific travel support for open-source developers and community members
-  who otherwise could not attend. Each participating event has its own application window and decision date.
+  Standing travel fund for open-source developers and community members who
+  could not otherwise attend Linux Foundation events, with emphasis on
+  historically underrepresented groups and people of lower socioeconomic
+  status. Approved support covers coach airfare, ground transport to and from
+  the airport, and lodging for the event dates plus one prior night.
+  Applications are submitted from the LF Individual Dashboard; each event
+  sets its own deadline.
 rounds:
-- name: OpenSearchCon North America travel funding
-  status: closed
-  closes: 2026-07-08
-  source: https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
+  - name: Open Source Summit North America 2026 travel funding
+    status: closed
+    closes: 2026-03-30
+    source: https://events.linuxfoundation.org/archive/2026/open-source-summit-north-america/attend/scholarships-travel-funding/
+  - name: OpenSearchCon North America 2026 travel funding
+    status: closed
+    closes: 2026-07-08
+    source: https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
+  - name: Open Source Summit Europe 2026 travel funding
+    status: open
+    closes: 2026-08-19
+    source: https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
 sources:
-- https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
+  - https://events.linuxfoundation.org/about/travel-fund-request/
+  - https://docs.linuxfoundation.org/lfx/my-profile/lf-events/travel-funding
+  - https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
+  - https://events.linuxfoundation.org/archive/2026/open-source-summit-north-america/attend/scholarships-travel-funding/
+  - https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/

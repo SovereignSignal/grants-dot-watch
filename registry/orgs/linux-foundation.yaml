@@ -1,6 +1,8 @@
 id: linux-foundation
 name: Linux Foundation
-aka: []
+aka:
+  - The Linux Foundation
+  - Linux Foundation Education
 systems: [oss-sustainability]
 wires: [oss]
 roles: [funder]
@@ -11,23 +13,24 @@ socials:
   github: https://github.com/linuxfoundation
 status: active
 profile: >
-  Linux Foundation is a nonprofit that hosts and stewards over 1,300 open-source
-  projects, including Kubernetes and the Cloud Native Computing Foundation. It funds
-  open-source security work, training scholarships, and event travel grants, and
-  recently channeled a large pool of corporate-backed funding (from members including
-  AWS, Google, Microsoft, and OpenAI) into Alpha-Omega and OpenSSF security
-  initiatives. It also runs LFX Mentorship, a paid apprenticeship connecting
-  contributors with member open-source projects.
+  Neutral nonprofit that hosts more than 1,300 open-source projects and runs
+  its own community funding through training scholarships, event travel support,
+  and paid mentorships. Security grantmaking sits with hosted allocating
+  identities such as the Open Source Security Foundation and Alpha-Omega, not
+  on a single Linux Foundation application form.
 funding:
   focus:
-    - open source security
     - training scholarships
-    - event travel grants
-    - research
-  apply_url: https://alpha-omega.dev/grants/how-to-apply/
-  cadence: "Rolling — Alpha-Omega grant submission form, followed by a proposal/SOW discussion with the team"
+    - event travel
+    - registration scholarships
+    - mentorship stipends
+  cadence: >
+    LiFT scholarships open each April; event travel and registration
+    scholarships follow per-event deadlines; LFX Mentorship runs spring,
+    summer, and fall terms on the LFX platform.
 sources:
   - https://www.linuxfoundation.org/
-  - https://www.linuxfoundation.org/blog
-  - https://alpha-omega.dev/
-  - https://alpha-omega.dev/grants/how-to-apply/
+  - https://www.linuxfoundation.org/about/lift-scholarships
+  - https://events.linuxfoundation.org/about/travel-fund-request/
+  - https://mentorship.lfx.linuxfoundation.org/
+  - https://www.linuxfoundation.org/blog/strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-shared-standard-of-excellence

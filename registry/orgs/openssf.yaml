@@ -1,0 +1,42 @@
+id: openssf
+name: Open Source Security Foundation
+aka:
+  - OpenSSF
+  - Open Source Security Foundation
+  - Alpha-Omega
+systems: [oss-sustainability]
+wires: [oss]
+roles: [funder]
+org_type: nonprofit
+website: https://openssf.org/
+socials:
+  x: https://x.com/OpenSSF
+  github: https://github.com/ossf
+status: active
+profile: >
+  Cross-industry Linux Foundation project that funds open-source security
+  work through Technical Initiative Funding and Alpha-Omega. The TAC reviews
+  requests from its working groups and projects for audits, technical writers,
+  and interns, while Alpha-Omega runs a public seasonal grant program for
+  critical projects. In March 2026 a coalition including Anthropic, AWS,
+  GitHub, Google, Microsoft, and OpenAI committed $12.5 million through
+  OpenSSF and Alpha-Omega.
+funding:
+  focus:
+    - open source security
+    - security audits
+    - maintainer security work
+    - technical writers
+    - internships
+    - working group / technical initiative support
+  typical_size: Technical Initiative Funding request tiers run up to $70,000–$150,000
+  cadence: >
+    Technical Advisory Council reviews initiative funding requests bi-monthly.
+    Alpha-Omega accepts grant submissions in January, April, July, and October.
+  apply_url: https://openssf.org/about/tac/technical-initiative-funding/
+sources:
+  - https://openssf.org/
+  - https://openssf.org/about/tac/technical-initiative-funding/
+  - https://alpha-omega.dev/
+  - https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/
+  - https://www.linuxfoundation.org/press/linux-foundation-announces-12.5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security

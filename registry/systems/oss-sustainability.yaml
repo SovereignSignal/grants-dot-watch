@@ -11,7 +11,12 @@ summary: "The funding community that pays for the maintenance and health of open
   Ford digital-infrastructure funding, CZI Essential Open Source Software, Mozilla MOSS), and
   dedicated funds and fiscal hosts such as Open Source Collective, FLOSS/fund, and the Open Source
   Endowment."
-funding_channels: []
+funding_channels:
+  - linux-foundation-lift-scholarship
+  - linux-foundation-travel-funding
+  - lfx-mentorship
+  - alpha-omega
+  - openssf-ti-funding
 sources:
   - https://www.oscollective.org/
   - https://floss.fund/

@@ -1,0 +1,24 @@
+id: lfx-mentorship
+name: LFX Mentorship
+org: linux-foundation
+parent: null
+systems: [oss-sustainability]
+wires:
+  - oss
+status: active
+mechanism: fellowship
+apply_url: https://mentorship.lfx.linuxfoundation.org/
+summary: >
+  Recurring Linux Foundation mentorship connecting new contributors with
+  project maintainers on a defined deliverable. Full-time terms run spring
+  (March–May), summer (June–August), and fall (September–November); mentees
+  apply on the LFX platform to at most three projects per term. Participating
+  projects may offer educational stipends on a purchasing-power-parity
+  schedule; terms starting July 1, 2026 use a $1,000 minimum and $6,600
+  maximum.
+rounds: []
+sources:
+  - https://mentorship.lfx.linuxfoundation.org/
+  - https://docs.linuxfoundation.org/lfx/mentorship/mentees/apply-to-a-project
+  - https://docs.linuxfoundation.org/lfx/mentorship/mentorship-program-timelines
+  - https://www.linuxfoundation.org/blog/strengthening-lfx-mentoring-a-fairer-stipend-model-and-a-shared-standard-of-excellence

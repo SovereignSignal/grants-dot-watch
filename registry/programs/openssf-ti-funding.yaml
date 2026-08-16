@@ -1,6 +1,6 @@
 id: openssf-ti-funding
 name: OpenSSF Technical Initiative Funding
-org: openssf-technical-initiative-funding
+org: openssf
 parent: null
 systems:
   - oss-sustainability
@@ -10,11 +10,13 @@ status: active
 mechanism: grants
 apply_url: https://openssf.org/about/tac/technical-initiative-funding/
 summary: >
-  The funding channel through which OpenSSF allocates resources for audits, technical writers,
-  interns, and other needs across its technical initiatives, working groups, and projects. Its
-  defined request process includes tiers up to $70,000-$150,000. A separate $12.5 million coalition
-  investment announced in March 2026 supplies OpenSSF and Alpha-Omega with capital for sustainable
-  open source security work; it is not a standalone public application round.
+  The funding channel through which OpenSSF allocates resources for audits,
+  technical writers, interns, and other needs across its technical
+  initiatives, working groups, and projects. Its defined request process
+  includes tiers up to $70,000–$150,000. A separate $12.5 million coalition
+  investment announced in March 2026 supplies OpenSSF and Alpha-Omega with
+  capital for sustainable open source security work; it is not a standalone
+  public application round.
 rounds: []
 sources:
   - https://openssf.org/community/technical-initiatives/
