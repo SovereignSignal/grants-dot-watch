@@ -15,7 +15,7 @@ summary: Ethereum Foundation's Devcon team is accepting proposals through August
   no token marketing.
 rounds:
   - name: RFP-13 Community Hubs
-    status: open
+    status: closed
     closes: 2026-08-12
     source: https://forum.devcon.org/t/rfp-13-devcon-8-india-community-hubs/8657
 sources:
