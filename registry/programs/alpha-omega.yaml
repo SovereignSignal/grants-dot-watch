@@ -1,6 +1,6 @@
 id: alpha-omega
 name: Alpha-Omega
-org: linux-foundation
+org: openssf
 parent: null
 systems:
   - oss-sustainability
@@ -9,12 +9,27 @@ wires:
 status: active
 mechanism: grants
 apply_url: https://alpha-omega.dev/grants/how-to-apply/
-summary: OpenSSF-backed initiative (funders include Anthropic, AWS, Citi, GitHub, Google, Microsoft,
-  OpenAI) funding open-source supply-chain security, from the largest global projects to essential
-  components maintained by individuals; ~$7M annual budget. Applicants submit a grant form and, if
-  aligned, move to a proposal/SOW discussion; grantees give monthly public reports and join monthly
-  strategy roundtables.
-rounds: []
+summary: >
+  OpenSSF project that funds security work on critical open-source projects,
+  foundations, and ecosystem services that use an OSI-approved license.
+  Applications follow a four-quarter seasonal calendar: submissions in
+  January, April, July, and October, then a month of co-design and a month
+  of decision and disbursement. Recipients publish monthly reports and join
+  monthly strategy roundtables. A March 2026 coalition investment of $12.5
+  million is managed with OpenSSF; Alpha-Omega reports more than 70 grants
+  totaling over $20 million.
+rounds:
+  - name: 2026 Q3 season
+    status: reviewing
+    opens: 2026-07-01
+    closes: 2026-07-31
+    source: https://alpha-omega.dev/grants/how-to-apply/
+  - name: 2026 Q4 season
+    status: announced
+    opens: 2026-10-01
+    closes: 2026-10-31
+    source: https://alpha-omega.dev/grants/how-to-apply/
 sources:
   - https://alpha-omega.dev/
   - https://alpha-omega.dev/grants/how-to-apply/
+  - https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/

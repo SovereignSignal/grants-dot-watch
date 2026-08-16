@@ -1,20 +1,30 @@
 id: linux-foundation-lift-scholarship
-name: Linux Foundation LiFT Scholarship
+name: Shubhra Kar Linux Foundation Training (LiFT) Scholarship
 org: linux-foundation
 parent: null
 systems: [oss-sustainability]
 wires:
-- oss
-status: concluded
+  - oss
+status: active
 mechanism: fellowship
+apply_url: https://www.linuxfoundation.org/about/lift-scholarships
 summary: >
-  The 2026 Linux Foundation LiFT Scholarship round offered 500 scholarships across 16 categories
-  covering open source, Linux, cloud native, Kubernetes, cybersecurity, DevOps, and related fields.
-  Applications closed on April 30, 2026.
+  Annual Linux Foundation Education scholarship that awards free training
+  courses and a certification exam to increase diversity in open source.
+  The 2026 round selected more than 500 recipients from 123 countries across
+  16 categories after more than 5,900 applications; more than 4,250
+  scholarships have been awarded since 2010. The 2027 cycle opens in April 2027.
 rounds:
-- name: 2026 LiFT scholarships
-  status: closed
-  closes: 2026-04-30
-  source: https://app.smarterselect.com/programs/109146-Linux-Foundation-Education
+  - name: 2026 LiFT scholarships
+    status: closed
+    closes: 2026-04-30
+    source: https://training.linuxfoundation.org/blog/lift-scholarship-application-now-open-2026/
+  - name: 2027 LiFT scholarships
+    status: announced
+    opens: 2027-04
+    source: https://www.linuxfoundation.org/about/lift-scholarships
 sources:
-- https://app.smarterselect.com/programs/109146-Linux-Foundation-Education
+  - https://www.linuxfoundation.org/about/lift-scholarships
+  - https://training.linuxfoundation.org/about/scholarships/
+  - https://training.linuxfoundation.org/blog/lift-scholarship-application-now-open-2026/
+  - https://training.linuxfoundation.org/blog/congratulations-to-the-2026-shubhra-kar-linux-foundation-education-scholarship-recipients/

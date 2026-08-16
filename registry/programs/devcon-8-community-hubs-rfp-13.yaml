@@ -8,14 +8,14 @@ wires:
 status: active
 mechanism: rfp
 apply_url: https://forum.devcon.org/t/rfp-13-devcon-8-india-community-hubs/8657
-summary: Ethereum Foundation's Devcon team is accepting proposals through August 12, 2026 for
+summary: Ethereum Foundation's Devcon team accepted proposals through August 12, 2026 for
   community groups to run free, topic-focused programming hubs inside Devcon 8 (Mumbai, November
   3-6, 2026). Selected hubs receive a free ~48 m2 in-venue space, a dedicated stage session, and up
   to 5 Devcon tickets; proposals must center on a single Ethereum, open-source, or CROPS theme with
   no token marketing.
 rounds:
   - name: RFP-13 Community Hubs
-    status: open
+    status: closed
     closes: 2026-08-12
     source: https://forum.devcon.org/t/rfp-13-devcon-8-india-community-hubs/8657
 sources:

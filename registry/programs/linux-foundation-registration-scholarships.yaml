@@ -1,0 +1,29 @@
+id: linux-foundation-registration-scholarships
+name: Linux Foundation Registration Scholarships
+org: linux-foundation
+parent: null
+systems: [oss-sustainability]
+wires:
+  - oss
+status: active
+mechanism: grants
+apply_url: https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
+summary: >
+  Event registration scholarships that award a complimentary pass to people
+  who could not otherwise attend Linux Foundation events. Reviewers select
+  from two tracks: applicants from traditionally underrepresented or
+  marginalized groups, and active open-source community members who cannot
+  get employer funding. Recipients may receive up to two scholarships per
+  calendar year; travel is a separate Travel Fund application.
+rounds:
+  - name: Open Source Summit North America 2026 registration scholarships
+    status: closed
+    closes: 2026-04-10
+    source: https://events.linuxfoundation.org/archive/2026/open-source-summit-north-america/attend/scholarships-travel-funding/
+  - name: Open Source Summit Europe 2026 registration scholarships
+    status: open
+    closes: 2026-08-31
+    source: https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
+sources:
+  - https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
+  - https://events.linuxfoundation.org/archive/2026/open-source-summit-north-america/attend/scholarships-travel-funding/
