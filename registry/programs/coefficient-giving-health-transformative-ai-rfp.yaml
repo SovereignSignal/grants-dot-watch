@@ -7,14 +7,14 @@ wires:
 - ai
 status: active
 mechanism: rfp
-apply_url: https://fillout.coefficientgiving.org/t/5g9yss4Q9eus?campaign=rec2QQivL6qAvnuwQ
-summary: Coefficient Giving (formerly Open Philanthropy) opened an RFP expecting to allocate $10-30 million
+apply_url: https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/
+summary: Coefficient Giving (formerly Open Philanthropy) ran a 2026 RFP expecting to allocate $10-30 million
   to research, policy development, implementation, and field-building aimed at ensuring AI improves human
-  health and wellbeing, with attention to the global poor. Grant tiers run from exploratory (<$100k) through
-  standard ($100k-$1m) to large ($1m+).
+  health and wellbeing, with attention to the global poor. Applications closed August 21, 2026. Review
+  continues on a rolling basis for submissions already received.
 rounds:
 - name: 2026 RFP
-  status: open
+  status: closed
   closes: '2026-08-21'
   size: $10-30M expected allocation
   source: https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/

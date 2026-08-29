@@ -50,6 +50,7 @@ const NAV = [
   { href: '/systems', label: 'Systems', shortLabel: 'Systems' },
   { href: '/orgs', label: 'Organizations', shortLabel: 'Orgs' },
   { href: '/awards', label: 'Awards', shortLabel: 'Awards' },
+  { href: '/query', label: 'Query', shortLabel: 'Query' },
   { href: '/method', label: 'Method', shortLabel: 'Method', desktopOnly: true },
   { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk', desktopOnly: true },
 ];
@@ -111,6 +112,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex min-w-0 flex-col gap-2">
               <span className="coord">the registry of the funding world</span>
               <nav aria-label="About" className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                <Link href="/query" className="coord text-dim hover:text-paper">
+                  Query
+                </Link>
                 <Link href="/method" className="coord text-dim hover:text-paper">
                   Method
                 </Link>

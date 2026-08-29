@@ -73,7 +73,27 @@ test('front page, systems, and method stay connected', async ({ page }) => {
   await page.goto('/method');
   await expect(page.getByRole('heading', { level: 1, name: 'Method' })).toBeVisible();
   await expect(page.getByRole('heading', { level: 2, name: 'What this is' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'How to query it' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open calls' })).toHaveAttribute('href', '/programs');
+});
+
+test('query page and public API expose the live board', async ({ page }) => {
+  await page.goto('/query');
+  await expect(page.getByRole('heading', { level: 1, name: 'Query' })).toBeVisible();
+  await expect(page.locator('a[href="/api/v1/open"]')).toBeVisible();
+
+  const index = await page.request.get('/api/v1');
+  expect(index.ok()).toBeTruthy();
+  const indexBody = await index.json();
+  expect(indexBody.version).toBe('v1');
+  expect(indexBody.endpoints.open).toBe('/api/v1/open');
+
+  const open = await page.request.get('/api/v1/open?standing=0&limit=5');
+  expect(open.ok()).toBeTruthy();
+  const openBody = await open.json();
+  expect(Array.isArray(openBody.data)).toBeTruthy();
+  expect(openBody.data.length).toBeGreaterThan(0);
+  expect(openBody.data.every((row: { standing: boolean }) => row.standing === false)).toBeTruthy();
 });
 
 test('header search supports keyboard navigation', async ({ page }) => {

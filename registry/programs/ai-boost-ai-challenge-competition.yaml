@@ -13,7 +13,7 @@ summary: AI-BOOST's 2026 AI Challenge Competition runs four generative AI challe
   prize, and two EUR 12,500 special awards.
 rounds:
   - name: Challenges 1 and 2
-    status: open
+    status: closed
     opens: 2026-06-19
     closes: 2026-08-25
     size: Per challenge, 5 x EUR 28,500 Spark prizes plus a EUR 100,000 final prize
