@@ -7,11 +7,11 @@ wires:
   - ai
 status: announced
 mechanism: grants
-apply_url: https://www.anthropic.com/economic-futures
 summary: "A $200M Economic Futures Research Fund for empirical research/policy trials on AI
   labor-market impacts (prior structure: $10K-$50K awards to economists/data scientists), plus a
   $150M National Fellowship Program for early-career professionals distributing AI's economic
-  benefits beyond coastal tech hubs."
+  benefits beyond coastal tech hubs. The current Economic Futures page is a research
+  agenda and news index, not an application form."
 rounds:
   - name: 2026 scale-up
     status: announced

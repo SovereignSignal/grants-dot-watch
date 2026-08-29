@@ -8,12 +8,19 @@ wires:
   - crypto
 status: active
 mechanism: grants
-summary: An Arbitrum Foundation program subsidizing security audits for ecosystem protocols, with
-  $10M in ARB earmarked over a 12-month window.
+summary: An Arbitrum Foundation program that subsidized third-party smart contract audits with
+  $10M in ARB over 12 months. Applications opened 1 August 2025 and closed 31 July 2026. The
+  Foundation has proposed a successor Arbitrum Security Program. That successor is not yet
+  accepting applications.
 rounds:
   - name: Audit Program (12-month)
-    status: open
+    status: closed
+    opens: 2025-08-01
+    closes: 2026-07-31
     size: $10M in ARB over 12 months
-    source: https://arbitrum.io/grants
+    source: https://forum.arbitrum.foundation/t/arbitrum-audit-program/28368/131
 sources:
-  - https://arbitrum.io/grants
+  - https://arbitrum.foundation/grants
+  - https://forum.arbitrum.foundation/t/arbitrum-audit-program-transparency-report-3/30976
+  - https://forum.arbitrum.foundation/t/arbitrum-audit-program/28368/131
+  - https://forum.arbitrum.foundation/t/arbitrum-security-program/31207
