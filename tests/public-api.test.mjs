@@ -35,6 +35,28 @@ test('live programs filter matches current departures', () => {
   assert.ok(live.every((program) => program.id !== 'nominet-dns-fund'));
 });
 
+test('standing currency reset drops closed undated calls', () => {
+  const registry = loadRegistry();
+  const board = liveBoard(registry, '2026-08-29');
+  const ids = new Set(board.map((row) => row.program_id));
+  for (const id of [
+    'foresight-ai-science-safety-nodes',
+    'mozilla-foundation-incubator',
+    'mantle-public-grants-scouts-program',
+    'sui-overflow',
+    'sui-defi-moonshots',
+    'aaif-goose-grant-program',
+    'nrf-singapore-fellowship',
+    'avalanche-foundation-research-grants-up-to-50k-on-avalanche-',
+    'google-chrome-web-framework-tools-performance-fund',
+  ]) {
+    assert.equal(ids.has(id), false, id);
+  }
+  assert.ok(board.some((row) => row.program_id === 'eurohpc-research-innovation-calls' && row.round.closes === '2026-09-30'));
+  assert.ok(board.some((row) => row.program_id === 'arpa-h-open-funding-opportunities' && row.round.name.includes('FASTPASS')));
+  assert.ok(!board.some((row) => row.round.name.startsWith('HEARING')));
+});
+
 test('open board omits past closes and paginates', () => {
   const registry = loadRegistry();
   const board = liveBoard(registry, '2026-08-29');

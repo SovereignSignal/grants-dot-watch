@@ -8,20 +8,19 @@ wires:
   - oss
 status: active
 mechanism: grants
-apply_url: https://opencollective.com/chrome
 summary: >
   A Google Chrome-run fund, fiscally hosted by Open Source Collective, that backs web framework and
   build-tool projects working on performance: reducing initial bundle size, progressive resource
   delivery, meta-framework improvements (e.g. Next.js, Nuxt), breaking up JavaScript tasks, and
-  underlying build tools (webpack, parcel). Launched with a 2022 cohort and continues taking
-  submissions, with over $2.2M contributed and 18 expenses paid as of the most recent review.
+  underlying build tools (webpack, parcel). The 2022 cohort is historical. Open Collective now
+  says submissions are in review, not that a new open intake is available.
 rounds:
   - name: 2022 cohort
     status: closed
     size: 9 awards
     source: https://developer.chrome.com/blog/framework-fund-2022
   - name: Ongoing disbursements
-    status: open
+    status: closed
     size: 3 additional awards recorded
     source: https://opencollective.com/chrome/transactions?type=DEBIT
   - name: 2026 submission batch

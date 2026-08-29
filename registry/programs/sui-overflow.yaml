@@ -10,11 +10,12 @@ status: active
 mechanism: prize
 apply_url: https://overflow.sui.io/
 summary: Sui Foundation's flagship annual hackathon for Sui builders, with prizes and seed funding
-  across core tracks.
+  across core tracks. The 2026 project submission window closed 23 May 2026.
 rounds:
   - name: "2026"
-    status: open
+    status: closed
     opens: 2026-05-01
+    closes: 2026-05-23
     size: over $1,000,000
     source: https://overflow.sui.io/
 sources:

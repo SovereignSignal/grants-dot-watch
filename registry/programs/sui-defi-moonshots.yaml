@@ -6,14 +6,14 @@ systems:
   - sui
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://www.sui.io/programs-funding
-summary: A Sui Foundation program offering up to $500,000 in liquidity incentives to top DeFi
-  protocol builders on Sui.
+summary: A former Sui Foundation liquidity-incentive program for DeFi builders. The moonshots URL
+  now serves Sui marketing copy and the programs page no longer lists DeFi Moonshots as an open
+  grant. Academic research awards and RFPs remain on the funding page as separate vehicles.
 rounds:
   - name: DeFi Moonshots
-    status: open
+    status: closed
     size: up to $500,000 in liquidity incentives
     source: https://www.sui.io/programs-funding
 sources:

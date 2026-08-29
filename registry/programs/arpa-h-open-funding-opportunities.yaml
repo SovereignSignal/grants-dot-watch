@@ -9,24 +9,33 @@ wires:
 status: active
 mechanism: rfp
 apply_url: https://arpa-h.gov/explore-funding/open-funding-opportunities
-summary: ARPA-H's standing list of open Innovative Solutions Openings (ISOs) and exploratory topics
-  across its four mission offices (Health Science Futures, Scalable Solutions, Proactive Health,
-  Resilient Systems); solicitations rotate on a rolling basis.
+summary: ARPA-H's current list of open Innovative Solution Openings, initiatives, and exploratory
+  topics. Solicitations rotate. HEARING, IGoR, and BRAINS are no longer on the open list. REST,
+  TIGAR, FASTPASS, STREAM, and ASCENT-IBO are.
 rounds:
-  - name: HEARING (Hearing Enhancement through ARtificially Intelligent Neurotechnology)
-    status: open
-    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
-  - name: IGoR (Intelligent Generator of Research)
+  - name: Fast Assessment of Solutions, Therapeutics, Pharmaceuticals, and Supplies (FASTPASS)
     status: open
     source: https://arpa-h.gov/explore-funding/open-funding-opportunities
   - name: REST (Restorative & health-Enhancing Sleep Time)
     status: open
     source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: Systems for Tracking and Resilience in Efficient Agricultural-input Management (STREAM)
+    status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
   - name: TIGAR Exploratory Topic
     status: open
     source: https://arpa-h.gov/explore-funding/open-funding-opportunities
-  - name: BRAINS Exploratory Topic
+  - name: ASCENT-IBO
     status: open
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: HEARING (Hearing Enhancement through ARtificially Intelligent Neurotechnology)
+    status: closed
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: IGoR (Intelligent Generator of Research)
+    status: closed
+    source: https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - name: BRAINS Exploratory Topic
+    status: closed
     source: https://arpa-h.gov/explore-funding/open-funding-opportunities
 sources:
   - https://arpa-h.gov/explore-funding/open-funding-opportunities

@@ -5,14 +5,15 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 mechanism: grants
-apply_url: https://goose-docs.ai/grants/
-summary: Grants up to $100,000 over 12 months for individuals or small teams building impactful
-  enhancements to the open-source Goose AI agent project.
+summary: Previously offered grants up to $100,000 over 12 months for people building on the open-source
+  Goose AI agent. The former grants URL now serves general Goose documentation and no current apply
+  path is published. A February 2026 winner post remains on the blog.
 rounds:
   - name: Rolling
-    status: open
+    status: closed
     source: https://goose-docs.ai/grants/
 sources:
   - https://goose-docs.ai/grants/
+  - https://goose-docs.ai/blog/2026/02/24/goose-grant-goose-in-a-pond/
