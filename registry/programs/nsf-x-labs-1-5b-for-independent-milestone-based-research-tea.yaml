@@ -12,12 +12,21 @@ apply_url: https://nsfgov.my.site.com/xlabs/s/
 summary: >
   NSF X-Labs is a planned $1.5 billion initiative for large, multiyear awards to independent,
   full-time research and development teams pursuing technical breakthroughs outside traditional
-  university and industry-lab structures. Initial funding opportunities cover scientific
-  instrumentation for sensing and imaging and quantum interconnects and integrated photonics.
+  university and industry-lab structures. The first two topic announcements closed in July 2026.
+  Scientific Instrumentation for Sensing and Imaging proposals were due 13 July 2026. Quantum
+  Systems interconnects and integrated photonics proposals were due 24 July 2026. NSF has said
+  additional topics will be announced.
 rounds:
-  - name: Initial NSF X-Labs funding opportunities
-    status: open
-    source: https://www.nsf.gov/funding/initiatives/nsf-x-labs
+  - name: Scientific Instrumentation for Sensing and Imaging
+    status: closed
+    closes: 2026-07-13
+    source: https://sam.gov/workspace/contract/opp/0bcce85371d141ee874eb85858ad0fda/view
+  - name: Quantum Systems Interconnects and Integrated Photonics
+    status: closed
+    closes: 2026-07-24
+    source: https://sam.gov/workspace/contract/opp/cdce081fa4aa4bcaa70003db71919a36/view
 sources:
   - https://www.nsf.gov/funding/initiatives/nsf-x-labs
   - https://www.nsf.gov/news/nsf-announces-15b-nsf-x-labs-initiative-pursue-generational
+  - https://sam.gov/workspace/contract/opp/0bcce85371d141ee874eb85858ad0fda/view
+  - https://sam.gov/workspace/contract/opp/cdce081fa4aa4bcaa70003db71919a36/view

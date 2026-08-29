@@ -9,13 +9,20 @@ wires:
 status: active
 mechanism: grants
 apply_url: https://freebsdfoundation.org/our-work/grants/
-summary: "The FreeBSD Foundation's standing grant process: Travel Grants for conference attendance
-  and Community Grants for software development, equipment, and conference sponsorship benefiting
-  the FreeBSD project."
+summary: The FreeBSD Foundation's standing grant process. EuroBSDCon 2026 travel applications
+  closed 7 July 2026. A general travel form remains for conferences not on the dated list,
+  due seven weeks before the event. Community Grants for software, equipment, and sponsorship
+  are a separate rolling program.
 rounds:
   - name: EuroBSDCon 2026 Travel Grant
-    status: open
+    status: closed
     opens: 2026-06-30
-    source: https://freebsdfoundation.org/our-work/grants/
+    closes: 2026-07-07
+    source: https://freebsdfoundation.org/our-work/grants/travel-grants/
+  - name: General travel grants
+    status: open
+    source: https://freebsdfoundation.org/our-work/grants/travel-grants/
 sources:
   - https://freebsdfoundation.org/our-work/grants/
+  - https://freebsdfoundation.org/our-work/grants/travel-grants/
+  - https://freebsdfoundation.org/blog/eurobsdcon-2026-travel-grant-application-now-open/

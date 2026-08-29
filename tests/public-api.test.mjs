@@ -57,6 +57,18 @@ test('standing currency reset drops closed undated calls', () => {
   assert.ok(!board.some((row) => row.round.name.startsWith('HEARING')));
 });
 
+test('standing remainder dates year-named calls and drops closed intakes', () => {
+  const registry = loadRegistry();
+  const board = liveBoard(registry, '2026-08-29');
+  const ids = new Set(board.map((row) => row.program_id));
+  assert.equal(ids.has('nsf-x-labs-1-5b-for-independent-milestone-based-research-tea'), false);
+  assert.ok(!board.some((row) => row.program_id === 'freebsd-foundation-grants' && row.round.name.includes('EuroBSDCon')));
+  assert.ok(!board.some((row) => row.round.name.includes('Release 4')));
+  assert.ok(board.some((row) => row.program_id === 'nlnet-general-grants' && row.round.closes === '2026-11-03'));
+  assert.ok(board.some((row) => row.program_id === 'outreachy' && row.round.closes === '2026-08-31'));
+  assert.ok(board.some((row) => row.program_id === 'afwerx-sbir-sttr' && row.round.closes === '2026-09-23'));
+});
+
 test('open board omits past closes and paginates', () => {
   const registry = loadRegistry();
   const board = liveBoard(registry, '2026-08-29');
