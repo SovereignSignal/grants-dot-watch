@@ -9,13 +9,15 @@ const TOUCH = 'registry/programs/nlnet-general-grants.yaml';
 test('loadRegistry reloads when a registry file mtime changes', () => {
   invalidateRegistryCache();
   const first = loadRegistry();
-  const same = loadRegistry();
-  assert.equal(same.updatedAt, first.updatedAt);
+  assert.equal(loadRegistry(), first);
 
   const st = statSync(TOUCH);
-  utimesSync(TOUCH, st.atime, new Date(st.mtimeMs + 2000));
+  // Beat every other registry file, not just this file's own mtime.
+  const later = new Date(Date.now() + 5000);
+  utimesSync(TOUCH, st.atime, later);
   try {
     const second = loadRegistry();
+    assert.notEqual(second, first);
     assert.notEqual(second.updatedAt, first.updatedAt);
   } finally {
     utimesSync(TOUCH, st.atime, st.mtime);
