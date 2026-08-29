@@ -170,17 +170,18 @@ test('cadence defaults to current evidence and bounds the all-program view', asy
 });
 
 test('departures pagination preserves active filters', async ({ page }) => {
-  await page.goto('/programs?status=active');
+  await page.goto('/programs');
   await expect(page.getByText(/showing 1-50 of \d+ open calls/i)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Next →' })).toHaveAttribute(
-    'href',
-    '/programs?status=active&page=2'
-  );
+  await expect(page.getByRole('link', { name: 'Next →' })).toHaveAttribute('href', '/programs?page=2');
 
   await page.getByRole('link', { name: 'Next →' }).click();
-  await expect(page).toHaveURL(/\/programs\?status=active&page=2$/);
+  await expect(page).toHaveURL(/\/programs\?page=2$/);
   await expect(page.getByText(/showing 51-\d+ of \d+ open calls/i)).toBeVisible();
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
+
+  await page.goto('/programs?status=active');
+  await expect(page.getByText(/showing 1-50 of 50 open calls/i)).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Next →' })).toHaveCount(0);
 });
 
 test.describe('mobile', () => {
