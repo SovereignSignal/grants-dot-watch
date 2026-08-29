@@ -80,7 +80,7 @@ test('front page, systems, and method stay connected', async ({ page }) => {
 test('query page and public API expose the live board', async ({ page }) => {
   await page.goto('/query');
   await expect(page.getByRole('heading', { level: 1, name: 'Query' })).toBeVisible();
-  await expect(page.getByRole('link', { name: '/api/v1/open' })).toBeVisible();
+  await expect(page.locator('a[href="/api/v1/open"]')).toBeVisible();
 
   const index = await page.request.get('/api/v1');
   expect(index.ok()).toBeTruthy();
