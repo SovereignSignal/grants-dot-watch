@@ -6,13 +6,14 @@ systems: []
 wires: []
 status: active
 mechanism: grants
-apply_url: https://www.rtyouthpower.org/apply
 summary: >
   Annual cohort-based grants of $50,000-$100,000 for one year to youth-led
   and intergenerationally-led U.S. organizations working on responsible
   technology, with young leaders holding funding-decision roles. The 2023
-  and 2025 cohorts were anchored by Omidyar Network; Fund 3 applications
-  closed October 10, 2025 and Fund 4 is expected to open in Fall 2026.
+  and 2025 cohorts were anchored by Omidyar Network. Fund 3 applications
+  closed October 10, 2025. The apply page says the 2026 cohort is closed and
+  that Fund 4 applications will be announced in Fall 2026. There is no
+  current application form.
 rounds:
   - name: "2023 cohort"
     status: deployed

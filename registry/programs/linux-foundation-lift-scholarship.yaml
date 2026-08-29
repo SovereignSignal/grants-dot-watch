@@ -7,7 +7,6 @@ wires:
   - oss
 status: active
 mechanism: fellowship
-apply_url: https://www.linuxfoundation.org/about/lift-scholarships
 summary: >
   Annual Linux Foundation Education scholarship that awards free training
   courses and a certification exam to increase diversity in open source.

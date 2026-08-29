@@ -57,6 +57,23 @@ test('standing currency reset drops closed undated calls', () => {
   assert.ok(!board.some((row) => row.round.name.startsWith('HEARING')));
 });
 
+test('apply url pass drops dead apply paths and closed audit intake', () => {
+  const registry = loadRegistry();
+  const board = liveBoard(registry, '2026-08-29');
+  assert.ok(!board.some((row) => row.program_id === 'arbitrum-audit-program'));
+  const youth = board.find((row) => row.program_id === 'responsible-technology-youth-power-fund-grants');
+  assert.ok(youth);
+  assert.equal(youth.apply_url, null);
+  const lift = board.find((row) => row.program_id === 'linux-foundation-lift-scholarship');
+  assert.ok(lift);
+  assert.equal(lift.apply_url, null);
+  const anth = board.find((row) => row.program_id === 'anthropic-economic-futures-initiative');
+  assert.ok(anth);
+  assert.equal(anth.apply_url, null);
+  const blue = board.find((row) => row.program_id === 'bluedot-impact-rapid-grants-expanded-round');
+  assert.ok(blue.apply_url.includes('/grants/rapid'));
+});
+
 test('standing remainder dates year-named calls and drops closed intakes', () => {
   const registry = loadRegistry();
   const board = liveBoard(registry, '2026-08-29');
