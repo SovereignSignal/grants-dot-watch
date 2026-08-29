@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { getAppliedChangeLedgerHealth, getIngestState, listProposals } from '@/lib/desk-store';
-import { briefingBoard, liveCounts } from '@/lib/public-api';
+import { briefingBoard, isOrgHomepageApply, liveCounts } from '@/lib/public-api';
 import { daysUntil } from '@/components/programs/date-helpers';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
@@ -68,20 +68,16 @@ function formatLoadedAt(iso: string): string {
 }
 
 export default async function HealthPage() {
-  const { counts, awards, loadedAt } = loadRegistry();
-  const live = liveCounts();
-  const board = briefingBoard();
+  const registry = loadRegistry();
+  const { counts, awards, loadedAt } = registry;
+  const live = liveCounts(registry);
+  const board = briefingBoard({ registry });
+  const orgWebsite = new Map(registry.orgs.map((org) => [org.id, org.website]));
   const applyNow = [...board.dated, ...board.standingOpen];
   const missingApply = applyNow.filter((row) => !row.apply_url);
-  const homepageApply = applyNow.filter((row) => {
-    if (!row.apply_url) return false;
-    try {
-      const path = new URL(row.apply_url).pathname;
-      return path === '/' || path === '';
-    } catch {
-      return true;
-    }
-  });
+  const homepageApply = applyNow.filter((row) =>
+    isOrgHomepageApply(row.apply_url, orgWebsite.get(row.org))
+  );
   const closingSoon = board.dated.filter((row) => {
     const days = daysUntil(row.round.closes);
     return days !== null && days >= 0 && days <= 14;

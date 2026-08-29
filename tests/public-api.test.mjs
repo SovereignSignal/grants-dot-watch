@@ -5,6 +5,7 @@ import { collectCurrentDepartures } from '../src/lib/departures.ts';
 import {
   apiIndex,
   briefingBoard,
+  isOrgHomepageApply,
   filterPrograms,
   getRecord,
   liveBoard,
@@ -130,6 +131,19 @@ test('live counts split dated and standing', () => {
   assert.ok(counts.dated >= 1);
 });
 
+test('homepage apply only flags the funder website itself', () => {
+  assert.equal(isOrgHomepageApply('https://www.nsf.gov/', 'https://www.nsf.gov/'), true);
+  assert.equal(
+    isOrgHomepageApply(
+      'https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation',
+      'https://www.nsf.gov/'
+    ),
+    false
+  );
+  assert.equal(isOrgHomepageApply('https://xgov.algorand.co/', 'https://algorand.co/'), false);
+  assert.equal(isOrgHomepageApply('https://av20jp3z.paperform.co/', 'https://ev.org/'), false);
+});
+
 test('dated live calls have a real apply path and no duplicate Genesis row', () => {
   const registry = loadRegistry();
   const today = '2026-08-29';
@@ -147,10 +161,10 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
   assert.ok(jst);
   assert.match(jst.apply_url, /announce_ca_ai2026/);
 
-  for (const row of briefing.dated) {
+  for (const row of [...briefing.dated, ...briefing.standingOpen]) {
     assert.ok(row.apply_url, row.program_id);
-    const path = new URL(row.apply_url).pathname;
-    assert.notEqual(path, '/', row.program_id);
+    const org = registry.orgs.find((item) => item.id === row.org);
+    assert.equal(isOrgHomepageApply(row.apply_url, org?.website), false, row.program_id);
   }
 });
 
