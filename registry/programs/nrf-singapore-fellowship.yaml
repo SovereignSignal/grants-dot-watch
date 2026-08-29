@@ -7,12 +7,16 @@ wires:
   - ai
 status: active
 mechanism: fellowship
-apply_url: https://www.researchgrant.gov.sg
+apply_url: https://www.nrf.gov.sg/grants/nrff/
 summary: NRF Singapore's flagship award giving early-career researchers independent research funding
-  in Singapore over a five-year period.
+  in Singapore over five years, up to SGD 3.25 million. The 19th call (Class of 2027) opened 12
+  February 2026 and closed 13 May 2026. NRF invites applications once a year.
 rounds:
   - name: 19th Singapore NRF Fellowship (Class of 2027)
-    status: open
-    source: https://www.nrf.gov.sg/
+    status: closed
+    opens: 2026-02-12
+    closes: 2026-05-13
+    source: https://www.researchgrant.gov.sg/Grant/Detail?companyCode=nrf&id=NRFF19-2027
 sources:
-  - https://www.nrf.gov.sg/
+  - https://www.nrf.gov.sg/grants/nrff/
+  - https://www.researchgrant.gov.sg/Grant/Detail?companyCode=nrf&id=NRFF19-2027

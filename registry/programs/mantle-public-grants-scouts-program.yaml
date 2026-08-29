@@ -5,16 +5,15 @@ parent: null
 systems: [ethereum]
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: incubator
-apply_url: https://www.mantle.xyz/grants/apply
 summary: >
-  Mantle supports pre-product teams through Flagship Buildathon programs that run on a rolling basis
-  during the year, with top teams eligible for grants and ecosystem support. The separate Mantle
-  Scouts Season 2 nomination program ran from January through June 2025 and is closed.
+  Mantle previously ran Flagship Buildathon programs and a Scouts nomination season. The former
+  grants URLs now serve Mantle's institutional RWA marketing site and no longer describe a public
+  grant or apply path. Scouts Season 2 closed 30 June 2025.
 rounds:
   - name: Flagship Buildathon programs
-    status: open
+    status: closed
     source: https://www.mantle.xyz/grants
   - name: Mantle Scouts Season 2
     status: closed

@@ -9,21 +9,30 @@ wires:
 status: active
 mechanism: rfp
 apply_url: https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
-summary: EuroHPC JU's competitive Research & Innovation calls funding HPC hardware, software,
-  applications, and skills across Europe. Current open calls concentrate on quantum computing and
-  quantum-enabled technologies.
+summary: EuroHPC JU competitive Research and Innovation calls for HPC and quantum work in Europe.
+  Four 2026 quantum calls are dated. Three close 30 September 2026. Quantum Machine Learning closes
+  28 January 2027.
 rounds:
   - name: Large-Scale Photonic Quantum Computing Platform Technologies
     status: open
-    source: https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
+    opens: 2026-06-02
+    closes: 2026-09-30
+    source: https://www.eurohpc-ju.europa.eu/large-scale-photonic-quantum-computing-platform-technologies_en
   - name: Standards for Quantum Technologies
     status: open
-    source: https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
+    opens: 2026-06-02
+    closes: 2026-09-30
+    source: https://www.eurohpc-ju.europa.eu/standards-quantum-technologies_en
   - name: Grand Challenge on Quantum Sensors for Inertial Navigation
     status: open
-    source: https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
+    opens: 2026-06-02
+    closes: 2026-09-30
+    source: https://www.eurohpc-ju.europa.eu/grand-challenge-quantum-sensors-inertial-navigation_en
   - name: Quantum Machine Learning
     status: open
-    source: https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
+    opens: 2026-06-02
+    closes: 2027-01-28
+    source: https://www.eurohpc-ju.europa.eu/quantum-machine-learning_en
 sources:
   - https://www.eurohpc-ju.europa.eu/research-innovation/research-innovation-calls_en
+  - https://www.eurohpc-ju.europa.eu/four-new-eurohpc-ju-calls-boost-quantum-innovation-and-standardisation-europe-2026-06-02_en
