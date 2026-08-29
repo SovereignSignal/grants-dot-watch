@@ -50,7 +50,8 @@ const NAV = [
   { href: '/systems', label: 'Systems', shortLabel: 'Systems' },
   { href: '/orgs', label: 'Organizations', shortLabel: 'Orgs' },
   { href: '/awards', label: 'Awards', shortLabel: 'Awards' },
-  { href: '/query', label: 'Query', shortLabel: 'Query' },
+  { href: '/brief', label: 'Briefing', shortLabel: 'Brief' },
+  { href: '/query', label: 'Query', shortLabel: 'Query', hideOnNarrow: true },
   { href: '/method', label: 'Method', shortLabel: 'Method', desktopOnly: true },
   { href: '/admin/desk', label: 'The Desk', shortLabel: 'Desk', desktopOnly: true },
 ];
@@ -84,7 +85,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   className="coord flex items-center gap-1 max-[340px]:text-[10px] max-[340px]:tracking-[.04em] sm:gap-5 lg:gap-7"
                 >
                   {NAV.map((n) => (
-                    <Link key={n.href} href={n.href} className={`${n.desktopOnly ? 'hidden lg:inline' : ''} whitespace-nowrap transition-colors hover:text-paper`}>
+                    <Link
+                      key={n.href}
+                      href={n.href}
+                      className={`${n.desktopOnly ? 'hidden lg:inline' : n.hideOnNarrow ? 'hidden min-[380px]:inline' : ''} whitespace-nowrap transition-colors hover:text-paper`}
+                    >
                       <span className="lg:hidden">{n.shortLabel}</span>
                       <span className="hidden lg:inline">{n.label}</span>
                     </Link>
@@ -112,6 +117,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex min-w-0 flex-col gap-2">
               <span className="coord">the registry of the funding world</span>
               <nav aria-label="About" className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                <Link href="/brief" className="coord text-dim hover:text-paper">
+                  Briefing
+                </Link>
                 <Link href="/query" className="coord text-dim hover:text-paper">
                   Query
                 </Link>

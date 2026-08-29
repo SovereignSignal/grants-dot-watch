@@ -80,7 +80,11 @@ export default function QueryPage() {
               </pre>
               <p className="mt-3">
                 Replace the host when you run this locally. The path is the contract. Every object includes a
-                site <code className="text-paper">href</code> so a briefing and a query stay linked.
+                site <code className="text-paper">href</code> so this query and the{' '}
+                <Link href="/brief" className="border-b border-line text-paper hover:border-paper">
+                  briefing
+                </Link>{' '}
+                stay linked.
               </p>
             </section>
           </div>
@@ -114,6 +118,7 @@ export default function QueryPage() {
               </div>
               <nav aria-label="Query shortcuts" className="flex flex-col">
                 {[
+                  { href: '/brief', label: 'Briefing', note: 'Same live board as a page you can send' },
                   { href: '/', label: 'Today\'s board', note: 'Dated calls on the home page' },
                   { href: '/programs', label: 'Programs', note: 'Full departures board' },
                   { href: '/method', label: 'Method', note: 'How a figure gets on the page' },

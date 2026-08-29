@@ -7,6 +7,7 @@ const LINKS = [
   { href: '/programs', label: 'Programs' },
   { href: '/orgs', label: 'Organizations' },
   { href: '/awards', label: 'Awards' },
+  { href: '/brief', label: 'Briefing' },
   { href: '/query', label: 'Query' },
   { href: '/method', label: 'Method' },
 ];

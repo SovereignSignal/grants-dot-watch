@@ -77,6 +77,30 @@ test('front page, systems, and method stay connected', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Open calls' })).toHaveAttribute('href', '/programs');
 });
 
+test('briefing page lists the live board and stays linked to query', async ({ page }) => {
+  const open = await page.request.get('/api/v1/open?limit=100');
+  expect(open.ok()).toBeTruthy();
+  const openBody = await open.json();
+  const dated = openBody.data.filter((row: { standing: boolean }) => row.standing === false);
+  expect(dated.length).toBeGreaterThan(0);
+  const firstDated = dated[0] as { program_id: string; program_name: string };
+
+  await page.goto('/brief');
+  await expect(page.getByRole('heading', { level: 1, name: 'Briefing' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Dated calls' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Standing, apply now' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Announced, no form yet' })).toBeVisible();
+  await expect(page.getByRole('link', { name: firstDated.program_name, exact: true }).first()).toBeVisible();
+
+  await page.getByRole('link', { name: firstDated.program_name, exact: true }).first().click();
+  await expect(page).toHaveURL(new RegExp(`/programs/${firstDated.program_id}`));
+
+  await page.goto('/brief?wire=oss');
+  await expect(page.getByRole('navigation', { name: 'Primary' }).locator('a[href="/brief"]')).toBeVisible();
+  await expect(page.getByRole('main').getByRole('link', { name: 'Open Source' })).toHaveAttribute('aria-current', 'page');
+  await expect(page.locator('a[href="/api/v1/open?wire=oss"]')).toBeVisible();
+});
+
 test('query page and public API expose the live board', async ({ page }) => {
   await page.goto('/query');
   await expect(page.getByRole('heading', { level: 1, name: 'Query' })).toBeVisible();

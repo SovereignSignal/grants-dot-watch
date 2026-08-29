@@ -4,6 +4,7 @@ import test from 'node:test';
 import { collectCurrentDepartures } from '../src/lib/departures.ts';
 import {
   apiIndex,
+  briefingBoard,
   filterPrograms,
   getRecord,
   liveBoard,
@@ -127,4 +128,27 @@ test('live counts split dated and standing', () => {
   const counts = liveCounts(registry, '2026-08-29');
   assert.equal(counts.total, counts.dated + counts.standing);
   assert.ok(counts.dated >= 1);
+});
+
+test('briefing board matches the live board and splits standing', () => {
+  const registry = loadRegistry();
+  const today = '2026-08-29';
+  const board = liveBoard(registry, today);
+  const briefing = briefingBoard({ registry, today });
+  assert.equal(briefing.total, board.length);
+  assert.equal(
+    briefing.dated.length + briefing.standingOpen.length + briefing.standingAnnounced.length,
+    board.length
+  );
+  assert.ok(briefing.dated.every((row) => !row.standing));
+  assert.ok(briefing.standingOpen.every((row) => row.standing && row.round.status === 'open'));
+  assert.ok(briefing.standingAnnounced.every((row) => row.standing && row.round.status !== 'open'));
+
+  const crypto = briefingBoard({ registry, today, wire: 'crypto' });
+  assert.ok(crypto.total <= briefing.total);
+  assert.ok(
+    [...crypto.dated, ...crypto.standingOpen, ...crypto.standingAnnounced].every((row) =>
+      row.wires.includes('crypto')
+    )
+  );
 });
