@@ -183,6 +183,30 @@ export function liveCounts(registry: RegistryIndex = loadRegistry(), today: stri
   };
 }
 
+export type LiveBoardRow = ReturnType<typeof liveBoard>[number];
+
+/** Same live board as GET /api/v1/open, split for a person to read. */
+export function briefingBoard(options: {
+  wire?: Wire;
+  registry?: RegistryIndex;
+  today?: string;
+} = {}) {
+  const registry = options.registry ?? loadRegistry();
+  const today = options.today ?? productDateISO();
+  const wire = options.wire;
+  let rows = liveBoard(registry, today);
+  if (wire) rows = rows.filter((row) => row.wires.includes(wire));
+  const dated = rows.filter((row) => !row.standing);
+  const standing = rows.filter((row) => row.standing);
+  return {
+    as_of: today,
+    dated,
+    standingOpen: standing.filter((row) => row.round.status === 'open'),
+    standingAnnounced: standing.filter((row) => row.round.status !== 'open'),
+    total: rows.length,
+  };
+}
+
 function listMeta(registry: RegistryIndex, page: ReturnType<typeof paginate>, today: string) {
   return {
     as_of: today,

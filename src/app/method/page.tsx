@@ -56,7 +56,9 @@ export default function MethodPage() {
             <section>
               <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">How to query it</h2>
               <p className="mt-3">
-                The site is one reading of the files. <Link href="/query" className="border-b border-line text-paper hover:border-paper">GET /api/v1</Link> is
+                The site is one reading of the files. Send someone{' '}
+                <Link href="/brief" className="border-b border-line text-paper hover:border-paper">/brief</Link>.
+                {' '}<Link href="/query" className="border-b border-line text-paper hover:border-paper">GET /api/v1</Link> is
                 the same reading as JSON. Use it when you need the register as a data source: open calls,
                 an org file, a program, or the awards ledger. You do not have to visit a page.
               </p>
@@ -79,6 +81,7 @@ export default function MethodPage() {
             <nav aria-label="Method shortcuts" className="flex flex-col">
               {[
                 { href: '/programs', label: 'Open calls', note: 'What closes next' },
+                { href: '/brief', label: 'Briefing', note: 'Same live board as a page you can send' },
                 { href: '/query', label: 'Query', note: 'JSON over the same files' },
                 { href: '/systems', label: 'Systems', note: 'Funding ecosystems' },
                 { href: '/orgs', label: 'Organizations', note: 'Funders and others on file' },

@@ -72,6 +72,7 @@ export default async function Home({
   ];
 
   const programsBoardHref = wire ? `/programs?wire=${wire}` : '/programs';
+  const briefHref = wire ? `/brief?wire=${wire}` : '/brief';
   const openApiHref = wire ? `/api/v1/open?wire=${wire}` : '/api/v1/open';
 
   return (
@@ -84,7 +85,11 @@ export default async function Home({
         </h1>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
           Historical orgs and programs stay on file. Activity, deadlines, and apply links have to be true today.
-          Past closes do not stay open. Query the live board at{' '}
+          Past closes do not stay open. Send the live board as a page at{' '}
+          <Link href="/brief" className="border-b border-line text-paper hover:border-paper">
+            /brief
+          </Link>
+          . Query the same list as JSON at{' '}
           <Link href="/query" className="border-b border-line text-paper hover:border-paper">
             /query
           </Link>
@@ -172,7 +177,12 @@ export default async function Home({
                 </div>
               ))}
               <div className="mt-3 border-t border-line pt-3 text-xs text-faint">
-                Programs board, in full, ordered by close:{' '}
+                Live board as a page:{' '}
+                <Link href={briefHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                  briefing →
+                </Link>
+                {' · '}
+                Programs board, in full:{' '}
                 <Link href={programsBoardHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
                   see all {counts.programs.toLocaleString()} →
                 </Link>
@@ -240,8 +250,8 @@ export default async function Home({
             {standing.length > standingPreview.length && (
               <div className="mt-3 text-xs text-faint">
                 {standingPreview.length} of {standing.length} standing calls shown.{' '}
-                <Link href={programsBoardHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
-                  see all programs →
+                <Link href={briefHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                  full briefing →
                 </Link>
               </div>
             )}
