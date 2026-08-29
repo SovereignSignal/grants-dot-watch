@@ -9,7 +9,7 @@ import { currentRounds, productDateISO } from './round-state';
 const ROOT = join(process.cwd(), 'registry');
 
 let cache: RegistryIndex | null = null;
-let cacheDateISO: string | null = null;
+let cacheStamp: string | null = null;
 
 /** Reads path, size, and mtime for every registry source on a cold load. The
  *  newest source mtime drives the public load date. A missing dir or stat
@@ -46,7 +46,7 @@ function registryUpdatedAt(): string {
  *  write to registry files. */
 export function invalidateRegistryCache(): void {
   cache = null;
-  cacheDateISO = null;
+  cacheStamp = null;
 }
 
 function loadYamlDir<T>(sub: string): T[] {
@@ -83,8 +83,9 @@ function loadAwards(): Award[] {
 
 export function loadRegistry(force = false): RegistryIndex {
   const todayISO = productDateISO();
-  if (cache && cacheDateISO === todayISO && !force) return cache;
   const updatedAt = registryUpdatedAt();
+  const stamp = `${todayISO}:${updatedAt}`;
+  if (cache && cacheStamp === stamp && !force) return cache;
 
   const systems = loadYamlDir<System>('systems').sort((a, b) => a.name.localeCompare(b.name));
   const orgs = loadYamlDir<Org>('orgs').sort((a, b) => a.name.localeCompare(b.name));
@@ -159,7 +160,7 @@ export function loadRegistry(force = false): RegistryIndex {
       grantees: grantees.length,
     },
   };
-  cacheDateISO = todayISO;
+  cacheStamp = stamp;
   return cache;
 }
 
