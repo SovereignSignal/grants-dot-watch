@@ -29,6 +29,11 @@ const TABS = [
   { href: '/admin/health', label: 'Health' },
 ];
 
+const PUBLIC = [
+  { href: '/brief', label: 'Briefing' },
+  { href: '/query', label: 'Query' },
+];
+
 export function AdminGate({ children }: { children: ReactNode }) {
   if (!isPrivyConfigured) return <TokenGate>{children}</TokenGate>;
   return <PrivyGate>{children}</PrivyGate>;
@@ -39,12 +44,21 @@ function AdminShell({ children }: { children: ReactNode }) {
   return (
     <div>
       <div className="mx-auto max-w-6xl px-4 pt-6">
-        <div className="flex gap-7 border-b border-line pb-0">
-          {TABS.map((t) => (
-            <Link key={t.href} href={t.href} className={tabClass(!!pathname?.startsWith(t.href))}>
-              {t.label}
-            </Link>
-          ))}
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-line pb-0">
+          <div className="flex gap-7">
+            {TABS.map((t) => (
+              <Link key={t.href} href={t.href} className={tabClass(!!pathname?.startsWith(t.href))}>
+                {t.label}
+              </Link>
+            ))}
+          </div>
+          <nav aria-label="Live board" className="flex gap-5 pb-px">
+            {PUBLIC.map((item) => (
+              <Link key={item.href} href={item.href} className="coord text-dim hover:text-paper">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
       {children}

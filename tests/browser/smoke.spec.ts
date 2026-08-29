@@ -10,6 +10,15 @@ test('admin token gate completes an authenticated browser session', async ({ pag
 
   await expect(page.getByText("The owner's daily curation gate", { exact: true })).toBeVisible();
   await expect(page.getByRole('main').getByRole('link', { name: 'The Desk', exact: true })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Live board' }).getByRole('link', { name: 'Briefing' })).toHaveAttribute(
+    'href',
+    '/brief'
+  );
+
+  await page.getByRole('link', { name: 'Health', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Health' })).toBeVisible();
+  await expect(page.getByText('Live board', { exact: true })).toBeVisible();
+  await expect(page.getByText('Homepage apply', { exact: true })).toBeVisible();
 });
 
 test('awards search, filters, evidence, and pagination stay connected', async ({ page }) => {

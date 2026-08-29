@@ -8,12 +8,15 @@ wires:
   - ai
 status: active
 mechanism: grants
-summary: Joint Japan-Canada research call under JST's SICORP program, focused on AI solutions for
-  agricultural productivity.
+apply_url: https://www.jst.go.jp/inter/english/program_e/announce_e/announce_ca_ai2026.html
+summary: Joint Japan-Canada research call under JST's SICORP program, focused on AI and automation
+  solutions for agricultural productivity and resilience. Japanese proposals go through e-Rad.
+  Canadian teams register with NRC first.
 rounds:
   - name: 2026 Japan-Canada call
     status: open
     closes: 2026-11-30
-    source: https://www.jst.go.jp/EN/
+    source: https://www.jst.go.jp/inter/english/program_e/announce_e/announce_ca_ai2026.html
 sources:
-  - https://www.jst.go.jp/EN/
+  - https://www.jst.go.jp/inter/english/program_e/announce_e/announce_ca_ai2026.html
+  - https://nrc.canada.ca/en/irap/about/international/?action=view&id=289

@@ -130,6 +130,30 @@ test('live counts split dated and standing', () => {
   assert.ok(counts.dated >= 1);
 });
 
+test('dated live calls have a real apply path and no duplicate Genesis row', () => {
+  const registry = loadRegistry();
+  const today = '2026-08-29';
+  const briefing = briefingBoard({ registry, today });
+  const genesis = briefing.dated.filter((row) => row.program_id === 'genesis-mission-foa-0003612');
+  assert.equal(genesis.length, 1);
+  assert.equal(genesis[0].round.closes, '2026-12-17');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'ens-delegation-incentives-program'));
+
+  const pesose = briefing.dated.find((row) => row.program_id === 'nsf-pesose');
+  assert.ok(pesose);
+  assert.match(pesose.apply_url, /pesose-pathways-enable-secure-open-source-ecosystems/);
+
+  const jst = briefing.dated.find((row) => row.program_id === 'jst-sicorp-japan-canada-ai-agriculture');
+  assert.ok(jst);
+  assert.match(jst.apply_url, /announce_ca_ai2026/);
+
+  for (const row of briefing.dated) {
+    assert.ok(row.apply_url, row.program_id);
+    const path = new URL(row.apply_url).pathname;
+    assert.notEqual(path, '/', row.program_id);
+  }
+});
+
 test('briefing board matches the live board and splits standing', () => {
   const registry = loadRegistry();
   const today = '2026-08-29';

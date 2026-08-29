@@ -11,10 +11,10 @@ summary: >
   A 90-day ENS DAO pilot that distributes viewpoint-neutral incentives to active delegates and their
   delegators using time-weighted balances, recipient caps, and monthly claimless transfers. Governance
   authorized 90,000 ENS for rewards and 5 ETH for sponsored delegation gas, with unused funds returned
-  to the treasury after the pilot.
+  to the treasury after the pilot. Distributions are claimless. There is no application form.
 rounds:
   - name: Three-month pilot
-    status: open
+    status: deployed
     closes: 2026-10-01
     size: 15,000–90,000 ENS
     source: https://discuss.ens.domains/t/6-47-executable-delegation-incentives-program-funding-transfer/22228
