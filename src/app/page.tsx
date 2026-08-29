@@ -2,16 +2,18 @@ import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { Empty } from '@/components/ui';
 import { LatestAwards } from '@/components/browse/latest-awards';
-import { MONTHS_LONG } from '@/lib/format';
+import { MONTHS_LONG, WIRE_LABEL } from '@/lib/format';
 import { sortAwardsNewest } from '@/lib/awards';
 import type { Departure } from '@/lib/departures';
 import { collectCurrentDepartures, uniqueDeparturesByProgram } from '@/lib/departures';
 import { isVerifiedRollingRound } from '@/lib/round-state';
 import { daysUntil } from '@/components/programs/date-helpers';
+import type { Program, Wire } from '@/lib/types';
 
 const DATED_PREVIEW = 8;
 const STANDING_PREVIEW = 10;
 const AWARD_PREVIEW = 5;
+const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
 
 function monthLabel(dateStr: string): string {
   const [y, m] = dateStr.split('-');
@@ -22,10 +24,26 @@ function wireDot(wire: string | null | undefined) {
   return <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />;
 }
 
-export default function Home() {
-  const { orgs, programs, awards, counts } = loadRegistry();
+function first(v: string | string[] | undefined): string | undefined {
+  return Array.isArray(v) ? v[0] : v;
+}
 
-  const openRounds = collectCurrentDepartures(programs, orgs);
+function homeHref(wire?: string): string {
+  return wire ? `/?wire=${wire}` : '/';
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const wireParam = first(sp.wire);
+  const wire = WIRES.includes(wireParam as Wire) ? (wireParam as Wire) : undefined;
+  const { orgs, programs, awards, counts } = loadRegistry();
+  const scoped: Program[] = wire ? programs.filter((program) => (program.wires || []).includes(wire)) : programs;
+
+  const openRounds = collectCurrentDepartures(scoped, orgs);
   const dated = openRounds.filter((r) => r.round.closes);
   const standing = uniqueDeparturesByProgram(
     openRounds.filter((r) => isVerifiedRollingRound(r.program, r.round))
@@ -53,19 +71,48 @@ export default function Home() {
     { href: '/awards', label: 'Awards', n: counts.awards },
   ];
 
+  const programsBoardHref = wire ? `/programs?wire=${wire}` : '/programs';
+  const openApiHref = wire ? `/api/v1/open?wire=${wire}` : '/api/v1/open';
+
   return (
     <>
       <section className="mx-auto max-w-6xl border-b border-line px-4 pt-8 pb-7">
-        <div className="coord mb-2.5">Grant funding across crypto, AI, and open source</div>
+        <div className="coord mb-2.5">What is open today across crypto, AI, and open source</div>
         <h1 className="serif-statement max-w-4xl text-[26px] leading-[1.26] text-paper md:text-[34px]">
-          Funders, programs, and the open rounds they run,{' '}
-          <em className="border-b border-paper not-italic">tracked in one register, sourced in the open.</em>
+          Dated calls we can defend, then standing intakes,{' '}
+          <em className="border-b border-paper not-italic">the same board you can query as JSON.</em>
         </h1>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
-          grants.watch indexes funding systems: ecosystems with their own treasury, like Ethereum or Cardano. It
-          tracks the funders and programs inside each one, across three wires of capital: crypto, AI, and open
-          source. Every figure links back to a primary source.
+          Historical orgs and programs stay on file. Activity, deadlines, and apply links have to be true today.
+          Past closes do not stay open. Query the live board at{' '}
+          <Link href="/query" className="border-b border-line text-paper hover:border-paper">
+            /query
+          </Link>
+          .
         </p>
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link
+            href={homeHref()}
+            className={`coord ${wire ? 'text-dim hover:text-paper' : 'border-b border-paper text-paper'}`}
+            aria-current={!wire ? 'page' : undefined}
+          >
+            All wires
+          </Link>
+          {WIRES.map((item) => (
+            <Link
+              key={item}
+              href={homeHref(item)}
+              className={`coord inline-flex items-center gap-1.5 ${wire === item ? 'border-b border-paper text-paper' : 'text-dim hover:text-paper'}`}
+              aria-current={wire === item ? 'page' : undefined}
+            >
+              <span aria-hidden className="inline-block size-1.5" style={{ background: `var(--color-${item})` }} />
+              {WIRE_LABEL[item]}
+            </Link>
+          ))}
+          <a href={openApiHref} className="coord text-dim hover:text-paper">
+            JSON →
+          </a>
+        </div>
       </section>
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-x-11 gap-y-10 px-4 py-9 lg:grid-cols-[1fr_300px]">
@@ -92,7 +139,7 @@ export default function Home() {
                     <span aria-hidden className="h-px flex-1 bg-line" />
                   </div>
                   {g.rows.map((r) => {
-                    const wire = (r.program.wires || [])[0] || null;
+                    const rowWire = (r.program.wires || [])[0] || null;
                     const days = daysUntil(r.round.closes);
                     const closingSoon = days !== null && days >= 0 && days <= 14;
                     return (
@@ -105,7 +152,7 @@ export default function Home() {
                           {new Date(r.round.closes! + 'T00:00:00Z').getUTCDate()}
                         </div>
                         <div className="flex min-w-0 items-start gap-2.5">
-                          {wireDot(wire)}
+                          {wireDot(rowWire)}
                           <div className="min-w-0">
                             <div className="display text-[15.5px] leading-tight text-paper">{r.program.name}</div>
                             <div className="coord mt-0.5 truncate">{r.orgName}</div>
@@ -126,7 +173,7 @@ export default function Home() {
               ))}
               <div className="mt-3 border-t border-line pt-3 text-xs text-faint">
                 Programs board, in full, ordered by close:{' '}
-                <Link href="/programs" className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                <Link href={programsBoardHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
                   see all {counts.programs.toLocaleString()} →
                 </Link>
               </div>
@@ -174,14 +221,14 @@ export default function Home() {
           <>
             <div className="mt-3 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
               {standingPreview.map((r) => {
-                const wire = (r.program.wires || [])[0] || null;
+                const rowWire = (r.program.wires || [])[0] || null;
                 return (
                   <Link
                     key={r.key}
                     href={`/programs/${r.program.id}`}
                     className="flex items-start gap-2.5 border-b border-line py-2.5 transition-colors hover:bg-raised/40"
                   >
-                    <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: wire ? `var(--color-${wire})` : 'var(--color-line)' }} />
+                    <span aria-hidden className="mt-[6px] size-1.5 shrink-0" style={{ background: rowWire ? `var(--color-${rowWire})` : 'var(--color-line)' }} />
                     <div className="min-w-0 flex-1">
                       <div className="truncate text-sm text-paper">{r.program.name}</div>
                       <div className="coord mt-0.5 truncate">{r.orgName}</div>
@@ -193,7 +240,7 @@ export default function Home() {
             {standing.length > standingPreview.length && (
               <div className="mt-3 text-xs text-faint">
                 {standingPreview.length} of {standing.length} standing calls shown.{' '}
-                <Link href="/programs" className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
+                <Link href={programsBoardHref} className="border-b border-line font-semibold text-dim hover:border-paper hover:text-paper">
                   see all programs →
                 </Link>
               </div>

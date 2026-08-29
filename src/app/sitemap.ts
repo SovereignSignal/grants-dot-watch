@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/awards', 0.9),
     entry('/systems', 0.8),
     entry('/orgs', 0.8),
+    entry('/query', 0.7),
     entry('/method', 0.5),
     ...registry.programs.map((program) => entry(`/programs/${program.id}`, 0.7)),
     ...registry.systems.map((system) => entry(`/systems/${system.id}`, 0.6)),

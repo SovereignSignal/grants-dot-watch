@@ -7,10 +7,10 @@ wires:
   - ai
 status: active
 mechanism: grants
-apply_url: https://openaifoundation.org/news/economic-futures-in-the-age-of-ai
 summary: Initial $250M commitment to grants, partnerships, and direct work spanning independent
-  measurement/forecasting of AI's economic impact, resourcing workers/communities through near-term
-  disruption, and new approaches to sharing economic gains broadly.
+  measurement and forecasting of AI's economic impact, resourcing workers and communities through
+  near-term disruption, and new approaches to sharing economic gains. First initiatives were still
+  pending as of the May 27, 2026 announcement. This page is a source, not an application form.
 rounds:
   - name: Initial commitment
     status: announced

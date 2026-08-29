@@ -26,7 +26,7 @@ rounds:
     closes: 2026-07-08
     source: https://events.linuxfoundation.org/opensearchcon-north-america/attend/travel-funding/
   - name: Open Source Summit Europe 2026 travel funding
-    status: open
+    status: closed
     closes: 2026-08-19
     source: https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
 sources:

@@ -14,6 +14,16 @@ test('registry remains valid after the July 15 deadline rollovers', () => {
   assert.match(output, /^OK: \d+ systems, \d+ orgs, \d+ programs validated$/m);
 });
 
+test('registry remains valid on the August 29 currency reset', () => {
+  const output = execFileSync(process.execPath, ['scripts/validate-registry.mjs'], {
+    cwd: process.cwd(),
+    encoding: 'utf8',
+    env: { ...process.env, VALIDATION_TODAY: '2026-08-29' },
+  });
+
+  assert.match(output, /^OK: \d+ systems, \d+ orgs, \d+ programs validated$/m);
+});
+
 test('fixed-deadline rounds are not labeled rolling', () => {
   const violations = [];
 

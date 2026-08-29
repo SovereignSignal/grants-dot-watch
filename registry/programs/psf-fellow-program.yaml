@@ -8,12 +8,18 @@ wires:
 status: active
 mechanism: fellowship
 apply_url: https://www.python.org/psf/fellows/
-summary: Nomination-based honorary recognition program for individuals who have made significant
-  contributions to the Python community; nominations reviewed quarterly.
+summary: Nomination-based honorary recognition for people who have made significant contributions
+  to the Python community. The Fellow Work Group reviews nominations each quarter. The Q3 2026
+  cutoff was August 20. Q4 nominations open in October and close November 20, 2026.
 rounds:
   - name: Q3 2026 batch
-    status: open
+    status: closed
     closes: 2026-08-20
+    source: https://www.python.org/psf/fellows/
+  - name: Q4 2026 batch
+    status: announced
+    opens: 2026-10-01
+    closes: 2026-11-20
     source: https://www.python.org/psf/fellows/
 sources:
   - https://www.python.org/psf/fellows/
