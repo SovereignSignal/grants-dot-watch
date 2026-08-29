@@ -9,8 +9,10 @@ wires:
 status: active
 mechanism: fellowship
 apply_url: https://www.outreachy.org/apply/
-summary: 'Outreachy is a paid open-source internship program (administered with Software Freedom Conservancy
-  support) offering $7,000 USD stipends, running two rounds a year: May-August and December-March.'
+summary: Outreachy is a paid open-source internship program (administered with Software Freedom
+  Conservancy support) offering $7,000 USD stipends, running two rounds a year. December 2026
+  initial applications are open from 24 August to 31 August 2026 at 16:00 UTC. Internships run
+  7 December 2026 to 8 March 2027.
 rounds:
 - name: May 2026 internships
   status: closed
@@ -19,9 +21,13 @@ rounds:
   size: $7,000 USD stipend
   source: https://www.outreachy.org/
 - name: December 2026 internships
-  status: announced
+  status: open
+  opens: 2026-08-24
+  closes: 2026-08-31
   size: $7,000 USD stipend
-  source: https://www.outreachy.org/
+  source: https://www.outreachy.org/apply/project-selection/
 sources:
 - https://sfconservancy.org
 - https://www.outreachy.org/
+- https://www.outreachy.org/apply/
+- https://www.outreachy.org/apply/project-selection/

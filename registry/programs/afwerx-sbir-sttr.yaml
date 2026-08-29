@@ -11,14 +11,21 @@ mechanism: grants
 apply_url: https://www.dodsbirsttr.mil/submissions/login
 summary: AFWERX's SBIR/STTR program funds dual-use technology for the U.S. Air Force through Open
   Topic, Specific Topic, and STRATFI/TACFI scale-up solicitation tracks, released as continuous
-  numbered cycles (e.g. "26.BZ").
+  numbered cycles (e.g. "26.BZ"). Specific Topic 26.BZ and 26.TZ Release 5 is open through
+  23 September 2026.
 rounds:
   - name: 26.BZ Release 3 Specific Topic
     status: closed
     closes: 2026-07-22
     source: https://afwerx.com
   - name: 26.BZ Release 4 Specific Topic
-    status: announced
-    source: https://afwerx.com
+    status: closed
+    source: https://afwerx.com/get-funded/
+  - name: 26.BZ and 26.TZ Release 5 Specific Topic
+    status: open
+    opens: 2026-08-26
+    closes: 2026-09-23
+    source: https://afwerx.com/get-funded/
 sources:
   - https://afwerx.com
+  - https://afwerx.com/get-funded/
