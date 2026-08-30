@@ -5,11 +5,16 @@ parent: null
 systems: []
 wires:
   - oss
-status: active
+status: paused
 mechanism: grants
 apply_url: https://os4science.org/funding_opportunity/os4ls/
-summary: Funds open-source software underpinning data-intensive research and AI-driven discovery in
-  the life sciences; two-step LOI then Full Application process.
-rounds: []
+summary: Inaugural OS4LS RFA of the Open Source for Science Fund. LOI due 2026-06-08; full
+  proposals due 2026-07-21. Submissions are closed. Award notifications expected October 2026.
+rounds:
+  - name: OS4LS 2026 RFA
+    status: closed
+    opens: 2026-05-11
+    closes: 2026-07-21
+    source: https://os4science.org/funding_opportunity/os4ls/
 sources:
   - https://os4science.org/funding_opportunity/os4ls/

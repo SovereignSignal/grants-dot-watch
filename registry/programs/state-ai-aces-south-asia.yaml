@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
 apply_url: https://www.grants.gov/search-results-detail/363033
 summary: The Bureau of South and Central Asian Affairs posted the Artificial Intelligence for

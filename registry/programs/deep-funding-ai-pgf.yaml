@@ -5,12 +5,12 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 mechanism: rfp
-apply_url: https://deepfunding.ai/
-summary: Deep Funding is listed on Gitcoin as an AI public-goods-funding mechanism; the org's own
-  profile independently confirms it runs milestone-based grants, RFPs, and hackathons for
-  decentralized-AI builders, consistent with this citation.
+summary: Deep Funding is an AI public-goods mechanism listed by Gitcoin. The 2025 challenge
+  submission window ran February 10 to May 10, 2025. There is no current public apply form as of
+  2026-08-29.
 rounds: []
 sources:
   - https://gitcoin.co/mechanisms/deep-funding
+  - https://deepfunding.org

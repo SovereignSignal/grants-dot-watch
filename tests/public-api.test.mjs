@@ -182,6 +182,22 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
   assert.ok(jst);
   assert.match(jst.apply_url, /announce_ca_ai2026/);
 
+  const rocket = briefing.dated.find((row) => row.program_id === 'rocket-pool-gmc-grants');
+  assert.ok(rocket);
+  assert.equal(rocket.round.closes, '2026-09-07');
+
+  const altProtein = briefing.dated.find((row) => row.program_id === 'coefficient-giving-alternative-protein-r-d-rfp');
+  assert.ok(altProtein);
+  assert.equal(altProtein.round.closes, '2026-09-15');
+
+  const scf = briefing.dated.find((row) => row.program_id === 'stellar-community-fund-build-award');
+  assert.ok(scf);
+  assert.equal(scf.round.closes, '2026-11-08');
+
+  assert.ok(!briefing.standingOpen.some((row) => row.program_id === 'mozilla-moss-foundational-technology'));
+  assert.ok(!briefing.standingOpen.some((row) => row.program_id === 'base-ecosystem-fund'));
+  assert.ok(briefing.standingOpen.some((row) => row.program_id === 'nsf-cise-future-computing-research-future-core'));
+
   for (const row of [...briefing.dated, ...briefing.standingOpen]) {
     assert.ok(row.apply_url, row.program_id);
     const org = registry.orgs.find((item) => item.id === row.org);

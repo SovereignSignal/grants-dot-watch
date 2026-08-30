@@ -6,12 +6,10 @@ systems:
   - ethereum
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://aavegrants.org/
-summary: Aave Grants DAO is Aave's grant-making arm, organizing grant recipients into three-month
-  funding rounds through its own application portal (aavegrants.org) rather than a page on aave.com
-  itself.
+summary: Aave Grants DAO was Aave's grant-making arm. TokenLogic confirmed on 2026-07-15 that the
+  program has sunset and is not accepting or reviewing applications.
 rounds: []
 sources:
-  - https://aavegrants.org/
+  - https://governance.aave.com/t/aave-grants-dao-is-the-program-still-active-and-accepting-applications/25319
