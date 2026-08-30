@@ -6,6 +6,20 @@ import YAML from 'yaml';
 
 const ROOT = process.env.PROGRAM_AUDIT_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
 const jsonOutput = process.argv.includes('--json');
+const PRODUCT_TIME_ZONE = 'America/Los_Angeles';
+const calendarDateIn = (date, timeZone) => {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day}`;
+};
+const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
+const currentYear = Number(todayISO.slice(0, 4));
+const MULTI_CUTOFF_RE = /multiple cut-?offs?|scheduled batching|receipt dates|recurring (?:deadlines?|due dates?)|annually thereafter/i;
 
 const readYamlDir = (name) =>
   readdirSync(join(ROOT, name))
@@ -111,6 +125,31 @@ function inspectProgram(entry) {
   }
 
   const rounds = Array.isArray(doc.rounds) ? doc.rounds : [];
+  const liveDated = rounds.filter((round) => {
+    const live = round.status === 'open' || round.status === 'announced';
+    return live && typeof round.closes === 'string' && round.closes >= todayISO;
+  });
+  if (liveDated.length === 1 && /^\d{4}-\d{2}-\d{2}$/.test(liveDated[0].closes)) {
+    const daysOut = (Date.parse(`${liveDated[0].closes}T00:00:00Z`) - Date.parse(`${todayISO}T00:00:00Z`)) / 86400000;
+    if (daysOut > 365) {
+      signals.push('distant-sole-close');
+      score += 5;
+    }
+  }
+  if (MULTI_CUTOFF_RE.test(doc.summary || '') && liveDated.length <= 1) {
+    signals.push('multi-cutoff-underspecified');
+    score += 5;
+  }
+  for (const round of rounds) {
+    const live = round.status === 'open' || round.status === 'announced';
+    if (!live || round.closes) continue;
+    const namedYears = [...String(round.name || '').matchAll(/\b(20\d{2})\b/g)].map((match) => Number(match[1]));
+    if (namedYears.length && Math.max(...namedYears) < currentYear) {
+      signals.push('year-stale-standing');
+      score += 6;
+      break;
+    }
+  }
   if (doc.status === 'unknown' && !doc.mechanism && rounds.length === 0 && /\/t\/(?:[^/]*-)?(?:proposal|grant-request|funding-request|budget-request|temperature-check|temp-check)(?:-|\/)/i.test(sourceText)) {
     signals.push('forum-proposal-source');
     score += 5;
@@ -178,6 +217,9 @@ const strongSemanticSignals = new Set([
   'homepage-only-apply',
   'summary-truncated',
   'forum-proposal-source',
+  'year-stale-standing',
+  'distant-sole-close',
+  'multi-cutoff-underspecified',
 ]);
 const candidates = inspected
   // A strong semantic rule is independently review-worthy. Thinness is useful

@@ -6,7 +6,7 @@ import { dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
+const ROOT = process.env.REGISTRY_ROOT || join(dirname(fileURLToPath(import.meta.url)), '..', 'registry');
 const errs = [];
 const err = (f, m) => errs.push(`${f}: ${m}`);
 const PRODUCT_TIME_ZONE = 'America/Los_Angeles';
@@ -193,6 +193,13 @@ for (const { file, base, doc } of programs) {
     const closeUpperBound = isIsoDate(r.closes) ? r.closes : isRoundDate(r.closes) ? `${r.closes}-31` : null;
     if (live && closeUpperBound && closeUpperBound < todayISO)
       err(file, `round "${r.name}" is ${r.status} with past close ${r.closes}`);
+    if (live && !r.closes) {
+      const namedYears = [...String(r.name || '').matchAll(/\b(20\d{2})\b/g)].map((m) => Number(m[1]));
+      const latestNamedYear = namedYears.length ? Math.max(...namedYears) : null;
+      const currentYear = Number(todayISO.slice(0, 4));
+      if (latestNamedYear && latestNamedYear < currentYear)
+        err(file, `round "${r.name}" is ${r.status} with no close date and a past year`);
+    }
   }
   if (doc.status === 'concluded' && hasLiveRound) err(file, 'concluded program has an open or announced round');
 }

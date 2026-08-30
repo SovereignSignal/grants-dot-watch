@@ -17,6 +17,7 @@ import {
   queryOpen,
 } from '../src/lib/public-api.ts';
 import { loadRegistry } from '../src/lib/registry.ts';
+import { productDateISO } from '../src/lib/round-state.ts';
 
 const FORBIDDEN = /relationship_context|propensity|current_wedge|recommended_action|operator_read|watch_priority/;
 
@@ -94,6 +95,10 @@ test('open board omits past closes and paginates', () => {
   assert.ok(board.every((row) => !row.round.closes || row.round.closes >= '2026-08-29'));
   assert.ok(!board.some((row) => row.program_id === 'darpa-dice-baa-hr001126s0010'));
 
+  const today = productDateISO();
+  const todayBoard = liveBoard(registry, today);
+  assert.ok(todayBoard.every((row) => !row.round.closes || row.round.closes >= today));
+
   const dated = queryOpen(new URLSearchParams('standing=0&limit=5'), registry);
   assert.equal(dated.data.length <= 5, true);
   assert.equal(dated.meta.page, 1);
@@ -155,7 +160,23 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
 
   const pesose = briefing.dated.find((row) => row.program_id === 'nsf-pesose');
   assert.ok(pesose);
+  assert.equal(pesose.round.closes, '2026-09-01');
   assert.match(pesose.apply_url, /pesose-pathways-enable-secure-open-source-ecosystems/);
+
+  const eic = briefing.dated.find((row) => row.program_id === 'eic-accelerator');
+  assert.ok(eic);
+  assert.equal(eic.round.closes, '2026-09-02');
+  assert.ok(briefing.dated.some((row) => row.program_id === 'eic-accelerator' && row.round.closes === '2026-11-04'));
+
+  const itcr = briefing.dated.find((row) => row.program_id === 'nih-itcr-early-stage-informatics');
+  assert.ok(itcr);
+  assert.equal(itcr.round.closes, '2026-10-19');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'nih-itcr-early-stage-informatics' && row.round.closes === '2026-07-01'));
+
+  const btod = briefing.dated.find((row) => row.program_id === 'nih-biomedical-tech-optimization-center');
+  assert.ok(btod);
+  assert.equal(btod.round.closes, '2026-09-29');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'nih-biomedical-tech-optimization-center' && row.round.closes === '2029-01-29' && row.round.status === 'open'));
 
   const jst = briefing.dated.find((row) => row.program_id === 'jst-sicorp-japan-canada-ai-agriculture');
   assert.ok(jst);

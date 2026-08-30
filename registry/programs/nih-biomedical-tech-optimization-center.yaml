@@ -7,14 +7,43 @@ wires:
   - oss
 status: active
 mechanism: grants
-apply_url: https://www.grants.gov/search-results-detail/360446
-summary: NIH's PAR-27-024 funds late-stage optimization and sustainable dissemination of research
-  technologies and software via the RM1 mechanism, with recurring deadlines through 2029-01-29.
+apply_url: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+summary: >
+  NIH PAR-27-024 funds late-stage optimization and sustainable dissemination of research
+  technologies and software via the RM1 mechanism. Recurring receipt dates run through
+  2029: 29 Sep 2026, 28 Jan 2027, 28 May 2027, 28 Jan 2028, 26 May 2028, and 29 Jan 2029.
 rounds:
-  - name: PAR-27-024
+  - name: September 2026 receipt
     status: open
+    opens: 2026-08-29
+    closes: 2026-09-29
+    size: NIH RM1
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - name: January 2027 receipt
+    status: announced
+    closes: 2027-01-28
+    size: NIH RM1
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - name: May 2027 receipt
+    status: announced
+    closes: 2027-05-28
+    size: NIH RM1
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - name: January 2028 receipt
+    status: announced
+    closes: 2028-01-28
+    size: NIH RM1
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - name: May 2028 receipt
+    status: announced
+    closes: 2028-05-26
+    size: NIH RM1
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - name: January 2029 receipt
+    status: announced
     closes: 2029-01-29
     size: NIH RM1
-    source: https://www.grants.gov/search-results-detail/360446
+    source: https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
 sources:
-  - https://www.grants.gov/search-results-detail/360446
+  - https://simpler.grants.gov/opportunity/4159deee-28f7-45de-9145-45912620d425
+  - https://www.nigms.nih.gov/grants/Pages/btod

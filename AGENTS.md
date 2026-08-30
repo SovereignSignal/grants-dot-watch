@@ -23,6 +23,9 @@ covers the product model.
 - **Recency law:** a round whose `closes` date is already past must not stay `open` or
   `announced` — set it to `closed` (the committer auto-closes on write; `npm run validate`
   fails the registry otherwise). Prefer closing stale rounds over weakening the validator.
+  Multi-window calls must record each remaining cutoff, not only the last date. An undated
+  open or announced round may not carry a past year in its name. `npm run close:stale --
+  --write` closes past-dated live rounds in place when a deadline has rolled over.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

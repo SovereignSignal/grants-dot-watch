@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { readFileSync, readdirSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 import YAML from 'yaml';
 
@@ -22,6 +24,51 @@ test('registry remains valid on the August 29 currency reset', () => {
   });
 
   assert.match(output, /^OK: \d+ systems, \d+ orgs, \d+ programs validated$/m);
+});
+
+test('undated live rounds cannot carry a past year in the name', () => {
+  const root = mkdtempSync(join(tmpdir(), 'year-stale-'));
+  for (const directory of ['systems', 'orgs', 'programs', 'awards']) mkdirSync(join(root, directory));
+  writeFileSync(join(root, 'systems', 'test.yaml'), YAML.stringify({
+    id: 'test',
+    name: 'Test System',
+    kind: 'funding-domain',
+    wires: ['oss'],
+    summary: 'A funding-domain system used only to exercise the year-stale standing rule.',
+    sources: ['https://example.org/system'],
+  }));
+  writeFileSync(join(root, 'orgs', 'funder.yaml'), YAML.stringify({
+    id: 'funder',
+    name: 'Example Funder',
+    roles: ['funder'],
+    org_type: 'foundation',
+    status: 'active',
+    website: 'https://example.org/',
+    profile: 'Example Funder publishes an open grant program used only for validator fixtures in this test.',
+    sources: ['https://example.org/'],
+  }));
+  writeFileSync(join(root, 'programs', 'stale-standing.yaml'), YAML.stringify({
+    id: 'stale-standing',
+    name: 'Stale Standing',
+    org: 'funder',
+    systems: ['test'],
+    wires: ['oss'],
+    status: 'active',
+    mechanism: 'grants',
+    apply_url: 'https://example.org/apply',
+    summary: 'A fixture program whose standing round is labeled with a year that has already ended.',
+    rounds: [{ name: 'Rolling 2025 intake', status: 'open', source: 'https://example.org/apply' }],
+    sources: ['https://example.org/apply'],
+  }));
+
+  assert.throws(
+    () => execFileSync(process.execPath, ['scripts/validate-registry.mjs'], {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+      env: { ...process.env, REGISTRY_ROOT: root, VALIDATION_TODAY: '2026-08-29' },
+    }),
+    /past year/
+  );
 });
 
 test('fixed-deadline rounds are not labeled rolling', () => {

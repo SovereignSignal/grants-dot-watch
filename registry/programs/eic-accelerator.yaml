@@ -13,11 +13,33 @@ summary: >
   EIC Accelerator supports high-risk, market-creating innovations from startups and SMEs through
   grants below EUR 2.5 million, optional equity investments of EUR 1-10 million, and business
   acceleration support. Short proposals are accepted continuously and full proposals use
-  scheduled batching dates.
+  scheduled 2026 batching dates on 7 Jan, 4 Mar, 6 May, 8 Jul, 2 Sep, and 4 Nov.
 rounds:
-  - name: EIC Accelerator 2026
+  - name: January 2026 cutoff
+    status: closed
+    opens: 2025-11-06
+    closes: 2026-01-07
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
+  - name: March 2026 cutoff
+    status: closed
+    closes: 2026-03-04
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
+  - name: May 2026 cutoff
+    status: closed
+    closes: 2026-05-06
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
+  - name: July 2026 cutoff
+    status: closed
+    closes: 2026-07-08
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
+  - name: September 2026 cutoff
     status: open
     opens: 2025-11-06
+    closes: 2026-09-02
+    size: EUR 634 million across Accelerator Open and Challenges
+    source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
+  - name: November 2026 cutoff
+    status: announced
     closes: 2026-11-04
     size: EUR 634 million across Accelerator Open and Challenges
     source: https://eic.ec.europa.eu/eic-funding-opportunities/calls-proposals/eic-accelerator-2026_en
