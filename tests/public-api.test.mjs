@@ -5,6 +5,7 @@ import { collectCurrentDepartures } from '../src/lib/departures.ts';
 import {
   apiIndex,
   briefingBoard,
+  isOrgHomepageApply,
   filterPrograms,
   getRecord,
   liveBoard,
@@ -128,6 +129,43 @@ test('live counts split dated and standing', () => {
   const counts = liveCounts(registry, '2026-08-29');
   assert.equal(counts.total, counts.dated + counts.standing);
   assert.ok(counts.dated >= 1);
+});
+
+test('homepage apply only flags the funder website itself', () => {
+  assert.equal(isOrgHomepageApply('https://www.nsf.gov/', 'https://www.nsf.gov/'), true);
+  assert.equal(
+    isOrgHomepageApply(
+      'https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation',
+      'https://www.nsf.gov/'
+    ),
+    false
+  );
+  assert.equal(isOrgHomepageApply('https://xgov.algorand.co/', 'https://algorand.co/'), false);
+  assert.equal(isOrgHomepageApply('https://av20jp3z.paperform.co/', 'https://ev.org/'), false);
+});
+
+test('dated live calls have a real apply path and no duplicate Genesis row', () => {
+  const registry = loadRegistry();
+  const today = '2026-08-29';
+  const briefing = briefingBoard({ registry, today });
+  const genesis = briefing.dated.filter((row) => row.program_id === 'genesis-mission-foa-0003612');
+  assert.equal(genesis.length, 1);
+  assert.equal(genesis[0].round.closes, '2026-12-17');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'ens-delegation-incentives-program'));
+
+  const pesose = briefing.dated.find((row) => row.program_id === 'nsf-pesose');
+  assert.ok(pesose);
+  assert.match(pesose.apply_url, /pesose-pathways-enable-secure-open-source-ecosystems/);
+
+  const jst = briefing.dated.find((row) => row.program_id === 'jst-sicorp-japan-canada-ai-agriculture');
+  assert.ok(jst);
+  assert.match(jst.apply_url, /announce_ca_ai2026/);
+
+  for (const row of [...briefing.dated, ...briefing.standingOpen]) {
+    assert.ok(row.apply_url, row.program_id);
+    const org = registry.orgs.find((item) => item.id === row.org);
+    assert.equal(isOrgHomepageApply(row.apply_url, org?.website), false, row.program_id);
+  }
 });
 
 test('briefing board matches the live board and splits standing', () => {

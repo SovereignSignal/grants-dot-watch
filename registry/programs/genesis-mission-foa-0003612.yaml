@@ -8,7 +8,7 @@ wires:
 - ai
 status: active
 mechanism: rfp
-apply_url: https://science.osti.gov/grants/FOAs/Open
+apply_url: https://science.osti.gov/grants/FOAs/FOAs/2026/DE-FOA-0003612
 summary: DOE Office of Science funding opportunity announcement DE-FOA-0003612 for interdisciplinary teams
   applying AI to energy, nuclear, environmental, and national-security science; phased Phase I/II review
   with a final Phase II application deadline of 2026-12-17. Phase I grants have been reported at $500K-$750K,
@@ -22,17 +22,19 @@ rounds:
   status: closed
   closes: 2026-05-19
   source: https://science.osti.gov/grants/FOAs/Open
-- name: Final Phase II deadline
+- name: Phase II from FY26 Phase I awards
   status: open
   closes: 2026-12-17
-  source: https://science.osti.gov/grants/FOAs/Open
+  size: ~$293.76M total program funding
+  source: https://science.osti.gov/grants/FOAs/FOAs/2026/DE-FOA-0003612
 - name: FY2026 FOA
-  status: open
-  closes: 2026-12-17
+  status: closed
+  closes: 2026-05-19
   size: ~$293.76M total program funding
   source: https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
 sources:
 - https://www.energy.gov/
 - https://science.osti.gov/grants/FOAs/Open
+- https://science.osti.gov/grants/FOAs/FOAs/2026/DE-FOA-0003612
 - https://simpler.grants.gov/opportunity/0228b895-9cb3-4160-8acc-58709e75c3c7
 - https://www.energy.gov/articles/energy-department-announces-293-million-funding-support-genesis-mission-national-science

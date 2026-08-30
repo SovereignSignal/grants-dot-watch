@@ -1,8 +1,11 @@
 // The instrument panel: registry counts, load state, awards-by-year, and
 // the curation desk queue depth. Server component — reads loadRegistry()
 // directly and the desk store.
+import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { getAppliedChangeLedgerHealth, getIngestState, listProposals } from '@/lib/desk-store';
+import { briefingBoard, isOrgHomepageApply, liveCounts } from '@/lib/public-api';
+import { daysUntil } from '@/components/programs/date-helpers';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
@@ -65,7 +68,20 @@ function formatLoadedAt(iso: string): string {
 }
 
 export default async function HealthPage() {
-  const { counts, awards, loadedAt } = loadRegistry();
+  const registry = loadRegistry();
+  const { counts, awards, loadedAt } = registry;
+  const live = liveCounts(registry);
+  const board = briefingBoard({ registry });
+  const orgWebsite = new Map(registry.orgs.map((org) => [org.id, org.website]));
+  const applyNow = [...board.dated, ...board.standingOpen];
+  const missingApply = applyNow.filter((row) => !row.apply_url);
+  const homepageApply = applyNow.filter((row) =>
+    isOrgHomepageApply(row.apply_url, orgWebsite.get(row.org))
+  );
+  const closingSoon = board.dated.filter((row) => {
+    const days = daysUntil(row.round.closes);
+    return days !== null && days >= 0 && days <= 14;
+  });
   const [desk, ingest, ledger] = await Promise.all([
     loadDeskSummary(),
     loadLastIngestRun(),
@@ -85,7 +101,7 @@ export default async function HealthPage() {
       <PageHeader
         eyebrow="THE INSTRUMENT PANEL"
         title="Health"
-        sub="Registry counts, load state, and the curation desk: ledgered, not dashboarded."
+        sub="Registry counts, the live board a client would see, and the curation desk."
       />
       <div className="mx-auto max-w-6xl px-4 pb-16 space-y-8">
         <Card>
@@ -105,6 +121,49 @@ export default async function HealthPage() {
             ))}
           </div>
           <div className="mt-4 border-t border-line pt-3 coord">Registry loaded {formatLoadedAt(loadedAt)}</div>
+        </Card>
+
+        <Card>
+          <Coord>Live board</Coord>
+          <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-3 md:grid-cols-6">
+            {[
+              { label: 'Live today', value: live.total },
+              { label: 'Dated', value: live.dated },
+              { label: 'Standing', value: live.standing },
+              { label: 'Closing soon', value: closingSoon.length },
+              { label: 'No apply link', value: missingApply.length },
+              { label: 'Homepage apply', value: homepageApply.length },
+            ].map((s) => (
+              <div key={s.label} className="px-4 py-3.5 first:pl-0">
+                <Stat label={s.label} value={s.value} />
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 border-t border-line pt-3 text-sm text-dim">
+            Same board as{' '}
+            <Link href="/brief" className="border-b border-line text-paper hover:border-paper">
+              /brief
+            </Link>{' '}
+            and{' '}
+            <Link href="/api/v1/open" className="border-b border-line text-paper hover:border-paper">
+              GET /api/v1/open
+            </Link>
+            . No apply and homepage apply should stay at zero for anything you would send a client.
+          </div>
+          {(missingApply.length > 0 || homepageApply.length > 0) && (
+            <ul className="mt-3 border-t border-line pt-3 text-sm">
+              {[...missingApply, ...homepageApply].map((row) => (
+                <li key={`${row.program_id}::${row.round.name}`} className="border-b border-line py-2">
+                  <Link href={row.href} className="text-paper hover:text-signal">
+                    {row.program_name}
+                  </Link>
+                  <span className="coord mt-0.5 block">
+                    {row.apply_url ? `Homepage apply: ${row.apply_url}` : 'No apply link'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </Card>
 
         <Card>

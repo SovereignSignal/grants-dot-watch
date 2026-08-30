@@ -185,6 +185,24 @@ export function liveCounts(registry: RegistryIndex = loadRegistry(), today: stri
 
 export type LiveBoardRow = ReturnType<typeof liveBoard>[number];
 
+/** True when the apply URL is the funder's own homepage, not a form. */
+export function isOrgHomepageApply(
+  applyUrl: string | null | undefined,
+  orgWebsite: string | null | undefined
+): boolean {
+  if (!applyUrl || !orgWebsite) return false;
+  try {
+    const apply = new URL(applyUrl);
+    const site = new URL(orgWebsite);
+    const host = (value: string) => value.replace(/^www\./, '');
+    if (host(apply.host) !== host(site.host)) return false;
+    const path = (value: string) => value.replace(/\/$/, '') || '/';
+    return path(apply.pathname) === '/';
+  } catch {
+    return false;
+  }
+}
+
 /** Same live board as GET /api/v1/open, split for a person to read. */
 export function briefingBoard(options: {
   wire?: Wire;
