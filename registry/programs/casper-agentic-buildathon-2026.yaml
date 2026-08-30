@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: prize
 apply_url: https://dorahacks.io/hackathon/2202/detail
 summary: Buildathon for AI-native applications for autonomous systems and machine-to-machine

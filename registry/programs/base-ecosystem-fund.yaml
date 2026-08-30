@@ -9,13 +9,11 @@ status: active
 mechanism: other
 apply_url: https://www.base.org/ecosystem-fund
 summary: >
-  Base Ecosystem Fund is Base's strategic investment arm, working with Coinbase Ventures to invest
-  in pre-seed and seed-stage startups building on Base. The fund accepts applications through its
-  current ecosystem funding page.
+  Base Ecosystem Fund is Base's strategic investment arm with Coinbase Ventures. It invests in
+  pre-seed and seed-stage startups building on Base. This is venture intake, not a public grant.
 rounds:
   - name: Rolling early-stage investment intake
-    status: open
+    status: closed
     source: https://www.base.org/ecosystem-fund
 sources:
   - https://www.base.org/ecosystem-fund
-  - https://www.base.org/get-funded

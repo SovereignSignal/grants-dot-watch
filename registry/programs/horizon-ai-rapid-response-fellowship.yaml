@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 apply_url: https://horizonpublicservice.fillout.com/airapidresponse
 mechanism: fellowship
 summary: The Horizon Institute for Public Service opened the AI Rapid Response Fellowship on

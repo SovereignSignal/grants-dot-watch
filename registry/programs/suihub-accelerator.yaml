@@ -6,11 +6,16 @@ systems:
   - sui
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: incubator
-apply_url: https://web.brinc.io/suihub-launches-global-accelerator-program-in-partnership-with-brinc-coinlist/
 summary: Milestone-based accelerator funding up to $200k/team for pre-token Sui projects, co-run by
-  Brinc and CoinList.
-rounds: []
+  Brinc and CoinList. The first cohort application window closed January 17, 2025. No later cohort
+  has opened.
+rounds:
+  - name: Global Accelerator first cohort
+    status: closed
+    closes: 2025-01-17
+    source: https://cryptobriefing.com/suihub-accelerator-record-application/
 sources:
   - https://cryptobriefing.com/suihub-accelerator-record-application/
+  - https://www.suihub.org/

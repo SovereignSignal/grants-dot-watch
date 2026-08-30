@@ -5,7 +5,7 @@ parent: null
 systems: [ai-safety]
 wires:
   - ai
-status: active
+status: concluded
 mechanism: fellowship
 apply_url: https://longtermrisk.org/safe-pareto-improvements-spi-fundamentals-program/
 summary: >

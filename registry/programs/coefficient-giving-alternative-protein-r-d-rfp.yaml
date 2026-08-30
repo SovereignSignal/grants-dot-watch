@@ -7,16 +7,23 @@ wires:
   - ai
 status: active
 mechanism: rfp
-apply_url: https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd
+apply_url: https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd/
 summary: >
-  Coefficient Giving's Alternative Protein R&D RFP offers up to $10 million for pre-competitive
-  research on taste, flavor, fat systems, egg replacement, and priority fish species. Individual
-  awards are expected to range from approximately $100,000 to $1 million.
+  Coefficient Giving's Alternative Protein R&D RFP funds pre-competitive research on taste, flavor,
+  fat systems, egg replacement, and priority fish species. The call expanded to $30 million across
+  two rounds. Round 1 ($100,000-$1 million) closed August 10, 2026. Round 2 ($1-5 million) closes
+  September 15, 2026.
 rounds:
-  - name: 2026 Alternative Protein R&D RFP
+  - name: Round 1
     status: closed
     closes: 2026-08-10
-    size: Up to $10 million; approximately $100,000-$1 million per award
-    source: https://forum.effectivealtruism.org/posts/bDqdfMXe6YuYnwMDA/good-tasting-alt-meat-is-a-scientific-problem-we-can-solve
+    size: Approximately $100,000-$1 million per award
+    source: https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd/
+  - name: Round 2
+    status: open
+    closes: 2026-09-15
+    size: $1-5 million per award
+    source: https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd/
 sources:
+  - https://coefficientgiving.org/funds/farm-animal-welfare/request-for-proposals-alternative-protein-rd/
   - https://forum.effectivealtruism.org/posts/bDqdfMXe6YuYnwMDA/good-tasting-alt-meat-is-a-scientific-problem-we-can-solve

@@ -5,7 +5,7 @@ parent: null
 systems: [ai-safety]
 wires:
 - ai
-status: active
+status: concluded
 mechanism: rfp
 apply_url: https://coefficientgiving.org/funds/global-health-wellbeing-opportunities/request-for-proposals-global-health-and-wellbeing-in-an-era-of-transformative-ai/
 summary: Coefficient Giving (formerly Open Philanthropy) ran a 2026 RFP expecting to allocate $10-30 million

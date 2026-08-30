@@ -7,8 +7,10 @@ wires:
   - ai
 status: active
 mechanism: grants
-apply_url: https://www.gresearch.com/grants/
-summary: Monthly research grants for trustworthy AI, causal inference, and related machine-learning topics.
+apply_url: https://www.gresearch.com/nextgen/grants/
+summary: Monthly research grants of up to £2,000 for early-career researchers, including trustworthy
+  AI, causal inference, and related machine-learning topics.
 rounds: []
 sources:
-  - https://www.gresearch.com/news/g-research-may-2026-grant-winners
+  - https://www.gresearch.com/nextgen/grants/
+  - https://www.gresearch.com/news/g-research-june-2026-grant-winners/

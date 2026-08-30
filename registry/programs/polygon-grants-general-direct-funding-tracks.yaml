@@ -5,15 +5,18 @@ parent: null
 systems: [ethereum]
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://polygon.questbook.xyz/
 summary: >
   A community-governed, milestone-based grants program funded by the Polygon Community Treasury.
-  The treasury is designed to release about 100 million POL annually over ten years, while seasonal
-  direct and allocator-managed tracks fund builders across Polygon PoS and Polygon zkEVM.
-rounds: []
+  Season 2 Direct Track applications closed April 15, 2025. From Season 3 the treasury moved to an
+  investment and program-director model. There is no public grant apply portal as of 2026-08-29.
+rounds:
+  - name: Season 2 Direct Track
+    status: closed
+    opens: 2025-01-14
+    closes: 2025-04-15
+    source: https://forum.polygon.technology/t/grants-season-2-overview-direct-track/20505
 sources:
-  - https://polygon.technology/blog/1-billion-unlocked-over-decade-in-community-grants-program-for-polygon-builders
-  - https://polygon.technology/blog/polygon-community-grants-program-announces-season-2-with-35m-pol-and-ai-leading-the-pack
-  - https://gitcoin.co/apps/polygon-grants
+  - https://forum.polygon.technology/t/grants-season-2-overview-direct-track/20505
+  - https://forum.polygon.technology/t/pfp-4-ctb-season-3-funding-strategy/21151

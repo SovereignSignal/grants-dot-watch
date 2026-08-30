@@ -8,10 +8,10 @@ wires:
   - ai
 status: active
 mechanism: grants
-apply_url: https://far.ai/programs/grantmaking
+apply_url: https://www.far.ai/programs/grantmaking
 summary: $12M grantmaking program (funded by Coefficient Giving) for academics and independent
   researchers on deception, robustness, interpretability, red-teaming, and alignment. Currently
   nomination-only pending limited evaluation capacity; public RFPs planned.
 rounds: []
 sources:
-  - https://far.ai/programs/grantmaking
+  - https://www.far.ai/programs/grantmaking
