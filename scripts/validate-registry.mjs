@@ -202,6 +202,7 @@ for (const { file, base, doc } of programs) {
     }
   }
   if (doc.status === 'concluded' && hasLiveRound) err(file, 'concluded program has an open or announced round');
+  if (doc.status === 'concluded' && doc.apply_url) err(file, 'concluded program must not keep apply_url');
 }
 
 // awards jsonl

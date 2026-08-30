@@ -6,7 +6,6 @@ systems: []
 wires: [crypto]
 status: concluded
 mechanism: grants
-apply_url: https://github.com/w3f/Grants-Program
 summary: >
   Web3 Foundation's open grants program, which funded open-source software
   development and research around Polkadot, Kusama, Substrate, and ink! in

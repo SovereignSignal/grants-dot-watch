@@ -6,7 +6,6 @@ systems: [ethereum]
 wires: [crypto]
 status: concluded
 mechanism: grants
-apply_url: https://polygon.questbook.xyz/
 summary: >
   Season 2 of the Polygon Community Grants Program made up to 35M POL available to
   fund builders on Polygon, split between a Grant Allocators Track (up to 15M POL,

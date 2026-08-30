@@ -7,7 +7,6 @@ wires:
   - ai
 status: concluded
 mechanism: grants
-apply_url: https://www.schmidtsciences.org/ai-at-work/
 summary: >
   Schmidt Sciences' 2026 AI at Work call offered up to $200,000 to early-career economists and other
   quantitative social scientists for field experiments on worker displacement, adjustment, and

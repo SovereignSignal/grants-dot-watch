@@ -7,7 +7,6 @@ wires:
 - oss
 status: concluded
 mechanism: fellowship
-apply_url: https://interledger.org/grant/fellowship
 summary: >
   A 12-month fellowship for researchers, advocates, educators, technical developers, and other
   practitioners working to reduce barriers to digital financial participation. Each fellow receives

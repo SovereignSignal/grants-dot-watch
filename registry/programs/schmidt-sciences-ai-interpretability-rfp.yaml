@@ -8,7 +8,6 @@ wires:
 - ai
 status: concluded
 mechanism: rfp
-apply_url: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
 summary: 'Schmidt Sciences AI Interpretability RFP offers up to $1M for projects developing new tools
   to detect and mitigate deceptive behaviors in large language models. Awards range from $300k to $1M,
   with a deadline of May 26, 2026. The program is open to researchers and teams seeking to advance interpretability

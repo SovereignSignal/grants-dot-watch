@@ -5,11 +5,11 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 mechanism: fellowship
-apply_url: https://www.anthropic.com/news/claude-corps
 summary: 12-month paid fellowship placing early-career AI talent with US nonprofits; hosts receive a
-  $10,000 implementation grant plus up to $2,500 in Claude licenses/API credits per fellow.
+  $10,000 implementation grant plus up to $2,500 in Claude licenses/API credits per fellow. The
+  first cohort closed applications on 17 July 2026; Anthropic has not published a later cohort.
 rounds:
   - name: First cohort
     status: closed

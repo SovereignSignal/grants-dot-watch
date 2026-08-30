@@ -58,6 +58,9 @@ rounds: []                     # list of {name, status, opens?, closes?, size?, 
                                # round. Do not store only the last date of a multi-window call.
                                # An undated open/announced round may not carry a past year
                                # in its name (use a current-year or rolling label, or close it).
+                               # A concluded program must not keep apply_url — the call is over.
+                               # Dated one-shot calls and named cohorts conclude after the
+                               # application window closes, even if selection or funded work continues.
 sources: []
 ```
 

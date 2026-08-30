@@ -12,10 +12,11 @@ mechanism: grants
 apply_url: https://esp.ethereum.foundation/applicants
 summary: The Ethereum Foundation's primary direct grants program, supporting free and open-source projects,
   builder tools, infrastructure, and research that strengthen Ethereum's technical, social, and research
-  foundations. Funding flows through Wishlist items (open problems inviting proposals) and Requests for
-  Proposals; quarterly allocation reports break awards into categories such as community and education,
-  cryptography and zero-knowledge proofs, developer tooling, consensus and execution layers, and application
-  infrastructure. The open grants track was paused in 2025 in favor of more strategic allocation.
+  foundations. After pausing unsolicited open grants in August 2025, ESP relaunched in November 2025
+  as a Wishlist and Requests-for-Proposals program. Applicants apply against posted items; time-limited
+  open rounds are a separate, currently empty track. Quarterly allocation reports break awards into
+  community and education, cryptography and zero-knowledge proofs, developer tooling, consensus and
+  execution layers, and application infrastructure.
 rounds: []
 sources:
 - https://esp.ethereum.foundation/applicants

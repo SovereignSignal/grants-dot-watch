@@ -7,7 +7,6 @@ wires:
   - crypto
 status: concluded
 mechanism: prize
-apply_url: https://dorahacks.io/hackathon/2202/detail
 summary: Buildathon for AI-native applications for autonomous systems and machine-to-machine
   economies on Casper; no prior Web3 experience required. Casper's standing Accelerate Grant Program
   is currently suspended, making this the network's active funding vehicle.

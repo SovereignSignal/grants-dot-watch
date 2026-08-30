@@ -5,14 +5,12 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 mechanism: fellowship
-apply_url: https://forms.gle/xK3R94zNbm1PGdJU8
 summary: >
   Principles of Intelligence runs PIBBSS as a three-month interdisciplinary AI safety research
-  fellowship for about 20 researchers. The Winter 2026-2027 cohort is primarily based in Cape Town
-  and provides a $3,000 monthly stipend, accommodation, meals, travel, and dedicated mentorship;
-  remote participation is limited to exceptional cases.
+  fellowship for about 20 researchers. The Winter 2026-2027 Cape Town cohort closed applications
+  on 20 July 2026. The program page is collecting expressions of interest for later cohorts.
 rounds:
   - name: Winter 2026-2027 cohort
     status: closed

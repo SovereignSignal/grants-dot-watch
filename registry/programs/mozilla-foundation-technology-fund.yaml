@@ -4,14 +4,13 @@ org: mozilla-foundation
 parent: null
 systems: [oss-sustainability]
 wires: [ai, oss]
-status: active
+status: paused
 mechanism: grants
-apply_url: https://www.mozillafoundation.org/en/what-we-fund/programs/mozilla-technology-fund-mtf/
 summary: >
-  The Mozilla Technology Fund (MTF) gives awards of up to $50,000 plus a 12-month
+  The Mozilla Technology Fund (MTF) gave awards of up to $50,000 plus a 12-month
   mentorship cohort to open-source projects tackling a themed public-interest
-  technology challenge each round. Awardees join monthly calls with Mozilla fellow
-  mentors; project outputs must be open source.
+  technology challenge each round. The latest sourced cohort is the 2024 AI and
+  Environmental Justice round; no later public call is on file.
 rounds:
   - name: "2024 — AI and Environmental Justice"
     status: closed

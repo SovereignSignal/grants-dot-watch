@@ -7,7 +7,6 @@ wires:
 - ai
 status: concluded
 mechanism: incubator
-apply_url: https://google.org/
 summary: >
   A ten-week, equity-free accelerator for North American pre-seed through Series A startups using AI
   in energy systems. The 2026 cohort focuses on grid optimization, demand flexibility, energy

@@ -6,11 +6,12 @@ systems: []
 wires:
   - crypto
   - ai
-status: active
+status: paused
 mechanism: grants
-apply_url: https://go.chain.link/archives/community/grants
-summary: The Chainlink Community Grant Program funds development teams and researchers building a
-  more functional, accessible, and socially impactful smart contract economy.
+summary: The Chainlink Community Grant Program funded development teams and researchers building a
+  more functional, accessible, and socially impactful smart contract economy. The documented
+  application route now lives under Chainlink's archives path, so public intake is treated as
+  paused until a current apply page is republished.
 rounds: []
 sources:
   - https://go.chain.link/archives/community/grants

@@ -6,13 +6,12 @@ systems:
   - open-source-ai
 wires:
   - ai
-status: active
+status: paused
 mechanism: incubator
-apply_url: https://aigrant.com/
 summary: >
   Batch-based accelerator for seed-stage AI startups investing $250,000 on an uncapped SAFE
   plus large compute and tooling credit packages. Four batches totaling 85 funded companies
-  to date; applications for Batch 4 are closed.
+  to date; applications for Batch 4 are closed and no later batch is announced.
 rounds: []
 sources:
   - https://aigrant.com/

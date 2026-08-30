@@ -5,12 +5,11 @@ parent: null
 systems: [ai-safety]
 wires:
   - ai
-status: active
+status: concluded
 mechanism: rfp
-apply_url: https://forum.effectivealtruism.org/posts/ToC8jpgdwFJGtfw7C/new-round-of-digital-minds-funding-opportunities-at-longview
 summary: >
   A Longview Philanthropy request for proposals supporting research and applied work on digital
-  minds. The current round is open through July 24, 2026.
+  minds. The 2026 round closed July 24, 2026.
 rounds:
   - name: 2026 Digital Minds RFP
     status: closed
