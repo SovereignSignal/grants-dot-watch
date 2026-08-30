@@ -54,6 +54,10 @@ summary: >
   ...
 rounds: []                     # list of {name, status, opens?, closes?, size?, source}
                                # round status: announced | open | reviewing | closed | deployed
+                               # Record each remaining cutoff or receipt date as its own
+                               # round. Do not store only the last date of a multi-window call.
+                               # An undated open/announced round may not carry a past year
+                               # in its name (use a current-year or rolling label, or close it).
 sources: []
 ```
 

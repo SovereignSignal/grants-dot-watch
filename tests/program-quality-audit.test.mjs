@@ -199,3 +199,54 @@ test('semantic audit catches forum submissions and non-program artifacts', () =>
     assert.ok(byId.get(fixture.id)?.signals.includes(fixture.signal), `${fixture.id} missing ${fixture.signal}`);
   }
 });
+
+test('currency audit flags year-stale standing, distant sole closes, and underspecified multi-cutoff calls', () => {
+  const root = mkdtempSync(join(tmpdir(), 'program-currency-'));
+  for (const directory of ['orgs', 'programs', 'systems', 'awards']) mkdirSync(join(root, directory));
+  writeFileSync(join(root, 'orgs', 'funder.yaml'), YAML.stringify({
+    id: 'funder',
+    name: 'Funder',
+    website: 'https://funder.example/',
+  }));
+
+  writeFileSync(join(root, 'programs', 'year-stale.yaml'), YAML.stringify({
+    id: 'year-stale',
+    name: 'Year Stale Standing',
+    org: 'funder',
+    status: 'active',
+    mechanism: 'grants',
+    summary: 'A standing intake whose round name is still labeled for a year that has ended.',
+    rounds: [{ name: 'Rolling 2025 intake', status: 'open', source: 'https://funder.example/apply' }],
+    sources: ['https://funder.example/apply'],
+  }));
+  writeFileSync(join(root, 'programs', 'distant-sole.yaml'), YAML.stringify({
+    id: 'distant-sole',
+    name: 'Distant Sole Close',
+    org: 'funder',
+    status: 'active',
+    mechanism: 'grants',
+    summary: 'A live call recorded with only the last date of a long solicitation.',
+    rounds: [{ name: 'Final window', status: 'open', closes: '2028-01-29', source: 'https://funder.example/rfp' }],
+    sources: ['https://funder.example/rfp'],
+  }));
+  writeFileSync(join(root, 'programs', 'multi-cutoff.yaml'), YAML.stringify({
+    id: 'multi-cutoff',
+    name: 'Batching Call',
+    org: 'funder',
+    status: 'active',
+    mechanism: 'grants',
+    summary: 'Full proposals use scheduled batching dates but only the last cutoff is on file.',
+    rounds: [{ name: 'Last cutoff', status: 'open', closes: '2026-11-04', source: 'https://funder.example/call' }],
+    sources: ['https://funder.example/call'],
+  }));
+
+  const { candidates } = JSON.parse(execFileSync(process.execPath, ['scripts/audit-program-quality.mjs', '--json'], {
+    cwd: process.cwd(),
+    encoding: 'utf8',
+    env: { ...process.env, PROGRAM_AUDIT_ROOT: root, VALIDATION_TODAY: '2026-08-29' },
+  }));
+  const byId = new Map(candidates.map((candidate) => [candidate.id, candidate]));
+  assert.ok(byId.get('year-stale')?.signals.includes('year-stale-standing'));
+  assert.ok(byId.get('distant-sole')?.signals.includes('distant-sole-close'));
+  assert.ok(byId.get('multi-cutoff')?.signals.includes('multi-cutoff-underspecified'));
+});

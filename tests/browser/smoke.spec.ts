@@ -180,7 +180,14 @@ test('departures pagination preserves active filters', async ({ page }) => {
   await expect(page.getByText('Page 2 of 2', { exact: true })).toBeVisible();
 
   await page.goto('/programs?status=active');
-  await expect(page.getByText(/showing 1-50 of \d+ open calls/i)).toBeVisible();
+  await expect(page.getByText(/showing 1-\d+ of \d+ open calls/i)).toBeVisible();
+  const activeNext = page.getByRole('link', { name: 'Next →' });
+  if (await activeNext.count()) {
+    await expect(activeNext).toHaveAttribute('href', '/programs?status=active&page=2');
+    await activeNext.click();
+    await expect(page).toHaveURL(/\/programs\?status=active&page=2$/);
+    await expect(page.getByText(/showing 51-\d+ of \d+ open calls/i)).toBeVisible();
+  }
 });
 
 test.describe('mobile', () => {

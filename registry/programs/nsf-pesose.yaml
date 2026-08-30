@@ -8,13 +8,19 @@ wires:
 status: active
 mechanism: rfp
 apply_url: https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation
-summary: NSF PESOSE invites proposals to translate open-source research into sustainable, secure ecosystems
+summary: >
+  NSF PESOSE invites proposals to translate open-source research into sustainable, secure ecosystems
   that address national and societal needs — scoping, establishing, and improving the safety, security,
-  and privacy of open-source projects. Total program funding is approximately $40 million.
+  and privacy of open-source projects. Full proposals are due the first Tuesday in September and the
+  first Tuesday in March, annually. Total program funding is approximately $40 million.
 rounds:
-- name: PESOSE solicitation
+- name: September 2026 deadline
   status: open
   closes: '2026-09-01'
+  source: https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation
+- name: March 2027 deadline
+  status: announced
+  closes: '2027-03-02'
   source: https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation
 sources:
 - https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation

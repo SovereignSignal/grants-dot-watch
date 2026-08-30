@@ -7,15 +7,32 @@ wires:
   - oss
 status: active
 mechanism: grants
-apply_url: https://www.grants.gov/search-results-detail/359892
-summary: NIH's ITCR RFA-CA-27-019 funds early-stage open-source informatics tools for cancer
-  research via the U01 mechanism, with a deadline of 2027-10-19. Submitted via the recall-audit feed
-  as a verified-live miss.
+apply_url: https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
+summary: >
+  NIH ITCR RFA-CA-27-019 funds early-stage open-source informatics tools for cancer research
+  via the U01 mechanism. The solicitation has four receipt dates: 1 Jul 2026, 19 Oct 2026,
+  11 Jun 2027, and 19 Oct 2027.
 rounds:
-  - name: RFA-CA-27-019
+  - name: July 2026 receipt
+    status: closed
+    closes: 2026-07-01
+    size: NIH U01
+    source: https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
+  - name: October 2026 receipt
     status: open
+    closes: 2026-10-19
+    size: NIH U01
+    source: https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
+  - name: June 2027 receipt
+    status: announced
+    closes: 2027-06-11
+    size: NIH U01
+    source: https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
+  - name: October 2027 receipt
+    status: announced
     closes: 2027-10-19
     size: NIH U01
-    source: https://www.grants.gov/search-results-detail/359892
+    source: https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
 sources:
-  - https://www.grants.gov/search-results-detail/359892
+  - https://simpler.grants.gov/opportunity/c8944dab-96c4-4db9-ad50-9802ffc7228c
+  - https://www.cancer.gov/about-nci/organization/cssi/research/itcr/funding

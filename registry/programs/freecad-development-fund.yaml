@@ -17,11 +17,11 @@ rounds:
     status: open
     closes: 2026-09-01
     size: EUR 1,500-5,000 per grant
-    source: https://fpa.freecad.org/programs.html
+    source: https://fpa.freecad.org/programs/fpadf-announcement
   - name: Q4 2026
     status: announced
     closes: 2026-11-15
-    source: https://fpa.freecad.org/programs.html
+    source: https://fpa.freecad.org/programs/fpadf-announcement
 sources:
-  - https://fpa.freecad.org/programs.html
   - https://fpa.freecad.org/programs/fpadf-announcement
+  - https://blog.freecad.org/2026/08/20/q3-2026-grant-program-deadline-approaching/

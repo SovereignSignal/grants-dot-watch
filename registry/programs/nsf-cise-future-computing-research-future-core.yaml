@@ -14,8 +14,16 @@ summary: >
   information systems, networking, robust intelligence, software, and hardware. Proposals are accepted
   at any time, with recurring target dates for the corresponding review cycles.
 rounds:
-- name: Future CoRe solicitation
+- name: Rolling submissions
   status: open
+  source: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
+- name: September 2026 review target
+  status: open
+  closes: 2026-09-10
+  source: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
+- name: February 2027 review target
+  status: announced
+  closes: 2027-02-04
   source: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
 sources:
 - https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing
