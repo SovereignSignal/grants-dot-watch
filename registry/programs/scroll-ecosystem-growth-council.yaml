@@ -7,7 +7,6 @@ wires:
 - crypto
 status: concluded
 mechanism: other
-apply_url: https://forum.scroll.io/t/ecosystem-growth-council-charter/1027
 summary: >
   Purpose and Background The Ecosystem Growth Council (EGC) represents Scroll DAO’s first experiment
   in council-based governance. After previous attempts to launch growth programs through broader

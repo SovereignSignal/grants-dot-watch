@@ -8,7 +8,6 @@ wires:
   - ai
 status: concluded
 mechanism: rfp
-apply_url: https://sam.gov/opp/0800655bb5714d68957ce0d5ee922938/view
 summary: Broad Agency Announcement soliciting proposals for the DICE program's research into theory,
   algorithms, and multi-agent systems for scalable, resilient decentralized AI collectives under
   human control. Contract-style awards rather than traditional grants.

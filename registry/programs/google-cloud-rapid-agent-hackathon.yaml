@@ -7,7 +7,6 @@ wires:
   - ai
 status: concluded
 mechanism: prize
-apply_url: https://rapid-agent.devpost.com/
 summary: Google Cloud's Rapid Agent Hackathon ran online from May 5 through June 11, 2026. The
   concluded challenge offered $60,000 in cash prizes for open-source agents built with Gemini,
   Google Cloud Agent Builder, and participating partners' tools.

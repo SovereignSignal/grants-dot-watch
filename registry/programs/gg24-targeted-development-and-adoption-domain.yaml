@@ -7,7 +7,6 @@ wires:
 - crypto
 status: concluded
 mechanism: grants
-apply_url: https://gov.gitcoin.co/t/gg24-targeted-development-and-adoption-domain-proposal/23766
 summary: >
   The Targeted Development & Adoption GG24 Domain funds programs and initiatives that have clear
   potential to produce tangible, real-world impact, and onboards a large number of relevant users to

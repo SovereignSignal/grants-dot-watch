@@ -6,7 +6,6 @@ systems: [open-source-ai]
 wires: [ai, oss]
 status: concluded
 mechanism: grants
-apply_url: https://ai.meta.com/llama/llama-impact-grants/
 summary: >
   Meta's second Llama Impact Grants call awarded more than $1.5 million to 10 companies, startups,
   and universities using open-source Llama models for social and economic impact. Applications for

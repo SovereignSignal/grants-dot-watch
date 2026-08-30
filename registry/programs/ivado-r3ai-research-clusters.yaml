@@ -5,11 +5,11 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://ivado.ca/en/2026/06/08/ivado-launches-a-call-for-proposals-for-the-funding-of-its-2027-2030-r3ai-research-clusters/
-summary: IVADO's 2027-2030 call will invest up to C$20 million in roughly 8-12 AI research clusters.
-  Letters of intent are due July 31, 2026, with invited full proposals due November 19.
+summary: IVADO's 2027-2030 call invests up to C$20 million in roughly 8-12 AI research clusters.
+  Letters of intent closed July 31, 2026. Invited full proposals remain an internal step for
+  teams that already submitted an LOI, not a public intake.
 rounds:
   - name: 2027-2030 cycle
     status: closed

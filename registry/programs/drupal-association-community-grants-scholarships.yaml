@@ -6,12 +6,15 @@ systems:
   - oss-sustainability
 wires:
   - oss
-status: active
+status: concluded
 mechanism: grants
-summary: The Drupal Association offers scholarships and community grants tied to DrupalCon events,
-  part of the programs it runs to keep Drupal's infrastructure and community functioning; evidence
-  is a single event-specific page rather than a standing program landing page, so this should be
-  verified before promotion.
-rounds: []
+summary: The Drupal Association offered needs-based scholarships and community grants tied to
+  DrupalCon Atlanta 2025 (24-27 March 2025). Applications for that event are closed; this
+  record is the event-specific call, not a standing year-round intake.
+rounds:
+  - name: DrupalCon Atlanta 2025
+    status: closed
+    closes: 2025-03-24
+    source: https://events.drupal.org/atlanta2025/scholarships-community-grants
 sources:
   - https://events.drupal.org/atlanta2025/scholarships-community-grants

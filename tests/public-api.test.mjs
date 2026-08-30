@@ -205,6 +205,49 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
   }
 });
 
+test('full-registry review concludes one-shot calls and drops concluded apply links', () => {
+  const registry = loadRegistry();
+  const byId = new Map(registry.programs.map((program) => [program.id, program]));
+
+  for (const id of [
+    'nlnet-ngi-zero-commons-fund',
+    'nlnet-ngi-fediversity',
+    'nlnet-ngi-taler',
+    'arbitrum-audit-program',
+    'request-for-proposals-research-and-applied-work-on-digital-m',
+    'cooperative-ai-multi-agent-safety-fund',
+    'multi-agent-ai-safety-research-fund',
+    'schmidt-sciences-multi-agent-safety',
+    'devcon-8-community-hubs-rfp-13',
+    'ivado-r3ai-research-clusters',
+  ]) {
+    assert.equal(byId.get(id)?.status, 'concluded', id);
+  }
+
+  for (const id of [
+    'far-ai-grantmaking',
+    'pibbss-fellowship',
+    'ai-grant-accelerator',
+    'claude-corps',
+    'chainlink-community-grant-program',
+    'nlnet-restack',
+    'unitaryhack',
+    'ai-forge-program',
+    'regenesis-grants-program',
+    'mozilla-foundation-technology-fund',
+  ]) {
+    assert.equal(byId.get(id)?.status, 'paused', id);
+  }
+
+  assert.equal(byId.get('ethereum-esp')?.status, 'active');
+  assert.match(byId.get('ethereum-esp')?.summary || '', /Wishlist/);
+
+  const concludedWithApply = registry.programs.filter(
+    (program) => program.status === 'concluded' && program.apply_url
+  );
+  assert.deepEqual(concludedWithApply.map((program) => program.id), []);
+});
+
 test('briefing board matches the live board and splits standing', () => {
   const registry = loadRegistry();
   const today = '2026-08-29';

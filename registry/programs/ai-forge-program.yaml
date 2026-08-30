@@ -5,12 +5,13 @@ parent: null
 systems: [us-federal-rd]
 wires:
   - ai
-status: active
+status: paused
 mechanism: other
 summary: >
   DARPA and NSF developed AI Forge to fund and manage university-led research in AI
   interpretability, AI control, and adversarial robustness. Its initial university-capabilities
-  request for information closed June 22, 2026 after receiving nearly 130 responses.
+  request for information closed June 22, 2026 after receiving nearly 130 responses. No
+  public funding call has opened since that RFI.
 rounds:
   - name: DARPA-SN-26-80 request for information
     status: closed

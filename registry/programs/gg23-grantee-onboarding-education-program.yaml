@@ -7,7 +7,6 @@ wires:
 - crypto
 status: concluded
 mechanism: rfp
-apply_url: https://gov.gitcoin.co/t/rfp-gg23-grantee-onboarding-education-program/19931
 summary: >
   Overview We are seeking experienced grantees within the Gitcoin ecosystem to lead our community-led
   onboarding program for GG23. These Onboarding Partners will be responsible for educating grantees

@@ -5,10 +5,10 @@ parent: null
 systems: [eu-public-rd, sovereign-tech]
 wires:
 - oss
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://nlnet.nl/
-summary: NLnet Foundation runs a recurring Open Call for funding proposals; the next deadline is 2026-08-01.
+summary: Dated record of NLnet's August 2026 Open Call, which closed 1 August 2026.
+  The standing vehicle for later odd-month calls is NLnet General Grants.
 rounds:
 - name: August 2026 Open Call
   status: closed

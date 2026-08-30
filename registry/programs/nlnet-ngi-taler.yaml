@@ -7,12 +7,11 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://nlnet.nl/propose/
 summary: NLnet-run fund supporting free/open-source privacy-preserving digital payment
-  infrastructure built on GNU Taler; grants typically EUR 5,000-50,000, at least EUR 676,000
-  available this call.
+  infrastructure built on GNU Taler. NLnet published the fourteenth call as the fund's
+  final intake; it closed 1 August 2026 and no further applications are accepted.
 rounds:
   - name: 2026 open call
     status: closed

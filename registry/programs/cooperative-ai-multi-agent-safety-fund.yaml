@@ -6,12 +6,11 @@ systems:
 - ai-safety
 wires:
 - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://www.cooperativeai.com/calls-for-proposals/scaling-ai-safety-for-a-multi-agent-world
 summary: A $10M fund co-backed by Schmidt Sciences, Google DeepMind, ARIA, and Google.org, supporting
   1-2 year research grants ($300k-$1M, or up to $300k for smaller projects) on safety risks from large-scale
-  multi-agent AI systems.
+  multi-agent AI systems. The 2026 call for proposals closed 8 August 2026.
 rounds:
 - name: 2026 call for proposals
   status: closed

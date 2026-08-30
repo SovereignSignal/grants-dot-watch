@@ -7,7 +7,6 @@ wires:
   - ai
 status: concluded
 mechanism: grants
-apply_url: https://digitalbrainproject.org/apply.html
 summary: Funds PI-led teams at accredited institutions up to $500,000 over 36 months to acquire and
   share neuroimaging data for foundational models of intelligent behavior.
 rounds:

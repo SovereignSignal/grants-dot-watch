@@ -5,12 +5,10 @@ parent: null
 systems: [ai-safety]
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://schmidtsciences.smapply.io/prog/scaling_ai_safety_for_a_multi_agent_world/
-summary: Schmidt Sciences is funding research studying the safety of large networks of interacting
-  AI agents, offering up to $1M over 1-2 years. Application deadline is August 8, 2026 via its SM
-  Apply portal.
+summary: Schmidt Sciences funded research studying the safety of large networks of interacting
+  AI agents, offering up to $1M over 1-2 years. The 2026 SM Apply portal closed 8 August 2026.
 rounds:
   - name: 2026 call
     status: closed

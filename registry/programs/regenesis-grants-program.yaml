@@ -5,12 +5,12 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
 summary: >
   A season-based Decentraland funding program for small open-source projects that can ship within 90
   days. Season 1 offered up to $15,000 in MANA for mobile content and AI-assisted builder tooling;
-  applications closed April 24 and funded projects are delivering through July 31, 2026.
+  applications closed April 24, 2026. No later season has been announced.
 rounds:
   - name: Season 1
     status: closed

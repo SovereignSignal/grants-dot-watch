@@ -6,11 +6,11 @@ systems:
   - ai-safety
 wires:
   - ai
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/
 summary: $10M fund jointly run by Google DeepMind, Schmidt Sciences, the Cooperative AI Foundation,
-  ARIA, and Google.org, kick-starting independent research on multi-agent AI safety.
+  ARIA, and Google.org, kick-starting independent research on multi-agent AI safety. The 2026
+  call closed 8 August 2026.
 rounds:
   - name: 2026 call
     status: closed

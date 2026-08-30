@@ -6,7 +6,7 @@ systems:
   - arbitrum
 wires:
   - crypto
-status: active
+status: concluded
 mechanism: grants
 summary: An Arbitrum Foundation program that subsidized third-party smart contract audits with
   $10M in ARB over 12 months. Applications opened 1 August 2025 and closed 31 July 2026. The

@@ -6,12 +6,11 @@ systems:
   - ai-safety
 wires:
   - ai
-status: active
+status: paused
 mechanism: grants
-apply_url: https://www.far.ai/programs/grantmaking
 summary: $12M grantmaking program (funded by Coefficient Giving) for academics and independent
-  researchers on deception, robustness, interpretability, red-teaming, and alignment. Currently
-  nomination-only pending limited evaluation capacity; public RFPs planned.
+  researchers on deception, robustness, interpretability, red-teaming, and alignment. FAR.AI
+  is nomination-only pending limited evaluation capacity and has not opened a public RFP.
 rounds: []
 sources:
   - https://www.far.ai/programs/grantmaking

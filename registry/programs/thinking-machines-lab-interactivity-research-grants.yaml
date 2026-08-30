@@ -7,7 +7,6 @@ wires:
 - ai
 status: concluded
 mechanism: grants
-apply_url: https://thinkingmachines.ai/news/interactivity-research-grants/
 summary: >
   Multiple $100,000 research grants, each paired with $25,000 in Tinker credits, for work advancing
   multimodal and real-time human-AI interactivity. Proposals could cover evaluations, safety,

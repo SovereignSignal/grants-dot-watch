@@ -6,10 +6,11 @@ systems:
   - oss-sustainability
 wires:
   - oss
-status: active
+status: paused
 mechanism: prize
-apply_url: https://unitaryhack.dev/
-summary: Bounty-driven contribution event for open-source quantum software, open to developers worldwide.
+summary: Annual bounty-driven contribution event for open-source quantum software, open to
+  developers worldwide. UnitaryHACK 2026 ran 3-17 June and has closed; the 2027 event is
+  not yet announced.
 rounds:
   - name: "2026"
     status: closed

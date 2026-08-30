@@ -6,7 +6,6 @@ systems: []
 wires:
   - ai
 status: concluded
-apply_url: https://horizonpublicservice.fillout.com/airapidresponse
 mechanism: fellowship
 summary: The Horizon Institute for Public Service opened the AI Rapid Response Fellowship on
   2026-07-01, a funded fellowship placing AI security experts into US executive branch roles at

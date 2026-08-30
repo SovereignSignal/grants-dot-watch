@@ -7,7 +7,6 @@ wires:
 - crypto
 status: concluded
 mechanism: retro
-apply_url: https://gov.optimism.io/t/season-7-retro-funding-missions/9295
 summary: >
   Special thanks to members of the Feedback Commission for discussion and review. In 2025, Retro
   Funding will focus on data-driven impact measurement with a human-centered approach. These Missions

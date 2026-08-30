@@ -24,8 +24,11 @@ covers the product model.
   `announced` — set it to `closed` (the committer auto-closes on write; `npm run validate`
   fails the registry otherwise). Prefer closing stale rounds over weakening the validator.
   Multi-window calls must record each remaining cutoff, not only the last date. An undated
-  open or announced round may not carry a past year in its name. `npm run close:stale --
-  --write` closes past-dated live rounds in place when a deadline has rolled over.
+  open or announced round may not carry a past year in its name. A concluded program must
+  not keep `apply_url`. Dated one-shot calls and named cohorts conclude after the
+  application window closes; recurring vehicles may stay active or pause between rounds.
+  `npm run close:stale -- --write` closes past-dated live rounds in place when a deadline
+  has rolled over.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

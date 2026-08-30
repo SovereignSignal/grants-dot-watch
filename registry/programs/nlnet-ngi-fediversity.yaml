@@ -7,12 +7,12 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: active
+status: concluded
 mechanism: grants
-apply_url: https://nlnet.nl/propose/
 summary: NLnet-run fund supporting service portability and personal freedom in hosted
-  cloud/fediverse services (e.g. PeerTube, Mastodon, email, VPN, private cloud on NixOS); grants
-  typically EUR 5,000-50,000, EUR 450,000 available this call, program runs through November 2027.
+  cloud/fediverse services (e.g. PeerTube, Mastodon, email, VPN, private cloud on NixOS).
+  NLnet published the twelfth call as the fund's final intake; it closed 1 August 2026
+  and no further applications are accepted.
 rounds:
   - name: 2026 open call
     status: closed

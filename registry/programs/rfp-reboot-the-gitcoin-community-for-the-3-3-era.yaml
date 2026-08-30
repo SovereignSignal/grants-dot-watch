@@ -7,7 +7,6 @@ wires:
 - crypto
 status: concluded
 mechanism: rfp
-apply_url: https://gov.gitcoin.co/t/draft-rfp-reboot-the-gitcoin-community-for-the-3-3-era/25256
 summary: >
   RFP: Reboot the Gitcoin Community for the 3.3 Era Issued by: Gitcoin DAO (sponsor: Kevin Owocki, ED)
   Date issued: May 2026 Proposals due: Rolling, first review June 1, 2026 Engagement window: June 2026

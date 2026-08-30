@@ -6,7 +6,6 @@ systems: []
 wires: [crypto]
 status: concluded
 mechanism: prize
-apply_url: https://dorahacks.io/hackathon/pharos-phase1
 summary: >
   Phase 1 of Pharos Network's Skill-to-Agent developer season asked builders to create reusable
   onchain agent skills. Submissions ran from June 8 through June 17, 2026; 40 selected developers
