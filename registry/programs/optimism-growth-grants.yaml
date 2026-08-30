@@ -7,18 +7,18 @@ systems:
   - web3-public-goods
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
-apply_url: https://atlas.optimism.io/missions/growth-grants
 summary: >
-  A recurring Optimism grants mission supporting projects that grow activity, liquidity, and
-  adoption across the Superchain. Seasonal Grants Council programs are tracked as child programs.
+  A recurring Optimism grants mission that funded Superchain growth through the Grants Council.
+  Season 9 submissions closed May 20, 2026. The Grants Council was later dissolved; there is no
+  public Season 10 window as of 2026-08-29.
 rounds:
   - name: Season 9 application window
     status: closed
     opens: 2026-02-11
     closes: 2026-05-20
-    source: https://www.opgrants.io/seasons/current/season-9/
+    source: https://gov.optimism.io/t/season-9-final-report/10685
 sources:
-  - https://atlas.optimism.io/missions/growth-grants
-  - https://www.opgrants.io/seasons/current/season-9/
+  - https://gov.optimism.io/t/season-9-final-report/10685
+  - https://gov.optimism.io/t/council-dissolution-proposal-dissolve-the-grants-council/10732

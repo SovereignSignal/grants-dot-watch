@@ -6,13 +6,12 @@ systems:
 - web3-public-goods
 wires:
 - crypto
-status: active
+status: concluded
 mechanism: grants
-summary: The ENS Public Goods Working Group funds projects and builders improving the Web3 ecosystem,
-  authorized under the ENS DAO's funding structure; it has explored piloting a small-grants sub-program
-  modeled on Nouns Prop House. A funding request to sustain WG operations secured 226,000 USDC through
-  April 2025.
+summary: The ENS Public Goods Working Group funded projects and builders in the Ethereum and Web3
+  ecosystems. Applications are closed. The Working Group is sunsetting.
 rounds: []
 sources:
+- https://builder.ensgrants.xyz/
 - https://discuss.ens.domains/t/5-17-3-social-funding-request-ens-public-goods-working-group/19679
 - https://discuss.ens.domains/t/pg-wg-proposal-ens-small-grants/12843

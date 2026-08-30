@@ -6,9 +6,8 @@ systems:
   - ai-safety
 wires:
   - ai
-status: active
+status: paused
 mechanism: rfp
-apply_url: https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
 summary: >
   Schmidt Sciences' Science of Trustworthy AI program funds technical research to understand,
   predict, and control risks from advanced AI systems, across three aims: characterizing/forecasting
@@ -22,9 +21,7 @@ rounds:
     status: closed
     closes: 2026-05-17
     size: $5M
-    source: https://schmidtsciences.smapply.io/prog/science_of_trustworthy_ai_rfp_2026/
+    source: https://www.schmidtsciences.org/trustworthy-ai/
 sources:
   - https://www.schmidtsciences.org/trustworthy-ai/
-  - https://schmidtsciences.smapply.io/prog/2026_interpretability_rfp/
   - https://www.schmidtsciences.org/opportunities/
-  - https://schmidtsciences.smapply.io/prog/science_of_trustworthy_ai_rfp_2026/

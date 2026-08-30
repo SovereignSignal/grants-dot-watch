@@ -5,16 +5,16 @@ parent: null
 systems: [oss-sustainability]
 wires:
   - oss
-status: active
+status: paused
 mechanism: grants
-apply_url: https://mozilla.fluxx.io/apply/MOSS
-summary: Mozilla Open Source Support's Foundational Technology track funds open-source software that
-  Mozilla relies on in its products, infrastructure, or internal work. Applications require a project
-  leader and a Mozillian champion; awards range from $10,000 to $250,000 and are reviewed monthly.
+summary: Mozilla Open Source Support's Foundational Technology track funded open-source software that
+  Mozilla relies on in its products, infrastructure, or internal work. MOSS has been on indefinite
+  hiatus since the 2020 Mozilla restructuring and is not accepting applications.
 rounds:
 - name: Rolling applications
-  status: open
+  status: closed
   size: $10,000-$250,000
-  source: https://www.mozilla.org/en-US/moss/foundational-technology
+  source: https://www.mozilla.org/en-US/moss/
 sources:
+  - https://www.mozilla.org/en-US/moss/
   - https://www.mozilla.org/en-US/moss/foundational-technology

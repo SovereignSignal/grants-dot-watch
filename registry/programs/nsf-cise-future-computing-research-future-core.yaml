@@ -16,7 +16,6 @@ summary: >
 rounds:
 - name: Future CoRe solicitation
   status: open
-  closes: 2026-09-10
   source: https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing/nsf25-543/solicitation
 sources:
 - https://www.nsf.gov/funding/opportunities/future-core-computer-information-science-engineering-future-computing

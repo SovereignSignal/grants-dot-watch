@@ -8,7 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
-apply_url: https://communityfund.stellar.org/
+apply_url: https://communityfund.stellar.org/awards
 summary: >
   The Stellar Community Fund's primary award, funding teams building on the Stellar network with up
   to $150,000 in XLM per project across three tracks: Open (brand-new projects), Integration
@@ -39,7 +39,16 @@ rounds:
     status: deployed
     size: 17 projects funded
     source: https://x.com/lumenloop/status/2073050770694435114
+  - name: "SCF #45 Build Award"
+    status: closed
+    closes: 2026-08-16
+    source: https://communityfund.stellar.org/awards
+  - name: "SCF #46 Build Award"
+    status: open
+    closes: 2026-11-08
+    source: https://communityfund.stellar.org/awards
 sources:
   - https://communityfund.stellar.org/
+  - https://communityfund.stellar.org/awards
   - https://medium.com/stellar-community/scf-39-round-recap-e211cdd5eb80
   - https://x.com/lumenloop/status/2073050770694435114

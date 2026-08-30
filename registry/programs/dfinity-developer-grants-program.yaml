@@ -5,11 +5,13 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
-apply_url: https://dfinity.org/grants
 summary: The DFINITY Foundation's Developer Grants Program funds developers building on the Internet
-  Computer, including a dedicated DeAI grant track for AI applications on ICP.
+  Computer, including a dedicated DeAI grant track. Public applications have been paused since late
+  2025 pending a program refresh. No reopen as of 2026-08-29.
 rounds: []
 sources:
   - https://dfinity.org/grants
+  - https://forum.dfinity.org/t/developer-grants-temporarily-closed-fyi/62791
+  - https://forum.dfinity.org/t/what-funding-options-are-left-in-this-ecosystem/74495

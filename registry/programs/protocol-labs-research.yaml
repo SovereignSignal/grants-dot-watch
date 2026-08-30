@@ -6,7 +6,6 @@ systems: [filecoin]
 wires: [crypto]
 status: paused
 mechanism: rfp
-apply_url: https://grants.protocol.ai/
 summary: >
   Protocol Labs Research funds goal-driven and open research advancing distributed
   systems, cryptography, networking, and web3/crypto-networks (the technologies
@@ -22,5 +21,5 @@ rounds:
     source: https://www.cryptoninjas.net/2019/04/19/protocol-labs-announces-first-recipients-of-grant-program/
 sources:
   - https://research.protocol.ai/
-  - https://grants.protocol.ai/
+  - https://github.com/protocol/research-grants
   - https://www.cryptoninjas.net/2019/04/19/protocol-labs-announces-first-recipients-of-grant-program/

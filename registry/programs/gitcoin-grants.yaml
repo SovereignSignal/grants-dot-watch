@@ -7,15 +7,13 @@ systems:
   - web3-public-goods
 wires:
   - crypto
-status: active
+status: paused
 mechanism: quadratic
-apply_url: https://builder.gitcoin.co
 summary: >
-  A quarterly public-goods funding program (running since 2019) that lets the crypto community fund
-  open-source and ecosystem projects, using Quadratic Funding to amplify many small donations from a
-  matching pool. Recent rounds organize funding into domains -- developer tooling, interop
-  standards, public goods R&D, privacy -- under a Domain Allocator model, alongside retro rounds for
-  mature builders.
+  A seasonal public-goods funding program (running since 2019) that lets the crypto community fund
+  open-source and ecosystem projects. GG24 (Gitcoin 3.0, ~$1.8M, October 2025) is complete. GG25 has
+  been discussed in governance but has no open application window as of 2026-08-29. Grants Stack
+  Builder (builder.gitcoin.co) is offline.
 rounds:
   - name: GG23 Mature Builders Retro Round
     status: deployed
@@ -33,7 +31,8 @@ rounds:
     status: deployed
     source: https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276
 sources:
-  - https://builder.gitcoin.co
+  - https://gitcoin.co/campaigns/gitcoin-grants-24-gg24
+  - https://gov.gitcoin.co/t/early-thinking-on-gg25/24883
   - https://gov.gitcoin.co/t/gg24-oss-quadratic-funding-results/24782
   - https://www.gitcoin.co/blog/top-30-builders-in-gitcoins-retro-round-funding-proven-impact
   - https://gov.gitcoin.co/t/gg24-public-goods-tooling-development-round-full-retrospective/25276

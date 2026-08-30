@@ -19,7 +19,6 @@ summary: >
   public application round.
 rounds: []
 sources:
-  - https://openssf.org/community/technical-initiatives/
   - https://openssf.org/about/tac/technical-initiative-funding/
   - https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/
   - https://www.linuxfoundation.org/press/linux-foundation-announces-12.5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security
