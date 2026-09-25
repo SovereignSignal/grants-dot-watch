@@ -11,9 +11,9 @@ export const metadata: Metadata = pageMetadata(
 );
 
 const EXAMPLES = [
-  { href: '/api/v1', label: 'Index', note: 'Counts, live board size, and every route' },
-  { href: '/api/v1/open', label: 'Open calls', note: 'Dated and standing rounds we can defend today' },
-  { href: '/api/v1/open?wire=crypto', label: 'Open, crypto wire', note: 'Same board, one wire' },
+  { href: '/api/v1', label: 'Index', note: 'Counts, current round count, and every route' },
+  { href: '/api/v1/open', label: 'Current rounds', note: 'Recorded rounds with future or missing closing dates' },
+  { href: '/api/v1/open?wire=crypto', label: 'Current rounds, crypto wire', note: 'Same board, one wire' },
   { href: '/api/v1/open?standing=0', label: 'Dated only', note: 'Calls with a published close' },
   { href: '/api/v1/programs?live=1', label: 'Live programs', note: 'Programs with a current round' },
   { href: '/api/v1/orgs?role=funder&wire=ai', label: 'AI funders', note: 'Organization files, filtered' },
@@ -33,7 +33,7 @@ export default function QueryPage() {
         right={
           <div className="text-right">
             <div className="serif-statement text-[34px] leading-none tabular-nums text-paper">{live.total}</div>
-            <div className="coord mt-1">live calls today</div>
+            <div className="coord mt-1">current round records</div>
           </div>
         }
       />
@@ -44,13 +44,14 @@ export default function QueryPage() {
             <section>
               <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">What you get</h2>
               <p className="mt-3">
-                JSON over the public register: systems, organizations, programs, awards, and the live board.
+                JSON over the public register: systems, organizations, programs, awards, and current rounds.
                 Filters are query strings. Lists paginate. Default page size is 50. Maximum is 100. CORS is open
                 for GET.
               </p>
               <p className="mt-3">
-                A program marked live has a current round: open or announced, and not past its close. Historical
-                orgs and programs stay on file. Activity and deadlines are the claims that have to be true today.
+                The API keeps its existing live filter for programs with current round records. That filter uses
+                recorded round status and dates. Each program page separately shows status, application method
+                and the next published deadline. Historical organizations and programs stay on file.
               </p>
             </section>
 
@@ -91,7 +92,7 @@ export default function QueryPage() {
 
           <aside className="min-w-0 lg:border-l lg:border-line lg:pl-11">
             <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
-              <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Live today</h2>
+              <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Current rounds</h2>
               <span className="coord shrink-0">{index.as_of}</span>
             </div>
             <dl className="mt-2">
@@ -118,7 +119,7 @@ export default function QueryPage() {
               </div>
               <nav aria-label="Query shortcuts" className="flex flex-col">
                 {[
-                  { href: '/brief', label: 'Briefing', note: 'Same live board as a page you can send' },
+                  { href: '/brief', label: 'Briefing', note: 'Recorded calls and application routes' },
                   { href: '/', label: 'Today\'s board', note: 'Dated calls on the home page' },
                   { href: '/programs', label: 'Programs', note: 'Full departures board' },
                   { href: '/method', label: 'Method', note: 'How a figure gets on the page' },

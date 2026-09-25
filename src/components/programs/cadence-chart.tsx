@@ -3,7 +3,8 @@ import { Empty } from '@/components/ui';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Org, Program, System } from '@/lib/types';
 import { cadenceFallback } from '@/lib/cadence';
-import { effectiveRoundLabel, isCurrentRound, productYear } from '@/lib/round-state';
+import { productYear } from '@/lib/round-state';
+import { programFacts, roundHistoryLabel } from '@/lib/program-facts';
 import { monthDayShort, monthTickPercent, todayISO, yearPercent } from './date-helpers';
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -27,19 +28,20 @@ type Plot =
  *  bar; a round with just one dated end becomes a diamond mark. Rounds with
  *  no date, or whose date falls outside `year`, contribute nothing. The
  *  caller then renders an evidence-aware fallback state. */
-function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
+function plotRounds(program: Program, year: number): Plot[] {
   const out: Plot[] = [];
   for (const r of program.rounds || []) {
     const opensPct = yearPercent(r.opens, year);
     const closesPct = yearPercent(r.closes, year);
+    const state = roundHistoryLabel(r);
+    const faded = state === 'Closed';
     if (opensPct !== null && closesPct !== null && r.opens !== r.closes) {
-      const effective = effectiveRoundLabel(program, r, todayStr);
       out.push({
         kind: 'bar',
         startPct: Math.min(opensPct, closesPct),
         endPct: Math.max(opensPct, closesPct),
-        faded: !isCurrentRound(program, r, todayStr),
-        caption: `${effective} · ${monthDayShort(r.opens as string)}–${monthDayShort(r.closes as string)}`,
+        faded,
+        caption: `${state} · ${monthDayShort(r.opens as string)}–${monthDayShort(r.closes as string)}`,
       });
       continue;
     }
@@ -51,11 +53,14 @@ function plotRounds(program: Program, year: number, todayStr: string): Plot[] {
     const dateStr = usingCloses ? r.closes : opensPct !== null ? r.opens : undefined;
     const pct = usingCloses ? closesPct : opensPct;
     if (dateStr && pct !== null) {
-      const current = isCurrentRound(program, r, todayStr);
-      const faded = !current;
-      const effective = effectiveRoundLabel(program, r, todayStr);
-      const verb = current ? (usingCloses ? 'Closes' : 'Opens') : effective;
-      out.push({ kind: 'mark', pct, faded, caption: `${verb} ${monthDayShort(dateStr)}` });
+      // "Closes Sep 30" asserts the call is open until that date, so the verb
+      // survives only where the evidence supports open or upcoming. Everything
+      // else states its availability alongside the date.
+      const dated = monthDayShort(dateStr);
+      const caption = state === 'Deadline ahead'
+        ? `${usingCloses ? 'Closes' : 'Opens'} ${dated}`
+        : `${state} · ${dated}`;
+      out.push({ kind: 'mark', pct, faded, caption });
     }
   }
   return out;
@@ -99,7 +104,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
       <div data-testid="cadence-mobile" className="pt-4 sm:hidden">
         {programs.map((program) => {
           const org = orgById.get(program.org);
-          const marks = plotRounds(program, year, todayStr);
+          const marks = plotRounds(program, year);
           const fallback = cadenceFallback(program, year);
           const detail = marks.length > 0 ? marks.map((mark) => mark.caption).join(' · ') : fallback.label;
           return (
@@ -109,7 +114,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
               className="block border-b border-line py-3 transition-colors hover:bg-raised/40"
             >
               <div className="display text-[15px] leading-tight text-paper">{program.name}</div>
-              <div className="coord mt-1">{org?.name || program.org}</div>
+              <div className="coord mt-1">{org?.name || program.org} · {programFacts(program).status.label} · {programFacts(program).howToApply.label}</div>
               <div className="mt-1 text-[12px] leading-snug text-dim">{detail}</div>
             </Link>
           );
@@ -158,18 +163,18 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
               const org = orgById.get(p.org);
               const wire = (p.wires || [])[0] || null;
               const wireColor = wire ? WIRE_COLOR[wire] : 'var(--color-faint)';
-              const marks = plotRounds(p, year, todayStr);
+              const marks = plotRounds(p, year);
               const fallback = cadenceFallback(p, year);
               return (
                 <div key={p.id} className="flex items-center border-b border-line py-1.5">
                   <Link href={`/programs/${p.id}`} className="shrink-0 pr-4 hover:opacity-70" style={{ width: LABEL_W }}>
                     <div className="display truncate text-[13.5px] leading-tight text-paper">{p.name}</div>
-                    <div className="coord mt-0.5 truncate">{org?.name || p.org}</div>
+                    <div className="coord mt-0.5 truncate">{org?.name || p.org} · {programFacts(p).status.label} · {programFacts(p).howToApply.label}</div>
                   </Link>
                   <div className="relative h-7 flex-1">
                     {marks.length === 0 ? (
                       <>
-                        {fallback.rolling && (
+                        {fallback.openWithoutDeadline && (
                           <span
                             aria-hidden
                             className="absolute top-1/2 right-0 left-0 -translate-y-1/2 border-t-[1.5px] border-dashed opacity-30"
@@ -224,7 +229,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[2.5px] border-paper pt-3">
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block size-[6px] rotate-45 bg-paper" />
-          Round mark: full color is open or ahead of today, faded is past
+          Round mark: faded for closed rounds
         </span>
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block h-[6px] w-4 rounded-[1px] bg-paper opacity-70" />
@@ -232,7 +237,7 @@ export function CadenceChart({ programs, orgs, systems }: { programs: Program[];
         </span>
         <span className="coord flex items-center gap-1.5">
           <span aria-hidden className="inline-block w-4 border-t-[1.5px] border-dashed border-faint" />
-          Rolling intake
+          Round on file with no closing date
         </span>
         </div>
       </div>

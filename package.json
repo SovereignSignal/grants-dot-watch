@@ -14,7 +14,6 @@
     "start": "next start",
     "validate": "node scripts/validate-registry.mjs",
     "audit:programs": "node scripts/audit-program-quality.mjs",
-    "close:stale": "node scripts/close-stale-rounds.mjs",
     "audit:deps": "npm audit --audit-level=moderate",
     "check:loader": "node scripts/load-registry-pg.mjs --check-only",
     "typecheck": "tsc --noEmit",
@@ -28,8 +27,7 @@
   "type": "module",
   "dependencies": {
     "@fontsource-variable/instrument-sans": "^5.2.8",
-    "@fontsource/ibm-plex-mono": "^5.2.7",
-    "@fontsource/newsreader": "^5.2.10",
+    "@fontsource-variable/newsreader": "^5.3.0",
     "@privy-io/js-sdk-core": "^0.68.3",
     "@privy-io/node": "^0.9.0",
     "next": "^16.3.6",
@@ -48,7 +46,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.6",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "tailwindcss": "^4.3.2",
     "typescript": "^5.9.3"
   },
@@ -57,14 +55,14 @@
   },
   "overrides": {
     "axios": "1.18.1",
-    "brace-expansion@1": "1.1.18",
-    "brace-expansion@5": "5.0.9",
-    "js-yaml": "4.3.2",
-    "nanoid": "3.3.18",
     "postcss": "$postcss",
     "sharp": "0.35.4",
     "viem": {
       "ws": "8.21.1"
-    }
+    },
+    "brace-expansion@1": "1.1.18",
+    "brace-expansion@5": "5.0.9",
+    "js-yaml": "4.3.2",
+    "nanoid": "3.3.18"
   }
 }

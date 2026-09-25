@@ -19,7 +19,7 @@ import { productDateISO, productYear } from '@/lib/round-state';
 export const metadata: Metadata = pageMetadata(
   '/programs',
   'Programs',
-  'Track open calls, deadlines, and funding cadence across every program in the registry.'
+  'Every funding program on file, with the calls the registry lists as current and the cadence we track for each.'
 );
 
 const STATUS_ORDER = ['active', 'announced', 'paused', 'concluded', 'unknown'];
@@ -63,6 +63,8 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
   const year = productYear();
   const todayISO = productDateISO();
   const departures = collapseStandingDepartures(collectCurrentDepartures(filtered, orgs, todayISO));
+  const activeHere = filtered.filter(program => program.status === 'active').length;
+  const activeStat = <Stat label="active programs" value={activeHere.toLocaleString()} />;
   const departuresPage = paginate(departures, parsePage(param(sp, 'page')), DEPARTURES_PAGE_SIZE);
   const cadenceFiltered = cadenceScope === 'all' ? filtered : filtered.filter((program) => hasYearCadence(program, year));
   const cadencePage = paginate(cadenceFiltered, parsePage(param(sp, 'page')), CADENCE_PAGE_SIZE);
@@ -73,8 +75,13 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
       <PageHeader
         eyebrow="Funding Vehicles"
         title="Programs"
-        sub="What closes next across every program we track. The year's rhythm, plotted lane by lane."
-        right={<Stat label={view === 'cadence' ? 'in this cadence' : 'open calls'} value={visibleCount.toLocaleString()} />}
+        sub="Every call the registry lists as current, the dated ones in the order they close. The year's rhythm, plotted lane by lane."
+        right={
+          <div className="flex items-end gap-7">
+            <Stat label={view === 'cadence' ? 'in this cadence' : 'current rounds'} value={visibleCount.toLocaleString()} />
+            {activeStat}
+          </div>
+        }
       />
 
       <div className="mx-auto max-w-6xl px-4 pt-5">
@@ -125,8 +132,8 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
           )}
           <div className="coord border-t border-line py-2.5">
             {departuresPage.total === 0
-              ? 'no open calls match'
-              : `showing ${departuresPage.start}-${departuresPage.end} of ${departuresPage.total.toLocaleString()} open calls`}
+              ? 'no current rounds match'
+              : `showing ${departuresPage.start}-${departuresPage.end} of ${departuresPage.total.toLocaleString()} current rounds`}
           </div>
         </div>
       )}
@@ -138,7 +145,7 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
               href={hrefWith('/programs', query, { scope: undefined })}
               active={cadenceScope === 'current'}
             >
-              {year} + rolling
+              {year} + undated calls
             </FilterLink>
             <FilterLink
               href={hrefWith('/programs', query, { scope: 'all' })}
@@ -158,7 +165,7 @@ export default async function ProgramsPage({ searchParams }: { searchParams: Pro
       <div className="mx-auto max-w-6xl px-4 pb-16">
         {view === 'departures' ? (
           <>
-            <DeparturesBoard departures={departuresPage.items} />
+            <DeparturesBoard departures={departuresPage.items} today={todayISO} />
             <Pager base="/programs" query={query} page={departuresPage.page} pageCount={departuresPage.totalPages} />
           </>
         ) : (

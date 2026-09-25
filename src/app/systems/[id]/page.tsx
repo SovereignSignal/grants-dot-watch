@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { loadRegistry, getSystem } from '@/lib/registry';
-import { Card, RoundStatus, Empty } from '@/components/ui';
+import { Card, Empty } from '@/components/ui';
+import { activeProgramsByOrg, programFacts } from '@/lib/program-facts';
 import { dateShort, WIRE_LABEL } from '@/lib/format';
-import { systemKindLabel, orgStatusLabel, mechanismLabel, mostLiveRound } from '@/components/browse/registry-helpers';
+import { systemKindLabel, orgStatusLabel, mechanismLabel } from '@/components/browse/registry-helpers';
 import { Breadcrumb } from '@/components/browse/breadcrumb';
 import { Dossier, FactSep } from '@/components/browse/dossier';
 import { pageMetadata } from '@/lib/site-metadata';
@@ -28,6 +29,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
     .sort((a, b) => (b.stats?.programs || 0) - (a.stats?.programs || 0) || a.org.name.localeCompare(b.org.name));
 
   const orgById = new Map(registry.orgs.map((o) => [o.id, o]));
+  const activeByOrg = activeProgramsByOrg(registry.programs);
   const byIdSystem = new Map(registry.systems.map((s) => [s.id, s]));
   const parents = (system.part_of || []).map((pid) => byIdSystem.get(pid)).filter((s): s is NonNullable<typeof s> => !!s);
   const satellites = registry.systems.filter((s) => (s.part_of || []).includes(system.id));
@@ -115,12 +117,13 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
           <Empty>No funders on file in this system yet.</Empty>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[720px] text-sm">
+            <table className="w-full min-w-[800px] text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
                   <th className="coord py-2.5 pr-4 font-normal">Name</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Open now</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Current rounds</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Active programs</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                   <th className="coord py-2.5 pr-4 font-normal">Status</th>
                 </tr>
@@ -134,12 +137,8 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                       </Link>
                     </td>
                     <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
-                    <td className="py-3 pr-4 text-right tabular-nums text-dim">
-                      <span className="inline-flex items-center gap-2">
-                        {stats?.live_rounds || 0}
-                        {(stats?.live_rounds || 0) > 0 && <RoundStatus status="open" />}
-                      </span>
-                    </td>
+                    <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.live_rounds || 0}</td>
+                    <td className="py-3 pr-4 text-right tabular-nums text-dim">{activeByOrg.get(org.id) || 0}</td>
                     <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     <td className="coord py-3 pr-4 normal-case tracking-normal text-dim">{orgStatusLabel(org.status)}</td>
                   </tr>
@@ -161,7 +160,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
           <div>
             {members.programs.map((p) => {
               const org = orgById.get(p.org);
-              const live = mostLiveRound(p);
+              const facts = programFacts(p);
               return (
                 <Card key={p.id} href={`/programs/${p.id}`} className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
@@ -179,14 +178,8 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
                     </div>
                   </div>
                   <div className="shrink-0 text-right">
-                    {live ? (
-                      <>
-                        <RoundStatus status={live.status} />
-                        {live.closes && <div className="coord mt-1">closes {dateShort(live.closes)}</div>}
-                      </>
-                    ) : (
-                      <span className="coord opacity-50">no current rounds</span>
-                    )}
+                    <div className="coord">Status: {facts.status.label}</div>
+                    <div className="coord mt-1">How to apply: {facts.howToApply.label}</div>
                   </div>
                 </Card>
               );

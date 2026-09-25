@@ -1,3 +1,5 @@
+import { PROGRAM_STATUS } from '@/lib/program-facts';
+
 // Label maps for program-level fields not covered by src/lib/format.ts
 // (which only knows round status and wires). Kept in the ledger module
 // since only the programs pages use them.
@@ -13,13 +15,9 @@ export const MECHANISM_LABEL: Record<string, string> = {
   other: 'Other',
 };
 
-export const PROGRAM_STATUS_LABEL: Record<string, string> = {
-  active: 'Active',
-  paused: 'Paused',
-  concluded: 'Concluded',
-  announced: 'Announced',
-  unknown: 'Status unknown',
-};
+export const PROGRAM_STATUS_LABEL: Record<string, string> = Object.fromEntries(
+  Object.entries(PROGRAM_STATUS).map(([status, fact]) => [status, fact.label]),
+);
 
 /** Tone for a program's own status field (distinct from round status). */
 export const PROGRAM_STATUS_TONE: Record<string, string> = {

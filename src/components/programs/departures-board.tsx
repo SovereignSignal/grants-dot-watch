@@ -3,9 +3,8 @@ import { Empty } from '@/components/ui';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { WIRE_COLOR } from '@/lib/format';
 import type { Departure } from '@/lib/departures';
-import { uniqueDeparturesByProgram } from '@/lib/departures';
-import { isVerifiedRollingRound } from '@/lib/round-state';
-import { isClosingSoon, monthLabel, monthYearShort } from './date-helpers';
+import { programFacts } from '@/lib/program-facts';
+import { monthLabel, monthYearShort } from './date-helpers';
 import { RoundRow } from './round-row';
 
 function UndatedRow({ d, status }: { d: Departure; status?: string }) {
@@ -28,18 +27,18 @@ function UndatedRow({ d, status }: { d: Departure; status?: string }) {
   );
 }
 
-/** One page of open and announced calls. The caller applies filters, global
- *  date ordering, and pagination before rendering this board. */
-export function DeparturesBoard({ departures }: { departures: Departure[] }) {
+/** Existing board layout, with program facts independent of review expiry. */
+export function DeparturesBoard({ departures }: { departures: Departure[]; today: string }) {
+  const status = (d: Departure) => {
+    const facts = programFacts(d.program);
+    return `${facts.status.label} · ${facts.howToApply.label}`;
+  };
   const dated = departures.filter((departure) => departure.round.closes);
-  const standing = uniqueDeparturesByProgram(
-    departures.filter((departure) => isVerifiedRollingRound(departure.program, departure.round))
-  );
-  const datesPending = uniqueDeparturesByProgram(
-    departures.filter(
-      (departure) => !departure.round.closes && !isVerifiedRollingRound(departure.program, departure.round)
-    )
-  );
+  // Every row already passed isListedCurrentRound for the page's date, so this
+  // split is just the round's own shape — no second date comparison that could
+  // disagree with the page across a Pacific midnight.
+  const undated = departures.filter((departure) => departure.round.status === 'open' && !departure.round.closes);
+  const datesPending = departures.filter((departure) => departure.round.status === 'announced' && !departure.round.closes);
 
   const groups: { label: string; rows: Departure[] }[] = [];
   for (const r of dated) {
@@ -54,8 +53,8 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
 
   return (
     <div>
-      {dated.length === 0 && standing.length === 0 && datesPending.length === 0 ? (
-        <Empty>No open rounds on file for this filter.</Empty>
+      {dated.length === 0 && undated.length === 0 && datesPending.length === 0 ? (
+        <Empty>No calls on file for this filter.</Empty>
       ) : (
         <>
           {dated.length > 0 && (
@@ -64,7 +63,7 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
               <span className="coord">Program</span>
               <span className="coord">Size</span>
               <span className="coord">Mechanism</span>
-              <span className="coord text-right">Status</span>
+              <span className="coord text-right">Status · How to apply</span>
             </div>
           )}
 
@@ -76,19 +75,18 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
               </div>
               {g.rows.map((d) => {
                 const wire = (d.program.wires || [])[0] || null;
-                const closingSoon = isClosingSoon(d.round.closes);
                 return (
                   <RoundRow
                     key={d.key}
                     href={`/programs/${d.program.id}`}
                     day={new Date(d.round.closes! + 'T00:00:00Z').getUTCDate()}
                     monthYear={monthYearShort(d.round.closes!)}
-                    closingSoon={closingSoon}
+                    closingSoon={false}
                     title={d.program.name}
                     subtitle={d.orgName}
                     size={d.round.size}
                     mechanism={MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}
-                    statusWord={closingSoon ? 'Closing' : d.round.status === 'announced' ? 'Announced' : 'Open'}
+                    statusWord={status(d)}
                     wireColor={wire ? WIRE_COLOR[wire] : null}
                   />
                 );
@@ -104,7 +102,7 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
               </div>
               <div className="mt-2 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
                 {datesPending.map((d) => (
-                  <UndatedRow key={d.key} d={d} status={d.round.status === 'announced' ? 'Announced' : 'No closing date'} />
+                  <UndatedRow key={d.key} d={d} status={status(d)} />
                 ))}
               </div>
             </section>
@@ -112,15 +110,15 @@ export function DeparturesBoard({ departures }: { departures: Departure[] }) {
 
           <section className="mt-9 border-t-[2.5px] border-paper pt-4">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-              <h2 className="coord text-dim">Standing: No Fixed Deadline</h2>
-              <span className="coord">Applications run on a rolling or continuous basis</span>
+              <h2 className="coord text-dim">Calls Without a Closing Date</h2>
+              <span className="coord">No deadline on file. Each row shows what the evidence supports.</span>
             </div>
-            {standing.length === 0 ? (
-              <p className="serif-statement mt-4 text-dim">No standing open calls on file for this filter.</p>
+            {undated.length === 0 ? (
+              <p className="serif-statement mt-4 text-dim">No calls without a closing date for this filter.</p>
             ) : (
               <div className="mt-2 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-                {standing.map((d) => (
-                  <UndatedRow key={d.key} d={d} />
+                {undated.map((d) => (
+                  <UndatedRow key={d.key} d={d} status={status(d)} />
                 ))}
               </div>
             )}

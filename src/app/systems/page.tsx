@@ -4,13 +4,12 @@ import { Card, Empty, PageHeader } from '@/components/ui';
 import { firstSentence } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL } from '@/lib/format';
 import { pageMetadata } from '@/lib/site-metadata';
-import { currentRounds } from '@/lib/round-state';
 import type { System } from '@/lib/types';
 
 export const metadata: Metadata = pageMetadata(
   '/systems',
   'Systems',
-  'Browse funding ecosystems and domains across crypto, AI, and open source.'
+  'Browse funding ecosystems and domains across crypto, AI, and active source.'
 );
 
 const KIND_ORDER: System['kind'][] = ['protocol-ecosystem', 'funding-domain'];
@@ -19,8 +18,8 @@ const KIND_TITLE: Record<System['kind'], string> = {
   'funding-domain': 'Funding domains',
 };
 const KIND_INTRO: Record<System['kind'], string> = {
-  'protocol-ecosystem': 'Worlds with their own treasury, foundation, or allocating identity.',
-  'funding-domain': 'Subject areas where capital organizes across many institutions.',
+  'protocol-ecosystem': 'Blockchains with their own foundations, treasuries and grant programs.',
+  'funding-domain': 'Fields of work funded by several organizations.',
 };
 
 export default function SystemsPage() {
@@ -30,13 +29,13 @@ export default function SystemsPage() {
   const rows = systems.map((system) => {
     const members = bySystem.get(system.id) || { orgs: [], programs: [] };
     const funderCount = members.orgs.filter((o) => o.roles?.includes('funder')).length;
-    const openCount = members.programs.filter((program) => currentRounds(program).length > 0).length;
+    const activeCount = members.programs.filter((program) => program.status === 'active').length;
     const parents = (system.part_of || []).map((pid) => byId.get(pid)).filter((p): p is NonNullable<typeof p> => !!p);
     return {
       system,
       funderCount,
       programCount: members.programs.length,
-      openCount,
+      activeCount,
       parents,
     };
   });
@@ -88,7 +87,7 @@ export default function SystemsPage() {
                       <div className="coord mt-4 flex flex-wrap gap-x-3 gap-y-1">
                         <span>{row.funderCount} funders</span>
                         <span>{row.programCount} programs</span>
-                        <span>{row.openCount} open now</span>
+                        <span>{row.activeCount} active now</span>
                       </div>
                     </Card>
                   ))}

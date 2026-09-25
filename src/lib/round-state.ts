@@ -21,6 +21,7 @@ export function productYear(at: Date = new Date()): number {
 }
 
 export function isCurrentRound(program: Program, round: Round, today: string = productDateISO()): boolean {
+  if (program.review && (program.review.kind === 'unresolved' || program.review.relationship !== 'current' || program.review.intake !== 'open')) return false;
   if (program.status !== 'active' && program.status !== 'announced') return false;
   if (round.status !== 'open' && round.status !== 'announced') return false;
   return !round.closes || round.closes >= today;
@@ -61,4 +62,9 @@ export function effectiveRoundLabel(program: Program, round: Round, today: strin
     deployed: 'Deployed',
   };
   return labels[round.status];
+}
+
+/** A recorded open round without a published closing date. */
+export function isOpenWithoutDeadline(program: Program, round: Round, today: string = productDateISO()): boolean {
+  return isCurrentRound(program, round, today) && round.status === 'open' && !round.closes;
 }

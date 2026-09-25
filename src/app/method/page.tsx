@@ -32,9 +32,8 @@ export default function MethodPage() {
             <section>
               <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">How the register is organized</h2>
               <p className="mt-3">
-                A system is a funding ecosystem with its own capital gravity: a treasury, a foundation, or another
-                allocating identity. Ethereum is a system. Crypto is not. Crypto, AI, and open source are wires:
-                lenses across the register, not places in it.
+                A system is a blockchain ecosystem or field of work that brings together funders and programs.
+                Crypto, AI and open source are the three subject areas used to browse the register.
               </p>
               <p className="mt-3">
                 Organizations are the institutions that fund, receive, or organize capital. Programs are the vehicles
@@ -59,7 +58,7 @@ export default function MethodPage() {
                 The site is one reading of the files. Send someone{' '}
                 <Link href="/brief" className="border-b border-line text-paper hover:border-paper">/brief</Link>.
                 {' '}<Link href="/query" className="border-b border-line text-paper hover:border-paper">GET /api/v1</Link> is
-                the same reading as JSON. Use it when you need the register as a data source: open calls,
+                the same reading as JSON. Use it when you need the register as a data source: recorded rounds,
                 an org file, a program, or the awards ledger. You do not have to visit a page.
               </p>
             </section>
@@ -80,8 +79,8 @@ export default function MethodPage() {
             </div>
             <nav aria-label="Method shortcuts" className="flex flex-col">
               {[
-                { href: '/programs', label: 'Open calls', note: 'What closes next' },
-                { href: '/brief', label: 'Briefing', note: 'Same live board as a page you can send' },
+                { href: '/programs', label: 'Programs', note: 'Status, application methods and published dates' },
+                { href: '/brief', label: 'Briefing', note: 'Recorded calls and application routes' },
                 { href: '/query', label: 'Query', note: 'JSON over the same files' },
                 { href: '/systems', label: 'Systems', note: 'Funding ecosystems' },
                 { href: '/orgs', label: 'Organizations', note: 'Funders and others on file' },

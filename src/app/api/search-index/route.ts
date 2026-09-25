@@ -1,6 +1,10 @@
 // Compact search index over the whole register — powers the header search
-// (src/components/search.tsx). Rebuilt from loadRegistry() on every request;
-// loadRegistry() itself is cheaply cached (mtime-checked), so this stays fast.
+// (src/components/search.tsx). Rebuilt from loadRegistry() on every request.
+// loadRegistry() serves a warm in-memory index (18us) and re-walks registry file
+// mtimes at most once per cache window, so this stays fast. The response below
+// also sets Cache-Control: max-age=300, so end-to-end freshness for the header
+// search is that 5 minutes ON TOP OF the registry cache bound, not the bound
+// alone — that is the number to reach for when this looks stale.
 import { NextResponse } from 'next/server';
 import { loadRegistry } from '@/lib/registry';
 
