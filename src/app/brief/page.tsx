@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { daysUntil, monthLabel } from '@/components/programs/date-helpers';
+import { monthLabel } from '@/components/programs/date-helpers';
 import { Empty, PageHeader } from '@/components/ui';
 import { dateShort, WIRE_LABEL } from '@/lib/format';
 import { briefingBoard, type LiveBoardRow } from '@/lib/public-api';
@@ -10,7 +10,7 @@ import type { Wire } from '@/lib/types';
 export const metadata: Metadata = pageMetadata(
   '/brief',
   'Briefing',
-  'One page you can send a person. Same live board as the JSON.'
+  'Recorded calls and application routes from the registry.'
 );
 
 const WIRES: Wire[] = ['crypto', 'ai', 'oss'];
@@ -96,13 +96,13 @@ export default async function BriefPage({
   return (
     <>
       <PageHeader
-        eyebrow="SEND THIS"
+        eyebrow="PROGRAM ROUNDS"
         title="Briefing"
-        sub="One page you can send a person. Same live board as the JSON. Dated calls first. Then standing intakes you can apply to now. Then announced programs that do not have a form yet."
+        sub="Recorded calls with published deadlines, undated application routes and announcements. Each program page has its status, application method and source."
         right={
           <div className="text-right">
             <div className="serif-statement text-[34px] leading-none tabular-nums text-paper">{board.total}</div>
-            <div className="coord mt-1">live calls today</div>
+            <div className="coord mt-1">current round records</div>
           </div>
         }
       />
@@ -136,7 +136,7 @@ export default async function BriefPage({
         </div>
 
         {empty ? (
-          <Empty>No live calls on file for this filter.</Empty>
+          <Empty>No current round records on file for this filter.</Empty>
         ) : (
           <>
             <section id="dated" className="pt-8">
@@ -165,8 +165,6 @@ export default async function BriefPage({
                     </div>
                     {group.rows.map((row) => {
                       const rowWire = row.wires[0] || null;
-                      const days = daysUntil(row.round.closes);
-                      const closingSoon = days !== null && days >= 0 && days <= 14;
                       return (
                         <div
                           key={`${row.program_id}::${row.round.name}`}
@@ -187,14 +185,14 @@ export default async function BriefPage({
                             </div>
                           </div>
                           <div className="col-span-2 text-[12.5px] leading-snug text-dim tabular-nums sm:col-span-1">
-                            {row.round.size || '–'}
+                            {row.round.size || 'Not stated'}
                           </div>
                           <div className="col-span-2 sm:col-span-1">
                             <ApplyCell row={row} />
                           </div>
                           <div className="col-span-2 sm:col-span-1 sm:text-right">
-                            <span className={`text-[12px] font-bold ${closingSoon ? 'text-closing' : 'text-paper'}`}>
-                              {closingSoon ? 'Closing' : row.round.status === 'announced' ? 'Announced' : 'Open'}
+                            <span className="text-[12px] font-bold text-paper">
+                              Deadline ahead
                             </span>
                             <div className="coord mt-0.5 hidden sm:block">{dateShort(row.round.closes)}</div>
                           </div>
@@ -208,18 +206,18 @@ export default async function BriefPage({
 
             <section id="standing" className="mt-12 border-t-[2.5px] border-paper pt-5">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Standing, apply now</h2>
+                <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">No published closing date</h2>
                 <span className="coord">
                   {board.standingOpen.length === 0
                     ? 'none on this filter'
-                    : `${board.standingOpen.length.toLocaleString()} open, no published deadline`}
+                    : `${board.standingOpen.length.toLocaleString()} with no published deadline`}
                 </span>
               </div>
               <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-dim">
-                Open now. No published close. The form is the claim we can defend.
+                These records have an application link and no published closing date. See each program page for its application method and source.
               </p>
               {board.standingOpen.length === 0 ? (
-                <p className="serif-statement mt-6 text-dim">No standing open calls on this filter.</p>
+                <p className="serif-statement mt-6 text-dim">No undated application routes on this filter.</p>
               ) : (
                 <div className="mt-4 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
                   {board.standingOpen.map((row) => (
@@ -231,18 +229,18 @@ export default async function BriefPage({
 
             <section id="announced" className="mt-12 border-t-[2.5px] border-paper pt-5">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Announced, no form yet</h2>
+                <h2 className="text-[14px] font-bold uppercase tracking-[.03em] text-paper">Announcements without a closing date</h2>
                 <span className="coord">
                   {board.standingAnnounced.length === 0
                     ? 'none on this filter'
-                    : `${board.standingAnnounced.length.toLocaleString()} named, not taking applications`}
+                    : `${board.standingAnnounced.length.toLocaleString()} announced round records`}
                 </span>
               </div>
               <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-dim">
-                On file and coming. No deadline and no working apply form today. Do not send a client here to apply.
+                These announcements have no closing date on file. See each program page for the recorded facts.
               </p>
               {board.standingAnnounced.length === 0 ? (
-                <p className="serif-statement mt-6 text-dim">No announced standing calls on this filter.</p>
+                <p className="serif-statement mt-6 text-dim">No undated announcements on this filter.</p>
               ) : (
                 <div className="mt-4 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
                   {board.standingAnnounced.map((row) => (

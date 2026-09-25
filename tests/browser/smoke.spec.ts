@@ -119,7 +119,7 @@ test('front page has program facts without deadline or verification labels', asy
 });
 
 test('browse pages replace verification counts and labels consistently', async ({ page }) => {
-  for (const path of ['/programs', '/programs?view=cadence', '/orgs', '/orgs/nlnet-foundation', '/systems/ethereum', '/about']) {
+  for (const path of ['/programs', '/programs?view=cadence', '/orgs', '/orgs/nlnet-foundation', '/systems/ethereum', '/systems', '/about', '/brief', '/query', '/method']) {
     await page.goto(path);
     await expect(page.getByRole('main')).not.toContainText(/verified open|intake unverified|intake needs recheck|confirmed open|review due/i);
   }
