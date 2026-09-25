@@ -251,3 +251,57 @@ test.describe('tablet edge', () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   });
 });
+
+test('registry search can jump to the awards register', async ({ page }) => {
+  await page.goto('/');
+  const search = page.getByRole('combobox', { name: 'Search the register' });
+  await search.fill('Gamma');
+  await expect(page.getByRole('option', { name: 'Search awards for Gamma' })).toBeVisible();
+  await page.getByRole('option', { name: 'Search awards for Gamma' }).click();
+  await expect(page).toHaveURL(/\/awards\?q=Gamma$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Awards' })).toBeVisible();
+});
+
+
+test('briefing page lists the live board and stays linked to query', async ({ page }) => {
+  const open = await page.request.get('/api/v1/open?limit=100');
+  expect(open.ok()).toBeTruthy();
+  const openBody = await open.json();
+  const dated = openBody.data.filter((row: { standing: boolean }) => row.standing === false);
+  expect(dated.length).toBeGreaterThan(0);
+  const firstDated = dated[0] as { program_id: string; program_name: string };
+
+  await page.goto('/brief');
+  await expect(page.getByRole('heading', { level: 1, name: 'Briefing' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Dated calls' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'No published closing date' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Announcements without a closing date' })).toBeVisible();
+  await expect(page.getByRole('link', { name: firstDated.program_name, exact: true }).first()).toBeVisible();
+
+  await page.getByRole('link', { name: firstDated.program_name, exact: true }).first().click();
+  await expect(page).toHaveURL(new RegExp(`/programs/${firstDated.program_id}`));
+
+  await page.goto('/brief?wire=oss');
+  await expect(page.getByRole('main').getByRole('link', { name: 'Open Source' })).toHaveAttribute('aria-current', 'page');
+  await expect(page.locator('a[href="/api/v1/open?wire=oss"]')).toBeVisible();
+});
+
+test('query page and public API expose the live board', async ({ page }) => {
+  await page.goto('/query');
+  await expect(page.getByRole('heading', { level: 1, name: 'Query' })).toBeVisible();
+  await expect(page.locator('a[href="/api/v1/open"]')).toBeVisible();
+
+  const index = await page.request.get('/api/v1');
+  expect(index.ok()).toBeTruthy();
+  const indexBody = await index.json();
+  expect(indexBody.version).toBe('v1');
+  expect(indexBody.endpoints.open).toBe('/api/v1/open');
+
+  const open = await page.request.get('/api/v1/open?standing=0&limit=5');
+  expect(open.ok()).toBeTruthy();
+  const openBody = await open.json();
+  expect(Array.isArray(openBody.data)).toBeTruthy();
+  expect(openBody.data.length).toBeGreaterThan(0);
+  expect(openBody.data.every((row: { standing: boolean }) => row.standing === false)).toBeTruthy();
+});
+

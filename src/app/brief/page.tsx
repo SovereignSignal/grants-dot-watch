@@ -171,7 +171,7 @@ export default async function BriefPage({
                           className="grid grid-cols-[52px_1fr] items-start gap-x-4 gap-y-1 border-b border-line py-3 sm:grid-cols-[68px_1fr_140px_72px_92px] sm:items-center sm:gap-x-5"
                         >
                           <div
-                            className={`serif-statement text-[26px] leading-none not-italic tabular-nums ${closingSoon ? 'text-closing' : 'text-paper'}`}
+                            className="serif-statement text-[26px] leading-none not-italic tabular-nums text-paper"
                           >
                             {new Date(row.round.closes! + 'T00:00:00Z').getUTCDate()}
                           </div>
