@@ -21,6 +21,10 @@ const calendarDateIn = (date, timeZone) => {
   return `${value.year}-${value.month}-${value.day}`;
 };
 const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
+// VALIDATION_TODAY predates research metadata and replays deadline rollovers.
+// A newly captured assessment is checked against the real capture clock,
+// even when the application-date rules are being replayed historically.
+const captureTodayISO = calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
 
 const WIRES = new Set(['crypto', 'ai', 'oss']);
 const ORG_ROLES = new Set(['funder', 'grantee', 'ecosystem']);
@@ -173,6 +177,45 @@ for (const { file, base, doc } of programs) {
   if (doc.apply_url && !isUrl(doc.apply_url)) err(file, `bad apply_url "${doc.apply_url}"`);
   for (const u of doc.sources || []) if (!isUrl(u)) err(file, `bad source url "${u}"`);
   if (!doc.summary || doc.summary.trim().length < 40) err(file, 'summary missing/too thin');
+  if (doc.review != null) {
+    const r = doc.review;
+    if (!r || typeof r !== 'object' || Array.isArray(r)) err(file, 'review must be a mapping');
+    else {
+      const allowed = new Set(['checked_on', 'review_after', 'operating', 'intake', 'intake_note', 'source', 'kind', 'relationship', 'relationship_note', 'questions', 'history', 'intake_mode', 'round_names', 'facts']);
+      for (const key of Object.keys(r)) if (!allowed.has(key)) err(file, `unknown review field ${key}`);
+      if (!isIsoDate(r.checked_on) || r.checked_on > captureTodayISO) err(file, 'review checked_on must be a real, non-future date');
+      if (!isIsoDate(r.review_after) || r.review_after < r.checked_on) err(file, 'review_after must be on or after checked_on');
+      if (!['open', 'closed', 'postponed', 'unknown'].includes(r.intake)) err(file, 'invalid review intake');
+      if (!PROG_STATUS.has(r.operating)) err(file, 'invalid reviewed operating status');
+      if (!['program', 'unresolved'].includes(r.kind)) err(file, 'invalid review kind');
+      if (!['current', 'former', 'unconfirmed'].includes(r.relationship)) err(file, 'invalid review relationship');
+      if (typeof r.intake_note !== 'string' || !r.intake_note.trim()) err(file, 'review needs an intake explanation');
+      if (!isUrl(r.source) || !(doc.sources || []).includes(r.source)) err(file, 'review source must be in program sources');
+      if (r.relationship !== 'current' && (typeof r.relationship_note !== 'string' || !r.relationship_note.trim())) err(file, 'uncertain/former relationship needs explanation');
+      if (r.intake === 'open' && (r.kind !== 'program' || r.relationship !== 'current' || doc.status !== 'active')) err(file, 'open intake requires an active, identified program with a current operator');
+      if (!Array.isArray(r.questions) || r.questions.some((q) => typeof q !== 'string' || !q.trim())) err(file, 'review questions must be nonempty strings');
+      if (r.intake_mode != null && !['rolling', 'rounds', 'unknown'].includes(r.intake_mode)) err(file, 'invalid intake_mode');
+      if (r.round_names != null && (!Array.isArray(r.round_names) || r.round_names.some(name => !(doc.rounds || []).some(round => round.name === name)))) err(file, 'review round_names must name existing rounds');
+      if (r.facts != null) {
+        if (typeof r.facts !== 'object' || Array.isArray(r.facts)) err(file, 'review facts must be a mapping');
+        else for (const [key, fact] of Object.entries(r.facts)) {
+          if (!['eligibility', 'geography', 'funding', 'deadline'].includes(key)) err(file, `unknown review fact ${key}`);
+          if (!fact || typeof fact !== 'object' || Array.isArray(fact)) { err(file, `invalid review fact ${key}`); continue; }
+          if (Object.keys(fact).some(k => !['value', 'source', 'checked_on'].includes(k))) err(file, `unknown field in review fact ${key}`);
+          if (typeof fact.value !== 'string' || !fact.value.trim()) err(file, `review fact ${key} needs a value`);
+          if (!isUrl(fact.source) || !(doc.sources || []).includes(fact.source)) err(file, `review fact ${key} needs a program source`);
+          if (!isIsoDate(fact.checked_on) || fact.checked_on > r.checked_on) err(file, `invalid review fact ${key} check date`);
+        }
+      }
+      if (!Array.isArray(r.history)) err(file, 'review history must be a list');
+      else for (const event of r.history) {
+        if (!event || typeof event !== 'object' || Array.isArray(event)) { err(file, 'history event must be a mapping'); continue; }
+        if (!isRoundDate(event.date) || event.date > r.checked_on) err(file, 'history date must be a past day or month');
+        if (!isUrl(event.source) || !(doc.sources || []).includes(event.source)) err(file, 'history source must be in program sources');
+        if (typeof event.label !== 'string' || !event.label.trim() || typeof event.summary !== 'string' || !event.summary.trim()) err(file, 'history event needs label and explanation');
+      }
+    }
+  }
   const nameKey = `${doc.org}:${norm(doc.name)}`;
   if (programNamesByOrg.has(nameKey)) err(file, `duplicate normalized program name for org (first seen at ${programNamesByOrg.get(nameKey)})`);
   else programNamesByOrg.set(nameKey, file);
@@ -184,6 +227,8 @@ for (const { file, base, doc } of programs) {
     if (r.source && !isUrl(r.source)) err(file, `round "${r.name}" bad source`);
     if (r.opens && !isRoundDate(r.opens)) err(file, `round "${r.name}" bad opens date "${r.opens}"`);
     if (r.closes && !isRoundDate(r.closes)) err(file, `round "${r.name}" bad closes date "${r.closes}"`);
+    if (r.closes_at && (typeof r.closes_at !== 'string' || !/(?:Z|[+-]\d{2}:\d{2})$/.test(r.closes_at) || !Number.isFinite(Date.parse(r.closes_at)) || r.closes !== r.closes_at.slice(0, 10)))
+      err(file, `round "${r.name}" exact deadline must include its stated date and timezone`);
     if (/^rolling$/i.test(r.name || '') && r.closes)
       err(file, `round "${r.name}" has a fixed close date; use a sourced call or cohort name`);
     if (isRoundDate(r.opens) && isRoundDate(r.closes) && r.opens > r.closes)
