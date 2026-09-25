@@ -16,7 +16,7 @@ export default defineConfig({
   webServer: {
     command: `npm start -- --port ${port}`,
     url: `http://127.0.0.1:${port}`,
-    env: { ADMIN_TOKEN: browserAdminToken },
+    env: { ADMIN_TOKEN: browserAdminToken, GRANTS_WATCH_ALLOW_LOCAL_STORE: '1' },
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

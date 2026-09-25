@@ -77,16 +77,20 @@ test('apply url pass drops dead apply paths and closed audit intake', () => {
   assert.ok(blue.apply_url.includes('/grants/rapid'));
 });
 
-test('standing remainder dates year-named calls and drops closed intakes', () => {
+test('dated calls retain their history after expired intakes close', () => {
   const registry = loadRegistry();
-  const board = liveBoard(registry, '2026-08-29');
+  const board = liveBoard(registry, '2026-09-25');
   const ids = new Set(board.map((row) => row.program_id));
   assert.equal(ids.has('nsf-x-labs-1-5b-for-independent-milestone-based-research-tea'), false);
   assert.ok(!board.some((row) => row.program_id === 'freebsd-foundation-grants' && row.round.name.includes('EuroBSDCon')));
   assert.ok(!board.some((row) => row.round.name.includes('Release 4')));
   assert.ok(board.some((row) => row.program_id === 'nlnet-general-grants' && row.round.closes === '2026-11-03'));
-  assert.ok(board.some((row) => row.program_id === 'outreachy' && row.round.closes === '2026-08-31'));
-  assert.ok(board.some((row) => row.program_id === 'afwerx-sbir-sttr' && row.round.closes === '2026-09-23'));
+  for (const [id, closes] of [['outreachy', '2026-08-31'], ['afwerx-sbir-sttr', '2026-09-23']]) {
+    assert.ok(!board.some((row) => row.program_id === id && row.round.closes === closes));
+    const history = registry.programs.find((program) => program.id === id).rounds.find((round) => round.closes === closes);
+    assert.equal(history.status, 'closed');
+    assert.ok(history.source, 'closing a round must preserve its source history');
+  }
 });
 
 test('open board omits past closes and paginates', () => {
@@ -149,9 +153,9 @@ test('homepage apply only flags the funder website itself', () => {
   assert.equal(isOrgHomepageApply('https://av20jp3z.paperform.co/', 'https://ev.org/'), false);
 });
 
-test('dated live calls have a real apply path and no duplicate Genesis row', () => {
+test('dated live calls advance to the next recorded deadline and preserve apply paths', () => {
   const registry = loadRegistry();
-  const today = '2026-08-29';
+  const today = '2026-09-25';
   const briefing = briefingBoard({ registry, today });
   const genesis = briefing.dated.filter((row) => row.program_id === 'genesis-mission-foa-0003612');
   assert.equal(genesis.length, 1);
@@ -160,13 +164,14 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
 
   const pesose = briefing.dated.find((row) => row.program_id === 'nsf-pesose');
   assert.ok(pesose);
-  assert.equal(pesose.round.closes, '2026-09-01');
+  assert.equal(pesose.round.closes, '2027-03-02');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'nsf-pesose' && row.round.closes === '2026-09-01'));
   assert.match(pesose.apply_url, /pesose-pathways-enable-secure-open-source-ecosystems/);
 
   const eic = briefing.dated.find((row) => row.program_id === 'eic-accelerator');
   assert.ok(eic);
-  assert.equal(eic.round.closes, '2026-09-02');
-  assert.ok(briefing.dated.some((row) => row.program_id === 'eic-accelerator' && row.round.closes === '2026-11-04'));
+  assert.equal(eic.round.closes, '2026-11-04');
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'eic-accelerator' && row.round.closes === '2026-09-02'));
 
   const itcr = briefing.dated.find((row) => row.program_id === 'nih-itcr-early-stage-informatics');
   assert.ok(itcr);
@@ -182,13 +187,13 @@ test('dated live calls have a real apply path and no duplicate Genesis row', () 
   assert.ok(jst);
   assert.match(jst.apply_url, /announce_ca_ai2026/);
 
-  const rocket = briefing.dated.find((row) => row.program_id === 'rocket-pool-gmc-grants');
-  assert.ok(rocket);
-  assert.equal(rocket.round.closes, '2026-09-07');
-
-  const altProtein = briefing.dated.find((row) => row.program_id === 'coefficient-giving-alternative-protein-r-d-rfp');
-  assert.ok(altProtein);
-  assert.equal(altProtein.round.closes, '2026-09-15');
+  for (const [id, closes] of [
+    ['rocket-pool-gmc-grants', '2026-09-07'],
+    ['coefficient-giving-alternative-protein-r-d-rfp', '2026-09-15'],
+  ]) {
+    assert.ok(!briefing.dated.some((row) => row.program_id === id && row.round.closes === closes));
+    assert.equal(registry.programs.find((program) => program.id === id).rounds.find((round) => round.closes === closes).status, 'closed');
+  }
 
   const scf = briefing.dated.find((row) => row.program_id === 'stellar-community-fund-build-award');
   assert.ok(scf);
