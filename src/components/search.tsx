@@ -1,8 +1,6 @@
 'use client';
 
-// Header search — Cmd/Ctrl+K, lazy-fetches /api/search-index on first focus,
-// ranks client-side, groups results under the four entity kinds. Mounted in
-// layout.tsx between the primary nav and the coord counts.
+// The Ledger search keeps the existing lazy index and keyboard navigation.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { SearchIndexItem } from '@/app/api/search-index/route';
@@ -48,7 +46,7 @@ function scoreItem(item: SearchIndexItem, q: string): number {
   return Math.max(nameTier * 10, akaTier * 10 - 3);
 }
 
-export default function Search({ className = '' }: { className?: string } = {}) {
+export default function Search({ label }: { label: string }) {
   const router = useRouter();
   const [items, setItems] = useState<SearchIndexItem[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -56,10 +54,9 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLFormElement>(null);
   const fetchedRef = useRef(false);
 
   async function ensureIndex() {
@@ -97,52 +94,31 @@ export default function Search({ className = '' }: { className?: string } = {}) 
   }, [items, query]);
 
   const flatResults = useMemo(() => groups.flatMap((g) => g.items), [groups]);
-  const awardQuery = query.trim();
-  const hasAwardAction = awardQuery.length > 0;
-  const awardOptionId = 'search-option-awards-query';
-  const awardIndex = hasAwardAction ? flatResults.length : -1;
-  const navCount = flatResults.length + (hasAwardAction ? 1 : 0);
   const panelOpen = open && (loading || error !== null || query.trim().length > 0);
-
-  function resetSearch() {
-    setQuery('');
-    setOpen(false);
-    setActiveIndex(-1);
-    setMobileOpen(false);
-    inputRef.current?.blur();
-  }
 
   function go(item: SearchIndexItem) {
     router.push(HREF[item.t](item.id));
-    resetSearch();
-  }
-
-  function goAwards() {
-    router.push(`/awards?q=${encodeURIComponent(awardQuery)}`);
-    resetSearch();
+    setQuery('');
+    setOpen(false);
+    setActiveIndex(-1);
+    inputRef.current?.blur();
   }
 
   function closePanel() {
     setOpen(false);
     setActiveIndex(-1);
-    if (!query.trim()) setMobileOpen(false);
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
-      if (navCount === 0) return;
+      if (flatResults.length === 0) return;
       e.preventDefault();
-      setActiveIndex((i) => (i + 1) % navCount);
+      setActiveIndex((i) => (i + 1) % flatResults.length);
     } else if (e.key === 'ArrowUp') {
-      if (navCount === 0) return;
+      if (flatResults.length === 0) return;
       e.preventDefault();
-      setActiveIndex((i) => (i <= 0 ? navCount - 1 : i - 1));
+      setActiveIndex((i) => (i <= 0 ? flatResults.length - 1 : i - 1));
     } else if (e.key === 'Enter') {
-      if (hasAwardAction && (activeIndex === awardIndex || (flatResults.length === 0 && activeIndex < 0))) {
-        e.preventDefault();
-        goAwards();
-        return;
-      }
       const target = flatResults[activeIndex >= 0 ? activeIndex : 0];
       if (target) {
         e.preventDefault();
@@ -160,7 +136,6 @@ export default function Search({ className = '' }: { className?: string } = {}) 
     function onGlobalKey(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        setMobileOpen(true);
         requestAnimationFrame(() => inputRef.current?.focus());
       }
     }
@@ -168,7 +143,7 @@ export default function Search({ className = '' }: { className?: string } = {}) 
     return () => window.removeEventListener('keydown', onGlobalKey);
   }, []);
 
-  // Click outside closes the panel (and collapses the mobile trigger).
+  // Click outside closes the suggestions.
   useEffect(() => {
     if (!panelOpen) return;
     function onDocMouseDown(e: MouseEvent) {
@@ -176,39 +151,22 @@ export default function Search({ className = '' }: { className?: string } = {}) 
     }
     document.addEventListener('mousedown', onDocMouseDown);
     return () => document.removeEventListener('mousedown', onDocMouseDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [panelOpen, query]);
 
   return (
-    <div
-      ref={containerRef}
-      data-search-open={mobileOpen ? 'true' : 'false'}
-      className={`${
-        mobileOpen
-          ? 'absolute inset-x-0 z-20 flex min-w-0 bg-void'
-          : 'relative flex w-8 shrink-0 justify-end'
-      } self-center lg:relative lg:inset-auto lg:z-auto lg:w-64 lg:flex-none lg:bg-transparent ${className}`}
-    >
-      {!mobileOpen && (
-        <button
-          type="button"
-          onClick={() => {
-            setMobileOpen(true);
-            requestAnimationFrame(() => inputRef.current?.focus());
-          }}
-          className="inline-flex size-8 items-center justify-center border border-line text-dim transition-colors hover:border-faint hover:text-paper lg:hidden"
-          aria-label="Open search"
-        >
-          <svg viewBox="0 0 20 20" width="15" height="15" fill="none" aria-hidden="true">
-            <circle cx="8.5" cy="8.5" r="4.75" stroke="currentColor" strokeWidth="1.4" />
-            <path d="m12 12 4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-          </svg>
-        </button>
-      )}
-      <div className={`${mobileOpen ? 'flex' : 'hidden'} w-full min-w-0 items-center gap-2 lg:flex`}>
+    <form ref={containerRef} className="ledger-search" role="search" action="/opportunities"
+      onSubmit={(event) => {
+        event.preventDefault();
+        setOpen(false);
+        router.push(`/opportunities?q=${encodeURIComponent(query.trim())}`);
+      }}>
+      <label htmlFor="hero-search">{label}</label>
+      <div className="ledger-search-controls">
         <input
           ref={inputRef}
-          type="text"
+          id="hero-search"
+          name="q"
+          type="search"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -221,41 +179,21 @@ export default function Search({ className = '' }: { className?: string } = {}) 
           }}
           onBlur={() => closePanel()}
           onKeyDown={onKeyDown}
-          placeholder="Search the register… ⌘K"
-          className="min-w-0 flex-1 border-b border-line bg-transparent px-1 py-1.5 text-sm text-paper transition-colors placeholder:text-faint focus:border-paper focus:outline-none"
+          placeholder="Try zero-knowledge, Mozilla or AI safety"
           role="combobox"
           aria-expanded={panelOpen}
           aria-controls="search-results"
           aria-autocomplete="list"
-          aria-activedescendant={
-            panelOpen && activeIndex >= 0
-              ? activeIndex === awardIndex
-                ? awardOptionId
-                : optionId(flatResults[activeIndex])
-              : undefined
-          }
+          aria-activedescendant={panelOpen && activeIndex >= 0 ? optionId(flatResults[activeIndex]) : undefined}
           aria-label="Search the register"
         />
-        {mobileOpen && (
-          <button
-            type="button"
-            onClick={() => {
-              setQuery('');
-              setOpen(false);
-              setMobileOpen(false);
-            }}
-            className="coord inline-flex size-8 shrink-0 items-center justify-center border border-line text-dim hover:border-paper hover:text-paper lg:hidden"
-            aria-label="Close search"
-          >
-            <span aria-hidden>×</span>
-          </button>
-        )}
+        <button type="submit" className="ink-button">Search</button>
       </div>
       {panelOpen && (
         <div
           id="search-results"
           role="listbox"
-          className="absolute right-0 top-full z-50 mt-1 max-h-96 w-full overflow-y-auto border border-line bg-raised lg:w-72"
+          className="search-results"
         >
           {loading && <div className="px-3 py-3 text-sm text-dim">Loading…</div>}
           {!loading && error && (
@@ -301,24 +239,8 @@ export default function Search({ className = '' }: { className?: string } = {}) 
                 })}
               </div>
             ))}
-          {hasAwardAction && (
-            <button
-              id={awardOptionId}
-              type="button"
-              role="option"
-              aria-selected={activeIndex === awardIndex}
-              onMouseDown={(e) => e.preventDefault()}
-              onMouseEnter={() => setActiveIndex(awardIndex)}
-              onClick={() => goAwards()}
-              className={`block w-full truncate border-t border-line px-3 py-2 text-left text-sm transition-colors ${
-                activeIndex === awardIndex ? 'bg-line text-paper' : 'text-dim hover:bg-line/60 hover:text-paper'
-              }`}
-            >
-              Search awards for {awardQuery}
-            </button>
-          )}
         </div>
       )}
-    </div>
+    </form>
   );
 }

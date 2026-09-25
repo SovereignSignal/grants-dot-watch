@@ -13,25 +13,6 @@ export function WireBadge({ wire, small }: { wire: Wire; small?: boolean }) {
   );
 }
 
-const ROUND_TONE: Record<string, { dot: string; label: string }> = {
-  open: { dot: 'var(--color-live)', label: 'Open' },
-  announced: { dot: 'var(--color-signal)', label: 'Announced' },
-  reviewing: { dot: 'var(--color-closing)', label: 'In review' },
-  closed: { dot: 'var(--color-faint)', label: 'Closed' },
-  deployed: { dot: 'var(--color-faint)', label: 'Deployed' },
-};
-
-/** Round/program status: a plain word next to a colored square. */
-export function RoundStatus({ status }: { status: string }) {
-  const t = ROUND_TONE[status] || ROUND_TONE.closed;
-  return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-paper">
-      <span aria-hidden className="inline-block size-1.5 shrink-0" style={{ background: t.dot }} />
-      {t.label}
-    </span>
-  );
-}
-
 export function Coord({ children }: { children: React.ReactNode }) {
   return <span className="coord">{children}</span>;
 }

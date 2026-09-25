@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
+import { activeProgramsByOrg } from '@/lib/program-facts';
 import { PageHeader, Empty } from '@/components/ui';
 import { OrgFilterBar, type OrgFilterState } from '@/components/browse/filters';
 import { ORG_ROLE_LABEL, ORG_STATUS_LABEL, orgTypeLabel } from '@/components/browse/registry-helpers';
@@ -52,6 +53,9 @@ export default async function OrgsPage({
 
   const registry = loadRegistry();
   const systemById = new Map(registry.systems.map((s) => [s.id, s]));
+  // Request time, not load time: an open verdict can turn on an exact cutoff
+  // instant, which loadRegistry's per-day cache would outlive.
+  const activeByOrg = activeProgramsByOrg(registry.programs);
 
   let list = registry.orgs;
   if (current.role) list = list.filter((o) => o.roles?.includes(current.role as Org['roles'][number]));
@@ -97,7 +101,7 @@ export default async function OrgsPage({
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[880px] text-sm">
+              <table className="w-full min-w-[960px] text-sm">
               <thead>
                 <tr className="border-b-[1.5px] border-paper text-left">
                   <th className="coord py-2.5 pr-4 font-normal">Name</th>
@@ -105,7 +109,8 @@ export default async function OrgsPage({
                   <th className="coord py-2.5 pr-4 font-normal">Systems</th>
                   <th className="coord py-2.5 pr-4 font-normal">Wires</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Programs</th>
-                  <th className="coord py-2.5 pr-4 text-right font-normal">Open now</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Current rounds</th>
+                  <th className="coord py-2.5 pr-4 text-right font-normal">Active programs</th>
                   <th className="coord py-2.5 pr-4 text-right font-normal">Last activity</th>
                 </tr>
               </thead>
@@ -155,6 +160,7 @@ export default async function OrgsPage({
                       </td>
                       <td className="py-3 pr-4 text-right font-bold tabular-nums text-paper">{stats?.programs ?? 0}</td>
                       <td className="py-3 pr-4 text-right tabular-nums text-dim">{stats?.live_rounds ?? 0}</td>
+                      <td className="py-3 pr-4 text-right tabular-nums text-dim">{activeByOrg.get(o.id) ?? 0}</td>
                       <td className="py-3 pr-4 text-right text-[12px] tabular-nums text-faint">{dateShort(stats?.last_activity)}</td>
                     </tr>
                   );

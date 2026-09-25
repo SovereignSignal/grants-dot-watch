@@ -1,16 +1,18 @@
 // The instrument panel: registry counts, load state, awards-by-year, and
-// the curation desk queue depth. Server component — reads loadRegistry()
+// the curation desk queue depth. Server component. reads loadRegistry()
 // directly and the desk store.
 import Link from 'next/link';
-import { loadRegistry } from '@/lib/registry';
-import { getAppliedChangeLedgerHealth, getIngestState, listProposals } from '@/lib/desk-store';
 import { briefingBoard, isOrgHomepageApply, liveCounts } from '@/lib/public-api';
 import { daysUntil } from '@/components/programs/date-helpers';
+import { loadRegistry } from '@/lib/registry';
+import { getAppliedChangeLedgerHealth, getIngestState, listProposals, storeBackend } from '@/lib/desk-store';
+import { lastBootReplayReport, type BootReplayReport } from '@/lib/boot-replay';
+import { REVIEW_HORIZON_DAYS, reviewFreshness } from '@/lib/program-review';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
 
-// Reads the desk store (Postgres in prod) — must never prerender at build time,
+// Reads the desk store (Postgres in prod). must never prerender at build time,
 // where the DB's private network is unreachable.
 export const dynamic = 'force-dynamic';
 
@@ -39,7 +41,7 @@ interface LastIngestRun {
 }
 
 /** ingest_state's 'last_run' row (Postgres in prod, .data/ingest-state.json
- *  locally) — absent until the timer or a manual POST /api/ingest/run has
+ *  locally). absent until the timer or a manual POST /api/ingest/run has
  *  fired at least once. Never throws: a missing/corrupt row reads as null. */
 async function loadLastIngestRun(): Promise<LastIngestRun | null> {
   try {
@@ -50,16 +52,28 @@ async function loadLastIngestRun(): Promise<LastIngestRun | null> {
   }
 }
 
-/** Desk operational state (see desk-store.ts) — a missing/corrupt local store
- *  or an empty Postgres queue reads as empty, never throws, so this can't
- *  take the health page down. */
-async function loadDeskSummary(): Promise<DeskSummary> {
-  const proposals = await listProposals();
-  const pending = proposals.filter((p) => p.state === 'pending').length;
-  const applying = proposals.filter((p) => p.state === 'applying').length;
-  const decided = proposals.filter((p) => p.state === 'approved' || p.state === 'rejected').length;
-  return { pending, applying, decided };
+/** Desk operational state (see desk-store.ts). a missing/corrupt local store
+ *  or an empty Postgres queue reads as empty. Null when the store itself is
+ *  unreachable (Postgres down, or the production fail-closed): the page that
+ *  reports a misconfigured store must not be taken down by it, and an
+ *  unreadable queue renders as "Not available", never as a zero that reads as "empty". */
+async function loadDeskSummary(): Promise<DeskSummary | null> {
+  try {
+    const proposals = await listProposals();
+    const pending = proposals.filter((p) => p.state === 'pending').length;
+    const applying = proposals.filter((p) => p.state === 'applying').length;
+    const decided = proposals.filter((p) => p.state === 'approved' || p.state === 'rejected').length;
+    return { pending, applying, decided };
+  } catch {
+    return null;
+  }
 }
+
+const BACKEND_NOTE: Record<ReturnType<typeof storeBackend>, string> = {
+  postgres: '',
+  local: '. approvals live only on this container and do not survive a restart.',
+  unconfigured: '. DATABASE_URL is not set in production; the Desk is refusing every write until it is.',
+};
 
 function formatLoadedAt(iso: string): string {
   const d = new Date(iso);
@@ -67,9 +81,26 @@ function formatLoadedAt(iso: string): string {
   return d.toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
 }
 
+/** The three states the counters alone do not name: a backlog past the
+ *  per-boot limit and a spent budget both leave approvals off this disk, and
+ *  a torn row is half-applied data. Each one has to read as a condition, not
+ *  as a clean pass with an odd number next to it. */
+/** How many lapsing programs the card names before it stops being one screen.
+ *  Twelve is the whole reviewed set today; the cap is what keeps the card the
+ *  same size as coverage grows. */
+const REVIEW_ROWS = 12;
+
+function replayFlags(replay: BootReplayReport): string[] {
+  return [
+    replay.truncated ? 'backlog over the per-boot row limit' : null,
+    replay.timedOut ? 'boot budget spent' : null,
+    replay.torn ? 'TORN: a registry write was left half-applied' : null,
+  ].filter((f): f is string => f !== null);
+}
+
 export default async function HealthPage() {
   const registry = loadRegistry();
-  const { counts, awards, loadedAt } = registry;
+  const { counts, awards, loadedAt, programs } = registry;
   const live = liveCounts(registry);
   const board = briefingBoard({ registry });
   const orgWebsite = new Map(registry.orgs.map((org) => [org.id, org.website]));
@@ -82,10 +113,18 @@ export default async function HealthPage() {
     const days = daysUntil(row.round.closes);
     return days !== null && days >= 0 && days <= 14;
   });
+  const freshness = reviewFreshness(programs);
+  // Expired first, then due; each half already sorted by date, which is the
+  // order an operator works them in.
+  const lapsing = [...freshness.expired.map((r) => ({ ...r, expired: true })), ...freshness.due.map((r) => ({ ...r, expired: false }))];
+  const identityBlocked = freshness.expired.filter((r) => !r.renewable).length;
+  const backend = storeBackend();
+  const replay = lastBootReplayReport();
   const [desk, ingest, ledger] = await Promise.all([
     loadDeskSummary(),
     loadLastIngestRun(),
-    getAppliedChangeLedgerHealth(),
+    // Same reason as loadDeskSummary: an unreadable ledger reports as "Not available".
+    getAppliedChangeLedgerHealth().catch(() => null),
   ]);
 
   const byYear = new Map<string, number>();
@@ -101,7 +140,7 @@ export default async function HealthPage() {
       <PageHeader
         eyebrow="THE INSTRUMENT PANEL"
         title="Health"
-        sub="Registry counts, the live board a client would see, and the curation desk."
+        sub="Registry counts, current rounds, review dates and the curation desk."
       />
       <div className="mx-auto max-w-6xl px-4 pb-16 space-y-8">
         <Card>
@@ -121,6 +160,64 @@ export default async function HealthPage() {
             ))}
           </div>
           <div className="mt-4 border-t border-line pt-3 coord">Registry loaded {formatLoadedAt(loadedAt)}</div>
+        </Card>
+
+        {/* Internal research dates do not gate the public program facts. */}
+        <Card>
+          <Coord>Review freshness</Coord>
+          <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-4">
+            <div className="py-3.5 pr-4">
+              <Stat label="Expired" value={freshness.expired.length} />
+            </div>
+            <div className="px-4 py-3.5">
+              <Stat label={`Expiring ≤${REVIEW_HORIZON_DAYS}d`} value={freshness.due.length} />
+            </div>
+            <div className="px-4 py-3.5">
+              <Stat label="Status drift" value={freshness.drifted.length} />
+            </div>
+            <div className="py-3.5 pl-4">
+              <Stat label="Reviewed" value={`${freshness.reviewed} / ${counts.programs}`} />
+            </div>
+          </div>
+          {lapsing.length === 0 ? (
+            <div className="mt-3">
+              <Empty>Every review on file is current.</Empty>
+            </div>
+          ) : (
+            // The awards-by-year row idiom, with a wider label column: a full
+            // YYYY-MM-DD does not fit the w-16 a year sits in.
+            <div className="mt-4 divide-y divide-line border-t border-line overflow-x-auto">
+              {lapsing.slice(0, REVIEW_ROWS).map((r) => (
+                <div key={r.id} className="flex items-center gap-4 py-2 text-xs">
+                  <span className={`w-24 shrink-0 font-mono text-[11px] font-semibold tracking-[.08em] ${r.expired ? 'text-closing' : 'text-faint'}`}>{r.review_after}</span>
+                  <span className={`min-w-0 truncate ${r.expired ? 'text-closing' : 'text-dim'}`}>{r.name}</span>
+                  <span className="ml-auto shrink-0 font-mono text-[11px] text-faint">{r.expired ? (r.renewable ? 'expired' : 'expired · identity') : 'expiring'}</span>
+                </div>
+              ))}
+              {lapsing.length > REVIEW_ROWS && (
+                <div className="flex items-center gap-4 py-2 text-xs">
+                  <span className="w-24 shrink-0 font-mono text-[11px] text-faint">+{lapsing.length - REVIEW_ROWS}</span>
+                  <span className="text-faint">more lapsing, oldest first.</span>
+                </div>
+              )}
+            </div>
+          )}
+          <div className="mt-4 border-t border-line pt-3 coord">
+            Review dates organize research follow-ups. Public program facts and their noted dates remain visible when a review is overdue.
+          </div>
+          <div className="mt-1.5 coord text-faint">
+            Renew one wire at a time: npm run research:recheck -- --wire crypto --due-days {REVIEW_HORIZON_DAYS} --renew-days 30. It re-fetches each official source and proposes the renewal to the Desk; it never writes registry/ and never stamps a date it did not earn.
+          </div>
+          {identityBlocked > 0 && (
+            <div className="mt-1.5 coord text-faint">
+              {identityBlocked} expired {identityBlocked === 1 ? 'record is' : 'records are'} beyond a recheck: an unresolved identity, a former or unconfirmed operator, or a program that is not active. A renewed date alone does not resolve those questions.
+            </div>
+          )}
+          {freshness.drifted.length > 0 && (
+            <div className="mt-1.5 coord text-closing">
+              Reviewed status no longer matches the program: {freshness.drifted.map((r) => r.id).join(', ')}. That is a status correction, not a renewal.
+            </div>
+          )}
         </Card>
 
         <Card>
@@ -194,29 +291,48 @@ export default async function HealthPage() {
           <Coord>The Desk</Coord>
           <div className="mt-4 grid max-w-md grid-cols-3 divide-x divide-line border-t border-line">
             <div className="py-3.5 pr-4">
-              <Stat label="Pending" value={desk.pending} />
+              <Stat label="Pending" value={desk ? desk.pending : 'Not available'} />
             </div>
             <div className="px-4 py-3.5">
-              <Stat label="Applying / hold" value={desk.applying} />
+              <Stat label="Applying / hold" value={desk ? desk.applying : 'Not available'} />
             </div>
             <div className="py-3.5 pl-4">
-              <Stat label="Decided" value={desk.decided} />
+              <Stat label="Decided" value={desk ? desk.decided : 'Not available'} />
             </div>
           </div>
           <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-4">
             <div className="py-3.5 pr-4">
-              <Stat label="Ready to sync" value={ledger.ready} />
+              <Stat label="Ready to sync" value={ledger ? ledger.ready : 'Not available'} />
             </div>
             <div className="px-4 py-3.5">
-              <Stat label="Reconciling" value={ledger.prepared} />
+              <Stat label="Reconciling" value={ledger ? ledger.prepared : 'Not available'} />
             </div>
             <div className="px-4 py-3.5">
-              <Stat label="Sync conflicts" value={ledger.conflicts} />
+              <Stat label="Sync conflicts" value={ledger ? ledger.conflicts : 'Not available'} />
             </div>
             <div className="py-3.5 pl-4">
-              <Stat label="Oldest ready" value={ledger.oldestReadyAt ? formatLoadedAt(ledger.oldestReadyAt) : '–'} />
+              <Stat label="Oldest ready" value={ledger?.oldestReadyAt ? formatLoadedAt(ledger.oldestReadyAt) : 'Not available'} />
             </div>
           </div>
+          <div className="mt-4 border-t border-line pt-3 coord">
+            Desk store: {backend}
+            {BACKEND_NOTE[backend]}
+          </div>
+          {/* This container's boot replay of the durable outbox onto its own
+              ephemeral registry/ (src/lib/boot-replay.ts). A postgres backend
+              with no replay line means this instance is running an image from
+              before the replay existed. itself the alarm. */}
+          <div className="mt-1.5 coord text-faint">
+            {replay
+              ? `Boot replay: ${replay.status} · ${replay.applied} applied, ${replay.alreadyApplied} already on disk, ` +
+                `${replay.failed} refused, ${replay.deferred} deferred of ${replay.scanned} scanned · ` +
+                replayFlags(replay).map((f) => `${f} · `).join('') +
+                `${replay.durationMs}ms · instance ${replay.instance} · ${formatLoadedAt(replay.at)}`
+              : 'Boot replay: has not run on this instance.'}
+          </div>
+          {replay && replay.errors.length > 0 && (
+            <div className="mt-1.5 coord text-closing">{replay.errors.join('; ')}</div>
+          )}
         </Card>
 
         <Card>
@@ -229,16 +345,16 @@ export default async function HealthPage() {
             <>
               <div className="mt-4 grid grid-cols-2 divide-x divide-y divide-line border-t border-line sm:grid-cols-4">
                 <div className="px-4 py-3.5 pl-0">
-                  <Stat label="Proposals created" value={ingest.proposals_created ?? '–'} />
+                  <Stat label="Proposals created" value={ingest.proposals_created ?? 'Not available'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Dropped" value={ingest.dropped ?? '–'} />
+                  <Stat label="Dropped" value={ingest.dropped ?? 'Not available'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Machine-passed" value={ingest.validation?.passed ?? '–'} />
+                  <Stat label="Machine-passed" value={ingest.validation?.passed ?? 'Not available'} />
                 </div>
                 <div className="px-4 py-3.5">
-                  <Stat label="Machine-failed" value={ingest.validation?.failed ?? '–'} />
+                  <Stat label="Machine-failed" value={ingest.validation?.failed ?? 'Not available'} />
                 </div>
               </div>
               <div className="mt-4 border-t border-line pt-3 coord">

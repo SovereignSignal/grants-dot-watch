@@ -13,6 +13,8 @@ import { parsePage } from '@/lib/pagination';
 import { param, type SearchParams } from '@/components/ledger/query';
 import { money } from '@/lib/format';
 import { awardMatchesProgram } from '@/lib/awards';
+import { ReviewedPrograms } from '@/components/programs/program-review';
+
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -42,6 +44,8 @@ export default async function OrgPage({
 
   const primarySystem = org.systems?.[0] ? systemById.get(org.systems[0]) : null;
   const systemNames = (org.systems || []).map((sid) => systemById.get(sid)?.name).filter((n): n is string => Boolean(n));
+
+  const activeCount = programs.filter(p => p.status === 'active').length;
 
   // Keep cadence counts on the same matching rule as the visible ledger.
   const cadenceRows: CadenceRow[] = programs.map((p) => {
@@ -137,7 +141,7 @@ export default async function OrgPage({
             </a>
           )}
 
-          {programs.length === 0 ? <Empty>No programs on file for this org yet.</Empty> : <CadenceLane rows={cadenceRows} />}
+          {programs.length === 0 ? <Empty>No programs on file for this org yet.</Empty> : programs.some(p => p.review) ? <ReviewedPrograms programs={programs} /> : <CadenceLane rows={cadenceRows} />}
         </section>
 
         <AwardLedger
@@ -157,10 +161,10 @@ export default async function OrgPage({
               { label: 'Awards', value: stats?.awards_given ?? 0 },
               { label: 'Grantees', value: stats?.grantees ?? 0 },
               { label: 'Known USD', value: money(stats?.awards_total_usd) },
+              { label: 'Current rounds', value: stats?.live_rounds ?? 0 },
               {
-                label: 'Live rounds',
-                value: stats?.live_rounds ?? 0,
-                note: (stats?.live_rounds ?? 0) === 0 ? 'no open or announced rounds on file' : undefined,
+                label: 'Active programs',
+                value: activeCount,
               },
               { label: 'Status', value: orgStatusLabel(org.status) },
             ]}

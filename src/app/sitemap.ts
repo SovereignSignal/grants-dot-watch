@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     entry('/', 1),
+    entry('/opportunities', 0.95),
+    entry('/about', 0.5),
     entry('/programs', 0.9),
     entry('/awards', 0.9),
     entry('/systems', 0.8),

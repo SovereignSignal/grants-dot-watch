@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const port = 3100;
+const port = Number(process.env.PLAYWRIGHT_PORT || 3100);
 const browserAdminToken = process.env.ADMIN_TOKEN || 'grants-watch-browser-test-token';
 
 export default defineConfig({
@@ -16,7 +16,11 @@ export default defineConfig({
   webServer: {
     command: `npm start -- --port ${port}`,
     url: `http://127.0.0.1:${port}`,
-    env: { ADMIN_TOKEN: browserAdminToken },
+    // This suite runs the real production build (`npm start` sets
+    // NODE_ENV=production) against no database on purpose. desk-store fails
+    // closed there; this is the explicit opt-out, and /admin/health reports
+    // the local backend for as long as it is on.
+    env: { ADMIN_TOKEN: browserAdminToken, GRANTS_WATCH_ALLOW_LOCAL_STORE: '1' },
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

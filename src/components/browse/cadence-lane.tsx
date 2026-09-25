@@ -8,7 +8,8 @@
 import Link from 'next/link';
 import type { Program, Round } from '@/lib/types';
 import { cadenceFallback } from '@/lib/cadence';
-import { effectiveRoundLabel, productDateISO, productYear } from '@/lib/round-state';
+import { productDateISO, productYear } from '@/lib/round-state';
+import { programFacts, roundHistoryLabel } from '@/lib/program-facts';
 
 const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // Cumulative day-of-year at the 1st of each month (non-leap approximation —
@@ -29,18 +30,10 @@ function dayOfYearPct(dateStr: string | undefined, year: number): number | null 
   return pct(days);
 }
 
-function roundDescription(program: Program, round: Round): string {
-  const date = round.closes ? `closes ${round.closes}` : round.opens ? `opens ${round.opens}` : 'no dates published';
-  return `${round.name}: ${effectiveRoundLabel(program, round).toLowerCase()}, ${date}`;
+function roundDescription(round: Round): string {
+  const date = round.closes ? `deadline ${round.closes}` : round.opens ? `from ${round.opens}` : 'no dates published';
+  return `${round.name}: ${roundHistoryLabel(round)}, ${date}`;
 }
-
-const ROUND_DOT: Record<string, string> = {
-  open: 'var(--color-live)',
-  announced: 'var(--color-signal)',
-  reviewing: 'var(--color-closing)',
-  closed: 'var(--color-faint)',
-  deployed: 'var(--color-faint)',
-};
 
 export interface CadenceRow {
   program: Program;
@@ -56,7 +49,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
       <div data-testid="org-cadence-mobile" className="md:hidden">
         {rows.map(({ program, grantCount }) => {
           const dated = (program.rounds || []).filter((round) => dayOfYearPct(round.closes || round.opens, y) != null);
-          const detail = dated.length > 0 ? dated.map((round) => roundDescription(program, round)).join('; ') : cadenceFallback(program, y).label;
+          const detail = dated.length > 0 ? dated.map((round) => roundDescription(round)).join('; ') : cadenceFallback(program, y).label;
           return (
             <Link
               key={program.id}
@@ -65,7 +58,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
             >
               <div className="display text-[15px] leading-tight text-paper">{program.name}</div>
               <div className="coord mt-1">
-                {grantCount} grant{grantCount === 1 ? '' : 's'} tracked
+                {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
               </div>
               <div className="mt-1 text-[12px] leading-snug text-dim">{detail}</div>
             </Link>
@@ -116,7 +109,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
             .map((r) => ({ r, p: dayOfYearPct(r.closes || r.opens, y) }))
             .filter((x): x is { r: Round; p: number } => x.p != null);
           const caption = dated.length > 0 ? null : cadenceFallback(program, y).label;
-          const description = dated.length > 0 ? dated.map(({ r }) => roundDescription(program, r)).join('; ') : caption || 'No cadence on file';
+          const description = dated.length > 0 ? dated.map(({ r }) => roundDescription(r)).join('; ') : caption || 'No cadence on file';
           const descriptionId = `cadence-${program.id}-description`;
 
           return (
@@ -131,7 +124,7 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
                 </Link>
                 <span id={descriptionId} className="sr-only">{description}</span>
                 <div className="coord mt-0.5 text-[9.5px]">
-                  {grantCount} grant{grantCount === 1 ? '' : 's'} tracked
+                  {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
                 </div>
               </div>
               <div className="relative h-[28px] flex-1">
@@ -147,14 +140,9 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
                     <span
                       key={i}
                       aria-hidden
-                      title={roundDescription(program, r)}
+                      title={roundDescription(r)}
                       className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2"
-                      style={{
-                        left: `${p}%`,
-                        background: ['Open', 'Announced'].includes(effectiveRoundLabel(program, r))
-                          ? ROUND_DOT[r.status] || 'var(--color-faint)'
-                          : 'var(--color-faint)',
-                      }}
+                      style={{ left: `${p}%`, background: roundHistoryLabel(r) === 'Closed' ? 'var(--color-faint)' : 'var(--color-paper)' }}
                     />
                   ))
                 )}

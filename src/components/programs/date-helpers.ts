@@ -16,9 +16,11 @@ export function daysUntil(date: string | undefined | null, today: string = produ
   return isoDay(date) - isoDay(today);
 }
 
-/** The "gold treatment" rule: a dated close inside the next 14 days. */
-export function isClosingSoon(date: string | undefined | null): boolean {
-  const days = daysUntil(date);
+/** The "gold treatment" rule: a dated close inside the next 14 days. Takes the
+ *  caller's business date so a board and the page that renders it cannot
+ *  disagree across a Pacific midnight. */
+export function isClosingSoon(date: string | undefined | null, today: string = productDateISO()): boolean {
+  const days = daysUntil(date, today);
   return days !== null && days >= 0 && days <= 14;
 }
 

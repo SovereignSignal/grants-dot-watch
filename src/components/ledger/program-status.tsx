@@ -1,7 +1,6 @@
 import { PROGRAM_STATUS_LABEL, PROGRAM_STATUS_TONE } from './labels';
 
-/** Dot + label for a program's own status field (active/paused/concluded/announced/unknown) —
- *  distinct from RoundStatus in ui.tsx, which describes a single round. */
+/** The operating status recorded for this program. */
 export function ProgramStatusBadge({ status }: { status: string }) {
   const label = PROGRAM_STATUS_LABEL[status] || status;
   const dot = PROGRAM_STATUS_TONE[status] || PROGRAM_STATUS_TONE.unknown;
