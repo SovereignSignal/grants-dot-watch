@@ -28,7 +28,7 @@ rounds:
     closes: 2026-08-07
     source: https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996
   - name: Round 40 (August 7-September 7 2026)
-    status: open
+    status: closed
     closes: 2026-09-07
     source: https://dao.rocketpool.net/t/round-40-gmc-call-for-grant-applications-deadline-is-september-7/4019
 sources:

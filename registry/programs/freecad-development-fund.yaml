@@ -14,7 +14,7 @@ summary: Quarterly grants (EUR 1,500-5,000, EUR 40,000 reserved for 2026) to acc
   infrastructure.
 rounds:
   - name: Q3 2026
-    status: open
+    status: closed
     closes: 2026-09-01
     size: EUR 1,500-5,000 per grant
     source: https://fpa.freecad.org/programs/fpadf-announcement

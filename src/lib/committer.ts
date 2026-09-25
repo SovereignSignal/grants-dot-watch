@@ -120,6 +120,7 @@ function programDocToYamlObject(p: Program): Record<string, unknown> {
   if (p.apply_url) out.apply_url = p.apply_url;
   out.summary = p.summary;
   out.rounds = p.rounds ?? [];
+  if (p.review) out.review = p.review;
   out.sources = p.sources ?? [];
   return out;
 }
@@ -172,6 +173,7 @@ function buildNewProgramChange(slug: string, input: Record<string, unknown>, p: 
     mechanism: (input.mechanism as Program['mechanism']) || existing?.mechanism,
     apply_url: (input.apply_url as string) || existing?.apply_url,
     summary: (input.summary as string) || existing?.summary || p.summary,
+    review: (input.review as Program['review']) || existing?.review,
     rounds: mergeRounds(existing?.rounds || [], input.rounds, p.evidence_url),
     sources: dedupe([...(existing?.sources || []), ...(Array.isArray(input.sources) ? (input.sources as string[]) : []), p.evidence_url]),
   };
@@ -326,7 +328,7 @@ function buildAwardChange(p: Proposal): AppliedChange {
 
 const ORG_SET_FIELDS = new Set(['name', 'aka', 'systems', 'wires', 'roles', 'org_type', 'website', 'status', 'profile']);
 const ORG_MERGE_OBJECT_FIELDS = new Set(['socials', 'funding']);
-const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'status', 'mechanism', 'apply_url', 'summary']);
+const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'status', 'mechanism', 'apply_url', 'summary', 'review']);
 
 function appendParagraph(existing: unknown, addition: string): string {
   const base = typeof existing === 'string' ? existing.trim() : '';
@@ -455,6 +457,13 @@ function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Pro
       touched = true;
       continue;
     }
+    if (field === 'rounds_replace') {
+      if (!Array.isArray(value)) throw new Error('rounds_replace must be an array');
+      if (!p.proposed_change?._expected_content_hashes) throw new Error('rounds_replace requires captured content hashes');
+      next.rounds = value;
+      touched = true;
+      continue;
+    }
     if (field === 'add_round' && value && typeof value === 'object' && !Array.isArray(value)) {
       next.rounds = mergeRounds((next.rounds as Round[]) || [], [value], p.evidence_url);
       touched = true;
@@ -519,6 +528,22 @@ function buildProfileNoteChanges(p: Proposal, notes: string[]): AppliedChange[] 
  *  the /api/desk/preview dry run and as the first step of applyProposal. */
 export function buildProposalChanges(p: Proposal): ApplyResult {
   const pc = (p.proposed_change || {}) as Record<string, unknown>;
+  // Research corrections are tied to the exact files the researcher read.
+  // Existing proposals without this optional guard keep their current behavior.
+  if ('_expected_content_hashes' in pc) {
+    const hashes = pc._expected_content_hashes;
+    if (!hashes || typeof hashes !== 'object' || Array.isArray(hashes)) throw new Error('Invalid expected content hashes');
+    const targets = Object.keys(pc).filter(k => /^(orgs|programs)\//.test(k));
+    if (!targets.length) throw new Error('Content hashes need registry targets');
+    for (const key of targets) if (!(key in hashes)) throw new Error(`Missing expected hash for ${key}`);
+    for (const [key, expected] of Object.entries(hashes)) {
+      if (!/^(orgs|programs)\/[a-z0-9][a-z0-9-]*\.yaml$/.test(key)) throw new Error('Invalid expected hash path');
+      if (expected !== null && (typeof expected !== 'string' || !/^[a-f0-9]{64}$/.test(expected))) throw new Error('Invalid expected content hash');
+      const path = join(REGISTRY, key);
+      const actual = existsSync(path) ? createHash('sha256').update(readFileSync(path)).digest('hex') : null;
+      if (actual !== expected) throw new Error(`Research correction is stale: ${key} changed. Recheck before approval.`);
+    }
+  }
   const notes: string[] = [];
   const changes: AppliedChange[] = [];
 

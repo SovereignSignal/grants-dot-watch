@@ -21,7 +21,7 @@ rounds:
     closes: 2026-04-10
     source: https://events.linuxfoundation.org/archive/2026/open-source-summit-north-america/attend/scholarships-travel-funding/
   - name: Open Source Summit Europe 2026 registration scholarships
-    status: open
+    status: closed
     closes: 2026-08-31
     source: https://events.linuxfoundation.org/open-source-summit-europe/attend/scholarships-travel-funding/
 sources:

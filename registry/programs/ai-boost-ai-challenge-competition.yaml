@@ -19,7 +19,7 @@ rounds:
     size: Per challenge, 5 x EUR 28,500 Spark prizes plus a EUR 100,000 final prize
     source: https://aiboost-project.eu/ai-challenge-competition/
   - name: Challenges 3 and 4
-    status: open
+    status: closed
     opens: 2026-07-03
     closes: 2026-09-08
     size: Per challenge, 5 x EUR 28,500 Spark prizes plus a EUR 100,000 final prize

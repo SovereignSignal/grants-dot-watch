@@ -8,6 +8,7 @@
 // blocks the other, and watermarks only advance for a source that actually
 // succeeded.
 import { Pool } from 'pg';
+import { runWireHandoff, type WireHandoffReport } from './wire-handoff';
 import { domainOf, norm } from './proposal-validator';
 import { slugify } from './committer';
 import {
@@ -997,6 +998,7 @@ export interface IngestOptions {
 }
 
 export interface IngestResult {
+  wire_handoff?: WireHandoffReport | null;
   source_counts: {
     wire: { fetched: number; error: string | null; policy_filtered: number; policy_reasons: Record<string, number> };
     discuss: {
@@ -1146,6 +1148,10 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
     }
   }
 
+  let wireHandoff: WireHandoffReport | null = null;
+  try { wireHandoff = await runWireHandoff(); }
+  catch (e) { errors.push(`wire handoff: ${e instanceof Error ? e.message : 'failed'}`); }
+
   // ---- machine validation (same pipeline The Desk's "Run validation" button uses) ----
   let validation = { passed: 0, failed: 0 };
   try {
@@ -1156,6 +1162,7 @@ export async function runIngest(opts: IngestOptions = {}): Promise<IngestResult>
   }
 
   return {
+    wire_handoff: wireHandoff,
     source_counts: {
       wire: {
         fetched: wireRows.length,
