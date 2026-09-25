@@ -68,10 +68,14 @@ if (mode === 'wait-for-outside-write') {
   // The case a directory-mtime probe and a bare newest-mtime compare both miss:
   // contents replaced in place with the old timestamps put back.
   const path = 'registry/programs/fund.yaml';
+  // Whole seconds round-trip through utimes on both Linux and macOS.
+  // Normalize before caching so the rewrite still has exactly the same mtime.
+  const initial = statSync(path);
+  utimesSync(path, Math.floor(initial.atimeMs / 1000), Math.floor(initial.mtimeMs / 1000));
   const before = name();
   const s = statSync(path);
   writeFileSync(path, readFileSync(path, 'utf8').replace(before, 'Restored In Place'));
-  utimesSync(path, s.atimeMs / 1000, s.mtimeMs / 1000); // seconds, so the fractional mtime round-trips exactly
+  utimesSync(path, s.atimeMs / 1000, s.mtimeMs / 1000);
   sleep(400);
   out({ before, after: name(), mtimeMoved: statSync(path).mtimeMs !== s.mtimeMs });
 } else if (mode === 'rollover') {
