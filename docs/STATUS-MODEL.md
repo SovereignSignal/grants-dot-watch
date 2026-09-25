@@ -48,10 +48,11 @@ and program pages use paper, ink and rules in place of rounded cards. The old
 dark palette and theme control have been retired because no dark Ledger design
 was approved. Newsreader uses variable optical sizing, as in the original HTML.
 
-The internal review queue and research producers retain their existing behavior.
-No paid provider requests or registry edits were made.
+The initial v1 implementation left the internal review queue, research producers and
+registry untouched. No paid provider requests were made. The main-based release now
+incorporates the separately reviewed Wire Room backend and approved round closures.
 
-## Validation
+## Initial v1 validation
 
 - Unit and integration: 144 passed, 35 skipped without Postgres.
 - Disposable local Postgres: all 179 passed; the database server was stopped.
@@ -69,9 +70,20 @@ No paid provider requests or registry edits were made.
 
 ## Release boundary
 
-Sov authorized publishing updated builds to grants.watch for production testing.
-Railway currently deploys `main`. That branch and `grants-watch-v1` differ across
-142 registry files: live main has 480 programs; this checkout has 485. Publishing
-v1 as-is would change the live registry snapshot. The release choice is pending:
-reconcile main's corrections first, or publish the existing v1 registry for testing.
-No push, merge, source-branch change or production deployment has occurred.
+The release uses main's current registry and preserves its public API, briefing and query
+routes. Backend PR #19, head `f5d82f5`, is integrated locally with the ten approved round
+closures. Main's remaining registry corrections and removed duplicates are preserved.
+The Ledger port restores awards search and keeps the departures board's standing-row
+deduplication. The internal health page combines existing diagnostics with storage failure
+and review-date reporting.
+
+The combined release passes 162 PostgreSQL-backed tests and 17 browser tests. Its types,
+build, lint, registry validation, loader preflight and public boundary pass. The dependency
+audit is clean. This test set differs from the original v1 baseline because it starts from
+main and the reviewed backend instead of importing the unreleased research producers.
+
+Fifteen individually reviewed v1 data proposals remain pending approval. They are not
+required to publish the Ledger UI against the existing registry. See
+[LEDGER-RELEASE.md](LEDGER-RELEASE.md) for the exact data decisions and publication plan.
+The combined frontend branch has not been pushed or deployed. Production release approval
+is the remaining shared-state step.

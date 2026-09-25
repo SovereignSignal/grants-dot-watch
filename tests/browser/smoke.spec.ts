@@ -81,13 +81,18 @@ test('directory filters program facts and links source-backed details', async ({
   await page.goto('/opportunities?wire=oss&q=Restack');
   await page.getByRole('link', { name: 'Restack', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'Restack' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Apply on nlnet.nl', exact: true })).toHaveAttribute('href', 'https://nlnet.nl/propose/');
+  const restack = registry.programs.find(program => program.id === 'nlnet-restack')!;
+  if (restack.apply_url) {
+    await expect(page.getByRole('link', { name: 'Apply on nlnet.nl', exact: true })).toHaveAttribute('href', restack.apply_url);
+  } else {
+    await expect(page.getByRole('link', { name: /^Apply on / })).toHaveCount(0);
+  }
   const facts = page.getByRole('complementary', { name: 'The facts' });
   await expect(facts.locator('dt')).toHaveText(['Status', 'How to apply', 'Next deadline']);
-  await expect(facts).toContainText('Active');
+  await expect(facts).toContainText(restack.status === 'active' ? 'Active' : 'Paused');
   await expect(facts).toContainText('In rounds');
   await expect(page.getByRole('heading', { name: 'Round history' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Source for First call' })).toHaveAttribute('href', 'https://nlnet.nl/news/2026/20260903-call.html');
+  await expect(page.getByRole('link', { name: 'Source for First call' })).toHaveAttribute('href', restack.rounds[0].source!);
   await page.goto('/opportunities?status=announced');
   expect(await cards.count()).toBeGreaterThan(0);
   for (const card of await cards.all()) await expect(card).toContainText('Announced');

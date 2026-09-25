@@ -22,15 +22,6 @@ test('former associations remain identified and excluded from the current-round 
   assert.equal(programRelationshipLabel(former),'Former operator');
   assert.equal(isCurrentRound(former,p.rounds[0],'2026-09-11'),false);
 });
-test('NLnet correction keeps distinct call scopes and month-only history',()=>{
-  const load=id=>YAML.parse(readFileSync(`registry/programs/${id}.yaml`,'utf8'));
-  assert.equal(load('nlnet-ngi-zero-commons-fund').rounds.at(-1).closes,'2026-06-01');
-  assert.equal(load('nlnet-restack').rounds[0].opens,'2026-09-03');
-  assert.equal(load('nlnet-codesupply').rounds[0].closes,'2026-11-03');
-  const elfa=load('nlnet-elfa');
-  assert.equal(elfa.review.history[0].date,'2026-08');
-  assert.equal(elfa.review.relationship,'former');
-});
 test('Desk correction guards prevent stale overwrites and preserve research metadata',async t=>{
   const cwd=process.cwd(), root=mkdtempSync(join(tmpdir(),'gw-research-'));
   process.chdir(root);
