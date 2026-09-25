@@ -41,13 +41,13 @@ test('cursor retains microseconds and the query includes joined edits and withdr
 });
 test('failed later packet leaves the checkpoint retryable; retry reuses identical packet IDs',async()=>{
  const seen=[],written=[],cursor={changed_at:'2026-09-24T00:00:00.000000Z',id:0};let fail=true;
- const deps={proposals:async()=>[],setState:async(k,v)=>written.push([k,v]),ingest:async(p,save)=>{seen.push([p.run_id,save]);if(fail&&p.wire==='ai')throw Error('storage unavailable');return {saved:save};}};
+ const deps={mappings:async()=>new Map(),setState:async(k,v)=>written.push([k,v]),ingest:async(p,save)=>{seen.push([p.run_id,save]);if(fail&&p.wire==='ai')throw Error('storage unavailable');return {saved:save};}};
  const rows=[row,{...row,id:2,wire:'ai'}];
  await assert.rejects(handoffWireRows(rows,{save:true,advance:true,cursor},deps),/storage unavailable/);assert.equal(written.length,0);
  fail=false;await handoffWireRows(rows,{save:true,advance:true,cursor},deps);assert.equal(seen[0][0],seen[2][0]);assert.deepEqual(written[0][1],{changed_at:time,id:2});
 });
 test('preview never advances a checkpoint and invalid batch cannot partially persist',async()=>{
- let calls=0;const deps={proposals:async()=>[],ingest:async(p,save)=>{assert.equal(save,false);calls++;return{};},setState:async()=>assert.fail('write in preview')};
+ let calls=0;const deps={mappings:async()=>new Map(),ingest:async(p,save)=>{assert.equal(save,false);calls++;return{};},setState:async()=>assert.fail('write in preview')};
  const report=await handoffWireRows([row],{},deps);assert.equal(report.saved,false);assert.equal(calls,1);
  await assert.rejects(handoffWireRows([row,{...row,id:2,wire:'unknown'}],{save:true},deps),/Unsupported/);assert.equal(calls,1);
  await assert.rejects(handoffWireRows([row],{save:true,advance:true},deps),/checkpoint/);

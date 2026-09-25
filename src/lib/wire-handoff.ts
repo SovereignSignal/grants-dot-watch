@@ -2,9 +2,11 @@
 // still requires an accepted registry proposal; a source status is not a verdict.
 import { Pool } from 'pg';
 import { contentHash, ingestResearch, type Finding, type ResearchReport } from './research-intake';
-import { getIngestState, listProposals, setIngestState } from './desk-store';
-import type { Proposal, Wire } from './types';
+import { getIngestState, setIngestState } from './desk-store';
+import type { Wire } from './types';
 import { httpUrl } from './evidence-fields';
+import { loadWireMappings } from './wire-mappings';
+export { acceptedWireMappings } from './wire-mappings';
 
 export const WIRE_HANDOFF_CURSOR = 'wire_handoff_v1';
 export interface WireChangeCursor { changed_at: string; id: number }
@@ -46,22 +48,6 @@ export async function fetchWireChanges(pool: Pick<Pool, 'query'>, cursor: WireCh
   return result.rows as WireObservation[];
 }
 
-/** Only an APPROVED Desk write establishes a mapping. Rejected, pending,
- * fuzzy name/domain matches and multi-target approvals cannot establish it. */
-export function acceptedWireMappings(proposals: Proposal[]): Map<number, string> {
-  const candidates = new Map<number, Set<string>>();
-  for (const p of proposals) {
-    const match = /^wire:(\d+)(?::|$)/.exec(String(p.signal_id ?? ''));
-    if (!match || p.state !== 'approved') continue;
-    const targets = Object.keys(p.proposed_change || {}).filter(k => /^programs\/[a-z0-9][a-z0-9-]*\.yaml$/.test(k));
-    if (targets.length !== 1) continue;
-    const id = Number(match[1]);
-    const values = candidates.get(id) || new Set<string>();
-    values.add(targets[0].slice(9, -5)); candidates.set(id, values);
-  }
-  return new Map([...candidates].filter(([, values]) => values.size === 1).map(([id, values]) => [id, [...values][0]]));
-}
-
 function clean(value: string | null): string | null {
   // Remove only known observation boilerplate, not dates inside source prose.
   return value?.replace(/^\s*(?:Date found|Scanned on|Scan date):[^\n]*\n?/gim, '').trim() || null;
@@ -95,10 +81,10 @@ export interface WireHandoffReport {
  * packet fails, its predecessors are replay-safe and the cursor stays put. */
 export async function handoffWireRows(rows: WireObservation[], opts: {
   save?: boolean; cursor?: WireChangeCursor; advance?: boolean;
-}, deps = { ingest: ingestResearch, proposals: listProposals, setState: setIngestState }): Promise<WireHandoffReport> {
+}, deps = { ingest: ingestResearch, mappings: loadWireMappings, setState: setIngestState }): Promise<WireHandoffReport> {
   if (rows.length > 200) throw new Error('Wire handoff accepts at most 200 records');
   if (opts.advance && (!opts.save || !opts.cursor)) throw new Error('Advancing requires saved outcomes and an explicit prior checkpoint');
-  const mappings = acceptedWireMappings(await deps.proposals());
+  const mappings = await deps.mappings();
   const groups = new Map<Wire, WireObservation[]>();
   // Validate the whole batch before persisting anything, including source
   // timestamps. Invalid rows must not be skipped behind an advancing cursor.
