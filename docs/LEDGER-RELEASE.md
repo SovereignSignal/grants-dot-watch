@@ -9,8 +9,9 @@ briefing, query, method and departures-board deduplication remain available.
 Backend PR [#19](https://github.com/SovereignSignal/grants-dot-watch/pull/19), head
 `f5d82f5`, is integrated locally. It contains the guarded Wire Room correction backend
 and the ten individually approved round-status closures. No other registry fields changed.
-The original v1 working session is preserved. This combined release has not been pushed
-or deployed. Main merge and production deployment require the final release approval.
+The original v1 working session is preserved. Publication of this tested combined release,
+including backend PR #19, was approved on September 25, 2026. The 15 proposals below remain
+excluded. Deployment completion must be verified against the published commit and live site.
 
 ## Data review
 
