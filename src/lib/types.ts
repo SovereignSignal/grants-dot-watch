@@ -40,6 +40,8 @@ export interface Round {
   status: 'announced' | 'open' | 'reviewing' | 'closed' | 'deployed';
   opens?: string;
   closes?: string;
+  /** Source-stated cutoff, including its UTC offset. Never inferred from a date. */
+  closes_at?: string;
   size?: string;
   source?: string;
 }
@@ -57,6 +59,30 @@ export interface Program {
   summary: string;
   rounds: Round[];
   sources: string[];
+  /** Research assessment, independent of application rounds and file load time. */
+  review?: ProgramReview;
+}
+
+export interface ProgramReview {
+  checked_on: string;
+  review_after: string;
+  operating: Program['status'];
+  intake: 'open' | 'closed' | 'postponed' | 'unknown';
+  intake_note: string;
+  source: string;
+  kind: 'program' | 'unresolved';
+  relationship: 'current' | 'former' | 'unconfirmed';
+  relationship_note?: string;
+  questions: string[];
+  history: { date: string; label: string; summary: string; source: string }[];
+  intake_mode?: 'rolling' | 'rounds' | 'unknown';
+  /** Application windows actually covered by this assessment. */
+  round_names?: string[];
+  facts?: Partial<Record<'eligibility' | 'geography' | 'funding' | 'deadline', {
+    value: string;
+    source: string;
+    checked_on: string;
+  }>>;
 }
 
 export interface Award {
@@ -90,7 +116,7 @@ export interface OrgStats {
   awards_total_usd: number;
   grantees: number;
   programs: number;
-  live_rounds: number;
+  live_rounds: number; // rounds the registry LISTS as current — inventory, not a claim
   last_activity: string | null; // latest dated award/round evidence
 }
 

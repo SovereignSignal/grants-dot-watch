@@ -448,11 +448,17 @@ function fail(checks: CheckResult[], reason: string): ValidationResult {
   return { pass: false, checks, reason };
 }
 
-function conciseProcessError(error: unknown): string {
+function conciseProcessError(error: unknown, targetPaths: string[] = []): string {
   if (!(error instanceof Error)) return String(error);
   const withStderr = error as Error & { stderr?: Buffer | string; stdout?: Buffer | string };
   const raw = withStderr.stderr?.toString() || withStderr.stdout?.toString() || error.message;
-  return raw.replace(/\s+/g, ' ').trim().slice(0, 600);
+  const targets = targetPaths.map(path => path.replace(/^registry\//, '') + ':');
+  // Show errors on the proposed files before unrelated registry findings.
+  // Otherwise the size bound can hide the correction the reviewer must make.
+  const lines = raw.split('\n').sort((a, b) =>
+    Number(targets.some(path => b.startsWith(path))) - Number(targets.some(path => a.startsWith(path)))
+  );
+  return lines.join(' ').replace(/\s+/g, ' ').trim().slice(0, 600);
 }
 
 /** Applies a pure change set to an isolated copy of registry/ and runs the
@@ -488,7 +494,7 @@ export function validateStagedChanges(changes: ReturnType<typeof buildProposalCh
     });
     return null;
   } catch (error) {
-    return conciseProcessError(error);
+    return conciseProcessError(error, changes.map(change => change.path));
   } finally {
     rmSync(stageRoot, { recursive: true, force: true });
   }

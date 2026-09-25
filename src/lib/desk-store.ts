@@ -25,6 +25,34 @@ const SEED_DIR = join(REPO_ROOT, 'seed');
 const DATABASE_URL = process.env.DATABASE_URL;
 const APPLY_LEASE_MS = 15 * 60 * 1000;
 
+/** The live backend. Never throws — the page that reports a fail-closed
+ *  misconfiguration must not be taken down by it. 'unconfigured' is
+ *  production with no DATABASE_URL: approvals would land in .data/ on a
+ *  container whose filesystem dies with it, and the site would revert while
+ *  still stamping itself freshly updated off file mtime.
+ *  GRANTS_WATCH_ALLOW_LOCAL_STORE=1 is the deliberate opt-out for a
+ *  production-mode build with no database (the Playwright suite). NODE_ENV
+ *  and the opt-out are read live rather than captured: this module has two
+ *  instances (the instrumentation chunk and the page bundles) and they must
+ *  not be able to disagree about the rule. */
+export function storeBackend(): 'postgres' | 'local' | 'unconfigured' {
+  if (DATABASE_URL) return 'postgres';
+  if (process.env.NODE_ENV === 'production' && process.env.GRANTS_WATCH_ALLOW_LOCAL_STORE !== '1') return 'unconfigured';
+  return 'local';
+}
+
+/** Which backend a call takes, plus the production fail-closed. Checked on
+ *  first store access, never at module load: admin/health/page.tsx imports
+ *  this module at module scope and `next build` evaluates page modules, so a
+ *  load-time throw would break the build. */
+function pgBacked(): boolean {
+  const backend = storeBackend();
+  if (backend === 'unconfigured') {
+    throw new Error('DATABASE_URL is not set: the Desk store refuses an ephemeral local file in production');
+  }
+  return backend === 'postgres';
+}
+
 interface RecordVerdictOptions {
   note?: string;
   commit?: string | null;
@@ -330,7 +358,7 @@ async function insertIngestProposalsPg(candidates: RawMinerProposal[]): Promise<
  *  merge_orgs — by (type, org, program). Safe to call repeatedly: a re-run
  *  over already-seen signals inserts nothing. */
 export async function insertIngestProposals(candidates: RawMinerProposal[]): Promise<{ inserted: Proposal[]; skipped: number }> {
-  return DATABASE_URL ? insertIngestProposalsPg(candidates) : insertIngestProposalsLocal(candidates);
+  return pgBacked() ? insertIngestProposalsPg(candidates) : insertIngestProposalsLocal(candidates);
 }
 
 // ---- ingest_state (watermarks + last-run log) ----
@@ -359,7 +387,7 @@ function writeLocalIngestState(state: Record<string, unknown>): void {
  *  mode, same {key: value} shape, so ingest.ts's watermark logic never has
  *  to know which backend it's on. */
 export async function getIngestState(key: string): Promise<unknown | null> {
-  if (!DATABASE_URL) {
+  if (!pgBacked()) {
     const state = readLocalIngestState();
     return key in state ? state[key] : null;
   }
@@ -370,7 +398,7 @@ export async function getIngestState(key: string): Promise<unknown | null> {
 }
 
 export async function setIngestState(key: string, value: unknown): Promise<void> {
-  if (!DATABASE_URL) {
+  if (!pgBacked()) {
     const state = readLocalIngestState();
     state[key] = value;
     writeLocalIngestState(state);
@@ -400,7 +428,7 @@ let localIngestMutex = false;
  *  an in-process boolean in local/JSON-desk mode, where there's no shared
  *  Postgres to lock against and only ever one process anyway. */
 export async function withIngestLock<T>(fn: () => Promise<T>): Promise<{ ran: boolean; result?: T }> {
-  if (!DATABASE_URL) {
+  if (!pgBacked()) {
     if (localIngestMutex) return { ran: false };
     localIngestMutex = true;
     try {
@@ -923,26 +951,26 @@ async function recoverStaleProposalClaimsPg(maxAgeMs: number): Promise<number> {
  *  into the store. Safe to call repeatedly — already-imported items are skipped
  *  by dedupe key. */
 export async function seedFromFiles(): Promise<{ imported: number; skipped: number }> {
-  return DATABASE_URL ? seedFromFilesPg() : seedFromFilesLocal();
+  return pgBacked() ? seedFromFilesPg() : seedFromFilesLocal();
 }
 
 export async function listProposals(filter?: { lane?: 'judgment' | 'fact'; state?: Proposal['state'] }): Promise<Proposal[]> {
   await recoverStaleProposalClaims();
-  return DATABASE_URL ? listProposalsPg(filter) : listProposalsLocal(filter);
+  return pgBacked() ? listProposalsPg(filter) : listProposalsLocal(filter);
 }
 
 export async function getProposal(id: string): Promise<Proposal | null> {
   await recoverStaleProposalClaims();
-  return DATABASE_URL ? getProposalPg(id) : getProposalLocal(id);
+  return pgBacked() ? getProposalPg(id) : getProposalLocal(id);
 }
 
 /** Newest first. */
 export async function listVerdicts(): Promise<Verdict[]> {
-  return DATABASE_URL ? listVerdictsPg() : listVerdictsLocal();
+  return pgBacked() ? listVerdictsPg() : listVerdictsLocal();
 }
 
 export async function queueCounts(): Promise<{ pendingJudgment: number; pendingFact: number; decidedToday: number; total: number }> {
-  return DATABASE_URL ? queueCountsPg() : queueCountsLocal();
+  return pgBacked() ? queueCountsPg() : queueCountsLocal();
 }
 
 /** Record a decision already carried out by the caller (committer.ts does the
@@ -954,30 +982,30 @@ export async function recordVerdict(
   decision: 'approved' | 'rejected',
   opts?: RecordVerdictOptions
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
-  return DATABASE_URL ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
+  return pgBacked() ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
 }
 
 /** Persist a validator run's result onto a still-pending proposal (FAIL case
  *  only — a PASS goes through recordVerdict instead). Never throws on a
  *  missing proposal; a run racing a manual decision just no-ops. */
 export async function setProposalValidation(id: string, validation: Proposal['validation']): Promise<void> {
-  return DATABASE_URL ? setProposalValidationPg(id, validation) : setProposalValidationLocal(id, validation);
+  return pgBacked() ? setProposalValidationPg(id, validation) : setProposalValidationLocal(id, validation);
 }
 
 /** Atomically owns a pending proposal before any registry write. */
 export async function claimProposal(id: string): Promise<Proposal | null> {
-  return DATABASE_URL ? claimProposalPg(id) : claimProposalLocal(id);
+  return pgBacked() ? claimProposalPg(id) : claimProposalLocal(id);
 }
 
 /** Returns an owned proposal to the queue when no registry write landed. */
 export async function releaseProposalClaim(id: string, validation?: Proposal['validation']): Promise<boolean> {
-  return DATABASE_URL ? releaseProposalClaimPg(id, validation) : releaseProposalClaimLocal(id, validation);
+  return pgBacked() ? releaseProposalClaimPg(id, validation) : releaseProposalClaimLocal(id, validation);
 }
 
 /** Applying is a lease, not a terminal state. Interrupted workers remain
  *  quarantined and surface in the Desk's reconciliation hold. */
 export async function recoverStaleProposalClaims(maxAgeMs: number = APPLY_LEASE_MS): Promise<number> {
-  return DATABASE_URL ? recoverStaleProposalClaimsPg(maxAgeMs) : recoverStaleProposalClaimsLocal(maxAgeMs);
+  return pgBacked() ? recoverStaleProposalClaimsPg(maxAgeMs) : recoverStaleProposalClaimsLocal(maxAgeMs);
 }
 
 // ---- durable applied-changes ledger ----
@@ -996,6 +1024,31 @@ export interface AppliedChangeEntry {
 }
 
 export type AppliedChangeState = 'prepared' | 'ready' | 'abandoned';
+
+/** Why an incoming change may not chain onto the newest unsynced row already
+ *  holding its path, or null when it legitimately may. Only a 'ready' row is
+ *  chainable: a 'prepared' row is uncommitted intent that a reject, a re-claim
+ *  or a release can still abandon (recordVerdictPg, claimProposalPg,
+ *  releaseProposalClaimPg), so chaining onto one bases this change on a state
+ *  no replay ever produces. The three content_before_hash shapes are distinct
+ *  and none but a hex string can follow an existing row. */
+function chainRefusal(
+  prior: { state: string; after: unknown },
+  file: AppliedChangeEntry['files'][number]
+): string | null {
+  if (prior.state !== 'ready') return 'that row is still prepared and can still be abandoned';
+  const after = prior.after;
+  if (typeof after !== 'string') return 'that row carries no replayable content';
+  if (!Object.prototype.hasOwnProperty.call(file, 'content_before_hash')) {
+    return 'this change carries no base hash to chain onto it';
+  }
+  if (file.content_before_hash === null) return 'this change claims the path does not exist yet';
+  if (typeof file.content_before_hash !== 'string') return 'this change has an unusable base hash';
+  if (createHash('sha256').update(after).digest('hex') !== file.content_before_hash) {
+    return 'this change was prepared against different bytes';
+  }
+  return null;
+}
 
 export interface AppliedChangeReceipt {
   backend: 'postgres' | 'local';
@@ -1026,7 +1079,7 @@ export async function recordAppliedChanges(
   entry: AppliedChangeEntry,
   state: AppliedChangeState = 'ready'
 ): Promise<AppliedChangeReceipt> {
-  if (!DATABASE_URL) {
+  if (!pgBacked()) {
     if (process.env.GRANTS_WATCH_NO_GIT === '1') {
       throw new Error('GRANTS_WATCH_NO_GIT=1 requires DATABASE_URL for durable approvals');
     }
@@ -1044,7 +1097,7 @@ export async function recordAppliedChanges(
       await client.query('SELECT pg_advisory_xact_lock($1)', [8892012]);
       const paths = entry.files.map((file) => file.path);
       const conflict = await client.query(
-        `SELECT id, proposal_id
+        `SELECT id, proposal_id, state, files
            FROM desk_applied_changes AS pending
           WHERE synced_at IS NULL
             AND state IN ('prepared', 'ready')
@@ -1052,15 +1105,33 @@ export async function recordAppliedChanges(
               SELECT 1 FROM jsonb_array_elements(pending.files) AS file
                WHERE file->>'path' = ANY($1::text[])
             )
-          ORDER BY id ASC
-          LIMIT 1`,
+          ORDER BY id ASC`,
         [paths]
       );
-      if (conflict.rows.length > 0) {
-        const row = conflict.rows[0];
-        throw new Error(
-          `registry path has unsynced Desk ledger row ${row.id}${row.proposal_id ? ` (${row.proposal_id})` : ''}`
-        );
+      // A second unsynced row on a path is legitimate when it was prepared
+      // against the newest one's result: boot replay and the sync script both
+      // apply rows in id order, so the chain reproduces. Refuse only a genuine
+      // fork. Without this, the first approval to a file blocks every later
+      // approval to that file until a human runs scripts/sync-desk-commits.mjs
+      // — and boot replay never sets synced_at, so in production that wait is
+      // unbounded. Rows arrive id-ascending, so the last write per path wins.
+      const head = new Map<string, { id: number; proposal_id: string | null; state: string; after: unknown }>();
+      for (const row of conflict.rows) {
+        const rowFiles = Array.isArray(row.files) ? (row.files as AppliedChangeEntry['files']) : [];
+        for (const file of rowFiles) {
+          if (!file || !paths.includes(file.path)) continue;
+          head.set(file.path, { id: row.id, proposal_id: row.proposal_id, state: row.state, after: file.content_after });
+        }
+      }
+      for (const file of entry.files) {
+        const prior = head.get(file.path);
+        if (!prior) continue;
+        const reason = chainRefusal(prior, file);
+        if (reason) {
+          throw new Error(
+            `registry path has unsynced Desk ledger row ${prior.id}${prior.proposal_id ? ` (${prior.proposal_id})` : ''}: ${reason}`
+          );
+        }
       }
       const inserted = await client.query(
         `INSERT INTO desk_applied_changes (proposal_id, files, message, state)
@@ -1094,7 +1165,7 @@ export async function recordAppliedChanges(
 }
 
 export async function getAppliedChangeLedgerHealth(): Promise<AppliedChangeLedgerHealth> {
-  if (!DATABASE_URL) {
+  if (!pgBacked()) {
     if (!existsSync(PENDING_COMMITS_PATH)) return { ready: 0, prepared: 0, conflicts: 0, oldestReadyAt: null };
     const rows = readFileSync(PENDING_COMMITS_PATH, 'utf8')
       .split('\n')
