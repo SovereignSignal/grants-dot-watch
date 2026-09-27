@@ -9,6 +9,7 @@ import { loadWireMappings } from './wire-mappings';
 export { acceptedWireMappings } from './wire-mappings';
 
 export const WIRE_HANDOFF_CURSOR = 'wire_handoff_v1';
+export const WIRE_RECONCILE_CURSOR = 'wire_handoff_reconcile_v1';
 export interface WireChangeCursor { changed_at: string; id: number }
 export interface WireObservation {
   id: number; program_id: number | null; duplicate_of_id: number | null; name: string; description: string | null;
@@ -48,6 +49,24 @@ export async function fetchWireChanges(pool: Pick<Pool, 'query'>, cursor: WireCh
   return result.rows as WireObservation[];
 }
 
+/** A repeating ID scan catches transactions committed behind the timestamp
+ * cursor, including withdrawals. One bounded batch per existing invocation;
+ * a complete cycle is eventual reconciliation, not instant delivery. */
+export async function reconcileWireRows(pool: Pick<Pool, 'query'>, afterId: unknown, deps = {
+  handoff: handoffWireRows, setState: setIngestState,
+}): Promise<{ records: number; after_id: number }> {
+  const id = afterId === null ? 0 : afterId;
+  if (!Number.isSafeInteger(id) || (id as number) < 0) throw new Error('Invalid Wire reconciliation checkpoint');
+  const result = await pool.query(`${WIRE_CHANGE_SELECT}
+    WHERE se.id > $1 AND se.wire IN ('crypto', 'ai', 'oss') ORDER BY se.id LIMIT 200`, [id]);
+  const rows = result.rows as WireObservation[];
+  // The timestamp cursor must not reject an older late-committed row.
+  await deps.handoff(rows, { save: true });
+  const next = rows.length < 200 ? 0 : rows[rows.length - 1].id;
+  await deps.setState(WIRE_RECONCILE_CURSOR, next);
+  return { records: rows.length, after_id: next };
+}
+
 function clean(value: string | null): string | null {
   // Remove only known observation boilerplate, not dates inside source prose.
   return value?.replace(/^\s*(?:Date found|Scanned on|Scan date):[^\n]*\n?/gim, '').trim() || null;
@@ -74,7 +93,7 @@ export function wireFinding(row: WireObservation, mappings: Map<number, string>)
 
 export interface WireHandoffReport {
   saved: boolean; cursor_before: WireChangeCursor | null; cursor_after: WireChangeCursor | null;
-  records: number; reports: ResearchReport[];
+  records: number; reports: ResearchReport[]; reconciliation?: { records: number; after_id: number };
 }
 
 /** Per-wire packets reuse the existing durable evidence store. If a later
@@ -122,6 +141,8 @@ export async function runWireHandoff(): Promise<WireHandoffReport | null> {
     options: '-c default_transaction_read_only=on -c statement_timeout=30000', connectionTimeoutMillis: 10_000 });
   try {
     const rows = await fetchWireChanges(pool, cursor);
-    return await handoffWireRows(rows, { save: true, advance: true, cursor });
+    const report = await handoffWireRows(rows, { save: true, advance: true, cursor });
+    report.reconciliation = await reconcileWireRows(pool, await getIngestState(WIRE_RECONCILE_CURSOR));
+    return report;
   } finally { await pool.end(); }
 }

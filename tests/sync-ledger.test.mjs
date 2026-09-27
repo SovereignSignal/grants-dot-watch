@@ -244,3 +244,28 @@ test('sync CLI exits nonzero and omits the success summary when a row fails', ()
     rmSync(repo, { recursive: true, force: true });
   }
 });
+
+test('deployment confirmation requires ledger bytes in deployed Git ancestry', async () => {
+  const { verifyLedgerCommit, confirmDeployment } = await import('../scripts/sync-desk-commits.mjs');
+  const repo=fixture();const originalFetch=globalThis.fetch;
+  try {
+    const previous=git(repo,'rev-parse','HEAD');
+    const row={id:1,files:[{path:'registry/target.yaml',content_before_hash:hash('value: old\n'),content_after:'value: new\n'}]};
+    row.sha=applyRow(repo,row,false).sha;
+    assert.equal(verifyLedgerCommit(repo,row,previous),false);
+    assert.equal(verifyLedgerCommit(repo,row,row.sha),true);
+    assert.equal(verifyLedgerCommit(repo,{...row,files:[{...row.files[0],content_after:'tampered'}]},row.sha),false);
+    const writes=[];const pool={query:async(sql,args)=>{writes.push([sql,args]);return {rowCount:1};}};
+    globalThis.fetch=async()=>({ok:true,json:async()=>({commit:previous})});
+    await confirmDeployment(repo,pool,[row],'https://example.org',false);assert.equal(writes.length,0);
+    globalThis.fetch=async()=>({ok:true,json:async()=>({commit:row.sha})});
+    await confirmDeployment(repo,pool,[row],'https://example.org',true);assert.equal(writes.length,0);
+    await confirmDeployment(repo,pool,[row],'https://example.org',false);assert.equal(writes.length,1);
+    assert.match(writes[0][0],/files = \$3::jsonb/);assert.equal(writes[0][1][1],row.sha);
+    // A later approved revision legitimately supersedes the earlier file.
+    const next={files:[{path:'registry/target.yaml',content_before_hash:hash('value: new\n'),content_after:'value: latest\n'}]};
+    const newer=applyRow(repo,next,false).sha;assert.equal(verifyLedgerCommit(repo,row,newer),true);
+    globalThis.fetch=async()=>({ok:true,json:async()=>({commit:newer})});
+    await assert.rejects(confirmDeployment(repo,{query:async()=>({rowCount:0})},[row],'https://example.org',false),/changed during/);
+  } finally {globalThis.fetch=originalFetch;rmSync(repo,{recursive:true,force:true});}
+});

@@ -40,6 +40,10 @@ ephemeral filesystem. That snapshot becomes replayable in the same transaction a
 verdict. Failed writes are abandoned. Local git failures use `.data/pending-commits.jsonl` on
 the persistent checkout.
 
+### Database deployment
+
+Provision or upgrade the Desk schema with `DATABASE_URL` set to a dedicated database owner connection and `node scripts/migrate-desk.mjs --apply`. Omitting `--apply` prints the plan. Production startup verifies the existing schema using SELECT only. Its runtime role needs SELECT, INSERT and UPDATE on the four Desk tables, and USAGE on the ledger ID sequence. Development keeps automatic setup against disposable databases.
+
 ### Admin authentication
 
 The Desk has independent owner and machine access paths:
@@ -92,3 +96,38 @@ scripts/           seed, resolve, validate, ingest tooling
 docs/DESIGN.md     the system's law
 seed/              working data for seeding (gitignored)
 ```
+
+Desk ledger commits stay eligible for boot recovery until deployment is confirmed.
+After pushing and deploying the accepted commits, fetch the deployed Git revision
+locally, then preview and confirm against the serving website:
+
+```sh
+node scripts/sync-desk-commits.mjs --confirm-deployment https://grants.watch --dry-run
+node scripts/sync-desk-commits.mjs --confirm-deployment https://grants.watch
+```
+
+Confirmation checks the public deployment revision, Git ancestry, and each
+ledger row's exact committed file contents. A local commit alone never marks
+content deployed. Legacy rows without a safe base remain manual review items.
+
+The existing Wire handoff also reconciles 200 records by ID on each invocation,
+cycling back to the beginning after reaching the end. This catches transactions
+committed behind its timestamp checkpoint, including later withdrawals. A full
+cycle takes `ceil(core_wire_rows / 200)` invocations, plus a wrap invocation when
+exactly divisible. It retains evidence for review and never publishes by itself.
+The reviewed initial handoff checkpoint remains required; this adds no schedule.
+
+Production Desk schema is provisioned separately from runtime access:
+
+```sh
+node scripts/migrate-desk.mjs
+# With a dedicated owner DATABASE_URL, after reviewing the dry run:
+node scripts/migrate-desk.mjs --apply
+```
+
+The website only verifies existing columns in production. Development and
+isolated tests can provision them automatically. Create a dedicated runtime
+login, grant database CONNECT, and apply `scripts/database-runtime-grants.sql`
+as the owner before switching the service connection. Keep the owner credential
+out of the website environment. The schema command preserves records and does
+not reload the separate registry index.

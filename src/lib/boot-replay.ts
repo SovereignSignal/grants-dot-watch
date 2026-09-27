@@ -9,18 +9,17 @@
 // content_before_hash compare-and-set scripts/sync-desk-commits.mjs uses,
 // minus every git step (a deployed container has no .git).
 //
-// It never sets synced_at. That column is the git archival marker, written
-// only by scripts/sync-desk-commits.mjs on a machine with git; a replica that
+// It never sets synced_at. That column confirms a deployed Git revision, written
+// only by scripts/sync-desk-commits.mjs --confirm-deployment; a replica that
 // consumed rows here would destroy the git record for everyone else.
 //
 // It never throws. A rejected register() is memoized by Next's prepare(), so
 // one bad row would 500 every route — including /admin/health — for the life
 // of the instance. See replayAppliedChanges.
 //
-// One window it does not close: sync-desk-commits.mjs marks a row synced the
-// moment it commits locally, but the container runs the old image until the
-// owner pushes and Railway redeploys. A restart inside that window replays
-// nothing and the file reverts.
+// A local Git commit leaves the row unsynced and replayable. Explicit
+// confirmation checks the serving revision and the row's committed contents
+// before marking it durable in the deployed image.
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';

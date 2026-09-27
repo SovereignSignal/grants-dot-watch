@@ -1,3 +1,4 @@
+import { migrateDeskSchema, verifyDeskSchema } from './desk-schema.mjs';
 // Server-only store for The Desk (the curation queue). Files are the truth
 // for the registry; this store is disposable operational state — the
 // pending/decided proposal log — mirroring the "Postgres holds only
@@ -383,7 +384,7 @@ function writeLocalIngestState(state: Record<string, unknown>): void {
 }
 
 /** Reads one ingest_state row. Postgres in prod (the table already exists —
- *  see initSchema); a flat .data/ingest-state.json file in local/JSON-desk
+ *  see the explicit Desk migration command); a flat .data/ingest-state.json file in local/JSON-desk
  *  mode, same {key: value} shape, so ingest.ts's watermark logic never has
  *  to know which backend it's on. */
 export async function getIngestState(key: string): Promise<unknown | null> {
@@ -641,55 +642,11 @@ function ensureSchema(): Promise<void> {
 
 async function initSchema(): Promise<void> {
   const db = getPool();
-  await db.query(`
-    CREATE TABLE IF NOT EXISTS desk_proposals (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      lane text NOT NULL,
-      state text NOT NULL,
-      created_at timestamptz NOT NULL
-    )
-  `);
-  await db.query(`
-    CREATE TABLE IF NOT EXISTS desk_verdicts (
-      proposal_id text NOT NULL,
-      data jsonb NOT NULL,
-      at timestamptz NOT NULL
-    )
-  `);
-  await db.query(`
-    CREATE TABLE IF NOT EXISTS ingest_state (
-      key text PRIMARY KEY,
-      value jsonb NOT NULL,
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `);
-  // Durable applied-changes ledger — same DDL as db/migrations/003_desk_ledger.sql
-  // (kept in sync), created here too so the runtime never depends on the
-  // loader having run against this database.
-  await db.query(`
-    CREATE TABLE IF NOT EXISTS desk_applied_changes (
-      id serial PRIMARY KEY,
-      proposal_id text,
-      files jsonb NOT NULL,
-      message text,
-      state text NOT NULL DEFAULT 'ready',
-      sha text,
-      synced_at timestamptz,
-      last_error text,
-      last_attempt_at timestamptz,
-      created_at timestamptz NOT NULL DEFAULT now()
-    )
-  `);
-  // Existing installations may predate the outbox lifecycle columns. These
-  // additive migrations are safe to run repeatedly at application startup.
-  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS state text NOT NULL DEFAULT 'ready'`);
-  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS last_error text`);
-  await db.query(`ALTER TABLE desk_applied_changes ADD COLUMN IF NOT EXISTS last_attempt_at timestamptz`);
-  await db.query(`
-    CREATE INDEX IF NOT EXISTS idx_desk_applied_changes_ready
-      ON desk_applied_changes (id) WHERE synced_at IS NULL AND state = 'ready'
-  `);
+  if (process.env.NODE_ENV === 'production') {
+    await verifyDeskSchema(db);
+    return;
+  }
+  await migrateDeskSchema(db);
   await maybeImportLocalStore(db);
 }
 
