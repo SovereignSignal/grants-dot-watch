@@ -3,7 +3,7 @@
 // by committer.ts whenever an approve could not produce a git commit, i.e.
 // GRANTS_WATCH_NO_GIT=1 on Railway or a git failure) into the local repo as
 // real commits: one commit per ledger row, oldest first, exactly the files
-// in the row, message from the row. Marks each row synced (synced_at + sha).
+// in the row, message from the row. Records a local commit SHA. Deployment confirmation alone sets synced_at.
 //
 // Usage:
 //   node scripts/sync-desk-commits.mjs [--db-url postgres://...] [--repo <path>] [--dry-run]
@@ -11,7 +11,7 @@
 //   node scripts/sync-desk-commits.mjs --from-jsonl .data/pending-commits.jsonl --repo <path>
 //
 // Idempotent: re-runs skip already-synced rows; a row whose files already
-// match the repo byte-for-byte is marked synced without a commit. Never
+// match the repo byte-for-byte records HEAD without a new commit. Never
 // pushes — the owner pushes.
 //
 // --from-jsonl reads the local-dev fallback ledger (same entry shape, one
@@ -31,11 +31,12 @@ const TRAILERS = [
 ];
 
 function parseArgs(argv) {
-  const out = { repo: DEFAULT_REPO, dryRun: false, fromJsonl: null, dbUrl: null };
+  const out = { repo: DEFAULT_REPO, dryRun: false, fromJsonl: null, dbUrl: null, deploymentUrl: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--db-url') out.dbUrl = argv[++i];
     else if (argv[i] === '--repo') out.repo = resolve(argv[++i]);
     else if (argv[i] === '--from-jsonl') out.fromJsonl = resolve(argv[++i]);
+    else if (argv[i] === '--confirm-deployment') out.deploymentUrl = argv[++i];
     else if (argv[i] === '--dry-run') out.dryRun = true;
     else {
       console.error(`Unknown argument: ${argv[i]}`);
@@ -192,7 +193,7 @@ export function applyRow(repo, row, dryRun) {
   for (const plan of plans) assertSnapshotUnchanged(repo, plan, 'during row preflight');
 
   if (wrote.length === 0) {
-    return { sha: git(repo, 'rev-parse', '--short', 'HEAD'), applied: true, skipped: true, wrote };
+    return { sha: git(repo, 'rev-parse', 'HEAD'), applied: true, skipped: true, wrote };
   }
   if (dryRun) return { sha: null, applied: true, skipped: false, wrote };
 
@@ -227,13 +228,47 @@ export function applyRow(repo, row, dryRun) {
   }
   // --only prevents unrelated pre-staged changes from entering this commit.
   git(repo, 'commit', '--only', '-m', withTrailers(row.message), '--author', 'The Desk <desk@grants.watch>', '--', ...wrote);
-  const sha = git(repo, 'rev-parse', '--short', 'HEAD');
+  const sha = git(repo, 'rev-parse', 'HEAD');
   for (const f of files) {
     if (headContent(repo, f.path) !== f.content_after) {
       throw new Error(`${f.path}: committed blob does not match ledger content`);
     }
   }
   return { sha, applied: true, skipped: false, wrote };
+}
+
+/** A local commit is durable only once an image containing it is serving.
+ * Validate ledger bytes at that commit and ancestry of the deployed image.
+ * Later accepted commits may legitimately supersede the same file. */
+export function verifyLedgerCommit(repo, row, descendant = 'HEAD') {
+  if (typeof row.sha !== 'string' || !/^[a-f0-9]{7,40}$/.test(row.sha)) return false;
+  if (!Array.isArray(row.files) || !row.files.length) return false;
+  try {
+    git(repo, 'merge-base', '--is-ancestor', row.sha, descendant);
+    return row.files.every(f => safePath(f.path) && typeof f.content_after === 'string'
+      && execFileSync('git', ['show', `${row.sha}:${f.path}`], { cwd: repo, stdio: 'pipe' }).toString() === f.content_after);
+  } catch { return false; }
+}
+
+export async function confirmDeployment(repo, pool, rows, url, dryRun) {
+  const endpoint = new URL('/api/v1/deployment', url);
+  if (endpoint.protocol !== 'https:') throw new Error('Deployment confirmation requires HTTPS');
+  const response = await fetch(endpoint, { cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(10000) });
+  if (!response.ok) throw new Error(`Deployment endpoint returned ${response.status}`);
+  const { commit } = await response.json();
+  if (typeof commit !== 'string' || !/^[a-f0-9]{40}$/.test(commit)) throw new Error('Deployed commit is unavailable');
+  // Resolve locally before considering any write. Fetching untrusted refs is not automatic.
+  git(repo, 'cat-file', '-e', `${commit}^{commit}`);
+  const eligible = rows.filter(row => verifyLedgerCommit(repo, row, commit));
+  for (const row of eligible) {
+    if (!dryRun) {
+      const result = await pool.query(`UPDATE desk_applied_changes SET synced_at = now(), last_error = NULL,
+        last_attempt_at = now() WHERE id = $1 AND sha = $2 AND files = $3::jsonb
+        AND synced_at IS NULL AND state = 'ready' RETURNING id`, [row.id, row.sha, JSON.stringify(row.files)]);
+      if (result.rowCount !== 1) throw new Error(`Ledger row ${row.id} changed during confirmation`);
+    }
+  }
+  console.log(JSON.stringify({ deployed_commit: commit, confirmed: eligible.length, pending: rows.length - eligible.length, dry_run: dryRun }));
 }
 
 async function main() {
@@ -299,10 +334,17 @@ async function main() {
     pool.supportsDeskLedgerErrors = columnNames.has('last_error') && columnNames.has('last_attempt_at');
     const replayable = pool.supportsDeskLedgerState ? " AND state = 'ready'" : '';
     const res = await pool.query(
-      `SELECT id, proposal_id, files, message FROM desk_applied_changes
+      `SELECT id, proposal_id, files, message, sha FROM desk_applied_changes
         WHERE synced_at IS NULL${replayable} ORDER BY id ASC`
     );
     rows = res.rows;
+  }
+
+  if (args.deploymentUrl) {
+    if (!pool || !pool.supportsDeskLedgerState || !pool.supportsDeskLedgerErrors) throw new Error('Deployment confirmation needs the current PostgreSQL ledger');
+    try { await confirmDeployment(repo, pool, rows, args.deploymentUrl, args.dryRun); }
+    finally { await pool.end(); }
+    return;
   }
 
   console.log(`${rows.length} unsynced ledger row${rows.length === 1 ? '' : 's'}${args.dryRun ? ' (dry run)' : ''}`);
@@ -314,7 +356,9 @@ async function main() {
     const label = `row ${row.id}${row.proposal_id ? ` (${row.proposal_id})` : ''}`;
     let result;
     try {
-      result = applyRow(repo, row, args.dryRun);
+      result = verifyLedgerCommit(repo, row)
+        ? { sha: row.sha, applied: true, skipped: true, wrote: [] }
+        : applyRow(repo, row, args.dryRun);
     } catch (e) {
       hadFailure = true;
       const detail = e instanceof Error ? e.message : String(e);
@@ -330,7 +374,7 @@ async function main() {
     }
     if (result.skipped) {
       alreadyApplied++;
-      console.log(`  ${label}: content already matches HEAD at ${result.sha}`);
+      console.log(`  ${label}: ledger content is committed at ${result.sha}; deployment confirmation pending`);
     } else if (args.dryRun) {
       console.log(`  ${label}: would commit ${result.wrote.length} file(s): ${result.wrote.join(', ')}`);
     } else {
@@ -341,12 +385,12 @@ async function main() {
       if (pool.supportsDeskLedgerErrors) {
         await pool.query(
           `UPDATE desk_applied_changes
-              SET synced_at = now(), sha = $2, last_error = NULL, last_attempt_at = now()
+              SET sha = $2, last_error = NULL, last_attempt_at = now()
             WHERE id = $1`,
           [row.id, result.sha]
         );
       } else {
-        await pool.query('UPDATE desk_applied_changes SET synced_at = now(), sha = $2 WHERE id = $1', [
+        await pool.query('UPDATE desk_applied_changes SET sha = $2 WHERE id = $1', [
           row.id,
           result.sha,
         ]);

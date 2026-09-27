@@ -52,3 +52,21 @@ test('preview never advances a checkpoint and invalid batch cannot partially per
  await assert.rejects(handoffWireRows([row,{...row,id:2,wire:'unknown'}],{save:true},deps),/Unsupported/);assert.equal(calls,1);
  await assert.rejects(handoffWireRows([row],{save:true,advance:true},deps),/checkpoint/);
 });
+
+test('ID reconciliation saves late commits behind the timestamp cursor and wraps',async()=>{
+ const {reconcileWireRows,WIRE_RECONCILE_CURSOR}=await import('../src/lib/wire-handoff.ts');
+ const saved=[],states=[];
+ const deps={handoff:async(rows,opts)=>{saved.push(rows);assert.deepEqual(opts,{save:true});},setState:async(...args)=>states.push(args)};
+ const late={...row,id:5,changed_at:'2026-01-01T00:00:00.000001Z',status:'declined'};
+ const result=await reconcileWireRows({query:async(sql,args)=>{assert.match(sql,/ORDER BY se.id LIMIT 200/);assert.deepEqual(args,[4]);return {rows:[late]};}},4,deps);
+ assert.equal(saved[0][0],late);assert.deepEqual(states,[[WIRE_RECONCILE_CURSOR,0]]);assert.equal(result.records,1);
+});
+test('failed ID reconciliation cannot advance; a full batch resumes by ID',async()=>{
+ const {reconcileWireRows}=await import('../src/lib/wire-handoff.ts');
+ const rows=Array.from({length:200},(_,i)=>({...row,id:i+1}));
+ const pool={query:async()=>({rows})};let checkpoint=null;
+ await assert.rejects(reconcileWireRows(pool,null,{handoff:async()=>{throw Error('storage failed');},setState:async()=>assert.fail('advanced')}),/storage failed/);
+ await reconcileWireRows(pool,0,{handoff:async()=>{},setState:async(k,v)=>{checkpoint=v;}});
+ assert.equal(checkpoint,200);
+ await assert.rejects(reconcileWireRows(pool,-1),/Invalid/);
+});
