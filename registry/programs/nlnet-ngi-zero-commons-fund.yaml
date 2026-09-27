@@ -7,13 +7,12 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: concluded
+status: active
 mechanism: grants
-summary: >
-  An NLnet-managed fund within the EU Next Generation Internet initiative that awarded
-  small-to-medium R&D grants (EUR 5,000-50,000 for first proposals) to deliver, mature,
-  and scale new internet commons across the full technology stack. NLnet published the
-  thirteenth call as the fund's final intake; no further applications are sought.
+apply_url: ""
+summary: Funds open internet software, hardware, standards and other shared infrastructure. The
+  final application call closed on June 1, 2026. Selection and supported project work continue;
+  closure of intake does not mean all grant activity has ended.
 rounds:
   - name: 6th call (April 2025)
     status: deployed
@@ -34,3 +33,26 @@ rounds:
 sources:
   - https://nlnet.nl/commonsfund/
   - https://nlnet.nl/propose/
+  - https://nlnet.nl/news/2026/20260808-60-new-projects.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: closed
+  intake_note: Final call closed June 1, 2026. No new applications are sought.
+  source: https://nlnet.nl/commonsfund/
+  kind: program
+  relationship: current
+  questions:
+    - Reconcile the later selection announcements with their calls and individual recipients.
+  history:
+    - date: 2026-06-01
+      label: Final intake closed
+      summary: The thirteenth call ended. The previous registry incorrectly assigned an August deadline to
+        Commons.
+      source: https://nlnet.nl/commonsfund/
+    - date: 2026-08-08
+      label: 60 projects announced
+      summary: Selection from the eleventh call. An award announcement does not establish a new call or
+        payment.
+      source: https://nlnet.nl/news/2026/20260808-60-new-projects.html
+  operating: active

@@ -1,6 +1,6 @@
 id: solana-mobile-builder-grants
 name: Solana Mobile Builder Grants
-org: solana-foundation
+org: solana-mobile
 parent: null
 systems: []
 wires:
@@ -8,17 +8,36 @@ wires:
 status: active
 mechanism: grants
 apply_url: https://solanamobile.com/grants
-summary: >-
-  Solana Mobile Builder Grants offers rolling funding for developers building apps, tools, and
-  Saga Seeker-integrated products on the Solana Mobile ecosystem. 
-
-
-  The program provides grants, technical guidance, and marketing support to help selected teams
-  launch on the dApp Store. It operates through two tracks: open Builder Grants and targeted RFPs. 
-
-
-  Applications are accepted on a rolling basis with no fixed deadline.
+summary: Milestone-based grants for mobile dApps, infrastructure and tools in the Solana Mobile
+  ecosystem, with potential technical and launch support.
 rounds: []
 sources:
   - https://solanamobile.com/grants
-  - https://solanamobile.com/blog/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas
+  - https://blog.solanamobile.com/post/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  operating: active
+  intake: open
+  intake_note: The official FAQ accepts grant ideas at any time. This assessment covers the general
+    builder route, not a future hackathon cohort.
+  source: https://solanamobile.com/grants
+  kind: program
+  relationship: current
+  intake_mode: rolling
+  facts:
+    eligibility:
+      value: Individuals, teams and organizations building mobile dApps, infrastructure, tooling, content
+        or research for the Solana Mobile ecosystem.
+      source: https://solanamobile.com/grants
+      checked_on: 2026-09-26
+    funding:
+      value: Milestone-based grant; amount not published.
+      source: https://solanamobile.com/grants
+      checked_on: 2026-09-26
+    deadline:
+      value: Rolling intake. No fixed closing date is stated.
+      source: https://solanamobile.com/grants
+      checked_on: 2026-09-26
+  questions: []
+  history: []

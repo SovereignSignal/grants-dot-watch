@@ -1,23 +1,23 @@
 id: nlnet-foundation
 name: NLnet Foundation
 aka:
-  - NLnet / NGI Zero Commons Fund
-  - nlnet ngi zero commons
-systems: [eu-public-rd, sovereign-tech]
-wires: [oss]
-roles: [funder]
+  - NLnet
+  - Stichting NLnet
+systems:
+  - eu-public-rd
+  - sovereign-tech
+wires:
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://nlnet.nl/
 socials:
   x: https://x.com/nlnet
 status: active
-profile: >
-  Dutch nonprofit that funds open internet and digital infrastructure projects
-  through NGI Zero and related programs, awarding grants (typically EUR 5k-50k)
-  via periodic open calls for free and open-source software. It awards dozens
-  of grants per cycle -- one 2026 announcement covered 67 projects -- and is
-  transitioning focus from NGI to the Open Internet Stack, with temporarily
-  narrowed calls while taking stock.
+profile: Dutch nonprofit funding open internet technology. Restack and CodeSupply currently accept
+  proposals. Commons Fund, Taler and Fediversity have closed their final calls while supported work
+  continues. NLnet has withdrawn from ELFA; its association is historical.
 funding:
   focus:
     - open source software
@@ -28,17 +28,17 @@ funding:
     - open data & AI
     - open science
     - internet commons
-  typical_size: >
-    EUR 5,000 to EUR 50,000 for a first proposal (scalable up to EUR 150,000
-    for subsequent proposals; maximum EUR 500,000 per third party over the
-    lifetime of the fund)
-  cadence: >
-    Continuous rolling open calls until the programme budget (EUR 21.6 million
-    through 2027) is fully allocated; historically a deadline fell on the 1st
-    of every even month.
-  apply_url: https://nlnet.nl/commonsfund/
+  typical_size: "Restack and CodeSupply: EUR 5,000 to EUR 50,000 per initial proposal. Fund budgets
+    and eligibility differ."
+  cadence: "Current cycle: deadline November 3, 2026, 12:00 CET. NLnet announced a shift to the third
+    day of odd-numbered months; verify each fund and call."
+  apply_url: https://nlnet.nl/propose/
 sources:
   - https://nlnet.nl/
   - https://nlnet.nl/commonsfund/
   - https://nlnet.nl/news/2026/20260409-announce-commons-fund.html
   - https://nlnet.nl/news/2025/20251127-45-NGI0-CommonsFund.html
+  - https://nlnet.nl/news/2026/20260903-call.html
+  - https://nlnet.nl/taler/
+  - https://nlnet.nl/fediversity/
+  - https://nlnet.nl/ELFA/

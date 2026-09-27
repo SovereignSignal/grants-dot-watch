@@ -2,27 +2,43 @@ id: nlnet-general-grants
 name: NLnet General Grants
 org: nlnet-foundation
 parent: null
-systems: [eu-public-rd, sovereign-tech]
+systems:
+  - eu-public-rd
+  - sovereign-tech
 wires:
   - oss
-status: active
+status: unknown
 mechanism: grants
-apply_url: https://nlnet.nl/propose/
-summary: NLnet provides grants of €5,000 to €50,000 for free and open-source software, hardware,
-  data, and standards. Open calls are paused through the Open Internet Stack transition. New calls
-  open 3 September 2026 and close 3 November 2026 at 12:00 CEST. Later deadlines fall on the third
-  day of every odd month.
+apply_url: ""
+summary: Legacy general intake record spanning multiple NLnet funds. Its former even-month cadence
+  is outdated. The scope of the Other route and any distinct general fund need verification before
+  this is presented as an independent opportunity.
 rounds:
   - name: Even-month open calls
     status: closed
     source: https://nlnet.nl/news/2026/20260803-phaseshift.html
-  - name: Odd-month call (Nov 2026)
-    status: announced
-    opens: 2026-09-03
-    closes: 2026-11-03
-    size: €5,000-€50,000
-    source: https://nlnet.nl/propose/
 sources:
   - https://nlnet.nl/propose/
   - https://nlnet.nl/funding.html
   - https://nlnet.nl/news/2026/20260803-phaseshift.html
+  - https://nlnet.nl/news/2026/20260903-call.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: unknown
+  intake_note: This record overlaps named funds. No separate current application opportunity has been verified.
+  source: https://nlnet.nl/news/2026/20260903-call.html
+  kind: unresolved
+  relationship: unconfirmed
+  questions:
+    - Resolve this record against named funds and the Other application route, retaining existing
+      references and award history.
+  history:
+    - date: 2026-09-03
+      label: Shared call scope unresolved
+      summary: The previous record assigned the shared November 3 application deadline to a separate
+        general fund. Current sources name Restack and CodeSupply; a distinct general program is not
+        established.
+      source: https://nlnet.nl/news/2026/20260903-call.html
+  relationship_note: Association with NLnet is known; identity as a distinct funding program needs review.
+  operating: unknown

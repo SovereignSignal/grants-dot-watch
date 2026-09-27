@@ -3,24 +3,59 @@ name: Restack
 org: nlnet-foundation
 parent: null
 systems:
-- eu-public-rd
-- sovereign-tech
+  - eu-public-rd
+  - sovereign-tech
 wires:
-- oss
-status: paused
+  - oss
+status: active
 mechanism: grants
-summary: EUR 10M Horizon Europe cascade-funding programme led by NLnet with FSFE and other partners, offering
-  EUR 5,000-50,000 R&D grants with rolling calls every two months (2026-2030) plus a scale-up track, across
-  open-tech sovereignty/privacy, internet resilience, environmental impact, and supply-chain transparency.
-  NLnet currently describes the fund as being set up; the first recorded call is closed and the next
-  window is not yet confirmed on the Restack page.
+apply_url: https://nlnet.nl/propose/
+summary: Supports open internet infrastructure across the technology stack, from chips to
+  applications. EUR 7 million is allocated for external grants through 2030, with initial requests
+  of EUR 5,000 to EUR 50,000. This grant allocation is distinct from the wider consortium budget.
 rounds:
-- name: First call
-  status: closed
-  opens: 2026-06-01
-  closes: 2026-06-01
-  size: EUR 10M programme; EUR 5,000-50,000 per grant
-  source: https://nlnet.nl/restack/
+  - name: First call
+    status: open
+    opens: 2026-09-03
+    closes: 2026-11-03
+    size: EUR 5,000 to EUR 50,000 per initial proposal
+    source: https://nlnet.nl/news/2026/20260903-call.html
+    closes_at: 2026-11-03T12:00:00+01:00
 sources:
-- https://fsfe.org/news/2026/news-20260528-01.en.html
-- https://nlnet.nl/restack/
+  - https://fsfe.org/news/2026/news-20260528-01.en.html
+  - https://nlnet.nl/restack/
+  - https://nlnet.nl/restack/eligibility/
+  - https://nlnet.nl/news/2026/20260903-call.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  operating: active
+  intake: open
+  intake_note: The first call is open. The official page states a November 3 deadline at noon CET.
+  source: https://nlnet.nl/restack/
+  kind: program
+  relationship: current
+  intake_mode: rounds
+  round_names:
+    - First call
+  facts:
+    eligibility:
+      value: Open internet infrastructure with results under a recognized free or open source license.
+        Most AI projects are outside scope; check the stated exception.
+      source: https://nlnet.nl/restack/
+      checked_on: 2026-09-26
+    funding:
+      value: EUR 5,000 to EUR 50,000 per initial proposal
+      source: https://nlnet.nl/restack/
+      checked_on: 2026-09-26
+    deadline:
+      value: November 3, 2026 at 12:00 CET (noon).
+      source: https://nlnet.nl/restack/
+      checked_on: 2026-09-26
+  questions: []
+  history:
+    - date: 2026-09-03
+      label: First call opened
+      summary: Current intake follows the new odd-month deadline cycle. The earlier June date is not a
+        confirmed round.
+      source: https://nlnet.nl/news/2026/20260903-call.html

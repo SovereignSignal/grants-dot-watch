@@ -7,18 +7,41 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: concluded
+status: active
 mechanism: grants
-summary: NLnet-run fund supporting free/open-source privacy-preserving digital payment
-  infrastructure built on GNU Taler. NLnet published the fourteenth call as the fund's
-  final intake; it closed 1 August 2026 and no further applications are accepted.
+apply_url: ""
+summary: Supports free and open source privacy-preserving payments and GNU Taler integrations. Its
+  final application call closed August 1, 2026; the program continues through August 2027. The EUR
+  676,000 minimum is the program grant allocation, not a remaining balance for an open call.
 rounds:
   - name: 2026 open call
     status: closed
     closes: 2026-08-01
-    size: €5,000–€50,000+ (applicant-specified; scalable for proven high-impact projects)
-    source: https://nlnet.nl/propose/
+    size: EUR 5,000 to EUR 50,000 per project
+    source: https://nlnet.nl/taler/
 sources:
   - https://nlnet.nl/
   - https://nlnet.nl/taler/
   - https://nlnet.nl/propose/
+  - https://nlnet.nl/news/2026/20260811-5-new-projects.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: closed
+  intake_note: 14th and final call closed August 1, 2026. Supported work continues.
+  source: https://nlnet.nl/taler/
+  kind: program
+  relationship: current
+  questions:
+    - Attribute the August pilot selections to their individual programs and recipients.
+  history:
+    - date: 2026-08-01
+      label: Final intake closed
+      summary: New applications ended; this is separate from delivery of supported projects.
+      source: https://nlnet.nl/taler/
+    - date: 2026-08-11
+      label: Pilot projects announced
+      summary: Five projects were announced across Taler and Fediversity. This is a shared announcement,
+        not five grants attributed to this program.
+      source: https://nlnet.nl/news/2026/20260811-5-new-projects.html
+  operating: active

@@ -1,0 +1,55 @@
+id: nih-kidney-ai-discovery-challenge
+name: Kidney AI Discovery Challenge
+org: national-institutes-of-health
+parent: null
+systems:
+  - us-federal-rd
+wires:
+  - ai
+status: active
+mechanism: prize
+apply_url: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+summary: A NIH/NIDDK challenge to use AI and related methods to discover overlooked patterns in
+  kidney tissue data. Submissions must use the specified public Kidney Precision Medicine Project
+  data.
+rounds:
+  - name: 2026-2027 challenge
+    status: announced
+    opens: 2026-11-05
+    closes: 2027-04-29
+    source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+sources:
+  - https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  operating: active
+  intake: unknown
+  intake_note: Submissions begin November 5. The challenge is announced and is not accepting submissions yet.
+  source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+  kind: program
+  relationship: current
+  intake_mode: rounds
+  round_names:
+    - 2026-2027 challenge
+  facts:
+    eligibility:
+      value: Participants must be 18 or older. Cash prizes require eligible US citizens, permanent
+        residents or US entities; other participants may join qualifying teams without receiving
+        cash.
+      source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+      checked_on: 2026-09-26
+    geography:
+      value: US cash-prize eligibility; see official team participation rules.
+      source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+      checked_on: 2026-09-26
+    funding:
+      value: Up to $50,000 per winner; $100,000 total prize purse
+      source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+      checked_on: 2026-09-26
+    deadline:
+      value: April 29, 2027. An exact cutoff time is not stated.
+      source: https://www.nih.gov/challenges/kidney-artificial-intelligence-discovery-challenge-nebulae-nephrons
+      checked_on: 2026-09-26
+  questions: []
+  history: []

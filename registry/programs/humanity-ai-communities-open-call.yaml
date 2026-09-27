@@ -1,0 +1,54 @@
+id: humanity-ai-communities-open-call
+name: Communities Leading on AI
+org: humanity-ai
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://humanityai.ai/open-call/
+summary: Grants for community-led work shaping how AI affects education, labor and the arts in the
+  United States. The overall call has a $10 million funding pool.
+rounds:
+  - name: 2026 open call
+    status: open
+    opens: 2026-09-10
+    closes: 2026-10-21
+    closes_at: 2026-10-21T16:59:00-07:00
+    source: https://humanityai.ai/open-call/
+sources:
+  - https://humanityai.ai/open-call/
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  operating: active
+  intake: open
+  intake_note: Initial applications are open. The funder notes that its timeline may change.
+  source: https://humanityai.ai/open-call/
+  kind: program
+  relationship: current
+  intake_mode: rounds
+  round_names:
+    - 2026 open call
+  facts:
+    eligibility:
+      value: US organizations, collaborations and individuals. A 501(c)(3) lead or fiscal sponsor is
+        generally required; the rules also allow eligible Tribal governments and public state
+        universities.
+      source: https://humanityai.ai/open-call/
+      checked_on: 2026-09-26
+    geography:
+      value: United States; proposals must focus on US communities.
+      source: https://humanityai.ai/open-call/
+      checked_on: 2026-09-26
+    funding:
+      value: $75,000 to $1,000,000 per grant
+      source: https://humanityai.ai/open-call/
+      checked_on: 2026-09-26
+    deadline:
+      value: October 21, 2026 at 4:59 p.m. Pacific / 7:59 p.m. Eastern.
+      source: https://humanityai.ai/open-call/
+      checked_on: 2026-09-26
+  questions: []
+  history: []
