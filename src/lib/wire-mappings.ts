@@ -116,7 +116,7 @@ export function resolveWireMappings(proposals: Proposal[], stored: unknown, targ
   return result;
 }
 export async function loadWireMappings(): Promise<Map<number, string>> {
-  return resolveWireMappings(await listProposals(), await getIngestState(WIRE_MAPPING_STATE), readMappingTarget);
+  return resolveWireMappings(await listProposals(undefined, { recoverClaims: false }), await getIngestState(WIRE_MAPPING_STATE), readMappingTarget);
 }
 
 export function prepareWireMappings(input: unknown, proposals: Proposal[], stored: unknown, target: ReadTarget) {
@@ -139,7 +139,7 @@ export function prepareWireMappings(input: unknown, proposals: Proposal[], store
     unchanged: packet.mappings.length - additions.length, decisions: packet.mappings, after };
 }
 
-const dependencies = { proposals: listProposals, getState: getIngestState, setState: setIngestState, target: readMappingTarget, lock: withIngestLock };
+const dependencies = { proposals: () => listProposals(undefined, { recoverClaims: false }), getState: getIngestState, setState: setIngestState, target: readMappingTarget, lock: withIngestLock };
 export async function reviewWireMappings(input: unknown, opts: { save?: boolean; expectedPlan?: string } = {}, deps = dependencies) {
   const locked = await deps.lock(async () => {
     const plan = prepareWireMappings(input, await deps.proposals(), await deps.getState(WIRE_MAPPING_STATE), deps.target);

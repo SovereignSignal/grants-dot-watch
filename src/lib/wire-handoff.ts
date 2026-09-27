@@ -43,7 +43,8 @@ export async function fetchWireChanges(pool: Pick<Pool, 'query'>, cursor: WireCh
   // No status filter: withdrawals must reach review. Preserve PostgreSQL's
   // microseconds and use the ID to traverse rows sharing the same timestamp.
   const result = await pool.query(`${WIRE_CHANGE_SELECT}
-    WHERE (GREATEST(se.created_at, se.updated_at, op.created_at, op.updated_at), se.id) > ($1::timestamptz, $2::integer)
+    WHERE se.wire IN ('crypto', 'ai', 'oss')
+      AND (GREATEST(se.created_at, se.updated_at, op.created_at, op.updated_at), se.id) > ($1::timestamptz, $2::integer)
     ORDER BY GREATEST(se.created_at, se.updated_at, op.created_at, op.updated_at), se.id LIMIT $3`,
   [c.changed_at, c.id, limit]);
   return result.rows as WireObservation[];
