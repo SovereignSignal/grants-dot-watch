@@ -70,3 +70,12 @@ test('failed ID reconciliation cannot advance; a full batch resumes by ID',async
  assert.equal(checkpoint,200);
  await assert.rejects(reconcileWireRows(pool,-1),/Invalid/);
 });
+
+test('Wire evidence preserves the full source title up to the source column limit',()=>{
+ const f=finding({name:'A'.repeat(500)});assert.equal(parseResearchPacket(packet(f)).findings[0].title.length,500);
+ assert.throws(()=>parseResearchPacket(packet(finding({name:'A'.repeat(501)}))),/Invalid evidence/);
+ assert.throws(()=>parseResearchPacket(packet({id:'other',title:'A'.repeat(301),summary:'evidence',source_url:null,observed_at:time,source_kind:'secondary'})),/Invalid evidence/);
+});
+test('delta pagination excludes non-website wires before applying its limit',async()=>{
+ await fetchWireChanges({query:async(sql)=>{assert.match(sql,/WHERE se.wire IN \('crypto', 'ai', 'oss'\)\s+AND/);return {rows:[]};}},{changed_at:time,id:0});
+});

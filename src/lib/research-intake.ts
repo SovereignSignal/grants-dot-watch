@@ -66,7 +66,7 @@ export function parseResearchPacket(value: unknown): ResearchPacket {
     requireValue(isObject(f), 'Invalid finding');
     fields(f, ['id', 'title', 'summary', 'source_url', 'observed_at', 'source_kind', 'program_id', 'classification', 'disposition', 'expected_hash', 'changes', 'wire_record'], 'Finding');
     requireValue(text(f.id, 180) && !ids.has(f.id), 'Finding IDs must be nonempty and unique'); ids.add(f.id);
-    requireValue(text(f.title, 300) && text(f.summary, 12000) && (f.source_url === null || httpUrl(f.source_url)) && iso(f.observed_at), `Invalid evidence for ${f.id}`);
+    requireValue(text(f.title, f.wire_record ? 500 : 300) && text(f.summary, 12000) && (f.source_url === null || httpUrl(f.source_url)) && iso(f.observed_at), `Invalid evidence for ${f.id}`);
     requireValue(Date.parse(f.observed_at) <= Date.parse(value.completed_at), 'Finding observation is after run completion');
     requireValue(['official', 'social', 'secondary'].includes(String(f.source_kind)), 'Invalid source kind');
     requireValue(f.program_id == null || slug(f.program_id), 'Invalid program identity');
@@ -187,7 +187,7 @@ export async function ingestResearch(value: unknown, save = false): Promise<Rese
   report.proposals = report.proposals.filter(p => report.outcomes.some(o => o.state === 'queued' && p.signal_id === signalId(o.id, o.revision)));
   if (!save) return report;
   await insertIngestProposals(report.proposals);
-  const proposals = await listProposals();
+  const proposals = await listProposals(undefined, { recoverClaims: false });
   for (const outcome of report.outcomes) {
     const proposal = proposals.find(p => p.signal_id === signalId(outcome.id, outcome.revision));
     if (proposal) outcome.proposal_id = proposal.id;

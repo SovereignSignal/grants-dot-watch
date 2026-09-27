@@ -911,8 +911,9 @@ export async function seedFromFiles(): Promise<{ imported: number; skipped: numb
   return pgBacked() ? seedFromFilesPg() : seedFromFilesLocal();
 }
 
-export async function listProposals(filter?: { lane?: 'judgment' | 'fact'; state?: Proposal['state'] }): Promise<Proposal[]> {
-  await recoverStaleProposalClaims();
+export async function listProposals(filter?: { lane?: 'judgment' | 'fact'; state?: Proposal['state'] }, opts: { recoverClaims?: boolean } = {}): Promise<Proposal[]> {
+  // Operator queue reads retain recovery; evidence previews explicitly opt out.
+  if (opts.recoverClaims !== false) await recoverStaleProposalClaims();
   return pgBacked() ? listProposalsPg(filter) : listProposalsLocal(filter);
 }
 

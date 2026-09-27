@@ -403,3 +403,12 @@ test('ingest_state upserts by key', opts, async () => {
   assert.deepEqual(await store.getIngestState('watermark'), { signal_id: 42 });
   assert.equal((await row('SELECT count(*)::int AS n FROM ingest_state')).n, 1);
 });
+
+test('evidence reads can leave stale claims untouched while queue reads retain recovery', opts, async () => {
+ const p=await insertOne();await store.claimProposal(p.id);await backdateClaim(p.id);
+ const before=await row('SELECT data FROM desk_proposals WHERE id=$1',[p.id]);
+ assert.equal((await store.listProposals(undefined,{recoverClaims:false})).length,1);
+ assert.deepEqual(await row('SELECT data FROM desk_proposals WHERE id=$1',[p.id]),before);
+ await store.listProposals();
+ assert.equal((await row('SELECT data FROM desk_proposals WHERE id=$1',[p.id])).data.validation.checks[0].name,'apply-reconciliation-required');
+});

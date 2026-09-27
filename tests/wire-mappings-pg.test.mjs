@@ -33,7 +33,7 @@ test('Postgres mapping persists across a fresh process without touching registry
   await mappings.reviewWireMappings(packet, { save: true, expectedPlan: preview.plan_hash });
   assert.equal((await store.getIngestState(mappings.WIRE_MAPPING_STATE)).decisions.length, 1);
   const child = `import assert from 'node:assert/strict'; import {loadWireMappings} from ${JSON.stringify(resolve(repo, 'src/lib/wire-mappings.ts'))}; assert.equal((await loadWireMappings()).get(1),'canonical');`;
-  execFileSync(process.execPath, ['--experimental-strip-types', '--experimental-loader', resolve(repo, 'tests/ts-loader.mjs'), '--input-type=module', '-e', child], { cwd: root, env: { ...process.env, DATABASE_URL: TEST_DATABASE_URL }, stdio: 'pipe' });
+  execFileSync(process.execPath, ['--experimental-strip-types', '--experimental-loader', resolve(repo, 'tests/ts-loader.mjs'), '--input-type=module', '-e', child], { cwd: root, env: { ...process.env, NODE_ENV: 'production', DATABASE_URL: (() => { const url = new URL(TEST_DATABASE_URL); url.searchParams.set('options', '-c default_transaction_read_only=on'); return url.href; })() }, stdio: 'pipe' });
   assert.deepEqual((await sql('SELECT * FROM desk_proposals ORDER BY id')).rows, before);
   assert.equal((await sql('SELECT count(*)::int n FROM desk_applied_changes')).rows[0].n, 0);
   assert.equal(await store.getIngestState('wire_handoff_v1'), null);
