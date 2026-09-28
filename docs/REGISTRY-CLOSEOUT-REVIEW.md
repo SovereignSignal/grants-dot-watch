@@ -17,4 +17,4 @@ The existing API regression checks now verify that continuing delivery with clos
 
 Validation: 177 tests passed with PostgreSQL and no skips; 17 browser checks passed; registry validation, loader preflight, public boundary, lint, types and production build passed. Prepared registry totals: 484 programs, 416 organizations, 21 systems and 2,650 awards.
 
-This review package does not create a Desk owner verdict or resolve refused historical outbox rows. Its publication status is tracked by the pull request and deployment receipts.
+Publication of this package was approved on September 28, 2026. The approved Rocket Pool correction was accepted through the Desk, read back from the public API and recorded in Git. The release includes that receipt commit with the same reviewed facts. Deployment confirmation and restart persistence remain separate checks. Refused historical outbox rows remain unresolved.
