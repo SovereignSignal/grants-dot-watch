@@ -2,17 +2,36 @@ id: nlnet-foundation-open-call-apply-for-funding-deadline-2026-0
 name: NLnet Foundation Open Call
 org: nlnet-foundation
 parent: null
-systems: [eu-public-rd, sovereign-tech]
+systems:
+  - eu-public-rd
+  - sovereign-tech
 wires:
-- oss
-status: concluded
+  - oss
+status: unknown
 mechanism: grants
-summary: Dated record of NLnet's August 2026 Open Call, which closed 1 August 2026.
-  The standing vehicle for later odd-month calls is NLnet General Grants.
+apply_url: ""
+summary: Legacy record created from a general NLnet call announcement. Its August deadline related
+  to the funds named in that notice. Its identity as a separate funding program is unresolved; see
+  the named program records for current intake.
 rounds:
-- name: August 2026 Open Call
-  status: closed
-  closes: 2026-08-01
-  source: https://nlnet.nl/news/2026/20260601-call.html
+  - name: August 2026 Open Call
+    status: closed
+    closes: 2026-08-01
+    source: https://nlnet.nl/news/2026/20260601-call.html
 sources:
-- https://nlnet.nl/news/2026/20260601-call.html
+  - https://nlnet.nl/news/2026/20260601-call.html
+  - https://nlnet.nl/news/2026/20260903-call.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: unknown
+  intake_note: This record overlaps named funds. No separate current application opportunity has been verified.
+  source: https://nlnet.nl/news/2026/20260903-call.html
+  kind: unresolved
+  relationship: unconfirmed
+  questions:
+    - Resolve this record against named funds and the Other application route, retaining existing
+      references and award history.
+  history: []
+  relationship_note: Association with NLnet is known; identity as a distinct funding program needs review.
+  operating: unknown

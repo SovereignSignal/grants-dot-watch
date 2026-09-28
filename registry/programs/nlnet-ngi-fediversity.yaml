@@ -7,18 +7,40 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: concluded
+status: active
 mechanism: grants
-summary: NLnet-run fund supporting service portability and personal freedom in hosted
-  cloud/fediverse services (e.g. PeerTube, Mastodon, email, VPN, private cloud on NixOS).
-  NLnet published the twelfth call as the fund's final intake; it closed 1 August 2026
-  and no further applications are accepted.
+apply_url: ""
+summary: Supports portable hosted services and Nix/NixOS infrastructure. Its final application call
+  closed August 1, 2026; program work continues through November 2027. There is no current
+  application round.
 rounds:
   - name: 2026 open call
     status: closed
     closes: 2026-08-01
-    size: EUR 5,000-50,000 per project; EUR 450,000 total
+    size: EUR 5,000 to EUR 50,000 per project
     source: https://nlnet.nl/fediversity/
 sources:
   - https://nlnet.nl/
   - https://nlnet.nl/fediversity/
+  - https://nlnet.nl/news/2026/20260811-5-new-projects.html
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: closed
+  intake_note: 12th and final call closed August 1, 2026. Supported work continues.
+  source: https://nlnet.nl/fediversity/
+  kind: program
+  relationship: current
+  questions:
+    - Attribute the August pilot selections to their individual programs and recipients.
+  history:
+    - date: 2026-08-01
+      label: Final intake closed
+      summary: New applications ended; this is separate from delivery of supported projects.
+      source: https://nlnet.nl/fediversity/
+    - date: 2026-08-11
+      label: Pilot projects announced
+      summary: Five projects were announced across Taler and Fediversity. This is a shared announcement,
+        not five grants attributed to this program.
+      source: https://nlnet.nl/news/2026/20260811-5-new-projects.html
+  operating: active

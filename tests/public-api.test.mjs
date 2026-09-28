@@ -84,7 +84,11 @@ test('dated calls retain their history after expired intakes close', () => {
   assert.equal(ids.has('nsf-x-labs-1-5b-for-independent-milestone-based-research-tea'), false);
   assert.ok(!board.some((row) => row.program_id === 'freebsd-foundation-grants' && row.round.name.includes('EuroBSDCon')));
   assert.ok(!board.some((row) => row.round.name.includes('Release 4')));
-  assert.ok(board.some((row) => row.program_id === 'nlnet-general-grants' && row.round.closes === '2026-11-03'));
+  // The shared November call belongs to the named funds, not the legacy general record.
+  assert.ok(!board.some((row) => row.program_id === 'nlnet-general-grants'));
+  for (const id of ['nlnet-restack', 'nlnet-codesupply']) {
+    assert.ok(board.some((row) => row.program_id === id && row.round.closes === '2026-11-03'));
+  }
   for (const [id, closes] of [['outreachy', '2026-08-31'], ['afwerx-sbir-sttr', '2026-09-23']]) {
     assert.ok(!board.some((row) => row.program_id === id && row.round.closes === closes));
     const history = registry.programs.find((program) => program.id === id).rounds.find((round) => round.closes === closes);
@@ -215,9 +219,6 @@ test('full-registry review concludes one-shot calls and drops concluded apply li
   const byId = new Map(registry.programs.map((program) => [program.id, program]));
 
   for (const id of [
-    'nlnet-ngi-zero-commons-fund',
-    'nlnet-ngi-fediversity',
-    'nlnet-ngi-taler',
     'arbitrum-audit-program',
     'request-for-proposals-research-and-applied-work-on-digital-m',
     'cooperative-ai-multi-agent-safety-fund',
@@ -235,7 +236,6 @@ test('full-registry review concludes one-shot calls and drops concluded apply li
     'ai-grant-accelerator',
     'claude-corps',
     'chainlink-community-grant-program',
-    'nlnet-restack',
     'unitaryhack',
     'ai-forge-program',
     'regenesis-grants-program',
@@ -243,6 +243,17 @@ test('full-registry review concludes one-shot calls and drops concluded apply li
   ]) {
     assert.equal(byId.get(id)?.status, 'paused', id);
   }
+
+  // Delivery continues after final intake closes; active must not imply accepting applications.
+  const currentBoard = liveBoard(registry, '2026-09-26');
+  for (const id of ['nlnet-ngi-zero-commons-fund', 'nlnet-ngi-fediversity', 'nlnet-ngi-taler']) {
+    const program = byId.get(id);
+    assert.equal(program.status, 'active', id);
+    assert.equal(program.review.intake, 'closed', id);
+    assert.ok(!program.apply_url, id);
+    assert.ok(!currentBoard.some((row) => row.program_id === id), id);
+  }
+  assert.equal(byId.get('nlnet-restack')?.status, 'active');
 
   assert.equal(byId.get('ethereum-esp')?.status, 'active');
   assert.match(byId.get('ethereum-esp')?.summary || '', /Wishlist/);

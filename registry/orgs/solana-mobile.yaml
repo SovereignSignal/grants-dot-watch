@@ -1,0 +1,14 @@
+id: solana-mobile
+name: Solana Mobile
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://solanamobile.com/
+status: active
+profile: Solana Mobile supports builders developing mobile applications and infrastructure for its
+  ecosystem through grants, technical guidance and launch support.
+sources:
+  - https://solanamobile.com/grants

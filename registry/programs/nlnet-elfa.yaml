@@ -1,0 +1,38 @@
+id: nlnet-elfa
+name: ELFA
+org: nlnet-foundation
+parent: null
+systems:
+  - eu-public-rd
+  - sovereign-tech
+wires:
+  - oss
+status: unknown
+mechanism: grants
+summary: Encrypted local-first applications research initiative. NLnet withdrew from the consortium
+  in August 2026. The consortium advertises forthcoming subgrants, but the call operator and
+  application terms are not recorded.
+rounds: []
+sources:
+  - https://nlnet.nl/ELFA/
+  - https://elfaconsortium.eu/
+review:
+  checked_on: 2026-09-26
+  review_after: 2026-10-03
+  intake: postponed
+  intake_note: NLnet postponed its calls after withdrawing. The consortium says subgrants will open
+    soon; no application terms or deadline are published on the checked pages.
+  source: https://nlnet.nl/ELFA/
+  kind: program
+  relationship: former
+  questions:
+    - Who is now responsible for the calls, and where are the current eligibility and application
+      terms?
+  history:
+    - date: 2026-08
+      label: NLnet withdrew
+      summary: The notice specifies August only. Open calls were postponed pending another operator.
+      source: https://nlnet.nl/ELFA/
+  relationship_note: NLnet withdrew. Retained here as a historical association; the current grant
+    operator is not recorded.
+  operating: unknown

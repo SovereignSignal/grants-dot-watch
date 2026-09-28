@@ -1,0 +1,14 @@
+id: humanity-ai
+name: Humanity AI
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://humanityai.ai/
+status: active
+profile: Humanity AI supports community leadership in shaping artificial intelligence. Its
+  Communities Leading on AI open call is administered with Lever for Change.
+sources:
+  - https://humanityai.ai/open-call/
