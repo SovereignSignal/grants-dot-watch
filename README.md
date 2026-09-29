@@ -76,6 +76,16 @@ marketing homepage and drops the path). `INGEST_ENABLED=1` starts a daily in-pro
 Railway replicas never double-run; last-run status lands in `ingest_state` and shows on
 `/admin/health`.
 
+## Agent and external read access
+
+The public registry is already available through `/api/v1`. The keyed
+`/api/v1/updates` feed adds reviewed, distributable Wire Room observations with
+stable revisions and accepted public program links. Configure
+`GRANTS_WATCH_READER_KEYS` (per-client SHA-256 hashes and UTC expiry times) to
+enable it; it reuses the restricted `WIRE_DATABASE_URL` connection. It grants
+no editing or publishing capability. See [read API and Grok pilot](docs/read-api.md)
+for provisioning, full-scan semantics, limits and the standalone reader.
+
 ## Release
 
 Production tracks the `main` branch of `SovereignSignal/grants-dot-watch` through Railway's

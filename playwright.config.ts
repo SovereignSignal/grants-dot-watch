@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+import { createHash } from 'node:crypto';
 
 const port = Number(process.env.PLAYWRIGHT_PORT || 3100);
 const browserAdminToken = process.env.ADMIN_TOKEN || 'grants-watch-browser-test-token';
@@ -20,7 +21,10 @@ export default defineConfig({
     // NODE_ENV=production) against no database on purpose. desk-store fails
     // closed there; this is the explicit opt-out, and /admin/health reports
     // the local backend for as long as it is on.
-    env: { ADMIN_TOKEN: browserAdminToken, GRANTS_WATCH_ALLOW_LOCAL_STORE: '1' },
+    env: { ADMIN_TOKEN: browserAdminToken, GRANTS_WATCH_ALLOW_LOCAL_STORE: '1', WIRE_DATABASE_URL: '',
+      GRANTS_WATCH_READER_KEYS: JSON.stringify([{ id: 'browser-test',
+        sha256: createHash('sha256').update('browser-reader-test-token-0000000000').digest('hex'),
+        expires_at: '2099-01-01T00:00:00Z' }]) },
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
