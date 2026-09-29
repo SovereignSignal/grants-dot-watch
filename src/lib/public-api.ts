@@ -380,6 +380,8 @@ export function apiIndex(registry: RegistryIndex = loadRegistry()) {
       programs: '/api/v1/programs',
       program: '/api/v1/programs/{id}',
       awards: '/api/v1/awards',
+      updates: '/api/v1/updates',
+      update: '/api/v1/updates/{numeric_wire_id}',
     },
     filters: {
       shared: ['wire', 'q', 'page', 'limit'],
@@ -387,6 +389,12 @@ export function apiIndex(registry: RegistryIndex = loadRegistry()) {
       programs: ['system', 'status', 'mechanism', 'org', 'live=1'],
       awards: ['funder', 'grantee', 'program', 'year'],
       open: ['standing=1', 'standing=0'],
+    },
+    update_access: {
+      authentication: 'Bearer token required for updates only; existing registry endpoints remain public.',
+      pagination: 'Full scan using after_id and through_id; restart at the first page on each poll.',
+      limits: '100 rows per page; 60 authenticated requests per minute per client per process.',
+      meaning: 'Reviewed observations. Check primary sources before publishing; approval is not verification of current availability.',
     },
   };
 }
