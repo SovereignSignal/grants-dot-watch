@@ -8,7 +8,9 @@ import { citeDate } from './desk-format';
  *  join misses, that's shown honestly instead of hidden. */
 export function EvidenceBlock({ proposal }: { proposal: QueueProposal }) {
   const { evidence } = proposal;
-  const quote = evidence?.description || evidence?.title || null;
+  const curatorQuote = proposal.submitted_by?.quotes?.[0];
+  const sourceUrl = curatorQuote?.url || proposal.evidence_url || '';
+  const quote = curatorQuote?.quote || evidence?.description || evidence?.title || null;
 
   return (
     <div className="mt-[18px] max-w-[740px] border-l border-line pl-5">
@@ -22,7 +24,9 @@ export function EvidenceBlock({ proposal }: { proposal: QueueProposal }) {
         </p>
       )}
       <div className="mt-2 text-[11.5px] tracking-[.02em] text-faint">
-        {evidence ? (
+        {proposal.submitted_by ? (
+          <>Curator · {proposal.submitted_by.key_name}</>
+        ) : evidence ? (
           <>
             Wire signal, {citeDate(evidence.seen_at)}
             {evidence.quality_score != null ? ` · quality ${evidence.quality_score}` : ''}
@@ -30,11 +34,11 @@ export function EvidenceBlock({ proposal }: { proposal: QueueProposal }) {
         ) : (
           'No source on file'
         )}
-        {proposal.evidence_url && (
+        {sourceUrl && (
           <>
             {' · '}
             <a
-              href={proposal.evidence_url}
+              href={sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-line underline-offset-2 hover:text-dim"

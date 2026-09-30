@@ -86,6 +86,12 @@ enable it; it reuses the restricted `WIRE_DATABASE_URL` connection. It grants
 no editing or publishing capability. See [read API and Grok pilot](docs/read-api.md)
 for provisioning, full-scan semantics, limits and the standalone reader.
 
+The curator write API at `/api/v1/curator` is a separate bearer-key gate for
+queue, decide, and propose. It reuses the Desk's approve/reject path and lands
+new items in the same queue. Configure `GRANTS_WATCH_CURATOR_KEYS` (hashed
+keys, scopes, expiry, revocation). It does not accept `ADMIN_TOKEN` or reader
+keys. See [curator API](docs/curator-api.md).
+
 ## Release
 
 Production tracks the `main` branch of `SovereignSignal/grants-dot-watch` through Railway's

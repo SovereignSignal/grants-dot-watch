@@ -7,6 +7,7 @@ import type { ProposalType, Verdict } from '@/lib/types';
 import { PROPOSAL_TYPE_ORDER, typeCountsSummary } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
 import { BulkBar } from './bulk-bar';
+import { buildDeskLog } from '@/lib/desk-log';
 import { commitUrl, dateShortIso, timeAgo } from './desk-format';
 import { DeskHeader } from './desk-header';
 import { DEFAULT_FILTERS, type DecideBulkResponse, type FilterState, type QueueProposal } from './desk-types';
@@ -292,6 +293,7 @@ export default function DeskPage() {
     () => (data ? data.proposals.filter((p) => p.state === 'applying') : []),
     [data]
   );
+  const deskLog = useMemo(() => (data ? buildDeskLog(data.proposals, data.verdicts) : []), [data]);
 
   const filteredJudgment = useMemo(() => applyFilters(judgmentPending, filters), [judgmentPending, filters]);
   const groups = useMemo(() => groupAndSort(filteredJudgment), [filteredJudgment]);
@@ -417,7 +419,7 @@ export default function DeskPage() {
               ? `Judgment · ${judgmentPending.length}`
               : t === 'fact'
                 ? `Facts · ${factPending.length}`
-                : `Log · ${data.verdicts.length}`}
+                : `Log · ${deskLog.length}`}
           </button>
         ))}
       </div>
@@ -493,39 +495,38 @@ export default function DeskPage() {
       )}
 
       {tab === 'log' &&
-        (data.verdicts.length === 0 ? (
+        (deskLog.length === 0 ? (
           <Empty>No decisions on file yet.</Empty>
         ) : (
           <div className="flex flex-col">
-            {data.verdicts.map((v, i) => {
-              const proposal = data.proposals.find((p) => p.id === v.proposal_id);
-              const destination = v.decision === 'approved' ? proposal?.destination : null;
+            {deskLog.map((row) => {
+              const label = row.action === 'approved' ? 'Approved' : row.action === 'rejected' ? 'Rejected' : 'Queued';
               return (
-                <div key={`${v.proposal_id}-${i}`} className="border-b border-line py-3 last:border-b-0">
+                <div key={row.key} className="border-b border-line py-3 last:border-b-0">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
-                    <span className="coord shrink-0">{dateShortIso(v.at)}</span>
-                    <span className={v.decision === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>
-                      {v.decision === 'approved' ? 'Approved' : 'Rejected'}
-                    </span>
-                    {v.by === 'machine' && <span className="coord shrink-0 text-faint">machine</span>}
-                    <span className="min-w-[10rem] flex-1 truncate text-dim">{proposal?.title || v.proposal_id}</span>
-                    {v.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{v.note}</span>}
-                    {v.commit ? (
+                    <span className="coord shrink-0">{dateShortIso(row.at)}</span>
+                    <span className={row.action === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>{label}</span>
+                    {row.actor && <span className="coord shrink-0 text-faint">{row.actor}</span>}
+                    <span className="min-w-[10rem] flex-1 truncate text-dim">{row.title}</span>
+                    {row.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{row.note}</span>}
+                    {row.action === 'queued' ? (
+                      <span className="coord shrink-0">queue</span>
+                    ) : row.commit ? (
                       <a
-                        href={commitUrl(v.commit)}
+                        href={commitUrl(row.commit)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="coord shrink-0 hover:text-dim"
                       >
-                        {v.commit}
+                        {row.commit}
                       </a>
                     ) : (
                       <span className="coord shrink-0">ledgered</span>
                     )}
-                    <span className="coord hidden shrink-0 sm:inline">{timeAgo(v.at)}</span>
+                    <span className="coord hidden shrink-0 sm:inline">{timeAgo(row.at)}</span>
                   </div>
-                  {destination && destination.length > 0 && (
-                    <div className="coord mt-1">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
+                  {row.destination && row.destination.length > 0 && (
+                    <div className="coord mt-1">{row.destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
                   )}
                 </div>
               );
