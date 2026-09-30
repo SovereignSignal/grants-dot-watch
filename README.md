@@ -88,9 +88,12 @@ for provisioning, full-scan semantics, limits and the standalone reader.
 
 The curator write API at `/api/v1/curator` is a separate bearer-key gate for
 queue, decide, and propose. It reuses the Desk's approve/reject path and lands
-new items in the same queue. Configure `GRANTS_WATCH_CURATOR_KEYS` (hashed
-keys, scopes, expiry, revocation). It does not accept `ADMIN_TOKEN` or reader
-keys. See [curator API](docs/curator-api.md).
+new items in the same site-database queue (`desk_proposals` /
+`desk_verdicts`). It does not write the Wire Room database. The routes stay
+inert (`503`, no Desk reads or writes) until `GRANTS_WATCH_CURATOR_KEYS` is
+set on this service. That variable holds hashed keys, scopes, expiry, and
+revocation. It does not accept `ADMIN_TOKEN`, reader keys, or the wire-room-ops
+internal API key. See [curator API](docs/curator-api.md).
 
 ## Release
 

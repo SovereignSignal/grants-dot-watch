@@ -225,6 +225,74 @@ test('curator keys fail closed for missing, invalid, expired, and revoked tokens
   assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), empty.api)).status, 503);
 });
 
+test('an unset curator key config is inert and does not consult other service keys', async () => {
+  let listed = 0;
+  let inserted = 0;
+  let decided = 0;
+  let claimed = 0;
+  const gate = createCuratorGate(() => process.env.GRANTS_WATCH_CURATOR_KEYS);
+  const { api } = deps({
+    gate,
+    idempotency: { claim: async () => { claimed += 1; return 'pending'; }, release: async () => {}, finish: async () => {} },
+    listProposals: async () => { listed += 1; return []; },
+    getProposal: async () => { listed += 1; return null; },
+    insertProposals: async () => { inserted += 1; return { inserted: [], skipped: 0 }; },
+    decide: async () => { decided += 1; return { status: 500, body: {} }; },
+  });
+  const previous = {
+    curator: process.env.GRANTS_WATCH_CURATOR_KEYS,
+    internal: process.env.INTERNAL_API_KEY,
+    admin: process.env.ADMIN_TOKEN,
+    reader: process.env.GRANTS_WATCH_READER_KEYS,
+  };
+  delete process.env.GRANTS_WATCH_CURATOR_KEYS;
+  process.env.INTERNAL_API_KEY = 'wire-room-ops-internal';
+  process.env.ADMIN_TOKEN = 'desk-admin-token';
+  process.env.GRANTS_WATCH_READER_KEYS = JSON.stringify([{ id: 'reader', sha256: readHash, expires_at: '2099-01-01T00:00:00.000Z' }]);
+  try {
+    const queue = await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), api);
+    assert.equal(queue.status, 503);
+    assert.deepEqual(await queue.json(), { error: 'curator_unavailable' });
+    const item = await getCuratorItem(request('https://grants.watch/api/v1/curator/queue/p00001'), 'p00001', api);
+    assert.equal(item.status, 503);
+    const decidedResponse = await decideCuratorItem(
+      request('https://grants.watch/api/v1/curator/queue/p00001/decide', {
+        method: 'POST',
+        body: { decision: 'approved', reason: 'Official page confirms the date.' },
+        idempotency: 'inert-decide-1',
+      }),
+      'p00001',
+      api
+    );
+    assert.equal(decidedResponse.status, 503);
+    const proposed = await proposeCuratorItem(
+      request('https://grants.watch/api/v1/curator/proposals', {
+        method: 'POST',
+        body: { kind: 'new_org', name: 'Example', reason: 'Official page confirms the org.', sources: [source] },
+        idempotency: 'inert-propose-1',
+      }),
+      api
+    );
+    assert.equal(proposed.status, 503);
+    assert.equal(listed, 0);
+    assert.equal(inserted, 0);
+    assert.equal(decided, 0);
+    assert.equal(claimed, 0);
+  } finally {
+    for (const [name, value] of Object.entries({
+      GRANTS_WATCH_CURATOR_KEYS: previous.curator,
+      INTERNAL_API_KEY: previous.internal,
+      ADMIN_TOKEN: previous.admin,
+      GRANTS_WATCH_READER_KEYS: previous.reader,
+    })) {
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
+  }
+  const authSource = readFileSync(new URL('../src/lib/curator-auth.ts', import.meta.url), 'utf8');
+  assert.doesNotMatch(authSource, /process\.env\.(INTERNAL_API_KEY|ADMIN_TOKEN|GRANTS_WATCH_READER_KEYS|WIRE_DATABASE_URL)/);
+});
+
 test('wrong scope is forbidden without saying which scope or key failed', async () => {
   const readOnly = deps({ gate: gateFor([key({ scopes: ['read_queue'] })]) });
   const denied = await decideCuratorItem(

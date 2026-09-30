@@ -8,7 +8,23 @@ the registry write and the `GRANTS_WATCH_NO_GIT` ledger. Proposals go through
 the Desk for Sov to approve.
 
 This API cannot delete registry files, merge organizations, bulk-decide, or
-change `ADMIN_TOKEN`, reader keys, or `DESK_OWNERS`.
+change `ADMIN_TOKEN`, reader keys, or `DESK_OWNERS`. It does not accept
+`ADMIN_TOKEN`, reader keys, or the wire-room-ops `INTERNAL_API_KEY`.
+
+## Where writes land
+
+Judgment, Facts, and the Desk Log live on the site database (`DATABASE_URL`):
+`desk_proposals` and `desk_verdicts`. That is the grants-dot-watch Postgres,
+not the Wire Room database. Wire Room tables such as `review_queue` and
+`publication_queue` are not the Desk queues, and this API does not write them.
+This app only reads `WIRE_DATABASE_URL` (`scan_entries` and `org_profiles`) for
+ingest and the public updates feed.
+
+A curator proposal stores `submitted_by` (key id, name, reason, sources,
+quotes, time) on the proposal JSON. A curator decision stores the same identity
+on the verdict JSON. The Desk Log reads those fields and labels the row
+`curator · <name>`. No new table, so the Desk migration is unchanged.
+Idempotency uses the existing `ingest_state` table when `DATABASE_URL` is set.
 
 ## Keys
 
@@ -197,11 +213,17 @@ with no key:
 
 ## Railway
 
-Set `GRANTS_WATCH_CURATOR_KEYS` on the grants.watch service. Do not change
-`ADMIN_TOKEN`, `DESK_OWNERS`, `GRANTS_WATCH_READER_KEYS`, `DATABASE_URL`, or
-`WIRE_DATABASE_URL` for this feature. No schema migration: curator stamps live
-in the existing proposal and verdict JSON, and idempotency rows live in the
-existing `ingest_state` table when `DATABASE_URL` is set. Redeploy the service
-after the variable is saved so the new routes and the variable are both live.
-Revocation takes effect on the next request after the variable is updated and
-the service is redeployed.
+The routes ship with this Next.js app. Production deploys from GitHub when
+`main` updates, so merging this change deploys the code. Until
+`GRANTS_WATCH_CURATOR_KEYS` is set, every curator request returns `503
+{"error":"curator_unavailable"}` and does not read or write the Desk store.
+Set the variable only on the grants-dot-watch service, after the code is
+deployed. Saving it restarts that service and turns the API on. Do not set it
+on wire-room-ops or on the grant-wire-scout jobs, and do not reuse
+`ADMIN_TOKEN`, `GRANTS_WATCH_READER_KEYS`, or `INTERNAL_API_KEY`.
+
+Leave `DATABASE_URL`, `WIRE_DATABASE_URL`, `GRANTS_WATCH_NO_GIT`,
+`INGEST_ENABLED`, and `DESK_OWNERS` as they are. Do not add a migration and do
+not write the Wire Room database. Scout crons and wire-room-ops keep their own
+schedules. Revocation takes effect on the next request after the updated
+variable is live.
