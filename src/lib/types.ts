@@ -181,6 +181,19 @@ export interface Proposal {
    *  proposal is later approved/rejected by any path (a decided proposal's
    *  validation record is just history at that point). */
   validation?: ProposalValidation;
+  /** Set when a curator API key queued this item. Absent on miner/owner intake. */
+  submitted_by?: CuratorStamp;
+}
+
+/** Who queued a proposal through the curator API. Stored on the proposal
+ *  JSON, so the Desk Log can label it without a separate table. */
+export interface CuratorStamp {
+  key_id: string;
+  key_name: string;
+  reason: string;
+  sources: string[];
+  quotes: { url: string; quote: string }[];
+  at: string;
 }
 
 export interface Verdict {
@@ -190,7 +203,12 @@ export interface Verdict {
   at: string;
   commit?: string | null;
   /** Who decided — omitted (not defaulted) for every pre-existing verdict,
-   *  so backward compat needs no migration: absent means owner. Only the
-   *  machine-validation pipeline ever writes 'machine'. */
-  by?: 'machine' | 'owner';
+   *  so backward compat needs no migration: absent means owner. The
+   *  machine-validation pipeline writes 'machine'. The curator API writes
+   *  'curator' plus the key id and name. */
+  by?: 'machine' | 'owner' | 'curator';
+  curator_id?: string;
+  curator_name?: string;
+  /** Source URLs the curator attached to this decision. */
+  sources?: string[];
 }

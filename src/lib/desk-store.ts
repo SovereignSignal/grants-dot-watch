@@ -57,7 +57,10 @@ function pgBacked(): boolean {
 interface RecordVerdictOptions {
   note?: string;
   commit?: string | null;
-  by?: 'machine' | 'owner';
+  by?: 'machine' | 'owner' | 'curator';
+  curator_id?: string;
+  curator_name?: string;
+  sources?: string[];
   from?: 'pending' | 'applying';
   /** A no-git filesystem mutation may become replayable only in the same
    * Postgres transaction that records its approved verdict. */
@@ -108,6 +111,8 @@ export interface RawMinerProposal {
   confidence?: number;
   signal_id?: number | string;
   wire?: Wire | null;
+  /** Curator API intake only. Miner candidates leave this unset. */
+  submitted_by?: Proposal['submitted_by'];
 }
 
 interface ResolutionReport {
@@ -305,7 +310,30 @@ function proposalFromRaw(item: RawMinerProposal, nextId: () => string): Proposal
     lane: laneFor(item.type, item.evidence_url),
     state: 'pending',
     created_at: new Date().toISOString(),
+    ...(item.submitted_by ? { submitted_by: item.submitted_by } : {}),
   };
+}
+
+function buildVerdict(
+  id: string,
+  decision: 'approved' | 'rejected',
+  at: string,
+  opts?: RecordVerdictOptions
+): Verdict {
+  const verdict: Verdict = {
+    proposal_id: id,
+    decision,
+    note: opts?.note,
+    at,
+    commit: opts?.commit ?? null,
+    ...(opts?.by ? { by: opts.by } : {}),
+  };
+  if (opts?.by === 'curator') {
+    verdict.curator_id = opts.curator_id;
+    verdict.curator_name = opts.curator_name;
+    if (opts.sources?.length) verdict.sources = opts.sources;
+  }
+  return verdict;
 }
 
 async function insertIngestProposalsLocal(candidates: RawMinerProposal[]): Promise<{ inserted: Proposal[]; skipped: number }> {
@@ -412,6 +440,75 @@ export async function setIngestState(key: string, value: unknown): Promise<void>
      ON CONFLICT (key) DO UPDATE SET value = $2::jsonb, updated_at = now()`,
     [key, JSON.stringify(value)]
   );
+}
+
+/** Insert a key only when it is absent. Used by curator idempotency so two
+ *  replicas cannot both claim the same key. True when this caller inserted. */
+export async function insertIngestStateIfAbsent(key: string, value: unknown): Promise<boolean> {
+  if (!pgBacked()) {
+    const state = readLocalIngestState();
+    if (Object.prototype.hasOwnProperty.call(state, key)) return false;
+    state[key] = value;
+    writeLocalIngestState(state);
+    return true;
+  }
+  await ensureSchema();
+  const { rowCount } = await getPool().query(
+    `INSERT INTO ingest_state (key, value, updated_at) VALUES ($1, $2::jsonb, now())
+     ON CONFLICT (key) DO NOTHING`,
+    [key, JSON.stringify(value)]
+  );
+  return (rowCount ?? 0) > 0;
+}
+
+/** Replace a finished or abandoned idempotency row. True when this caller
+ *  won the update. pendingBefore/doneBefore are ISO cutoffs: rows at or after
+ *  the cutoff stay put. */
+export async function takeExpiredIngestState(
+  key: string,
+  value: unknown,
+  pendingBefore: string,
+  doneBefore: string
+): Promise<boolean> {
+  if (!pgBacked()) {
+    const state = readLocalIngestState();
+    const current = state[key];
+    if (!current || typeof current !== 'object') return false;
+    const rec = current as { state?: string; at?: string };
+    const at = typeof rec.at === 'string' ? rec.at : '';
+    const expired =
+      (rec.state === 'pending' && at <= pendingBefore) || (rec.state === 'done' && at <= doneBefore);
+    if (!expired) return false;
+    state[key] = value;
+    writeLocalIngestState(state);
+    return true;
+  }
+  await ensureSchema();
+  const { rowCount } = await getPool().query(
+    `UPDATE ingest_state
+        SET value = $2::jsonb, updated_at = now()
+      WHERE key = $1
+        AND (
+          (value->>'state' = 'pending' AND value->>'at' <= $3)
+          OR (value->>'state' = 'done' AND value->>'at' <= $4)
+        )`,
+    [key, JSON.stringify(value), pendingBefore, doneBefore]
+  );
+  return (rowCount ?? 0) > 0;
+}
+
+export async function deleteIngestStateIfPending(key: string): Promise<void> {
+  if (!pgBacked()) {
+    const state = readLocalIngestState();
+    const current = state[key];
+    if (!current || typeof current !== 'object') return;
+    if ((current as { state?: string }).state !== 'pending') return;
+    delete state[key];
+    writeLocalIngestState(state);
+    return;
+  }
+  await ensureSchema();
+  await getPool().query(`DELETE FROM ingest_state WHERE key = $1 AND value->>'state' = 'pending'`, [key]);
 }
 
 // ---- advisory lock (instrumentation.ts's daily timer) ----
@@ -550,14 +647,7 @@ async function recordVerdictLocal(
   const { applying_at: _applyingAt, ...current } = store.proposals[idx];
   const proposal: Proposal = { ...current, state: decision, decided_at: at, decision_note: opts?.note };
   store.proposals[idx] = proposal;
-  const verdict: Verdict = {
-    proposal_id: id,
-    decision,
-    note: opts?.note,
-    at,
-    commit: opts?.commit ?? null,
-    ...(opts?.by ? { by: opts.by } : {}),
-  };
+  const verdict = buildVerdict(id, decision, at, opts);
   store.verdicts.unshift(verdict);
   writeLocalStore(store);
   return { proposal, verdict };
@@ -788,14 +878,7 @@ async function recordVerdictPg(
     const { applying_at: _applyingAt, ...current } = rows[0].data as Proposal;
     const proposal: Proposal = { ...current, state: decision, decided_at: at, decision_note: opts?.note };
     await client.query('UPDATE desk_proposals SET data = $2, state = $3 WHERE id = $1', [id, proposal, decision]);
-    const verdict: Verdict = {
-      proposal_id: id,
-      decision,
-      note: opts?.note,
-      at,
-      commit: opts?.commit ?? null,
-      ...(opts?.by ? { by: opts.by } : {}),
-    };
+    const verdict = buildVerdict(id, decision, at, opts);
     await client.query('INSERT INTO desk_verdicts (proposal_id, data, at) VALUES ($1, $2, $3)', [id, verdict, at]);
     await client.query('COMMIT');
     return { proposal, verdict };
@@ -933,8 +1016,8 @@ export async function queueCounts(): Promise<{ pendingJudgment: number; pendingF
 
 /** Record a decision already carried out by the caller (committer.ts does the
  *  file mutation + git commit; this just moves the proposal + logs the verdict).
- *  `by` defaults to unset (interpreted as 'owner' everywhere it's read) —
- *  only validation-runner.ts passes 'machine'. */
+ *  `by` defaults to unset (interpreted as 'owner' everywhere it's read).
+ *  validation-runner.ts passes 'machine'. The curator API passes 'curator'. */
 export async function recordVerdict(
   id: string,
   decision: 'approved' | 'rejected',
