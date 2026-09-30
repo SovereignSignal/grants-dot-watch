@@ -1,0 +1,19 @@
+id: sovereign-tech-resilience
+name: Sovereign Tech Resilience
+org: sovereign-tech-agency
+parent: null
+systems: [sovereign-tech, oss-sustainability]
+wires: [oss]
+status: active
+mechanism: other
+apply_url: https://apply.sovereigntechfund.de/
+summary: >
+  Sovereign Tech Agency supports critical open-source infrastructure with scoped
+  engineering services, security audits, and bug-and-fix bounties. Eligible projects
+  can apply through its portal, receive an invitation, or be recommended by a
+  service provider. Applications are reviewed on an ongoing basis; service timing
+  depends on capacity. As of September 2026, new vulnerability reports and new
+  bounty programs are paused while the existing backlog is processed.
+rounds: []
+sources:
+  - https://www.sovereign.tech/programs/resilience
