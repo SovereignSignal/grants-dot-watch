@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { ProposalType, Verdict } from '@/lib/types';
+import type { ProposalType } from '@/lib/types';
 import { TYPE_SLUG_LABEL } from './desk-voice';
 import { InkCheckbox } from './ink-checkbox';
 import type { QueueProposal } from './desk-types';
@@ -19,7 +19,10 @@ export function ProposalGroup({
   errors,
   onToggleSelect,
   onToggleSelectAll,
-  onDecided,
+  onDecide,
+  onRejectNote,
+  rejectNotes,
+  disabled,
 }: {
   type: ProposalType;
   items: QueueProposal[];
@@ -28,7 +31,10 @@ export function ProposalGroup({
   errors: Record<string, string>;
   onToggleSelect: (id: string) => void;
   onToggleSelectAll: (ids: string[]) => void;
-  onDecided: (id: string, decision: 'approved' | 'rejected', verdict: Verdict) => void;
+  onDecide: (id: string, decision: 'approved' | 'rejected', note?: string) => void;
+  onRejectNote: (id: string, note: string) => void;
+  rejectNotes: Record<string, string>;
+  disabled?: boolean;
 }) {
   const [open, setOpen] = useState(true);
   const ids = items.map((i) => i.id);
@@ -61,11 +67,14 @@ export function ProposalGroup({
             <ProposalCard
               key={p.id}
               proposal={p}
-              onDecided={onDecided}
               selected={selected.has(p.id)}
               onToggleSelect={() => onToggleSelect(p.id)}
               focused={focusedId === p.id}
               errorMessage={errors[p.id]}
+              onDecide={onDecide}
+              onRejectNote={onRejectNote}
+              rejectNote={rejectNotes[p.id] ?? ''}
+              disabled={disabled}
             />
           ))}
         </div>

@@ -3,16 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
-
-const NAV = [
-  ['/programs', 'Programs'], ['/orgs', 'Organizations'], ['/systems', 'Ecosystems'],
-  ['/awards', 'Awards'], ['/about', 'About'],
-];
+import { PRIMARY_NAV } from './primary-nav';
 
 export default function SiteHeader() {
   const path = usePathname();
   const menu = useRef<HTMLDetailsElement>(null);
-  const links = NAV.map(([href, label]) => <Link key={href} href={href}
+  const links = PRIMARY_NAV.map(({ href, label }) => <Link key={href} href={href}
     aria-current={path === href || path.startsWith(`${href}/`) ? 'page' : undefined}
     onClick={() => { if (menu.current) menu.current.open = false; }}>{label}</Link>);
   return <header className="ledger-shell ledger-header">

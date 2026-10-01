@@ -41,14 +41,17 @@ export interface DecideBulkResponse {
 }
 
 export type ConfidenceBand = 'all' | 'high' | 'mid' | 'low';
+export type SourceFilter = 'all' | 'sourced' | 'unsourced';
 
 /** Judgment-tab filter state, lifted to page.tsx so it survives group
  *  collapse/expand. `confidence` stays as the compatibility field name for
- *  the source-supplied score. */
+ *  the source-supplied score. `proposers` empty means every proposer. */
 export interface FilterState {
   types: Set<ProposalType>; // empty = all types
   wires: Set<Wire>; // empty = all wires
   confidence: ConfidenceBand;
+  source: SourceFilter;
+  proposers: Set<string>;
   text: string;
 }
 
@@ -56,5 +59,7 @@ export const DEFAULT_FILTERS: FilterState = {
   types: new Set(),
   wires: new Set(),
   confidence: 'all',
+  source: 'all',
+  proposers: new Set(),
   text: '',
 };

@@ -2,50 +2,49 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { Verdict } from '@/lib/types';
 import { useAdminAuth } from '../admin-auth';
 import { ChangePreview } from './change-preview';
-import { commitUrl, timeAgo } from './desk-format';
+import { timeAgo } from './desk-format';
 import { DESTINATION_NOTE } from './desk-voice';
 import type { PreviewPayload, QueueProposal } from './desk-types';
 import { EvidenceBlock } from './evidence-block';
 import { InkCheckbox } from './ink-checkbox';
+import { reviewBrief } from './review-brief';
 import { SlugLine } from './slug-line';
 import { VerdictActions } from './verdict-actions';
 
-/** One item on the wire: a broadsheet block on hairlines answering, without a
- *  click, WHAT (the change preview), VALIDATE (the evidence block), and WHERE
- *  (the destination line) — canon: design/mocks/c-desk.html. Only "see the
- *  rest of a long diff" needs an interaction.
- *
- *  Bulk-triage additions (all optional, default off — Facts-tab cards don't
- *  use them): a selection checkbox, a keyboard-driven focus mark, and an
- *  inline error line for an id that came back in a bulk decide's `failed`
- *  list (the id stays visible in the pending list; this is how it explains
- *  why). */
+/** One judgment, readable without opening the YAML: recommendation, source,
+ *  and the facts in words. The proposed record stays behind Show record.
+ *  Approve and Reject call the same decide path as before. */
 export function ProposalCard({
   proposal,
-  onDecided,
+  onDecide,
+  onRejectNote,
+  rejectNote = '',
   selected = false,
   onToggleSelect,
   focused = false,
   errorMessage,
+  disabled = false,
 }: {
   proposal: QueueProposal;
-  onDecided: (id: string, decision: 'approved' | 'rejected', verdict: Verdict) => void;
+  onDecide: (id: string, decision: 'approved' | 'rejected', note?: string) => void;
+  onRejectNote?: (id: string, note: string) => void;
+  rejectNote?: string;
   selected?: boolean;
   onToggleSelect?: () => void;
   focused?: boolean;
   errorMessage?: string;
+  disabled?: boolean;
 }) {
   const { getAuthHeaders } = useAdminAuth();
-  const [busy, setBusy] = useState<'approved' | 'rejected' | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [showRecord, setShowRecord] = useState(false);
   const [preview, setPreview] = useState<PreviewPayload | null>(null);
   const [previewError, setPreviewError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ decision: 'approved' | 'rejected'; commit: string | null } | null>(null);
+  const brief = reviewBrief(proposal);
 
   useEffect(() => {
+    if (!showRecord || preview || previewError) return;
     let cancelled = false;
     (async () => {
       try {
@@ -63,96 +62,90 @@ export function ProposalCard({
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [proposal.id]);
+  }, [showRecord, proposal.id]);
 
-  async function decide(decision: 'approved' | 'rejected') {
-    setBusy(decision);
-    setError(null);
-    try {
-      const headers = await getAuthHeaders();
-      const res = await fetch('/api/desk/decide', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', ...headers },
-        body: JSON.stringify({ id: proposal.id, decision }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json.error || 'Decision failed.');
-        setBusy(null);
-        return;
-      }
-      setResult({ decision, commit: json.commit ?? null });
-      onDecided(proposal.id, decision, json.verdict as Verdict);
-    } catch {
-      setError('Decision failed.');
-      setBusy(null);
-    }
+  function reject() {
+    const trimmed = rejectNote.trim();
+    onDecide(proposal.id, 'rejected', trimmed || undefined);
   }
 
   const destination = proposal.destination;
-
-  if (result) {
-    return (
-      <div id={`proposal-${proposal.id}`} className="border-b border-line py-4 last:border-b-0">
-        <div className="flex items-center gap-3 text-[13px]">
-          <span className={result.decision === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>
-            {result.decision === 'approved' ? 'Approved' : 'Rejected'}
-          </span>
-          <span className="flex-1 truncate text-dim">{proposal.title}</span>
-          {result.commit ? (
-            <a
-              href={commitUrl(result.commit)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="coord shrink-0 hover:text-dim"
-            >
-              {result.commit}
-            </a>
-          ) : (
-            <span className="coord shrink-0">ledgered</span>
-          )}
-        </div>
-        {result.decision === 'approved' && destination && destination.length > 0 && (
-          <div className="coord mt-1">{destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
-        )}
-      </div>
-    );
-  }
+  const callLabel = brief.call === 'approve' ? 'Approve' : brief.call === 'reject' ? 'Reject' : 'Check';
 
   return (
     <div
       id={`proposal-${proposal.id}`}
-      className={`-ml-4 border-b border-line border-l-2 py-[30px] pl-4 transition-colors last:border-b-0 ${
+      data-testid="desk-card"
+      className={`border-b border-line border-l-2 py-6 pl-3 transition-colors last:border-b-0 sm:py-8 sm:pl-4 ${
         focused ? 'border-l-paper' : 'border-l-transparent'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          {onToggleSelect && <InkCheckbox checked={selected} onChange={onToggleSelect} label={`Select ${proposal.title}`} />}
-          <SlugLine proposal={proposal} />
+        <div className="flex min-w-0 items-start gap-2.5">
+          {onToggleSelect && (
+            <span className="mt-1">
+              <InkCheckbox checked={selected} onChange={onToggleSelect} label={`Select ${brief.title}`} />
+            </span>
+          )}
+          <div className="min-w-0">
+            <p data-testid="review-call" className="font-sans text-[12px] font-extrabold tracking-[.14em] text-paper uppercase">
+              {callLabel}
+            </p>
+            <p className="serif-statement mt-1 max-w-[720px] text-[17px] leading-snug text-paper sm:text-[18px]">{brief.reason}</p>
+          </div>
         </div>
         <span className="coord shrink-0">{timeAgo(proposal.created_at)}</span>
       </div>
 
-      <h3 className="display mt-3 max-w-[820px] text-[22px] leading-[1.32] text-paper sm:text-[26px]">{proposal.title}</h3>
+      <h3 className="display mt-4 max-w-[820px] text-[26px] leading-[1.2] text-paper sm:text-[32px]">{brief.title}</h3>
+      <div className="mt-2">
+        <SlugLine proposal={proposal} proposer={brief.proposer} />
+      </div>
 
-      {proposal.org && (
-        <div className="mt-2">
-          <Link href={`/orgs/${proposal.org}`} className="coord underline decoration-line underline-offset-2 hover:text-dim">
-            {proposal.org_name || proposal.org}
-          </Link>
-        </div>
-      )}
+      <EvidenceBlock brief={brief} />
 
-      <EvidenceBlock proposal={proposal} />
+      <dl className="mt-5 grid max-w-[720px] grid-cols-1 gap-y-1.5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-x-4 sm:gap-y-1">
+        {brief.facts.map((fact) => (
+          <div key={fact.label} className="contents">
+            <dt className="coord pt-0.5">{fact.label}</dt>
+            <dd className="mb-1 min-w-0 text-[15px] leading-snug break-words text-paper sm:mb-0">
+              {fact.href ? (
+                fact.href.startsWith('/') ? (
+                  <Link href={fact.href} className="underline decoration-line underline-offset-2 hover:text-dim">
+                    {fact.value}
+                  </Link>
+                ) : (
+                  <a href={fact.href} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2 hover:text-dim">
+                    {fact.value}
+                  </a>
+                )
+              ) : (
+                fact.value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
 
-      <div className="mt-[22px] max-w-[820px]">
-        {previewError ? (
-          <p className="text-[12.5px] text-closing">{previewError}</p>
-        ) : preview ? (
-          <ChangePreview changes={preview.changes} notes={preview.notes} />
-        ) : (
-          <p className="text-[12.5px] italic text-faint">Loading preview…</p>
+      <div className="mt-4">
+        <button
+          type="button"
+          onClick={() => setShowRecord((open) => !open)}
+          aria-expanded={showRecord}
+          className="coord underline decoration-line underline-offset-2 hover:text-dim"
+        >
+          {showRecord ? 'Hide record' : 'Show record'}
+        </button>
+        {showRecord && (
+          <div className="mt-3 max-w-[820px]">
+            {previewError ? (
+              <p className="text-[12.5px] text-closing">{previewError}</p>
+            ) : preview ? (
+              <ChangePreview changes={preview.changes} notes={preview.notes} />
+            ) : (
+              <p className="text-[12.5px] text-faint italic">Loading record…</p>
+            )}
+          </div>
         )}
       </div>
 
@@ -163,14 +156,13 @@ export function ProposalCard({
           <span>No files change. Recorded as a decision only.</span>
         ) : (
           <>
-            Destination: {DESTINATION_NOTE[proposal.type]}{' '}
-            <span className="font-mono text-[11.5px] font-semibold not-italic text-dim">{destination.join(' · ')}</span>
+            Writes {DESTINATION_NOTE[proposal.type]}{' '}
+            <span className="font-mono text-[11.5px] font-semibold not-italic break-all text-dim">{destination.join(' · ')}</span>
           </>
         )}
       </div>
 
-      {error && <p className="mt-2 text-[12.5px] text-closing">{error}</p>}
-      {errorMessage && <p className="mt-2 text-[12.5px] text-closing">Bulk decide failed: {errorMessage}</p>}
+      {errorMessage && <p className="mt-2 text-[12.5px] text-closing">Could not decide: {errorMessage}</p>}
 
       {proposal.validation && (
         <p className="coord mt-3">
@@ -182,13 +174,25 @@ export function ProposalCard({
         </p>
       )}
 
-      <div className="mt-[22px]">
+      <div className="mt-5 max-w-[640px]">
+        <label className="coord mb-1 block" htmlFor={`reject-note-${proposal.id}`}>
+          Reject reason, optional
+        </label>
+        <input
+          id={`reject-note-${proposal.id}`}
+          type="text"
+          value={rejectNote}
+          onChange={(e) => onRejectNote?.(proposal.id, e.target.value)}
+          placeholder="Why reject, if you want it on the log"
+          className="mb-3 w-full border-b border-line bg-transparent px-1 py-2 text-[15px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+        />
         <VerdictActions
-          onApprove={() => decide('approved')}
-          onReject={() => decide('rejected')}
-          approveLabel={busy === 'approved' ? 'Approving…' : 'Approve: set in registry'}
-          rejectLabel={busy === 'rejected' ? 'Rejecting…' : 'Reject'}
-          disabled={busy !== null}
+          variant="buttons"
+          onApprove={() => onDecide(proposal.id, 'approved')}
+          onReject={reject}
+          approveLabel="Approve"
+          rejectLabel="Reject"
+          disabled={disabled}
         />
       </div>
     </div>

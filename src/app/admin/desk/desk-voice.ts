@@ -2,8 +2,8 @@
 // docs/DESIGN.md "Voice & era" is the law behind it) — proposal-type names,
 // destination footnotes, and wire labels. Kept separate from desk-format.ts
 // (pure formatting functions): this is copy, not logic.
-import type { ProposalType, Wire } from '@/lib/types';
-import { WIRE_LABEL } from '@/lib/format';
+import type { ProposalType, Wire } from '../../../lib/types';
+import { WIRE_LABEL } from '../../../lib/format';
 
 /** The proposal type, in the register's own words — for the slug line and
  *  the group's month-rule bar. Deliberately not proposal-lanes.ts's

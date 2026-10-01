@@ -38,7 +38,7 @@ export function DeskHeader({
           <span className="font-bold text-dim">{totalOnWire.toLocaleString()}</span> items on the wire ·{' '}
           <span className="font-bold text-dim">{awaitingJudgment.toLocaleString()}</span> awaiting judgment
         </span>
-        <span className="flex shrink-0 items-baseline gap-x-5">
+        <span className="flex max-w-full flex-wrap items-baseline justify-end gap-x-4 gap-y-1">
           <button
             type="button"
             onClick={onValidate}

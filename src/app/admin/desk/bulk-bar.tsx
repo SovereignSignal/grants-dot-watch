@@ -55,10 +55,11 @@ export function BulkBar({
           className="min-w-0 flex-1 border-b border-line bg-transparent px-1 py-1 text-[13px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
         />
         <VerdictActions
+          variant="buttons"
           onApprove={handleApprove}
           onReject={handleReject}
-          approveLabel={busy ? 'Working…' : `Approve ${n}: set in registry`}
-          rejectLabel={busy ? 'Working…' : `Reject ${n}`}
+          approveLabel={busy ? 'Working…' : 'Approve selected'}
+          rejectLabel={busy ? 'Working…' : 'Reject selected'}
           disabled={busy}
         />
       </div>
