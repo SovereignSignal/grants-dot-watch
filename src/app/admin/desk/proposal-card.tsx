@@ -38,6 +38,7 @@ export function ProposalCard({
   errorMessage,
   disabled = false,
   showActions = true,
+  detailsOnly = false,
 }: {
   proposal: QueueProposal;
   onDecide: (id: string, decision: 'approved' | 'rejected', note?: string) => void;
@@ -49,6 +50,8 @@ export function ProposalCard({
   errorMessage?: string;
   disabled?: boolean;
   showActions?: boolean;
+  /** Record, evidence, and facts only. The list row already shows the summary. */
+  detailsOnly?: boolean;
 }) {
   const { getAuthHeaders } = useAdminAuth();
   const [showRecord, setShowRecord] = useState(false);
@@ -89,13 +92,17 @@ export function ProposalCard({
 
   return (
     <div
-      id={`proposal-${proposal.id}`}
-      data-testid="desk-card"
-      className={`border-b border-line border-l-2 py-4 pl-3 transition-colors last:border-b-0 sm:py-5 sm:pl-4 ${
-        focused ? 'border-l-paper' : 'border-l-transparent'
-      }`}
+      id={detailsOnly ? undefined : `proposal-${proposal.id}`}
+      data-testid={detailsOnly ? 'desk-card-details' : 'desk-card'}
+      className={
+        detailsOnly
+          ? 'border-t border-line pt-3'
+          : `border-b border-line border-l-2 py-4 pl-3 transition-colors last:border-b-0 sm:py-5 sm:pl-4 ${
+              focused ? 'border-l-paper' : 'border-l-transparent'
+            }`
+      }
     >
-      <div className="flex items-start justify-between gap-3">
+      {!detailsOnly && <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-2.5">
           {onToggleSelect && (
             <span className="mt-1.5">
@@ -105,9 +112,9 @@ export function ProposalCard({
           <h3 className="display min-w-0 text-[22px] leading-[1.15] text-paper sm:text-[28px]">{brief.title}</h3>
         </div>
         <span className="coord shrink-0">{timeAgo(proposal.created_at)}</span>
-      </div>
+      </div>}
 
-      <div className="mt-2 flex items-center gap-2">
+      {!detailsOnly && <div className="mt-2 flex items-center gap-2">
         <p
           data-testid="review-call"
           className="inline-flex shrink-0 items-center rounded-full border border-paper px-2 py-0.5 font-sans text-[10px] font-bold tracking-[.08em] text-paper uppercase"
@@ -117,11 +124,13 @@ export function ProposalCard({
         <p className="min-w-0 flex-1 truncate text-[14px] leading-snug text-dim" title={brief.reason}>
           {brief.reason}
         </p>
-      </div>
+      </div>}
 
+      {!detailsOnly && (
       <div className="mt-2">
         <SlugLine proposal={proposal} proposer={brief.proposer} />
       </div>
+      )}
 
       <EvidenceBlock brief={brief} />
 

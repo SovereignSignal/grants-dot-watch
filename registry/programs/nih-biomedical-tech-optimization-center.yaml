@@ -14,7 +14,7 @@ summary: >
   2029: 29 Sep 2026, 28 Jan 2027, 28 May 2027, 28 Jan 2028, 26 May 2028, and 29 Jan 2029.
 rounds:
   - name: September 2026 receipt
-    status: open
+    status: closed
     opens: 2026-08-29
     closes: 2026-09-29
     size: NIH RM1

@@ -184,7 +184,12 @@ test('dated live calls advance to the next recorded deadline and preserve apply 
 
   const btod = briefing.dated.find((row) => row.program_id === 'nih-biomedical-tech-optimization-center');
   assert.ok(btod);
-  assert.equal(btod.round.closes, '2026-09-29');
+  assert.equal(btod.round.closes, '2027-01-28');
+  assert.equal(btod.round.status, 'announced');
+  assert.equal(
+    registry.programs.find((program) => program.id === 'nih-biomedical-tech-optimization-center').rounds.find((round) => round.name === 'September 2026 receipt').status,
+    'closed'
+  );
   assert.ok(!briefing.dated.some((row) => row.program_id === 'nih-biomedical-tech-optimization-center' && row.round.closes === '2029-01-29' && row.round.status === 'open'));
 
   const jst = briefing.dated.find((row) => row.program_id === 'jst-sicorp-japan-canada-ai-agriculture');

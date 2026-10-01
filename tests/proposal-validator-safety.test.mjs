@@ -4,6 +4,7 @@ import test from 'node:test';
 
 import { neverAutoReasonFor } from '../src/lib/machine-approval-policy.ts';
 import {
+  blockingStagedError,
   fetchPage,
   isAuthoritativeEvidenceUrl,
   isBlockedNetworkAddress,
@@ -201,4 +202,36 @@ test('staged registry validation catches schema and reference violations before 
   ]);
   assert.match(error, /system-that-does-not-exist.*not in systems/i);
   assert.equal(readFileSync('registry/programs/pibbss-fellowship.yaml', 'utf8'), original, 'canonical registry must stay untouched');
+});
+
+test('a past-due round in another file does not block an unrelated approve', () => {
+  const output = [
+    'programs/nih-biomedical-tech-optimization-center.yaml: round "September 2026 receipt" is open with past close 2026-09-29',
+    'FAIL: 1 problems across 21 systems, 417 orgs, 485 programs',
+  ].join('\n');
+  assert.equal(blockingStagedError(output, ['registry/orgs/arpa-e.yaml']), null);
+
+  const mixed = [
+    output,
+    'orgs/arpa-e.yaml: bad status "nope"',
+  ].join('\n');
+  const blocking = blockingStagedError(mixed, ['registry/orgs/arpa-e.yaml']);
+  assert.match(blocking, /orgs\/arpa-e.yaml: bad status/);
+  assert.equal(blocking.includes('nih-biomedical'), false);
+});
+
+test('staged validation still blocks a past-due round in the file being approved', () => {
+  const original = readFileSync('registry/programs/pibbss-fellowship.yaml', 'utf8');
+  const stale = original.replace('status: closed', 'status: open');
+  assert.notEqual(stale, original);
+
+  const error = validateStagedChanges([
+    {
+      path: 'registry/programs/pibbss-fellowship.yaml',
+      content: stale,
+      op: 'update',
+    },
+  ]);
+  assert.match(error, /Winter 2026-2027 cohort.*past close 2026-07-20/);
+  assert.equal(readFileSync('registry/programs/pibbss-fellowship.yaml', 'utf8'), original);
 });

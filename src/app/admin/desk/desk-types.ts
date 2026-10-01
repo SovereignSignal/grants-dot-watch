@@ -42,6 +42,7 @@ export interface DecideBulkResponse {
 
 export type ConfidenceBand = 'all' | 'high' | 'mid' | 'low';
 export type SourceFilter = 'all' | 'sourced' | 'unsourced';
+export type CuratorVerdictFilter = 'all' | 'approve' | 'reject' | 'needs_owner' | 'unreviewed';
 
 /** Judgment-tab filter state, lifted to page.tsx so it survives group
  *  collapse/expand. `confidence` stays as the compatibility field name for
@@ -51,6 +52,7 @@ export interface FilterState {
   wires: Set<Wire>; // empty = all wires
   confidence: ConfidenceBand;
   source: SourceFilter;
+  curator: CuratorVerdictFilter;
   proposers: Set<string>;
   text: string;
 }
@@ -60,6 +62,7 @@ export const DEFAULT_FILTERS: FilterState = {
   wires: new Set(),
   confidence: 'all',
   source: 'all',
+  curator: 'all',
   proposers: new Set(),
   text: '',
 };

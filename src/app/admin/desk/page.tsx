@@ -13,6 +13,8 @@ import { commitUrl, dateShortIso, timeAgo } from './desk-format';
 import { DeskHeader } from './desk-header';
 import { DEFAULT_FILTERS, type DecideBulkResponse, type FilterState, type QueueProposal } from './desk-types';
 import { FiltersBar } from './filters-bar';
+import { JudgmentList } from './judgment-list';
+import { sortJudgmentQueue } from './judgment-queue';
 import { ProposalCard } from './proposal-card';
 import { ProposalGroup } from './proposal-group';
 import { reviewBrief } from './review-brief';
@@ -49,6 +51,8 @@ function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposa
     if (filters.source === 'sourced' && brief.unsourced) return false;
     if (filters.source === 'unsourced' && !brief.unsourced) return false;
     if (filters.proposers.size > 0 && !filters.proposers.has(brief.proposer)) return false;
+    if (filters.curator === 'unreviewed' && p.curator_review) return false;
+    if (filters.curator !== 'all' && filters.curator !== 'unreviewed' && p.curator_review?.verdict !== filters.curator) return false;
     if (text) {
       const hay = `${p.title} ${brief.title} ${p.org_name ?? ''} ${p.org ?? ''}`.toLowerCase();
       if (!hay.includes(text)) return false;
@@ -101,6 +105,7 @@ export default function DeskPage() {
   const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({});
   const [rejectOpen, setRejectOpen] = useState(false);
   const [phone, setPhone] = useState(false);
+  const [judgmentView, setJudgmentView] = useState<'list' | 'cards'>('list');
   const swipe = useRef<{ x: number; y: number } | null>(null);
   const inflight = useRef(new Set<string>());
   const onRejectNote = useCallback((id: string, note: string) => {
@@ -336,8 +341,12 @@ export default function DeskPage() {
   const deskLog = useMemo(() => (data ? buildDeskLog(data.proposals, data.verdicts) : []), [data]);
 
   const filteredJudgment = useMemo(() => applyFilters(judgmentPending, filters), [judgmentPending, filters]);
+  const listedJudgment = useMemo(() => sortJudgmentQueue(filteredJudgment), [filteredJudgment]);
   const groups = useMemo(() => groupAndSort(filteredJudgment), [filteredJudgment]);
-  const judgmentFlatIds = useMemo(() => groups.flatMap((g) => g.items.map((i) => i.id)), [groups]);
+  const judgmentFlatIds = useMemo(
+    () => (judgmentView === 'list' ? listedJudgment.map((item) => item.id) : groups.flatMap((g) => g.items.map((i) => i.id))),
+    [judgmentView, listedJudgment, groups]
+  );
   const focusIndex = focusedId ? judgmentFlatIds.indexOf(focusedId) : -1;
   const focusedProposal = focusIndex >= 0 ? groups.flatMap((g) => g.items)[focusIndex] : null;
   const progressLabel = judgmentFlatIds.length === 0 ? '0 / 0' : `${Math.max(focusIndex, 0) + 1} / ${judgmentFlatIds.length}`;
@@ -473,7 +482,7 @@ export default function DeskPage() {
   }
 
   return (
-    <div className={`mx-auto max-w-6xl px-4 pt-8 ${tab === 'judgment' && judgmentPending.length > 0 ? 'pb-40' : 'pb-16'}`}>
+    <div className={`mx-auto max-w-6xl px-4 pt-8 ${tab === 'judgment' && judgmentView === 'cards' && judgmentPending.length > 0 ? 'pb-40' : 'pb-16'}`}>
       <DeskHeader
         totalOnWire={data.counts.total}
         awaitingJudgment={data.counts.pendingJudgment}
@@ -550,14 +559,48 @@ export default function DeskPage() {
                   <div className="sticky top-0 z-20 -mx-4 mb-1 flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper bg-void px-4 py-2">
                     <h2 className="text-[13px] font-extrabold tracking-[.09em] text-paper uppercase">Judgment Queue</h2>
                     <span data-testid="queue-progress" className="shrink-0 font-sans text-[13px] font-bold tracking-[.08em] text-paper uppercase">
-                      {progressLabel}
+                      {judgmentView === 'list' ? `${filteredJudgment.length}` : progressLabel}
                     </span>
                   </div>
-                  <p className="coord mt-2 mb-1">
-                    <span data-testid="queue-remaining">{filteredJudgment.length} remaining</span>
-                    <span className="hidden sm:inline"> · j/k next · a approve · r reject · o source · x select</span>
-                  </p>
-                  {phone && focusedProposal ? (
+                  <div className="mt-2 mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <span data-testid="queue-remaining" className="coord">
+                      {filteredJudgment.length} remaining
+                    </span>
+                    <div className="flex gap-3">
+                      <button
+                        type="button"
+                        aria-pressed={judgmentView === 'list'}
+                        onClick={() => setJudgmentView('list')}
+                        className={`coord ${judgmentView === 'list' ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint'}`}
+                      >
+                        List
+                      </button>
+                      <button
+                        type="button"
+                        aria-pressed={judgmentView === 'cards'}
+                        onClick={() => setJudgmentView('cards')}
+                        className={`coord ${judgmentView === 'cards' ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint'}`}
+                      >
+                        One at a time
+                      </button>
+                    </div>
+                    <span className="coord hidden sm:inline">j/k next · a approve · r reject · o source · x select</span>
+                  </div>
+                  {judgmentView === 'list' ? (
+                    <JudgmentList
+                      items={listedJudgment}
+                      selected={selected}
+                      focusedId={focusedId}
+                      errors={bulkErrors}
+                      disabled={bulkBusy}
+                      onToggleSelect={toggleSelect}
+                      onToggleSelectAll={toggleSelectGroup}
+                      onFocus={setFocusedId}
+                      onDecide={decideOne}
+                      onRejectNote={onRejectNote}
+                      rejectNotes={rejectNotes}
+                    />
+                  ) : phone && focusedProposal ? (
                     <div
                       className="pb-2"
                       onTouchStart={(e) => {
@@ -608,7 +651,7 @@ export default function DeskPage() {
                       ))}
                     </div>
                   )}
-                  {selected.size === 0 && focusedProposal && (
+                  {judgmentView === 'cards' && selected.size === 0 && focusedProposal && (
                     <>
                       {rejectOpen && (
                         <div

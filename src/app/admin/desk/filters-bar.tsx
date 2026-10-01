@@ -5,8 +5,16 @@ import type { ProposalType, Wire } from '@/lib/types';
 import { PROPOSAL_TYPE_ORDER } from '@/proposal-lanes';
 import { TYPE_SLUG_LABEL } from './desk-voice';
 import { proposerLabel, reviewBrief } from './review-brief';
-import type { ConfidenceBand, FilterState, SourceFilter } from './desk-types';
+import type { ConfidenceBand, CuratorVerdictFilter, FilterState, SourceFilter } from './desk-types';
 import type { QueueProposal } from './desk-types';
+
+const VERDICT_FILTERS: { key: CuratorVerdictFilter; label: string }[] = [
+  { key: 'all', label: 'All verdicts' },
+  { key: 'approve', label: 'Curator approve' },
+  { key: 'reject', label: 'Curator reject' },
+  { key: 'needs_owner', label: 'Needs owner' },
+  { key: 'unreviewed', label: 'Unreviewed' },
+];
 
 const SOURCE_FILTERS: { key: SourceFilter; label: string }[] = [
   { key: 'all', label: 'All sources' },
@@ -72,6 +80,7 @@ export function FiltersBar({
     filters.wires.size > 0 ||
     filters.confidence !== 'all' ||
     filters.source !== 'all' ||
+    filters.curator !== 'all' ||
     filters.proposers.size > 0 ||
     filters.text.trim() !== '';
 
@@ -97,6 +106,12 @@ export function FiltersBar({
           </Word>
         ))}
         {wireCounts.size > 0 && <span className="h-3 w-px bg-line" aria-hidden />}
+        {VERDICT_FILTERS.map((band) => (
+          <Word key={band.key} active={filters.curator === band.key} onClick={() => onChange({ ...filters, curator: band.key })}>
+            {band.label}
+          </Word>
+        ))}
+        <span className="h-3 w-px bg-line" aria-hidden />
         {SOURCE_FILTERS.map((band) => (
           <Word key={band.key} active={filters.source === band.key} onClick={() => onChange({ ...filters, source: band.key })}>
             {band.key === 'sourced' ? `Has source ${sourced}` : band.key === 'unsourced' ? `Unsourced ${items.length - sourced}` : band.label}
@@ -113,7 +128,7 @@ export function FiltersBar({
           <button
             type="button"
             onClick={() =>
-              onChange({ types: new Set(), wires: new Set(), confidence: 'all', source: 'all', proposers: new Set(), text: '' })
+              onChange({ types: new Set(), wires: new Set(), confidence: 'all', source: 'all', curator: 'all', proposers: new Set(), text: '' })
             }
             className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim"
           >
