@@ -448,10 +448,14 @@ function fail(checks: CheckResult[], reason: string): ValidationResult {
   return { pass: false, checks, reason };
 }
 
-function conciseProcessError(error: unknown, targetPaths: string[] = []): string {
+function processOutput(error: unknown): string {
   if (!(error instanceof Error)) return String(error);
   const withStderr = error as Error & { stderr?: Buffer | string; stdout?: Buffer | string };
-  const raw = withStderr.stderr?.toString() || withStderr.stdout?.toString() || error.message;
+  return withStderr.stderr?.toString() || withStderr.stdout?.toString() || error.message;
+}
+
+function conciseProcessError(error: unknown, targetPaths: string[] = []): string {
+  const raw = processOutput(error);
   const targets = targetPaths.map(path => path.replace(/^registry\//, '') + ':');
   // Show errors on the proposed files before unrelated registry findings.
   // Otherwise the size bound can hide the correction the reviewer must make.
@@ -459,6 +463,31 @@ function conciseProcessError(error: unknown, targetPaths: string[] = []): string
     Number(targets.some(path => b.startsWith(path))) - Number(targets.some(path => a.startsWith(path)))
   );
   return lines.join(' ').replace(/\s+/g, ' ').trim().slice(0, 600);
+}
+
+/** An approve fails only for validator findings on the files it writes.
+ *  A past-due round in some other program must not block the desk. */
+export function blockingStagedError(output: string, touchedPaths: string[]): string | null {
+  const touched = new Set(touchedPaths.map((path) => path.replace(/^registry\//, '')));
+  const relevant = output
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => {
+      if (!line || line.startsWith('FAIL:') || line.startsWith('...and ')) return false;
+      for (const file of touched) {
+        if (line.startsWith(`${file}:`)) return true;
+      }
+      return false;
+    });
+  if (relevant.length === 0) return null;
+  return relevant.join(' ').replace(/\s+/g, ' ').trim().slice(0, 600);
+}
+
+function unrelatedRegistryFindings(output: string): boolean {
+  return output.split('\n').some((line) => {
+    const trimmed = line.trim();
+    return trimmed.startsWith('FAIL:') || /^(?:systems|orgs|programs|awards)\//.test(trimmed);
+  });
 }
 
 /** Applies a pure change set to an isolated copy of registry/ and runs the
@@ -494,6 +523,11 @@ export function validateStagedChanges(changes: ReturnType<typeof buildProposalCh
     });
     return null;
   } catch (error) {
+    const raw = processOutput(error);
+    const blocking = blockingStagedError(raw, changes.map((change) => change.path));
+    if (blocking) return blocking;
+    // Pre-existing findings in files this approve does not write are not this item's problem.
+    if (unrelatedRegistryFindings(raw)) return null;
     return conciseProcessError(error, changes.map(change => change.path));
   } finally {
     rmSync(stageRoot, { recursive: true, force: true });
