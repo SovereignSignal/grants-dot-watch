@@ -11,13 +11,41 @@ export function VerdictActions({
   approveLabel,
   rejectLabel,
   disabled = false,
+  variant = 'text',
 }: {
   onApprove: () => void;
   onReject?: () => void;
   approveLabel: string;
   rejectLabel?: string;
   disabled?: boolean;
+  /** `buttons` is the large tap target on a queue card and the bulk bar. */
+  variant?: 'text' | 'buttons';
 }) {
+  if (variant === 'buttons') {
+    return (
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <button
+          type="button"
+          onClick={onApprove}
+          disabled={disabled}
+          className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center bg-paper px-5 font-sans text-[13px] font-bold tracking-[.12em] text-void uppercase disabled:cursor-default disabled:opacity-50 sm:w-auto sm:min-w-[11rem]"
+        >
+          {approveLabel}
+        </button>
+        {onReject && rejectLabel && (
+          <button
+            type="button"
+            onClick={onReject}
+            disabled={disabled}
+            className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center border border-paper bg-transparent px-5 font-sans text-[13px] font-bold tracking-[.12em] text-paper uppercase disabled:cursor-default disabled:opacity-50 sm:w-auto sm:min-w-[11rem]"
+          >
+            {rejectLabel}
+          </button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap items-baseline gap-x-[18px] gap-y-1.5">
       <button

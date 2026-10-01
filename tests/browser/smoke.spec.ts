@@ -107,6 +107,9 @@ test('front page has program facts without deadline or verification labels', asy
   await expect(main).not.toContainText(/confirmed open|verified open|unverified|verification|closing soon|open now/i);
   await expect(main.locator('dt', { hasText: /deadline|opens|checked/i })).toHaveCount(0);
   await expect(main.getByRole('combobox', { name: 'Search the register' })).toBeVisible();
+  const deskLinks = page.locator('header a[href="/admin/desk"]');
+  await expect(deskLinks).toHaveCount(2);
+  await expect(deskLinks.first()).toHaveText('Desk');
   await expect(main.getByText(/Search .* programs and .* organizations/)).toBeVisible();
   await expect(main).not.toContainText(/applications close|closing date/i);
   await expect(main.getByRole('heading', { name: /deadline/i })).toHaveCount(0);

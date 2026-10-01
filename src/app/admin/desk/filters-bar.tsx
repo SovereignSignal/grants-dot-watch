@@ -4,8 +4,15 @@ import { WIRE_LABEL } from '@/lib/format';
 import type { ProposalType, Wire } from '@/lib/types';
 import { PROPOSAL_TYPE_ORDER } from '@/proposal-lanes';
 import { TYPE_SLUG_LABEL } from './desk-voice';
-import type { ConfidenceBand, FilterState } from './desk-types';
+import { proposerLabel, reviewBrief } from './review-brief';
+import type { ConfidenceBand, FilterState, SourceFilter } from './desk-types';
 import type { QueueProposal } from './desk-types';
+
+const SOURCE_FILTERS: { key: SourceFilter; label: string }[] = [
+  { key: 'all', label: 'All sources' },
+  { key: 'sourced', label: 'Has source' },
+  { key: 'unsourced', label: 'Unsourced' },
+];
 
 const CONFIDENCE_BANDS: { key: ConfidenceBand; label: string }[] = [
   { key: 'all', label: 'All source scores' },
@@ -29,9 +36,14 @@ export function FiltersBar({
 }) {
   const typeCounts = new Map<ProposalType, number>();
   const wireCounts = new Map<Wire, number>();
+  const proposerCounts = new Map<string, number>();
+  let sourced = 0;
   for (const p of items) {
     typeCounts.set(p.type, (typeCounts.get(p.type) ?? 0) + 1);
     if (p.wire) wireCounts.set(p.wire, (wireCounts.get(p.wire) ?? 0) + 1);
+    const who = proposerLabel(p);
+    proposerCounts.set(who, (proposerCounts.get(who) ?? 0) + 1);
+    if (reviewBrief(p).sources.length > 0) sourced += 1;
   }
 
   function toggleType(t: ProposalType) {
@@ -48,8 +60,20 @@ export function FiltersBar({
     onChange({ ...filters, wires: next });
   }
 
+  function toggleProposer(name: string) {
+    const next = new Set(filters.proposers);
+    if (next.has(name)) next.delete(name);
+    else next.add(name);
+    onChange({ ...filters, proposers: next });
+  }
+
   const hasActiveFilters =
-    filters.types.size > 0 || filters.wires.size > 0 || filters.confidence !== 'all' || filters.text.trim() !== '';
+    filters.types.size > 0 ||
+    filters.wires.size > 0 ||
+    filters.confidence !== 'all' ||
+    filters.source !== 'all' ||
+    filters.proposers.size > 0 ||
+    filters.text.trim() !== '';
 
   return (
     <div className="mb-6 border-t border-b border-line py-3">
@@ -72,23 +96,40 @@ export function FiltersBar({
             {band.label}
           </Word>
         ))}
+        {wireCounts.size > 0 && <span className="h-3 w-px bg-line" aria-hidden />}
+        {SOURCE_FILTERS.map((band) => (
+          <Word key={band.key} active={filters.source === band.key} onClick={() => onChange({ ...filters, source: band.key })}>
+            {band.key === 'sourced' ? `Has source ${sourced}` : band.key === 'unsourced' ? `Unsourced ${items.length - sourced}` : band.label}
+          </Word>
+        ))}
         <input
           type="text"
           value={filters.text}
           onChange={(e) => onChange({ ...filters, text: e.target.value })}
           placeholder="Filter title / org…"
-          className="ml-auto min-w-[10rem] border-b border-line bg-transparent px-1 py-1 text-[13px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+          className="ml-auto min-w-[10rem] flex-1 border-b border-line bg-transparent px-1 py-1 text-[13px] text-paper placeholder:text-faint focus:border-paper focus:outline-none sm:flex-none"
         />
         {hasActiveFilters && (
           <button
             type="button"
-            onClick={() => onChange({ types: new Set(), wires: new Set(), confidence: 'all', text: '' })}
+            onClick={() =>
+              onChange({ types: new Set(), wires: new Set(), confidence: 'all', source: 'all', proposers: new Set(), text: '' })
+            }
             className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim"
           >
             Clear
           </button>
         )}
       </div>
+      {proposerCounts.size > 0 && (
+        <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-2">
+          {[...proposerCounts.keys()].sort().map((name) => (
+            <Word key={name} active={filters.proposers.has(name)} onClick={() => toggleProposer(name)}>
+              {name} {proposerCounts.get(name)}
+            </Word>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

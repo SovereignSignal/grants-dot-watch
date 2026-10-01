@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Empty, Stat } from '@/components/ui';
 import { tabClass } from '@/components/ui-filters';
 import type { ProposalType, Verdict } from '@/lib/types';
@@ -14,6 +14,7 @@ import { DEFAULT_FILTERS, type DecideBulkResponse, type FilterState, type QueueP
 import { FiltersBar } from './filters-bar';
 import { ProposalCard } from './proposal-card';
 import { ProposalGroup } from './proposal-group';
+import { reviewBrief } from './review-brief';
 import { VerdictActions } from './verdict-actions';
 
 type Tab = 'judgment' | 'fact' | 'log';
@@ -43,8 +44,12 @@ function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposa
     if (filters.types.size > 0 && !filters.types.has(p.type)) return false;
     if (filters.wires.size > 0 && (!p.wire || !filters.wires.has(p.wire))) return false;
     if (!matchesSourceScore(filters.confidence, p.confidence)) return false;
+    const brief = reviewBrief(p);
+    if (filters.source === 'sourced' && brief.unsourced) return false;
+    if (filters.source === 'unsourced' && !brief.unsourced) return false;
+    if (filters.proposers.size > 0 && !filters.proposers.has(brief.proposer)) return false;
     if (text) {
-      const hay = `${p.title} ${p.org_name ?? ''} ${p.org ?? ''}`.toLowerCase();
+      const hay = `${p.title} ${brief.title} ${p.org_name ?? ''} ${p.org ?? ''}`.toLowerCase();
       if (!hay.includes(text)) return false;
     }
     return true;
@@ -53,7 +58,7 @@ function applyFilters(list: QueueProposal[], filters: FilterState): QueueProposa
 
 function isInteractiveTarget(target: EventTarget | null): boolean {
   return target instanceof Element && Boolean(
-    target.closest('input, textarea, select, button, a, [role="textbox"], [role="combobox"], [contenteditable]:not([contenteditable="false"])')
+    target.closest('input, textarea, select, [role="textbox"], [role="combobox"], [contenteditable]:not([contenteditable="false"])')
   );
 }
 
@@ -92,6 +97,11 @@ export default function DeskPage() {
   const [bulkBusy, setBulkBusy] = useState(false);
   const [bulkErrors, setBulkErrors] = useState<Record<string, string>>({});
   const [focusedId, setFocusedId] = useState<string | null>(null);
+  const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({});
+  const inflight = useRef(new Set<string>());
+  const onRejectNote = useCallback((id: string, note: string) => {
+    setRejectNotes((prev) => ({ ...prev, [id]: note }));
+  }, []);
 
   const loadQueue = useCallback(async () => {
     setLoadErr(null);
@@ -113,20 +123,21 @@ export default function DeskPage() {
     loadQueue();
   }, [loadQueue]);
 
-  const handleDecided = useCallback((id: string, decision: 'approved' | 'rejected', verdict: Verdict) => {
+  const hideProposal = useCallback((id: string, decision: 'approved' | 'rejected') => {
     setData((prev) => {
       if (!prev) return prev;
       const decided = prev.proposals.find((p) => p.id === id);
-      const proposals = prev.proposals.map((p) => (p.id === id ? { ...p, state: decision } : p));
-      const wasJudgment = decided?.lane === 'judgment';
-      const counts = {
-        ...prev.counts,
-        pendingJudgment: prev.counts.pendingJudgment - (wasJudgment ? 1 : 0),
-        pendingFact: prev.counts.pendingFact - (wasJudgment ? 0 : 1),
-        decidedToday: prev.counts.decidedToday + 1,
+      if (!decided || decided.state !== 'pending') return prev;
+      const wasJudgment = decided.lane === 'judgment';
+      return {
+        ...prev,
+        proposals: prev.proposals.map((p) => (p.id === id ? { ...p, state: decision } : p)),
+        counts: {
+          ...prev.counts,
+          pendingJudgment: prev.counts.pendingJudgment - (wasJudgment ? 1 : 0),
+          pendingFact: prev.counts.pendingFact - (wasJudgment ? 0 : 1),
+        },
       };
-      const verdicts = verdict ? [verdict, ...prev.verdicts] : prev.verdicts;
-      return { ...prev, proposals, counts, verdicts };
     });
     setSelected((prev) => {
       if (!prev.has(id)) return prev;
@@ -142,8 +153,25 @@ export default function DeskPage() {
     });
   }, []);
 
-  /** Shared by the bulk bar, the Facts "apply all" button, and the Alt+A/R
-   *  keyboard shortcuts. Optimistic: marks ids decided immediately, then
+  const restoreProposal = useCallback((id: string) => {
+    setData((prev) => {
+      if (!prev) return prev;
+      const item = prev.proposals.find((p) => p.id === id);
+      if (!item || item.state === 'pending') return prev;
+      const wasJudgment = item.lane === 'judgment';
+      return {
+        ...prev,
+        proposals: prev.proposals.map((p) => (p.id === id ? { ...p, state: 'pending' } : p)),
+        counts: {
+          ...prev.counts,
+          pendingJudgment: prev.counts.pendingJudgment + (wasJudgment ? 1 : 0),
+          pendingFact: prev.counts.pendingFact + (wasJudgment ? 0 : 1),
+        },
+      };
+    });
+  }, []);
+
+  /** Shared by the bulk bar and the Facts "apply all" button. Optimistic: marks ids decided immediately, then
    *  reconciles against the server — any id the server reports as failed is
    *  put back to pending with its error attached, then a full requery keeps
    *  counts/verdicts/commit links honest. Chunks past the API's 60-id cap. */
@@ -304,9 +332,62 @@ export default function DeskPage() {
     [data, selected]
   );
 
-  // Keyboard triage: j/k moves the focus mark, x toggles selection, and
-  // Alt+A/R approves/rejects the focused card. Interactive and editable
-  // targets always keep their native keyboard behavior.
+  const decideOne = useCallback(
+    async (id: string, decision: 'approved' | 'rejected', note?: string) => {
+      if (inflight.current.has(id) || bulkBusy) return;
+      inflight.current.add(id);
+      setFocusedId((prev) => {
+        if (prev !== id) return prev;
+        const idx = judgmentFlatIds.indexOf(id);
+        const next = judgmentFlatIds[idx + 1] ?? judgmentFlatIds[idx - 1] ?? null;
+        if (next) document.getElementById(`proposal-${next}`)?.scrollIntoView({ block: 'nearest' });
+        return next;
+      });
+      hideProposal(id, decision);
+      try {
+        const headers = await getAuthHeaders();
+        const res = await fetch('/api/desk/decide', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', ...headers },
+          body: JSON.stringify({ id, decision, ...(note ? { note } : {}) }),
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          restoreProposal(id);
+          setBulkErrors((prev) => ({ ...prev, [id]: json.error || 'Decision failed.' }));
+          setFocusedId(id);
+          return;
+        }
+        if (json.verdict) {
+          setData((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  counts: { ...prev.counts, decidedToday: prev.counts.decidedToday + 1 },
+                  verdicts: [json.verdict as Verdict, ...prev.verdicts],
+                }
+              : prev
+          );
+        }
+      } catch {
+        restoreProposal(id);
+        setBulkErrors((prev) => ({ ...prev, [id]: 'Decision failed.' }));
+        setFocusedId(id);
+      } finally {
+        inflight.current.delete(id);
+      }
+    },
+    [bulkBusy, getAuthHeaders, hideProposal, judgmentFlatIds, restoreProposal]
+  );
+
+  useEffect(() => {
+    if (tab !== 'judgment') return;
+    if (focusedId && judgmentFlatIds.includes(focusedId)) return;
+    setFocusedId(judgmentFlatIds[0] ?? null);
+  }, [tab, judgmentFlatIds, focusedId]);
+
+  // j/k moves, x selects, a approves, r rejects, o opens the source.
+  // Typing in a field keeps the key.
   useEffect(() => {
     if (tab !== 'judgment') return;
     function onKeyDown(e: KeyboardEvent) {
@@ -314,8 +395,9 @@ export default function DeskPage() {
       if (judgmentFlatIds.length === 0) return;
       const key = e.key.toLowerCase();
       const plainKey = !e.altKey && !e.metaKey && !e.ctrlKey;
+      if (!plainKey) return;
 
-      if (plainKey && (key === 'j' || key === 'k')) {
+      if (key === 'j' || key === 'k') {
         e.preventDefault();
         setFocusedId((prev) => {
           const idx = prev ? judgmentFlatIds.indexOf(prev) : -1;
@@ -324,19 +406,27 @@ export default function DeskPage() {
           document.getElementById(`proposal-${nextId}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
           return nextId;
         });
-      } else if (plainKey && key === 'x') {
+      } else if (key === 'x') {
         if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
         e.preventDefault();
         toggleSelect(focusedId);
-      } else if (e.altKey && !e.metaKey && !e.ctrlKey && (key === 'a' || key === 'r')) {
+      } else if (key === 'a' || key === 'r') {
         if (e.repeat || bulkBusy || !focusedId || !judgmentFlatIds.includes(focusedId)) return;
         e.preventDefault();
-        bulkDecide([focusedId], key === 'a' ? 'approved' : 'rejected');
+        const note = key === 'r' ? rejectNotes[focusedId]?.trim() : undefined;
+        void decideOne(focusedId, key === 'a' ? 'approved' : 'rejected', note || undefined);
+      } else if (key === 'o') {
+        if (!focusedId) return;
+        const item = data?.proposals.find((p) => p.id === focusedId);
+        const url = item ? reviewBrief(item).sources[0]?.url : undefined;
+        if (!url) return;
+        e.preventDefault();
+        window.open(url, '_blank', 'noopener,noreferrer');
       }
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [tab, judgmentFlatIds, focusedId, toggleSelect, bulkDecide, bulkBusy]);
+  }, [tab, judgmentFlatIds, focusedId, toggleSelect, decideOne, bulkBusy, data, rejectNotes]);
 
   async function applyAllFacts() {
     if (factPending.length === 0) return;
@@ -437,10 +527,11 @@ export default function DeskPage() {
                 <>
                   <div className="mb-1 flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
                     <h2 className="text-[13px] font-extrabold tracking-[.09em] text-paper uppercase">Judgment Queue</h2>
-                    <span className="coord shrink-0">
-                      {filteredJudgment.length} of {judgmentPending.length} · grouped by type
+                    <span data-testid="queue-remaining" className="shrink-0 font-sans text-[13px] font-bold tracking-[.08em] text-paper uppercase">
+                      {filteredJudgment.length} remaining
                     </span>
                   </div>
+                  <p className="coord mt-2 mb-1">j/k next · a approve · r reject · o source · x select</p>
                   <div className="pb-2">
                     {groups.map((g) => (
                       <ProposalGroup
@@ -452,7 +543,10 @@ export default function DeskPage() {
                         errors={bulkErrors}
                         onToggleSelect={toggleSelect}
                         onToggleSelectAll={toggleSelectGroup}
-                        onDecided={handleDecided}
+                        onDecide={decideOne}
+                        onRejectNote={onRejectNote}
+                        rejectNotes={rejectNotes}
+                        disabled={bulkBusy}
                       />
                     ))}
                   </div>
@@ -486,7 +580,15 @@ export default function DeskPage() {
               />
               <div className="flex flex-col">
                 {factPending.map((p) => (
-                  <ProposalCard key={p.id} proposal={p} onDecided={handleDecided} errorMessage={bulkErrors[p.id]} />
+                  <ProposalCard
+                    key={p.id}
+                    proposal={p}
+                    onDecide={decideOne}
+                    onRejectNote={onRejectNote}
+                    rejectNote={rejectNotes[p.id] ?? ''}
+                    errorMessage={bulkErrors[p.id]}
+                    disabled={bulkBusy}
+                  />
                 ))}
               </div>
             </>
