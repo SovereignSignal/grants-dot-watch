@@ -6,6 +6,7 @@ import { tabClass } from '@/components/ui-filters';
 import type { ProposalType, Verdict } from '@/lib/types';
 import { PROPOSAL_TYPE_ORDER, typeCountsSummary } from '@/proposal-lanes';
 import { useAdminAuth } from '../admin-auth';
+import { JudgmentBar } from './action-bar';
 import { BulkBar } from './bulk-bar';
 import { buildDeskLog } from '@/lib/desk-log';
 import { commitUrl, dateShortIso, timeAgo } from './desk-format';
@@ -98,6 +99,9 @@ export default function DeskPage() {
   const [bulkErrors, setBulkErrors] = useState<Record<string, string>>({});
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({});
+  const [rejectOpen, setRejectOpen] = useState(false);
+  const [phone, setPhone] = useState(false);
+  const swipe = useRef<{ x: number; y: number } | null>(null);
   const inflight = useRef(new Set<string>());
   const onRejectNote = useCallback((id: string, note: string) => {
     setRejectNotes((prev) => ({ ...prev, [id]: note }));
@@ -122,6 +126,14 @@ export default function DeskPage() {
   useEffect(() => {
     loadQueue();
   }, [loadQueue]);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 767px)');
+    const sync = () => setPhone(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
 
   const hideProposal = useCallback((id: string, decision: 'approved' | 'rejected') => {
     setData((prev) => {
@@ -326,6 +338,9 @@ export default function DeskPage() {
   const filteredJudgment = useMemo(() => applyFilters(judgmentPending, filters), [judgmentPending, filters]);
   const groups = useMemo(() => groupAndSort(filteredJudgment), [filteredJudgment]);
   const judgmentFlatIds = useMemo(() => groups.flatMap((g) => g.items.map((i) => i.id)), [groups]);
+  const focusIndex = focusedId ? judgmentFlatIds.indexOf(focusedId) : -1;
+  const focusedProposal = focusIndex >= 0 ? groups.flatMap((g) => g.items)[focusIndex] : null;
+  const progressLabel = judgmentFlatIds.length === 0 ? '0 / 0' : `${Math.max(focusIndex, 0) + 1} / ${judgmentFlatIds.length}`;
 
   const selectedProposals = useMemo(
     () => (data ? data.proposals.filter((p) => selected.has(p.id)) : []),
@@ -380,10 +395,23 @@ export default function DeskPage() {
     [bulkBusy, getAuthHeaders, hideProposal, judgmentFlatIds, restoreProposal]
   );
 
+  const moveFocus = useCallback((dir: 1 | -1) => {
+    setRejectOpen(false);
+    setFocusedId((prev) => {
+      const idx = prev ? judgmentFlatIds.indexOf(prev) : -1;
+      const nextIdx = dir === 1 ? Math.min(idx + 1, judgmentFlatIds.length - 1) : Math.max(idx - 1, 0);
+      const nextId = judgmentFlatIds[nextIdx];
+      if (!nextId || nextId === prev) return prev;
+      document.getElementById(`proposal-${nextId}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return nextId;
+    });
+  }, [judgmentFlatIds]);
+
   useEffect(() => {
     if (tab !== 'judgment') return;
     if (focusedId && judgmentFlatIds.includes(focusedId)) return;
     setFocusedId(judgmentFlatIds[0] ?? null);
+    setRejectOpen(false);
   }, [tab, judgmentFlatIds, focusedId]);
 
   // j/k moves, x selects, a approves, r rejects, o opens the source.
@@ -399,13 +427,7 @@ export default function DeskPage() {
 
       if (key === 'j' || key === 'k') {
         e.preventDefault();
-        setFocusedId((prev) => {
-          const idx = prev ? judgmentFlatIds.indexOf(prev) : -1;
-          const nextIdx = key === 'j' ? Math.min(idx + 1, judgmentFlatIds.length - 1) : Math.max(idx - 1, 0);
-          const nextId = judgmentFlatIds[nextIdx];
-          document.getElementById(`proposal-${nextId}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-          return nextId;
-        });
+        moveFocus(key === 'j' ? 1 : -1);
       } else if (key === 'x') {
         if (!focusedId || !judgmentFlatIds.includes(focusedId)) return;
         e.preventDefault();
@@ -426,7 +448,7 @@ export default function DeskPage() {
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [tab, judgmentFlatIds, focusedId, toggleSelect, decideOne, bulkBusy, data, rejectNotes]);
+  }, [tab, judgmentFlatIds, focusedId, toggleSelect, decideOne, bulkBusy, data, rejectNotes, moveFocus]);
 
   async function applyAllFacts() {
     if (factPending.length === 0) return;
@@ -451,7 +473,7 @@ export default function DeskPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-8 pb-16">
+    <div className={`mx-auto max-w-6xl px-4 pt-8 ${tab === 'judgment' && judgmentPending.length > 0 ? 'pb-40' : 'pb-16'}`}>
       <DeskHeader
         totalOnWire={data.counts.total}
         awaitingJudgment={data.counts.pendingJudgment}
@@ -525,31 +547,125 @@ export default function DeskPage() {
                 <Empty>No judgment items match these filters.</Empty>
               ) : (
                 <>
-                  <div className="mb-1 flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
+                  <div className="sticky top-0 z-20 -mx-4 mb-1 flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper bg-void px-4 py-2">
                     <h2 className="text-[13px] font-extrabold tracking-[.09em] text-paper uppercase">Judgment Queue</h2>
-                    <span data-testid="queue-remaining" className="shrink-0 font-sans text-[13px] font-bold tracking-[.08em] text-paper uppercase">
-                      {filteredJudgment.length} remaining
+                    <span data-testid="queue-progress" className="shrink-0 font-sans text-[13px] font-bold tracking-[.08em] text-paper uppercase">
+                      {progressLabel}
                     </span>
                   </div>
-                  <p className="coord mt-2 mb-1">j/k next · a approve · r reject · o source · x select</p>
-                  <div className="pb-2">
-                    {groups.map((g) => (
-                      <ProposalGroup
-                        key={g.type}
-                        type={g.type}
-                        items={g.items}
-                        selected={selected}
-                        focusedId={focusedId}
-                        errors={bulkErrors}
-                        onToggleSelect={toggleSelect}
-                        onToggleSelectAll={toggleSelectGroup}
+                  <p className="coord mt-2 mb-1">
+                    <span data-testid="queue-remaining">{filteredJudgment.length} remaining</span>
+                    <span className="hidden sm:inline"> · j/k next · a approve · r reject · o source · x select</span>
+                  </p>
+                  {phone && focusedProposal ? (
+                    <div
+                      className="pb-2"
+                      onTouchStart={(e) => {
+                        if ((e.target as Element).closest('a, button, input, textarea')) return;
+                        const touch = e.touches[0];
+                        swipe.current = { x: touch.clientX, y: touch.clientY };
+                      }}
+                      onTouchEnd={(e) => {
+                        if (!swipe.current) return;
+                        const touch = e.changedTouches[0];
+                        const dx = touch.clientX - swipe.current.x;
+                        const dy = touch.clientY - swipe.current.y;
+                        swipe.current = null;
+                        if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+                        moveFocus(dx < 0 ? 1 : -1);
+                      }}
+                    >
+                      <ProposalCard
+                        proposal={focusedProposal}
+                        selected={selected.has(focusedProposal.id)}
+                        onToggleSelect={() => toggleSelect(focusedProposal.id)}
+                        focused
+                        errorMessage={bulkErrors[focusedProposal.id]}
                         onDecide={decideOne}
                         onRejectNote={onRejectNote}
-                        rejectNotes={rejectNotes}
+                        rejectNote={rejectNotes[focusedProposal.id] ?? ''}
                         disabled={bulkBusy}
+                        showActions={false}
                       />
-                    ))}
-                  </div>
+                    </div>
+                  ) : (
+                    <div className="pb-2">
+                      {groups.map((g) => (
+                        <ProposalGroup
+                          key={g.type}
+                          type={g.type}
+                          items={g.items}
+                          selected={selected}
+                          focusedId={focusedId}
+                          errors={bulkErrors}
+                          onToggleSelect={toggleSelect}
+                          onToggleSelectAll={toggleSelectGroup}
+                          onDecide={decideOne}
+                          onRejectNote={onRejectNote}
+                          rejectNotes={rejectNotes}
+                          disabled={bulkBusy}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {selected.size === 0 && focusedProposal && (
+                    <>
+                      {rejectOpen && (
+                        <div
+                          data-testid="reject-sheet"
+                          className="fixed inset-x-0 bottom-[7.75rem] z-40 border-t border-paper bg-void px-3 py-3"
+                        >
+                          <div className="mx-auto max-w-6xl">
+                            <label className="coord mb-1 block" htmlFor={`reject-note-${focusedProposal.id}`}>
+                              Reject reason, optional
+                            </label>
+                            <input
+                              id={`reject-note-${focusedProposal.id}`}
+                              type="text"
+                              value={rejectNotes[focusedProposal.id] ?? ''}
+                              onChange={(e) => onRejectNote(focusedProposal.id, e.target.value)}
+                              placeholder="Why reject, if you want it on the log"
+                              className="mb-3 w-full border-b border-line bg-transparent px-1 py-2 text-[15px] text-paper placeholder:text-faint focus:border-paper focus:outline-none"
+                            />
+                            <div className="flex gap-2">
+                              <button
+                                type="button"
+                                disabled={bulkBusy}
+                                onClick={() => {
+                                  const note = rejectNotes[focusedProposal.id]?.trim();
+                                  setRejectOpen(false);
+                                  void decideOne(focusedProposal.id, 'rejected', note || undefined);
+                                }}
+                                className="inline-flex min-h-11 flex-1 items-center justify-center bg-paper px-3 font-sans text-[12px] font-bold tracking-[.12em] text-void uppercase disabled:opacity-50"
+                              >
+                                Reject
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setRejectOpen(false)}
+                                className="inline-flex min-h-11 flex-1 items-center justify-center border border-paper px-3 font-sans text-[12px] font-bold tracking-[.12em] text-paper uppercase"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <JudgmentBar
+                        disabled={bulkBusy}
+                        atStart={focusIndex <= 0}
+                        atEnd={focusIndex >= judgmentFlatIds.length - 1}
+                        onPrev={() => moveFocus(-1)}
+                        onNext={() => moveFocus(1)}
+                        onApprove={() => {
+                          setRejectOpen(false);
+                          void decideOne(focusedProposal.id, 'approved');
+                        }}
+                        onReject={() => setRejectOpen(true)}
+                        onSkip={() => moveFocus(1)}
+                      />
+                    </>
+                  )}
                 </>
               )}
               <BulkBar

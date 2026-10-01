@@ -16,6 +16,7 @@ import {
   getCuratorItem,
   listCuratorQueue,
   proposeCuratorItem,
+  reviewCuratorItem,
   searchCuratorDirectory,
 } from '../src/lib/curator-api.ts';
 import { fileIdempotencyStore, interpretIdempotency, memoryIdempotencyStore } from '../src/lib/curator-idempotency.ts';
@@ -126,10 +127,10 @@ const registry = {
 
 function deps(extra = {}) {
   const proposals = new Map([
-    ['p00001', pending],
-    ['p00000', older],
-    ['p00002', mergeItem],
-    ['p00003', deletion],
+    ['p00001', structuredClone(pending)],
+    ['p00000', structuredClone(older)],
+    ['p00002', structuredClone(mergeItem)],
+    ['p00003', structuredClone(deletion)],
   ]);
   const inserted = [];
   const decisions = [];
@@ -177,6 +178,18 @@ function deps(extra = {}) {
             },
           },
         };
+      },
+      saveReview: async (id, review) => {
+        const proposal = proposals.get(id);
+        if (!proposal) return { status: 'missing' };
+        if (proposal.state !== 'pending') return { status: 'decided' };
+        const next = {
+          ...proposal,
+          curator_review: review,
+          curator_review_history: [...(proposal.curator_review_history || []), review],
+        };
+        proposals.set(id, next);
+        return { status: 'saved', proposal: next };
       },
       loadRegistry: () => registry,
       preview: () => ({ changes: [{ path: 'registry/programs/example-grants.yaml', content: 'name: Example', op: 'update' }], notes: ['preview'] }),
@@ -691,6 +704,195 @@ test('idempotency records expire and a file store lets only one claim win', asyn
   await store.finish('key', 201, { ok: true, id: 'p00099' }, 'hash', '2026-06-01T00:00:01.000Z');
   const replay = await store.claim('key', 'hash', '2026-06-01T00:00:02.000Z');
   assert.deepEqual(replay, { replay: { status: 201, body: { ok: true, id: 'p00099' } } });
+});
+
+const reviewBody = {
+  verdict: 'reject',
+  reason: 'The page describes a research office, not an open grant.',
+  sources: [{ url: 'https://example.org/grants', quote: 'Applications close on 1 December 2026.' }],
+  facts: { status: 'paused', deadline: '2026-11-15', amount: '$10M', org_name: 'Example Foundation', program_name: 'Example Open' },
+};
+
+test('a curator review annotates a proposal and does not change its state', async () => {
+  const { api, decisions } = deps();
+  const proposeOnly = deps({ gate: gateFor([key({ scopes: ['propose'] })]) });
+  const reader = deps({ gate: gateFor([key({ scopes: ['read_queue'] })]) });
+  const decider = deps({ gate: gateFor([key({ scopes: ['decide'] })]) });
+
+  assert.equal((await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-reader-1', method: 'POST' }),
+    'p00001',
+    reader.api
+  )).status, 403);
+  assert.equal((await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-decide-1', method: 'POST' }),
+    'p00001',
+    decider.api
+  )).status, 403);
+
+  const missingKey = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, method: 'POST' }),
+    'p00001',
+    proposeOnly.api
+  );
+  assert.equal(missingKey.status, 400);
+
+  const scoped = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-propose-only-1', method: 'POST' }),
+    'p00001',
+    proposeOnly.api
+  );
+  assert.equal(scoped.status, 200);
+  assert.equal((await scoped.json()).state, 'pending');
+  assert.equal(proposeOnly.decisions.length, 0);
+  assert.equal((await proposeOnly.api.getProposal('p00001')).state, 'pending');
+
+  const response = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-p00001-1', method: 'POST' }),
+    'p00001',
+    api
+  );
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.ok, true);
+  assert.equal(body.id, 'p00001');
+  assert.equal(body.state, 'pending');
+  assert.equal(body.verdict, 'reject');
+  assert.equal(decisions.length, 0);
+
+  const stored = await api.getProposal('p00001');
+  assert.equal(stored.state, 'pending');
+  assert.equal(stored.curator_review.verdict, 'reject');
+  assert.equal(stored.curator_review.facts.deadline, '2026-11-15');
+  assert.equal(stored.curator_review_history.length, 1);
+
+  const replay = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-p00001-1', method: 'POST' }),
+    'p00001',
+    api
+  );
+  assert.equal(replay.status, 200);
+  assert.equal(replay.headers.get('idempotent-replayed'), 'true');
+  assert.equal((await api.getProposal('p00001')).curator_review_history.length, 1);
+
+  const second = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', {
+      body: { ...reviewBody, verdict: 'needs_owner', reason: 'Owner should confirm the office.' },
+      idempotency: 'review-p00001-2',
+      method: 'POST',
+    }),
+    'p00001',
+    api
+  );
+  assert.equal(second.status, 200);
+  assert.equal((await second.json()).verdict, 'needs_owner');
+  const history = (await api.getProposal('p00001')).curator_review_history;
+  assert.equal(history.length, 2);
+  assert.equal(history[0].verdict, 'reject');
+  assert.equal(history[1].verdict, 'needs_owner');
+  assert.equal((await api.getProposal('p00001')).state, 'pending');
+
+  const detail = await getCuratorItem(request('https://grants.watch/api/v1/curator/queue/p00001'), 'p00001', api);
+  const detailBody = await detail.json();
+  assert.equal(detailBody.data.state, 'pending');
+  assert.equal(detailBody.data.curator_review.verdict, 'needs_owner');
+  assert.equal(detailBody.data.curator_review_history.length, 2);
+
+  const tooLong = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', {
+      body: { ...reviewBody, reason: 'x'.repeat(301) },
+      idempotency: 'review-long-1',
+      method: 'POST',
+    }),
+    'p00001',
+    api
+  );
+  assert.equal(tooLong.status, 400);
+
+  const httpSource = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', {
+      body: { ...reviewBody, sources: [{ url: 'http://example.org/grants', quote: 'Applications close on 1 December 2026.' }] },
+      idempotency: 'review-http-1',
+      method: 'POST',
+    }),
+    'p00001',
+    api
+  );
+  assert.equal(httpSource.status, 400);
+
+  const extraFact = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', {
+      body: { ...reviewBody, facts: { website: 'https://example.org' } },
+      idempotency: 'review-fact-1',
+      method: 'POST',
+    }),
+    'p00001',
+    api
+  );
+  assert.equal(extraFact.status, 400);
+
+  const badDay = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', {
+      body: { ...reviewBody, facts: { deadline: '15 November 2026' } },
+      idempotency: 'review-day-1',
+      method: 'POST',
+    }),
+    'p00001',
+    api
+  );
+  assert.equal(badDay.status, 400);
+
+  const mergeReview = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00002/review', { body: reviewBody, idempotency: 'review-merge-1', method: 'POST' }),
+    'p00002',
+    api
+  );
+  assert.equal(mergeReview.status, 200);
+  assert.equal((await mergeReview.json()).state, 'pending');
+  const mergeDecide = await decideCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00002/decide', {
+      body: { decision: 'rejected', reason: 'These are not the same organization.' },
+      idempotency: 'decide-merge-still-blocked',
+      method: 'POST',
+    }),
+    'p00002',
+    api
+  );
+  assert.equal(mergeDecide.status, 403);
+  assert.equal(decisions.length, 0);
+
+  const deletionReview = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00003/review', {
+      body: { verdict: 'reject', reason: 'Do not delete the file.', sources: reviewBody.sources },
+      idempotency: 'review-delete-1',
+      method: 'POST',
+    }),
+    'p00003',
+    api
+  );
+  assert.equal(deletionReview.status, 200);
+  assert.equal((await api.getProposal('p00003')).state, 'pending');
+
+  const missing = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00999/review', { body: reviewBody, idempotency: 'review-missing-1', method: 'POST' }),
+    'p00999',
+    api
+  );
+  assert.equal(missing.status, 404);
+});
+
+test('a review of a decided proposal is a conflict and leaves state alone', async () => {
+  const { api } = deps();
+  const decided = await api.getProposal('p00001');
+  decided.state = 'approved';
+  const response = await reviewCuratorItem(
+    request('https://grants.watch/api/v1/curator/queue/p00001/review', { body: reviewBody, idempotency: 'review-decided-1', method: 'POST' }),
+    'p00001',
+    api
+  );
+  assert.equal(response.status, 409);
+  assert.equal((await api.getProposal('p00001')).state, 'approved');
+  assert.equal((await api.getProposal('p00001')).curator_review, undefined);
 });
 
 test('the mint script prints a hash entry and does not print the token', async () => {
