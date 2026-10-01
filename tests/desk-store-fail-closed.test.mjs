@@ -55,6 +55,14 @@ test('the production guard fires on first access, not at import', async () => {
     ['queueCounts', () => store.queueCounts()],
     ['recordVerdict', () => store.recordVerdict('p00001', 'approved')],
     ['setProposalValidation', () => store.setProposalValidation('p00001', undefined)],
+    ['saveCuratorReview', () => store.saveCuratorReview('p00001', {
+      verdict: 'reject',
+      reason: 'Not a grant.',
+      sources: [{ url: 'https://example.org/grants', quote: 'Example quote.' }],
+      key_id: 'hedwig',
+      key_name: 'Hedwig',
+      at: '2026-06-01T00:00:00.000Z',
+    })],
     ['claimProposal', () => store.claimProposal('p00001')],
     ['releaseProposalClaim', () => store.releaseProposalClaim('p00001')],
     ['recoverStaleProposalClaims', () => store.recoverStaleProposalClaims()],
@@ -68,7 +76,7 @@ test('the production guard fires on first access, not at import', async () => {
     await assert.rejects(call, /DATABASE_URL/, `${name} must fail closed in production`);
   }
 
-  // The sixteenth site. withIngestLock must refuse rather than run `fn`
+  // withIngestLock must refuse rather than run `fn`
   // against a store that cannot durably record what `fn` does.
   let ran = false;
   await assert.rejects(store.withIngestLock(async () => (ran = true)), /DATABASE_URL/);

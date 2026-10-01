@@ -116,6 +116,57 @@ test('a proposal with no URL is unsourced and a deletion is reject', () => {
   assert.match(deletion.reason, /delete or remove/);
 });
 
+test('a curator review replaces the generated verdict and highlights corrected facts', () => {
+  const brief = reviewBrief({
+    ...arpa,
+    curator_review: {
+      verdict: 'reject',
+      reason: 'The page describes a research office, not an open grant.',
+      sources: [{ url: 'https://arpa-e.energy.gov/about', quote: 'ARPA-E advances high-potential energy technologies.' }],
+      facts: { status: 'paused', org_name: 'ARPA-E', amount: '$10M', program_name: 'OPEN' },
+      key_id: 'hedwig',
+      key_name: 'Hedwig',
+      at: '2026-10-01T00:00:00.000Z',
+    },
+  });
+  assert.equal(brief.curator, true);
+  assert.equal(brief.pill, 'Curator: Reject');
+  assert.equal(brief.reason, 'The page describes a research office, not an open grant.');
+  assert.equal(brief.call, 'check');
+  assert.equal(brief.sources[0].domain, 'arpa-e.energy.gov');
+  assert.deepEqual(brief.sources[0].quotes, ['ARPA-E advances high-potential energy technologies.']);
+  const facts = Object.fromEntries(brief.facts.map((fact) => [fact.label, fact]));
+  assert.equal(facts.Status.value, 'Paused');
+  assert.equal(facts.Status.corrected, true);
+  assert.equal(facts.Org.value, 'ARPA-E');
+  assert.equal(facts.Org.corrected, true);
+  assert.equal(facts.Amount.value, '$10M');
+  assert.equal(facts.Amount.corrected, true);
+  assert.equal(facts.Program.value, 'OPEN');
+  assert.equal(facts.Program.corrected, true);
+  assert.equal(facts.Website.corrected, undefined);
+  assert.equal(facts.Name.corrected, undefined);
+});
+
+test('an unchanged curator fact is not marked corrected', () => {
+  const brief = reviewBrief({
+    ...arpa,
+    curator_review: {
+      verdict: 'needs_owner',
+      reason: 'Confirm the office is in scope.',
+      sources: [{ url: 'https://arpa-e.energy.gov/', quote: 'Energy technology programs.' }],
+      facts: { status: 'active' },
+      key_id: 'hedwig',
+      key_name: 'Hedwig',
+      at: '2026-10-01T00:00:00.000Z',
+    },
+  });
+  assert.equal(brief.pill, 'Curator: Needs owner');
+  const status = brief.facts.find((fact) => fact.label === 'Status');
+  assert.equal(status.value, 'Active');
+  assert.equal(status.corrected, undefined);
+});
+
 test('an org merge asks for a check and does not pretend files will change', () => {
   const brief = reviewBrief({
     type: 'merge_orgs',

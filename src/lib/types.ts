@@ -183,6 +183,31 @@ export interface Proposal {
   validation?: ProposalValidation;
   /** Set when a curator API key queued this item. Absent on miner/owner intake. */
   submitted_by?: CuratorStamp;
+  /** Latest curator annotation. Does not decide the item — the owner does. */
+  curator_review?: CuratorReview;
+  /** Every annotation, oldest first. `curator_review` is the last entry. */
+  curator_review_history?: CuratorReview[];
+}
+
+/** A curator's note on a still-pending proposal. Stored on the proposal JSON.
+ *  Latest wins for display; history keeps the earlier notes. */
+export interface CuratorReview {
+  verdict: 'approve' | 'reject' | 'needs_owner';
+  reason: string;
+  sources: { url: string; quote: string }[];
+  facts?: CuratorReviewFacts;
+  key_id: string;
+  key_name: string;
+  at: string;
+}
+
+/** Facts the curator says the proposal has wrong. Only the fields they send. */
+export interface CuratorReviewFacts {
+  status?: string;
+  deadline?: string;
+  amount?: string;
+  org_name?: string;
+  program_name?: string;
 }
 
 /** Who queued a proposal through the curator API. Stored on the proposal

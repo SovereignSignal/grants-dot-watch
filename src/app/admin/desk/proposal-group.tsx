@@ -75,6 +75,7 @@ export function ProposalGroup({
               onRejectNote={onRejectNote}
               rejectNote={rejectNotes[p.id] ?? ''}
               disabled={disabled}
+              showActions={false}
             />
           ))}
         </div>

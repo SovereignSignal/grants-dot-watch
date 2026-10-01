@@ -61,7 +61,7 @@ Send `Authorization: Bearer TOKEN` on every request. Responses are
 
 ## Writes
 
-`Idempotency-Key` is required on decide and propose. Use 8 to 128 characters
+`Idempotency-Key` is required on decide, review, and propose. Use 8 to 128 characters
 from `A-Z a-z 0-9 . _ : -`. The same key and body replay the first response
 and send `Idempotent-Replayed: true`. The same key with a different body is
 `409`. A key held by a request still in progress is `409`. Completed replays
@@ -110,6 +110,48 @@ Reject is the same call with `"decision":"rejected"`. The Desk Log records
 Desk committer. On Railway, `GRANTS_WATCH_NO_GIT=1` stores the change in the
 existing Postgres ledger instead of committing inside the container. A merge
 or a proposal that asks to delete is `403` and does not call that path.
+
+## Review
+
+`POST /api/v1/curator/queue/p00042/review` needs `propose` and an
+`Idempotency-Key`. It writes a curator annotation onto the proposal. It does
+not approve, reject, or otherwise change `state`. Only the owner decides, from
+the Desk.
+
+The annotation is stored on the existing `desk_proposals.data` JSON:
+`curator_review` is the latest note, and `curator_review_history` keeps every
+note, oldest first. No new column and no migration. Deploy is the app deploy.
+`scripts/migrate-desk.mjs` does not need to run for this route.
+
+`verdict` is `approve`, `reject`, or `needs_owner`. `reason` is 1–300
+characters. `sources` is one to eight objects, each an official `https` URL
+and a verbatim `quote` (1–2000 characters). Optional `facts` may set only
+`status`, `deadline` (`YYYY-MM-DD`), `amount`, `org_name`, and `program_name`.
+Unknown fields are `400`. A proposal that is already decided is `409` and is
+left unchanged. A missing id is `404`.
+
+A merge, or a proposal that asks to delete, can still be annotated. Deciding
+either one stays `403`.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: review-p00042-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "verdict": "reject",
+    "reason": "The page describes a research office, not an open grant.",
+    "sources": [{"url": "https://arpa-e.energy.gov/about", "quote": "ARPA-E advances high-potential energy technologies."}],
+    "facts": {"status": "paused", "org_name": "ARPA-E"}
+  }' \
+  "https://grants.watch/api/v1/curator/queue/p00042/review"
+```
+
+The response is `{ "ok": true, "id", "state", "verdict", "at" }`. `state` is
+the proposal's state, still `pending` after a review. The Desk shows the
+latest note in place of the generated verdict: `Curator: Reject — <reason>`,
+the source domain and quote, and any corrected facts that differ from the
+proposal. `GET /api/v1/curator/queue/p00042` returns `curator_review` and
+`curator_review_history`.
 
 ## Propose
 

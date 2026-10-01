@@ -14,7 +14,7 @@ import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renam
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
 import { productDateISO } from './round-state';
-import type { Proposal, ProposalType, Verdict, Wire } from './types';
+import type { CuratorReview, Proposal, ProposalType, Verdict, Wire } from './types';
 import { laneFor } from '../proposal-lanes';
 
 const REPO_ROOT = process.cwd();
@@ -665,6 +665,23 @@ async function setProposalValidationLocal(id: string, validation: Proposal['vali
   writeLocalStore(store);
 }
 
+async function saveCuratorReviewLocal(id: string, review: CuratorReview): Promise<CuratorReviewSave> {
+  const store = readLocalStore();
+  const idx = store.proposals.findIndex((p) => p.id === id);
+  if (idx === -1) return { status: 'missing' };
+  const current = store.proposals[idx];
+  if (current.state !== 'pending') return { status: 'decided' };
+  const proposal: Proposal = {
+    ...current,
+    state: current.state,
+    curator_review: review,
+    curator_review_history: [...(current.curator_review_history ?? []), review],
+  };
+  store.proposals[idx] = proposal;
+  writeLocalStore(store);
+  return { status: 'saved', proposal };
+}
+
 async function claimProposalLocal(id: string): Promise<Proposal | null> {
   const store = readLocalStore();
   const idx = store.proposals.findIndex((p) => p.id === id);
@@ -902,6 +919,39 @@ async function setProposalValidationPg(id: string, validation: Proposal['validat
   );
 }
 
+async function saveCuratorReviewPg(id: string, review: CuratorReview): Promise<CuratorReviewSave> {
+  await ensureSchema();
+  const db = getPool();
+  const client = await db.connect();
+  try {
+    await client.query('BEGIN');
+    const { rows } = await client.query('SELECT data, state FROM desk_proposals WHERE id = $1 FOR UPDATE', [id]);
+    if (rows.length === 0) {
+      await client.query('ROLLBACK');
+      return { status: 'missing' };
+    }
+    if (rows[0].state !== 'pending') {
+      await client.query('ROLLBACK');
+      return { status: 'decided' };
+    }
+    const current = rows[0].data as Proposal;
+    const proposal: Proposal = {
+      ...current,
+      state: 'pending',
+      curator_review: review,
+      curator_review_history: [...(current.curator_review_history ?? []), review],
+    };
+    await client.query('UPDATE desk_proposals SET data = $2 WHERE id = $1 AND state = $3', [id, proposal, 'pending']);
+    await client.query('COMMIT');
+    return { status: 'saved', proposal };
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
 async function claimProposalPg(id: string): Promise<Proposal | null> {
   await ensureSchema();
   const db = getPool();
@@ -1031,6 +1081,18 @@ export async function recordVerdict(
  *  missing proposal; a run racing a manual decision just no-ops. */
 export async function setProposalValidation(id: string, validation: Proposal['validation']): Promise<void> {
   return pgBacked() ? setProposalValidationPg(id, validation) : setProposalValidationLocal(id, validation);
+}
+
+export type CuratorReviewSave =
+  | { status: 'saved'; proposal: Proposal }
+  | { status: 'missing' }
+  | { status: 'decided' };
+
+/** Attach a curator annotation to a pending proposal. Latest wins; every
+ *  note is kept on `curator_review_history`. The state column and the
+ *  proposal's `state` stay as they are — only the owner decides. */
+export async function saveCuratorReview(id: string, review: CuratorReview): Promise<CuratorReviewSave> {
+  return pgBacked() ? saveCuratorReviewPg(id, review) : saveCuratorReviewLocal(id, review);
 }
 
 /** Atomically owns a pending proposal before any registry write. */

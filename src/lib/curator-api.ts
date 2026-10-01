@@ -6,7 +6,8 @@ import { buildProposalChanges, type ApplyResult } from './committer';
 import { curatorJson, type CuratorGate, type CuratorIdentity, curatorGate } from './curator-auth';
 import { defaultIdempotencyStore, type IdempotencyStore } from './curator-idempotency';
 import { decideProposal, type DecideResult } from './desk-decide';
-import { getProposal, insertIngestProposals, listProposals, type RawMinerProposal } from './desk-store';
+import { dateBounds } from './evidence-fields';
+import { getProposal, insertIngestProposals, listProposals, saveCuratorReview, type CuratorReviewSave, type RawMinerProposal } from './desk-store';
 import {
   buildCuratorProposal,
   directoryHits,
@@ -16,7 +17,7 @@ import {
 } from './curator-proposals';
 import { getSignalEvidence, type SignalEvidence } from './signal-lookup';
 import { loadRegistry } from './registry';
-import type { Proposal, ProposalType, Wire } from './types';
+import type { CuratorReview, CuratorReviewFacts, Proposal, ProposalType, Wire } from './types';
 
 const TYPES = new Set<ProposalType>([
   'new_org',
@@ -42,6 +43,9 @@ const FORBIDDEN_FIELDS = new Set([
   'privy_app_secret',
 ]);
 const DECIDE_FIELDS = new Set(['decision', 'reason', 'sources']);
+const REVIEW_FIELDS = new Set(['verdict', 'reason', 'sources', 'facts']);
+const REVIEW_FACT_FIELDS = new Set(['status', 'deadline', 'amount', 'org_name', 'program_name']);
+const REVIEW_VERDICTS = new Set(['approve', 'reject', 'needs_owner']);
 const PROPOSE_FIELDS = new Set([
   'kind',
   'fact',
@@ -80,6 +84,7 @@ export interface CuratorDeps {
   getProposal: typeof getProposal;
   insertProposals: (candidates: RawMinerProposal[]) => Promise<{ inserted: Proposal[]; skipped: number }>;
   decide: (input: Parameters<typeof decideProposal>[0]) => Promise<DecideResult>;
+  saveReview: (id: string, review: CuratorReview) => Promise<CuratorReviewSave>;
   loadRegistry: typeof loadRegistry;
   preview: (proposal: Proposal) => ApplyResult;
   evidence: (signalId: Proposal['signal_id']) => SignalEvidence | null;
@@ -102,6 +107,7 @@ export const defaultCuratorDeps: CuratorDeps = {
   getProposal,
   insertProposals: insertIngestProposals,
   decide: decideProposal,
+  saveReview: saveCuratorReview,
   loadRegistry,
   preview: buildProposalChanges,
   evidence: getSignalEvidence,
@@ -205,6 +211,9 @@ function listItem(proposal: Proposal) {
     submitted_by: proposal.submitted_by
       ? { key_id: proposal.submitted_by.key_id, key_name: proposal.submitted_by.key_name, at: proposal.submitted_by.at }
       : null,
+    curator_review: proposal.curator_review
+      ? { verdict: proposal.curator_review.verdict, at: proposal.curator_review.at }
+      : null,
   };
 }
 
@@ -224,6 +233,8 @@ function detailItem(proposal: Proposal, deps: CuratorDeps) {
   return {
     ...listItem(proposal),
     submitted_by: proposal.submitted_by ?? null,
+    curator_review: proposal.curator_review ?? null,
+    curator_review_history: proposal.curator_review_history ?? [],
     proposed_change: proposal.proposed_change ?? {},
     validation: proposal.validation ?? null,
     sources,
@@ -302,6 +313,80 @@ function reasonText(value: unknown): string | null {
   if (trimmed.length < 8 || trimmed.length > 2000) return null;
   if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(trimmed)) return null;
   return trimmed;
+}
+
+function reviewReason(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (trimmed.length < 1 || trimmed.length > 300) return null;
+  if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(trimmed)) return null;
+  return trimmed;
+}
+
+function reviewQuote(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim().replace(/\s+/g, ' ');
+  if (trimmed.length < 1 || trimmed.length > 2000) return null;
+  if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(trimmed)) return null;
+  return trimmed;
+}
+
+function reviewSources(value: unknown): { url: string; quote: string }[] | null {
+  if (!Array.isArray(value) || value.length < 1 || value.length > 8) return null;
+  const sources: { url: string; quote: string }[] = [];
+  for (const item of value) {
+    const source = objectBody(item);
+    if (!source) return null;
+    if (Object.keys(source).some((field) => field !== 'url' && field !== 'quote')) return null;
+    const url = officialHttpsUrl(source.url);
+    const quote = reviewQuote(source.quote);
+    if (!url || !quote) return null;
+    sources.push({ url, quote });
+  }
+  return sources;
+}
+
+function reviewFactText(value: unknown, max: number): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim().replace(/\s+/g, ' ');
+  if (trimmed.length < 1 || trimmed.length > max) return null;
+  if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(trimmed)) return null;
+  return trimmed;
+}
+
+function reviewFacts(value: unknown): CuratorReviewFacts | null | undefined {
+  if (value === undefined) return undefined;
+  const facts = objectBody(value);
+  if (!facts) return null;
+  if (Object.keys(facts).some((field) => !REVIEW_FACT_FIELDS.has(field))) return null;
+  const out: CuratorReviewFacts = {};
+  if ('status' in facts) {
+    const status = reviewFactText(facts.status, 40);
+    if (!status) return null;
+    out.status = status;
+  }
+  if ('deadline' in facts) {
+    const deadline = reviewFactText(facts.deadline, 10);
+    const bounds = deadline ? dateBounds(deadline) : null;
+    if (!deadline || deadline.length !== 10 || !bounds || bounds.first !== deadline) return null;
+    out.deadline = deadline;
+  }
+  if ('amount' in facts) {
+    const amount = reviewFactText(facts.amount, 120);
+    if (!amount) return null;
+    out.amount = amount;
+  }
+  if ('org_name' in facts) {
+    const orgName = reviewFactText(facts.org_name, 200);
+    if (!orgName) return null;
+    out.org_name = orgName;
+  }
+  if ('program_name' in facts) {
+    const programName = reviewFactText(facts.program_name, 200);
+    if (!programName) return null;
+    out.program_name = programName;
+  }
+  return out;
 }
 
 function decisionSources(value: unknown): string[] | null {
@@ -453,6 +538,58 @@ export async function proposeCuratorItem(request: Request, deps: CuratorDeps = d
     }
     const proposal = inserted[0];
     return curatorJson({ ok: true, id: proposal.id, type: proposal.type, lane: proposal.lane, state: proposal.state }, 201);
+  });
+}
+
+export async function reviewCuratorItem(
+  request: Request,
+  id: string,
+  deps: CuratorDeps = defaultCuratorDeps
+): Promise<Response> {
+  const auth = authorize(request, 'propose', deps);
+  if ('response' in auth) return auth.response;
+  if (!/^p\d+$/.test(id)) return curatorJson({ error: 'not_found' }, 404);
+  const parsed = await readJson(request);
+  if ('response' in parsed) return counted(auth.identity, deps, parsed.response);
+  const body = objectBody(parsed.value);
+  if (!body) return counted(auth.identity, deps, invalid('Request body must be an object.'));
+  const fields = Object.keys(body);
+  if (fields.some((field) => FORBIDDEN_FIELDS.has(field))) return curatorJson({ error: 'forbidden' }, 403);
+  if (fields.some((field) => !REVIEW_FIELDS.has(field))) return counted(auth.identity, deps, invalid('Unknown field in request body.'));
+  const verdict = body.verdict;
+  const reason = reviewReason(body.reason);
+  const sources = reviewSources(body.sources);
+  const facts = reviewFacts(body.facts);
+  if (typeof verdict !== 'string' || !REVIEW_VERDICTS.has(verdict)) {
+    return counted(auth.identity, deps, invalid('verdict must be approve, reject, or needs_owner.'));
+  }
+  if (!reason) return counted(auth.identity, deps, invalid('A reason of 1 to 300 characters is required.'));
+  if (!sources) return counted(auth.identity, deps, invalid('sources must be 1 to 8 https URLs with a verbatim quote.'));
+  if (facts === null) return counted(auth.identity, deps, invalid('facts may only set status, deadline, amount, org_name, and program_name.'));
+
+  const existing = await deps.getProposal(id);
+  if (!existing) return curatorJson({ error: 'not_found' }, 404);
+
+  return withWrite(request, auth.identity, { id, ...body }, deps, async () => {
+    const review: CuratorReview = {
+      verdict: verdict as CuratorReview['verdict'],
+      reason,
+      sources,
+      ...(facts ? { facts } : {}),
+      key_id: auth.identity.id,
+      key_name: auth.identity.name,
+      at: new Date(deps.now()).toISOString(),
+    };
+    const saved = await deps.saveReview(id, review);
+    if (saved.status === 'missing') return curatorJson({ error: 'not_found' }, 404);
+    if (saved.status === 'decided') return curatorJson({ error: 'conflict', message: 'Already decided.' }, 409);
+    return curatorJson({
+      ok: true,
+      id: saved.proposal.id,
+      state: saved.proposal.state,
+      verdict: saved.proposal.curator_review?.verdict ?? review.verdict,
+      at: saved.proposal.curator_review?.at ?? review.at,
+    });
   });
 }
 

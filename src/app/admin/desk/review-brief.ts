@@ -3,7 +3,7 @@
 // proposal already carries (curator reason/quotes, evidence URL, proposed
 // record). Does not decide anything and does not change Approve.
 import { dateShort, WIRE_LABEL } from '../../../lib/format';
-import type { Proposal, ProposalType, Wire } from '../../../lib/types';
+import type { CuratorReview, Proposal, ProposalType, Wire } from '../../../lib/types';
 import { TYPE_SLUG_LABEL } from './desk-voice';
 
 export type ReviewCall = 'approve' | 'reject' | 'check';
@@ -18,6 +18,8 @@ export interface ReviewFact {
   label: string;
   value: string;
   href?: string;
+  /** Set when a curator review replaces the proposal's value. */
+  corrected?: boolean;
 }
 
 /** Enough of a proposal to brief it. Signal evidence is optional. */
@@ -31,12 +33,17 @@ export interface ReviewInput {
   proposed_change?: Record<string, unknown>;
   wire?: Wire | null;
   submitted_by?: Proposal['submitted_by'];
+  curator_review?: Proposal['curator_review'];
   validation?: Proposal['validation'];
   evidence?: { source_url?: string | null } | null;
 }
 
 export interface ReviewBrief {
   call: ReviewCall;
+  /** Pill text. A curator review replaces the generated call. */
+  pill: string;
+  /** True when the pill and reason come from a stored curator review. */
+  curator: boolean;
   /** One sentence. The curator's reason when the proposal carries one. */
   reason: string;
   /** True when `reason` is the curator's own sentence, not a line we derived. */
@@ -88,6 +95,16 @@ export function sourceDomain(href: string): string {
   } catch {
     return href;
   }
+}
+
+function sameText(a: string, b: string): boolean {
+  return a.trim().toLowerCase() === b.trim().toLowerCase();
+}
+
+function curatorPill(verdict: CuratorReview['verdict']): string {
+  if (verdict === 'approve') return 'Curator: Approve';
+  if (verdict === 'reject') return 'Curator: Reject';
+  return 'Curator: Needs owner';
 }
 
 function oneSentence(value: string): string {
@@ -314,15 +331,64 @@ function recommendation(proposal: ReviewInput, sources: ReviewSource[]): { call:
   };
 }
 
+function sourcesFromReview(review: CuratorReview): ReviewSource[] {
+  const quotes = new Map<string, string[]>();
+  const order: string[] = [];
+  for (const source of review.sources) {
+    const href = httpsUrl(source.url);
+    const line = text(source.quote)?.replace(/\s+/g, ' ');
+    if (!href) continue;
+    if (!quotes.has(href)) {
+      quotes.set(href, []);
+      order.push(href);
+    }
+    if (line && !quotes.get(href)!.includes(line)) quotes.get(href)!.push(line);
+  }
+  return order.map((url) => ({ url, domain: sourceDomain(url), quotes: quotes.get(url) || [] }));
+}
+
+function applyCorrections(facts: ReviewFact[], proposal: ReviewInput, title: string): ReviewFact[] {
+  const review = proposal.curator_review?.facts;
+  if (!review) return facts;
+  const next = facts.map((fact) => ({ ...fact }));
+
+  function setFact(label: string, value: string | null | undefined, href?: string) {
+    if (!value) return;
+    const index = next.findIndex((fact) => fact.label === label);
+    if (index === -1) {
+      next.push({ label, value, corrected: true, ...(href ? { href } : {}) });
+      return;
+    }
+    if (sameText(next[index].value, value)) return;
+    next[index] = { ...next[index], value, corrected: true, ...(href ? { href } : {}) };
+  }
+
+  if (review.status) setFact('Status', statusLabel(review.status));
+  if (review.deadline) setFact('Deadline', dateShort(review.deadline));
+  if (review.amount) setFact('Amount', review.amount);
+  if (review.org_name) setFact('Org', review.org_name, proposal.org ? `/orgs/${proposal.org}` : undefined);
+  if (review.program_name && !sameText(review.program_name, title) && !sameText(review.program_name, text(proposal.program) || '')) {
+    setFact('Program', review.program_name);
+  }
+  return next;
+}
+
 export function reviewBrief(proposal: ReviewInput): ReviewBrief {
   const records = fileRecords(proposal.proposed_change);
-  const sources = collectSources(proposal);
+  const generated = collectSources(proposal);
   const title = shortTitle(proposal, records);
-  const call = recommendation(proposal, sources);
+  const call = recommendation(proposal, generated);
+  const review = proposal.curator_review;
+  const sources = review ? sourcesFromReview(review) : generated;
+  const pill = review ? curatorPill(review.verdict) : call.call === 'approve' ? 'Approve' : call.call === 'reject' ? 'Reject' : 'Check';
   return {
-    ...call,
+    call: call.call,
+    pill,
+    curator: Boolean(review),
+    reason: review ? oneSentence(review.reason) : call.reason,
+    reasonFromProposal: review ? true : call.reasonFromProposal,
     title,
-    facts: factsFor(proposal, records, title),
+    facts: applyCorrections(factsFor(proposal, records, title), proposal, title),
     sources,
     unsourced: sources.length === 0,
     proposer: proposerLabel(proposal),
