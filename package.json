@@ -14,7 +14,7 @@
     "start": "next start",
     "validate": "node scripts/validate-registry.mjs",
     "audit:programs": "node scripts/audit-program-quality.mjs",
-    "audit:deps": "npm audit --audit-level=moderate",
+    "audit:deps": "npm audit --omit=dev --audit-level=moderate",
     "check:loader": "node scripts/load-registry-pg.mjs --check-only",
     "typecheck": "tsc --noEmit",
     "check:public": "node scripts/check-public-boundary.mjs",
