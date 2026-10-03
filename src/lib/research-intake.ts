@@ -104,7 +104,7 @@ export function parseResearchPacket(value: unknown): ResearchPacket {
         requireValue(Array.isArray(f.changes.rounds) && f.changes.rounds.length <= 100, 'Invalid rounds');
         for (const r of f.changes.rounds) {
           requireValue(isObject(r), 'Invalid round'); fields(r, ['name', 'status', 'opens', 'closes', 'closes_at', 'size', 'source'], 'Round');
-          requireValue(text(r.name, 200) && ['open', 'announced', 'closed', 'reviewing', 'deployed'].includes(String(r.status)), 'Invalid round');
+          requireValue(text(r.name, 200) && ['open', 'announced', 'closed', 'reviewing', 'deployed', 'withdrawn', 'duplicate'].includes(String(r.status)), 'Invalid round');
           for (const key of ['opens', 'closes']) if (r[key] != null) requireValue(typeof r[key] === 'string' && dateBounds(r[key] as string), 'Invalid round date');
           if (r.closes_at != null) requireValue(iso(r.closes_at) && /(?:Z|[+-]\d{2}:\d{2})$/.test(r.closes_at) && r.closes === r.closes_at.slice(0, 10), 'Exact deadline requires its stated date and timezone');
           if (r.size != null) requireValue(text(r.size, 500), 'Invalid funding size');

@@ -92,4 +92,6 @@ export const ROUND_STATUS_LABEL: Record<string, string> = {
   reviewing: 'In review',
   closed: 'Closed',
   deployed: 'Deployed',
+  withdrawn: 'Withdrawn',
+  duplicate: 'Duplicate',
 };

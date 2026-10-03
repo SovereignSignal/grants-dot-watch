@@ -204,7 +204,11 @@ Fact updates use `"kind":"fact"` and `fact`:
 | --- | --- | --- |
 | `deadline` | `program_id`, `round`, `closes` (`YYYY-MM-DD`) | `deadline_change` (Facts) |
 | `round_dates` | `program_id`, `round`, `opens` and/or `closes` | `round_update` (Facts) |
-| `status` | `entity` `program` or `org`, the matching id, `status` | `status_change` (Facts) |
+| `status` | `entity` `program` or `org`, the matching id, `status` | `status_change` (Facts). The submission `summary` is written onto the program summary (at least 40 characters) or the organization profile (at least 60). |
+| `summary` | `program_id`. The submission `summary` replaces the program summary and must be at least 40 characters. | `profile_note` (Judgment) |
+| `identity` | `entity` `program` or `org`, the matching id, and `name` and/or `description` | `profile_note` (Judgment). `name` is the display name. The file id does not change. `description` replaces the program summary (at least 40 characters) or the organization profile (at least 60). |
+| `round_merge` | `program_id`, `round` (the duplicate), `into` (the round that remains) | `round_update` (Facts). The duplicate is removed. Dates, size, and source copy onto the remaining round only where that round is blank. Both source URLs stay on the program. |
+| `round_disposition` | `program_id`, `round`, `disposition` `withdrawn` or `duplicate` | `round_update` (Facts). The round stays on the program with its name, dates, and source, and leaves open and announced lists. |
 | `amount` | `amount_target` `round` (`program_id`, `round`, `amount`) or `award` (`org_id`, `grantee`, `amount`, `date`) | `round_update` or `new_award` (Facts) |
 | `x_handle` | `org_id`, `x` | `profile_note` (Judgment). An X handle is not a fact-lane type, so Sov sees it in Judgment. |
 
@@ -227,7 +231,84 @@ curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
 ```
 
 A matching organization or program already on file returns `409` and `matches`.
-Search before proposing.
+Search before proposing. Renaming onto a name already on file does the same.
+
+Replace a program summary:
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: summary-example-grants-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "summary",
+    "program_id": "example-grants",
+    "summary": "Rolling grants for open source maintainers, paid after a public review.",
+    "reason": "The program page states the public summary. The registry still has a placeholder.",
+    "sources": [{"url": "https://example.org/grants", "quote": "Rolling grants for open source maintainers."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+Rename a program and replace its description. Omit either `name` or `description` to leave that field alone. Organization edits use `"entity":"org"` and `org_id`; `description` is the profile.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: identity-example-grants-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "identity",
+    "entity": "program",
+    "program_id": "example-grants",
+    "name": "Example Maintainer Grants",
+    "description": "Rolling grants for open source maintainers, paid after a public review.",
+    "summary": "The program page uses this name and description.",
+    "reason": "The registry display name does not match the program page.",
+    "sources": [{"url": "https://example.org/grants", "quote": "Example Maintainer Grants are open to maintainers."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+Merge a duplicate round into the round that should remain. `round` is removed. `into` keeps its own dates, size, and source, and gains any of those only when it does not already have them.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: merge-round-example-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "round_merge",
+    "program_id": "example-grants",
+    "round": "41",
+    "into": "Round 41 grants",
+    "summary": "The round named 41 is the same call as Round 41 grants.",
+    "reason": "Both rounds cite the same application thread.",
+    "sources": [{"url": "https://example.org/grants", "quote": "Round 41 applications close on 7 October 2026."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+Mark a round withdrawn or duplicate without removing it. It drops off open lists. Its name, dates, and source stay on the program.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: withdraw-round-example-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "round_disposition",
+    "program_id": "example-grants",
+    "round": "2026 side call",
+    "disposition": "withdrawn",
+    "summary": "The funder withdrew the 2026 side call before the deadline.",
+    "reason": "The program page says this call was withdrawn.",
+    "sources": [{"url": "https://example.org/grants", "quote": "The 2026 side call has been withdrawn."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+Approve with the same decide call as any other queued item. These edits do not delete a registry file and they do not merge organizations.
 
 ## Search
 
@@ -252,6 +333,8 @@ with no key:
 - `POST`, `PUT`, `PATCH`, or `DELETE /api/v1/curator/config`
 - deciding a `merge_orgs` item, or any proposal whose change asks to remove or delete
 - a propose body with `kind` of `merge` or `delete`
+
+Merging two rounds inside one program is `fact` `round_merge`, not `kind: merge`.
 
 ## Railway
 

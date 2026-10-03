@@ -60,6 +60,8 @@ export function effectiveRoundLabel(program: Program, round: Round, today: strin
     reviewing: 'Reviewing',
     closed: 'Closed',
     deployed: 'Deployed',
+    withdrawn: 'Withdrawn',
+    duplicate: 'Duplicate',
   };
   return labels[round.status];
 }

@@ -1,0 +1,23 @@
+id: ivado-call-for-participation-funding-for-ai-projects-in-neur
+name: "IVADO Call for Participation: Funding for AI Projects in Neuroscience"
+org: ivado
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+mechanism: grants
+apply_url: https://ivado.ca/en/2026/09/10/ivados-ai-and-neuroscience-research-cluster-launches-its-first-call-for-participation/
+summary: IVADO AI and Neuroscience Research Cluster Neuro-Sprint call for short-term projects
+  on AI tools for basic or clinical neuroscience. Up to $25,000 per project, non-renewable.
+  Projects must be completed by March 31, 2027. The deadline is October 9, 2026 at 11:59 PM.
+  Results are expected the week of October 19, 2026.
+rounds:
+  - name: Current call
+    status: open
+    opens: 2026-09-10
+    closes: 2026-10-09
+    size: up to $25,000 per project (non-renewable)
+    source: https://ivado.ca/en/2026/09/10/ivados-ai-and-neuroscience-research-cluster-launches-its-first-call-for-participation/
+sources:
+  - https://ivado.ca/en/2026/09/10/ivados-ai-and-neuroscience-research-cluster-launches-its-first-call-for-participation/

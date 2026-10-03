@@ -37,7 +37,7 @@ export interface Org {
 
 export interface Round {
   name: string;
-  status: 'announced' | 'open' | 'reviewing' | 'closed' | 'deployed';
+  status: 'announced' | 'open' | 'reviewing' | 'closed' | 'deployed' | 'withdrawn' | 'duplicate';
   opens?: string;
   closes?: string;
   /** Source-stated cutoff, including its UTC offset. Never inferred from a date. */

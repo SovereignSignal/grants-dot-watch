@@ -14,17 +14,17 @@ summary: EuroHPC JU competitive Research and Innovation calls for HPC and quantu
   28 January 2027.
 rounds:
   - name: Large-Scale Photonic Quantum Computing Platform Technologies
-    status: open
+    status: closed
     opens: 2026-06-02
     closes: 2026-09-30
     source: https://www.eurohpc-ju.europa.eu/large-scale-photonic-quantum-computing-platform-technologies_en
   - name: Standards for Quantum Technologies
-    status: open
+    status: closed
     opens: 2026-06-02
     closes: 2026-09-30
     source: https://www.eurohpc-ju.europa.eu/standards-quantum-technologies_en
   - name: Grand Challenge on Quantum Sensors for Inertial Navigation
-    status: open
+    status: closed
     opens: 2026-06-02
     closes: 2026-09-30
     source: https://www.eurohpc-ju.europa.eu/grand-challenge-quantum-sensors-inertial-navigation_en

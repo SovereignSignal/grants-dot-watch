@@ -53,7 +53,9 @@ apply_url: ""
 summary: >
   ...
 rounds: []                     # list of {name, status, opens?, closes?, size?, source}
-                               # round status: announced | open | reviewing | closed | deployed
+                               # round status: announced | open | reviewing | closed | deployed | withdrawn | duplicate
+                               # withdrawn and duplicate stay on the program with their source,
+                               # and drop out of open and announced lists.
                                # Record each remaining cutoff or receipt date as its own
                                # round. Do not store only the last date of a multi-window call.
                                # An undated open/announced round may not carry a past year

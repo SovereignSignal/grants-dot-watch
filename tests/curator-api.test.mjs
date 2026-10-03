@@ -895,6 +895,218 @@ test('a review of a decided proposal is a conflict and leaves state alone', asyn
   assert.equal((await api.getProposal('p00001')).curator_review, undefined);
 });
 
+test('curators can edit summaries and names and merge or retire rounds', async () => {
+  const summaryText = 'Independent research on how generative AI affects young people ages 13-17, with rolling review.';
+  const profileText = 'Example Foundation publishes a standing open-source grant and reviews applications in public.';
+  const edited = deps();
+  const summary = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'summary-example-1',
+      body: {
+        kind: 'fact',
+        fact: 'summary',
+        program_id: 'example-grants',
+        summary: summaryText,
+        reason: 'The program page replaces the placeholder summary.',
+        sources: [source],
+      },
+    }),
+    edited.api
+  );
+  assert.equal(summary.status, 201);
+  assert.equal((await summary.json()).lane, 'judgment');
+  assert.equal(edited.inserted[0].type, 'profile_note');
+  assert.equal(edited.inserted[0].proposed_change['programs/example-grants.yaml'].summary, summaryText);
+
+  const named = deps();
+  const identity = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'identity-example-1',
+      body: {
+        kind: 'fact',
+        fact: 'identity',
+        entity: 'program',
+        program_id: 'example-grants',
+        name: 'Example Maintainer Grants',
+        description: summaryText,
+        summary: 'The program page uses a different display name.',
+        reason: 'The registry name does not match the program page.',
+        sources: [source],
+      },
+    }),
+    named.api
+  );
+  assert.equal(identity.status, 201);
+  const programPatch = named.inserted[0].proposed_change['programs/example-grants.yaml'];
+  assert.equal(programPatch.name, 'Example Maintainer Grants');
+  assert.equal(programPatch.summary, summaryText);
+  assert.equal(programPatch.id, undefined);
+
+  const clash = deps({
+    loadRegistry: () => ({
+      ...registry,
+      orgs: [...registry.orgs, { ...registry.orgs[0], id: 'other-example', name: 'Other Example', aka: [] }],
+    }),
+  });
+  assert.equal((await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'identity-clash-1',
+      body: {
+        kind: 'fact',
+        fact: 'identity',
+        entity: 'org',
+        org_id: 'example',
+        name: 'Other Example',
+        summary: 'This display name is already on file.',
+        reason: 'Checking that a taken organization name is refused.',
+        sources: [source],
+      },
+    }),
+    clash.api
+  )).status, 409);
+
+  const orgProfile = deps();
+  const orgEdit = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'identity-org-1',
+      body: {
+        kind: 'fact',
+        fact: 'identity',
+        entity: 'org',
+        org_id: 'example',
+        description: profileText,
+        summary: 'The organization page describes the funder in this way.',
+        reason: 'The registry profile is a placeholder.',
+        sources: [source],
+      },
+    }),
+    orgProfile.api
+  );
+  assert.equal(orgEdit.status, 201);
+  assert.equal(orgProfile.inserted[0].proposed_change['orgs/example.yaml'].profile, profileText);
+  assert.equal(orgProfile.inserted[0].proposed_change['orgs/example.yaml'].name, undefined);
+
+  const rounds = [{
+    ...registry.programs[0],
+    rounds: [
+      { name: 'Round 41 grants', status: 'open', opens: '2026-09-07', closes: '2026-10-07', closes_at: '2026-10-07T23:59:00Z', source: 'https://example.org/grants' },
+      { name: '41', status: 'open', closes: '2026-10-07', source: 'https://dao.example.org/round-41' },
+    ],
+  }];
+  const merged = deps({ loadRegistry: () => ({ ...registry, programs: rounds }) });
+  const merge = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'round-merge-1',
+      body: {
+        kind: 'fact',
+        fact: 'round_merge',
+        program_id: 'example-grants',
+        round: '41',
+        into: 'Round 41 grants',
+        summary: 'The round named 41 is the same call as Round 41 grants.',
+        reason: 'Both listings cite the same application thread.',
+        sources: [source],
+      },
+    }),
+    merged.api
+  );
+  assert.equal(merge.status, 201);
+  assert.equal((await merge.json()).lane, 'fact');
+  const mergePatch = merged.inserted[0].proposed_change['programs/example-grants.yaml'];
+  assert.equal(mergePatch.retire_round, '41');
+  assert.equal(mergePatch.keep_round, 'Round 41 grants');
+  assert.ok(mergePatch.sources.includes('https://dao.example.org/round-41'));
+  assert.equal(mergePatch.merge, undefined);
+  assert.equal(merged.inserted[0].type, 'round_update');
+
+  const same = deps({ loadRegistry: () => ({ ...registry, programs: rounds }) });
+  assert.equal((await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'round-merge-same-1',
+      body: {
+        kind: 'fact',
+        fact: 'round_merge',
+        program_id: 'example-grants',
+        round: '41',
+        into: '41',
+        summary: 'A round cannot be merged into itself.',
+        reason: 'The two names are the same round.',
+        sources: [source],
+      },
+    }),
+    same.api
+  )).status, 400);
+
+  const marked = deps({ loadRegistry: () => ({ ...registry, programs: rounds }) });
+  const disposition = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'round-disposition-1',
+      body: {
+        kind: 'fact',
+        fact: 'round_disposition',
+        program_id: 'example-grants',
+        round: '41',
+        disposition: 'duplicate',
+        summary: 'The extra listing is a duplicate of the canonical round.',
+        reason: 'The funder page describes one call, not two.',
+        sources: [source],
+      },
+    }),
+    marked.api
+  );
+  assert.equal(disposition.status, 201);
+  assert.deepEqual(marked.inserted[0].proposed_change['programs/example-grants.yaml'].round_disposition, { name: '41', status: 'duplicate' });
+
+  const status = deps();
+  const statusChange = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'status-summary-1',
+      body: {
+        kind: 'fact',
+        fact: 'status',
+        entity: 'program',
+        program_id: 'example-grants',
+        status: 'paused',
+        summary: summaryText,
+        reason: 'The program page now says applications are paused.',
+        sources: [source],
+      },
+    }),
+    status.api
+  );
+  assert.equal(statusChange.status, 201);
+  assert.equal(status.inserted[0].summary, summaryText);
+  assert.equal(status.inserted[0].proposed_change['programs/example-grants.yaml'].summary, summaryText);
+  assert.equal(status.inserted[0].proposed_change['programs/example-grants.yaml'].status, 'paused');
+
+  const short = deps();
+  assert.equal((await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', {
+      method: 'POST',
+      idempotency: 'status-short-1',
+      body: {
+        kind: 'fact',
+        fact: 'status',
+        entity: 'program',
+        program_id: 'example-grants',
+        status: 'paused',
+        summary: 'Too short to publish.',
+        reason: 'A short summary must not replace the program text.',
+        sources: [source],
+      },
+    }),
+    short.api
+  )).status, 400);
+});
+
 test('the mint script prints a hash entry and does not print the token', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'curator-key-'));
   const path = join(dir, 'token');

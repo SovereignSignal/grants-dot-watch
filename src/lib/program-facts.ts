@@ -94,6 +94,8 @@ export function programFacts(program: Program, today = productDateISO()) {
 }
 
 export function roundHistoryLabel(round: Round, today = productDateISO()): string {
+  if (round.status === 'withdrawn') return 'Withdrawn';
+  if (round.status === 'duplicate') return 'Duplicate';
   if (['closed', 'reviewing', 'deployed'].includes(round.status) || (round.closes && (dateBounds(round.closes)?.last || '9999') < today)) return 'Closed';
   if (round.closes && dateBounds(round.closes)) return 'Deadline ahead';
   return 'No deadline on file';

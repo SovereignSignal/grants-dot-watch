@@ -11,7 +11,8 @@ const WIRES = new Set<Wire>(['crypto', 'ai', 'oss']);
 const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const PROGRAM_STATUS = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
 const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
-const FACTS = new Set(['deadline', 'round_dates', 'status', 'x_handle', 'amount']);
+const FACTS = new Set(['deadline', 'round_dates', 'status', 'x_handle', 'amount', 'summary', 'identity', 'round_merge', 'round_disposition']);
+const FACT_LIST = 'deadline, round_dates, status, summary, identity, round_merge, round_disposition, x_handle, or amount';
 const BLOCKED_KEYS = new Set(['remove', 'delete', 'action', 'merge', 'drop']);
 
 export interface DirectorySnapshot {
@@ -374,10 +375,14 @@ function buildFact(
   titleOverride: string | null
 ): ProposalBuild {
   if (typeof body.fact !== 'string' || !FACTS.has(body.fact)) {
-    return fail(400, 'invalid_request', 'fact must be deadline, round_dates, status, x_handle, or amount.');
+    return fail(400, 'invalid_request', `fact must be ${FACT_LIST}.`);
   }
   if (body.fact === 'x_handle') return buildHandle(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   if (body.fact === 'status') return buildStatus(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
+  if (body.fact === 'summary') return buildSummaryEdit(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
+  if (body.fact === 'identity') return buildIdentity(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
+  if (body.fact === 'round_merge') return buildRoundMerge(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
+  if (body.fact === 'round_disposition') return buildRoundDisposition(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   if (body.fact === 'amount' && body.amount_target === 'award') {
     return buildAward(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   }
@@ -433,7 +438,7 @@ function buildRoundFact(
     if (!amount) return fail(400, 'invalid_request', 'amount is required.');
     round.size = amount;
   } else {
-    return fail(400, 'invalid_request', 'fact must be deadline, round_dates, status, x_handle, or amount.');
+    return fail(400, 'invalid_request', `fact must be ${FACT_LIST}.`);
   }
   if (body.status !== undefined) {
     if (typeof body.status !== 'string' || !ROUND_STATUS.has(body.status)) {
@@ -483,6 +488,9 @@ function buildStatus(
     if (typeof body.status !== 'string' || !ORG_STATUS.has(body.status)) {
       return fail(400, 'invalid_request', 'status is not a valid organization status.');
     }
+    if (summary.length < 60) {
+      return fail(400, 'invalid_request', 'summary must be at least 60 characters because a status change writes it onto the organization profile.');
+    }
     return {
       ok: true,
       candidate: candidate({
@@ -494,7 +502,13 @@ function buildStatus(
         program: null,
         wire: wire || org.wires?.[0] || null,
         evidence: sources[0].url,
-        change: { [`orgs/${org.id}.yaml`]: { status: body.status, sources: sources.map((source) => source.url) } },
+        change: {
+          [`orgs/${org.id}.yaml`]: {
+            status: body.status,
+            profile: summary,
+            sources: sources.map((source) => source.url),
+          },
+        },
         identity,
         reason,
         sources,
@@ -506,6 +520,9 @@ function buildStatus(
   if (!isProgram(program)) return program;
   if (typeof body.status !== 'string' || !PROGRAM_STATUS.has(body.status)) {
     return fail(400, 'invalid_request', 'status is not a valid program status.');
+  }
+  if (summary.length < 40) {
+    return fail(400, 'invalid_request', 'summary must be at least 40 characters because a status change writes it onto the program.');
   }
   const org = findOrg(snapshot, program.org);
   return {
@@ -519,7 +536,13 @@ function buildStatus(
       program: program.name,
       wire: wire || program.wires?.[0] || null,
       evidence: sources[0].url,
-      change: { [`programs/${program.id}.yaml`]: { status: body.status, sources: sources.map((source) => source.url) } },
+      change: {
+        [`programs/${program.id}.yaml`]: {
+          status: body.status,
+          summary,
+          sources: sources.map((source) => source.url),
+        },
+      },
       identity,
       reason,
       sources,
@@ -618,6 +641,247 @@ function buildAward(
       wire: wire || org.wires?.[0] || null,
       evidence: sources[0].url,
       change: { [`awards/${dated.slice(0, 4)}.jsonl`]: award },
+      identity,
+      reason,
+      sources,
+      at,
+    }),
+  };
+}
+
+function namedRound(program: Program, name: string) {
+  const key = name.toLowerCase().trim();
+  return (program.rounds || []).find((round) => round.name.toLowerCase().trim() === key);
+}
+
+function buildSummaryEdit(
+  body: Record<string, unknown>,
+  identity: CuratorIdentity,
+  snapshot: DirectorySnapshot,
+  at: string,
+  reason: string,
+  summary: string,
+  sources: SourceQuote[],
+  wire: Wire | null,
+  titleOverride: string | null
+): ProposalBuild {
+  const program = requireProgram(snapshot, body.program_id);
+  if (!isProgram(program)) return program;
+  if (summary.length < 40) {
+    return fail(400, 'invalid_request', 'summary must be at least 40 characters because it replaces the program summary.');
+  }
+  const org = findOrg(snapshot, program.org);
+  return {
+    ok: true,
+    candidate: candidate({
+      type: 'profile_note',
+      title: titleOverride || `${org?.name || program.org} · ${program.name}: summary`,
+      summary,
+      org: program.org,
+      orgName: org?.name || program.org,
+      program: program.name,
+      wire: wire || program.wires?.[0] || null,
+      evidence: sources[0].url,
+      change: {
+        [`programs/${program.id}.yaml`]: {
+          summary,
+          sources: sources.map((source) => source.url),
+        },
+      },
+      identity,
+      reason,
+      sources,
+      at,
+    }),
+  };
+}
+
+function buildIdentity(
+  body: Record<string, unknown>,
+  identity: CuratorIdentity,
+  snapshot: DirectorySnapshot,
+  at: string,
+  reason: string,
+  summary: string,
+  sources: SourceQuote[],
+  wire: Wire | null,
+  titleOverride: string | null
+): ProposalBuild {
+  const entity = body.entity === 'org' ? 'org' : body.entity === 'program' ? 'program' : null;
+  if (!entity) return fail(400, 'invalid_request', 'entity must be org or program.');
+  const descriptionMin = entity === 'org' ? 60 : 40;
+  const description = body.description === undefined ? null : text(body.description, descriptionMin, 4000);
+  if (body.description !== undefined && !description) {
+    return fail(
+      400,
+      'invalid_request',
+      entity === 'org'
+        ? 'description must be 60 to 4000 characters because it replaces the organization profile.'
+        : 'description must be 40 to 4000 characters because it replaces the program summary.'
+    );
+  }
+  const nameMax = entity === 'org' ? 120 : 160;
+  const name = body.name === undefined ? null : text(body.name, 2, nameMax);
+  if (body.name !== undefined && !name) return fail(400, 'invalid_request', `name must be 2 to ${nameMax} characters.`);
+  if (!name && !description) return fail(400, 'invalid_request', 'name or description is required.');
+  const urls = sources.map((source) => source.url);
+  if (entity === 'org') {
+    const orgId = text(body.org_id, 1, 80);
+    const org = orgId ? findOrg(snapshot, orgId) : undefined;
+    if (!org) return fail(404, 'not_found', 'No organization with that id.');
+    if (name) {
+      const wanted = norm(name);
+      const clashes = snapshot.orgs.filter(
+        (item) => item.id !== org.id && (norm(item.name) === wanted || (item.aka || []).some((alias) => norm(alias) === wanted))
+      );
+      if (clashes.length) return fail(409, 'conflict', 'An organization with this name is already on file.', clashes.map(orgHit));
+    }
+    const patch: Record<string, unknown> = { sources: urls };
+    if (name) patch.name = name;
+    if (description) patch.profile = description;
+    return {
+      ok: true,
+      candidate: candidate({
+        type: 'profile_note',
+        title: titleOverride || `${org.name}: name and description`,
+        summary,
+        org: org.id,
+        orgName: org.name,
+        program: null,
+        wire: wire || org.wires?.[0] || null,
+        evidence: sources[0].url,
+        change: { [`orgs/${org.id}.yaml`]: patch },
+        identity,
+        reason,
+        sources,
+        at,
+      }),
+    };
+  }
+  const program = requireProgram(snapshot, body.program_id);
+  if (!isProgram(program)) return program;
+  if (name) {
+    const wanted = norm(name);
+    const clashes = snapshot.programs.filter(
+      (item) => item.id !== program.id && item.org === program.org && norm(item.name) === wanted
+    );
+    if (clashes.length) return fail(409, 'conflict', 'A program with this name is already on file.', clashes.map(programHit));
+  }
+  const org = findOrg(snapshot, program.org);
+  const patch: Record<string, unknown> = { sources: urls };
+  if (name) patch.name = name;
+  if (description) patch.summary = description;
+  return {
+    ok: true,
+    candidate: candidate({
+      type: 'profile_note',
+      title: titleOverride || `${org?.name || program.org} · ${program.name}: name and description`,
+      summary,
+      org: program.org,
+      orgName: org?.name || program.org,
+      program: program.name,
+      wire: wire || program.wires?.[0] || null,
+      evidence: sources[0].url,
+      change: { [`programs/${program.id}.yaml`]: patch },
+      identity,
+      reason,
+      sources,
+      at,
+    }),
+  };
+}
+
+function buildRoundMerge(
+  body: Record<string, unknown>,
+  identity: CuratorIdentity,
+  snapshot: DirectorySnapshot,
+  at: string,
+  reason: string,
+  summary: string,
+  sources: SourceQuote[],
+  wire: Wire | null,
+  titleOverride: string | null
+): ProposalBuild {
+  const program = requireProgram(snapshot, body.program_id);
+  if (!isProgram(program)) return program;
+  const duplicateName = text(body.round, 1, 120);
+  const keepName = text(body.into, 1, 120);
+  if (!duplicateName) return fail(400, 'invalid_request', 'round is the duplicate round name.');
+  if (!keepName) return fail(400, 'invalid_request', 'into is the round that should remain.');
+  if (duplicateName.toLowerCase().trim() === keepName.toLowerCase().trim()) {
+    return fail(400, 'invalid_request', 'round and into must name different rounds.');
+  }
+  const duplicate = namedRound(program, duplicateName);
+  const keeper = namedRound(program, keepName);
+  if (!duplicate) return fail(404, 'not_found', 'No round with that name.');
+  if (!keeper) return fail(404, 'not_found', 'No round matches into.');
+  const org = findOrg(snapshot, program.org);
+  const urls = [...new Set([...sources.map((source) => source.url), duplicate.source, keeper.source].filter((url): url is string => Boolean(url)))];
+  return {
+    ok: true,
+    candidate: candidate({
+      type: 'round_update',
+      title: titleOverride || `${org?.name || program.org} · ${program.name}: merge round "${duplicate.name}" into "${keeper.name}"`,
+      summary,
+      org: program.org,
+      orgName: org?.name || program.org,
+      program: program.name,
+      wire: wire || program.wires?.[0] || null,
+      evidence: sources[0].url,
+      change: {
+        [`programs/${program.id}.yaml`]: {
+          retire_round: duplicate.name,
+          keep_round: keeper.name,
+          sources: urls,
+        },
+      },
+      identity,
+      reason,
+      sources,
+      at,
+    }),
+  };
+}
+
+function buildRoundDisposition(
+  body: Record<string, unknown>,
+  identity: CuratorIdentity,
+  snapshot: DirectorySnapshot,
+  at: string,
+  reason: string,
+  summary: string,
+  sources: SourceQuote[],
+  wire: Wire | null,
+  titleOverride: string | null
+): ProposalBuild {
+  const program = requireProgram(snapshot, body.program_id);
+  if (!isProgram(program)) return program;
+  const roundName = text(body.round, 1, 120);
+  if (!roundName) return fail(400, 'invalid_request', 'round is required.');
+  if (body.disposition !== 'withdrawn' && body.disposition !== 'duplicate') {
+    return fail(400, 'invalid_request', 'disposition must be withdrawn or duplicate.');
+  }
+  const round = namedRound(program, roundName);
+  if (!round) return fail(404, 'not_found', 'No round with that name.');
+  const org = findOrg(snapshot, program.org);
+  const urls = [...new Set([...sources.map((source) => source.url), round.source].filter((url): url is string => Boolean(url)))];
+  return {
+    ok: true,
+    candidate: candidate({
+      type: 'round_update',
+      title: titleOverride || `${org?.name || program.org} · ${program.name}: mark "${round.name}" ${body.disposition}`,
+      summary,
+      org: program.org,
+      orgName: org?.name || program.org,
+      program: program.name,
+      wire: wire || program.wires?.[0] || null,
+      evidence: sources[0].url,
+      change: {
+        [`programs/${program.id}.yaml`]: {
+          round_disposition: { name: round.name, status: body.disposition },
+          sources: urls,
+        },
+      },
       identity,
       reason,
       sources,
