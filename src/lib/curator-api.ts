@@ -72,6 +72,9 @@ const PROPOSE_FIELDS = new Set([
   'grantee',
   'date',
   'currency',
+  'description',
+  'into',
+  'disposition',
 ]);
 const LIST_PARAMS = ['lane', 'type', 'wire', 'score', 'min_score', 'q', 'page', 'limit'];
 const SEARCH_PARAMS = ['q', 'kind', 'page', 'limit'];

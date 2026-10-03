@@ -249,6 +249,50 @@ function resolveProgramSlug(p: Proposal, hintSlug?: string): string {
   return match.id;
 }
 
+function roundKey(name: string): string {
+  return name.toLowerCase().trim();
+}
+
+/** Copies missing facts from a retired duplicate onto the round that remains,
+ *  then drops the duplicate. A withdrawn or duplicate mark stays on the round
+ *  so its name, dates, and source remain in the file while it leaves open lists. */
+function applyRoundEdits(rounds: Round[], patch: Record<string, unknown>): { rounds: Round[]; extraSources: string[]; retired: string | null } {
+  let next = rounds.map((round) => ({ ...round }));
+  const extraSources: string[] = [];
+  const disposition = patch.round_disposition;
+  if (disposition && typeof disposition === 'object' && !Array.isArray(disposition)) {
+    const record = disposition as Record<string, unknown>;
+    const name = typeof record.name === 'string' ? record.name.trim() : '';
+    const status = record.status;
+    if (!name) throw new Error('round_disposition needs a round name');
+    if (status !== 'withdrawn' && status !== 'duplicate') throw new Error('round_disposition status must be withdrawn or duplicate');
+    const idx = next.findIndex((round) => roundKey(round.name) === roundKey(name));
+    if (idx < 0) throw new Error(`round not found: ${name}`);
+    next[idx] = { ...next[idx], status };
+  }
+
+  const retire = typeof patch.retire_round === 'string' ? patch.retire_round.trim() : '';
+  if (!retire) return { rounds: next, extraSources, retired: null };
+  const retireIdx = next.findIndex((round) => roundKey(round.name) === roundKey(retire));
+  if (retireIdx < 0) throw new Error(`round not found: ${retire}`);
+  const keep = typeof patch.keep_round === 'string' ? patch.keep_round.trim() : '';
+  if (!keep) throw new Error('keep_round is required when retiring a round');
+  if (roundKey(keep) === roundKey(retire)) throw new Error('keep_round and retire_round must name different rounds');
+  const keepIdx = next.findIndex((round) => roundKey(round.name) === roundKey(keep));
+  if (keepIdx < 0) throw new Error(`round not found: ${keep}`);
+  const retiring = next[retireIdx];
+  const kept = { ...next[keepIdx] };
+  if (!kept.opens && retiring.opens) kept.opens = retiring.opens;
+  if (!kept.closes && retiring.closes) kept.closes = retiring.closes;
+  if (!kept.closes_at && retiring.closes_at) kept.closes_at = retiring.closes_at;
+  if (!kept.size && retiring.size) kept.size = retiring.size;
+  if (!kept.source && retiring.source) kept.source = retiring.source;
+  if (retiring.source) extraSources.push(retiring.source);
+  next[keepIdx] = kept;
+  next = next.filter((_, index) => index !== retireIdx);
+  return { rounds: next, extraSources, retired: retire };
+}
+
 function buildProgramFieldUpdate(p: Proposal): AppliedChange {
   const pc = (p.proposed_change || {}) as Record<string, unknown>;
   const { slug: hintSlug, patch } = extractProgramPatch(pc);
@@ -256,13 +300,29 @@ function buildProgramFieldUpdate(p: Proposal): AppliedChange {
   const path = join(REGISTRY, 'programs', `${slug}.yaml`);
   const current = safeParseYaml<Program>(path);
   if (!current) throw new Error(`Program file unreadable: programs/${slug}.yaml`);
+  const edited = applyRoundEdits(mergeRounds(current.rounds || [], patch.rounds, p.evidence_url), patch);
+  const explicitSummary = typeof patch.summary === 'string' && patch.summary.trim() ? patch.summary.trim() : '';
+  const statusSummary = p.type === 'status_change' && typeof p.summary === 'string' && p.summary.trim() ? p.summary.trim() : '';
   const next: Program = {
     ...current,
     status: typeof patch.status === 'string' ? (patch.status as Program['status']) : current.status,
     apply_url: typeof patch.apply_url === 'string' ? (patch.apply_url as string) : current.apply_url,
-    rounds: mergeRounds(current.rounds || [], patch.rounds, p.evidence_url),
-    sources: dedupe([...(current.sources || []), ...(Array.isArray(patch.sources) ? (patch.sources as string[]) : []), p.evidence_url]),
+    summary: explicitSummary || statusSummary || current.summary,
+    rounds: edited.rounds,
+    sources: dedupe([
+      ...(current.sources || []),
+      ...(Array.isArray(patch.sources) ? (patch.sources as string[]) : []),
+      ...edited.extraSources,
+      p.evidence_url,
+    ]),
   };
+  if (edited.retired && next.review?.round_names?.length) {
+    const retiredKey = roundKey(edited.retired);
+    next.review = {
+      ...next.review,
+      round_names: next.review.round_names.filter((name) => roundKey(name) !== retiredKey),
+    };
+  }
   return { path: `registry/programs/${slug}.yaml`, content: toYaml(programDocToYamlObject(next)), op: 'update' };
 }
 
@@ -605,7 +665,16 @@ export function buildProposalChanges(p: Proposal): ApplyResult {
       if (orgKeyed.length > 0) {
         for (const [key, value] of orgKeyed) {
           const slug = /^orgs\/(.+)\.yaml$/.exec(key)![1];
-          const change = applyOrgFieldMap(slug, value as Record<string, unknown>, p, notes);
+          let map = value as Record<string, unknown>;
+          // A status submission's summary is the public profile. Older rows
+          // stored it only on the proposal, so approval copies it across.
+          if (p.type === 'status_change') {
+            map = { ...map };
+            if (typeof map.summary === 'string' && map.summary.trim() && typeof map.profile !== 'string') map.profile = map.summary.trim();
+            else if (typeof map.profile !== 'string' && typeof p.summary === 'string' && p.summary.trim()) map.profile = p.summary.trim();
+            delete map.summary;
+          }
+          const change = applyOrgFieldMap(slug, map, p, notes);
           if (change) changes.push(change);
         }
       } else {

@@ -55,7 +55,8 @@ test('standing currency reset drops closed undated calls', () => {
   ]) {
     assert.equal(ids.has(id), false, id);
   }
-  assert.ok(board.some((row) => row.program_id === 'eurohpc-research-innovation-calls' && row.round.closes === '2026-09-30'));
+  assert.ok(board.some((row) => row.program_id === 'eurohpc-research-innovation-calls' && row.round.closes === '2027-01-28'));
+  assert.ok(!board.some((row) => row.program_id === 'eurohpc-research-innovation-calls' && row.round.closes === '2026-09-30'));
   assert.ok(board.some((row) => row.program_id === 'arpa-h-open-funding-opportunities' && row.round.name.includes('FASTPASS')));
   assert.ok(!board.some((row) => row.round.name.startsWith('HEARING')));
 });

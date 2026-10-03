@@ -27,6 +27,10 @@ test('current rounds respect program state, round state, and date-only closes', 
   assert.equal(isCurrentRound(program('paused', [open]), open, '2026-07-21'), false);
   assert.equal(isCurrentRound(program('concluded', [open]), open, '2026-07-21'), false);
   assert.equal(isCurrentRound(program('active'), { ...open, status: 'reviewing' }, '2026-07-21'), false);
+  assert.equal(isCurrentRound(program('active'), { name: 'Dup', status: 'duplicate', closes: '2026-10-07' }, '2026-07-21'), false);
+  assert.equal(isCurrentRound(program('active'), { name: 'Gone', status: 'withdrawn', closes: '2026-10-07' }, '2026-07-21'), false);
+  assert.equal(effectiveRoundLabel(program('active'), { name: 'Dup', status: 'duplicate' }, '2026-07-21'), 'Duplicate');
+  assert.equal(effectiveRoundLabel(program('active'), { name: 'Gone', status: 'withdrawn' }, '2026-07-21'), 'Withdrawn');
 });
 
 test('only an open undated intake is rolling', () => {

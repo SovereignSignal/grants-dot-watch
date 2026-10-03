@@ -32,7 +32,7 @@ const ORG_TYPES = new Set(['foundation', 'dao', 'company', 'nonprofit', 'governm
 const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const PROG_STATUS = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
 const MECHANISMS = new Set(['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other']);
-const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
+const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed', 'withdrawn', 'duplicate']);
 const SYSTEM_KINDS = new Set(['protocol-ecosystem', 'funding-domain']);
 // Membrane: private/BD vocabulary that must never appear as a key or in prose
 const FORBIDDEN = /relationship_context|propensity|current_wedge|recommended_action|operator_read|watch_priority|bd[_ ]target|quality[_ ]score/i;
