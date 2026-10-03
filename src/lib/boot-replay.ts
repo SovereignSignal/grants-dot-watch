@@ -36,15 +36,28 @@ const ROW_LIMIT = 500;
 const BUDGET_MS = 20_000;
 const MAX_REPORTED_ERRORS = 5;
 
+/** Leftovers from registry PR #31. The image now holds the canonical OpenAI,
+ *  IVADO, and Rocket Pool files, so these ready rows cannot replay: p01426,
+ *  p01438, and p01505 are refused, and p01550, p01551, and p01553 are deferred
+ *  behind them. The hand-written registry files are not the committer's
+ *  bytes, so a later-row byte match does not see them. They are abandoned
+ *  instead of keeping every boot degraded. A row whose bytes are already the
+ *  file on disk is left ready so the git sync can still record it. */
+const SUPERSEDED_BY_REGISTRY_PR = new Set(['p01426', 'p01438', 'p01505', 'p01550', 'p01551', 'p01553']);
+
 export interface BootReplayReport {
   /** skipped: nothing to replay from. unavailable: the outbox could not be
-   *  read at all. degraded: at least one row was refused or deferred. */
+   *  read at all. degraded: at least one row was refused or deferred.
+   *  superseded rows do not degrade the boot: a later approval is already the
+   *  canonical file, so the older row is abandoned instead of replayed. */
   status: 'skipped' | 'ok' | 'degraded' | 'unavailable';
   scanned: number;
   applied: number;
   alreadyApplied: number;
   failed: number;
   deferred: number;
+  /** older approvals left in place because a later row's bytes are already canonical */
+  superseded: number;
   /** a row was written in part and could not be restored to its base bytes */
   torn: boolean;
   truncated: boolean;
@@ -201,6 +214,56 @@ export function applyLedgerRow(root: string, files: LedgerFile[]): string[] {
   return writes.map((write) => write.path);
 }
 
+/** True when every file of this row is already `content_after`. Invalid rows
+ *  return false so the caller falls through to applyLedgerRow's refusal. */
+function filesAlreadyOnDisk(files: LedgerFile[], read: (path: string) => string | null): boolean {
+  if (!Array.isArray(files) || files.length === 0) return false;
+  const seen = new Set<string>();
+  for (const file of files) {
+    if (!file || !safePath(file.path) || typeof file.content_after !== 'string' || seen.has(file.path)) return false;
+    seen.add(file.path);
+    if (read(file.path) !== file.content_after) return false;
+  }
+  return true;
+}
+
+/** An earlier approval is superseded when the canonical bytes are already a
+ *  later row's `content_after`. Replaying it would roll that file back.
+ *  A divergence that matches no later approval returns false: that refusal
+ *  still degrades the boot. */
+export function ledgerRowSuperseded(
+  files: LedgerFile[],
+  read: (path: string) => string | null,
+  laterRows: LedgerFile[][]
+): boolean {
+  if (!Array.isArray(files) || files.length === 0) return false;
+  const seen = new Set<string>();
+  let replaced = false;
+  for (const file of files) {
+    if (!file || !safePath(file.path) || typeof file.content_after !== 'string' || seen.has(file.path)) return false;
+    seen.add(file.path);
+    const current = read(file.path);
+    if (current === file.content_after) continue;
+    replaced = true;
+    const canonical = laterRows.some(
+      (later) =>
+        Array.isArray(later) &&
+        later.some((candidate) => candidate && candidate.path === file.path && candidate.content_after === current)
+    );
+    if (!canonical) return false;
+  }
+  return replaced;
+}
+
+/** True for a PR #31 leftover that is not already the canonical file. */
+export function registryPrSuperseded(
+  proposalId: unknown,
+  files: LedgerFile[],
+  read: (path: string) => string | null
+): boolean {
+  return typeof proposalId === 'string' && SUPERSEDED_BY_REGISTRY_PR.has(proposalId) && !filesAlreadyOnDisk(files, read);
+}
+
 /** This instance's last replay, or null if it never ran. A container that
  *  reports a postgres backend and no replay is running an image without this
  *  code. Pure read: the health page module is evaluated by `next build`. */
@@ -247,6 +310,7 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
     alreadyApplied: 0,
     failed: 0,
     deferred: 0,
+    superseded: 0,
     torn: false,
     truncated: false,
     timedOut: false,
@@ -328,7 +392,35 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
         break;
       }
 
-      if (paths.some((p) => blocked.has(p))) {
+      const readPath = (path: string) => readIfExists(join(root, path));
+      // Checked before the block list. A later approval can already be the
+      // canonical file while an earlier row on the same path was refused;
+      // deferring it would report a healthy file as missing.
+      if (filesAlreadyOnDisk(files, readPath)) {
+        report.alreadyApplied++;
+        if (row.last_error) await markRow(pool, row.id, null);
+        continue;
+      }
+      const laterRows: LedgerFile[][] = [];
+      for (let j = i + 1; j < rows.length; j++) {
+        laterRows.push((Array.isArray(rows[j].files) ? rows[j].files : []) as LedgerFile[]);
+      }
+      if (ledgerRowSuperseded(files, readPath, laterRows)) {
+        // A later approval's bytes are already the canonical file. Abandon
+        // the older row so the git sync does not commit it back over that
+        // file and then stop the queue.
+        report.superseded++;
+        const why = 'SUPERSEDED: canonical file matches a later approval; leaving it in place';
+        console.log(`[boot-replay] ${label}: ${why}`);
+        await abandonRow(pool, row.id, why);
+        continue;
+      }
+
+      // A registry PR #31 leftover is not deferred just because an earlier
+      // row on the path was refused. Try it: if it still matches the
+      // canonical file it applies, and if the file has moved on the catch
+      // below retires it without degrading the boot.
+      if (paths.some((p) => blocked.has(p)) && !registryPrSuperseded(row.proposal_id, files, readPath)) {
         // A deferred row did not reach this disk either. Recording it keeps
         // /admin/health's conflict count honest instead of leaving the fact
         // in a container log nobody reads.
@@ -349,6 +441,13 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
         if (row.last_error) await markRow(pool, row.id, null);
       } catch (error) {
         const why = detail(error);
+        if (registryPrSuperseded(row.proposal_id, files, readPath) && why.includes('canonical content changed since proposal apply')) {
+          report.superseded++;
+          const retired = 'SUPERSEDED: registry commit replaced this approval; leaving the canonical file in place';
+          console.log(`[boot-replay] ${label}: ${retired}`);
+          await abandonRow(pool, row.id, retired);
+          continue;
+        }
         report.failed++;
         if (why.startsWith('TORN:')) report.torn = true;
         for (const p of paths) blocked.add(p);
@@ -359,8 +458,10 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
         await markRow(pool, row.id, why);
       }
     }
-    // Anything that left an approval off this disk is degraded, including a
-    // pass that simply ran out of rows or time before reaching it.
+    // A refusal or a deferral left an approval off this disk. A superseded
+    // row did not: a later approval is already canonical, and replaying the
+    // older bytes would roll that file back. Truncation and a spent budget
+    // still degrade, because those rows were never reached.
     report.status =
       report.failed > 0 || report.deferred > 0 || report.truncated || report.timedOut ? 'degraded' : 'ok';
   } catch (error) {
@@ -390,12 +491,26 @@ async function markRow(pool: Pool, id: number, error: string | null): Promise<vo
     .catch((e: unknown) => console.error(`[boot-replay] row ${id}: could not record outcome: ${detail(e)}`));
 }
 
+/** Drop a superseded row out of the ready set. synced_at stays null: this is
+ *  not a deployed git revision, it is an older approval the canonical file
+ *  has already replaced. Abandoned rows are not replayed and not synced. */
+async function abandonRow(pool: Pool, id: number, error: string): Promise<void> {
+  await pool
+    .query(
+      `UPDATE desk_applied_changes
+          SET state = 'abandoned', last_error = $2, last_attempt_at = now()
+        WHERE id = $1 AND synced_at IS NULL AND state = 'ready'`,
+      [id, error]
+    )
+    .catch((e: unknown) => console.error(`[boot-replay] row ${id}: could not record supersession: ${detail(e)}`));
+}
+
 function finish(report: BootReplayReport, startedAt: number): BootReplayReport {
   report.durationMs = Date.now() - startedAt;
   // One grep-able summary line: a fleet log search needs exactly one term.
   console.log(
     `[boot-replay] ${report.status} scanned=${report.scanned} applied=${report.applied} already=${report.alreadyApplied}` +
-      ` failed=${report.failed} deferred=${report.deferred} torn=${report.torn} truncated=${report.truncated}` +
+      ` failed=${report.failed} deferred=${report.deferred} superseded=${report.superseded} torn=${report.torn} truncated=${report.truncated}` +
       ` timedOut=${report.timedOut} ms=${report.durationMs} instance=${report.instance}`
   );
   return report;

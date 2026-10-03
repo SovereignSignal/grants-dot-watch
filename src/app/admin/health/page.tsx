@@ -325,7 +325,9 @@ export default async function HealthPage() {
           <div className="mt-1.5 coord text-faint">
             {replay
               ? `Boot replay: ${replay.status} · ${replay.applied} applied, ${replay.alreadyApplied} already on disk, ` +
-                `${replay.failed} refused, ${replay.deferred} deferred of ${replay.scanned} scanned · ` +
+                `${replay.failed} refused, ${replay.deferred} deferred` +
+                (replay.superseded > 0 ? `, ${replay.superseded} superseded` : '') +
+                ` of ${replay.scanned} scanned · ` +
                 replayFlags(replay).map((f) => `${f} · `).join('') +
                 `${replay.durationMs}ms · instance ${replay.instance} · ${formatLoadedAt(replay.at)}`
               : 'Boot replay: has not run on this instance.'}
