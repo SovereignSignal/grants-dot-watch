@@ -131,11 +131,13 @@ test('a second call in the same container does not replay again', opts, async ()
   assert.equal(read(root), V1);
 });
 
-test('a chain already applied in this container fails loud and changes nothing', opts, async () => {
-  // H1: v0->v1->v2 walks the file to v2, so a SECOND pass fails row 1's
-  // compare-and-set against a file that is no longer at v0. A real container
-  // boots from the image and never sees this; the once-guard is what keeps it
-  // out of reach in-process, and this pins what happens if it is bypassed.
+test('a chain already at its final bytes is superseded, not a conflict', opts, async () => {
+  // v0->v1->v2 walks the file to v2. A second pass used to fail row 1's
+  // compare-and-set and defer row 2, which is also what a fresh container
+  // does when the image already contains v2 (registry PR #31). That file is
+  // the later approval. Replaying row 1 would roll it back, so the boot is
+  // healthy and the older row is abandoned. The once-guard still keeps this
+  // second pass out of reach in a normal container.
   await readyRow([file()]);
   await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p00002');
   const root = sandbox({ [PATH]: V0 });
@@ -145,12 +147,16 @@ test('a chain already applied in this container fails loud and changes nothing',
   const { replayAppliedChanges } = await loadReplay({ reboot: true });
   const report = await replayAppliedChanges({ root, connectionString: TEST_DATABASE_URL });
 
-  assert.equal(report.status, 'degraded');
-  assert.deepEqual({ applied: report.applied, failed: report.failed, deferred: report.deferred }, { applied: 0, failed: 1, deferred: 1 });
+  assert.equal(report.status, 'ok');
+  assert.deepEqual(
+    { applied: report.applied, already: report.alreadyApplied, failed: report.failed, deferred: report.deferred, superseded: report.superseded },
+    { applied: 0, already: 1, failed: 0, deferred: 0, superseded: 1 }
+  );
   assert.equal(read(root), V2); // untouched
   const after = await ledger();
-  assert.match(after[0].error, /canonical content changed since proposal apply/);
-  assert.deepEqual(after.map((r) => [r.state, r.synced]), [['ready', false], ['ready', false]]);
+  assert.equal(after[0].state, 'abandoned');
+  assert.match(after[0].error, /SUPERSEDED/);
+  assert.deepEqual([after[1].state, after[1].synced, after[1].error], ['ready', false, null]);
 });
 
 test('divergence fails loud and leaves the file alone', opts, async () => {
@@ -238,6 +244,90 @@ test('a failed row defers only later rows on the same path', opts, async () => {
   assert.match(after[0].error, /refusing to overwrite/);
   assert.match(after[1].error, /^DEFERRED: /); // a distinct reason from a refusal
   assert.equal(after[2].error, null);
+});
+
+test('registry PR #31 leftovers are abandoned instead of degrading the boot', opts, async () => {
+  // The committed file is not the committer's bytes, so neither the refused
+  // row nor the later approval matches disk. Both still have to leave the
+  // boot healthy, and neither may overwrite the canonical file.
+  await readyRow([file()], 'p01426');
+  await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p01550');
+  const canonical = 'canonical text from the registry commit\n';
+  const root = sandbox({ [PATH]: canonical });
+  const before = mtime(root);
+
+  const { replayAppliedChanges } = await loadReplay();
+  const report = await replayAppliedChanges({ root, connectionString: TEST_DATABASE_URL });
+
+  assert.equal(report.status, 'ok');
+  assert.deepEqual(
+    { failed: report.failed, deferred: report.deferred, superseded: report.superseded, applied: report.applied },
+    { failed: 0, deferred: 0, superseded: 2, applied: 0 }
+  );
+  assert.equal(read(root), canonical);
+  assert.equal(mtime(root), before);
+  const after = await ledger();
+  assert.deepEqual(after.map((r) => [r.state, r.synced]), [['abandoned', false], ['abandoned', false]]);
+  assert.match(after[0].error, /SUPERSEDED/);
+  assert.match(after[1].error, /SUPERSEDED/);
+});
+
+test('a registry PR #31 leftover still applies when the file is the base it was prepared against', opts, async () => {
+  await readyRow([file()], 'p01550');
+  const root = sandbox({ [PATH]: V0 });
+
+  const { replayAppliedChanges } = await loadReplay();
+  const report = await replayAppliedChanges({ root, connectionString: TEST_DATABASE_URL });
+
+  assert.equal(report.status, 'ok');
+  assert.equal(report.applied, 1);
+  assert.equal(report.superseded, 0);
+  assert.equal(read(root), V1);
+  assert.deepEqual((await ledger()).map((r) => [r.state, r.error]), [['ready', null]]);
+});
+
+test('a later approval already on disk supersedes the earlier row and the boot stays healthy', opts, async () => {
+  // The shape left after registry PR #31: an earlier desk write (p01426 on
+  // OpenAI, and the same for IVADO and Rocket Pool) and a later approval
+  // (p01550, p01551, p01553) whose bytes are already in the image. Replaying
+  // the earlier row would roll the canonical file back, and deferring the
+  // later one reported that healthy file as missing.
+  const OTHER = 'registry/orgs/other.yaml';
+  await readyRow([file()], 'p01426');
+  await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p01550');
+  await readyRow([{ path: OTHER, content_before_hash: null, content_after: V0 }], 'p00099');
+  const root = sandbox({ [PATH]: V2 });
+  const before = mtime(root);
+
+  const { replayAppliedChanges } = await loadReplay();
+  const report = await replayAppliedChanges({ root, connectionString: TEST_DATABASE_URL });
+
+  assert.equal(report.status, 'ok');
+  assert.deepEqual(
+    {
+      applied: report.applied,
+      already: report.alreadyApplied,
+      failed: report.failed,
+      deferred: report.deferred,
+      superseded: report.superseded,
+    },
+    { applied: 1, already: 1, failed: 0, deferred: 0, superseded: 1 }
+  );
+  assert.equal(report.errors.length, 0);
+  assert.equal(read(root), V2);
+  assert.equal(mtime(root), before);
+  assert.equal(read(root, OTHER), V0); // a path outside the superseded chain still replays
+  const after = await ledger();
+  assert.equal(after[0].state, 'abandoned');
+  assert.equal(after[0].synced, false);
+  assert.match(after[0].error, /SUPERSEDED/);
+  assert.deepEqual(
+    after.slice(1).map((r) => [r.state, r.synced, r.error]),
+    [
+      ['ready', false, null],
+      ['ready', false, null],
+    ]
+  );
 });
 
 test('an already-applied row is a skip, not a write or a failure', opts, async () => {
