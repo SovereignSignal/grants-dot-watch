@@ -48,15 +48,15 @@ const SUPERSEDED_BY_REGISTRY_PR = new Set(['p01426', 'p01438', 'p01505', 'p01550
 export interface BootReplayReport {
   /** skipped: nothing to replay from. unavailable: the outbox could not be
    *  read at all. degraded: at least one row was refused or deferred.
-   *  superseded rows do not degrade the boot: a later approval is already the
-   *  canonical file, so the older row is abandoned instead of replayed. */
+   *  superseded rows do not degrade this replica's boot. Ordinary rows stay
+   *  ready: this replica's disk is not evidence of a deployed Git revision. */
   status: 'skipped' | 'ok' | 'degraded' | 'unavailable';
   scanned: number;
   applied: number;
   alreadyApplied: number;
   failed: number;
   deferred: number;
-  /** older approvals left in place because a later row's bytes are already canonical */
+  /** older approvals skipped on this replica because later bytes are present */
   superseded: number;
   /** a row was written in part and could not be restored to its base bytes */
   torn: boolean;
@@ -227,10 +227,10 @@ function filesAlreadyOnDisk(files: LedgerFile[], read: (path: string) => string 
   return true;
 }
 
-/** An earlier approval is superseded when the canonical bytes are already a
- *  later row's `content_after`. Replaying it would roll that file back.
- *  A divergence that matches no later approval returns false: that refusal
- *  still degrades the boot. */
+/** An earlier approval is superseded on this replica when its current bytes
+ *  match later ready rows. This says nothing about another replica or the
+ *  build image: callers must retain ordinary outbox rows for future recovery.
+ *  A divergence that matches no later approval returns false. */
 export function ledgerRowSuperseded(
   files: LedgerFile[],
   read: (path: string) => string | null,
@@ -275,11 +275,9 @@ export function lastBootReplayReport(): BootReplayReport | null {
  *  first. Never rejects.
  *
  *  Once per process. A chain of unsynced rows on one path walks the file
- *  forward (v0->v1->v2), so a second pass in the same container fails the
- *  first row's compare-and-set against a file already at v2. A fresh
- *  container starts from the build image — the base the chain was prepared
- *  against — which is why the chain replays correctly there and why this must
- *  not be retried in-process.
+ *  forward (v0->v1->v2), so a second pass in the same container skips older
+ *  intermediate versions without retiring the durable rows. A fresh
+ *  container starts from the build image and still needs the entire chain.
  *
  *  No cross-replica lock, deliberately. Every replica has its own ephemeral
  *  filesystem and every replica must replay onto it, so withIngestLock's
@@ -394,7 +392,7 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
 
       const readPath = (path: string) => readIfExists(join(root, path));
       // Checked before the block list. A later approval can already be the
-      // canonical file while an earlier row on the same path was refused;
+      // canonical file while an earlier row on the path was refused;
       // deferring it would report a healthy file as missing.
       if (filesAlreadyOnDisk(files, readPath)) {
         report.alreadyApplied++;
@@ -406,13 +404,20 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
         laterRows.push((Array.isArray(rows[j].files) ? rows[j].files : []) as LedgerFile[]);
       }
       if (ledgerRowSuperseded(files, readPath, laterRows)) {
-        // A later approval's bytes are already the canonical file. Abandon
-        // the older row so the git sync does not commit it back over that
-        // file and then stop the queue.
         report.superseded++;
-        const why = 'SUPERSEDED: canonical file matches a later approval; leaving it in place';
-        console.log(`[boot-replay] ${label}: ${why}`);
-        await abandonRow(pool, row.id, why);
+        if (registryPrSuperseded(row.proposal_id, files, readPath)) {
+          // These explicit migration IDs are known to have been replaced in
+          // Git by PR #31. Do not extend this exception to ordinary approvals.
+          const why = 'SUPERSEDED: registry commit replaced this approval; leaving the canonical file in place';
+          console.log(`[boot-replay] ${label}: ${why}`);
+          await abandonRow(pool, row.id, why);
+        } else {
+          // A restart can retain this replica's writable layer. Its newer
+          // control file does not make older immutable shards durable in Git.
+          // Retiring this row would remove data the next fresh replica needs.
+          console.log(`[boot-replay] ${label}: SUPERSEDED_ON_REPLICA: later bytes present locally; retaining ready outbox for recovery`);
+          if (row.last_error) await markRow(pool, row.id, null);
+        }
         continue;
       }
 
@@ -458,10 +463,9 @@ async function runReplay(opts: { root?: string; connectionString?: string }): Pr
         await markRow(pool, row.id, why);
       }
     }
-    // A refusal or a deferral left an approval off this disk. A superseded
-    // row did not: a later approval is already canonical, and replaying the
-    // older bytes would roll that file back. Truncation and a spent budget
-    // still degrade, because those rows were never reached.
+    // A refusal or a deferral left an approval off this disk. A locally
+    // superseded row did not, but remains ready for other replicas. Truncation
+    // and a spent budget still degrade because those rows were never reached.
     report.status =
       report.failed > 0 || report.deferred > 0 || report.truncated || report.timedOut ? 'degraded' : 'ok';
   } catch (error) {
@@ -491,9 +495,9 @@ async function markRow(pool: Pool, id: number, error: string | null): Promise<vo
     .catch((e: unknown) => console.error(`[boot-replay] row ${id}: could not record outcome: ${detail(e)}`));
 }
 
-/** Drop a superseded row out of the ready set. synced_at stays null: this is
- *  not a deployed git revision, it is an older approval the canonical file
- *  has already replaced. Abandoned rows are not replayed and not synced. */
+/** Used only for explicit registry-migration exceptions, never because a
+ *  replica happens to hold later bytes. Ordinary ready rows remain available
+ *  until the Git synchronization workflow verifies their durable replacement. */
 async function abandonRow(pool: Pool, id: number, error: string): Promise<void> {
   await pool
     .query(
