@@ -7,6 +7,7 @@ import { WIRE_LABEL } from '@/lib/format';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { ProgramHistory } from '@/components/programs/program-review';
 import { AwardLedger } from '@/components/awards/award-ledger';
+import { ProgramFunding } from '@/components/funding/program-funding';
 import { awardsForProgram } from '@/lib/awards';
 import { parsePage } from '@/lib/pagination';
 import { param, type SearchParams } from '@/components/ledger/query';
@@ -51,6 +52,7 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
       </tr>)}</tbody></table></div> : <p>No rounds on file.</p>}<p className="deadline-note">Past rounds stay on the page, so you can see how often this program opens.</p></section>
       {(program.parent || children.length > 0) && <section><h2>Related programs</h2>{program.parent && <Link className="evidence-link" href={`/programs/${program.parent}`}>Parent program</Link>}{children.map(child => <Link className="evidence-link block" href={`/programs/${child.id}`} key={child.id}>{child.name}</Link>)}</section>}
       <ProgramHistory program={program}/>
+      <ProgramFunding programId={id}/>
       <section id="sources"><h2>Sources</h2><ol className="dossier-sources">{sources.map((source, i) => <li key={source}><span>{String(i + 1).padStart(2, '0')}</span><a href={source} target="_blank" rel="noreferrer">{new URL(source).hostname.replace(/^www\./, '')}<small>{new URL(source).pathname === '/' ? 'Program website' : new URL(source).pathname}</small></a></li>)}</ol></section>
     </div><aside className="application-panel" aria-label="The facts"><div className="application-panel-inner"><h2 className="hero-kicker">The facts</h2><dl>
       <div><dt>Status</dt><dd>{facts.status.label}<p className="deadline-note">{facts.status.note}</p><Source url={facts.status.source}/></dd></div>
