@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "id": "spotify-foss-2025-pilot",
+  "reference_blobs": {
+    "orgs/spotify.yaml": "c2ec1f3fb04e4c30e235735882cdf4daccd90336",
+    "programs/spotify-foss-fund.yaml": "527e19b8c775f1304361ff4b0ec474031192aa31"
+  },
+  "records": {
+    "program-terms": [
+      {
+        "key": "spotify-foss-fund:2025:terms",
+        "program": "spotify-foss-fund",
+        "round_name": "2025 cohort",
+        "source": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund",
+        "checked_on": "2026-10-04",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Historical 2025 cohort: corporate financial sponsorship of open-source projects chosen by Spotify. This scoped record does not establish current intake, a current budget, or a standard award range.",
+        "instruments": ["sponsorship"],
+        "allocation_methods": ["internal_selection"],
+        "capital_forms": ["cash"],
+        "selection_models": ["internal_selection"],
+        "intake_mode": "unknown",
+        "operator_org": "spotify",
+        "resources": [],
+        "access": null
+      }
+    ],
+    "funding-events": [
+      {
+        "key": "spotify-foss:2025:ffmpeg:award",
+        "award_id": "spotify-foss:2025:ffmpeg",
+        "event_type": "awarded",
+        "source": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund",
+        "checked_on": "2026-10-04",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Spotify names this project and its EUR amount in the 2025 cohort, announced on 2026-01-22. Exact award and payment dates are not disclosed. No independent payment verification is claimed.",
+        "funder": "spotify",
+        "recipient": "ffmpeg",
+        "recipient_name": "FFmpeg",
+        "program": "spotify-foss-fund",
+        "round_name": "2025 cohort",
+        "amount": {"amount": "30000", "currency": "EUR", "unit": "currency", "qualifier": "exact"},
+        "capital_form": "cash",
+        "occurred_on": null,
+        "announced_on": "2026-01-22",
+        "award_period": "2025",
+        "payment_date": null,
+        "legacy_award_key": null
+      },
+      {
+        "key": "spotify-foss:2025:mock-service-worker:award",
+        "award_id": "spotify-foss:2025:mock-service-worker",
+        "event_type": "awarded",
+        "source": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund",
+        "checked_on": "2026-10-04",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Spotify names this project and its EUR amount in the 2025 cohort, announced on 2026-01-22. Exact award and payment dates are not disclosed. No independent payment verification is claimed.",
+        "funder": "spotify",
+        "recipient": "mock-service-worker",
+        "recipient_name": "Mock Service Worker (MSW)",
+        "program": "spotify-foss-fund",
+        "round_name": "2025 cohort",
+        "amount": {"amount": "15000", "currency": "EUR", "unit": "currency", "qualifier": "exact"},
+        "capital_form": "cash",
+        "occurred_on": null,
+        "announced_on": "2026-01-22",
+        "award_period": "2025",
+        "payment_date": null,
+        "legacy_award_key": null
+      },
+      {
+        "key": "spotify-foss:2025:xiph-org:award",
+        "award_id": "spotify-foss:2025:xiph-org",
+        "event_type": "awarded",
+        "source": "https://engineering.atspotify.com/2026/1/congratulations-to-the-recipients-of-the-2025-spotify-foss-fund",
+        "checked_on": "2026-10-04",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Spotify names this project and its EUR amount in the 2025 cohort, announced on 2026-01-22. Exact award and payment dates are not disclosed. No independent payment verification is claimed.",
+        "funder": "spotify",
+        "recipient": "xiph-org",
+        "recipient_name": "Xiph.Org Foundation",
+        "program": "spotify-foss-fund",
+        "round_name": "2025 cohort",
+        "amount": {"amount": "25000", "currency": "EUR", "unit": "currency", "qualifier": "exact"},
+        "capital_form": "cash",
+        "occurred_on": null,
+        "announced_on": "2026-01-22",
+        "award_period": "2025",
+        "payment_date": null,
+        "legacy_award_key": null
+      }
+    ],
+    "process-metrics": []
+  }
+}

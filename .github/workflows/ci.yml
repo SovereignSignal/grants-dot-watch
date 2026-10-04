@@ -1,21 +1,29 @@
 name: CI
-
 on:
   push:
     branches: [main]
   pull_request:
-
 permissions:
   contents: read
-
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: funding_test
+          POSTGRES_PASSWORD: local_ci_only
+          POSTGRES_DB: funding_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U funding_test -d funding_test"
+          --health-interval 5s --health-timeout 5s --health-retries 12
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -26,7 +34,12 @@ jobs:
       - run: npm audit --omit=dev --audit-level=high
       - run: npm run check:public
       - run: npm run validate
-      - run: npm test
+      - name: Lint funding v2 implementation
+        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs tests/funding-v2*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
+      - name: Unit and real PostgreSQL integration tests
+        run: npm test
+        env:
+          TEST_DATABASE_URL: postgresql://funding_test:local_ci_only@127.0.0.1:5432/funding_test
       - run: npm run typecheck
       - run: npm run build
       - run: npx playwright install --with-deps chromium

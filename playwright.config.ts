@@ -22,6 +22,7 @@ export default defineConfig({
     // closed there; this is the explicit opt-out, and /admin/health reports
     // the local backend for as long as it is on.
     env: { ADMIN_TOKEN: browserAdminToken, GRANTS_WATCH_ALLOW_LOCAL_STORE: '1', WIRE_DATABASE_URL: '',
+      GRANTS_WATCH_API_V2: '0',
       GRANTS_WATCH_READER_KEYS: JSON.stringify([{ id: 'browser-test',
         sha256: createHash('sha256').update('browser-reader-test-token-0000000000').digest('hex'),
         expires_at: '2099-01-01T00:00:00Z' }]) },
