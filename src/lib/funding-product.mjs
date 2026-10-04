@@ -40,7 +40,7 @@ export function buildFundingProduct(baseline,dataset,at=new Date()) {
       const fact=p.review?.facts?.[field];
       if(!fact||!text(fact.value)||!url(fact.source)||!day(fact.checked_on))continue;
       const id=`legacy-claim-${sha([p.id,field,fact.value,fact.source,fact.checked_on])}`;
-      claims.push({id,program:p.id,org:p.org,ledger:'programs',record_key:p.id,field:`/review/facts/${field}/value`,value:text(fact.value),value_sha256:sha(fact.value),method:'registry_record',rule:'carried_forward_public_fact',evidence_state:'registry_record',observed_on:day(fact.checked_on),sources:[{url:fact.source,observed_on:fact.checked_on,representation_sha256:null,source_revision:null,line:null,redistribution:'unassessed'}],api:api('claims',id)});
+      claims.push({id,program:p.id,org:p.org,ledger:'programs',record_key:p.id,field:`/review/facts/${field}/value`,value:fact.value,value_sha256:sha(fact.value),method:'registry_record',rule:'carried_forward_public_fact',evidence_state:'registry_record',observed_on:day(fact.checked_on),sources:[{url:fact.source,observed_on:fact.checked_on,representation_sha256:null,source_revision:null,line:null,redistribution:'unassessed'}],api:api('claims',id)});
     }
   }
   for(const ledger of LEDGERS)for(const record of dataset[ledger]){
@@ -62,7 +62,7 @@ export function buildFundingProduct(baseline,dataset,at=new Date()) {
     if(ledger==='funding-events'){
       addEdge('org',record.funder,'award_issuer','recipient',record.recipient,{program,org,source:url(record.source),evidence_state:record.evidence_state,effective_from:day(record.occurred_on),effective_to:null,record_key:record.key,award_id:record.award_id,event_type:record.event_type});
       if(url(record.recipient_url)){
-        const outputId=`project-${sha([record.recipient,record.recipient_url])}`;
+        const outputId=`project-${sha([program,record.recipient,record.recipient_url])}`;
         outputs.push({id:outputId,program,org,recipient:record.recipient,name:record.recipient_name,kind:new URL(record.recipient_url).hostname==='github.com'?'software_repository':'project_url',url:record.recipient_url,source:record.source,record_key:record.key,relationship:'funded_project_link',delivery_state:'not_established',causal_impact:'not_established',api:api('outputs',outputId)});
       }
     }
@@ -123,7 +123,6 @@ export function fundingOpenAPI(){
 const response=(body,status=200,extra={})=>new Response(status===204?null:typeof body==='string'?body:JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, HEAD, OPTIONS','Access-Control-Allow-Headers':'Accept, Content-Type','Access-Control-Expose-Headers':'X-Snapshot-SHA256, X-Record-Count','X-Content-Type-Options':'nosniff',...extra}});
 /** @param {Request} request @param {string[]} segments @param {{enabled?:boolean,load:()=>{baseline:unknown,dataset:unknown},now?:()=>Date}} deps */
 export function handleFundingProductRequest(request,segments,deps){
-  // Preserve every original collection contract and fail-closed read behavior.
   const extra=segments.length===0||['openapi','export',...EXTRA_COLLECTIONS].includes(segments[0]);
   if(!extra)return handleFundingRequest(request,segments,deps);
   if(request.method==='OPTIONS')return response(null,204);
