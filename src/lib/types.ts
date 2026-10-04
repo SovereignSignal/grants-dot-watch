@@ -1,239 +1,31 @@
-// Registry entity types — mirror of registry/SCHEMA.md. Files are the truth;
-// these are their in-memory shape plus derived aggregates.
-
+// Registry entity types — v1 fields remain compatible; v2 adds optional typed funding semantics.
 export type Wire = 'crypto' | 'ai' | 'oss';
+export type CapitalForm = 'cash'|'token'|'equity'|'convertible'|'credit'|'compute'|'service'|'liquidity-incentive'|'in-kind'|'mixed';
+export type FundingMechanism = 'grants'|'retro'|'quadratic'|'prize'|'fellowship'|'incubator'|'accelerator'|'rfp'|'bounty'|'subsidy'|'investment'|'procurement'|'purchase'|'sponsorship'|'credits'|'other';
+export type SelectionModel = 'application'|'nomination'|'invitation'|'governance'|'performance'|'competition'|'donor-directed'|'internal-selection'|'other';
+export type IntakeMode = 'rolling'|'rounds'|'standing'|'nomination'|'no-unsolicited'|'closed'|'unknown';
 
-export interface System {
-  id: string;
-  name: string;
-  kind: 'protocol-ecosystem' | 'funding-domain';
-  part_of: string[];
-  wires: Wire[];
-  summary: string;
-  funding_channels: string[];
-  sources: string[];
-}
-
-export interface Org {
-  id: string;
-  name: string;
-  aka: string[];
-  systems: string[];
-  wires: Wire[];
-  roles: ('funder' | 'grantee' | 'ecosystem')[];
-  org_type?: 'foundation' | 'dao' | 'company' | 'nonprofit' | 'government' | 'education';
-  website?: string;
-  socials?: Record<string, string>;
-  status: 'active' | 'winding-down' | 'dormant' | 'dead' | 'unknown';
-  profile: string;
-  funding?: {
-    focus?: string[];
-    typical_size?: string;
-    cadence?: string;
-    apply_url?: string;
-  };
-  sources: string[];
-}
-
-export interface Round {
-  name: string;
-  status: 'announced' | 'open' | 'reviewing' | 'closed' | 'deployed' | 'withdrawn' | 'duplicate';
-  opens?: string;
-  closes?: string;
-  /** Source-stated cutoff, including its UTC offset. Never inferred from a date. */
-  closes_at?: string;
-  size?: string;
-  source?: string;
-}
-
-export interface Program {
-  id: string;
-  name: string;
-  org: string;
-  parent?: string | null;
-  systems: string[];
-  wires: Wire[];
-  status: 'active' | 'paused' | 'concluded' | 'announced' | 'unknown';
-  mechanism?: 'grants' | 'retro' | 'quadratic' | 'prize' | 'fellowship' | 'incubator' | 'rfp' | 'other';
-  apply_url?: string;
-  summary: string;
-  rounds: Round[];
-  sources: string[];
-  /** Research assessment, independent of application rounds and file load time. */
-  review?: ProgramReview;
-}
-
-export interface ProgramReview {
-  checked_on: string;
-  review_after: string;
-  operating: Program['status'];
-  intake: 'open' | 'closed' | 'postponed' | 'unknown';
-  intake_note: string;
-  source: string;
-  kind: 'program' | 'unresolved';
-  relationship: 'current' | 'former' | 'unconfirmed';
-  relationship_note?: string;
-  questions: string[];
-  history: { date: string; label: string; summary: string; source: string }[];
-  intake_mode?: 'rolling' | 'rounds' | 'unknown';
-  /** Application windows actually covered by this assessment. */
-  round_names?: string[];
-  facts?: Partial<Record<'eligibility' | 'geography' | 'funding' | 'deadline', {
-    value: string;
-    source: string;
-    checked_on: string;
-  }>>;
-}
-
-export interface Award {
-  funder: string;
-  funder_name: string;
-  grantee: string;
-  grantee_name: string;
-  amount: number | null;
-  currency: string | null;
-  amount_text: string | null;
-  date: string | null;
-  program: string | null;
-  program_name: string | null;
-  wire: Wire | null;
-  source: string | null;
-  key: string;
-}
-
-/** Derived, not curated: built from awards at load time. */
-export interface Grantee {
-  slug: string;
-  name: string;
-  awards: Award[];
-  funders: string[]; // org ids/slugs that funded it
-  total_known: number; // sum of USD-known amounts
-  org_id?: string; // set when a curated org file exists for this grantee
-}
-
-export interface OrgStats {
-  awards_given: number;
-  awards_total_usd: number;
-  grantees: number;
-  programs: number;
-  live_rounds: number; // rounds the registry LISTS as current — inventory, not a claim
-  last_activity: string | null; // latest dated award/round evidence
-}
-
-export interface RegistryIndex {
-  systems: System[];
-  orgs: Org[];
-  programs: Program[];
-  awards: Award[];
-  grantees: Grantee[];
-  orgStats: Map<string, OrgStats>;
-  bySystem: Map<string, { orgs: Org[]; programs: Program[] }>;
-  loadedAt: string;
-  updatedAt: string;
-  counts: { systems: number; orgs: number; funders: number; programs: number; awards: number; grantees: number };
-}
+export interface System { id:string; name:string; kind:'protocol-ecosystem'|'funding-domain'; part_of:string[]; wires:Wire[]; summary:string; funding_channels:string[]; sources:string[]; }
+export interface FundingRelationship { role:'capital-source'|'capital-owner'|'co-funder'|'allocator'|'decision-authority'|'operator'|'process-administrator'|'contracting-party'|'fiscal-sponsor'|'disburser'|'oversight'|'beneficiary'|'investor'|'purchaser'; org:string; effective_from?:string; effective_to?:string; source?:string; }
+export interface Org { id:string; name:string; aka:string[]; systems:string[]; wires:Wire[]; roles:('funder'|'grantee'|'ecosystem')[]; org_type?:'foundation'|'dao'|'company'|'nonprofit'|'government'|'education'; website?:string; socials?:Record<string,string>; status:'active'|'winding-down'|'dormant'|'dead'|'unknown'; profile:string; funding?:{focus?:string[];typical_size?:string;cadence?:string;apply_url?:string}; relationships?:FundingRelationship[]; evidence_checked_on?:string; review_after?:string; sources:string[]; }
+export interface Money { amount?:number|null; currency?:string|null; amount_text?:string|null; valuation_basis?:string|null; as_of?:string|null; }
+export interface Round { name:string; status:'announced'|'open'|'reviewing'|'closed'|'deployed'|'withdrawn'|'duplicate'; opens?:string; closes?:string; closes_at?:string; decision_expected?:string; decision_date?:string; payment_expected?:string; size?:string; pool?:Money; application_count?:number; eligible_count?:number; shortlist_count?:number; offer_count?:number; award_count?:number; stage?:string; source_checked_on?:string; source?:string; }
+export interface ProgramTerms { capital_form?:CapitalForm|CapitalForm[]; selection_model?:SelectionModel|SelectionModel[]; intake_mode?:IntakeMode; operator_org?:string; capital_source_orgs?:string[]; disburser_org?:string; budget?:Money; award_min?:Money; award_max?:Money; eligibility?:string[]; geography?:string[]; requirements?:string[]; application_route?:string; success_metrics?:string[]; reporting_requirements?:string[]; }
+export interface Program { id:string; name:string; org:string; parent?:string|null; systems:string[]; wires:Wire[]; status:'active'|'paused'|'concluded'|'announced'|'unknown'; mechanism?:FundingMechanism; apply_url?:string; summary:string; terms?:ProgramTerms; rounds:Round[]; sources:string[]; review?:ProgramReview; }
+export interface ProgramReview { checked_on:string; review_after:string; operating:Program['status']; intake:'open'|'closed'|'postponed'|'unknown'; intake_note:string; source:string; kind:'program'|'unresolved'; relationship:'current'|'former'|'unconfirmed'; relationship_note?:string; questions:string[]; history:{date:string;label:string;summary:string;source:string}[]; intake_mode?:'rolling'|'rounds'|'unknown'; round_names?:string[]; facts?:Partial<Record<'eligibility'|'geography'|'funding'|'deadline',{value:string;source:string;checked_on:string}>>; }
+export interface Award { funder:string; funder_name:string; grantee:string; grantee_name:string; amount:number|null; currency:string|null; amount_text:string|null; date:string|null; program:string|null; program_name:string|null; wire:Wire|null; source:string|null; key:string; }
+export type FundingEventType='recommended'|'approved'|'awarded'|'contracted'|'paid'|'withdrawn'|'challenged'|'rejected'|'refunded'|'clawed-back';
+export interface FundingEvent { key:string; event_type:FundingEventType; funder?:string|null; recipient:string; recipient_name:string; program?:string|null; round?:string|null; decision_date?:string|null; payment_date?:string|null; amount_native?:number|null; currency?:string|null; amount_text?:string|null; amount_usd?:number|null; usd_as_of?:string|null; valuation_source?:string|null; capital_form?:CapitalForm|null; milestone?:string|null; tranche?:string|null; conditions?:string[]; source:string; source_type?:string|null; evidence_checked_on:string; supersedes_key?:string|null; }
+export interface ProcessMetric { key:string; program:string; round?:string|null; period:string; applications?:number|null; eligible_applications?:number|null; shortlisted?:number|null; offers?:number|null; accepted?:number|null; funded?:number|null; exclusions?:string[]; source:string; checked_on:string; }
+export interface Grantee { slug:string; name:string; awards:Award[]; funders:string[]; total_known:number; org_id?:string; }
+export interface OrgStats { awards_given:number; awards_total_usd:number; grantees:number; programs:number; live_rounds:number; last_activity:string|null; }
+export interface RegistryIndex { systems:System[]; orgs:Org[]; programs:Program[]; awards:Award[]; fundingEvents:FundingEvent[]; processMetrics:ProcessMetric[]; grantees:Grantee[]; orgStats:Map<string,OrgStats>; bySystem:Map<string,{orgs:Org[];programs:Program[]}>; loadedAt:string; updatedAt:string; counts:{systems:number;orgs:number;funders:number;programs:number;awards:number;funding_events:number;process_metrics:number;grantees:number}; }
 
 // ---- The Desk (curation queue) ----
-
-export type ProposalType =
-  | 'new_org'
-  | 'new_program'
-  | 'round_update'
-  | 'deadline_change'
-  | 'status_change'
-  | 'new_award'
-  | 'profile_note'
-  | 'merge_orgs';
-
-/** Result of a deterministic proposal-validator.ts run, persisted onto a
- *  still-pending proposal when the machine check fails — the Desk's
- *  exception queue reads this straight off the record, no re-run needed. */
-export interface ProposalValidation {
-  checks: { name: string; pass: boolean; detail?: string }[];
-  reason: string;
-  checked_at: string;
-  /** true for classes that are never machine-validated by design (new_award,
-   *  merge_orgs, unrecognized types) — the Desk shows "needs the owner"
-   *  instead of "machine check failed" for these. */
-  never_auto?: boolean;
-}
-
-export interface Proposal {
-  id: string;
-  type: ProposalType;
-  org: string | null;
-  org_name?: string | null;
-  program?: string | null;
-  title: string;
-  summary: string;
-  evidence_url?: string | null;
-  proposed_change?: Record<string, unknown>;
-  confidence?: number;
-  signal_id?: number | string;
-  wire?: Wire | null;
-  lane: 'judgment' | 'fact';
-  state: 'pending' | 'applying' | 'approved' | 'rejected';
-  created_at: string;
-  applying_at?: string;
-  decided_at?: string;
-  decision_note?: string;
-  /** Set by validation-runner.ts on a FAIL — cleared implicitly once the
-   *  proposal is later approved/rejected by any path (a decided proposal's
-   *  validation record is just history at that point). */
-  validation?: ProposalValidation;
-  /** Set when a curator API key queued this item. Absent on miner/owner intake. */
-  submitted_by?: CuratorStamp;
-  /** Latest curator annotation. Does not decide the item — the owner does. */
-  curator_review?: CuratorReview;
-  /** Every annotation, oldest first. `curator_review` is the last entry. */
-  curator_review_history?: CuratorReview[];
-}
-
-/** A curator's note on a still-pending proposal. Stored on the proposal JSON.
- *  Latest wins for display; history keeps the earlier notes. */
-export interface CuratorReview {
-  verdict: 'approve' | 'reject' | 'needs_owner';
-  reason: string;
-  sources: { url: string; quote: string }[];
-  facts?: CuratorReviewFacts;
-  key_id: string;
-  key_name: string;
-  at: string;
-}
-
-/** Facts the curator says the proposal has wrong. Only the fields they send. */
-export interface CuratorReviewFacts {
-  status?: string;
-  deadline?: string;
-  amount?: string;
-  org_name?: string;
-  program_name?: string;
-}
-
-/** Who queued a proposal through the curator API. Stored on the proposal
- *  JSON, so the Desk Log can label it without a separate table. */
-export interface CuratorStamp {
-  key_id: string;
-  key_name: string;
-  reason: string;
-  sources: string[];
-  quotes: { url: string; quote: string }[];
-  at: string;
-}
-
-export interface Verdict {
-  proposal_id: string;
-  decision: 'approved' | 'rejected';
-  note?: string;
-  at: string;
-  commit?: string | null;
-  /** Who decided — omitted (not defaulted) for every pre-existing verdict,
-   *  so backward compat needs no migration: absent means owner. The
-   *  machine-validation pipeline writes 'machine'. The curator API writes
-   *  'curator' plus the key id and name. */
-  by?: 'machine' | 'owner' | 'curator';
-  curator_id?: string;
-  curator_name?: string;
-  /** Source URLs the curator attached to this decision. */
-  sources?: string[];
-}
+export type ProposalType='new_org'|'new_program'|'round_update'|'deadline_change'|'status_change'|'new_award'|'profile_note'|'merge_orgs';
+export interface ProposalValidation { checks:{name:string;pass:boolean;detail?:string}[]; reason:string; checked_at:string; never_auto?:boolean; }
+export interface CuratorReviewFacts { status?:string; deadline?:string; amount?:string; org_name?:string; program_name?:string; }
+export interface CuratorReview { verdict:'approve'|'reject'|'needs_owner'; reason:string; sources:{url:string;quote:string}[]; facts?:CuratorReviewFacts; key_id:string; key_name:string; at:string; }
+export interface CuratorStamp { key_id:string; key_name:string; reason:string; sources:string[]; quotes:{url:string;quote:string}[]; at:string; }
+export interface Proposal { id:string; type:ProposalType; org:string|null; org_name?:string|null; program?:string|null; title:string; summary:string; evidence_url?:string|null; proposed_change?:Record<string,unknown>; confidence?:number; signal_id?:number|string; wire?:Wire|null; lane:'judgment'|'fact'; state:'pending'|'applying'|'approved'|'rejected'; created_at:string; applying_at?:string; decided_at?:string; decision_note?:string; validation?:ProposalValidation; submitted_by?:CuratorStamp; curator_review?:CuratorReview; curator_review_history?:CuratorReview[]; }
+export interface Verdict { proposal_id:string; decision:'approved'|'rejected'; note?:string; at:string; commit?:string|null; by?:'machine'|'owner'|'curator'; curator_id?:string; curator_name?:string; sources?:string[]; }
