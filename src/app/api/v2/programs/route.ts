@@ -1,0 +1,1 @@
+import { apiJson } from '@/lib/public-api'; import { filterV2Programs } from '@/lib/public-api-v2'; export const runtime='nodejs'; export const dynamic='force-dynamic'; export function GET(req:Request){return apiJson({data:filterV2Programs(new URL(req.url).searchParams)})}
