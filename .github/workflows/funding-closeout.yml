@@ -1,0 +1,33 @@
+name: Funding closeout verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/funding-closeout.yml'
+      - 'scripts/funding-closeout/**'
+      - 'tests/funding-closeout*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: funding-closeout-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Archive only tracked source, without Git configuration or runtime secrets
+        run: git archive --format=tar --output="$RUNNER_TEMP/funding-review-source.tar" HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: funding-review-source
+          path: ${{ runner.temp }}/funding-review-source.tar
+          retention-days: 1
+          if-no-files-found: error
