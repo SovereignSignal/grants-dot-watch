@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FundingTerms } from './funding-terms';
 
 export type FundingRow = Record<string, unknown>;
 const string = (value: unknown): string => typeof value === 'string' ? value : '';
@@ -27,7 +28,7 @@ export function FundingRecord({ row, kind }: { row: FundingRow; kind: string }) 
     </div>
     {row.purpose ? <p className="mt-2 text-dim">{display(row.purpose)}</p> : null}
     {kind === 'process-metrics' && <dl className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">{[['Period', row.period], ['Eligible applications', row.eligible_applications], ['Offers', row.offers], ['Published rate', row.published_percent]].map(([label, value]) => <div key={String(label)}><dt className="coord">{String(label)}</dt><dd className="mt-1 text-lg tabular-nums text-paper">{display(value)}</dd></div>)}</dl>}
-    {kind === 'program-terms' && <p className="mt-2 text-dim">{array(row.instruments).join(', ')} · {array(row.capital_forms).join(', ')} · {display(row.intake_mode)}</p>}
+    {kind === 'program-terms' && <><p className="mt-2 text-dim">{array(row.instruments).join(', ')} · {array(row.capital_forms).join(', ')} · {display(row.intake_mode)}</p><FundingTerms row={row}/></>}
     {kind === 'claims' && <div className="mt-3"><code className="break-all text-xs text-dim">{display(row.field)}</code><p className="mt-1 break-words text-paper">{display(row.value)}</p><p className="coord mt-2">{display(row.method)} · {display(row.evidence_state)}</p></div>}
     {kind === 'relationships' && <p className="mt-2 break-words text-dim">{display(row.from)} → {display(row.role).replaceAll('_', ' ')} → {display(row.to)}</p>}
     {kind === 'changes' && <p className="mt-2 text-dim">{row.summary ? display(row.summary) : `Evidence recorded: ${display(row.observed_on)}. Effective date: ${display(row.effective_on)}.`}</p>}
