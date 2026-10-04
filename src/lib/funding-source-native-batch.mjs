@@ -1,14 +1,29 @@
 // Bounded archive expansion through the already-tested single-fund validator.
-// One immutable response cache pins every section to the same source revision.
+// Cache fully consumed response bytes, never an unconsumed cloned stream.
 import { captureMicrosoftFund } from './funding-source-native.mjs';
+const MAX_RESPONSE_BYTES=2*1024*1024;
+async function captureResponse(response,input){
+ if(response.url&&response.url!==input)throw new Error('source_redirect_refused');
+ if(response.status!==200)throw new Error('source_http_failure');
+ const declared=response.headers.get('content-length');
+ if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>MAX_RESPONSE_BYTES))throw new Error('source_byte_limit');
+ if(!response.body)throw new Error('empty_source');
+ const chunks=[],reader=response.body.getReader();let size=0;
+ try{
+  for(;;){const {value,done}=await reader.read();if(done)break;size+=value.byteLength;if(size>MAX_RESPONSE_BYTES)throw new Error('source_byte_limit');chunks.push(value);}
+ }finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
+ return {bytes:Buffer.concat(chunks),status:response.status,headers:[...response.headers.entries()]};
+}
 export async function captureMicrosoftArchive({revision=null}={}, {request=fetch,now=()=>new Date()}={}){
  const cache=new Map();let requests=0;const at=now();
  const cached=async(input,init)=>{
-  if(cache.has(input))return cache.get(input).clone();
-  if(++requests>2)throw new Error('source_request_budget');
-  // Every URL is constructed by captureMicrosoftFund, not supplied by a caller.
-  const response=await request(input,init);
-  const kept=response.clone();cache.set(input,kept);return response;
+  if(!cache.has(input)){
+   if(++requests>2)throw new Error('source_request_budget');
+   // Every URL is constructed by captureMicrosoftFund, not supplied by a caller.
+   cache.set(input,await captureResponse(await request(input,init),input));
+  }
+  const saved=cache.get(input);
+  return new Response(saved.bytes,{status:saved.status,headers:saved.headers});
  };
  const snapshots=[],held=[];let sourceRevision=revision,upstreamBlob=null;
  for(let fund=1;fund<=36;fund++){
