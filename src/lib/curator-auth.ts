@@ -84,6 +84,23 @@ function revoked(key: CuratorKey, now: number): boolean {
   return key.revoked_at !== null && Date.parse(key.revoked_at) <= now;
 }
 
+// RFC 6750: the scheme is case-insensitive, and surrounding whitespace is not
+// part of the token. The hash is of the token only, so a presentation difference
+// must not 401 a secret whose digest is in the key list.
+function bearerToken(header: string | null): string | null {
+  if (!header) return null;
+  return /^Bearer\s+([A-Za-z0-9_-]{32,128})\s*$/i.exec(header.trim())?.[1] ?? null;
+}
+
+function reject(error: 'unauthorized' | 'expired' | 'revoked', status: 401 | 403, reason: string, keyId?: string) {
+  // key id is the configured label (for example "hedwig"), not a secret.
+  // Never include the bearer token or the stored digest.
+  const id = keyId ? ` key_id=${keyId}` : '';
+  console.error(`[curator-auth] rejected reason=${reason}${id}`);
+  const extra: Record<string, string> = status === 401 ? { 'WWW-Authenticate': 'Bearer' } : {};
+  return { response: curatorJson({ error }, status, extra) };
+}
+
 export interface CuratorGate {
   authorize(request: Request, scope: CuratorScope): { identity: CuratorIdentity } | { response: Response };
   consumeWrite(id: string): { ok: true } | { response: Response };
@@ -101,16 +118,18 @@ export function createCuratorGate(config = () => process.env.GRANTS_WATCH_CURATO
       }
       if (!configured.length) return { response: curatorJson({ error: 'curator_unavailable' }, 503) };
 
-      const token = /^Bearer ([A-Za-z0-9_-]{32,128})$/.exec(request.headers.get('authorization') || '')?.[1];
+      const header = request.headers.get('authorization');
+      const token = bearerToken(header);
       const digest = createHash('sha256').update(token || '').digest();
       const timestamp = now();
       let matched: CuratorKey | null = null;
       for (const key of configured) {
         if (digestEqual(digest, key.sha256)) matched = key;
       }
-      if (!token || !matched || Date.parse(matched.expires_at) <= timestamp || revoked(matched, timestamp)) {
-        return { response: curatorJson({ error: 'unauthorized' }, 401, { 'WWW-Authenticate': 'Bearer' }) };
-      }
+      if (!token) return reject('unauthorized', 401, header ? 'malformed' : 'missing');
+      if (!matched) return reject('unauthorized', 401, 'no_match');
+      if (Date.parse(matched.expires_at) <= timestamp) return reject('expired', 403, 'expired', matched.id);
+      if (revoked(matched, timestamp)) return reject('revoked', 403, 'revoked', matched.id);
       if (!matched.scopes.includes(scope)) return { response: curatorJson({ error: 'forbidden' }, 403) };
       return { identity: { id: matched.id, name: matched.name, scopes: [...matched.scopes] } };
     },

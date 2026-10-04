@@ -30,16 +30,29 @@ Idempotency uses the existing `ingest_state` table when `DATABASE_URL` is set.
 
 `GRANTS_WATCH_CURATOR_KEYS` is a JSON array. Each entry has `id`, `name`,
 lowercase SHA-256 `sha256`, `scopes`, UTC `expires_at`, and `revoked`. Optional
-`revoked_at` is a UTC timestamp; once it is in the past the key is dead.
-Removing an entry also revokes it. The server reads the variable on every
-request. Hashes only — never put a bearer token in the variable.
+`revoked_at` is a UTC timestamp; once it is in the past the key is dead
+even when `revoked` is false. That is a schedule, not a failed-attempt
+lockout. Removing an entry also revokes it. The server reads the variable on
+every request. Hashes only — never put a bearer token in the variable.
 
 Scopes are `read_queue`, `decide`, and `propose`. A key only receives the
-scopes listed. Expired, revoked, missing, and unknown tokens are `401
-{"error":"unauthorized"}`. A live key without the scope is `403
-{"error":"forbidden"}`. Those bodies do not say which check failed. An empty
-or malformed variable is `503 {"error":"curator_unavailable"}` so a missing
-Railway setting is not mistaken for a bad token.
+scopes listed. A missing or unknown token is `401 {"error":"unauthorized"}`.
+A token whose hash matches, but whose `expires_at` or `revoked` / `revoked_at`
+has passed, is `403 {"error":"expired"}` or `403 {"error":"revoked"}`. A live
+key without the scope is `403 {"error":"forbidden"}`. The rejection log is
+`[curator-auth] rejected reason=...` and, when a key matched, `key_id=...`.
+It does not include the token or the hash. An empty or malformed variable is
+`503 {"error":"curator_unavailable"}` so a missing Railway setting is not
+mistaken for a bad token.
+
+To clear a scheduled revocation, edit `GRANTS_WATCH_CURATOR_KEYS` on the
+grants-dot-watch service: set `"revoked": false` and remove `revoked_at`, or
+set `revoked_at` to a future UTC instant. Leave `id`, `sha256`, `scopes`, and
+`expires_at` as they are. Do not mint a new token. Saving the variable
+restarts the service, which is what picks up the JSON. There is no database
+row and no in-memory counter to reset. An expired key is the same edit on
+`expires_at`. The scheme is case-insensitive (`Bearer` or `bearer`) and extra
+whitespace around the token is ignored.
 
 `ADMIN_TOKEN`, the Desk cookie, and `GRANTS_WATCH_READER_KEYS` do not
 authenticate this API.
@@ -351,4 +364,5 @@ Leave `DATABASE_URL`, `WIRE_DATABASE_URL`, `GRANTS_WATCH_NO_GIT`,
 `INGEST_ENABLED`, and `DESK_OWNERS` as they are. Do not add a migration and do
 not write the Wire Room database. Scout crons and wire-room-ops keep their own
 schedules. Revocation takes effect on the next request after the updated
-variable is live.
+variable is live. A `revoked_at` that is already in the past does the same,
+and the response is `403 {"error":"revoked"}` rather than a bad-token `401`.

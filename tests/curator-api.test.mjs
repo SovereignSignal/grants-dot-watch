@@ -218,13 +218,19 @@ test('curator keys fail closed for missing, invalid, expired, and revoked tokens
 
   let now = Date.parse('2099-01-01T00:00:00.000Z');
   const expired = deps({ gate: gateFor([key()], () => now) });
-  assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), expired.api)).status, 401);
+  const expiredResponse = await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), expired.api);
+  assert.equal(expiredResponse.status, 403);
+  assert.deepEqual(await expiredResponse.json(), { error: 'expired' });
 
   const revoked = deps({ gate: gateFor([key({ revoked: true })]) });
-  assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), revoked.api)).status, 401);
+  const revokedResponse = await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), revoked.api);
+  assert.equal(revokedResponse.status, 403);
+  assert.deepEqual(await revokedResponse.json(), { error: 'revoked' });
 
   const revokedAt = deps({ gate: gateFor([key({ revoked_at: '2026-01-01T00:00:00.000Z' })]) });
-  assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), revokedAt.api)).status, 401);
+  const revokedAtResponse = await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), revokedAt.api);
+  assert.equal(revokedAtResponse.status, 403);
+  assert.deepEqual(await revokedAtResponse.json(), { error: 'revoked' });
 
   const notYet = deps({ gate: gateFor([key({ revoked_at: '2099-01-01T00:00:00.000Z' })]) });
   assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), notYet.api)).status, 200);
@@ -236,6 +242,46 @@ test('curator keys fail closed for missing, invalid, expired, and revoked tokens
   assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), broken.api)).status, 503);
   const empty = deps({ gate: createCuratorGate(() => '[]', () => Date.parse('2026-06-01T00:00:00.000Z')) });
   assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), empty.api)).status, 503);
+});
+
+test('a revoked_at that passes between 8:00 and 9:45am PT is not a bare 401', async () => {
+  // 2026-10-04 15:00Z is 8:00am PT; 16:00Z is 9:00am PT; 16:45Z is 9:45am PT.
+  const record = key({
+    revoked: false,
+    revoked_at: '2026-10-04T16:00:00.000Z',
+    expires_at: '2027-01-01T00:00:00.000Z',
+  });
+  const atEight = deps({ gate: gateFor([record], () => Date.parse('2026-10-04T15:00:00.000Z')) });
+  assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), atEight.api)).status, 200);
+
+  const lines = [];
+  const original = console.error;
+  console.error = (...args) => {
+    lines.push(args.map(String).join(' '));
+  };
+  try {
+    const atNineFortyFive = deps({ gate: gateFor([record], () => Date.parse('2026-10-04T16:45:00.000Z')) });
+    const denied = await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), atNineFortyFive.api);
+    assert.equal(denied.status, 403);
+    assert.deepEqual(await denied.json(), { error: 'revoked' });
+    const logged = lines.join('\n');
+    assert.match(logged, /reason=revoked/);
+    assert.match(logged, /key_id=hedwig/);
+    assert.equal(logged.includes(TOKEN), false);
+    assert.equal(logged.includes(hash), false);
+  } finally {
+    console.error = original;
+  }
+});
+
+test('a 2027 key still authenticates on the morning it was reported dead', async () => {
+  const record = key({ revoked: false, expires_at: '2027-01-01T00:00:00.000Z' });
+  const gate = gateFor([record], () => Date.parse('2026-10-04T16:45:00.000Z'));
+  assert.equal((await listCuratorQueue(request('https://grants.watch/api/v1/curator/queue'), deps({ gate }).api)).status, 200);
+  const lower = new Request('https://grants.watch/api/v1/curator/queue', { headers: { authorization: `bearer ${TOKEN}` } });
+  const spaced = new Request('https://grants.watch/api/v1/curator/queue', { headers: { authorization: `Bearer  ${TOKEN}` } });
+  assert.equal((await listCuratorQueue(lower, deps({ gate }).api)).status, 200);
+  assert.equal((await listCuratorQueue(spaced, deps({ gate }).api)).status, 200);
 });
 
 test('an unset curator key config is inert and does not consult other service keys', async () => {
