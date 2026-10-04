@@ -37,9 +37,11 @@ function publicAward(a) {
   return { id:a.key, funder:a.funder, funder_name:a.funder_name, recipient:a.grantee, recipient_name:a.grantee_name, program:text(a.program), program_name:text(a.program_name), amount:finite(a.amount), currency:text(a.currency), amount_text:text(a.amount_text), date:date(a.date), wire:text(a.wire), source:safeUrl(a.source), payment_state:'not_established', origin:'legacy_award_ledger', api:collectionUrl('awards',a.key) };
 }
 function latestTerms(rows, today) {
-  const applicable = rows.filter(row => (!row.effective_from || row.effective_from <= today) && (!row.effective_to || row.effective_to >= today));
-  const superseded = new Set(applicable.map(row => row.supersedes_key).filter(Boolean));
-  const current = applicable.filter(row => !superseded.has(row.key));
+  // An effective replacement permanently retires its predecessor, even when
+  // that replacement later expires. Future replacements do not take effect yet.
+  const effective = rows.filter(row => !row.effective_from || row.effective_from <= today);
+  const superseded = new Set(effective.map(row => row.supersedes_key).filter(Boolean));
+  const current = effective.filter(row => !superseded.has(row.key) && (!row.effective_to || row.effective_to >= today));
   // A new observation does not silently resolve conflicting unlinked revisions.
   return current.length === 1 ? current[0] : null;
 }
@@ -84,7 +86,8 @@ export function buildFundingCollections(baseline, dataset, at = new Date()) {
       instruments:candidate.instruments,capital_forms:candidate.capital_forms,selection_models:candidate.selection_models,
       entry_stage:candidate.access.stage,apply_url:candidate.access.route,opens:date(r.opens),closes:date(r.closes),closes_at:text(r.closes_at),
       checked_on:candidate.access.checked_on,source:candidate.access.source,terms_key:candidate.key,
-      eligibility:strings(candidate.eligibility),geography:strings(candidate.geography),
+      eligibility:candidate.eligibility == null ? null : strings(candidate.eligibility),
+      geography:candidate.geography == null ? null : strings(candidate.geography),
       eligibility_is_personalized:false,api:collectionUrl('opportunities',roundId(p.id,r.name)),href:`/programs/${p.id}`,
     });
   }
@@ -181,7 +184,13 @@ export function fundingIndex(collections,today) {
 function response(body,status=200) {
   return new Response(status === 204 ? null : JSON.stringify(body), { status, headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, HEAD, OPTIONS','Access-Control-Allow-Headers':'Accept, Content-Type','X-Content-Type-Options':'nosniff'} });
 }
-/** Dependency-injected handler keeps API tests away from production databases. */
+/**
+ * Dependency-injected handler keeps API tests away from production databases.
+ * Loader snapshots are untrusted until the runtime validators have checked them.
+ * @param {Request} request
+ * @param {string[]} segments
+ * @param {{enabled?: boolean, load?: () => {baseline: unknown, dataset: unknown}, now?: () => Date}} [options]
+ */
 export function handleFundingRequest(request,segments,{enabled=false,load,now=()=>new Date()}={}) {
   if (request.method === 'OPTIONS') return response(null,204);
   if (!['GET','HEAD'].includes(request.method)) return response({error:'method_not_allowed'},405);
