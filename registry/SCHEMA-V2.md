@@ -32,4 +32,6 @@ Required: key, program, period, counting_unit, exclusions and evidence fields. C
 
 Append-only imports require reviewed stable keys, source guards and valid references. Supersessions must stay in the same scope and cannot form cycles. Public output selects fields explicitly; operational metadata has no sidecar schema slot. Source URLs reject credentials and credential query parameters. This is a URL hygiene check, not independent proof of issuer authority.
 
-Use the staging-only CLI documented in `docs/api-v2.md`. No runtime writer, timer, DB migration or production backfill is introduced here.
+The staging CLI in `docs/api-v2.md` creates disposable review copies. The separate default-off Desk writer in `docs/funding-desk.md` previews, queues and applies imports only through owner review and the durable outbox. It writes immutable shards plus a shared `funding-control.json` with version, predecessor hash, revision and complete dataset hash. Both public reads and CLI validation reject a mismatched control or Desk shards whose control is missing. The control is operational consistency metadata and is not a public funding record.
+
+No new database schema, recurring collector, production backfill or production activation is introduced by these files.
