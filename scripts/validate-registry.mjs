@@ -31,7 +31,11 @@ const ORG_ROLES = new Set(['funder', 'grantee', 'ecosystem']);
 const ORG_TYPES = new Set(['foundation', 'dao', 'company', 'nonprofit', 'government', 'education']);
 const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const PROG_STATUS = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
-const MECHANISMS = new Set(['grants', 'retro', 'quadratic', 'prize', 'fellowship', 'incubator', 'rfp', 'other']);
+const MECHANISMS = new Set(['grants','retro','quadratic','prize','fellowship','incubator','accelerator','rfp','bounty','subsidy','investment','procurement','purchase','sponsorship','credits','other']);
+const CAPITAL_FORMS = new Set(['cash','token','equity','convertible','credit','compute','service','liquidity-incentive','in-kind','mixed']);
+const SELECTION_MODELS = new Set(['application','nomination','invitation','governance','performance','competition','donor-directed','internal-selection','other']);
+const INTAKE_MODES = new Set(['rolling','rounds','standing','nomination','no-unsolicited','closed','unknown']);
+const FUNDING_EVENT_TYPES = new Set(['recommended','approved','awarded','contracted','paid','withdrawn','challenged','rejected','refunded','clawed-back']);
 const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed', 'withdrawn', 'duplicate']);
 const SYSTEM_KINDS = new Set(['protocol-ecosystem', 'funding-domain']);
 // Membrane: private/BD vocabulary that must never appear as a key or in prose
@@ -175,6 +179,14 @@ for (const { file, base, doc } of programs) {
   if (!PROG_STATUS.has(doc.status)) err(file, `bad status "${doc.status}"`);
   if (doc.mechanism && !MECHANISMS.has(doc.mechanism)) err(file, `bad mechanism "${doc.mechanism}"`);
   if (doc.apply_url && !isUrl(doc.apply_url)) err(file, `bad apply_url "${doc.apply_url}"`);
+  if (doc.terms) {
+    const forms = Array.isArray(doc.terms.capital_form) ? doc.terms.capital_form : doc.terms.capital_form ? [doc.terms.capital_form] : [];
+    for (const value of forms) if (!CAPITAL_FORMS.has(value)) err(file, `bad capital_form "${value}"`);
+    const selections = Array.isArray(doc.terms.selection_model) ? doc.terms.selection_model : doc.terms.selection_model ? [doc.terms.selection_model] : [];
+    for (const value of selections) if (!SELECTION_MODELS.has(value)) err(file, `bad selection_model "${value}"`);
+    if (doc.terms.intake_mode && !INTAKE_MODES.has(doc.terms.intake_mode)) err(file, `bad intake_mode "${doc.terms.intake_mode}"`);
+    for (const id of [doc.terms.operator_org, doc.terms.disburser_org, ...(doc.terms.capital_source_orgs || [])].filter(Boolean)) if (!orgIds.has(id)) err(file, `terms org "${id}" not in orgs/`);
+  }
   for (const u of doc.sources || []) if (!isUrl(u)) err(file, `bad source url "${u}"`);
   if (!doc.summary || doc.summary.trim().length < 40) err(file, 'summary missing/too thin');
   if (doc.review != null) {
@@ -286,6 +298,36 @@ if (existsSync(awardsDir)) {
     });
   }
 }
+
+// v2 append-only ledgers
+function validateJsonlLedger(sub, validate) {
+  const dir = join(ROOT, sub); if (!existsSync(dir)) return;
+  const keys = new Map();
+  for (const f of readdirSync(dir).filter(x=>x.endsWith('.jsonl'))) {
+    readFileSync(join(dir,f),'utf8').split('\n').filter(Boolean).forEach((line,i)=>{
+      const loc=`${sub}/${f}:${i+1}`; let row; try{row=JSON.parse(line)}catch{return err(loc,'bad json line')}
+      if (!row.key) err(loc,'missing key'); else if(keys.has(row.key)) err(loc,`duplicate key ${row.key} (first seen at ${keys.get(row.key)})`); else keys.set(row.key,loc);
+      validate(row,loc);
+    });
+  }
+}
+validateJsonlLedger('funding-events',(row,loc)=>{
+  if(!FUNDING_EVENT_TYPES.has(row.event_type)) err(loc,`bad event_type "${row.event_type}"`);
+  if(!row.recipient || badSlug(row.recipient)) err(loc,'missing/bad recipient');
+  if(row.funder && !orgIds.has(row.funder)) err(loc,`funder "${row.funder}" not in orgs/`);
+  if(row.program && !programIds.has(row.program)) err(loc,`program "${row.program}" not in programs/`);
+  if(!isUrl(row.source)) err(loc,'funding event needs source');
+  if(!isIsoDate(row.evidence_checked_on)) err(loc,'funding event needs evidence_checked_on');
+  if(row.payment_date && row.event_type !== 'paid' && row.event_type !== 'refunded' && row.event_type !== 'clawed-back') err(loc,'payment_date requires a payment/refund/clawback event');
+  if(row.capital_form && !CAPITAL_FORMS.has(row.capital_form)) err(loc,`bad capital_form "${row.capital_form}"`);
+});
+validateJsonlLedger('process-metrics',(row,loc)=>{
+  if(!row.program || !programIds.has(row.program)) err(loc,`program "${row.program}" not in programs/`);
+  if(typeof row.period!=='string' || !row.period.trim()) err(loc,'missing period');
+  if(!isUrl(row.source)) err(loc,'process metric needs source');
+  if(!isIsoDate(row.checked_on)) err(loc,'process metric needs checked_on');
+  for(const k of ['applications','eligible_applications','shortlisted','offers','accepted','funded']) if(row[k]!=null && (!Number.isInteger(row[k]) || row[k]<0)) err(loc,`bad ${k}`);
+});
 
 if (errs.length) {
   console.error(errs.slice(0, 60).join('\n'));
