@@ -153,6 +153,12 @@ export function prepareResearch(packet: ResearchPacket, programs: Program[], has
     const revision = findingRevision(f);
     const base = { id: f.id, revision, title: f.title, source_url: f.source_url, ...(f.program_id ? { program_id: f.program_id } : {}), ...(f.classification ? { classification: f.classification } : {}) };
     if (f.disposition) return { ...base, state: f.disposition.state, reason: `${f.disposition.reason}${f.disposition.duplicate_of ? ` (${f.disposition.duplicate_of})` : ''}` };
+    // Awards and news are Wire observations, not registry programs
+    // (docs/WIRE-HANDOFF.md). OPPORTUNITY/UPDATE/APPLICANT/NOISE still wait
+    // for a sourced correction; AWARD/NEWS never enter the Desk queue.
+    if (f.classification?.label === 'AWARD' || f.classification?.label === 'NEWS') {
+      return { ...base, state: 'excluded', reason: 'exclude-for-registry' };
+    }
     const program = programs.find(p => p.id === f.program_id);
     if (f.wire_record && !['queued', 'approved'].includes(f.wire_record.status)) return { ...base, state: 'pending_review', reason: `Source is now ${f.wire_record.status}${f.wire_record.duplicate_of_id ? ` (parent wire:${f.wire_record.duplicate_of_id})` : ''}. Reconsider its previous evidence; public registry records remain unchanged.` };
     if (!program || !f.changes) return { ...base, state: 'pending_review', reason: program ? 'Evidence retained. A sourced correction still needs to be prepared.' : 'Resolve the program identity and prepare a new record or correction.' };
