@@ -435,6 +435,8 @@ test('NEWS, awards, hackathons, fellowships, and wire area 2 are rejected', () =
     [grantWireRow({ id: 103, name: 'Studio residency' }), /reject token \(residency\)/],
     [grantWireRow({ id: 104, name: 'Round results' }), /reject token \(results\)/],
     [grantWireRow({ id: 105, name: 'Grant recipients' }), /reject token \(recipients\)/],
+    [grantWireRow({ id: 111, name: 'Round 5 results' }), /reject token \(results\)/],
+    [grantWireRow({ id: 112, name: 'Grant recipients announced' }), /reject token \(recipients\)/],
   ];
   for (const [row, reason] of cases) {
     const outcome = mapWireRow(row, ctx);
@@ -442,6 +444,22 @@ test('NEWS, awards, hackathons, fellowships, and wire area 2 are rejected', () =
     assert.equal(outcome.dropped, true);
     assert.match(outcome.dropReason, reason);
   }
+});
+
+test('result and recipient wording in a summary does not reject an open GRANT', () => {
+  const ctx = context([ORG], []);
+  const outcome = mapWireRow(
+    grantWireRow({
+      id: 110,
+      name: 'Example Open Grants',
+      description: 'Results announced in March for the prior cohort.',
+      enriched_summary: 'Past recipients include independent research groups. Grants awarded up to $50,000.',
+    }),
+    ctx
+  );
+  assert.equal(outcome.dropped, false);
+  assert.equal(outcome.candidate.type, 'new_program');
+  assert.equal(outcome.candidate.org, ORG.id);
 });
 
 test('discuss.watch never ingests ROLE and requires an open-program kind', () => {

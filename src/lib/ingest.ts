@@ -356,14 +356,18 @@ const ROLE_KINDS = new Set([
   'election', 'delegate_incentive', 'service_provider',
 ]);
 
-// Title/summary tokens that are not open grant programs (owner reject reasons,
-// 2026-09-30, plus award/result slates that now belong on the wire).
-const REJECT_TOKENS: ReadonlyArray<{ token: string; pattern: RegExp }> = [
+// Hackathons, prizes, and fellowships are not open grant programs wherever
+// they are named. Result and recipient language is normal in an open-call
+// summary ("past recipients", "awarded up to $X", "results announced in
+// March"), so those three tokens apply to the title only.
+const TITLE_AND_SUMMARY_TOKENS: ReadonlyArray<{ token: string; pattern: RegExp }> = [
   { token: 'hackathon', pattern: /\bhackathons?\b/i },
   { token: 'buildathon', pattern: /\bbuildathons?\b/i },
   { token: 'prize', pattern: /\bprizes?\b/i },
   { token: 'fellowship', pattern: /\bfellowships?\b/i },
   { token: 'residency', pattern: /\bresidenc(?:y|ies)\b/i },
+];
+const TITLE_ONLY_TOKENS: ReadonlyArray<{ token: string; pattern: RegExp }> = [
   { token: 'results', pattern: /\bresults\b/i },
   { token: 'awarded', pattern: /\bawarded\b/i },
   { token: 'recipients', pattern: /\brecipients?\b/i },
@@ -375,10 +379,18 @@ function applicantSignalReason(classification?: string | null, kind?: string | n
   return matched ? `applicant signal (${matched})` : null;
 }
 
-function rejectTokenReason(...parts: Array<string | null | undefined>): string | null {
-  const text = parts.filter(Boolean).join('\n');
-  if (!text) return null;
-  const matched = REJECT_TOKENS.find(({ pattern }) => pattern.test(text));
+function matchingToken(
+  tokens: ReadonlyArray<{ token: string; pattern: RegExp }>,
+  text: string
+): { token: string } | undefined {
+  return tokens.find(({ pattern }) => pattern.test(text));
+}
+
+function rejectTokenReason(title: string | null | undefined, summary: string | null | undefined): string | null {
+  const headline = title || '';
+  const body = summary || '';
+  const matched = matchingToken(TITLE_ONLY_TOKENS, headline)
+    || matchingToken(TITLE_AND_SUMMARY_TOKENS, `${headline}\n${body}`);
   return matched ? `reject token (${matched.token})` : null;
 }
 
@@ -397,8 +409,9 @@ export function wireAreaAllowsRegistry(value: unknown): boolean {
 }
 
 /** Grants.watch accepts an open grant program: classification GRANT, wire
- *  area 3 or not yet set, and no award/hackathon/fellowship token in the
- *  title or summary. NEWS, relationship_signal, and every other class drop. */
+ *  area 3 or not yet set, and no hackathon/fellowship token in the title or
+ *  summary. Result and recipient wording drops the row only when it is in
+ *  the title. NEWS, relationship_signal, and every other class drop. */
 export function wirePolicyExclusionReason(row: {
   classification?: string | null;
   operator_route?: string | null;
@@ -418,7 +431,7 @@ export function wirePolicyExclusionReason(row: {
   }
   if (classification !== 'grant') return `classification ${classification || 'missing'}`;
   if (!wireAreaAllowsRegistry(row.wire_area)) return `wire_area ${String(row.wire_area).trim()}`;
-  return rejectTokenReason(row.name, row.enriched_summary, row.description);
+  return rejectTokenReason(row.name, [row.enriched_summary, row.description].filter(Boolean).join('\n'));
 }
 
 /** Applicant submissions are private observations, not evidence that a
@@ -436,7 +449,9 @@ export function discussPolicyExclusionReason(item: DiscussItem): string | null {
   if (!OPEN_PROGRAM_KINDS.has(kind)) return `not an open program (${kind || 'missing kind'})`;
   const status = policyToken(item.status);
   if (CLOSED_SIGNAL_TOKENS.has(status)) return `non-current status (${status})`;
-  const tokenReason = rejectTokenReason(item.title, item.name, item.excerpt);
+  const headline = item.title || item.name;
+  const summary = [item.title ? item.name : null, item.excerpt].filter(Boolean).join('\n');
+  const tokenReason = rejectTokenReason(headline, summary);
   if (tokenReason) return tokenReason;
   if (classification && classification !== 'grant') return `classification ${classification}`;
   return null;
