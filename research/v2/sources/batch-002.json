@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "source_id": "microsoft-foss",
+      "source_url": "https://github.com/microsoft/foss-fund/blob/main/README.md",
+      "observed_on": "2026-10-04",
+      "provider": "github",
+      "representation": "tool_text_excerpt",
+      "scope": "Funding recipients: FOSS Fund 35 only",
+      "body": "## Funding recipients\n- FOSS Fund 35 (October 2025)\n  - **[Upstash](https://github.com/upstash)**: _[[context7](https://github.com/upstash/context7)] - Up-to-date documentation for LLMs and AI code editors._\n  - **[Tadata](https://github.com/tadata-org)**: _[[fastapi_mcp](https://github.com/tadata-org/fastapi_mcp)] - MCP server that turns FastAPI endpoints into MCP tools with minimal configuration._\n  - **[Oraios](https://github.com/oraios)**: _[[serena](https://github.com/oraios/serena)] - Semantic code editing for agents._\n  - **[Czlonkowski](https://github.com/czlonkowski)**: _[[n8n-mcp](https://github.com/czlonkowski/n8n-mcp)] - MCP server providing AI agents access to n8n node documentation and workflow automation._\n  - **[Justinpbarnett](https://github.com/justinpbarnett)**: _[[unity-mcp](https://github.com/justinpbarnett/unity-mcp)] - MCP server enabling AI integration with Unity Engine._\n  - **[Antfu](https://github.com/antfu)**: _[[nuxt-mcp](https://github.com/antfu/nuxt-mcp)] - MCP server for Nuxt development tools._\n  - **[MCPJam](https://github.com/mcpjam)**: _[[inspector](https://github.com/mcpjam/inspector)] - Automated testing and evaluation framework for MCP servers._\n  - **[Steipete](https://github.com/steipete)**: _[[Peekaboo](https://github.com/steipete/Peekaboo)] - Swift code analysis via MCP._\n  - **[Instavm](https://github.com/instavm)**: _[[coderunner](https://github.com/instavm/coderunner)] - Run code safely and locally._\n",
+      "body_sha256": "e7eed6b3c10731374419e387fa145e73affd51808b7f3bc1adc04d22d755643c",
+      "source_revision": "621eedf7a92ed5ce562a0820f3bda0c636ea5522"
+    }
+  ]
+}

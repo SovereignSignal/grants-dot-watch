@@ -1,0 +1,35 @@
+id: royal-society-university-research-fellowship
+name: Royal Society University Research Fellowship
+org: royal-society
+parent: null
+systems: [uk-public-rd]
+wires: [ai]
+status: active
+mechanism: fellowship
+summary: >
+  Long-term fellowship scheme supporting early-career natural scientists building
+  independent research careers in the UK or Republic of Ireland. The Royal Society
+  operates the selection process and publishes historical eligible-application and
+  offer counts. Institutional funding partners vary by location and award; the
+  operator must not be assumed to be the sole capital source.
+rounds:
+  - name: '2027 fellowship call'
+    status: reviewing
+    opens: '2026-07-14'
+    closes: '2026-09-09'
+    source: https://royalsociety.org/grants/university-research/
+sources:
+  - https://royalsociety.org/grants/university-research/
+review:
+  checked_on: '2026-10-04'
+  review_after: '2026-11-03'
+  operating: active
+  intake: closed
+  intake_note: >
+    The call labelled 2027 closed on September 9, 2026. A future decision date or
+    stale provider extract describing the call as open does not permit new applications.
+  source: https://royalsociety.org/grants/university-research/
+  kind: program
+  relationship: current
+  questions: []
+  history: []

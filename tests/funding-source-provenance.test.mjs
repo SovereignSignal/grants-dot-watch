@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {bindProvenance,provenanceErrors,pointerValue,valueDigest} from '../src/lib/funding-provenance.mjs';
+const URL='https://example.org/awards',HASH='a'.repeat(64),TODAY='2026-10-04';
+const receipt={source_url:URL,body_sha256:HASH,observed_on:TODAY,provider:'web',representation:'tool_text_excerpt',scope:'Historical table',source_revision:null};
+const reference={source_url:URL,body_sha256:HASH,observed_on:TODAY,provider:'web',line:4};
+const record=()=>({source:URL,checked_on:TODAY,amount:{amount:'123.45',currency:'EUR'},payment_date:null});
+function row(){const r=record();r.provenance=bindProvenance(r,{'/amount/amount':{rule:'published_amount'},'/payment_date':{method:'withheld',rule:'payment_unknown'}},[reference],[receipt]);return r;}
+test('provenance binds each value to source representation and locator',()=>{const r=row();assert.deepEqual(provenanceErrors(r,TODAY),[]);assert.equal(r.provenance.raw_text_publication,false);assert.equal(r.provenance.sources[0].redistribution,'unassessed');assert.equal(r.provenance.assertions[0].value_sha256,valueDigest('123.45'));});
+test('provenance tampered values are refused',()=>{const r=row();r.amount.amount='123.46';assert.ok(provenanceErrors(r,TODAY).includes('evidence_value_mismatch'));});
+test('provenance cannot certify missing fields or internal object paths',()=>{for(const pointer of ['/absent','/constructor/name','/__proto__','/provenance/sources','/amount/~2'])assert.throws(()=>pointerValue(row(),pointer));});
+test('provenance supports escaped JSON pointers and exact array indexes',()=>{assert.equal(pointerValue({'a/b':[{'~':'value'}]},'/a~1b/0/~0'),'value');assert.throws(()=>pointerValue({rows:['a']},'/rows/00'));});
+test('provenance rejects source hash tampering and missing citations',()=>{const r=row();r.provenance.sources[0].representation_sha256='b'.repeat(64);assert.ok(provenanceErrors(r,TODAY).includes('evidence_source_identity_mismatch'));r.provenance.assertions[0].evidence[0].source_id='f'.repeat(64);assert.ok(provenanceErrors(r,TODAY).includes('unknown_evidence_source'));});
+test('provenance does not turn repeated identical provider responses into new sources',()=>{const r=record();r.provenance=bindProvenance(r,{'/amount/amount':{rule:'published'}},[reference,reference],[receipt,receipt]);assert.equal(r.provenance.sources.length,1);assert.equal(r.provenance.assertions[0].evidence.length,1);});
+test('provenance source ordering is deterministic',()=>{const other={...receipt,provider:'parallel'},ref={...reference,provider:'parallel'};const a=bindProvenance(record(),{'/amount/amount':{rule:'published'}},[reference,ref],[receipt,other]);const b=bindProvenance(record(),{'/amount/amount':{rule:'published'}},[ref,reference],[other,receipt]);assert.deepEqual(a,b);});
+test('provenance permission claims require a rights source',()=>{const r=row();r.provenance.sources[0].redistribution='permission_recorded';assert.ok(provenanceErrors(r,TODAY).includes('rights_evidence_required'));});
+test('provenance identifies future observations',()=>{const r=row();r.provenance.sources[0].observed_on='2027-01-01';assert.ok(provenanceErrors(r,TODAY).includes('future_evidence_observation'));});
+test('provenance withheld values must remain null',()=>{const r=row();r.payment_date='2026-10-01';const a=r.provenance.assertions.find(a=>a.field==='/payment_date');a.value_sha256=valueDigest(r.payment_date);assert.ok(provenanceErrors(r,TODAY).includes('withheld_value_must_be_null'));});
+test('provenance rejects duplicate assertions and citations',()=>{const r=row();r.provenance.assertions.push(r.provenance.assertions[0]);assert.ok(provenanceErrors(r,TODAY).includes('duplicate_evidence_field'));});
+test('legacy records without provenance remain valid',()=>{assert.deepEqual(provenanceErrors(record(),TODAY),[]);});
+test('provenance field locators do not share mutable arrays',()=>{const r=row();const first=r.provenance.assertions[0],second=r.provenance.assertions[1];first.evidence[0].line=77;assert.equal(second.evidence[0].line,4);});

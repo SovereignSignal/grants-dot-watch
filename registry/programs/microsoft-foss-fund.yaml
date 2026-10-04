@@ -1,0 +1,32 @@
+id: microsoft-foss-fund
+name: Microsoft FOSS Fund
+org: microsoft
+parent: null
+systems: [oss-sustainability]
+wires: [oss, ai]
+status: active
+mechanism: other
+summary: >
+  Corporate open-source sponsorship program operated by the Microsoft Open Source
+  Programs Office. Microsoft employees nominate and select projects; the public
+  repository records recipient cohorts. It is not an open external grant application.
+  Published quarterly pool figures must not be assigned to individual recipients,
+  and a recipient listing does not establish a payment date.
+rounds: []
+sources:
+  - https://github.com/microsoft/foss-fund/blob/main/README.md
+  - https://github.com/microsoft/foss-fund/blob/621eedf7a92ed5ce562a0820f3bda0c636ea5522/README.md
+review:
+  checked_on: '2026-10-04'
+  review_after: '2026-11-03'
+  operating: active
+  intake: closed
+  intake_note: >
+    External applications are not offered by the published process. Nominations
+    and selection are restricted to Microsoft employees; this intake classification
+    does not imply the internal nomination process is closed.
+  source: https://github.com/microsoft/foss-fund/blob/main/README.md
+  kind: program
+  relationship: current
+  questions: []
+  history: []

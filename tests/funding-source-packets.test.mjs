@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SOURCE_CATALOG,sourceDigest} from '../src/lib/funding-source-adapters.mjs';
-import {compileFundingSourcePackets} from '../src/lib/funding-source-packets.mjs';
+import {compileFundingSourcePackets,SOURCE_PACKET_BYTE_LIMIT} from '../src/lib/funding-source-packets.mjs';
 import {LEDGERS,validateFundingDataset} from '../src/lib/funding-model.mjs';
 import {planFundingImport} from '../src/lib/funding-migration.mjs';
 const TODAY='2026-10-04';
@@ -57,9 +57,11 @@ test('source compiler raises possible duplicate events with different keys',()=>
  const b=baseline(),first=compileFundingSourcePackets([snap(nf())],b,empty(),TODAY);const existing=apply(empty(),first.packets[0]);existing['funding-events'][0].key='other-key';
  const r=compileFundingSourcePackets([snap(nf())],b,existing,TODAY);assert.equal(r.packets.length,0);assert.equal(r.held[0].reason,'possible_existing_event_duplicate');
 });
-test('source compiler chunks packets within the owner Desk record budget',()=>{
- const b=baseline(),r=compileFundingSourcePackets([snap(nf(101))],b,empty(),TODAY);assert.equal(r.packets.length,2);
- assert.deepEqual(r.packets.map(p=>p.records['funding-events'].length),[100,1]);let data=empty();for(const p of r.packets){planFundingImport(b,data,p,TODAY);data=apply(data,p);}
+test('source compiler chunks packets within both owner Desk record and byte budgets',()=>{
+ const b=baseline(),r=compileFundingSourcePackets([snap(nf(101))],b,empty(),TODAY);
+ assert.ok(r.packets.length>=2);assert.equal(records(r).length,101);
+ assert.ok(r.packets.every(p=>p.records['funding-events'].length<=100&&Buffer.byteLength(JSON.stringify(p))<=SOURCE_PACKET_BYTE_LIMIT));
+ let data=empty();for(const p of r.packets){planFundingImport(b,data,p,TODAY);data=apply(data,p);}
 });
 test('source compiler separates failed sources, provider conflicts and incomplete coverage',()=>{
  const changed=snap(nf().replace('$10,000.00','$20,000.00'));
