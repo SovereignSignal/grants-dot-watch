@@ -35,7 +35,7 @@ jobs:
       - run: npm run check:public
       - run: npm run validate
       - name: Lint funding v2 implementation
-        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs scripts/build-funding-source-packets.mjs tests/funding-v2*.test.mjs tests/funding-source*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
+        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs scripts/build-funding-source-packets.mjs scripts/capture-funding-source.mjs tests/funding-v2*.test.mjs tests/funding-source*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
       - name: Unit and real PostgreSQL integration tests
         run: npm test
         env:
@@ -44,3 +44,25 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+  native-source-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Capture one pinned public source without credentials or publication
+        run: node scripts/capture-funding-source.mjs --source microsoft-foss --fund 35 --revision 621eedf7a92ed5ce562a0820f3bda0c636ea5522 --fetch --out "$RUNNER_TEMP/funding-native-smoke"
+      - name: Verify the source-specific selection
+        run: |
+          node --input-type=module -e '
+            import {readFileSync} from "node:fs";
+            import {extractSourceSnapshot} from "./src/lib/funding-source-adapters.mjs";
+            const root=process.env.RUNNER_TEMP+"/funding-native-smoke";
+            const capture=JSON.parse(readFileSync(root+"/capture-receipt.json","utf8"));
+            const bundle=JSON.parse(readFileSync(root+"/bundle.json","utf8"));
+            const parsed=extractSourceSnapshot(bundle.snapshots[0],bundle.snapshots[0].observed_on);
+            if(capture.requests!==1 || parsed.observations.length!==9 || capture.canonical_write!==false) throw new Error("native smoke contract failed");
+            console.log("NATIVE_SOURCE_SMOKE "+JSON.stringify({requests:capture.requests,observations:parsed.observations.length,revision:capture.source_revision,upstream_blob:capture.upstream_blob_sha,canonical_write:false}));
+          '

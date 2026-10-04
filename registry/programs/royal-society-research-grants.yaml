@@ -1,0 +1,33 @@
+id: royal-society-research-grants
+name: Royal Society Research Grants
+org: royal-society
+parent: null
+systems: [uk-public-rd]
+wires: [ai]
+status: active
+mechanism: grants
+summary: >
+  Research support for independent scientists at eligible UK institutions who are
+  early in their careers or returning from a career break. The scheme supports
+  equipment, consumables and essential field research across the natural sciences.
+  Historical application and offer counts are published with explicit exclusions;
+  those counts are not estimates of individual applicant success.
+rounds:
+  - name: '2026 round 1'
+    status: closed
+    opens: '2026-01-29'
+    closes: '2026-03-26'
+    source: https://royalsociety.org/grants/research-grants/
+sources:
+  - https://royalsociety.org/grants/research-grants/
+review:
+  checked_on: '2026-10-04'
+  review_after: '2026-11-03'
+  operating: active
+  intake: closed
+  intake_note: The published 2026 round 1 application window has ended. No future opening is inferred.
+  source: https://royalsociety.org/grants/research-grants/
+  kind: program
+  relationship: current
+  questions: []
+  history: []
