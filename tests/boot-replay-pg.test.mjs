@@ -131,13 +131,9 @@ test('a second call in the same container does not replay again', opts, async ()
   assert.equal(read(root), V1);
 });
 
-test('a chain already at its final bytes is superseded, not a conflict', opts, async () => {
-  // v0->v1->v2 walks the file to v2. A second pass used to fail row 1's
-  // compare-and-set and defer row 2, which is also what a fresh container
-  // does when the image already contains v2 (registry PR #31). That file is
-  // the later approval. Replaying row 1 would roll it back, so the boot is
-  // healthy and the older row is abandoned. The once-guard still keeps this
-  // second pass out of reach in a normal container.
+test('a warm restart skips intermediate versions but preserves recovery for a fresh container', opts, async () => {
+  // Railway restart can retain the writable layer. A newer local version is
+  // not evidence that the original build image contains either approval.
   await readyRow([file()]);
   await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p00002');
   const root = sandbox({ [PATH]: V0 });
@@ -152,11 +148,14 @@ test('a chain already at its final bytes is superseded, not a conflict', opts, a
     { applied: report.applied, already: report.alreadyApplied, failed: report.failed, deferred: report.deferred, superseded: report.superseded },
     { applied: 0, already: 1, failed: 0, deferred: 0, superseded: 1 }
   );
-  assert.equal(read(root), V2); // untouched
-  const after = await ledger();
-  assert.equal(after[0].state, 'abandoned');
-  assert.match(after[0].error, /SUPERSEDED/);
-  assert.deepEqual([after[1].state, after[1].synced, after[1].error], ['ready', false, null]);
+  assert.equal(read(root), V2);
+  assert.deepEqual((await ledger()).map(r => [r.state, r.synced, r.error]), [['ready', false, null], ['ready', false, null]]);
+
+  const fresh = sandbox({ [PATH]: V0 });
+  const cold = await (await loadReplay({ reboot: true })).replayAppliedChanges({ root: fresh, connectionString: TEST_DATABASE_URL });
+  assert.equal(cold.status, 'ok');
+  assert.equal(cold.applied, 2);
+  assert.equal(read(fresh), V2);
 });
 
 test('divergence fails loud and leaves the file alone', opts, async () => {
@@ -182,12 +181,7 @@ test('divergence fails loud and leaves the file alone', opts, async () => {
 
 test('a replica never skips because another replica holds a lock', opts, async () => {
   // The assertion that fails if anyone reaches for pg_try_advisory_lock. Every
-  // replica has its own ephemeral filesystem and must replay onto it, so a
-  // try-and-skip lock would leave the loser serving the un-replayed image —
-  // the exact silent revert this pass exists to fix, relocated. Holding both
-  // keys the code already uses plus the next free one from an outside session
-  // stands in for another replica mid-replay: a try-lock would skip, and a
-  // blocking lock would hang the boot, which the deadline below catches.
+  // replica has its own ephemeral filesystem and must replay onto it.
   await readyRow([file()]);
   const root = sandbox({ [PATH]: V0 });
   for (const key of [8892011, 8892012, 8892013]) await sql('SELECT pg_advisory_lock($1)', [key]);
@@ -205,9 +199,6 @@ test('a replica never skips because another replica holds a lock', opts, async (
 });
 
 test('two replicas replaying at once each end with their own disk correct', opts, async () => {
-  // Two real processes, one outbox, disjoint filesystems — the deployment
-  // shape a Railway rolling deploy produces. Spawned because the once-guard
-  // lives on globalThis, so one process is one container by construction.
   await readyRow([file()]);
   const a = sandbox({ [PATH]: V0 });
   const b = sandbox({ [PATH]: V0 });
@@ -216,19 +207,19 @@ test('two replicas replaying at once each end with their own disk correct', opts
   const run = (cwd) =>
     execFile(process.execPath, ['--experimental-strip-types', '--experimental-loader', resolve('tests/ts-loader.mjs'), '--input-type=module', '-e', child], { cwd });
 
-  const [ra, rb] = await Promise.all([run(a), run(b)]); // launched together, not in turn
+  const [ra, rb] = await Promise.all([run(a), run(b)]);
   const report = (r) => JSON.parse(r.stdout.trim().split('\n').pop());
 
   assert.deepEqual([report(ra).applied, report(rb).applied], [1, 1]);
   assert.deepEqual([read(a), read(b)], [V1, V1]);
-  assert.deepEqual((await ledger()).map((r) => [r.state, r.synced]), [['ready', false]]); // still the git sync's to archive
+  assert.deepEqual((await ledger()).map((r) => [r.state, r.synced]), [['ready', false]]);
 });
 
 test('a failed row defers only later rows on the same path', opts, async () => {
   const OTHER = 'registry/orgs/other.yaml';
-  await readyRow([file()]); // row 1: diverged base, refused
-  await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p00002'); // row 2: same path
-  await readyRow([{ path: OTHER, content_before_hash: null, content_after: V0 }], 'p00003'); // row 3: unrelated
+  await readyRow([file()]);
+  await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p00002');
+  await readyRow([{ path: OTHER, content_before_hash: null, content_after: V0 }], 'p00003');
   const root = sandbox({ [PATH]: 'something else entirely\n' });
 
   const { replayAppliedChanges } = await loadReplay();
@@ -239,17 +230,14 @@ test('a failed row defers only later rows on the same path', opts, async () => {
     { applied: 1, failed: 1, deferred: 1 }
   );
   assert.equal(read(root), 'something else entirely\n');
-  assert.equal(read(root, OTHER), V0); // an unrelated path is independently safe
+  assert.equal(read(root, OTHER), V0);
   const after = await ledger();
   assert.match(after[0].error, /refusing to overwrite/);
-  assert.match(after[1].error, /^DEFERRED: /); // a distinct reason from a refusal
+  assert.match(after[1].error, /^DEFERRED: /);
   assert.equal(after[2].error, null);
 });
 
 test('registry PR #31 leftovers are abandoned instead of degrading the boot', opts, async () => {
-  // The committed file is not the committer's bytes, so neither the refused
-  // row nor the later approval matches disk. Both still have to leave the
-  // boot healthy, and neither may overwrite the canonical file.
   await readyRow([file()], 'p01426');
   await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p01550');
   const canonical = 'canonical text from the registry commit\n';
@@ -286,12 +274,9 @@ test('a registry PR #31 leftover still applies when the file is the base it was 
   assert.deepEqual((await ledger()).map((r) => [r.state, r.error]), [['ready', null]]);
 });
 
-test('a later approval already on disk supersedes the earlier row and the boot stays healthy', opts, async () => {
-  // The shape left after registry PR #31: an earlier desk write (p01426 on
-  // OpenAI, and the same for IVADO and Rocket Pool) and a later approval
-  // (p01550, p01551, p01553) whose bytes are already in the image. Replaying
-  // the earlier row would roll the canonical file back, and deferring the
-  // later one reported that healthy file as missing.
+test('a known registry migration may retire the replaced approval', opts, async () => {
+  // This is an explicit PR #31 migration exception, not a rule inferred
+  // from an arbitrary replica's disk. Ordinary approvals stay ready.
   const OTHER = 'registry/orgs/other.yaml';
   await readyRow([file()], 'p01426');
   await readyRow([file({ content_before_hash: sha256(V1), content_after: V2 })], 'p01550');
@@ -304,36 +289,24 @@ test('a later approval already on disk supersedes the earlier row and the boot s
 
   assert.equal(report.status, 'ok');
   assert.deepEqual(
-    {
-      applied: report.applied,
-      already: report.alreadyApplied,
-      failed: report.failed,
-      deferred: report.deferred,
-      superseded: report.superseded,
-    },
+    { applied: report.applied, already: report.alreadyApplied, failed: report.failed, deferred: report.deferred, superseded: report.superseded },
     { applied: 1, already: 1, failed: 0, deferred: 0, superseded: 1 }
   );
   assert.equal(report.errors.length, 0);
   assert.equal(read(root), V2);
   assert.equal(mtime(root), before);
-  assert.equal(read(root, OTHER), V0); // a path outside the superseded chain still replays
+  assert.equal(read(root, OTHER), V0);
   const after = await ledger();
   assert.equal(after[0].state, 'abandoned');
   assert.equal(after[0].synced, false);
   assert.match(after[0].error, /SUPERSEDED/);
-  assert.deepEqual(
-    after.slice(1).map((r) => [r.state, r.synced, r.error]),
-    [
-      ['ready', false, null],
-      ['ready', false, null],
-    ]
-  );
+  assert.deepEqual(after.slice(1).map((r) => [r.state, r.synced, r.error]), [['ready', false, null], ['ready', false, null]]);
 });
 
 test('an already-applied row is a skip, not a write or a failure', opts, async () => {
   await readyRow([file()]);
   await sql(`UPDATE desk_applied_changes SET last_error = 'from an earlier boot' WHERE id = 1`);
-  const root = sandbox({ [PATH]: V1 }); // already holds content_after
+  const root = sandbox({ [PATH]: V1 });
 
   const { replayAppliedChanges } = await loadReplay();
   const before = mtime(root);
@@ -344,16 +317,13 @@ test('an already-applied row is a skip, not a write or a failure', opts, async (
     { status: 'ok', applied: 0, already: 1, failed: 0 }
   );
   assert.equal(mtime(root), before);
-  assert.deepEqual(await ledger(), [{ id: 1, state: 'ready', synced: false, error: null }]); // repaired, still unsynced
+  assert.deepEqual(await ledger(), [{ id: 1, state: 'ready', synced: false, error: null }]);
 });
 
 test('a row this replay cannot trust is refused, and writes nothing outside root', opts, async () => {
   const OTHER = 'registry/orgs/other.yaml';
-  // The three content_before_hash shapes are distinct: a hex string is "the
-  // file held these bytes", null is "the file did not exist", an absent key
-  // is a legacy row with no snapshot. Only the first can be verified.
-  await readyRow([{ path: PATH, content_after: V1 }]); // legacy: no key at all
-  await readyRow([{ path: OTHER, content_before_hash: null, content_after: V1 }], 'p00002'); // claims absent, but it exists
+  await readyRow([{ path: PATH, content_after: V1 }]);
+  await readyRow([{ path: OTHER, content_before_hash: null, content_after: V1 }], 'p00002');
   await readyRow([{ path: 'registry/../../etc/passwd', content_before_hash: null, content_after: 'pwned\n' }], 'p00003');
   await readyRow([{ path: 'etc/passwd', content_before_hash: null, content_after: 'pwned\n' }], 'p00004');
   const root = sandbox({ [PATH]: V0, [OTHER]: V0 });
@@ -373,10 +343,6 @@ test('a row this replay cannot trust is refused, and writes nothing outside root
 });
 
 test('a backlog past the per-boot limit degrades the report, it does not pass', opts, async () => {
-  // Nothing here sets synced_at, so every boot re-selects the same oldest
-  // rows: a tail past the limit is starved, not delayed. Reporting it as 'ok'
-  // would be this replay's own failure mode — approvals that never reach the
-  // disk, with the panel saying the boot was fine.
   const total = 502;
   await sql(
     `INSERT INTO desk_applied_changes (proposal_id, files, message, state)
@@ -397,9 +363,9 @@ test('a backlog past the per-boot limit degrades the report, it does not pass', 
     { status: report.status, truncated: report.truncated, scanned: report.scanned, applied: report.applied },
     { status: 'degraded', truncated: true, scanned: 500, applied: 500 }
   );
-  assert.match(report.errors[0], /exceeds the per-boot limit/); // and on /admin/health, not only in a container log
-  assert.match(report.errors[0], /sync-desk-commits/); // names the one thing that can clear the window
-  assert.equal(read(root, `registry/orgs/bulk-${total}.yaml`), null); // the starved tail
+  assert.match(report.errors[0], /exceeds the per-boot limit/);
+  assert.match(report.errors[0], /sync-desk-commits/);
+  assert.equal(read(root, `registry/orgs/bulk-${total}.yaml`), null);
 });
 
 test('an absent outbox table is not an error', opts, async () => {
@@ -431,15 +397,13 @@ test('lastBootReplayReport is what /admin/health renders', opts, async () => {
   await readyRow([file()]);
   const root = sandbox({ [PATH]: V0 });
   const mod = await loadReplay();
-  assert.equal(mod.lastBootReplayReport(), null); // never run on this instance
+  assert.equal(mod.lastBootReplayReport(), null);
   const report = await mod.replayAppliedChanges({ root, connectionString: TEST_DATABASE_URL });
   assert.equal(mod.lastBootReplayReport(), report);
   assert.ok(mod.lastBootReplayReport().instance);
 });
 
 test('register() resolves even when a row cannot replay', opts, async () => {
-  // A rejection out of register() is memoized into Next's preparedPromise and
-  // 500s every route, including the health page that would explain it.
   await readyRow([file()]);
   const cwd = process.cwd();
   const root = sandbox({ [PATH]: 'diverged\n' });
@@ -447,7 +411,7 @@ test('register() resolves even when a row cannot replay', opts, async () => {
   process.chdir(root);
   process.env.NEXT_RUNTIME = 'nodejs';
   process.env.DATABASE_URL = TEST_DATABASE_URL;
-  delete process.env.INGEST_ENABLED; // the replay must not sit behind the ingest gate
+  delete process.env.INGEST_ENABLED;
   try {
     const { register } = await import('../src/instrumentation.ts');
     await assert.doesNotReject(register());
@@ -457,4 +421,61 @@ test('register() resolves even when a row cannot replay', opts, async () => {
   }
   assert.equal(read(root), 'diverged\n');
   assert.match((await ledger())[0].error, /refusing to overwrite/);
+});
+
+const CONTROL = 'registry/funding-control.json';
+async function fundingChain() {
+  const seed = {};
+  for (let n = 1; n <= 3; n++) {
+    const path = `registry/program-terms/desk-test-${n}.jsonl`;
+    const content = JSON.stringify({ key: `test-${n}`, program: 'example' }) + '\n';
+    await readyRow([
+      { path, content_before_hash: null, content_after: content },
+      { path: CONTROL, content_before_hash: n === 1 ? null : sha256(`control-${n - 1}`), content_after: `control-${n}` },
+    ], `p0000${n}`);
+    seed[path] = content;
+  }
+  seed[CONTROL] = 'control-3';
+  return seed;
+}
+
+test('funding shards survive repeated warm restarts followed by replacement from an empty image', opts, async () => {
+  const final = await fundingChain();
+  const warm = sandbox(final);
+  // This exact shared-control / distinct-shard pattern was reproduced in Railway.
+  for (let restart = 0; restart < 3; restart++) {
+    const report = await (await loadReplay({ reboot: true })).replayAppliedChanges({ root: warm, connectionString: TEST_DATABASE_URL });
+    assert.equal(report.status, 'ok');
+    assert.equal(report.superseded, 2);
+    assert.equal(report.alreadyApplied, 1);
+    assert.deepEqual((await ledger()).map(r => [r.state,r.synced]), [['ready',false],['ready',false],['ready',false]]);
+  }
+  const cold = sandbox();
+  const report = await (await loadReplay({ reboot: true })).replayAppliedChanges({ root: cold, connectionString: TEST_DATABASE_URL });
+  assert.equal(report.status, 'ok');
+  assert.equal(report.applied, 3);
+  for (const [path, content] of Object.entries(final)) assert.equal(read(cold, path), content);
+  assert.equal((await ledger()).filter(r => r.state === 'ready').length, 3);
+});
+
+test('a warm replica and a cold replica cannot retire one another’s required funding shards', opts, async () => {
+  const final = await fundingChain();
+  const warm = sandbox(final), cold = sandbox();
+  const child = `import {replayAppliedChanges} from ${JSON.stringify(resolve('src/lib/boot-replay.ts'))};
+    console.log(JSON.stringify(await replayAppliedChanges({root:process.cwd(),connectionString:process.env.TEST_DATABASE_URL})));`;
+  const run = cwd => execFile(process.execPath, ['--experimental-strip-types','--experimental-loader',resolve('tests/ts-loader.mjs'),'--input-type=module','-e',child], {cwd});
+  const outputs = await Promise.all([run(warm),run(cold)]);
+  const reports = outputs.map(r => JSON.parse(r.stdout.trim().split('\n').pop()));
+  assert.ok(reports.every(r => r.status === 'ok'));
+  for (const root of [warm,cold]) for (const [path,content] of Object.entries(final)) assert.equal(read(root,path),content);
+  assert.deepEqual((await ledger()).map(r => [r.state,r.synced]), [['ready',false],['ready',false],['ready',false]]);
+});
+
+test('local supersession clears stale diagnostics without changing durable eligibility', opts, async () => {
+  const final = await fundingChain();
+  await sql("UPDATE desk_applied_changes SET last_error = 'previous local conflict' WHERE id < 3");
+  const warm = sandbox(final);
+  const report = await (await loadReplay()).replayAppliedChanges({root:warm,connectionString:TEST_DATABASE_URL});
+  assert.equal(report.status,'ok');
+  assert.deepEqual((await ledger()).map(r => [r.state,r.synced,r.error]), [['ready',false,null],['ready',false,null],['ready',false,null]]);
 });
