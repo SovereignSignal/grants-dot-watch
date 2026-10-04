@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "id": "yc-investment-components-pilot",
+  "reference_blobs": {
+    "orgs/y-combinator.yaml": "7a0fa7800b11fb20fbe46f7135993f6158892c4a",
+    "programs/y-combinator-accelerator.yaml": "1a203b63bada218d93fce3b4bb6df4f786d2f83d"
+  },
+  "records": {
+    "program-terms": [{
+      "key": "yc:standard-deal:2026-10-04",
+      "program": "y-combinator-accelerator",
+      "source": "https://www.ycombinator.com/deal",
+      "checked_on": "2026-10-04",
+      "evidence_state": "primary_supported",
+      "evidence_note": "The standard investment uses two separate SAFEs, with different conversion terms. These are offered financing components, not a grant pool or evidence of a specific company's payment.",
+      "instruments": ["investment", "convertible"],
+      "allocation_methods": [],
+      "capital_forms": ["cash"],
+      "selection_models": ["application"],
+      "intake_mode": "rounds",
+      "operator_org": "y-combinator",
+      "resources": [
+        {"kind":"cash","value":{"amount":"125000","currency":"USD","unit":"currency","qualifier":"exact"},"restrictions":["Post-money SAFE for a fixed 7% under the published conversion terms."]},
+        {"kind":"cash","value":{"amount":"375000","currency":"USD","unit":"currency","qualifier":"exact"},"restrictions":["Uncapped SAFE with a most-favored-nation provision; incremental ownership depends on financing terms."]}
+      ],
+      "access": null
+    }],
+    "funding-events": [],
+    "process-metrics": []
+  }
+}

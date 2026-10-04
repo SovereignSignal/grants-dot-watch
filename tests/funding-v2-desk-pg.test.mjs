@@ -28,8 +28,8 @@ async function queue(candidate=pack){
  return (await store.insertIngestProposals([preview.proposal])).inserted[0];
 }
 function restart(root){
- const module=pathToFileURL(join(repo,'src/lib/boot-replay.ts')).href;
- const code=`const {replayAppliedChanges}=await import(${JSON.stringify(module)});const r=await replayAppliedChanges({root:process.cwd()});console.log('RESULT:'+JSON.stringify(r));`;
+ const sourceHref=pathToFileURL(join(repo,'src/lib/boot-replay.ts')).href;
+ const code=`const {replayAppliedChanges}=await import(${JSON.stringify(sourceHref)});const r=await replayAppliedChanges({root:process.cwd()});console.log('RESULT:'+JSON.stringify(r));`;
  const output=execFileSync(process.execPath,['--experimental-strip-types','--experimental-loader',join(repo,'tests/ts-loader.mjs'),'--input-type=module','-e',code],{cwd:root,env:{...process.env,DATABASE_URL:TEST_DATABASE_URL},encoding:'utf8',timeout:30000});
  return JSON.parse(output.split('\n').find(line=>line.startsWith('RESULT:')).slice(7));
 }

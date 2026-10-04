@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "id": "zealynx-subsidy-structure-pilot",
+  "reference_blobs": {
+    "orgs/zealynx.yaml": "9ef288d9842034747b00c8633b9ed3d195ceed8d",
+    "programs/zealynx-audit-grants.yaml": "d1e9d0ab517e1190813165c8809a61bd6d3db9e7"
+  },
+  "records": {
+    "program-terms": [{
+      "key": "zealynx:subsidy-model:2026-10-04",
+      "program": "zealynx-audit-grants",
+      "source": "https://grants.zealynx.io/",
+      "checked_on": "2026-10-04",
+      "evidence_state": "primary_supported",
+      "evidence_note": "Support is an audit-invoice subsidy. Retrieved official pages disagree on indicative tier dollar values, so this record leaves monetary amounts unset and does not assert an accessible application window.",
+      "instruments": ["subsidy"],
+      "allocation_methods": [],
+      "capital_forms": ["service"],
+      "selection_models": ["application"],
+      "intake_mode": "rounds",
+      "operator_org": "zealynx",
+      "resources": [{"kind":"service","value":{"amount":null,"currency":null,"unit":"audit service","qualifier":"not_disclosed","amount_text":"Alternative 25%, 50%, or 100% audit-invoice subsidies"},"restrictions":["Redeemable against a Zealynx audit engagement; no cash disbursement.","Subsidy tiers are alternatives and must never be added together.","Final invoice depends on the scoped engagement; disputed indicative dollar ceilings were withheld."]}],
+      "access": null
+    }],
+    "funding-events": [],
+    "process-metrics": []
+  }
+}
