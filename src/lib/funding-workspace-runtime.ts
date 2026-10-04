@@ -1,6 +1,7 @@
 import { join } from 'node:path';
 import { readFileSync } from 'node:fs';
 import YAML from 'yaml';
+import { checkAuth } from '@/app/api/desk/lib';
 import { listProposals } from './desk-store';
 import { readBaseline } from './funding-store.mjs';
 import { readControlledFunding, isFundingProposal } from './funding-desk-core.mjs';
@@ -25,10 +26,10 @@ async function capture(source: string, fund: number, revision: string | null) {
   } finally { state.active = false; }
 }
 
-// Internal entry, called only after the route's existing owner authentication.
+// Both the route and this internal runtime retain the existing owner verifier.
 export function serveAuthenticatedFundingWorkspace(request: Request) {
   return handleFundingWorkspace(request, {
-    authorize: async () => true,
+    authorize: async (req: Request) => (await checkAuth(req)).ok,
     enabled: process.env.GRANTS_WATCH_FUNDING_DESK === '1',
     publicEnabled: process.env.GRANTS_WATCH_API_V2 === '1',
     load: () => {
