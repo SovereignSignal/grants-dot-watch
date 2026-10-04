@@ -35,7 +35,7 @@ jobs:
       - run: npm run check:public
       - run: npm run validate
       - name: Lint funding v2 implementation
-        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs tests/funding-v2*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
+        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs scripts/build-funding-source-packets.mjs tests/funding-v2*.test.mjs tests/funding-source*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
       - name: Unit and real PostgreSQL integration tests
         run: npm test
         env:

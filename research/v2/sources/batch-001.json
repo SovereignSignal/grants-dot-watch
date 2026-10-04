@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "source_id": "numfocus-sdg",
+      "source_url": "https://numfocus.org/programs/small-development-grants",
+      "observed_on": "2026-10-04",
+      "provider": "exa",
+      "representation": "tool_text_excerpt",
+      "scope": "Previously Funded Programs: 2023 and 2024 rows only",
+      "body": "## Previously Funded Programs\n| Project | Proposal Title | Amount | Year | Round |\n| --- | --- | --- | --- | --- |\n| mlpack | Improving mlpack's visibility via application examples, videos, and documentation | $10,000.00 | 2024 | 1 |\n| PyTables | HDF5 direct chunking support for PyTables | $10,000.00 | 2024 | 1 |\n| SciML | Collocation Methods for Boundary Value Differential-Algebraic Equations | $8,000.00 | 2024 | 1 |\n| Colour | Implement support for Common Look-Up Table Format (CLF) to facilitate the creation and exchange of colour transformations | $9,000.00 | 2024 | 1 |\n| Freemocap | Multi-Person Tracking in FreeMoCap | $5,000.00 | 2024 | 1 |\n| Magpylib | Computing Force and Torque with Magpylib | $10,000.00 | 2024 | 1 |\n| PyMC | Development of Specialized Extensions in PyMC | $10,000.00 | 2024 | 1 |\n| python-graphblas | An Animated Video Series Introduction to the GraphBLAS | $10,000.00 | 2024 | 1 |\n| Spyder | Usability and accessibility improvements to the QtConsole project | $8,610.00 | 2024 | 1 |\n| ArviZ | Dashboard-assisted exploratory analysis of Bayesian models | $10,000.00 | 2023 | 3 |\n| Bokeh | Empowering Aspiring Data Scientists and Encouraging Open Source Contribution in Nigeria through Bokeh Data Visualization Workshops | $7,500.00 | 2023 | 3 |\n| GeoPandas | Development and integration of the Spherely library within the Python geospatial ecosystem for processing geographic spatial data | $10,000.00 | 2023 | 3 |\n| HoloViz | Revitalizing the HoloViz Website for Enhanced Learning and Community Engagement | $10,000.00 | 2023 | 3 |\n| Julia | Harnessing GPU Power for Quantum Leap in Computational Chemistry: Scaling Electronic Structure Methods with Julia Language | $10,000.00 | 2023 | 3 |\n| mlpack | Ensuring Compatibility of the mlpack Neural Network Codebase with Bandicoot | $5,000.00 | 2023 | 3 |\n| NumPy | Laying the groundwork for a NumPy-Financial 2.0 release | $6,120.00 | 2023 | 3 |\n| PyTorch-Ignite | Library improvements and a new machine learning templates written with PyTorch-Ignite | $2,500.00 | 2023 | 3 |\n| rOpenSci | A Dashboard Interface for Software Peer-Review | $9,962.00 | 2023 | 3 |\n| SciML | SciML: Implementing Methods for Exact Model Reduction. | $8,400.00 | 2023 | 3 |\n| Spyder | Internationalization and Spanish Translation of Spyder’s Documentation | $6,300.00 | 2023 | 3 |\n| Stan | Non-English versions of Stan user guide and language reference | $10,000.00 | 2023 | 3 |\n| pyhf | pyhf Users and Developers Workshop 2023 | $10,000.00 | 2023 | 2 |\n| mlpack | Completely revamp mlpack documentation | $10,000.00 | 2023 | 2 |\n| equadratures | Auto-Differentiable Equadratures | $10,000.00 | 2023 | 2 |\n| pandas | Nonvisual Data Science Curriculum and Workshop Series | $7,345.00 | 2023 | 2 |\n| MDAnalysis | Unified and comprehensive documentation and learning resources for MDAnalysis | $10,000.00 | 2023 | 2 |\n| Blosc | Lossy codecs for images in Blosc2 | $9,750.00 | 2023 | 2 |\n| Mesa | Python Front End | $5,400.00 | 2023 | 2 |\n| Julia | Improving the first-time experience of Julia users with Pluto.jl | $10,000.00 | 2023 | 2 |\n| pvlib | Expansion of solar irradiance processing capabilities for pvlib-python (resubmission) | $10,000.00 | 2023 | 2 |\n| Spyder | Improving external completion plugins development support in Spyder | $8,190.00 | 2023 | 1 |\n| conda-forge | Access control improvements for opt-in CI (Continuous Integration) services | $10,000.00 | 2023 | 1 |\n| Bokeh | Rendering LaTeX equations in TARDIS plasma graphs using Bokeh | $10,000.00 | 2023 | 1 |\n| PyTables | PyTables to leverage the HDF5 enhanced direct chunk capabilities | $9,500.00 | 2023 | 1 |\n| LFortran | Compiling SciPy’s Fortran packages with LFortran | $10,000.00 | 2023 | 1 |\n| GeoPandas | Create a more consistent geometry API through the feature parity between low-level (Shapely) and high-level (GeoPandas) packages | $8,000.00 | 2023 | 1 |\n| NetworkX | Adopting property-based testing in NetworkX | $3,550.00 | 2023 | 1 |\n| SciPy | Streamlined Special Function Development in SciPy | $10,000.00 | 2023 | 1 |\n| conda | A fast, modern and memory safe solver for mamba & conda! | $8,000.00 | 2023 | 1 |\n| poliastro | Enhancing the visualization capabilities of poliastro | $4,500.00 | 2023 | 1 |\n| Stan | Commumity building through StanCon 2023 | $10,000.00 | 2023 | 1 |\n",
+      "body_sha256": "cf474a663fc76275092b0bf1cee93db6ce9506531097c6cf770a89e98fd5af26",
+      "source_revision": null
+    },
+    {
+      "version": 1,
+      "source_id": "microsoft-foss",
+      "source_url": "https://github.com/microsoft/foss-fund/blob/main/README.md",
+      "observed_on": "2026-10-04",
+      "provider": "github",
+      "representation": "tool_text_excerpt",
+      "scope": "Fund 36 recipient links; descriptions omitted",
+      "body": "## Funding recipients\n- FOSS Fund 36 (March 2026)\n  - **[actix](https://github.com/actix)**: _[[actix-web](https://github.com/actix/actix-web)]_\n  - **[aio-libs](https://github.com/aio-libs)**: _[[aiohttp](https://github.com/aio-libs/aiohttp)]_\n  - **[apache](https://github.com/apache)**: _[[solr](https://github.com/apache/solr)]_\n  - **[arc53](https://github.com/arc53)**: _[[DocsGPT](https://github.com/arc53/DocsGPT)]_\n  - **[bee-san](https://github.com/bee-san)**: _[[ciphey](https://github.com/bee-san/ciphey)]_\n  - **[browserslist](https://github.com/browserslist)**: _[[browserslist](https://github.com/browserslist/browserslist)]_\n  - **[cheeriojs](https://github.com/cheeriojs)**: _[[cheerio](https://github.com/cheeriojs/cheerio)]_\n  - **[cucumber](https://github.com/cucumber)**: _[[cucumber](https://github.com/cucumber/cucumber)]_\n  - **[CycloneDX](https://github.com/CycloneDX)**: _[[cyclonedx-python-lib](https://github.com/CycloneDX/cyclonedx-python-lib)]_\n  - **[Garudex-Labs](https://github.com/Garudex-Labs)**: _[[Caracal](https://github.com/Garudex-Labs/Caracal)]_\n  - **[Instavm](https://github.com/Instavm)**: _[[coderunner](https://github.com/Instavm/coderunner)]_\n  - **[onnx](https://github.com/onnx)**: _[[onnx](https://github.com/onnx/onnx)]_\n  - **[raphw](https://github.com/raphw)**: _[[byte-buddy](https://github.com/raphw/byte-buddy)]_\n  - **[zloirock](https://github.com/zloirock)**: _[[core-js](https://github.com/zloirock/core-js)]_\n",
+      "body_sha256": "009ce18b51f7ae284476190b804a32924d9c27e39d0a09c2e625e59a7b652fd3",
+      "source_revision": null
+    },
+    {
+      "version": 1,
+      "source_id": "royal-society-research",
+      "source_url": "https://royalsociety.org/grants/research-grants/",
+      "observed_on": "2026-10-04",
+      "provider": "web",
+      "representation": "tool_text_excerpt",
+      "scope": "Application and offer data",
+      "body": "## Application and offer data\n| Financial year | Eligible applications | Offers | Success rate |\n| --- | --- | --- | --- |\n| 2022/23 | 569 | 170 | 29.9% |\n| 2023/24 | 604 | 228 | 37.7% |\n| 2024/25 | 805 | 220 | 27.3% |\n| 2025/26 | 472 | 99 | 21.0% |\n\nPlease note: data is based on eligible applications and offers made, and does not include upgraded reserves.\n",
+      "body_sha256": "a571e185f7548af7e902f0191dbcf852ef70e1d3e263008e1c8e73167022ea91",
+      "source_revision": null
+    },
+    {
+      "version": 1,
+      "source_id": "royal-society-research",
+      "source_url": "https://royalsociety.org/grants/research-grants/",
+      "observed_on": "2026-10-04",
+      "provider": "exa",
+      "representation": "tool_text_excerpt",
+      "scope": "Application and offer data",
+      "body": "## Application and offer data\n| Financial year | Eligible applications | Offers | Success rate |\n| --- | --- | --- | --- |\n| 2022/23 | 569 | 170 | 29.9% |\n| 2023/24 | 604 | 228 | 37.7% |\n| 2024/25 | 805 | 220 | 27.3% |\n\nPlease note: data is based on eligible applications and offers made, and does not include upgraded reserves.\n",
+      "body_sha256": "582f074c8749fd3ba11c6c60ffb7bf7dcf727647dd7c9b7f230c7aa67aa903a5",
+      "source_revision": null
+    },
+    {
+      "version": 1,
+      "source_id": "royal-society-urf",
+      "source_url": "https://royalsociety.org/grants/university-research/",
+      "observed_on": "2026-10-04",
+      "provider": "web",
+      "representation": "tool_text_excerpt",
+      "scope": "Application and offer data",
+      "body": "## Application and offer data\n| Financial year | Eligible applications | Offers | Success rate |\n| --- | --- | --- | --- |\n| 2022/23 | 599 | 42 | 7% |\n| 2023/24 | 528 | 34 | 6.4% |\n| 2024/25 | 585 | 40 | 6.8% |\n| 2025/26 | 618 | 39 | 6.3% |\n\nPlease note: data is based on eligible applications and offers made, and does not include upgraded reserves.\n",
+      "body_sha256": "1bbebc50d3a3cee904d373ce1f0f4504a1ed1f88ddf3ffd9b33038bf40885a7a",
+      "source_revision": null
+    },
+    {
+      "version": 1,
+      "source_id": "royal-society-urf",
+      "source_url": "https://royalsociety.org/grants/university-research/",
+      "observed_on": "2026-10-04",
+      "provider": "exa",
+      "representation": "tool_text_excerpt",
+      "scope": "Application and offer data",
+      "body": "## Application and offer data\n| Financial year | Eligible applications | Offers | Success rate |\n| --- | --- | --- | --- |\n| 2022/23 | 599 | 42 | 7% |\n| 2023/24 | 528 | 34 | 6.4% |\n| 2024/25 | 585 | 40 | 6.8% |\n\nPlease note: data is based on eligible applications and offers made, and does not include upgraded reserves.\n",
+      "body_sha256": "8bd98d433d9e6d73844eefb9aa324321482c4fe8e77e2e9850e3b8b5665010c3",
+      "source_revision": null
+    }
+  ]
+}
