@@ -1,58 +1,35 @@
-# Registry v2 additive schema
+# Registry v2 sidecars
 
-This directory remains the canonical public dataset. V2 is additive: existing v1 organization, program, round and award fields remain valid.
+Legacy `SCHEMA.md`, YAML files, old award ledgers and v1 enums are unchanged. Additive enrichment uses JSONL in three optional directories. Missing directories mean no enrichment. Malformed rows, extra fields and unresolved references invalidate the whole v2 dataset.
 
-## Program typed terms
+The machine-readable contract and publication allowlist share `src/lib/funding-model.mjs`. Print it with `node scripts/validate-registry-v2.mjs --print-schema`. Validate with `npm run validate:funding`.
 
-Programs may add a `terms` mapping:
+## program-terms
 
-```yaml
-terms:
-  capital_form: [cash, compute]
-  selection_model: application
-  intake_mode: rolling
-  operator_org: example-foundation
-  capital_source_orgs: [example-dao]
-  disburser_org: example-foundation
-  budget: { amount: 1000000, currency: USD, amount_text: "$1M" }
-  award_min: { amount: 10000, currency: USD }
-  award_max: { amount: 100000, currency: USD }
-  eligibility: ["open-source teams"]
-  geography: ["global"]
-  requirements: ["milestone reporting"]
-  application_route: "Open application"
-  success_metrics: []
-  reporting_requirements: []
-```
+Required: key, program, source, checked_on, evidence_state, evidence_note, instruments, allocation_methods, capital_forms, selection_models, intake_mode, resources.
 
-`mechanism` now accepts grants, retro, quadratic, prize, fellowship, incubator, accelerator, rfp, bounty, subsidy, investment, procurement, purchase, sponsorship, credits and other.
+Optional: round_name, validity dates, supersedes_key, operator_org, capital_source_orgs, disburser_org, budget, eligibility, geography, requirements, reporting_requirements, access.
 
-Round records may add decision/payment dates, a structured pool, funnel counts, stage, and source_checked_on.
+`round_name` scopes historical/cohort facts; omission means program-level scope. Sources and checked dates apply to the explicitly scoped record. Independent resource components preserve units and restrictions. Unknown fields are absent or null according to the schema, never inferred from zero.
 
-## funding-events/*.jsonl
+Access records name the round, entry stage, intake state, new-applicant eligibility, cleared prerequisites, route, source, checked_on and review_after. An open access claim requires primary-supported evidence and explicit true entry/prerequisite flags.
 
-Append-only lifecycle events. Approval and payment are separate events.
+## funding-events
 
-```json
-{"key":"example:approved:1","event_type":"approved","funder":"example-foundation","recipient":"project","recipient_name":"Project","program":"example-program","decision_date":"2026-10-01","amount_native":50000,"currency":"USD","capital_form":"cash","source":"https://example.org/decision","evidence_checked_on":"2026-10-04"}
-```
+Required: key, award_id, event_type, funder, recipient, recipient_name, program (nullable), amount, capital_form, occurred_on (nullable), announced_on (nullable), payment_date (nullable), and the four evidence fields.
 
-event_type: recommended | approved | awarded | contracted | paid | withdrawn | challenged | rejected | refunded | clawed-back.
+Optional: round_name, award_period, milestone, tranche, conditions, legacy_award_key, supersedes_key.
 
-## process-metrics/*.jsonl
+Event types: recommended, approved, awarded, contracted, paid, withdrawn, challenged, rejected, refunded, clawed_back. Keys deduplicate events; award_id groups their lifecycle. Program/funder/recipient identities cannot change within an award. Mapping to an existing legacy award must agree with its identity. A payment is never inferred from an approval or an announcement date.
 
-Append-only published funnel metrics.
+Money fields use decimal-string amount or null, currency or null, unit, and qualifier (exact/up_to/approximate/not_disclosed), plus optional amount_text. Currency is required for disclosed monetary units. No conversion or total of mixed resource types is performed.
 
-```json
-{"key":"example-program:2026","program":"example-program","period":"2026","applications":100,"eligible_applications":90,"shortlisted":20,"offers":10,"accepted":9,"funded":9,"source":"https://example.org/report","checked_on":"2026-10-04"}
-```
+## process-metrics
 
-Counts remain nullable. Never calculate a rate from an unstated denominator.
+Required: key, program, period, counting_unit, exclusions and evidence fields. Counts for applications, eligible_applications, shortlisted, offers, accepted and funded are nullable nonnegative safe integers. At least one measured count is required. Where both are given, eligible cannot exceed applications, offers/shortlist cannot exceed eligible, and accepted cannot exceed offers. Published cohorts and exclusions remain attached. No individual odds or causal quality score is inferred.
 
-## Evidence rules
+## Safety and workflow
 
-* Preserve native units and currency.
-* Do not infer payment from approval.
-* Do not infer open intake from an active program.
-* Do not infer cash value for credits, services, subsidies or compute.
-* Keep source, observation/check date and applicable scope with every new structured fact.
+Append-only imports require reviewed stable keys, source guards and valid references. Supersessions must stay in the same scope and cannot form cycles. Public output selects fields explicitly; operational metadata has no sidecar schema slot. Source URLs reject credentials and credential query parameters. This is a URL hygiene check, not independent proof of issuer authority.
+
+Use the staging-only CLI documented in `docs/api-v2.md`. No runtime writer, timer, DB migration or production backfill is introduced here.

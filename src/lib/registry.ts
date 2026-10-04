@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import YAML from 'yaml';
-import type { Award, FundingEvent, Grantee, Org, OrgStats, ProcessMetric, Program, RegistryIndex, System } from './types';
+import type { Award, Grantee, Org, OrgStats, Program, RegistryIndex, System } from './types';
 import { currentRounds, productDateISO } from './round-state';
 
 const ROOT = join(process.cwd(), 'registry');
@@ -73,8 +73,6 @@ function registryScan(): { signature: string; newestMtimeMs: number } {
     scanDir(join(ROOT, 'orgs'), '.yaml'),
     scanDir(join(ROOT, 'programs'), '.yaml'),
     scanDir(join(ROOT, 'awards'), '.jsonl'),
-    scanDir(join(ROOT, 'funding-events'), '.jsonl'),
-    scanDir(join(ROOT, 'process-metrics'), '.jsonl'),
   ];
   return {
     signature: dirs.map((d) => `${d.count}:${d.newest}:${d.bytes}`).join('|'),
@@ -104,19 +102,6 @@ function loadYamlDir<T>(sub: string): T[] {
       if (doc && typeof doc === 'object') out.push(doc as T);
     } catch {
       // a broken file never takes the site down; validator catches it in CI
-    }
-  }
-  return out;
-}
-
-function loadJsonlDir<T>(sub: string): T[] {
-  const dir = join(ROOT, sub);
-  if (!existsSync(dir)) return [];
-  const out: T[] = [];
-  for (const f of readdirSync(dir).filter((f) => f.endsWith('.jsonl'))) {
-    for (const line of readFileSync(join(dir, f), 'utf8').split('\n')) {
-      if (!line.trim()) continue;
-      try { out.push(JSON.parse(line) as T); } catch { /* validator owns malformed rows */ }
     }
   }
   return out;
@@ -166,8 +151,6 @@ export function loadRegistry(force = false): RegistryIndex {
   const orgs = loadYamlDir<Org>('orgs').sort((a, b) => a.name.localeCompare(b.name));
   const programs = loadYamlDir<Program>('programs').sort((a, b) => a.name.localeCompare(b.name));
   const awards = loadAwards();
-  const fundingEvents = loadJsonlDir<FundingEvent>('funding-events');
-  const processMetrics = loadJsonlDir<ProcessMetric>('process-metrics');
 
   const orgIds = new Set(orgs.map((o) => o.id));
 
@@ -224,8 +207,6 @@ export function loadRegistry(force = false): RegistryIndex {
     orgs,
     programs,
     awards,
-    fundingEvents,
-    processMetrics,
     grantees,
     orgStats,
     bySystem,
@@ -237,8 +218,6 @@ export function loadRegistry(force = false): RegistryIndex {
       funders: orgs.filter((o) => o.roles?.includes('funder')).length,
       programs: programs.length,
       awards: awards.length,
-      funding_events: fundingEvents.length,
-      process_metrics: processMetrics.length,
       grantees: grantees.length,
     },
   };

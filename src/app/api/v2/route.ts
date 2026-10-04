@@ -1,1 +1,0 @@
-import { apiJson } from '@/lib/public-api'; import { v2Index } from '@/lib/public-api-v2'; export const runtime='nodejs'; export const dynamic='force-dynamic'; export function OPTIONS(){return apiJson(null)} export function GET(){return apiJson(v2Index())}

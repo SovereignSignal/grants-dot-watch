@@ -1,1 +1,0 @@
-import { apiJson } from '@/lib/public-api'; import { filterFundingEvents } from '@/lib/public-api-v2'; export const runtime='nodejs'; export const dynamic='force-dynamic'; export function GET(req:Request){return apiJson({data:filterFundingEvents(new URL(req.url).searchParams)})}

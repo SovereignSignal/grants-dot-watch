@@ -1,1 +1,0 @@
-import { apiJson } from '@/lib/public-api'; import { filterProcessMetrics } from '@/lib/public-api-v2'; export const runtime='nodejs'; export const dynamic='force-dynamic'; export function GET(req:Request){return apiJson({data:filterProcessMetrics(new URL(req.url).searchParams)})}
