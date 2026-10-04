@@ -59,6 +59,12 @@ interface WireRow {
   quality_score: number | null;
   enriched_summary: string | null;
   classification: string | null;
+  // `wire_area` is being added upstream and may be absent. Read through
+  // to_jsonb so a missing column stays null instead of failing the query.
+  // 3 (or null) is the only area grants.watch accepts: an open funding program.
+  wire_area: string | number | null;
+  // relationship_signal lives on operator_route / metadata, not classification.
+  operator_route: string | null;
   org_id: number | null;
   tags: string[] | null;
   // Selected via to_char(... 'US') as a full-microsecond-precision string, NOT the raw
@@ -92,7 +98,13 @@ const WIRE_SELECT = `
          se.wire, se.status, se.quality_score, se.enriched_summary, se.classification,
          se.org_id, se.tags, se.source_published_at,
          to_char(se.created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS created_at,
-         op.name AS org_name, op.website AS org_website, op.aliases AS org_aliases
+         op.name AS org_name, op.website AS org_website, op.aliases AS org_aliases,
+         COALESCE(to_jsonb(se)->>'wire_area', to_jsonb(se)->'metadata'->>'wire_area') AS wire_area,
+         COALESCE(
+           to_jsonb(se)->>'operator_route',
+           to_jsonb(se)->'metadata'->>'operator_route',
+           to_jsonb(se)->'metadata'->'curator'->>'route'
+         ) AS operator_route
   FROM scan_entries se
   LEFT JOIN org_profiles op ON op.id = se.org_id
 `;
@@ -334,20 +346,100 @@ function policyToken(value: string | null | undefined): string {
 const APPLICANT_SIGNAL_TOKENS = new Set(['applicant', 'applicant_observation', 'application', 'grant_application', 'proposal']);
 const CLOSED_SIGNAL_TOKENS = new Set(['closed', 'completed', 'ended', 'expired']);
 
+// discuss.watch kind enum. Only an open call belongs on grants.watch.
+// program_launch / rfp are the open-program kinds. ROLE (paid work, seats,
+// fellowships) is a separate lane and is never ingested.
+const OPEN_PROGRAM_KINDS = new Set(['program_launch', 'rfp', 'open_call', 'open_program']);
+const ROLE_KINDS = new Set([
+  'role', 'full_time', 'part_time', 'contract', 'fractional', 'consulting', 'internship',
+  'fellowship', 'residency', 'bounty', 'council_seat', 'steward', 'working_group',
+  'election', 'delegate_incentive', 'service_provider',
+]);
+
+// Title/summary tokens that are not open grant programs (owner reject reasons,
+// 2026-09-30, plus award/result slates that now belong on the wire).
+const REJECT_TOKENS: ReadonlyArray<{ token: string; pattern: RegExp }> = [
+  { token: 'hackathon', pattern: /\bhackathons?\b/i },
+  { token: 'buildathon', pattern: /\bbuildathons?\b/i },
+  { token: 'prize', pattern: /\bprizes?\b/i },
+  { token: 'fellowship', pattern: /\bfellowships?\b/i },
+  { token: 'residency', pattern: /\bresidenc(?:y|ies)\b/i },
+  { token: 'results', pattern: /\bresults\b/i },
+  { token: 'awarded', pattern: /\bawarded\b/i },
+  { token: 'recipients', pattern: /\brecipients?\b/i },
+];
+
 function applicantSignalReason(classification?: string | null, kind?: string | null, tags: string[] = []): string | null {
   const tokens = [classification, kind, ...tags].map(policyToken).filter(Boolean);
   const matched = tokens.find((token) => APPLICANT_SIGNAL_TOKENS.has(token));
   return matched ? `applicant signal (${matched})` : null;
 }
 
+function rejectTokenReason(...parts: Array<string | null | undefined>): string | null {
+  const text = parts.filter(Boolean).join('\n');
+  if (!text) return null;
+  const matched = REJECT_TOKENS.find(({ pattern }) => pattern.test(text));
+  return matched ? `reject token (${matched.token})` : null;
+}
+
+/** Area 3 is an open funding opportunity. A missing area stays eligible
+ *  until upstream starts sending the column. Any other present value
+ *  (including award/result area 2) is a wire item, not a registry program. */
+export function wireAreaAllowsRegistry(value: unknown): boolean {
+  if (value == null) return true;
+  if (typeof value === 'number') return value === 3;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed || trimmed.toLowerCase() === 'null') return true;
+    return trimmed === '3';
+  }
+  return false;
+}
+
+/** Grants.watch accepts an open grant program: classification GRANT, wire
+ *  area 3 or not yet set, and no award/hackathon/fellowship token in the
+ *  title or summary. NEWS, relationship_signal, and every other class drop. */
+export function wirePolicyExclusionReason(row: {
+  classification?: string | null;
+  operator_route?: string | null;
+  wire_area?: unknown;
+  name?: string | null;
+  description?: string | null;
+  enriched_summary?: string | null;
+  tags?: string[] | null;
+}): string | null {
+  const applicantReason = applicantSignalReason(row.classification, null, row.tags || []);
+  if (applicantReason) return applicantReason;
+  const classification = policyToken(row.classification);
+  const route = policyToken(row.operator_route);
+  const tagHit = (row.tags || []).map(policyToken).find((token) => token === 'relationship_signal');
+  if (classification === 'relationship_signal' || route === 'relationship_signal' || tagHit) {
+    return 'relationship signal';
+  }
+  if (classification !== 'grant') return `classification ${classification || 'missing'}`;
+  if (!wireAreaAllowsRegistry(row.wire_area)) return `wire_area ${String(row.wire_area).trim()}`;
+  return rejectTokenReason(row.name, row.enriched_summary, row.description);
+}
+
 /** Applicant submissions are private observations, not evidence that a
  *  funder program should be created or changed. Closed records are historical
- *  observations and cannot establish a current opportunity. */
+ *  observations and cannot establish a current opportunity. discuss.watch
+ *  items must be an open-program kind; ROLE is never a registry program. */
 export function discussPolicyExclusionReason(item: DiscussItem): string | null {
+  const classification = policyToken(item.classification);
+  const kind = policyToken(item.kind);
+  if (classification === 'role' || ROLE_KINDS.has(kind)) {
+    return `role signal (${classification === 'role' ? 'ROLE' : kind})`;
+  }
   const applicantReason = applicantSignalReason(item.classification, item.kind);
   if (applicantReason) return applicantReason;
+  if (!OPEN_PROGRAM_KINDS.has(kind)) return `not an open program (${kind || 'missing kind'})`;
   const status = policyToken(item.status);
-  return CLOSED_SIGNAL_TOKENS.has(status) ? `non-current status (${status})` : null;
+  if (CLOSED_SIGNAL_TOKENS.has(status)) return `non-current status (${status})`;
+  const tokenReason = rejectTokenReason(item.title, item.name, item.excerpt);
+  if (tokenReason) return tokenReason;
+  if (classification && classification !== 'grant') return `classification ${classification}`;
+  return null;
 }
 
 /** Paginates GET .../grants via its cursor (id-descending pages; nextCursor
@@ -819,8 +911,8 @@ export function decide(input: {
 }
 
 export function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
-  const applicantReason = applicantSignalReason(row.classification, null, row.tags || []);
-  if (applicantReason) return policyDropped(applicantReason);
+  const policyReason = wirePolicyExclusionReason(row);
+  if (policyReason) return policyDropped(policyReason);
   const wire = normalizeWire(row.wire);
   const evidenceUrl = row.source_url;
   if (!evidenceUrl) return NO_OUTCOME;

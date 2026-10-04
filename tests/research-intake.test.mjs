@@ -20,6 +20,23 @@ test('revisions ignore re-observation time but preserve edited older evidence',(
  assert.equal(findingRevision(finding),findingRevision({...finding,observed_at:'2026-09-19T12:00:00Z'}));
  assert.notEqual(findingRevision(finding),findingRevision({...finding,summary:'The same page now closes applications.'}));
 });
+test('AWARD and NEWS are excluded for the registry and other labels stay reviewable',()=>{
+ const classify=(label)=>({...finding,classification:{label,confidence:0.8,model:'jev'}});
+ for (const label of ['AWARD','NEWS']) {
+  const report=prepareResearch(parseResearchPacket(packet([classify(label)])),[program],{fund:hash});
+  assert.equal(report.outcomes[0].state,'excluded');
+  assert.equal(report.outcomes[0].reason,'exclude-for-registry');
+  assert.equal(report.proposals.length,0);
+ }
+ const opportunity=prepareResearch(parseResearchPacket(packet([classify('OPPORTUNITY')])),[program],{fund:hash});
+ assert.equal(opportunity.outcomes[0].state,'queued');
+ assert.equal(opportunity.proposals.length,1);
+ for (const label of ['UPDATE','APPLICANT','NOISE']) {
+  const pending=prepareResearch(parseResearchPacket(packet([{...classify(label),changes:undefined,expected_hash:undefined,program_id:undefined}])),[],{});
+  assert.equal(pending.outcomes[0].state,'pending_review');
+  assert.equal(pending.proposals.length,0);
+ }
+});
 test('intake rejects ambiguous identity, malformed evidence and unsupported mutations',()=>{
  assert.throws(()=>parseResearchPacket(packet([finding,finding])),/unique/);
  assert.throws(()=>parseResearchPacket(packet([{...finding,source_url:'javascript:alert(1)'}])),/evidence/);

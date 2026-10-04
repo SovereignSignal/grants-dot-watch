@@ -150,6 +150,9 @@ test('confidence remains unknown when absent and rejects out-of-range values', (
       url: 'https://forum.example.net/topic/41',
       applyUrl: 'https://example.org/apply',
       wire: 'oss',
+      classification: 'GRANT',
+      kind: 'program_launch',
+      status: 'open',
     },
     ctx
   );
@@ -194,6 +197,9 @@ test('canonical org name beats a colliding domain', () => {
       url: 'https://forum.example/topic/45',
       applyUrl: 'https://shared.example/apply',
       wire: 'oss',
+      classification: 'GRANT',
+      kind: 'program_launch',
+      status: 'open',
     },
     context([alpha, beta])
   );
@@ -225,6 +231,9 @@ test('a shared-domain-only collision is dropped instead of creating or selecting
       url: 'https://forum.example/topic/46',
       applyUrl: 'https://shared.example/apply',
       wire: 'oss',
+      classification: 'GRANT',
+      kind: 'program_launch',
+      status: 'open',
     },
     context([alpha, beta])
   );
@@ -258,6 +267,9 @@ test('program matching accepts one exact result and drops ambiguous loose matche
       url: 'https://forum.example/topic/47',
       deadline: '2026-10-15',
       wire: 'oss',
+      classification: 'GRANT',
+      kind: 'program_launch',
+      status: 'open',
     },
     ctx
   );
@@ -273,6 +285,9 @@ test('program matching accepts one exact result and drops ambiguous loose matche
       url: 'https://forum.example/topic/48',
       deadline: '2026-10-15',
       wire: 'oss',
+      classification: 'GRANT',
+      kind: 'program_launch',
+      status: 'open',
     },
     ctx
   );
@@ -303,7 +318,8 @@ test('applicant and closed signals are policy-filtered before proposal mapping',
       url: 'https://forum.example/topic/51',
       title: 'Historical grant round',
       protocol: 'Example DAO',
-      kind: 'opportunity',
+      classification: 'GRANT',
+      kind: 'program_launch',
       status: 'closed',
     },
     emptyCtx
@@ -339,6 +355,160 @@ test('applicant and closed signals are policy-filtered before proposal mapping',
   assert.match(wireApplicant.dropReason, /applicant signal/);
 });
 
+function grantWireRow(patch = {}) {
+  return {
+    id: 80,
+    name: 'Example Open Grants',
+    description: 'Applications are open for independent research.',
+    source_url: 'https://example.org/grants/open',
+    amount: null,
+    deadline: null,
+    deadline_iso: null,
+    wire: 'oss',
+    status: 'approved',
+    quality_score: 80,
+    enriched_summary: 'A funder-run grant program is accepting applications.',
+    classification: 'GRANT',
+    org_id: 1,
+    tags: [],
+    created_at: '2026-10-04T00:00:00.000000Z',
+    source_published_at: null,
+    org_name: 'Example Foundation',
+    org_website: 'https://example.org',
+    org_aliases: null,
+    wire_area: 3,
+    operator_route: 'publish',
+    ...patch,
+  };
+}
+
+test('an open GRANT program is accepted from the wire and from discuss.watch', () => {
+  const ctx = context([ORG], []);
+  const wire = mapWireRow(grantWireRow(), ctx);
+  assert.equal(wire.dropped, false);
+  assert.equal(wire.candidate.type, 'new_program');
+  assert.equal(wire.candidate.org, ORG.id);
+
+  const asText = mapWireRow(grantWireRow({ id: 81, wire_area: '3' }), ctx);
+  assert.equal(asText.candidate.type, 'new_program');
+
+  const discuss = mapDiscussItem(
+    {
+      id: 82,
+      title: 'Example Open Grants',
+      program: 'Example Open Grants',
+      protocol: ORG.name,
+      url: 'https://forum.example/topic/82',
+      wire: 'oss',
+      classification: 'GRANT',
+      kind: 'rfp',
+      status: 'open',
+    },
+    ctx
+  );
+  assert.equal(discuss.dropped, false);
+  assert.equal(discuss.candidate.type, 'new_program');
+  assert.equal(discuss.candidate.org, ORG.id);
+});
+
+test('wire_area missing or null still accepts a GRANT', () => {
+  const ctx = context([ORG], []);
+  const omitted = mapWireRow(grantWireRow({ id: 83, wire_area: undefined }), ctx);
+  assert.equal(omitted.candidate.type, 'new_program');
+  const absent = mapWireRow(grantWireRow({ id: 84, wire_area: null }), ctx);
+  assert.equal(absent.candidate.type, 'new_program');
+});
+
+test('NEWS, awards, hackathons, fellowships, and wire area 2 are rejected', () => {
+  const ctx = context([ORG], []);
+  const cases = [
+    [grantWireRow({ id: 90, classification: 'NEWS' }), /classification news/],
+    [grantWireRow({ id: 91, classification: 'AWARD', name: 'Round award slate' }), /classification award/],
+    [grantWireRow({ id: 92, name: 'Cohort awarded', enriched_summary: 'The funder awarded the cohort.' }), /reject token \(awarded\)/],
+    [grantWireRow({ id: 93, name: 'Rapid Agent Hackathon' }), /reject token \(hackathon\)/],
+    [grantWireRow({ id: 94, enriched_summary: 'This is a research fellowship, not a grant call.' }), /reject token \(fellowship\)/],
+    [grantWireRow({ id: 95, wire_area: 2 }), /wire_area 2/],
+    [grantWireRow({ id: 96, wire_area: '2' }), /wire_area 2/],
+    [grantWireRow({ id: 97, classification: 'GRANT', operator_route: 'relationship_signal' }), /relationship signal/],
+    [grantWireRow({ id: 101, name: 'Agent Buildathon' }), /reject token \(buildathon\)/],
+    [grantWireRow({ id: 102, name: 'Community prize' }), /reject token \(prize\)/],
+    [grantWireRow({ id: 103, name: 'Studio residency' }), /reject token \(residency\)/],
+    [grantWireRow({ id: 104, name: 'Round results' }), /reject token \(results\)/],
+    [grantWireRow({ id: 105, name: 'Grant recipients' }), /reject token \(recipients\)/],
+  ];
+  for (const [row, reason] of cases) {
+    const outcome = mapWireRow(row, ctx);
+    assert.equal(outcome.candidate, null);
+    assert.equal(outcome.dropped, true);
+    assert.match(outcome.dropReason, reason);
+  }
+});
+
+test('discuss.watch never ingests ROLE and requires an open-program kind', () => {
+  const ctx = context([ORG], []);
+  const role = mapDiscussItem(
+    {
+      id: 98,
+      title: 'Council steward seat',
+      program: 'Council steward seat',
+      protocol: ORG.name,
+      url: 'https://forum.example/topic/98',
+      wire: 'oss',
+      classification: 'ROLE',
+      kind: 'program_launch',
+      status: 'open',
+    },
+    ctx
+  );
+  assert.equal(role.candidate, null);
+  assert.match(role.dropReason, /role signal \(ROLE\)/);
+
+  const roleKind = mapDiscussItem(
+    {
+      id: 99,
+      title: 'Paid council seat',
+      protocol: ORG.name,
+      url: 'https://forum.example/topic/99',
+      classification: 'GRANT',
+      kind: 'council_seat',
+      status: 'open',
+    },
+    ctx
+  );
+  assert.equal(roleKind.candidate, null);
+  assert.match(roleKind.dropReason, /role signal \(council_seat\)/);
+
+  const report = mapDiscussItem(
+    {
+      id: 100,
+      title: 'Milestone report',
+      protocol: ORG.name,
+      url: 'https://forum.example/topic/100',
+      classification: 'GRANT',
+      kind: 'milestone_report',
+      status: 'open',
+    },
+    ctx
+  );
+  assert.equal(report.candidate, null);
+  assert.match(report.dropReason, /not an open program \(milestone_report\)/);
+
+  const news = mapDiscussItem(
+    {
+      id: 106,
+      title: 'Funder blog update',
+      protocol: ORG.name,
+      url: 'https://forum.example/topic/106',
+      classification: 'NEWS',
+      kind: 'program_launch',
+      status: 'open',
+    },
+    ctx
+  );
+  assert.equal(news.candidate, null);
+  assert.match(news.dropReason, /classification news/);
+});
+
 test('a capped discuss.watch window persists its cursor and advances only after exhaustion', async (t) => {
   const originalFetch = globalThis.fetch;
   const requests = [];
@@ -371,6 +541,9 @@ test('a capped discuss.watch window persists its cursor and advances only after 
             id: 30,
             url: 'https://forum.example/topic/30',
             title: 'Valid grant',
+            classification: 'GRANT',
+            kind: 'program_launch',
+            status: 'open',
             firstSeenAt: '2026-07-20T11:00:00Z',
           },
         ],
@@ -384,6 +557,9 @@ test('a capped discuss.watch window persists its cursor and advances only after 
           id: 20,
           url: 'https://forum.example/topic/20',
           title: 'Older valid grant',
+          classification: 'GRANT',
+          kind: 'program_launch',
+          status: 'open',
           firstSeenAt: '2026-07-15T08:00:00Z',
         },
       ],
