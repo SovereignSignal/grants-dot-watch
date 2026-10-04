@@ -1,0 +1,1 @@
+import { apiJson } from '@/lib/public-api'; import { actionableOpportunities } from '@/lib/public-api-v2'; export const runtime='nodejs'; export const dynamic='force-dynamic'; export function GET(){return apiJson({data:actionableOpportunities()})}
