@@ -37,7 +37,10 @@ test('source evidence value tampering fails the canonical validator',()=>{
 test('unsupported private metadata is rejected and absent from projection',()=>{
  const row=allRecords(compile()).find(r=>r.event_type);row.provenance.private_notes='PRIVATE_PAYLOAD';
  const data=readControlledFunding(ROOT).dataset;data['funding-events'].push(row);
- assert.ok(validateFundingDataset(data,baseline(),calendarDate()).some(e=>e.includes('unsupported')));
+ const errors=validateFundingDataset(data,baseline(),calendarDate());
+ assert.ok(errors.length>0);
+ assert.ok(!errors.join(' ').includes('PRIVATE_PAYLOAD'));
+ assert.throws(()=>buildFundingCollections(baseline(),data),/invalid/);
  assert.ok(!JSON.stringify(projectRecord(FUNDING_SCHEMAS['funding-events'],row)).includes('PRIVATE_PAYLOAD'));
 });
 test('process exclusions point to the scope statement rather than numerical rows',()=>{
