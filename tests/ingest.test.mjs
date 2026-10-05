@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  DISCUSS_THREAD_MAX_AGE_DAYS,
   buildIngestOrgIndex,
   decide,
   fetchDiscussItems,
@@ -525,6 +526,168 @@ test('discuss.watch never ingests ROLE and requires an open-program kind', () =>
   );
   assert.equal(news.candidate, null);
   assert.match(news.dropReason, /classification news/);
+});
+
+function openDiscussGrant(patch = {}) {
+  return {
+    id: 820,
+    title: 'Example Open Grants',
+    program: 'Example Open Grants',
+    protocol: ORG.name,
+    url: 'https://forum.example/topic/820',
+    wire: 'oss',
+    classification: 'GRANT',
+    kind: 'rfp',
+    status: 'open',
+    ...patch,
+  };
+}
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const OLD_THREAD = new Date(Date.now() - (DISCUSS_THREAD_MAX_AGE_DAYS + 1) * DAY_MS).toISOString();
+const RECENT_THREAD = new Date(Date.now() - DAY_MS).toISOString();
+
+test('an old discuss thread with no deadline is dropped', () => {
+  assert.equal(DISCUSS_THREAD_MAX_AGE_DAYS, 90);
+  const ctx = context([ORG], []);
+  const outcome = mapDiscussItem(openDiscussGrant({ id: 821, topicCreatedAt: OLD_THREAD }), ctx);
+  assert.equal(outcome.candidate, null);
+  assert.equal(outcome.dropped, true);
+  assert.equal(outcome.dropReason, 'thread older than 90 days');
+
+  const created = mapDiscussItem(openDiscussGrant({ id: 822, topicCreatedAt: null, createdAt: OLD_THREAD }), ctx);
+  assert.equal(created.dropReason, 'thread older than 90 days');
+  const published = mapDiscussItem(openDiscussGrant({ id: 823, topicCreatedAt: null, publishedAt: '2024-11-13T16:56:15.559Z' }), ctx);
+  assert.equal(published.dropReason, 'thread older than 90 days');
+});
+
+test('an old discuss thread with a future deadline is kept', () => {
+  const outcome = mapDiscussItem(
+    openDiscussGrant({ id: 824, topicCreatedAt: '2024-11-13T16:56:15.559Z', deadline: '2099-06-01T00:00:00.000Z' }),
+    context([ORG], [])
+  );
+  assert.equal(outcome.dropped, false);
+  assert.equal(outcome.candidate.type, 'new_program');
+  assert.equal(outcome.candidate.org, ORG.id);
+});
+
+test('a recent discuss thread is kept', () => {
+  const outcome = mapDiscussItem(
+    openDiscussGrant({ id: 825, topicCreatedAt: RECENT_THREAD }),
+    context([ORG], [])
+  );
+  assert.equal(outcome.dropped, false);
+  assert.equal(outcome.candidate.type, 'new_program');
+});
+
+test('an old discuss thread with a past deadline is dropped', () => {
+  const outcome = mapDiscussItem(
+    openDiscussGrant({ id: 826, topicCreatedAt: OLD_THREAD, deadline: '2020-01-15T00:00:00.000Z' }),
+    context([ORG], [])
+  );
+  assert.equal(outcome.candidate, null);
+  assert.equal(outcome.dropped, true);
+  assert.equal(outcome.dropReason, 'thread older than 90 days');
+});
+
+test('a discuss item with no thread date is kept', () => {
+  const outcome = mapDiscussItem(
+    openDiscussGrant({ id: 827, firstSeenAt: '2024-01-01T00:00:00.000Z' }),
+    context([ORG], [])
+  );
+  assert.equal(outcome.dropped, false);
+  assert.equal(outcome.candidate.type, 'new_program');
+});
+
+test('an old discuss thread still fails the open-program gate for its original reason', () => {
+  const hackathon = mapDiscussItem(
+    openDiscussGrant({ id: 828, title: 'Rapid Agent Hackathon', topicCreatedAt: OLD_THREAD }),
+    context([ORG], [])
+  );
+  assert.match(hackathon.dropReason, /reject token \(hackathon\)/);
+});
+
+test('fetchDiscussItems applies the thread-age limit without replacing the open-program gate', async (t) => {
+  const originalFetch = globalThis.fetch;
+  t.after(() => {
+    globalThis.fetch = originalFetch;
+  });
+  const seenNow = new Date().toISOString();
+  globalThis.fetch = async () => Response.json({
+    items: [
+      {
+        id: 5,
+        url: 'https://forum.example/topic/5',
+        title: 'Old grant, no deadline',
+        classification: 'GRANT',
+        kind: 'rfp',
+        status: 'open',
+        topicCreatedAt: OLD_THREAD,
+        firstSeenAt: seenNow,
+      },
+      {
+        id: 4,
+        url: 'https://forum.example/topic/4',
+        title: 'Old grant, future deadline',
+        classification: 'GRANT',
+        kind: 'program_launch',
+        status: 'open',
+        topicCreatedAt: '2024-11-13T16:56:15.559Z',
+        deadline: '2099-06-01T00:00:00.000Z',
+        firstSeenAt: seenNow,
+      },
+      {
+        id: 3,
+        url: 'https://forum.example/topic/3',
+        title: 'Recent grant',
+        classification: 'GRANT',
+        kind: 'rfp',
+        status: 'open',
+        topicCreatedAt: RECENT_THREAD,
+        firstSeenAt: seenNow,
+      },
+      {
+        id: 2,
+        url: 'https://forum.example/topic/2',
+        title: 'Old grant, past deadline',
+        classification: 'GRANT',
+        kind: 'rfp',
+        status: 'open',
+        topicCreatedAt: OLD_THREAD,
+        deadline: '2020-01-15T00:00:00.000Z',
+        firstSeenAt: seenNow,
+      },
+      {
+        id: 1,
+        url: 'https://forum.example/topic/1',
+        title: 'Dateless grant',
+        classification: 'GRANT',
+        kind: 'open_call',
+        status: 'open',
+        firstSeenAt: '2024-01-01T00:00:00.000Z',
+      },
+      {
+        id: 6,
+        url: 'https://forum.example/topic/6',
+        title: 'Old council seat',
+        classification: 'ROLE',
+        kind: 'council_seat',
+        status: 'open',
+        topicCreatedAt: OLD_THREAD,
+        firstSeenAt: seenNow,
+      },
+    ],
+    meta: { nextCursor: null },
+  });
+
+  const result = await fetchDiscussItems({ backfill: true, since: null, maxPages: 1 });
+  assert.equal(result.error, null);
+  assert.deepEqual(result.items.map((item) => item.id), [4, 3, 1]);
+  assert.equal(result.policyFilteredCount, 3);
+  assert.deepEqual(result.policyReasons, {
+    'thread older than 90 days': 2,
+    'role signal (ROLE)': 1,
+  });
 });
 
 test('a capped discuss.watch window persists its cursor and advances only after exhaustion', async (t) => {

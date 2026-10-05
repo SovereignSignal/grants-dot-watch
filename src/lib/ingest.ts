@@ -39,6 +39,9 @@ const WIRE_BACKFILL_LIMIT = 10_000;
 const DISCUSS_PAGE_LIMIT = 100;
 const DISCUSS_MAX_PAGES_INCREMENTAL = 20; // 2,000 items/run safety cap
 const DISCUSS_MAX_PAGES_BACKFILL = 100; // 10,000 items safety cap for "from its beginning"
+/** Forum threads older than this are historical unless a deadline is still ahead. */
+export const DISCUSS_THREAD_MAX_AGE_DAYS = 90;
+const DISCUSS_THREAD_MAX_AGE_MS = DISCUSS_THREAD_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -457,6 +460,53 @@ export function discussPolicyExclusionReason(item: DiscussItem): string | null {
   return null;
 }
 
+// The forum thread's own created/published time. firstSeenAt is when
+// discuss.watch stored the row, so a 2024 topic first seen in October 2026
+// is still a 2024 thread. topicCreatedAt is the feed's thread date; the
+// created/published names cover the same fact when a payload uses them.
+const DISCUSS_THREAD_DATE_FIELDS = [
+  'topicCreatedAt',
+  'createdAt',
+  'created_at',
+  'created',
+  'publishedAt',
+  'published_at',
+  'published',
+] as const;
+
+function discussThreadCreatedMs(item: DiscussItem): number | null {
+  const record = item as DiscussItem & Record<string, unknown>;
+  for (const field of DISCUSS_THREAD_DATE_FIELDS) {
+    const iso = asIsoTimestamp(record[field]);
+    if (iso) return Date.parse(iso);
+  }
+  return null;
+}
+
+/** A deadline counts only when isoDateOnly accepts it, and only while that
+ *  calendar date is still after the product's today. */
+function discussDeadlineStillFuture(deadline: string | null | undefined, now: Date): boolean {
+  const date = isoDateOnly(deadline);
+  return date !== null && date > productDateISO(now);
+}
+
+/** Skip a discuss item whose thread date is older than DISCUSS_THREAD_MAX_AGE_DAYS,
+ *  unless its deadline is still in the future. With no thread/created/published
+ *  date, the item is left to the open-program gate. */
+export function discussThreadAgeExclusionReason(item: DiscussItem, now: Date = new Date()): string | null {
+  const createdMs = discussThreadCreatedMs(item);
+  if (createdMs === null) return null;
+  if (now.getTime() - createdMs <= DISCUSS_THREAD_MAX_AGE_MS) return null;
+  if (discussDeadlineStillFuture(item.deadline, now)) return null;
+  return `thread older than ${DISCUSS_THREAD_MAX_AGE_DAYS} days`;
+}
+
+/** Open-program gate first. Age runs only after that gate passes, so an old
+ *  role, reject-token, or non-grant row keeps the gate's existing reason. */
+function discussCandidateExclusionReason(item: DiscussItem): string | null {
+  return discussPolicyExclusionReason(item) ?? discussThreadAgeExclusionReason(item);
+}
+
 /** Paginates GET .../grants via its cursor (id-descending pages; nextCursor
  *  null means exhausted). Non-backfill passes `since` (a full ISO timestamp
  *  — confirmed live against the feed to filter correctly); backfill omits it
@@ -525,7 +575,7 @@ export async function fetchDiscussItems(opts: {
         maxSeen = laterDiscussBoundary(maxSeen, rawDiscussBoundary(raw));
         const parsed = parseDiscussItem(raw);
         if (parsed.item) {
-          const policyReason = discussPolicyExclusionReason(parsed.item);
+          const policyReason = discussCandidateExclusionReason(parsed.item);
           if (policyReason) {
             policyFilteredCount++;
             policyReasons[policyReason] = (policyReasons[policyReason] || 0) + 1;
@@ -968,7 +1018,7 @@ export function mapWireRow(row: WireRow, ctx: MapContext): MapOutcome {
 }
 
 export function mapDiscussItem(item: DiscussItem, ctx: MapContext): MapOutcome {
-  const policyReason = discussPolicyExclusionReason(item);
+  const policyReason = discussCandidateExclusionReason(item);
   if (policyReason) return policyDropped(policyReason);
   const wire = normalizeWire(item.wire);
   const evidenceUrl = item.url;

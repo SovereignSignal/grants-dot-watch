@@ -6,15 +6,25 @@ on:
       - 'scripts/funding-closeout/**'
       - 'tests/funding-closeout*'
   workflow_dispatch:
+    inputs:
+      expected_commit:
+        description: Optional exact deployed commit SHA
+        required: false
+        type: string
+      require_control:
+        description: Require the approved snapshot header after closeout deployment
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: read
 concurrency:
   group: funding-closeout-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  review-source:
+  public-read-receipt:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
         with:
@@ -22,18 +32,19 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - name: Archive tracked source and selected JavaScript test dependencies
+      - name: Verify the public product without credentials or writes
+        env:
+          EXPECTED_COMMIT: ${{ inputs.expected_commit }}
+          REQUIRE_CONTROL: ${{ inputs.require_control }}
         shell: bash
         run: |
-          git archive --format=tar --output="$RUNNER_TEMP/funding-review-source.tar" HEAD
-          for name in yaml pg pg-pool pg-protocol pg-connection-string pg-types pg-int8 pgpass postgres-array postgres-bytea postgres-date postgres-interval split2 xtend react react-dom scheduler typescript; do
-            test ! -d "node_modules/$name" || tar --append --file="$RUNNER_TEMP/funding-review-source.tar" "node_modules/$name"
-          done
+          args=(--fetch --out "$RUNNER_TEMP/funding-live-verification")
+          test -z "$EXPECTED_COMMIT" || args+=(--expected-commit "$EXPECTED_COMMIT")
+          test "$REQUIRE_CONTROL" != true || args+=(--require-control)
+          node scripts/funding-closeout/live-read.mjs "${args[@]}"
       - uses: actions/upload-artifact@v4
         with:
-          name: funding-review-source
-          path: ${{ runner.temp }}/funding-review-source.tar
+          name: funding-live-verification
+          path: ${{ runner.temp }}/funding-live-verification
           retention-days: 1
           if-no-files-found: error
