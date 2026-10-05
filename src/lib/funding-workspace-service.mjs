@@ -12,7 +12,7 @@ async function bodyOf(request){
 }
 /**
  * @param {Request} request
- * @param {{authorize:(request:Request)=>Promise<boolean>,enabled:boolean,publicEnabled:boolean,load:()=>{baseline:unknown,dataset:unknown},retained:()=>unknown[],capture:(source:string,fund:number,revision:string|null)=>Promise<{bundle:{snapshots:unknown[]},receipt:unknown}>,pending:()=>Promise<unknown[]>,now?:()=>Date}} deps
+ * @param {{authorize:(request:Request)=>Promise<boolean>,enabled:boolean,publicEnabled:boolean,load:()=>({baseline:unknown,dataset:unknown}|Promise<{baseline:unknown,dataset:unknown}>),retained:()=>unknown[],capture:(source:string,fund:number,revision:string|null)=>Promise<{bundle:{snapshots:unknown[]},receipt:unknown}>,pending:()=>Promise<unknown[]>,now?:()=>Date}} deps
  */
 export async function handleFundingWorkspace(request,deps){
  if(!await deps.authorize(request))return json({error:'unauthorized'},401);
@@ -21,7 +21,7 @@ export async function handleFundingWorkspace(request,deps){
  const now=(deps.now||(()=>new Date()))(),today=calendarDate(now);
  if(request.method==='GET'){
   try{
-   const {baseline,dataset}=deps.load(),product=buildFundingProduct(baseline,dataset,now),pending=await deps.pending();
+   const {baseline,dataset}=await deps.load(),product=buildFundingProduct(baseline,dataset,now),pending=await deps.pending();
    return json({features:{public_read:deps.publicEnabled,owner_write:deps.enabled},counts:Object.fromEntries(Object.entries(product.collections).map(([k,v])=>[k,v.length])),snapshot:product.snapshot,coverage:product.collections.coverage,sources:Object.entries(SOURCE_CATALOG).map(([id,s])=>({id,url:s.url,program:s.program,issuer:s.issuer,native_refresh:['microsoft-foss','numfocus-sdg','royal-society-research','royal-society-urf'].includes(id)})),pending,scope:'Current registry and accepted funding data. Coverage gaps are not assertions that funding does not exist.'});
   }catch{return json({error:'workspace_unavailable'},503);}
  }
@@ -44,7 +44,7 @@ export async function handleFundingWorkspace(request,deps){
   for(const s of snapshots)validateSourceSnapshot(s,today);
  }catch(error){return json({error:body.action==='refresh'?'source_capture_failed':'invalid_source_bundle',message:'No data was approved or published. Inspect the source or uploaded representation.',retryable:error.message==='source_capture_busy'},body.action==='refresh'?502:400);}
  try{
-  const {baseline,dataset}=deps.load(),compiled=compileFundingSourcePackets(snapshots,baseline,dataset,today);
+  const {baseline,dataset}=await deps.load(),compiled=compileFundingSourcePackets(snapshots,baseline,dataset,today);
   return json({...compiled,capture_receipt:receipt,canonical_write:false,approval:false,source_requests:receipt?.requests??0});
  }catch{return json({error:'compilation_failed',canonical_write:false},409);}
 }

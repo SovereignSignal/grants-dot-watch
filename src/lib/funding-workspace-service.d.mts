@@ -3,7 +3,7 @@ export interface FundingWorkspaceDependencies {
   authorize: (request: Request) => Promise<boolean>;
   enabled: boolean;
   publicEnabled: boolean;
-  load: () => { baseline: unknown; dataset: unknown };
+  load: () => { baseline: unknown; dataset: unknown } | Promise<{ baseline: unknown; dataset: unknown }>;
   retained: () => unknown[];
   capture: (source: string, fund: number, revision: string | null) => Promise<{
     bundle: { snapshots: unknown[] };
@@ -13,8 +13,4 @@ export interface FundingWorkspaceDependencies {
   now?: () => Date;
 }
 
-/** Authentication precedes body reads, source requests and registry reads. */
-export function handleFundingWorkspace(
-  request: Request,
-  dependencies: FundingWorkspaceDependencies,
-): Promise<Response>;
+export function handleFundingWorkspace(request: Request, dependencies: FundingWorkspaceDependencies): Promise<Response>;

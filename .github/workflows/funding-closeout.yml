@@ -1,5 +1,4 @@
 name: Funding closeout verification
-
 on:
   pull_request:
     paths:
@@ -7,14 +6,11 @@ on:
       - 'scripts/funding-closeout/**'
       - 'tests/funding-closeout*'
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
   group: funding-closeout-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   review-source:
     runs-on: ubuntu-latest
@@ -28,11 +24,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Archive tracked source and only the JavaScript test dependencies
+      - name: Archive tracked source and selected JavaScript test dependencies
         shell: bash
         run: |
           git archive --format=tar --output="$RUNNER_TEMP/funding-review-source.tar" HEAD
-          for name in yaml pg pg-pool pg-protocol pg-connection-string pg-types pgpass postgres-array postgres-bytea postgres-date postgres-interval split2 xtend react react-dom scheduler typescript; do
+          for name in yaml pg pg-pool pg-protocol pg-connection-string pg-types pg-int8 pgpass postgres-array postgres-bytea postgres-date postgres-interval split2 xtend react react-dom scheduler typescript; do
             test ! -d "node_modules/$name" || tar --append --file="$RUNNER_TEMP/funding-review-source.tar" "node_modules/$name"
           done
       - uses: actions/upload-artifact@v4

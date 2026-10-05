@@ -35,7 +35,13 @@ jobs:
       - run: npm run check:public
       - run: npm run validate
       - name: Lint funding implementation and public product
-        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts src/app/api/desk/funding/workspace/route.ts src/app/funding/page.tsx src/app/data/page.tsx src/app/admin/funding/page.tsx src/components/funding/*.tsx scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs scripts/build-funding-source-packets.mjs scripts/capture-funding-source.mjs tests/funding-*.test.mjs tests/browser/funding-*.spec.ts --max-warnings=0
+        run: npx eslint src/lib/funding-*.mjs src/lib/public-api-v2.ts src/lib/committer.ts src/lib/desk-decide.ts 'src/app/api/v2/[[...path]]/route.ts' src/app/api/desk/funding/route.ts src/app/api/desk/funding/workspace/route.ts src/app/funding/page.tsx src/app/data/page.tsx src/app/admin/funding/page.tsx src/components/funding/*.tsx scripts/validate-registry-v2.mjs scripts/stage-funding-import.mjs scripts/build-funding-source-packets.mjs scripts/capture-funding-source.mjs tests/funding-*.test.mjs tests/browser/funding-*.spec.ts src/lib/funding-replica-sync.ts scripts/funding-closeout/*.mjs tests/fixtures/funding-replica-reader.mjs --max-warnings=0
+      - name: Install matching PostgreSQL backup clients
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client-16
+          echo "PG_DUMP_BIN=/usr/lib/postgresql/16/bin/pg_dump" >> "$GITHUB_ENV"
+          echo "PG_RESTORE_BIN=/usr/lib/postgresql/16/bin/pg_restore" >> "$GITHUB_ENV"
       - name: Unit and real PostgreSQL integration tests
         run: npm test
         env:

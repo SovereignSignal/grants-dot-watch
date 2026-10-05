@@ -15,7 +15,7 @@ const value = (p: Params, k: string) => typeof p[k] === 'string' ? p[k] as strin
 export default async function FundingPage({ searchParams }: { searchParams: Promise<Params> }) {
   const sp = await searchParams;
   let product;
-  try { product = loadPublicFundingProduct(); }
+  try { product = await loadPublicFundingProduct(); }
   catch { return <><PageHeader eyebrow="THE FUNDING REGISTER" title="Funding evidence"/><p role="alert" className="mx-auto max-w-6xl p-6">Funding evidence is temporarily unavailable. <Link href="/programs" className="evidence-link">Browse the existing registry</Link>.</p></>; }
   if (!product) return <><PageHeader eyebrow="THE FUNDING REGISTER" title="Funding evidence" sub="The funding-data release is not enabled on this instance."/><p className="mx-auto max-w-6xl p-6"><Link href="/programs" className="evidence-link">Browse programs</Link> · <Link href="/data" className="evidence-link">API documentation</Link></p></>;
   const kind = kinds.some(([key]) => key === value(sp,'kind')) ? value(sp,'kind') : 'funding-events';

@@ -28,7 +28,6 @@ function readControl(root){
  if(!plain(value)||Object.keys(value).sort().join(',')!=='dataset_sha256,previous_sha256,revision,version'||value.version!==1||!hex(value.dataset_sha256)||!hex(value.revision)||(value.previous_sha256!==null&&!hex(value.previous_sha256)))throw new Error('Invalid funding control');
  return {content,hash:digest(content),value};
 }
-/** Public reads and import previews both reject incomplete initial or later writes. */
 export function readControlledFunding(root){
  const control=readControl(root),dataset=readFundingLedgers(root);
  const deskShards=LEDGERS.some(k=>existsSync(join(root,k)) && readdirSync(join(root,k)).some(f=>/^desk-.*\.jsonl$/.test(f)));
@@ -44,7 +43,6 @@ function inspectPack(pack,baseline){
  if(!count||count>MAX_PACK_RECORDS||ids.size!==1)throw new Error('Submit 1 to 100 records for exactly one program');
  const program=baseline.programs.find(p=>p.id===[...ids][0]);if(!program)throw new Error('Funding program is not in the registry');return {program,count};
 }
-/** The reserved payload is carried in an existing owner-only Desk proposal class. */
 export function previewFundingProposal(root,baseline,pack,today){
  const {dataset,control}=readControlledFunding(root),{program,count}=inspectPack(pack,baseline);
  const plan=planFundingImport(baseline,dataset,pack,today);
@@ -101,8 +99,6 @@ export function buildFundingDeskChanges(root,baseline,proposal,today){
   if(existsSync(join(root,ledger,name)))throw new Error('Funding shard already exists; recheck canonical snapshot');
   changes.push({path:`registry/${ledger}/${name}`,op:'create',content:`${added.map(canonical).join('\n')}\n`});
  }
- // Advance the control first: other processes see a validation failure until
- // every shard of the logical change is present. Rollback/replay covers the row.
  if(changes.length)changes.unshift(controlChange(control,plan.dataset,digest(value)));
  return {changes,notes:[`v2 funding import: ${Object.values(plan.report.added).reduce((a,b)=>a+b,0)} new records; no payment inferred`]};
 }
@@ -110,7 +106,7 @@ function controlChange(control,dataset,revision){return {path:CONTROL_PATH,op:co
 export function addLegacyFundingControl(root,result){
  if(!result.changes.length||result.changes.some(c=>c.path===CONTROL_PATH))return result;
  const {dataset,control}=readControlledFunding(root);
- return {...result,changes:[...result.changes,controlChange(control,dataset,digest([control.hash,result.changes]))]};
+ return {...result,changes:[controlChange(control,dataset,digest([control.hash,result.changes])),...result.changes]};
 }
 export function fundingGuard(root,baseline,result){
  const beforeControl=readControl(root).hash,beforeDataset=datasetHash(readFundingLedgers(root));

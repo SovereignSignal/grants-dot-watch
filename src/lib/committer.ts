@@ -35,9 +35,8 @@ export function buildProposalChanges(p:Proposal):ApplyResult {
   let result:ApplyResult=isFundingProposal(p)
     ? buildFundingDeskChanges(REGISTRY,baseline,p,productDateISO()) as ApplyResult
     : legacy.buildProposalChanges(p);
-  // Cross-replica outbox conflicts protect the shared control path for BOTH
-  // funding imports and legacy edits while the funding writer is enabled.
-  if (enabled() && !isFundingProposal(p)) result=addLegacyFundingControl(REGISTRY,result) as ApplyResult;
+  // All edits share the control once funding exists, even with new imports disabled.
+  if ((enabled() || hasFunding()) && !isFundingProposal(p)) result=addLegacyFundingControl(REGISTRY,result) as ApplyResult;
   validateFundingChanges(REGISTRY,baseline,result.changes,productDateISO(),YAML.parse);
   return result;
 }
@@ -66,7 +65,6 @@ export function writeProposalChanges(p:Proposal):ApplyResult {
   return writePreparedChanges(prepareProposalChanges(p));
 }
 export function applyProposal(p:Proposal):ApplyResult {
-  // Funding imports may never use the non-durable convenience function.
   if (isFundingProposal(p)) throw new Error('Funding imports require the durable Desk approval path');
   if (!participates(p)) return legacy.applyProposal(p);
   const result=writeProposalChanges(p);
@@ -74,9 +72,7 @@ export function applyProposal(p:Proposal):ApplyResult {
   return result;
 }
 
-/** A process which crashes while holding this lock requires owner inspection.
- * Never expire a live writer's lock based on its age. Replica coordination is
- * handled by the Postgres outbox control-path conflict check. */
+/** A crashed writer requires owner inspection. Never expire locks by age. */
 function acquireLocalWriter() {
   const dir=join(ROOT,'.data'); mkdirSync(dir,{recursive:true});
   const path=join(dir,'funding-writer.lock');

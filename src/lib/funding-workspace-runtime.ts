@@ -1,16 +1,13 @@
 import { join } from 'node:path';
 import { readFileSync } from 'node:fs';
-import YAML from 'yaml';
 import { checkAuth } from '@/app/api/desk/lib';
 import { listProposals } from './desk-store';
-import { readBaseline } from './funding-store.mjs';
-import { readControlledFunding, isFundingProposal } from './funding-desk-core.mjs';
+import { isFundingProposal } from './funding-desk-core.mjs';
 import { handleFundingWorkspace } from './funding-workspace-service.mjs';
 import { captureMicrosoftFund } from './funding-source-native.mjs';
 import { captureMicrosoftArchive } from './funding-source-native-batch.mjs';
 import { captureFundingTable } from './funding-source-html.mjs';
-import { assertFundingRecoveryReady } from './funding-recovery-policy.mjs';
-import { lastBootReplayReport } from './boot-replay';
+import { loadFundingEditableSnapshot } from './public-api-v2';
 
 const captures = new Map<string, { active: boolean; starts: number[] }>();
 async function capture(source: string, fund: number, revision: string | null) {
@@ -26,17 +23,12 @@ async function capture(source: string, fund: number, revision: string | null) {
   } finally { state.active = false; }
 }
 
-// Both the route and this internal runtime retain the existing owner verifier.
 export function serveAuthenticatedFundingWorkspace(request: Request) {
   return handleFundingWorkspace(request, {
     authorize: async (req: Request) => (await checkAuth(req)).ok,
     enabled: process.env.GRANTS_WATCH_FUNDING_DESK === '1',
     publicEnabled: process.env.GRANTS_WATCH_API_V2 === '1',
-    load: () => {
-      assertFundingRecoveryReady(lastBootReplayReport(), Boolean(process.env.DATABASE_URL));
-      const root = join(process.cwd(), 'registry');
-      return { baseline: readBaseline(root, YAML.parse), dataset: readControlledFunding(root).dataset };
-    },
+    load: loadFundingEditableSnapshot,
     retained: () => ['batch-001.json', 'batch-002.json'].flatMap(name => {
       const parsed = JSON.parse(readFileSync(join(process.cwd(), 'research/v2/sources', name), 'utf8'));
       if (parsed.version !== 1 || !Array.isArray(parsed.snapshots)) throw new Error('invalid_retained_bundle');
