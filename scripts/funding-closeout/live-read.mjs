@@ -43,7 +43,7 @@ export async function verifyLiveFunding({base='https://grants.watch', expectedCo
   publicTarget(base,'/');
   check(expectedCommit === null || /^[a-f0-9]{40}$/.test(expectedCommit),'invalid_expected_revision');
   const state = {requests:0,bytes:0,latencies:[],checks:[],controls:new Set()}, started = now().toISOString();
-  async function get(path, method='GET', expected=200) {
+  async function get(path, method='GET', expected=200, followRedirects=true) {
     check(['GET','HEAD','OPTIONS'].includes(method),'read_only_verifier');
     let target=publicTarget(base,path),response;
     const at=performance.now();
@@ -51,7 +51,7 @@ export async function verifyLiveFunding({base='https://grants.watch', expectedCo
       check(++state.requests<=LIVE_LIMITS.requests,'request_budget');
       await pause();
       response=await request(target,{method,redirect:'manual',signal:AbortSignal.timeout(LIVE_LIMITS.timeoutMs),headers:{Accept:'application/json, text/html;q=0.9, application/x-ndjson;q=0.8','User-Agent':'grants-watch-owner-verification/1.0'}});
-      if(![301,302,303,307,308].includes(response.status))break;
+      if(![301,302,303,307,308].includes(response.status)||!followRedirects)break;
       check(redirect<LIVE_LIMITS.redirectCount,'redirect_budget');
       const location=response.headers.get('location');check(location,'missing_redirect');
       const next=new URL(location,target);check(next.origin===new URL(base).origin,'cross_origin_redirect');
@@ -125,9 +125,14 @@ export async function verifyLiveFunding({base='https://grants.watch', expectedCo
   }
   const head=await get('/api/v2/funding-events','HEAD');check(head.body==='','head_has_body');
   const options=await get('/api/v2/funding-events','OPTIONS',204);check(options.headers.get('access-control-allow-methods')?.includes('GET'),'preflight_contract');
-  const views=['/','/health','/funding','/data','/funding?kind=program-terms','/funding?kind=process-metrics','/funding?kind=claims','/funding?kind=relationships','/funding?kind=changes','/funding?kind=outputs'];
+  // This route deliberately redirects to the private operator panel. Check the
+  // redirect without reading, archiving or claiming to verify private health.
+  const healthRedirect=await get('/health','GET',307,false);
+  check(new URL(healthRedirect.headers.get('location'),base).href===new URL('/admin/health',base).href,'unexpected_health_redirect');
+  state.checks.push({path:'/health',status:307,redirect:'/admin/health',followed:false});
+  const views=['/','/funding','/data','/funding?kind=program-terms','/funding?kind=process-metrics','/funding?kind=claims','/funding?kind=relationships','/funding?kind=changes','/funding?kind=outputs'];
   for(const id of [...new Set(collections['program-terms'].map(row=>row.program))].slice(0,10))views.push(`/programs/${id}`);
-  for(const path of views){const r=await get(path);check(!r.body.includes('Funding evidence is temporarily unavailable'),'website_snapshot_unavailable');if(path!=='/health')check(r.body.includes('<html'),'expected_website_html');}
+  for(const path of views){const r=await get(path);check(!r.body.includes('Funding evidence is temporarily unavailable'),'website_snapshot_unavailable');check(r.body.includes('<html'),'expected_website_html');}
   check((await json('/api/v2')).snapshot===index.snapshot,'product_changed_during_verification');
   check((await json('/api/v1/deployment')).commit===revision.commit,'deployment_changed_during_verification');
   check(state.controls.size<=1,'replicas_returned_different_controls');

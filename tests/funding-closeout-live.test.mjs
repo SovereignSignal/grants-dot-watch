@@ -12,6 +12,7 @@ function server(tweak) {
  const request=async(input,init)=>{
   requests++;assert.equal(init.redirect,'manual');assert.equal(init.headers.Authorization,undefined);assert.ok(['GET','HEAD','OPTIONS'].includes(init.method));
   const url=new URL(input);if(tweak){const out=await tweak(url,init,requests);if(out)return out;}
+  if(url.pathname==='/health')return new Response(null,{status:307,headers:{location:'/admin/health'}});
   if(url.pathname==='/api/v1/deployment')return Response.json({commit});
   if(url.pathname.startsWith('/api/v1/')){const rows=baseline[url.pathname.split('/').at(-1)];return Response.json({data:rows,meta:{page:1,next_page:null,total:rows.length}});}
   if(url.pathname==='/api/desk/funding/workspace')return Response.json({error:'unauthorized'},{status:401});
@@ -29,7 +30,7 @@ test('live verifier is pinned to one public host and refuses private or credenti
 test('live verifier scans all collections, compares exports, samples details and checks public views',async()=>{
  const s=server(),out=await verifyLiveFunding({expectedCommit:commit},dependencies(s));
  assert.equal(out.receipt.passed,true);assert.equal(Object.keys(out.receipt.exports).length,16);assert.equal(out.receipt.counts['funding-events'],1);
- assert.equal(out.receipt.mutations,false);assert.equal(out.receipt.owner_credentials_used,false);assert.equal(out.receipt.negative_checks.length,6);assert.ok(s.requests()<LIVE_LIMITS.requests);
+ assert.equal(out.receipt.mutations,false);assert.equal(out.receipt.owner_credentials_used,false);assert.equal(out.receipt.negative_checks.length,7);assert.ok(s.requests()<LIVE_LIMITS.requests);
 });
 test('live verifier refuses an unanticipated deployment before scanning data',async()=>{
  const s=server();await assert.rejects(verifyLiveFunding({expectedCommit:'b'.repeat(40)},dependencies(s)),/unexpected_served_revision/);assert.equal(s.requests(),1);
@@ -47,4 +48,9 @@ test('live verifier cannot certify recovery headers before they are present',asy
 test('live verifier treats a graceful funding-unavailable page as a failed check',async()=>{
  const s=server(u=>u.pathname==='/funding'?new Response('<html>Funding evidence is temporarily unavailable.</html>'):null);
  await assert.rejects(verifyLiveFunding({},dependencies(s)),/website_snapshot_unavailable/);
+});
+test('live verifier checks the health redirect without reading private admin health',async()=>{
+ const s=server(u=>{assert.notEqual(u.pathname,'/admin/health');return null;});
+ const result=await verifyLiveFunding({},dependencies(s));
+ assert.ok(result.receipt.negative_checks.some(r=>r.path==='/health'&&r.followed===false));
 });
