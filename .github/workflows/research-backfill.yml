@@ -1,10 +1,5 @@
 name: Full research backfill capture
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/research-backfill.yml'
-      - 'scripts/research/capture-backfill.py'
-      - 'research/backfill/extra-sources.json'
   workflow_dispatch:
 permissions:
   contents: read
