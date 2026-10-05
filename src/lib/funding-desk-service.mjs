@@ -14,7 +14,7 @@ async function readBody(request) {
 /**
  * Authentication is performed before parsing, filesystem access or queue reads.
  * @param {Request} request
- * @param {{authorize: (request:Request)=>Promise<boolean>, enabled: boolean, load:()=>{root:string, baseline:unknown}, enqueue:(rows:unknown[])=>Promise<unknown>, now?:()=>Date}} deps
+ * @param {{authorize: (request:Request)=>Promise<boolean>, enabled: boolean, load:()=>({root:string, baseline:unknown}|Promise<{root:string, baseline:unknown}>), enqueue:(rows:unknown[])=>Promise<unknown>, now?:()=>Date}} deps
  */
 export async function handleFundingIntake(request,deps) {
   if (request.method!=='POST') return json({error:'method_not_allowed'},405);
@@ -25,11 +25,9 @@ export async function handleFundingIntake(request,deps) {
   if (!body || typeof body!=='object' || Array.isArray(body) || Object.keys(body).some(k=>!['mode','pack','plan_digest'].includes(k)) || !['preview','queue'].includes(body.mode)) return json({error:'invalid_request'},400);
   let preview;
   try {
-    const {root,baseline}=deps.load();
+    const {root,baseline}=await deps.load();
     preview=previewFundingProposal(root,baseline,body.pack,calendarDate((deps.now || (()=>new Date()))()));
   } catch {return json({error:'invalid_pack_or_stale_snapshot',message:'Recheck source references and preview the pack again'},409);}
-  // Include the reviewed snapshot in queue deduplication. A stale pending
-  // revision cannot prevent a corrected version from reaching the owner.
   preview.proposal.signal_id=`funding-v2:${preview.plan_digest}`;
   if (body.mode==='preview') return json(preview);
   if (body.plan_digest!==preview.plan_digest) return json({error:'preview_changed',message:'Preview and review the current pack before queueing'},409);
