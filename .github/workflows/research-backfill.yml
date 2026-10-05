@@ -1,0 +1,27 @@
+name: Full research backfill capture
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: research-capture-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Capture current public registry and its bounded source inventory
+        env:
+          BACKFILL_OUTPUT: ${{ runner.temp }}/full-research-capture
+        run: python3 scripts/research/capture-backfill.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-research-capture
+          path: ${{ runner.temp }}/full-research-capture
+          retention-days: 3
+          if-no-files-found: error
