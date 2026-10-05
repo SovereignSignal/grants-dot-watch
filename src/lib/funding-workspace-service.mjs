@@ -5,6 +5,11 @@ import { calendarDate } from './funding-api.mjs';
 import { buildFundingProduct } from './funding-product.mjs';
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const MAX_BODY=2*1024*1024;
+export function fundingReferenceBlobs(baseline) {
+ const entries=Object.entries(baseline?.source_blobs||{});
+ if(entries.length>10000)throw new Error('reference_inventory_limit');
+ return Object.fromEntries(entries.filter(([path,hash])=>/^(orgs|programs)\/[a-z0-9][a-z0-9-]*\.yaml$/.test(path)&&typeof hash==='string'&&/^[a-f0-9]{40}$/.test(hash)));
+}
 async function bodyOf(request){
  const declared=request.headers.get('content-length');if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>MAX_BODY))throw new Error('invalid_body');
  if(!request.body)throw new Error('invalid_body');const reader=request.body.getReader(),chunks=[];let size=0;
@@ -22,7 +27,7 @@ export async function handleFundingWorkspace(request,deps){
  if(request.method==='GET'){
   try{
    const {baseline,dataset}=await deps.load(),product=buildFundingProduct(baseline,dataset,now),pending=await deps.pending();
-   return json({features:{public_read:deps.publicEnabled,owner_write:deps.enabled},counts:Object.fromEntries(Object.entries(product.collections).map(([k,v])=>[k,v.length])),snapshot:product.snapshot,coverage:product.collections.coverage,sources:Object.entries(SOURCE_CATALOG).map(([id,s])=>({id,url:s.url,program:s.program,issuer:s.issuer,native_refresh:['microsoft-foss','numfocus-sdg','royal-society-research','royal-society-urf'].includes(id)})),pending,scope:'Current registry and accepted funding data. Coverage gaps are not assertions that funding does not exist.'});
+   return json({features:{public_read:deps.publicEnabled,owner_write:deps.enabled},counts:Object.fromEntries(Object.entries(product.collections).map(([k,v])=>[k,v.length])),snapshot:product.snapshot,reference_blobs:fundingReferenceBlobs(baseline),coverage:product.collections.coverage,sources:Object.entries(SOURCE_CATALOG).map(([id,s])=>({id,url:s.url,program:s.program,issuer:s.issuer,native_refresh:['microsoft-foss','numfocus-sdg','royal-society-research','royal-society-urf'].includes(id)})),pending,scope:'Current registry and accepted funding data. Coverage gaps are not assertions that funding does not exist.'});
   }catch{return json({error:'workspace_unavailable'},503);}
  }
  if(!deps.enabled)return json({error:'funding_desk_disabled'},503);
