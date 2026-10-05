@@ -12,9 +12,9 @@ on:
         required: false
         type: string
       require_control:
-        description: Require the approved snapshot header after closeout deployment
+        description: Require the approved snapshot header
         required: false
-        default: false
+        default: true
         type: boolean
 permissions:
   contents: read
@@ -32,10 +32,10 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify the public product without credentials or writes
+      - name: Verify deployed base revision and approved snapshots without credentials or writes
         env:
-          EXPECTED_COMMIT: ${{ inputs.expected_commit }}
-          REQUIRE_CONTROL: ${{ inputs.require_control }}
+          EXPECTED_COMMIT: ${{ inputs.expected_commit || github.event.pull_request.base.sha }}
+          REQUIRE_CONTROL: ${{ github.event_name == 'pull_request' || inputs.require_control }}
         shell: bash
         run: |
           args=(--fetch --out "$RUNNER_TEMP/funding-live-verification")

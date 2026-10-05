@@ -1,0 +1,43 @@
+name: Funding dependency remediation candidate
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/funding-dependency-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Retain exact audit and compatible lockfile candidate
+        shell: bash
+        run: |
+          mkdir "$RUNNER_TEMP/dependency-review"
+          set +e
+          npm audit --json > "$RUNNER_TEMP/dependency-review/before.json"
+          before_status=$?
+          npm audit fix --package-lock-only --ignore-scripts --no-fund > "$RUNNER_TEMP/dependency-review/fix.log" 2>&1
+          fix_status=$?
+          npm audit --json > "$RUNNER_TEMP/dependency-review/after.json"
+          after_status=$?
+          set -e
+          printf '{"before_exit":%s,"fix_exit":%s,"after_exit":%s,"branch_modified":false,"candidate_only":true}\n' "$before_status" "$fix_status" "$after_status" > "$RUNNER_TEMP/dependency-review/status.json"
+          cp package.json package-lock.json "$RUNNER_TEMP/dependency-review/"
+          git diff -- package.json package-lock.json > "$RUNNER_TEMP/dependency-review/candidate.patch"
+          node -e 'const fs=require("fs"); for(const stage of ["before","after"]){const data=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/dependency-review/"+stage+".json")); if(!data.metadata)throw Error("missing audit result");console.log(stage,JSON.stringify(data.metadata.vulnerabilities));}'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: funding-dependency-review
+          path: ${{ runner.temp }}/dependency-review
+          retention-days: 1
+          if-no-files-found: error
