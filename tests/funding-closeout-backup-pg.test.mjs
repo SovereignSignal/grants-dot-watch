@@ -43,8 +43,8 @@ test('owner approval survives a real pg_dump/restore and fresh filesystem recove
  const receipt=await verifyDatabaseRestore({sourceUrl:TEST_DATABASE_URL,targetUrl:t.url,expectedTarget:t.database,pgDump:dump,pgRestore:restore});
  assert.equal(receipt.passed,true);assert.equal(receipt.source_writes,false);assert.equal(receipt.data.sha256,receipt.restored.data_sha256);assert.ok(receipt.data.total_rows>0);
  const root=join(sandbox,'restored-reader');mkdirSync(root);cpSync(join(repo,'registry'),join(root,'registry'),{recursive:true});
- const module=pathToFileURL(join(repo,'src/lib/boot-replay.ts')).href;
- const code=`const {replayAppliedChanges}=await import(${JSON.stringify(module)});console.log('REPLAY:'+JSON.stringify(await replayAppliedChanges({root:process.cwd()})));`;
+ const moduleUrl=pathToFileURL(join(repo,'src/lib/boot-replay.ts')).href;
+ const code=`const {replayAppliedChanges}=await import(${JSON.stringify(moduleUrl)});console.log('REPLAY:'+JSON.stringify(await replayAppliedChanges({root:process.cwd()})));`;
  const out=execFileSync(process.execPath,['--experimental-strip-types','--experimental-loader',join(repo,'tests/ts-loader.mjs'),'--input-type=module','-e',code],{cwd:root,env:{...process.env,DATABASE_URL:t.url},encoding:'utf8',timeout:30000});
  const replay=JSON.parse(out.split('\n').find(s=>s.startsWith('REPLAY:')).slice(7));assert.equal(replay.status,'ok');assert.equal(replay.failed,0);
  const actual=readControlledFunding(join(root,'registry'));assert.equal(actual.control.hash,expected);assert.equal(actual.dataset['funding-events'].length,3);
