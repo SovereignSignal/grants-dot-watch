@@ -1,0 +1,16 @@
+id: unwritten-challenge
+name: Unwritten Challenge
+org: young-futures
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://youngfutures.org/challenges/unwritten
+summary: Young Futures challenge funding US nonprofits, fiscally sponsored projects and schools
+  helping young people ages 10-19 learn deeply, think critically and make healthy decisions in an
+  AI-shaped world. Awards $50,000-$100,000; at least $1M across 10+ organizations. Applications Sep
+  23 to Oct 16, 2026, 5 PM PT.
+rounds: []
+sources:
+  - https://youngfutures.org/challenges/unwritten
