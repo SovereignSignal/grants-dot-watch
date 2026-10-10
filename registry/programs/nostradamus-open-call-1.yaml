@@ -12,6 +12,7 @@ rounds:
   - name: "Open Call #1"
     status: open
     closes: 2026-12-02
+    size: up to EUR 50,000 per project; 5 projects
     source: https://nostradamus-project.eu/open-call-1/
 sources:
   - https://nostradamus-project.eu/open-call-1/
