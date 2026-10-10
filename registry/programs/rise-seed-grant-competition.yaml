@@ -1,0 +1,21 @@
+id: rise-seed-grant-competition
+name: RISE Seed Grant Competition
+org: ivado
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://ivado.ca/en/2026/10/05/ivado-and-connected-minds-launch-the-rise-seed-grant-competition-to-support-new-collaborations-in-responsible-ai/
+summary: >-
+  IVADO and Connected Minds launched a seed grant competition in NeuroAI and AI ethics for new
+  research collaborations, up to $125,000 per project.
+
+  Deadline: November 9, 2026
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-09
+    source: https://ivado.ca/en/2026/10/05/ivado-and-connected-minds-launch-the-rise-seed-grant-competition-to-support-new-collaborations-in-responsible-ai/
+sources:
+  - https://ivado.ca/en/2026/10/05/ivado-and-connected-minds-launch-the-rise-seed-grant-competition-to-support-new-collaborations-in-responsible-ai/
