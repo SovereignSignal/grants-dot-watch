@@ -1,0 +1,16 @@
+id: opensats-general-grant
+name: OpenSats General Grant
+org: opensats
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://opensats.org/apply
+summary: "Standing open call: OpenSats grants from its General Fund for free and open-source
+  projects that benefit Bitcoin and related ecosystems; open worldwide and nym-friendly,
+  applications reviewed by the board and grants distributed periodically. No fixed deadline or
+  amount published."
+rounds: []
+sources:
+  - https://opensats.org/apply
