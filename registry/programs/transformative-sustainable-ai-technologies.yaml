@@ -1,0 +1,19 @@
+id: transformative-sustainable-ai-technologies
+name: Transformative sustainable AI technologies
+org: uk-research-and-innovation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ukri.org/opportunity/transformative-sustainable-ai-technologies/
+summary: UKRI opened a GBP 12.05 million call for speculative, technology-led research that could
+  reduce the environmental and resource costs of future AI systems. Eligible UK research
+  organisations can request up to GBP 602,500 FEC at 80% funding; applications close November 10.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-10
+    source: https://www.ukri.org/opportunity/transformative-sustainable-ai-technologies/
+sources:
+  - https://www.ukri.org/opportunity/transformative-sustainable-ai-technologies/
