@@ -14,13 +14,18 @@ import { basename, dirname, join, resolve } from 'node:path';
 
 const LEDGER_PATHS = new Set(['program-terms', 'funding-events', 'process-metrics', 'funding-control.json']);
 
-export function legacyRegistryCopy(source = resolve('registry')) {
-  const temp = mkdtempSync(join(tmpdir(), 'legacy-registry-'));
-  const root = join(temp, 'registry');
+/** Copy registry/ into `dest` without its ledger shards and control file. */
+export function copyLegacyRegistry(dest, source = resolve('registry')) {
   const top = resolve(source);
-  cpSync(top, root, {
+  cpSync(top, dest, {
     recursive: true,
     filter: (path) => !(dirname(resolve(path)) === top && LEDGER_PATHS.has(basename(path))),
   });
+  return dest;
+}
+
+export function legacyRegistryCopy(source = resolve('registry')) {
+  const temp = mkdtempSync(join(tmpdir(), 'legacy-registry-'));
+  const root = copyLegacyRegistry(join(temp, 'registry'), source);
   return { root, cleanup: () => rmSync(temp, { recursive: true, force: true }) };
 }
