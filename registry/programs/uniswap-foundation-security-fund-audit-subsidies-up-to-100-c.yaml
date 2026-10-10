@@ -8,22 +8,21 @@ wires:
   - crypto
 status: active
 mechanism: grants
-summary: "Uniswap Foundation Security Fund (UFSF) subsidizes up to 100% of audit costs for projects
-  building in the Uniswap ecosystem, including Uniswap v4. Selected projects also get a pre-audit
-  security scan and access to the Areta-powered curated auditor marketplace. UFSF runs monthly
-  application cohorts: each month's window closes (September 2026 cohort closed September 7; October
-  2026 cohort closes October 7, 2026, 23:59 UTC) while the program stays open. Apply at
-  areta.fillout.com/ufsf-projects."
+summary: Uniswap Foundation Security Fund (UFSF) subsidizes up to 100% of audit costs for projects
+  building in the Uniswap ecosystem, including Uniswap v4. Selected projects also receive a
+  pre-audit security scan and access to the Areta-powered curated auditor marketplace. The October
+  2026 cohort closed October 7 at 23:59 UTC. Later cohorts require a separate published call; the
+  program remains active.
 rounds:
   - name: March 2026 cohort
-    status: closed
-    closes: 2026-03-07
     size: Up to 100% audit subsidy
+    closes: 2026-03-07
     source: https://x.com/0xboo/status/2028401618333389136
+    status: closed
   - name: October 2026 cohort
-    status: open
     closes: 2026-10-07
     source: https://gov.uniswap.org/t/uniswap-foundation-security-fund-ufsf-announcement-thread/24878/43
+    status: closed
 sources:
   - https://x.com/0xboo/status/2028401618333389136
   - https://www.uniswapfoundation.org/build
