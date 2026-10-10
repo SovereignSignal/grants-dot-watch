@@ -1,6 +1,9 @@
 // Turns a curator proposal into the same RawMinerProposal shape ingest uses,
 // so it lands in the Desk queue through insertIngestProposals. Official
 // sources are stored, not fetched: the server does not retrieve caller URLs.
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { dateBounds, httpUrl } from './evidence-fields';
 import { slugify } from './committer';
 import type { RawMinerProposal } from './desk-store';
@@ -11,8 +14,8 @@ const WIRES = new Set<Wire>(['crypto', 'ai', 'oss']);
 const ORG_STATUS = new Set(['active', 'winding-down', 'dormant', 'dead', 'unknown']);
 const PROGRAM_STATUS = new Set(['active', 'paused', 'concluded', 'announced', 'unknown']);
 const ROUND_STATUS = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
-const FACTS = new Set(['deadline', 'round_dates', 'status', 'x_handle', 'amount', 'summary', 'identity', 'round_merge', 'round_disposition']);
-const FACT_LIST = 'deadline, round_dates, status, summary, identity, round_merge, round_disposition, x_handle, or amount';
+const FACTS = new Set(['deadline', 'round_dates', 'status', 'x_handle', 'amount', 'summary', 'identity', 'round_merge', 'round_disposition', 'wire']);
+const FACT_LIST = 'deadline, round_dates, status, summary, identity, round_merge, round_disposition, wire, x_handle, or amount';
 const BLOCKED_KEYS = new Set(['remove', 'delete', 'action', 'merge', 'drop']);
 
 export interface DirectorySnapshot {
@@ -383,6 +386,7 @@ function buildFact(
   if (body.fact === 'identity') return buildIdentity(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   if (body.fact === 'round_merge') return buildRoundMerge(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   if (body.fact === 'round_disposition') return buildRoundDisposition(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
+  if (body.fact === 'wire') return buildWireMove(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   if (body.fact === 'amount' && body.amount_target === 'award') {
     return buildAward(body, identity, snapshot, at, reason, summary, sources, wire, titleOverride);
   }
@@ -652,6 +656,60 @@ function buildAward(
 function namedRound(program: Program, name: string) {
   const key = name.toLowerCase().trim();
   return (program.rounds || []).find((round) => round.name.toLowerCase().trim() === key);
+}
+
+function programContentHash(id: string): string | null {
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(id)) return null;
+  const path = join(process.cwd(), 'registry', 'programs', `${id}.yaml`);
+  if (!existsSync(path)) return null;
+  return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
+
+/** Replace one program's wire list. The file hash is captured so approval
+ *  refuses to apply if the program changed after this proposal was queued. */
+function buildWireMove(
+  body: Record<string, unknown>,
+  identity: CuratorIdentity,
+  snapshot: DirectorySnapshot,
+  at: string,
+  reason: string,
+  summary: string,
+  sources: SourceQuote[],
+  wire: Wire | null,
+  titleOverride: string | null
+): ProposalBuild {
+  if (!wire) return fail(400, 'invalid_request', 'wire is required and must be crypto, ai, or oss.');
+  const program = requireProgram(snapshot, body.program_id);
+  if (!isProgram(program)) return program;
+  const current = program.wires || [];
+  if (current.length === 1 && current[0] === wire) {
+    return fail(409, 'conflict', `Program is already on the ${wire} wire.`);
+  }
+  const hash = programContentHash(program.id);
+  if (!hash) return fail(404, 'not_found', 'No program file with that id.');
+  const org = findOrg(snapshot, program.org);
+  const key = `programs/${program.id}.yaml`;
+  return {
+    ok: true,
+    candidate: candidate({
+      type: 'profile_note',
+      title: titleOverride || `${org?.name || program.org} · ${program.name}: move to the ${wire} wire`,
+      summary,
+      org: program.org,
+      orgName: org?.name || program.org,
+      program: program.name,
+      wire,
+      evidence: sources[0].url,
+      change: {
+        [key]: { wires: [wire], sources: sources.map((source) => source.url) },
+        _expected_content_hashes: { [key]: hash },
+      },
+      identity,
+      reason,
+      sources,
+      at,
+    }),
+  };
 }
 
 function buildSummaryEdit(

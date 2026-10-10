@@ -207,6 +207,7 @@ Fact updates use `"kind":"fact"` and `fact`:
 | `status` | `entity` `program` or `org`, the matching id, `status` | `status_change` (Facts). The submission `summary` is written onto the program summary (at least 40 characters) or the organization profile (at least 60). |
 | `summary` | `program_id`. The submission `summary` replaces the program summary and must be at least 40 characters. | `profile_note` (Judgment) |
 | `identity` | `entity` `program` or `org`, the matching id, and `name` and/or `description` | `profile_note` (Judgment). `name` is the display name. The file id does not change. `description` replaces the program summary (at least 40 characters) or the organization profile (at least 60). |
+| `wire` | `program_id` and `wire` (`crypto`, `ai`, or `oss`) | `profile_note` (Judgment). Replaces the program's wire list with that one wire. The proposal stores the program file's SHA-256, and approval refuses to apply if the file changed after the proposal was queued. |
 | `round_merge` | `program_id`, `round` (the duplicate), `into` (the round that remains) | `round_update` (Facts). The duplicate is removed. Dates, size, and source copy onto the remaining round only where that round is blank. Both source URLs stay on the program. |
 | `round_disposition` | `program_id`, `round`, `disposition` `withdrawn` or `duplicate` | `round_update` (Facts). The round stays on the program with its name, dates, and source, and leaves open and announced lists. |
 | `amount` | `amount_target` `round` (`program_id`, `round`, `amount`) or `award` (`org_id`, `grantee`, `amount`, `date`) | `round_update` or `new_award` (Facts) |
@@ -307,6 +308,26 @@ curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
   }' \
   "https://grants.watch/api/v1/curator/proposals"
 ```
+
+Move a program from one wire to another. This is the sanctioned replacement for editing `wires` in the YAML by hand. Approval writes a Desk ledger row whose base hash is the file that was on disk, so boot replay can apply it. Do not edit that program file in Git while the proposal is still unapproved.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: wire-nsf-americas-seed-fund-ai-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "wire",
+    "program_id": "nsf-americas-seed-fund",
+    "wire": "ai",
+    "summary": "Move NSF SBIR/STTR from the crypto wire to the AI wire.",
+    "reason": "The program page lists artificial intelligence among the technology areas it funds. The owner wants this program on the AI wire.",
+    "sources": [{"url": "https://seedfund.nsf.gov/", "quote": "We fund startups across nearly all technology areas and markets like artificial intelligence, energy, medical devices, robotics, semiconductors, and many more."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+The quote must be verbatim from the official page. A program already on that single wire returns `409`. Approve the queued item from the Desk. On Railway the approval lands in `desk_applied_changes` instead of a git commit inside the container. After it is serving, sync that new row with `scripts/sync-desk-commits.mjs` and confirm the deployment only once the image contains the commit.
 
 Approve with the same decide call as any other queued item. These edits do not delete a registry file and they do not merge organizations.
 
