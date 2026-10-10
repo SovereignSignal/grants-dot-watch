@@ -34,14 +34,46 @@ test('v2 rejects cyclic and wrong-scope supersession',()=>{ const d=dataset(); d
 test('v2 source URLs reject credentials, private hosts and access token query strings',()=>{ for(const u of ['https://user:pass@example.org/a','http://127.0.0.1/','http://2130706433/','http://[::1]/','http://a.local/','javascript:alert(1)','https://a.org/?api_key=secret']) assert.equal(isPublicUrl(u),false,u); assert.equal(isPublicUrl(SOURCE),true); });
 test('v2 preserves separate evidence for an approved event and a paid tranche',()=>{ const d=dataset(); d['funding-events'].push({...event(),key:'payment-1',event_type:'paid',payment_date:'2026-10-02',occurred_on:'2026-10-02',tranche:'first'}); const c=buildFundingCollections(baseline(),d,AT); assert.equal(c['funding-events'].length,2); assert.equal(c.recipients[0].funding_event_count,2); assert.equal(c.recipients[0].total,undefined); });
 
-test('v2 opportunities require a supported, accessible entry stage',()=>{ assert.equal(buildFundingCollections(baseline(),dataset(),AT).opportunities.length,1); assert.equal(buildFundingCollections(baseline(),emptyFundingDataset(),AT).opportunities.length,0); });
+const withApply = (b=baseline()) => { b.programs[0].apply_url=`${SOURCE}/apply`; return b; };
+const undated = (b=baseline()) => { delete b.programs[0].rounds[0].opens; delete b.programs[0].rounds[0].closes; return b; };
+test('v2 opportunities need an application route; a current access check is the strongest basis',()=>{
+ const c=buildFundingCollections(baseline(),dataset(),AT); assert.equal(c.opportunities.length,1); assert.equal(c.opportunities[0].basis,'access_check');
+ assert.equal(c.opportunities[0].apply_url,SOURCE); assert.equal(c.opportunities[0].entry_stage,'Initial application');
+ assert.equal(buildFundingCollections(baseline(),emptyFundingDataset(),AT).opportunities.length,0);
+});
+test('v2 a dated open round with a program apply link is an opportunity without terms',()=>{
+ const [o]=buildFundingCollections(withApply(),emptyFundingDataset(),AT).opportunities;
+ assert.equal(o.basis,'published_deadline'); assert.equal(o.apply_url,`${SOURCE}/apply`); assert.equal(o.closes,'2026-11-01');
+ assert.equal(o.terms_key,null); assert.equal(o.entry_stage,null); assert.equal(o.checked_on,null); assert.equal(o.source,SOURCE);
+ for (const field of ['instruments','capital_forms','selection_models','eligibility','geography']) assert.equal(o[field],null,field);
+ assert.equal(o.eligibility_is_personalized,false);
+});
+test('v2 a stale access check no longer hides a dated round; it stops being the basis',()=>{
+ const d=dataset(); Object.assign(d['program-terms'][0].access,{checked_on:'2026-09-20',review_after:'2026-10-03'});
+ const [o]=buildFundingCollections(baseline(),d,AT).opportunities;
+ assert.equal(o.basis,'published_deadline'); assert.equal(o.checked_on,'2026-09-20'); assert.equal(o.apply_url,SOURCE); assert.equal(o.terms_key,'terms-1');
+});
+test('v2 an undated open round needs a current access check or rolling-intake terms',()=>{
+ assert.equal(buildFundingCollections(withApply(undated()),emptyFundingDataset(),AT).opportunities.length,0);
+ const rounds=dataset(); rounds['program-terms'][0].access=null;
+ assert.equal(buildFundingCollections(withApply(undated()),rounds,AT).opportunities.length,0);
+ const rolling=dataset(); rolling['program-terms'][0].access=null; rolling['program-terms'][0].intake_mode='rolling';
+ assert.equal(buildFundingCollections(withApply(undated()),rolling,AT).opportunities[0].basis,'rolling_intake');
+ assert.equal(buildFundingCollections(undated(),dataset(),AT).opportunities[0].basis,'access_check');
+ const stale=dataset(); Object.assign(stale['program-terms'][0].access,{checked_on:'2026-09-20',review_after:'2026-10-03'});
+ assert.equal(buildFundingCollections(undated(),stale,AT).opportunities.length,0);
+});
+test('v2 terms-less opportunities do not match instrument filters they cannot support',async()=>{
+ const all=await (await run('/opportunities',withApply(),emptyFundingDataset())).json(); assert.equal(all.data.length,1);
+ const filtered=await (await run('/opportunities?instrument=grant',withApply(),emptyFundingDataset())).json(); assert.equal(filtered.data.length,0);
+});
 test('v2 excludes announced, future-opening, paused, expired and uncertain-date rounds',()=>{
- for (const mutate of [p=>p.status='paused',p=>p.rounds[0].status='announced',p=>p.rounds[0].opens='2026-10-05',p=>p.rounds[0].closes='2026-10-03',p=>p.rounds[0].closes='2026-10',p=>p.rounds[0].closes_at='2026-10-04T14:59:00Z',p=>p.review={kind:'unresolved',relationship:'unconfirmed',intake:'unknown'}]) {const b=baseline(); mutate(b.programs[0]); assert.equal(buildFundingCollections(b,dataset(),AT).opportunities.length,0);}
+ for (const mutate of [p=>p.status='paused',p=>p.rounds[0].status='announced',p=>p.rounds[0].opens='2026-10-05',p=>p.rounds[0].closes='2026-10-03',p=>p.rounds[0].closes='2026-10',p=>p.rounds[0].closes_at='2026-10-04T14:59:00Z',p=>p.review={kind:'unresolved',relationship:'unconfirmed',intake:'unknown'}]) {for (const d of [dataset(),emptyFundingDataset()]) {const b=withApply(); mutate(b.programs[0]); assert.equal(buildFundingCollections(b,d,AT).opportunities.length,0);}}
 });
-test('v2 excludes stale, invite-only, closed-prerequisite and disputed assessments',()=>{
- for (const mutate of [t=>t.access.review_after='2026-10-03',t=>t.selection_models=['invitation'],t=>t.intake_mode='closed',t=>{t.access.state='closed';t.access.prerequisites_clear=false;},t=>{t.evidence_state='disputed';t.access=null;}]) {const d=dataset(); mutate(d['program-terms'][0]); if(d['program-terms'][0].access?.review_after==='2026-10-03'){d['program-terms'][0].access.checked_on='2026-10-01';} assert.equal(buildFundingCollections(baseline(),d,AT).opportunities.length,0);}
+test('v2 terms can veto a dated round: invite-only, closed intake, closed or refused access, disputed evidence',()=>{
+ for (const mutate of [t=>t.selection_models=['invitation'],t=>t.selection_models=['application','internal_selection'],t=>t.intake_mode='closed',t=>t.intake_mode='no_unsolicited',t=>t.intake_mode='nomination',t=>{t.access.state='closed';t.access.prerequisites_clear=false;},t=>Object.assign(t.access,{state:'unknown',new_applicants:false}),t=>Object.assign(t.access,{state:'unknown',prerequisites_clear:false}),t=>{t.evidence_state='disputed';t.access=null;}]) {const d=dataset(); mutate(d['program-terms'][0]); assert.equal(buildFundingCollections(withApply(),d,AT).opportunities.length,0);}
 });
-test('v2 conflicting unlinked terms do not choose a convenient newest version',()=>{const d=dataset(); d['program-terms'].push({...terms(),key:'terms-2'}); assert.equal(buildFundingCollections(baseline(),d,AT).opportunities.length,0); d['program-terms'][1].supersedes_key='terms-1'; assert.equal(buildFundingCollections(baseline(),d,AT).opportunities.length,1);});
+test('v2 conflicting unlinked terms veto rather than choose a convenient newest version',()=>{const d=dataset(); d['program-terms'].push({...terms(),key:'terms-2'}); assert.equal(buildFundingCollections(withApply(),d,AT).opportunities.length,0); d['program-terms'][1].supersedes_key='terms-1'; assert.equal(buildFundingCollections(withApply(),d,AT).opportunities.length,1);});
 test('v2 round-scoped historical terms do not become current program terms',()=>{const d=dataset(); d['program-terms'][0].round_name='Current'; const c=buildFundingCollections(baseline(),d,AT); assert.equal(c.programs[0].current_terms_key,null); assert.equal(c.opportunities.length,1);});
 test('v2 API never returns raw review metadata or extra baseline fields',async()=>{const b=baseline(); b.programs[0].review={kind:'program',relationship:'current',intake:'open',questions:['PRIVATE'],history:[{secret:'PRIVATE'}]}; b.orgs[0].internal='PRIVATE'; for(const kind of ['orgs','programs','rounds','opportunities']) assert.ok(!(await run(`/${kind}`,b).text()).includes('PRIVATE'));});
 test('v2 gated service is inert and returns readable preflight',()=>{let loads=0; assert.equal(run('/programs',baseline(),dataset(),{enabled:false,load:()=>{loads++;}}).status,503); assert.equal(loads,0); assert.equal(handleFundingRequest(new Request('https://grants.watch/api/v2',{method:'OPTIONS'}),[],{}).status,204);});

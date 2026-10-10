@@ -36,31 +36,52 @@ function publicProgram(p) {
 function publicAward(a) {
   return { id:a.key, funder:a.funder, funder_name:a.funder_name, recipient:a.grantee, recipient_name:a.grantee_name, program:text(a.program), program_name:text(a.program_name), amount:finite(a.amount), currency:text(a.currency), amount_text:text(a.amount_text), date:date(a.date), wire:text(a.wire), source:safeUrl(a.source), payment_state:'not_established', origin:'legacy_award_ledger', api:collectionUrl('awards',a.key) };
 }
-function latestTerms(rows, today) {
+function currentTerms(rows, today) {
   // An effective replacement permanently retires its predecessor, even when
   // that replacement later expires. Future replacements do not take effect yet.
   const effective = rows.filter(row => !row.effective_from || row.effective_from <= today);
   const superseded = new Set(effective.map(row => row.supersedes_key).filter(Boolean));
-  const current = effective.filter(row => !superseded.has(row.key) && (!row.effective_to || row.effective_to >= today));
+  return effective.filter(row => !superseded.has(row.key) && (!row.effective_to || row.effective_to >= today));
+}
+function latestTerms(rows, today) {
   // A new observation does not silently resolve conflicting unlinked revisions.
+  const current = currentTerms(rows, today);
   return current.length === 1 ? current[0] : null;
 }
 function exactInstant(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/.test(value) || !isIsoDate(value.slice(0,10))) return null;
   const time = Date.parse(value); return Number.isFinite(time) ? time : null;
 }
-function openNow(p, r, terms, today, now) {
-  if (p.status !== 'active' || r.status !== 'open') return false;
-  if (p.review && (p.review.kind !== 'program' || p.review.relationship !== 'current' || p.review.intake !== 'open')) return false;
-  if (!terms || terms.evidence_state !== 'primary_supported' || !['rolling','rounds'].includes(terms.intake_mode)) return false;
-  if (terms.selection_models.some(x => ['invitation','internal_selection','donor_directed'].includes(x))) return false;
-  const a = terms.access;
-  if (!a || a.round_name !== r.name || a.state !== 'open' || a.new_applicants !== true || a.prerequisites_clear !== true || a.checked_on > today || a.review_after < today || !safeUrl(a.route)) return false;
-  // New data requires a specific entry-stage assessment. Legacy metadata alone never qualifies.
-  if (r.opens && (!isIsoDate(r.opens) || r.opens > today)) return false;
-  if (r.closes && (!isIsoDate(r.closes) || r.closes < today)) return false;
-  if (r.closes_at) { const close = exactInstant(r.closes_at); if (close === null || close <= now) return false; }
-  return true;
+const CLOSED_INTAKE = ['closed','no_unsolicited','nomination'];
+const NOT_OPEN_TO_APPLICANTS = ['invitation','internal_selection','donor_directed'];
+/** A round is an opportunity when its own dated facts say it is open today and
+ *  there is somewhere to apply. This follows the Ledger rule: dated facts, not
+ *  expiring "verified open" checks, and never program activity alone.
+ *
+ *  Terms enrich a round and can veto it; they are not required. An access check
+ *  past its review date no longer hides a dated round, it just stops being the
+ *  basis. An undated "open" needs corroboration, because no deadline will ever
+ *  retire it: a current access check, or primary-supported rolling intake.
+ *  Returns null, or the basis plus the access record and route it relied on. */
+function currentOpportunity(p, r, terms, today, now) {
+  if (p.status !== 'active' || r.status !== 'open') return null;
+  if (p.review && (p.review.kind !== 'program' || p.review.relationship !== 'current' || p.review.intake !== 'open')) return null;
+  if (r.opens && (!isIsoDate(r.opens) || r.opens > today)) return null;
+  if (r.closes && (!isIsoDate(r.closes) || r.closes < today)) return null;
+  if (r.closes_at) { const close = exactInstant(r.closes_at); if (close === null || close <= now) return null; }
+  if (terms.conflict) return null;
+  const t = terms.record;
+  if (t && (t.evidence_state !== 'primary_supported' || CLOSED_INTAKE.includes(t.intake_mode) || t.selection_models.some(x => NOT_OPEN_TO_APPLICANTS.includes(x)))) return null;
+  const a = t?.access?.round_name === r.name && t.access.checked_on <= today ? t.access : null;
+  if (a && (a.state === 'closed' || a.new_applicants === false || a.prerequisites_clear === false)) return null;
+  const usable = a?.state === 'open' ? a : null;
+  const route = safeUrl(usable?.route) || safeUrl(p.apply_url);
+  if (!route) return null;
+  const basis = usable && usable.review_after >= today ? 'access_check'
+    : r.closes ? 'published_deadline'
+    : t?.intake_mode === 'rolling' ? 'rolling_intake'
+    : null;
+  return basis ? { basis, access: usable, route } : null;
 }
 
 /** Sidecar records are validated once and projected by an explicit field allowlist. */
@@ -80,14 +101,17 @@ export function buildFundingCollections(baseline, dataset, at = new Date()) {
   for (const p of baseline.programs) for (const r of p.rounds || []) {
     result.rounds.push(publicRound(p,r));
     const scoped = terms.filter(t => t.program === p.id && t.round_name === r.name);
-    const candidate = latestTerms(scoped.length ? scoped : terms.filter(t => t.program === p.id && !t.round_name),today);
-    if (openNow(p,r,candidate,today,at.getTime())) result.opportunities.push({
-      id:roundId(p.id,r.name),program:p.id,program_name:p.name,org:p.org,round_name:r.name,
-      instruments:candidate.instruments,capital_forms:candidate.capital_forms,selection_models:candidate.selection_models,
-      entry_stage:candidate.access.stage,apply_url:candidate.access.route,opens:date(r.opens),closes:date(r.closes),closes_at:text(r.closes_at),
-      checked_on:candidate.access.checked_on,source:candidate.access.source,terms_key:candidate.key,
-      eligibility:candidate.eligibility == null ? null : strings(candidate.eligibility),
-      geography:candidate.geography == null ? null : strings(candidate.geography),
+    const current = currentTerms(scoped.length ? scoped : terms.filter(t => t.program === p.id && !t.round_name),today);
+    const candidate = current.length === 1 ? current[0] : null;
+    const hit = currentOpportunity(p,r,{record:candidate,conflict:current.length > 1},today,at.getTime());
+    if (hit) result.opportunities.push({
+      id:roundId(p.id,r.name),program:p.id,program_name:p.name,org:p.org,round_name:r.name,basis:hit.basis,
+      instruments:candidate?.instruments ?? null,capital_forms:candidate?.capital_forms ?? null,selection_models:candidate?.selection_models ?? null,
+      entry_stage:hit.access?.stage ?? null,apply_url:hit.route,opens:date(r.opens),closes:date(r.closes),closes_at:text(r.closes_at),
+      checked_on:hit.access?.checked_on ?? candidate?.checked_on ?? null,
+      source:safeUrl(hit.access?.source) || safeUrl(r.source) || safeUrl(candidate?.source) || null,terms_key:candidate?.key ?? null,
+      eligibility:candidate?.eligibility == null ? null : strings(candidate.eligibility),
+      geography:candidate?.geography == null ? null : strings(candidate.geography),
       eligibility_is_personalized:false,api:collectionUrl('opportunities',roundId(p.id,r.name)),href:`/programs/${p.id}`,
     });
   }

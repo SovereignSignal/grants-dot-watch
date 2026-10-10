@@ -31,9 +31,19 @@ Funding events have a stable award ID and a unique event key. Recommendation, ap
 
 ## Actionable opportunities
 
-An opportunity requires an active program, an actually open round, valid entry-window dates and current primary-supported access evidence. It must identify an available route, access for new applicants and cleared prerequisites. Announced/future windows, closed prerequisites, invitation/internal-only selection, stale access checks, expired exact cutoffs and ambiguous dates are excluded. Unknown eligibility/geography remain null; eligibility is not personalized.
+Rule revised 2026-10-10 to follow the Ledger decision: dated facts, not expiring "verified open" checks, and never program activity alone.
 
-Empty opportunity results can mean missing access evidence. Coverage counters distinguish the registry inventory from its enriched/actionable subset. No old record is automatically declared newly verified.
+An opportunity is an open round on an active program whose own dates say it is open today, with somewhere to apply. The window must have started (`opens` on or before today, or absent), its `closes` date and any exact `closes_at` cutoff must not have passed, and dates must be exact. The application route is a matching access record's route, else the program's `apply_url`. Rounds without one are excluded.
+
+Program terms enrich an opportunity and can veto it; they are not required. A terms record vetoes the round when its evidence is not primary-supported, its intake is `closed`, `no_unsolicited` or `nomination`, its selection includes invitation, internal selection or donor direction, or its access record for that round is closed or refuses new applicants or prerequisites. Conflicting unlinked terms veto rather than pick a convenient version.
+
+Each opportunity states its `basis`:
+
+- `access_check`: an access record for this round is open and inside its review window.
+- `published_deadline`: the round has a published close date that has not passed. An access check past its review date no longer hides such a round; it just stops being the basis, and its date stays in `checked_on`.
+- `rolling_intake`: the round has no close date, and primary-supported terms state rolling intake.
+
+An undated open round with neither a current access check nor rolling-intake terms is excluded, because no deadline will ever retire it. Terms-less opportunities carry null `instruments`, `capital_forms`, `selection_models`, `eligibility`, `geography`, `entry_stage` and `terms_key`, and do not match instrument, capital-form or selection filters. Unknown eligibility/geography remain null; eligibility is not personalized. An opportunity is a listing of a published open call, not a guarantee that a particular applicant qualifies or that the call is still accepting entries.
 
 ## Import and review
 
