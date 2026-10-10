@@ -3,7 +3,7 @@ name: NSF SBIR/STTR (America's Seed Fund)
 org: nsf-sbir-sttr
 parent: null
 systems: [us-federal-rd]
-wires: [crypto]
+wires: [ai]
 status: active
 mechanism: grants
 apply_url: https://seedfund.nsf.gov/
