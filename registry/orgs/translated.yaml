@@ -1,0 +1,14 @@
+id: translated
+name: Translated
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://imminent.translated.com/
+status: unknown
+profile: Translated runs Imminent, whose annual research grants fund five original research projects
+  with $100,000 total.
+sources:
+  - https://imminent.translated.com/apply-for-your-grants
