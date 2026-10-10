@@ -1,0 +1,22 @@
+id: forecasting-tipping-points-phase-2-concept-papers
+name: "Forecasting Tipping Points Phase 2: Concept papers"
+org: aria
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
+summary: ARIA opened Phase 2 on September 18 for an early warning system for North Atlantic climate
+  tipping points. The forecasting module has an indicative GBP 5-7m budget and explicitly seeks AI
+  approaches. Concept papers are due October 9 at 14:00 BST; full proposals December 2 at 14:00 GMT,
+  including applicants who skip the concept stage. UK work is the default, with overseas exceptions.
+  GBP 114m is the overall programme budget. The application portal requires JavaScript; form
+  contents were not verified.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-10-09
+    source: https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
+sources:
+  - https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
