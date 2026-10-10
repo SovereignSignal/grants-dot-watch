@@ -2,17 +2,24 @@ id: nsf-americas-seed-fund
 name: NSF SBIR/STTR (America's Seed Fund)
 org: nsf-sbir-sttr
 parent: null
-systems: [us-federal-rd]
-wires: [crypto]
+systems:
+  - us-federal-rd
+wires:
+  - crypto
 status: active
 mechanism: grants
 apply_url: https://seedfund.nsf.gov/
 summary: >
-  Non-dilutive R&D funding for U.S. deep-tech startups: Phase I awards up to
-  $305k, Phase II up to $1.25M, with Fast-Track options, reaching roughly 400
-  companies and $200M+ deployed per year. A Distributed Ledger topic explicitly
-  covers blockchain, DAGs, cryptography, and smart contracts; applications begin
-  with a Project Pitch, followed by invitation to a full proposal and merit review
-  by program directors.
+  Non-dilutive R&D funding for U.S. deep-tech startups: Phase I awards up to $305k, Phase II up to
+  $1.25M, with Fast-Track options, reaching roughly 400 companies and $200M+ deployed per year. A
+  Distributed Ledger topic explicitly covers blockchain, DAGs, cryptography, and smart contracts;
+  applications begin with a Project Pitch, followed by invitation to a full proposal and merit
+  review by program directors.
+rounds:
+  - name: November 2026 full-proposal deadline
+    status: open
+    closes: 2026-11-04
+    source: https://seedfund.nsf.gov/apply/full-proposal/
 sources:
   - https://seedfund.nsf.gov/
+  - https://seedfund.nsf.gov/apply/full-proposal/
