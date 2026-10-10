@@ -11,6 +11,10 @@ summary: FFG call with about EUR 8.4M for cooperative industrial-research projec
   technology in Hybrid AI and Green AI. EUR 100,000 to 1M per project; companies, research
   institutions and universities (collaboration required, national scope). Submission 18 May to 6 Oct
   2026, 12:00 via eCall; decision planned January 2027.
-rounds: []
+rounds:
+  - name: "2026"
+    status: open
+    closes: 2026-10-06
+    source: https://www.ffg.at/en/ai-oekosysteme-2026
 sources:
   - https://www.ffg.at/en/ai-oekosysteme-2026
