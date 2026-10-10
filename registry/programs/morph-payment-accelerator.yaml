@@ -5,13 +5,9 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
 apply_url: https://morph.network/accelerator
-summary: Accelerator for companies building and scaling high-volume onchain payment systems (crypto
-  cards, neobanks, remittance, payment gateways). Offers performance-based incentives from a $150M
-  commitment, distribution across Bitget, Bitget Wallet and Morph, and integration support. For
-  teams with a live product and transaction history that can route significant payment flow through
-  Morph mainnet within 180 days. No equity terms or deadline stated; apply on the page.
+summary: Open on a rolling basis via the Apply Now path; no deadline stated.
 rounds: []
 sources:
   - https://morph.network/accelerator
