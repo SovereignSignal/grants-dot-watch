@@ -1,0 +1,15 @@
+id: open-science-nl
+name: Open Science NL
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.openscience.nl/
+status: unknown
+profile: Open Science NL (part of NWO) funds open science in the Netherlands; its FAIR Research
+  Outputs call offers up to 50k EUR per project, 1.4M EUR total, open until Feb 23, 2027 or until
+  the budget runs out.
+sources:
+  - https://www.openscience.nl/calls/fair-research-outputs
