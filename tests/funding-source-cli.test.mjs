@@ -10,7 +10,9 @@ import {readBaseline} from '../src/lib/funding-store.mjs';
 import {readControlledFunding} from '../src/lib/funding-desk-core.mjs';
 import {planFundingImport} from '../src/lib/funding-migration.mjs';
 import {calendarDate} from '../src/lib/funding-api.mjs';
-const root=resolve('registry'),input=resolve('research/v2/sources/batch-001.json');
+import {legacyRegistryCopy} from './legacy-registry.mjs';
+const legacy=legacyRegistryCopy();test.after(()=>legacy.cleanup());
+const root=legacy.root,input=resolve('research/v2/sources/batch-001.json');
 const run=args=>execFileSync(process.execPath,['scripts/build-funding-source-packets.mjs','--root',root,'--input',input,...args],{encoding:'utf8',timeout:60000,maxBuffer:1024*1024});
 function fingerprint(dir){const hash=createHash('sha256');const walk=sub=>{for(const name of readdirSync(sub).sort()){const path=join(sub,name),stat=lstatSync(path);if(stat.isDirectory())walk(path);else if(stat.isFile()){hash.update(path.slice(dir.length));hash.update(readFileSync(path));}}};walk(dir);return hash.digest('hex');}
 

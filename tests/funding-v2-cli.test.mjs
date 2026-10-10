@@ -9,7 +9,9 @@ import YAML from 'yaml';
 import { buildFundingCollections } from '../src/lib/funding-api.mjs';
 import { readBaseline, readFundingLedgers } from '../src/lib/funding-store.mjs';
 
-const root=resolve('registry'), pack=resolve('research/v2/spotify-pilot.json');
+import { legacyRegistryCopy } from './legacy-registry.mjs';
+const legacy=legacyRegistryCopy(); test.after(()=>legacy.cleanup());
+const root=legacy.root, pack=resolve('research/v2/spotify-pilot.json');
 const run=(args)=>execFileSync(process.execPath,['scripts/stage-funding-import.mjs',...args],{encoding:'utf8',timeout:60000,maxBuffer:1048576});
 
 test('v2 real-registry pilot dry run is source-guarded and does not infer payments',()=>{

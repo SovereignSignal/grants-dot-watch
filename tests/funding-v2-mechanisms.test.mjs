@@ -7,7 +7,9 @@ import {execFileSync} from 'node:child_process';
 import YAML from 'yaml';
 import {readBaseline,readFundingLedgers} from '../src/lib/funding-store.mjs';
 import {buildFundingCollections} from '../src/lib/funding-api.mjs';
-const root=resolve('registry');
+import {legacyRegistryCopy} from './legacy-registry.mjs';
+const legacy=legacyRegistryCopy();test.after(()=>legacy.cleanup());
+const root=legacy.root;
 for(const [name,instrument,form] of [['yc-investment-pilot.json','investment','cash'],['zealynx-subsidy-pilot.json','subsidy','service']]) {
  test(`real ${instrument} pilot stages, preserves native components and creates no fabricated payments`,()=>{
    const temp=mkdtempSync(join(tmpdir(),'funding-mechanism-'));

@@ -4,10 +4,12 @@ import {execFileSync,spawnSync} from 'node:child_process';
 import {mkdtempSync,readFileSync,writeFileSync,readdirSync,existsSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
+import {legacyRegistryCopy} from './legacy-registry.mjs';
 const SCRIPT='scripts/build-funding-source-packets.mjs';
 const A='research/v2/sources/batch-001.json',B='research/v2/sources/batch-002.json';
-const run=args=>execFileSync(process.execPath,[SCRIPT,...args],{encoding:'utf8',timeout:60000});
-const attempt=args=>spawnSync(process.execPath,[SCRIPT,...args],{encoding:'utf8',timeout:60000});
+const legacy=legacyRegistryCopy();test.after(()=>legacy.cleanup());
+const run=args=>execFileSync(process.execPath,[SCRIPT,'--root',legacy.root,...args],{encoding:'utf8',timeout:60000});
+const attempt=args=>spawnSync(process.execPath,[SCRIPT,'--root',legacy.root,...args],{encoding:'utf8',timeout:60000});
 
 test('source CLI combines retained bundles into four reviewable packets without approval',()=>{
  const dir=mkdtempSync(join(tmpdir(),'funding-multibundle-'));
