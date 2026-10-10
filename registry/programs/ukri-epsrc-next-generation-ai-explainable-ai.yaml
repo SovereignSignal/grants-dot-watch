@@ -1,0 +1,24 @@
+id: ukri-epsrc-next-generation-ai-explainable-ai
+name: "UKRI EPSRC Next Generation AI: Explainable AI"
+org: uk-research-and-innovation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ukri.org/opportunity/next-generation-artificial-intelligence-ai-explainable-ai/
+summary: Apply to EPSRC's £12M Explainable AI scheme, which opened 11 August 2026 and funds
+  speculative, high-risk fundamental research on AI interpretability — mechanistic transparency,
+  post-hoc explanations, uncertainty quantification, and inherently explainable model design.
+  Individual awards up to £602,500 full economic cost (UKRI covers 80%); UK research organisations
+  only; early- and mid-career researchers especially encouraged; two-year projects, no tangible
+  outcomes required within the window.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-10-20
+    size: up to £602,500 per grant full economic cost (UKRI funds 80%, so up to £482,000 requested);
+      £12,050,000 total programme
+    source: https://www.ukri.org/opportunity/next-generation-artificial-intelligence-ai-explainable-ai/
+sources:
+  - https://www.ukri.org/opportunity/next-generation-artificial-intelligence-ai-explainable-ai/
