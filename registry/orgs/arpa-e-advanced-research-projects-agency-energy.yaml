@@ -1,0 +1,17 @@
+id: arpa-e-advanced-research-projects-agency-energy
+name: ARPA-E (Advanced Research Projects Agency-Energy)
+aka: []
+systems:
+  - us-federal-rd
+wires:
+  - ai
+roles:
+  - funder
+website: https://arpa-e.energy.gov
+status: active
+profile: ARPA-E is a US Department of Energy agency modeled on DARPA that funds high-risk,
+  high-reward energy technology research through competitive funding opportunity announcements. It
+  publishes open calls via arpa-e-foa.energy.gov and reports on funded-project impact on its own
+  site.
+sources:
+  - https://arpa-e.energy.gov/homepage
