@@ -6,12 +6,11 @@ wires:
   - crypto
 roles:
   - funder
-website: https://forum.osmosis.zone
+website: https://osmosis.zone
 status: active
-profile: "Applicant : kaelrune0 (pseudonymous Web3 security researcher) Date : 2026-04-22 Contact :
-  kaelrune012be8f@proton.me (and Code4rena warden kaelrune0 ) Wallet for payout :
-  0x256FCA6E038F7E3856c9B8e659029D012884F539 (EVM for cross-chain bridge into OSMO) Program :
-  Osmosis Grants Program Ask : $12,000 OSMO (equivalent) over 8 weeks. Executive summary Osmosis is
-  the backbone DEX of the Cosmos IBC ecosy"
+profile: "Osmosis is a decentralized exchange in the Cosmos ecosystem; its site describes it as
+  the leading decentralized Cosmos exchange. Grant requests are posted on its governance forum;
+  a posted request is not a funding decision."
 sources:
-  - https://forum.osmosis.zone/t/grants-proposal-ibc-transfer-safety-audit-data-open-source-pipeline/4016
+  - https://osmosis.zone/
+  - https://forum.osmosis.zone/
