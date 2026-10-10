@@ -9,9 +9,8 @@ wires:
 status: active
 mechanism: grants
 apply_url: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
-summary: Rocket Pool's Grants and Bounties Management Committee (GMC) funds grants,
-  bounties, and retrospective awards for rETH/protocol infrastructure work, run in numbered
-  rounds.
+summary: Rocket Pool's Grants and Bounties Management Committee (GMC) funds grants, bounties, and
+  retrospective awards for rETH/protocol infrastructure work, run in numbered rounds.
 rounds:
   - name: Round 36 (Apr 7-May 7 2026)
     size: $25,000 across 3 awards
@@ -37,7 +36,7 @@ rounds:
     opens: 2026-09-07
     closes: 2026-10-07
     source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
-    status: open
+    status: closed
     closes_at: 2026-10-07T23:59:00Z
 review:
   kind: program
@@ -49,31 +48,35 @@ review:
     deadline:
       value: October 7, 2026 at 23:59 UTC.
       source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
-      checked_on: 2026-09-26
+      checked_on: 2026-10-08
     eligibility:
       value: Applicants proposing to carry out work benefiting Rocket Pool, node operators, rETH users or
         the protocol community.
       source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
       checked_on: 2026-09-26
-  intake: open
+  intake: closed
   source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
   history:
     - date: 2026-10-03
       label: Duplicate round merged
-      summary: A second open round named 41, from curator submission p01505, used the same
-        source as Round 41 grants. It is the same October 7, 2026 window and is not listed
-        separately.
       source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
+      summary: A second open round named 41, from curator submission p01505, used the same source as Round
+        41 grants. It is the same October 7, 2026 window and is not listed separately.
+    - date: 2026-10-08
+      label: Round 41 intake closed
+      source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
+      summary: The issuer-stated October 7, 2026 at 23:59 UTC grant deadline has passed. No extension was
+        established in the source review. Subsequent rounds require separate verification.
   operating: active
   questions: []
-  checked_on: 2026-10-03
+  checked_on: 2026-10-08
   intake_mode: rounds
-  intake_note: Round 41 grant applications are open through October 7 at 23:59 UTC. This check covers
-    grants; bounty and retrospective calls use separate threads.
+  intake_note: Round 41 grant applications closed October 7, 2026 at 23:59 UTC. This assessment covers
+    the named grant round, not future rounds or separate bounty and retrospective calls.
   round_names:
     - Round 41 grants
   relationship: current
-  review_after: 2026-10-08
+  review_after: 2026-10-15
 sources:
   - https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951
   - https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
