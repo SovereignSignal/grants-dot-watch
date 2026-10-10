@@ -1,0 +1,17 @@
+id: targeted-rfp-cosmos-hub-sponsored-endpoint-provider
+name: "Targeted RFP: Cosmos Hub Sponsored Endpoint Provider"
+org: interchain-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://42jzxo.share-na2.hsforms.com/254yBLp_mS2yARgA2vrKSJQ
+summary: Background The ICF Ecosystem Growth Delegations tranche is an application-only part of the
+  ATOM delegation program designed to advance key ecosystem initiatives and support critical
+  infrastructure. Targeted RFPs allow the program to identify a specific need, define service
+  standards, and invite qualified operators to propose how they would deliver it. Why this service
+  matters Teams building on the
+rounds: []
+sources:
+  - https://forum.cosmos.network/t/targeted-rfp-cosmos-hub-sponsored-endpoint-provider/17414
