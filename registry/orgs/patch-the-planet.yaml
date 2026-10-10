@@ -1,22 +1,30 @@
 id: patch-the-planet
 name: Patch the Planet
 aka: []
-systems: [oss-sustainability]
-wires: [oss]
-roles: [funder]
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://trailofbits.com/patch-the-planet/
 socials:
   x: https://x.com/trailofbits
   github: https://github.com/trailofbits
 status: active
-profile: >
-  Patch the Planet is an initiative by OpenAI and Trail of Bits, launched in June
-  2026, that pairs security engineers with critical open source projects such as
-  cURL, Python, and Sigstore to identify bugs, develop and test patches, improve
-  tooling, and coordinate disclosures. Maintainers receive dedicated review weeks,
-  security enhancements, and six months of ChatGPT Pro/Codex access; it does not
-  appear to run traditional monetary grant or credit programs. Partners include
+profile: >-
+  Patch the Planet is an initiative by OpenAI and Trail of Bits, launched in June 2026, that pairs
+  security engineers with critical open source projects such as cURL, Python, and Sigstore to
+  identify bugs, develop and test patches, improve tooling, and coordinate disclosures. Maintainers
+  receive dedicated review weeks, security enhancements, and six months of ChatGPT Pro/Codex access;
+  it does not appear to run traditional monetary grant or credit programs. Partners include
   HackerOne.
+
+
+  OpenAI-launched Daybreak initiative with Trail of Bits, HackerOne, and Calif; provides security
+  engineering support, ChatGPT Pro, conditional Codex Security access, and API credits to
+  participating open-source projects
 sources:
   - https://trailofbits.com/patch-the-planet/
+  - https://openai.com/index/patch-the-planet/
