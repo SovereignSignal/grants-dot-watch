@@ -1,5 +1,5 @@
 id: logos-rfp-005
-name: Logos RFP-005
+name: Logos
 aka: []
 systems: []
 wires:
@@ -15,3 +15,4 @@ profile: Logos RFP-005 (Multisig and Coordination) is open for proposals until O
   the logos-co/rfp repository.
 sources:
   - https://github.com/logos-co/rfp/blob/master/RFPs/RFP-005-multisig-and-coordination.md
+  - https://github.com/logos-co/rfp/blob/master/README.md
