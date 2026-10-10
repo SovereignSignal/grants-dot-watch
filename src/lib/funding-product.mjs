@@ -1,7 +1,7 @@
 // Public funding product projections. Every row comes from validated canonical data.
 // Research candidates, queue metadata and raw source text are never read here.
 import { createHash } from 'node:crypto';
-import { buildFundingCollections, COLLECTIONS, calendarDate, handleFundingRequest, fundingIndex } from './funding-api.mjs';
+import { buildFundingCollections, COLLECTIONS, calendarDate, handleFundingRequest, fundingIndex, memoBySnapshot } from './funding-api.mjs';
 import { canonical, isIsoDate, isPublicUrl, LEDGERS, FUNDING_SCHEMAS } from './funding-model.mjs';
 import { pointerValue } from './funding-provenance.mjs';
 
@@ -122,6 +122,9 @@ export function fundingOpenAPI(){
 }
 const response=(body,status=200,extra={})=>new Response(status===204?null:typeof body==='string'?body:JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, HEAD, OPTIONS','Access-Control-Allow-Headers':'Accept, Content-Type','Access-Control-Expose-Headers':'X-Snapshot-SHA256, X-Record-Count','X-Content-Type-Options':'nosniff',...extra}});
 /** @param {Request} request @param {string[]} segments @param {{enabled?:boolean,load:()=>{baseline:unknown,dataset:unknown},now?:()=>Date}} deps */
+/** Public product builds are cached per verified snapshot; see memoBySnapshot. */
+export const cachedFundingProduct=memoBySnapshot(buildFundingProduct);
+
 export function handleFundingProductRequest(request,segments,deps){
   const extra=segments.length===0||['openapi','export',...EXTRA_COLLECTIONS].includes(segments[0]);
   if(!extra)return handleFundingRequest(request,segments,deps);
@@ -141,7 +144,7 @@ export function handleFundingProductRequest(request,segments,deps){
       else if([...params].length)throw new ProductQueryError(400,'invalid_parameter');
     }
     if(segments[0]==='export'&&(segments.length!==2||!PRODUCT_COLLECTIONS.includes(segments[1])||[...params.keys()].some(k=>k!=='format')||params.getAll('format').length>1||!['json','jsonl'].includes(params.get('format')||'jsonl')))throw new ProductQueryError(400,'invalid_export');
-    const {baseline,dataset}=deps.load(),product=buildFundingProduct(baseline,dataset,at);let out;
+    const product=cachedFundingProduct(deps.load(),at);let out;
     if(!segments.length)out=response(productIndex(product));
     else if(segments[0]==='export'){
       const rows=product.collections[segments[1]],format=params.get('format')||'jsonl';
