@@ -1,6 +1,6 @@
 id: google-cloud-rapid-agent-hackathon
 name: Google Cloud Rapid Agent Hackathon
-org: googleorg
+org: google
 parent: null
 systems: []
 wires:

@@ -8,9 +8,7 @@ roles:
   - funder
 website: https://zcashcommunitygrants.org/
 status: unknown
-profile: "Zcash Community Grants (category: Protocol DAO) has no matching org file in the registry
-  (checked by normalized name, aka, and website domain). Surfaced via a completeness pass against
-  Sov's org tracker, which flagged it as a likely funder — verify from the org's own site before
-  promoting; this is a lead, not a sourced fact."
+profile: "Zcash Community Grants: no sourced profile on file yet. See zcashcommunitygrants.org for
+  the organization's own description, and the programs listed on this page."
 sources:
   - https://zcashcommunitygrants.org/

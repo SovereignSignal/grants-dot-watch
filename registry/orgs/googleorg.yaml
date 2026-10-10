@@ -9,9 +9,8 @@ roles:
   - funder
 website: https://google.org/
 status: active
-profile: "Google.org (category: Non-Profit/NGO) has no matching org file in the registry (checked by
-  normalized name, aka, and website domain). Surfaced via a completeness pass against Sov's org
-  tracker, which flagged it as a likely funder — verify from the org's own site before promoting;
-  this is a lead, not a sourced fact."
+profile: "Google.org is Google's philanthropy. Its site says it connects nonprofits to funding and
+  additional resources. Google's commercial programs, such as Google for Startups and Google Cloud,
+  are listed under Google."
 sources:
   - https://google.org/
