@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: paused
 apply_url: https://www.python.org/psf/grants/
 summary: Python Software Foundation grants for Python conferences, workshops (incl. PyLadies, Django
   Girls) and Meetup subscriptions. The 2026 funding round ($90,000 budget; caps $2,000 conference /
