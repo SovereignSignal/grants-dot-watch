@@ -19,7 +19,7 @@ rounds:
     size: up to $20,000
     source: https://bluedot.org/grants/rapid
   - name: Request for Events (AI risk events)
-    status: open
+    status: closed
     closes: 2026-10-08
     source: https://docs.google.com/document/d/1OZJ06u5o03HvOHrAKkiiN-NF7vHTw9LxC6gD6wW5qPk/edit
 sources:
