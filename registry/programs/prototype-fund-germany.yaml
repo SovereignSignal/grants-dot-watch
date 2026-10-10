@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://www.prototypefund.de/en/application
 summary: BMFTR-funded program for free and open-source software by individual developers or teams of
   up to four based in Germany (no companies or associations). Up to EUR 158,000 per team / EUR
