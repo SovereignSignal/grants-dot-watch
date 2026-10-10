@@ -1,0 +1,24 @@
+id: nsf-expeditions-in-computing-nsf-26-525
+name: NSF Expeditions in Computing (NSF 26-525)
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.nsf.gov/funding/opportunities/expeditions-expeditions-computing
+summary: Submit a required preliminary proposal by 2 December 2026 to the new NSF 26-525 Expeditions
+  in Computing solicitation for 7-year, multidisciplinary center-scale awards of up to $15,000,000.
+  The August 2026 rewrite explicitly invites work on new architectures for intelligence, theories of
+  learning and interpretability, neuroscience-inspired systems, and embodied/physical intelligence;
+  NSF expects 2–4 awards from an up-to-$60,000,000 competition, with invited full proposals due 27
+  July 2027. This is a newly posted 2026 cycle of CISE’s largest single-project vehicle, not a quiet
+  rolling core prog
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-02
+    size: up to $15,000,000
+    source: https://www.nsf.gov/funding/opportunities/expeditions-expeditions-computing
+sources:
+  - https://www.nsf.gov/funding/opportunities/expeditions-expeditions-computing
