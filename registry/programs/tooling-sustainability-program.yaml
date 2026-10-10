@@ -1,0 +1,15 @@
+id: tooling-sustainability-program
+name: Tooling Sustainability Program
+org: intersect-intersect-mbo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://opensourcecommittee.docs.intersectmbo.org/about/paid-open-source-model-posm/tooling-sustainability
+summary: Intersect Open Source Committee program funding maintenance of critical open-source Cardano
+  tooling; guidance payment bands up to $50k per project, paid against milestones; no deadline
+  stated.
+rounds: []
+sources:
+  - https://opensourcecommittee.docs.intersectmbo.org/about/paid-open-source-model-posm/tooling-sustainability
