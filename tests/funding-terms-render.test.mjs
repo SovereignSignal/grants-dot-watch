@@ -40,3 +40,8 @@ test('funding terms escape source-provided prose and tolerate absent optional fi
   assert.ok(html.includes('Amount not disclosed'));
   assert.ok(render({}).includes('<div'));
 });
+test('an access check reads as a dated note, not an expiring review', () => {
+  const html = render({ resources:[], access:{ round_name:'First call', stage:'Initial project proposal', state:'open', new_applicants:true, prerequisites_clear:true, route:'https://nlnet.nl/propose/', checked_on:'2026-10-04', review_after:'2026-10-11', source:'https://nlnet.nl/codesupply/' } });
+  assert.ok(html.includes('Recorded intake state: open, noted 2026-10-04.'));
+  assert.ok(!/review due|2026-10-11/i.test(html));
+});
