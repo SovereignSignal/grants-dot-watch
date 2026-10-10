@@ -1,0 +1,19 @@
+id: ukri-enabling-ai-adoption-across-science-and-engineering
+name: UKRI Enabling AI adoption across science and engineering
+org: uk-research-and-innovation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ukri.org/opportunity/ukri-enabling-ai-adoption-across-science-and-engineering/
+summary: "UKRI Enabling AI adoption across science and engineering: dispatch from the wire, no
+  further detail on file."
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-01
+    size: up to £250,000 FEC (UKRI funds 80%); £5,000,000 total fund
+    source: https://www.ukri.org/opportunity/ukri-enabling-ai-adoption-across-science-and-engineering/
+sources:
+  - https://www.ukri.org/opportunity/ukri-enabling-ai-adoption-across-science-and-engineering/
