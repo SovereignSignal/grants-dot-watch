@@ -3,16 +3,20 @@ name: Circle Developer Grants
 org: circle
 parent: null
 systems: []
-wires: [crypto]
+wires:
+  - crypto
 status: paused
 mechanism: grants
 apply_url: https://www.circle.com/grant/application
-summary: >
-  Circle's grants program for developers building USDC-powered applications,
-  covering agentic economic activity, stablecoin FX, peer-to-peer payments,
-  treasury management, prediction markets, and lending/borrowing. The
-  application window is currently closed. Check the Circle grants page for
-  the next cohort.
+summary: >-
+  Circle's grants program for developers building USDC-powered applications, covering agentic
+  economic activity, stablecoin FX, peer-to-peer payments, treasury management, prediction markets,
+  and lending/borrowing. The application window is currently closed. Check the Circle grants page
+  for the next cohort.
+
+
+  A relaunched cohort emphasizes builders integrating Circle's Arc platform alongside USDC, covering
+  AI agents, prediction markets, stablecoins, and lending.
 rounds: []
 sources:
   - https://www.circle.com/grant
