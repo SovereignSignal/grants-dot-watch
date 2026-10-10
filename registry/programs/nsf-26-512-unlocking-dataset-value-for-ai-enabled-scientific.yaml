@@ -1,0 +1,25 @@
+id: nsf-26-512-unlocking-dataset-value-for-ai-enabled-scientific
+name: "NSF 26-512: Unlocking Dataset Value for AI-Enabled Scientific Discovery"
+org: national-science-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.nsf.gov/funding/opportunities/ai-datasets-unlocking-dataset-value-ai-enabled-scientific-discovery/nsf26-512/solicitation
+summary: Apply to NSF's brand-new cross-directorate solicitation (announced July 21, 2026, 9 days
+  ago) that funds projects making existing scientific datasets AI-ready for automated analysis and
+  discovery, with 25–50 awards across three tiers — Planning (≤$200K), Impact (≤$2M), and Flagship
+  (≤$5M) — supporting feature extraction, metadata generation, data-pipeline construction, and
+  dataset harmonization across any scientific domain. Eligible applicants include universities,
+  nonprofits, for-profit companies, state and local governments, and tribal nations, with no
+  per-organization proposal cap and Novem
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-04
+    size: up to $5,000,000 per Flagship award; up to $2,000,000 per Impact award; up to $200,000 per
+      Planning grant; $60,000,000–$100,000,000 total program
+    source: https://www.nsf.gov/funding/opportunities/ai-datasets-unlocking-dataset-value-ai-enabled-scientific-discovery/nsf26-512/solicitation
+sources:
+  - https://www.nsf.gov/funding/opportunities/ai-datasets-unlocking-dataset-value-ai-enabled-scientific-discovery/nsf26-512/solicitation
