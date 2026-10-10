@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import YAML from 'yaml';
-import { handleFundingProductRequest, buildFundingProduct } from './funding-product.mjs';
+import { handleFundingProductRequest, cachedFundingProduct } from './funding-product.mjs';
 import { readControlledFunding } from './funding-desk-core.mjs';
 import { readBaseline } from './funding-store.mjs';
 import { assertFundingRecoveryReady } from './funding-recovery-policy.mjs';
@@ -50,7 +50,7 @@ export async function loadFundingEditableSnapshot() {
 }
 export async function loadPublicFundingProduct() {
   if(process.env.GRANTS_WATCH_API_V2!=='1')return null;
-  const {baseline,dataset}=await loadFundingReadSnapshot();return buildFundingProduct(baseline,dataset);
+  return cachedFundingProduct(await loadFundingReadSnapshot());
 }
 export async function serveFundingV2(request:Request,path:string[]) {
   const enabled=process.env.GRANTS_WATCH_API_V2==='1';

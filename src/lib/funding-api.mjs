@@ -208,6 +208,39 @@ export function fundingIndex(collections,today) {
 function response(body,status=200) {
   return new Response(status === 204 ? null : JSON.stringify(body), { status, headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, HEAD, OPTIONS','Access-Control-Allow-Headers':'Accept, Content-Type','X-Content-Type-Options':'nosniff'} });
 }
+/** Earliest exact closes_at instant after `now`; the only clock dependency
+ *  besides the product calendar date. Unparseable values never qualify a round,
+ *  so they cannot change an answer over time. */
+function nextCutoff(baseline, now) {
+  let next = Infinity;
+  for (const p of baseline?.programs || []) for (const r of p.rounds || []) {
+    const t = r.closes_at ? exactInstant(r.closes_at) : null;
+    if (t !== null && t > now && t < next) next = t;
+  }
+  return next;
+}
+/** Single-entry cache for the public read path. A build is a pure function of
+ *  (baseline, dataset, at). The verified control hash identifies the dataset
+ *  (readControlledFunding re-checks dataset_sha256 on every read, so the read
+ *  itself is never cached), the registry cache object identifies the baseline,
+ *  and `at` matters only through the calendar date and exact closes_at cutoffs.
+ *  An entry is reused only for the same hash and baseline, on the same date and
+ *  before the next cutoff, so it returns exactly what a fresh build would.
+ *  Snapshots without a control hash (tests, the editable workspace) always build. */
+export function memoBySnapshot(build) {
+  let entry = null;
+  return (snapshot, at = new Date()) => {
+    const hash = snapshot?.control?.hash;
+    if (typeof hash !== 'string' || !hash) return build(snapshot.baseline, snapshot.dataset, at);
+    const today = calendarDate(at), now = at.getTime();
+    if (entry && entry.hash === hash && entry.baseline === snapshot.baseline && entry.today === today && now < entry.until) return entry.value;
+    const value = build(snapshot.baseline, snapshot.dataset, at);
+    entry = { hash, baseline: snapshot.baseline, today, until: nextCutoff(snapshot.baseline, now), value };
+    return value;
+  };
+}
+const cachedCollections = memoBySnapshot(buildFundingCollections);
+
 /**
  * Dependency-injected handler keeps API tests away from production databases.
  * Loader snapshots are untrusted until the runtime validators have checked them.
@@ -226,8 +259,8 @@ export function handleFundingRequest(request,segments,{enabled=false,load,now=()
     if (segments.length !== 1 && [...params.keys()].length) throw new FundingApiError(400,'invalid_parameter','This endpoint does not accept query parameters');
     // Parameter errors do not touch the data source.
     if (segments.length === 1) parseQuery(segments[0],params);
-    const at = now(), {baseline,dataset} = load();
-    const collections = buildFundingCollections(baseline,dataset,at);
+    const at = now(), snapshot = load();
+    const collections = cachedCollections(snapshot,at);
     let body;
     if (!segments.length) body = fundingIndex(collections,calendarDate(at));
     else if (segments.length === 1) body = queryFundingCollection(segments[0],params,collections);
