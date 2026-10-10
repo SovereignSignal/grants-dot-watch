@@ -2,17 +2,16 @@ id: second-look-research
 name: Second Look Research
 aka: []
 systems: []
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: education
 website: https://secondlookresearch.com/
-socials: {}
 status: active
-profile: >
-  Second Look Research is a University of Chicago Existential Risk Lab project
-  producing open source replications of empirical AI safety research. It recently
-  launched a Request for Replications, hiring 10 graduate-level research fellows
-  to stress-test and validate key findings, operating as a targeted academic
-  replication and fellowship-style effort rather than a broad grantmaker.
+profile: No program is named 'Request for Replications' on the site. The fellowship page describes a
+  planned cohort of 'roughly 7 in-person fellows, plus 1-2 program leaders,' each receiving a
+  $10,000 stipend, to work full-time in-person on replication projects.
 sources:
   - https://secondlookresearch.com/
+  - https://secondlookresearch.com/replications
