@@ -1,0 +1,16 @@
+id: nlnet-apply-for-a-grant
+name: NLnet; Apply for a grant
+org: nlnet-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: NLnet; Apply for a grant To main content Submit your proposals. Next deadline November 3,
+  2026 Menu Funding Apply for funding Theme funds NGI Zero Support services Projects All projects
+  Currently running Topic index Stories News & events News Events Webinars Office Hour Podcast NGI
+  Zero Tour Schedule Speaker Bureau Resources Best practices Presentations Hex stickers Support
+  NLnet Financial contrib
+rounds: []
+sources:
+  - https://nlnet.nl/propose/
