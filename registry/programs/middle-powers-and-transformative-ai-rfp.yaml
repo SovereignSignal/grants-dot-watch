@@ -1,0 +1,15 @@
+id: middle-powers-and-transformative-ai-rfp
+name: Middle Powers and Transformative AI RFP
+org: astralis-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://middlepowers.ai/
+summary: "Astralis Foundation RFP with Macroscopic Ventures: about $10M for work on how middle
+  powers can help safeguard the AI transition; most grants $100k-$2M, rolling review, deadline Oct
+  23, 2026 23:59 PT."
+rounds: []
+sources:
+  - https://middlepowers.ai/
