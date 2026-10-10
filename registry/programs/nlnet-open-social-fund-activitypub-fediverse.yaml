@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://nlnet.nl/opensocial/
 summary: Apply for up to €50,000 to advance the open, federated social web — ActivityPub
   implementations, decentralised microblogging, link-sharing, forums, media hosting, and fediverse

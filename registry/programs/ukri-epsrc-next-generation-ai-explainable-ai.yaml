@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.ukri.org/opportunity/next-generation-artificial-intelligence-ai-explainable-ai/
 summary: Apply to EPSRC's £12M Explainable AI scheme, which opened 11 August 2026 and funds
   speculative, high-risk fundamental research on AI interpretability — mechanistic transparency,

@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.ukri.org/opportunity/transformative-sustainable-ai-technologies/
 summary: UKRI opened a GBP 12.05 million call for speculative, technology-led research that could
   reduce the environmental and resource costs of future AI systems. Eligible UK research

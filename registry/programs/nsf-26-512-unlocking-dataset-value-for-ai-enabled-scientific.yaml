@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.nsf.gov/funding/opportunities/ai-datasets-unlocking-dataset-value-ai-enabled-scientific-discovery/nsf26-512/solicitation
 summary: Apply to NSF's brand-new cross-directorate solicitation (announced July 21, 2026, 9 days
   ago) that funds projects making existing scientific datasets AI-ready for automated analysis and
