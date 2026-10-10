@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://opensats.org/apply
 summary: "Standing open call: OpenSats grants from its General Fund for free and open-source
   projects that benefit Bitcoin and related ecosystems; open worldwide and nym-friendly,
