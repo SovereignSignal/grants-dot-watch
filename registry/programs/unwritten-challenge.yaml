@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://youngfutures.org/challenges/unwritten
 summary: Young Futures challenge funding US nonprofits, fiscally sponsored projects and schools
   helping young people ages 10-19 learn deeply, think critically and make healthy decisions in an
