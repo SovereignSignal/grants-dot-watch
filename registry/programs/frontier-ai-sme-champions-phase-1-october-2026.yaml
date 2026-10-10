@@ -8,6 +8,10 @@ wires:
 status: active
 apply_url: https://apply-for-innovation-funding.service.gov.uk/competition/2584/overview/4c7afb5d-4572-4ef2-9507-73ef2dec8ec8
 summary: "Open: applications via IFS competition 2584 until 11 November 2026 11:00am UK time."
-rounds: []
+rounds:
+  - name: October 2026 Phase 1
+    status: open
+    closes: 2026-11-11
+    source: https://apply-for-innovation-funding.service.gov.uk/competition/2584/overview/4c7afb5d-4572-4ef2-9507-73ef2dec8ec8
 sources:
   - https://apply-for-innovation-funding.service.gov.uk/competition/2584/overview/4c7afb5d-4572-4ef2-9507-73ef2dec8ec8
