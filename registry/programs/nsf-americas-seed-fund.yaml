@@ -5,7 +5,7 @@ parent: null
 systems:
   - us-federal-rd
 wires:
-  - crypto
+  - ai
 status: active
 mechanism: grants
 apply_url: https://seedfund.nsf.gov/apply/

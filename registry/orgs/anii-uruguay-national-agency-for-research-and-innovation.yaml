@@ -8,9 +8,8 @@ roles:
   - funder
 website: https://anii.org.uy
 status: unknown
-profile: "ANII (Uruguay National Agency for Research and Innovation) (category: Government) has no
-  matching org file in the registry (checked by normalized name, aka, and website domain). Surfaced
-  via a completeness pass against Sov's org tracker, which flagged it as a likely funder — verify
-  from the org's own site before promoting; this is a lead, not a sourced fact."
+profile: "ANII (Uruguay National Agency for Research and Innovation): no sourced profile on file
+  yet. See anii.org.uy for the organization's own description, and the programs listed on this
+  page."
 sources:
   - https://anii.org.uy

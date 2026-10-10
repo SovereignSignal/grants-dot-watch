@@ -8,9 +8,7 @@ roles:
   - funder
 website: https://os4science.org/
 status: unknown
-profile: "Open Source for Science Fund (category: Foundation/Lab) has no matching org file in the
-  registry (checked by normalized name, aka, and website domain). Surfaced via a completeness pass
-  against Sov's org tracker, which flagged it as a likely funder — verify from the org's own site
-  before promoting; this is a lead, not a sourced fact."
+profile: "Open Source for Science Fund: no sourced profile on file yet. See os4science.org for the
+  organization's own description, and the programs listed on this page."
 sources:
   - https://os4science.org/
