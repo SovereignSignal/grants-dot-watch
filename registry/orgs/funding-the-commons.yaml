@@ -8,10 +8,11 @@ roles:
   - funder
 website: https://www.fundingthecommons.io/
 status: active
-profile: Funding the Commons has announced a $100K match fund in collaboration with Artizen to
-  support builders of public goods infrastructure. The fund targets projects in funding protocols,
-  coordination tools, governance frameworks, and autonomous funding agents. Builders working on
-  these areas are encouraged to apply for support. More details are available through the provided
-  link in the original post.
+profile: Funding the Commons is a global network accelerating innovation to fund and govern shared
+  digital infrastructure. In February 2026 it launched a $100K match fund with Artizen for builders
+  of public goods infrastructure; Artizen has since paused operations, so that fund is no longer
+  active.
 sources:
   - https://x.com/FundingCommons/status/2021681294980042895
+  - https://www.fundingthecommons.io/
+  - https://artizen.fund/
