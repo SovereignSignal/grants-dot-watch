@@ -10,7 +10,11 @@ summary: "NLnet's open call for projects that contribute to an open internet: gr
   5,000 and EUR 50,000 for a first grant, for free/libre/open source software, hardware, data and
   standards. Back-to-back calls with a deadline on the 3rd of every odd month; next deadline
   November 3, 2026, 12:00 CET."
-rounds: []
+rounds:
+  - name: November 2026 deadline
+    status: open
+    closes: 2026-11-03
+    source: https://nlnet.nl/propose/
 sources:
   - https://nlnet.nl/propose/
   - https://nlnet.nl/funding.html
