@@ -1,0 +1,16 @@
+id: manifund-falcon-fund-ai-animal-welfare-grants
+name: Manifund Falcon Fund — AI × Animal Welfare Grants
+org: manifund-ai-safety-regranting
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: Manifund's Falcon Fund makes rapid (<1 week) early-stage grants at the under-covered
+  intersection of animal welfare and transformative AI — including animal harm benchmarks, Animal
+  Welfare Constitutions for AI systems, and watchdog organisations monitoring AI lab practices
+  regarding animals. No formal application; contact regrantor Marcus Abramovitch at
+  marcus.s.abramovitch@gmail.com with a brief pitch.
+rounds: []
+sources:
+  - https://manifund.org/projects/falcon-fund
