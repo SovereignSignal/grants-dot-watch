@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.nsf.gov/funding/opportunities/expeditions-expeditions-computing
 summary: Submit a required preliminary proposal by 2 December 2026 to the new NSF 26-525 Expeditions
   in Computing solicitation for 7-year, multidisciplinary center-scale awards of up to $15,000,000.

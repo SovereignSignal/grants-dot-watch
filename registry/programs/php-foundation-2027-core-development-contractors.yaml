@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open
 summary: The PHP Foundation seeks paid independent contractors to maintain PHP core in 2027,
   covering security patches, issue triage, PR review, and under-resourced extensions. Apply by

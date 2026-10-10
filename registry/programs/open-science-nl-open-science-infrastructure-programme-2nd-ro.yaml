@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://www.openscience.nl/en/calls/open-science-infrastructure
 summary: Open Science NL invites consortia of at least three institutions to apply for the 2nd round
   of its Open Science Infrastructure Programme, offering up to €1,700,000 per proposal from a €17

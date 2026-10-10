@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://nlnet.nl/nren/
 summary: Apply for up to €50,000 for open technology projects benefiting research networks and
   higher-education institutions, in a co-fund between NLnet and the Vietsch Foundation. Eligible
