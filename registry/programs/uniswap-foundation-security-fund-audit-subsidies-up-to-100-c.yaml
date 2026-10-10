@@ -20,6 +20,10 @@ rounds:
     closes: 2026-03-07
     size: Up to 100% audit subsidy
     source: https://x.com/0xboo/status/2028401618333389136
+  - name: October 2026 cohort
+    status: open
+    closes: 2026-10-07
+    source: https://gov.uniswap.org/t/uniswap-foundation-security-fund-ufsf-announcement-thread/24878/43
 sources:
   - https://x.com/0xboo/status/2028401618333389136
   - https://www.uniswapfoundation.org/build
