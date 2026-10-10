@@ -12,8 +12,9 @@ summary: "Citi Foundation's $25M RFP: $500,000 grants to 50 community organizati
   p.m. ET; recipients announced in 2027."
 rounds:
   - name: "2026"
-    status: open
+    status: closed
     closes: 2026-10-06
-    source: https://www.citigroup.com/global/foundation/news/press-release/2026/citi-foundation-launches-fourth-global-innovation-challenge-committing-25-million-preparing-youth-ai
+    source: https://www.citigroup.com/global/foundation/apply-for-funding
 sources:
   - https://www.citigroup.com/global/foundation/news/press-release/2026/citi-foundation-launches-fourth-global-innovation-challenge-committing-25-million-preparing-youth-ai
+  - https://www.citigroup.com/global/foundation/apply-for-funding
