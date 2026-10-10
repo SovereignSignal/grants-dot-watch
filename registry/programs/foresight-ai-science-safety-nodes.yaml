@@ -3,21 +3,26 @@ name: AI for Science & Safety Nodes
 org: foresight-institute
 parent: null
 systems:
-- ai-safety
+  - ai-safety
 wires:
-- ai
+  - ai
 status: paused
 mechanism: grants
-summary: Funds AI-first projects that use artificial intelligence as the primary engine for progress in
-  science and safety, combining grant funding with office space and compute at hubs in San Francisco and
-  Berlin. Foresight has paused general rolling applications while it moves to focused RFPs. Until those
-  RFPs are published it is not accepting further submissions.
+summary: Funds AI-first projects that use artificial intelligence as the primary engine for progress
+  in science and safety, combining grant funding with office space and compute at hubs in San
+  Francisco and Berlin. Foresight has paused general rolling applications while it moves to focused
+  RFPs. Until those RFPs are published it is not accepting further submissions.
 rounds:
-- name: Rolling
-  status: closed
-  source: https://foresight.org/grants/grants-ai-for-science-safety/
-- name: 2026 Grantees
-  status: deployed
-  source: https://foresight.org/grants/grants-ai-for-science-safety/
+  - name: Rolling
+    status: closed
+    source: https://foresight.org/grants/grants-ai-for-science-safety/
+  - name: 2026 Grantees
+    status: deployed
+    source: https://foresight.org/grants/grants-ai-for-science-safety/
+  - name: 2026 RFP
+    status: open
+    closes: 2026-10-31
+    source: https://foresight.org/grants/ai-science-safety-nodes-rfp/
 sources:
-- https://foresight.org/grants/grants-ai-for-science-safety/
+  - https://foresight.org/grants/grants-ai-for-science-safety/
+  - https://foresight.org/grants/ai-science-safety-nodes-rfp/
