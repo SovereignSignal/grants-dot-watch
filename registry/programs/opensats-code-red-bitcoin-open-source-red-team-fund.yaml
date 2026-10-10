@@ -1,0 +1,16 @@
+id: opensats-code-red-bitcoin-open-source-red-team-fund
+name: OpenSats Code RED — Bitcoin Open-Source Red Team Fund
+org: opensats
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: Apply for grants to find and disclose security vulnerabilities in critical Bitcoin
+  open-source software. Launched August 6, 2026 as a dedicated, fast-tracked fund separate from the
+  OpenSats General Fund — directly catalyzed by the Bitcoin Red Team's 27.5-hour AI-assisted audit
+  that surfaced 4,962 findings across 390 open-source repos. Applications reviewed faster than the
+  standard grant cycle; LLM token costs reimbursable.
+rounds: []
+sources:
+  - https://opensats.org/funds/red
