@@ -1,0 +1,17 @@
+id: nostradamus-open-call-1
+name: "NOSTRADAMUS Open Call #1"
+org: nostradamus-horizon-europe-project
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://nostradamus-project.eu/open-call-1/
+summary: Horizon Europe cascade funding (FSTP lump sums) for 5 projects to develop, test and
+  validate open-source digital applications for farm decision-making, focused on cereal-based
+  systems and food security. Up to EUR 50,000 per project plus a 12-month programme. Open to SMEs,
+  start-ups and small mid-caps, alone or leading a two-entity consortium. Applications Sep 29 to Dec
+  2, 2026, 17:00 CET, via F6S.
+rounds: []
+sources:
+  - https://nostradamus-project.eu/open-call-1/
