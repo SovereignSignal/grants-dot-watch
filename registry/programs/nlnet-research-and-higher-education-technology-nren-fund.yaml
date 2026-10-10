@@ -1,0 +1,23 @@
+id: nlnet-research-and-higher-education-technology-nren-fund
+name: NLnet Research and Higher Education Technology (NREN) Fund
+org: nlnet-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://nlnet.nl/nren/
+summary: Apply for up to €50,000 for open technology projects benefiting research networks and
+  higher-education institutions, in a co-fund between NLnet and the Vietsch Foundation. Eligible
+  projects include federated academic infrastructure, open educational tools, and research-network
+  protocols such as eduVPN. The fund updated its deadline sequence on August 3, 2026 and reopens
+  September 3 with a November 3 deadline — a lesser-known NLnet sub-fund not part of the Open
+  Internet Stack trio.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-03
+    size: €5,000–€50,000
+    source: https://nlnet.nl/nren/
+sources:
+  - https://nlnet.nl/nren/
