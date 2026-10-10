@@ -5,11 +5,11 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
+status: paused
 apply_url: https://www.citigroup.com/global/foundation/news/press-release/2026/citi-foundation-launches-fourth-global-innovation-challenge-committing-25-million-preparing-youth-ai
-summary: "Citi Foundation's $25M RFP: $500,000 grants to 50 community organizations preparing
-  low-income youth with AI and human-centric skills for employment. Proposals due Oct 6, 2026, 12:00
-  p.m. ET; recipients announced in 2027."
+summary: "Citi Foundation's $25M Global Innovation Challenge RFP: $500,000 grants to 50 community
+  organizations preparing low-income youth with AI and human-centric skills for employment. The 2026
+  registration period closed Oct 6, 2026; recipients will be announced in 2027."
 rounds:
   - name: "2026"
     status: closed
