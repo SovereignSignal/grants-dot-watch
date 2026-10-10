@@ -1,0 +1,12 @@
+id: herodevs-open-source-sustainability-fund
+name: HeroDevs Open Source Sustainability Fund
+org: herodevs
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: "HeroDevs Open Source Sustainability Fund: dispatch from the wire, no further detail on file."
+rounds: []
+sources:
+  - https://www.herodevs.com/sustainability-fund
