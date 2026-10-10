@@ -1,0 +1,22 @@
+id: open-science-nl-open-science-infrastructure-programme-2nd-ro
+name: Open Science NL — Open Science Infrastructure Programme 2nd Round
+org: open-science-nl
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.openscience.nl/en/calls/open-science-infrastructure
+summary: Open Science NL invites consortia of at least three institutions to apply for the 2nd round
+  of its Open Science Infrastructure Programme, offering up to €1,700,000 per proposal from a €17
+  million pool for open science software, workflows, platforms, and data services. Submit a letter
+  of intent by November 3, 2026 (14:00 CET), with full proposals due April 13, 2027; an optional
+  orientation session is held October 26, 2026, in Utrecht.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-03
+    size: up to €1,700,000 per proposal
+    source: https://www.openscience.nl/en/calls/open-science-infrastructure
+sources:
+  - https://www.openscience.nl/en/calls/open-science-infrastructure

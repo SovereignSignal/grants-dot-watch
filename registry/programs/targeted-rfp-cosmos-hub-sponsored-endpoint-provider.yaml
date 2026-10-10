@@ -1,0 +1,20 @@
+id: targeted-rfp-cosmos-hub-sponsored-endpoint-provider
+name: "Targeted RFP: Cosmos Hub Sponsored Endpoint Provider"
+org: interchain-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+apply_url: https://42jzxo.share-na2.hsforms.com/254yBLp_mS2yARgA2vrKSJQ
+summary: "Interchain Foundation targeted RFP under the Ecosystem Growth Delegations tranche: one
+  provider will be selected to run sponsored public RPC, API and gRPC endpoints for the Cosmos Hub,
+  paid as additional ATOM delegation for four quarterly rounds. Apply via the Ecosystem Growth
+  Delegation application form; no deadline stated."
+rounds:
+  - name: Targeted RFP (2026)
+    status: open
+    opens: 2026-10-06
+    source: https://forum.cosmos.network/t/targeted-rfp-cosmos-hub-sponsored-endpoint-provider/17414
+sources:
+  - https://forum.cosmos.network/t/targeted-rfp-cosmos-hub-sponsored-endpoint-provider/17414

@@ -1,0 +1,18 @@
+id: nsf-america-s-seed-fund
+name: NSF America's Seed Fund
+org: nsf-sbir-sttr
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://seedfund.nsf.gov/apply/full-proposal/
+summary: Duplicate listing. The canonical grants.watch listing for NSF SBIR/STTR (America's Seed
+  Fund) is nsf-americas-seed-fund; see that listing for current deadlines.
+rounds:
+  - name: Current call
+    status: duplicate
+    closes: 2026-11-04
+    source: https://seedfund.nsf.gov/apply/full-proposal/
+sources:
+  - https://seedfund.nsf.gov/apply/full-proposal/

@@ -1,0 +1,14 @@
+id: austrian-research-promotion-agency-ffg
+name: Austrian Research Promotion Agency (FFG)
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://www.ffg.at/en
+status: unknown
+profile: Austria's national research funding agency. Its AI Ecosystems 2026 call (Hybrid AI and
+  Green AI) has about EUR 8.4M for projects; closes Oct 6, 2026.
+sources:
+  - https://www.ffg.at/en/ai-oekosysteme-2026

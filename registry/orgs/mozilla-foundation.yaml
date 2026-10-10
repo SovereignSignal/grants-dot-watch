@@ -2,9 +2,13 @@ id: mozilla-foundation
 name: Mozilla Foundation
 aka:
   - Mozilla Technology Fund
-systems: [oss-sustainability]
-wires: [ai, oss]
-roles: [funder]
+systems:
+  - oss-sustainability
+wires:
+  - ai
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://www.mozillafoundation.org/
 socials:
@@ -13,14 +17,13 @@ socials:
   forum: https://discourse.mozilla.org/
 status: active
 profile: >
-  Mozilla Foundation is the nonprofit behind Firefox's parent organization, funding
-  work toward a healthier internet through grants, fellowships, and open-source
-  support. Its Mozilla Technology Fund (MTF) gives awards of up to $50,000 plus a
-  12-month mentorship cohort to open-source projects tackling a themed public-interest
-  challenge — past themes include AI bias and transparency, AI system auditing tools,
-  and AI's intersection with environmental justice. It also ran the longer-standing
-  Mozilla Open Source Support (MOSS) program, now on indefinite hiatus, and currently
-  runs AI- and democracy-focused fellowships and cohorts.
+  Mozilla Foundation is the nonprofit behind Firefox's parent organization, funding work toward a
+  healthier internet through grants, fellowships, and open-source support. Its Mozilla Technology
+  Fund (MTF) gives awards of up to $50,000 plus a 12-month mentorship cohort to open-source projects
+  tackling a themed public-interest challenge — past themes include AI bias and transparency, AI
+  system auditing tools, and AI's intersection with environmental justice. It also ran the
+  longer-standing Mozilla Open Source Support (MOSS) program, now on indefinite hiatus, and
+  currently runs AI- and democracy-focused fellowships and cohorts.
 funding:
   focus:
     - open source
@@ -32,8 +35,9 @@ funding:
     - digital rights
   typical_size: up to $50,000 per project
   cadence: Themed cohorts / rounds, not always open; each has a defined application window
-  apply_url: https://www.mozillafoundation.org/en/what-we-fund/programs/mozilla-technology-fund-mtf/
+  apply_url: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/
 sources:
   - https://www.mozillafoundation.org/
   - https://www.mozillafoundation.org/en/what-we-fund/programs/mozilla-technology-fund-mtf/
   - https://github.com/MozillaFoundation/mozilla-technology-fund/blob/main/2024-AI-and-Environmental-Justice.md
+  - https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/

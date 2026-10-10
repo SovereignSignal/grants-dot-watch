@@ -1,0 +1,17 @@
+id: perl-community-grants
+name: Perl community grants
+org: the-perl-raku-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: Perl & Raku Foundation invites developers to submit community grant proposals at any time
+  for language improvements, documentation, tutorials, or related ecosystem work. Applicants must
+  outline deliverables, a schedule, and a requested amount (preferably in USD) via the official
+  Google Form, and grants are reviewed in committee calls held every two months. No explicit award
+  ceiling or launch date is specified, and eligibility is open to anyone contributing to the Perl or
+  Raku ecosystems.
+rounds: []
+sources:
+  - https://perlfoundation.org/proposing-a-community-grant.html

@@ -1,0 +1,17 @@
+id: interledger-nextgen-higher-education-grant
+name: Interledger–NextGen Higher Education Grant
+org: interledger-fellowship-program
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://interledger.org/grant/education/nextgen
+summary: "Interledger–NextGen Higher Education Grant: dispatch from the wire, no further detail on file."
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-14
+    source: https://interledger.org/grant/education/nextgen
+sources:
+  - https://interledger.org/grant/education/nextgen

@@ -1,0 +1,18 @@
+id: deltakit-community-fund
+name: Deltakit Community Fund
+org: unitary-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+summary: Apply for $2,000–$4,000 in microgrant funding plus hands-on mentorship from Riverlane and
+  Unitary Foundation engineers to build production-grade features for Deltakit, Riverlane's
+  open-source quantum error correction (QEC) SDK. Announced July 28, 2026 and accepting global
+  applications via Google Form now (https://forms.gle/VxeJZhtSuRMRjpSaA); the committee reconvenes
+  monthly with the first review the week of August 17. Priority areas include error budgeting
+  bounds, threshold computation tools, and ZX graph benchmark libraries; projects typically span 3–6
+  months.
+rounds: []
+sources:
+  - https://unitary.foundation/community/deltakit_community_fund/

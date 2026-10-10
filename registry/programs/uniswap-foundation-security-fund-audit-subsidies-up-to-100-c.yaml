@@ -2,19 +2,29 @@ id: uniswap-foundation-security-fund-audit-subsidies-up-to-100-c
 name: Uniswap Foundation Security Fund
 org: uniswap-foundation
 parent: null
-systems: [ethereum]
+systems:
+  - ethereum
 wires:
-- crypto
-status: concluded
+  - crypto
+status: active
 mechanism: grants
-summary: 'Uniswap Foundation Security Fund is offering audit subsidies of up to 100% coverage for
-  teams building with Uniswap v4 hooks or Trading APIs. The program also provides pre-audit scans and
-  security guidance. Eligible projects can receive full audit cost coverage through the fund.'
+summary: Uniswap Foundation Security Fund (UFSF) subsidizes up to 100% of audit costs for projects
+  building in the Uniswap ecosystem, including Uniswap v4. Selected projects also receive a
+  pre-audit security scan and access to the Areta-powered curated auditor marketplace. The October
+  2026 cohort closed October 7 at 23:59 UTC. Later cohorts require a separate published call; the
+  program remains active.
 rounds:
-- name: March 2026 cohort
-  status: closed
-  closes: 2026-03-07
-  size: Up to 100% audit subsidy
-  source: https://x.com/0xboo/status/2028401618333389136
+  - name: March 2026 cohort
+    size: Up to 100% audit subsidy
+    closes: 2026-03-07
+    source: https://x.com/0xboo/status/2028401618333389136
+    status: closed
+  - name: October 2026 cohort
+    closes: 2026-10-07
+    source: https://gov.uniswap.org/t/uniswap-foundation-security-fund-ufsf-announcement-thread/24878/43
+    status: closed
 sources:
-- https://x.com/0xboo/status/2028401618333389136
+  - https://x.com/0xboo/status/2028401618333389136
+  - https://www.uniswapfoundation.org/build
+  - https://gov.uniswap.org/t/uniswap-foundation-security-fund-ufsf-announcement-thread/24878/43
+  - https://gov.uniswap.org/t/uniswap-foundation-security-fund-ufsf-announcement-thread/24878/42

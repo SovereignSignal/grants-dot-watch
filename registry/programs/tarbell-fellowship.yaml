@@ -11,6 +11,10 @@ apply_url: https://www.tarbellcenter.org/fellowship
 summary: One-year fellowship combining AI training with nine-month newsroom placements for
   journalists covering AI; $60,000-$80,000 stipend for early-career fellows, $90,000-$110,000 for
   senior fellows.
-rounds: []
+rounds:
+  - name: 2027 Fellowship
+    status: open
+    closes: 2026-11-22
+    source: https://www.tarbellcenter.org/fellowship
 sources:
   - https://www.tarbellcenter.org/fellowship

@@ -1,0 +1,12 @@
+id: r-consortium
+name: R Consortium
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+status: active
+profile: "R Consortium ISC Grant Program — 2026-2: dispatch from the wire, no further detail on file."
+sources:
+  - https://r-consortium.org/all-projects/callforproposals.html

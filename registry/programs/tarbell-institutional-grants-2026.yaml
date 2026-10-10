@@ -1,0 +1,20 @@
+id: tarbell-institutional-grants-2026
+name: Tarbell Institutional Grants 2026
+org: tarbell-center
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+apply_url: https://www.tarbellcenter.org/blog/tarbell-launches-10-million-institutional-grants-program-to-expand-ai-journalism
+summary: Tarbell Center for AI Journalism's $10M Institutional Grants program funds newsrooms, media
+  ventures and series focused on AI with grants of $50,000 to $500,000+. Applications for this round
+  close December 11, 2026.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-11
+    size: $50,000 to $500,000+ per grant ($10M program)
+    source: https://www.tarbellcenter.org/blog/tarbell-launches-10-million-institutional-grants-program-to-expand-ai-journalism
+sources:
+  - https://www.tarbellcenter.org/blog/tarbell-launches-10-million-institutional-grants-program-to-expand-ai-journalism

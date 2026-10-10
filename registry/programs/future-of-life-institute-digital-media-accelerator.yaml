@@ -1,0 +1,16 @@
+id: future-of-life-institute-digital-media-accelerator
+name: Future of Life Institute Digital Media Accelerator
+org: future-of-life-institute-fli
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+summary: FLI's Digital Media Accelerator sponsors creators producing content about AI safety, AGI
+  implications, control problems, misaligned goals, and Big Tech power concentration — rolling
+  applications accepted year-round across YouTube, TikTok, podcasts, and newsletters. Targets
+  creators with an existing audience in AI risk topics; applicants without an established audience
+  may still be considered for compelling idea pitches. Contact maggie@futureoflife.org.
+rounds: []
+sources:
+  - https://futureoflife.org/project/digital-media-accelerator/

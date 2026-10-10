@@ -1,0 +1,20 @@
+id: prototype-fund-germany
+name: Prototype Fund (Germany)
+org: federal-ministry-of-research-technology-and-space-bmftr
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+apply_url: https://www.prototypefund.de/en/application
+summary: BMFTR-funded program for free and open-source software by individual developers or teams of
+  up to four based in Germany (no companies or associations). Up to EUR 158,000 per team / EUR
+  79,000 per individual incl. Second Stage, plus coaching. Class 03 applications open Oct 1 to Nov
+  30, 2026, 3:00 pm CET; funding phase June to Nov 2027.
+rounds:
+  - name: Class 03
+    status: open
+    closes: 2026-11-30
+    source: https://www.prototypefund.de/en/application
+sources:
+  - https://www.prototypefund.de/en/application

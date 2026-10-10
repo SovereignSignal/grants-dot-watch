@@ -1,0 +1,18 @@
+id: nostradamus-open-call-1
+name: "NOSTRADAMUS Open Call #1"
+org: nostradamus-horizon-europe-project
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+apply_url: https://nostradamus-project.eu/open-call-1/
+summary: "Open: applications Sep 29 to Dec 2, 2026, 17:00 CET."
+rounds:
+  - name: "Open Call #1"
+    status: open
+    closes: 2026-12-02
+    size: up to EUR 50,000 per project; 5 projects
+    source: https://nostradamus-project.eu/open-call-1/
+sources:
+  - https://nostradamus-project.eu/open-call-1/

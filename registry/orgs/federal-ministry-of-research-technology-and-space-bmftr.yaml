@@ -1,0 +1,14 @@
+id: federal-ministry-of-research-technology-and-space-bmftr
+name: Federal Ministry of Research, Technology and Space (BMFTR)
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://www.prototypefund.de/en/
+status: unknown
+profile: German federal ministry that funds the Prototype Fund for open-source projects; the next
+  application period runs Oct 1 to Nov 30, 2026.
+sources:
+  - https://www.prototypefund.de/en/application

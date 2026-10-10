@@ -1,0 +1,15 @@
+id: responsible-computing-challenge-third-u-s-cohort
+name: Responsible Computing Challenge (third U.S. cohort)
+org: mozilla-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.mozillafoundation.org/en/responsible-computing-challenge-funding-opportunity/
+summary: Mozilla Foundation and Mellon Foundation grants for U.S. universities building responsible
+  computing curricula, up to $125,000 per institution over two years. Letters of intent open Nov 3,
+  2026 and close Jan 6, 2027.
+rounds: []
+sources:
+  - https://www.mozillafoundation.org/en/responsible-computing-challenge-funding-opportunity/

@@ -1,0 +1,20 @@
+id: small-scale-high-impact-firmware-contributions
+name: Small-Scale, High-Impact Firmware Contributions
+org: open-source-firmware-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: paused
+apply_url: https://opensourcefirmware.foundation/funding/
+summary: Open-Source Firmware Foundation's recurring open call funding open source firmware
+  development, tooling, security, docs and research at EUR 1,000 to 7,500 per proposal; open to
+  individuals, small teams, organizations, students and researchers. Round 2026/2 ran July 15 to
+  Sept 30, 2026 and has closed; earlier rounds 2025 and 2026/1.
+rounds:
+  - name: 2026/2
+    status: closed
+    closes: 2026-09-30
+    source: https://opensourcefirmware.foundation/funding/small-scale-high-impact-firmware-contributions-2026-2/
+sources:
+  - https://opensourcefirmware.foundation/funding/small-scale-high-impact-firmware-contributions-2026-2/

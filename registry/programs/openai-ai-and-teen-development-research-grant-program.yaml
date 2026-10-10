@@ -9,15 +9,14 @@ status: active
 mechanism: grants
 apply_url: https://openai.com/index/teen-development-research-grants/
 summary: Independent research on how generative AI affects young people ages 13-17. Individual
-  grants are up to $1 million, with up to $5 million in total. Submissions are open through
-  October 6, 2026, with rolling review. Selected proposals are notified on or before November
-  13, 2026.
+  grants are up to $1 million, with up to $5 million in total. The documented call closed October 6,
+  2026. Selected proposals are scheduled to be notified on or before November 13, 2026.
 rounds:
   - name: Current call
-    status: open
+    size: up to $1 million per grant; $5 million total
     opens: 2026-09-08
     closes: 2026-10-06
-    size: up to $1 million per grant; $5 million total
     source: https://openai.com/index/teen-development-research-grants/
+    status: closed
 sources:
   - https://openai.com/index/teen-development-research-grants/

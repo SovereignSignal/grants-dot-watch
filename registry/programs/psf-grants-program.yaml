@@ -1,0 +1,16 @@
+id: psf-grants-program
+name: PSF Grants Program
+org: python-software-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: paused
+apply_url: https://www.python.org/psf/grants/
+summary: Python Software Foundation grants for Python conferences, workshops (incl. PyLadies, Django
+  Girls) and Meetup subscriptions. The 2026 funding round ($90,000 budget; caps $2,000 conference /
+  $1,500 workshop, for events Dec 1, 2026 to Apr 30, 2027) took applications Aug 4 to 25, 2026 and
+  is now closed; future rounds to be announced. Development work and sprints are paused.
+rounds: []
+sources:
+  - https://www.python.org/psf/grants/

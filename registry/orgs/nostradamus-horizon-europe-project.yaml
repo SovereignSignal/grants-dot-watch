@@ -1,0 +1,16 @@
+id: nostradamus-horizon-europe-project
+name: NOSTRADAMUS (Horizon Europe project)
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://nostradamus-project.eu/
+status: unknown
+profile: EU-funded Horizon Europe project (grant agreement 101134888, 16 partners in 10 countries)
+  building an open-source agricultural data platform from Copernicus and IoT data. It runs two open
+  calls funding third parties to build digital agriculture applications, with a total budget of EUR
+  400,000.
+sources:
+  - https://nostradamus-project.eu/

@@ -6,7 +6,7 @@ systems:
   - ethereum
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
 apply_url: https://thegraph.typeform.com/applynow
 summary: The Graph Foundation runs Grants & RFPs for developers and teams contributing to protocol,
@@ -16,3 +16,4 @@ rounds: []
 sources:
   - https://thegraph.com/grants/
   - https://forum.thegraph.com/t/the-graph-foundation-2025-annual-grants-report/6859
+  - https://forum.thegraph.com/t/the-graph-foundation-is-pausing-applications-to-the-grants-program/7008

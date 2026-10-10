@@ -19,13 +19,7 @@ rounds:
     opens: 2026-09-03
     closes: 2026-11-03
     size: EUR 5,000 to EUR 50,000 per initial proposal
-    source: https://nlnet.nl/news/2026/20260903-call.html
-    closes_at: 2026-11-03T12:00:00+01:00
-sources:
-  - https://fsfe.org/news/2026/news-20260528-01.en.html
-  - https://nlnet.nl/restack/
-  - https://nlnet.nl/restack/eligibility/
-  - https://nlnet.nl/news/2026/20260903-call.html
+    source: https://nlnet.nl/restack/
 review:
   checked_on: 2026-09-26
   review_after: 2026-10-03
@@ -59,3 +53,8 @@ review:
       summary: Current intake follows the new odd-month deadline cycle. The earlier June date is not a
         confirmed round.
       source: https://nlnet.nl/news/2026/20260903-call.html
+sources:
+  - https://fsfe.org/news/2026/news-20260528-01.en.html
+  - https://nlnet.nl/restack/
+  - https://nlnet.nl/restack/eligibility/
+  - https://nlnet.nl/news/2026/20260903-call.html

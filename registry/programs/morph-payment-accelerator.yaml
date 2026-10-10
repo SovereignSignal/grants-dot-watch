@@ -1,0 +1,13 @@
+id: morph-payment-accelerator
+name: Morph Payment Accelerator
+org: morph
+parent: null
+systems: []
+wires:
+  - crypto
+status: active
+apply_url: https://morph.network/accelerator
+summary: Open on a rolling basis via the Apply Now path; no deadline stated.
+rounds: []
+sources:
+  - https://morph.network/accelerator
