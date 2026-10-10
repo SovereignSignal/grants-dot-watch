@@ -1,0 +1,14 @@
+id: lightcone-infrastructure
+name: Lightcone Infrastructure
+aka: []
+systems: []
+wires:
+  - ai
+roles:
+  - funder
+website: https://corrigibilityresearch.org/
+status: unknown
+profile: Lightcone Infrastructure is a 501(c)(3) nonprofit that runs the Corrigibility Research Fund
+  (typical grants $5k-$35k; Round 2 deadline Oct 31, 2026).
+sources:
+  - https://corrigibilityresearch.org/
