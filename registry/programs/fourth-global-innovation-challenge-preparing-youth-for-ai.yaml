@@ -10,6 +10,10 @@ apply_url: https://www.citigroup.com/global/foundation/news/press-release/2026/c
 summary: "Citi Foundation's $25M RFP: $500,000 grants to 50 community organizations preparing
   low-income youth with AI and human-centric skills for employment. Proposals due Oct 6, 2026, 12:00
   p.m. ET; recipients announced in 2027."
-rounds: []
+rounds:
+  - name: "2026"
+    status: open
+    closes: 2026-10-06
+    source: https://www.citigroup.com/global/foundation/news/press-release/2026/citi-foundation-launches-fourth-global-innovation-challenge-committing-25-million-preparing-youth-ai
 sources:
   - https://www.citigroup.com/global/foundation/news/press-release/2026/citi-foundation-launches-fourth-global-innovation-challenge-committing-25-million-preparing-youth-ai
