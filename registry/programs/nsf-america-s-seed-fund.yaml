@@ -1,0 +1,21 @@
+id: nsf-america-s-seed-fund
+name: NSF America's Seed Fund
+org: nsf-sbir-sttr
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://seedfund.nsf.gov/apply/full-proposal/
+summary: >-
+  Recap: NSF non-dilutive SBIR/STTR funding reopened for high-tech startups including AI, up to
+  $305K Phase I and $1.25M Phase II.
+
+  Deadline: November 4, 2026
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-04
+    source: https://seedfund.nsf.gov/apply/full-proposal/
+sources:
+  - https://seedfund.nsf.gov/apply/full-proposal/
