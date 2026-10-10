@@ -1107,6 +1107,75 @@ test('curators can edit summaries and names and merge or retire rounds', async (
   )).status, 400);
 });
 
+test('curators can queue a program wire move against the current file hash', async () => {
+  const nsfRegistry = {
+    orgs: [{
+      id: 'nsf-sbir-sttr',
+      name: 'NSF SBIR / STTR',
+      aka: [],
+      systems: [],
+      wires: ['crypto'],
+      roles: ['funder'],
+      status: 'active',
+      profile: 'NSF runs America Seed Fund for deep-tech startups.',
+      sources: ['https://seedfund.nsf.gov/'],
+    }],
+    programs: [{
+      id: 'nsf-americas-seed-fund',
+      name: "NSF SBIR/STTR (America's Seed Fund)",
+      org: 'nsf-sbir-sttr',
+      systems: ['us-federal-rd'],
+      wires: ['crypto'],
+      status: 'active',
+      summary: 'Non-dilutive R&D funding for U.S. deep-tech startups.',
+      rounds: [],
+      sources: ['https://seedfund.nsf.gov/'],
+    }],
+  };
+  const quote = 'We fund startups across nearly all technology areas and markets like artificial intelligence, energy, medical devices, robotics, semiconductors, and many more.';
+  const body = {
+    kind: 'fact',
+    fact: 'wire',
+    program_id: 'nsf-americas-seed-fund',
+    wire: 'ai',
+    summary: 'Move NSF SBIR/STTR from the crypto wire to the AI wire.',
+    reason: 'The program page lists artificial intelligence among the technology areas it funds.',
+    sources: [{ url: 'https://seedfund.nsf.gov/', quote }],
+  };
+  const queued = deps({ loadRegistry: () => nsfRegistry });
+  const response = await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', { method: 'POST', idempotency: 'wire-nsf-ai-1', body }),
+    queued.api
+  );
+  assert.equal(response.status, 201);
+  assert.equal((await response.json()).lane, 'judgment');
+  assert.equal(queued.inserted[0].type, 'profile_note');
+  assert.equal(queued.inserted[0].wire, 'ai');
+  const change = queued.inserted[0].proposed_change;
+  assert.deepEqual(change['programs/nsf-americas-seed-fund.yaml'].wires, ['ai']);
+  const hash = createHash('sha256').update(readFileSync('registry/programs/nsf-americas-seed-fund.yaml')).digest('hex');
+  assert.equal(change._expected_content_hashes['programs/nsf-americas-seed-fund.yaml'], hash);
+
+  const same = deps({
+    loadRegistry: () => ({
+      ...nsfRegistry,
+      programs: [{ ...nsfRegistry.programs[0], wires: ['ai'] }],
+    }),
+  });
+  assert.equal((await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', { method: 'POST', idempotency: 'wire-nsf-ai-2', body }),
+    same.api
+  )).status, 409);
+
+  const missingWire = deps({ loadRegistry: () => nsfRegistry });
+  const withoutWire = { ...body };
+  delete withoutWire.wire;
+  assert.equal((await proposeCuratorItem(
+    request('https://grants.watch/api/v1/curator/proposals', { method: 'POST', idempotency: 'wire-nsf-ai-3', body: withoutWire }),
+    missingWire.api
+  )).status, 400);
+});
+
 test('the mint script prints a hash entry and does not print the token', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'curator-key-'));
   const path = join(dir, 'token');

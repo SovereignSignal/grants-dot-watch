@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import YAML from 'yaml';
 
@@ -96,6 +98,68 @@ test('marking a round duplicate keeps its source and drops it from open lists', 
   assert.equal(roundHistoryLabel(marked), 'Duplicate');
   // The untouched Round 41 keeps whatever status the registry holds (closed since 2026-10-07).
   assert.equal(doc.rounds.find((round) => round.name === 'Round 41 grants').status, 'closed');
+});
+
+test('a profile note replaces a program wire list and leaves the rest of the file', () => {
+  const doc = written(buildProposalChanges(proposal({
+    type: 'profile_note',
+    lane: 'judgment',
+    org: 'nsf-sbir-sttr',
+    program: "NSF SBIR/STTR (America's Seed Fund)",
+    proposed_change: { 'programs/nsf-americas-seed-fund.yaml': { wires: ['ai'] } },
+  })));
+  assert.deepEqual(doc.wires, ['ai']);
+  assert.equal(doc.id, 'nsf-americas-seed-fund');
+  assert.equal(doc.status, 'active');
+  assert.equal(doc.apply_url, 'https://seedfund.nsf.gov/apply/');
+  assert.equal(doc.rounds[0].name, 'November 2026 full-proposal deadline');
+  assert.equal(doc.rounds[0].status, 'open');
+  assert.equal(doc.rounds[0].closes, '2026-11-04');
+});
+
+test('a program wire list rejects an unknown or empty value', () => {
+  assert.throws(
+    () => buildProposalChanges(proposal({
+      type: 'profile_note',
+      proposed_change: { 'programs/nsf-americas-seed-fund.yaml': { wires: ['nope'] } },
+    })),
+    /wires must be a non-empty list/
+  );
+  assert.throws(
+    () => buildProposalChanges(proposal({
+      type: 'profile_note',
+      proposed_change: { 'programs/nsf-americas-seed-fund.yaml': { wires: [] } },
+    })),
+    /wires must be a non-empty list/
+  );
+});
+
+test('a wire move captured against the current program file replaces only the wires', () => {
+  const hash = createHash('sha256').update(readFileSync('registry/programs/nsf-americas-seed-fund.yaml')).digest('hex');
+  const doc = written(buildProposalChanges(proposal({
+    type: 'profile_note',
+    lane: 'judgment',
+    org: 'nsf-sbir-sttr',
+    proposed_change: {
+      'programs/nsf-americas-seed-fund.yaml': { wires: ['ai'] },
+      _expected_content_hashes: { 'programs/nsf-americas-seed-fund.yaml': hash },
+    },
+  })));
+  assert.deepEqual(doc.wires, ['ai']);
+  assert.equal(doc.apply_url, 'https://seedfund.nsf.gov/apply/');
+});
+
+test('a wire move captured against a stale program file is refused', () => {
+  assert.throws(
+    () => buildProposalChanges(proposal({
+      type: 'profile_note',
+      proposed_change: {
+        'programs/nsf-americas-seed-fund.yaml': { wires: ['ai'] },
+        _expected_content_hashes: { 'programs/nsf-americas-seed-fund.yaml': '0'.repeat(64) },
+      },
+    })),
+    /Research correction is stale/
+  );
 });
 
 test('a profile note replaces a program display name and summary without changing its id', () => {

@@ -389,6 +389,19 @@ function buildAwardChange(p: Proposal): AppliedChange {
 const ORG_SET_FIELDS = new Set(['name', 'aka', 'systems', 'wires', 'roles', 'org_type', 'website', 'status', 'profile']);
 const ORG_MERGE_OBJECT_FIELDS = new Set(['socials', 'funding']);
 const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'status', 'mechanism', 'apply_url', 'summary', 'review']);
+const PROGRAM_WIRES = new Set(['crypto', 'ai', 'oss']);
+
+/** A wire move replaces the program's wire list. Empty, unknown, or repeated
+ *  values are refused so an approval cannot write a file the validator rejects. */
+function programWires(value: unknown): string[] | null {
+  if (!Array.isArray(value) || value.length === 0 || value.length > PROGRAM_WIRES.size) return null;
+  const wires: string[] = [];
+  for (const item of value) {
+    if (typeof item !== 'string' || !PROGRAM_WIRES.has(item) || wires.includes(item)) return null;
+    wires.push(item);
+  }
+  return wires;
+}
 
 function appendParagraph(existing: unknown, addition: string): string {
   const base = typeof existing === 'string' ? existing.trim() : '';
@@ -495,6 +508,13 @@ function applyProgramFieldMap(slug: string, map: Record<string, unknown>, p: Pro
   for (const [field, value] of Object.entries(map)) {
     if (field === 'id') {
       if (value !== slug) notes.push(`${fileRel}: ignored id "${String(value)}", a file's identity is its path`);
+      continue;
+    }
+    if (field === 'wires') {
+      const wires = programWires(value);
+      if (!wires) throw new Error(`${fileRel}: wires must be a non-empty list of crypto, ai, or oss`);
+      next.wires = wires;
+      touched = true;
       continue;
     }
     if (PROGRAM_SET_FIELDS.has(field)) {
