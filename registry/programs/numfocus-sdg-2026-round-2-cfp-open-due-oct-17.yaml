@@ -1,20 +1,18 @@
 id: numfocus-sdg-2026-round-2-cfp-open-due-oct-17
-name: NumFOCUS SDG 2026 Round 2 — CFP open (due Oct 17)
+name: NumFOCUS Small Development Grants, 2025 Round 2
 org: numfocus
-parent: null
+parent: numfocus-small-development-grants
 systems: []
 wires:
   - oss
-status: unknown
-apply_url: https://numfocus.org/programs/small-development-grants
-summary: NumFOCUS Small Development Grants Round 2 invites NumFOCUS fiscally sponsored or affiliated
-  projects to submit proposals for up to $10,000 by October 17, 2026. Announced September 19, the
-  round selects proposals October 31 and notifies applicants November 21. Submit via the NumFOCUS
-  small-development-grant-proposals GitHub repository; there is no application fee.
+status: concluded
+summary: Round 2 of the 2025 NumFOCUS Small Development Grants, open to NumFOCUS fiscally sponsored
+  or affiliated projects for up to $10,000 per proposal. Proposals were due October 17, 2025. The
+  NumFOCUS program page lists that schedule under its 2025 funding rounds and shows no 2026 round.
 rounds:
-  - name: Current call
-    status: open
-    closes: 2026-10-17
+  - name: 2025 Round 2
+    status: closed
+    closes: 2025-10-17
     size: Up to $10,000
     source: https://numfocus.org/programs/small-development-grants
 sources:
