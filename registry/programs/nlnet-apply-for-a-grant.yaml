@@ -1,5 +1,5 @@
 id: nlnet-apply-for-a-grant
-name: NLnet; Apply for a grant
+name: NLnet open call
 org: nlnet-foundation
 parent: null
 systems: []
@@ -14,3 +14,4 @@ summary: NLnet; Apply for a grant To main content Submit your proposals. Next de
 rounds: []
 sources:
   - https://nlnet.nl/propose/
+  - https://nlnet.nl/funding.html
