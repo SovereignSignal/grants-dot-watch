@@ -16,6 +16,7 @@
     "validate:funding": "node scripts/validate-registry-v2.mjs",
     "stage:funding": "node scripts/stage-funding-import.mjs",
     "audit:programs": "node scripts/audit-program-quality.mjs",
+    "close:stale": "node scripts/close-stale-rounds.mjs",
     "audit:deps": "npm audit --omit=dev --audit-level=moderate",
     "check:loader": "node scripts/load-registry-pg.mjs --check-only",
     "typecheck": "tsc --noEmit",

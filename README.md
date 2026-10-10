@@ -129,6 +129,45 @@ Confirmation checks the public deployment revision, Git ancestry, and each
 ledger row's exact committed file contents. A local commit alone never marks
 content deployed. Legacy rows without a safe base remain manual review items.
 
+### Ledger operating rules
+
+Learned on 2026-10-10, when the API went to 503 twice:
+
+- **Sync before you hand-edit.** Production runs with `GRANTS_WATCH_NO_GIT=1`. Every
+  approval lives in `desk_applied_changes` until it is synced and confirmed, and
+  boot replay refuses a row whose file changed underneath it. That refusal takes
+  `/api/v2` offline. Before editing any registry file by hand, sync, push, deploy
+  and confirm, until no ready row is unsynced.
+- **One sync owner.** Only one person or agent runs `sync-desk-commits.mjs` at a
+  time. A `--from-jsonl` replay records no SHAs in the ledger, so
+  `--confirm-deployment` can never mark those rows synced.
+- **Merge sync PRs with a merge commit.** Squash or rebase changes the SHAs the
+  ledger recorded.
+- **Partial-sync recovery.** If rows were committed without SHAs, run the
+  standard sync from the commit before them, merge `main` in, keep the newest
+  `registry/funding-control.json`, merge, then confirm.
+
+From a clean checkout of `main`, using the Postgres service's public URL (the
+app's own `DATABASE_URL` is a private hostname):
+
+```sh
+railway run --service Postgres --environment production -- \
+  sh -c 'node scripts/sync-desk-commits.mjs --repo "$PWD" --db-url "$DATABASE_PUBLIC_URL"'
+```
+
+The script runs only when invoked by its real path, so a symlinked path exits
+silently. The dry run stops at the first file that two rows touch, because it
+never writes the first row's change.
+
+Running the whole suite locally, including the Postgres tests, needs a
+throwaway Postgres whose major version matches production (18). The database
+name must contain `test`, the socket directory path must be short, and the
+matching `pg_dump` must come first on `PATH`:
+
+```sh
+TEST_DATABASE_URL=postgres://$USER@127.0.0.1:54329/gw_test PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" TMPDIR=/private/tmp npm test
+```
+
 The existing Wire handoff also reconciles 200 records by ID on each invocation,
 cycling back to the beginning after reaching the end. This catches transactions
 committed behind its timestamp checkpoint, including later withdrawals. A full
