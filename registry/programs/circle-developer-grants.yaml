@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: paused
+status: active
 mechanism: grants
 apply_url: https://www.circle.com/grant/application
 summary: >-
