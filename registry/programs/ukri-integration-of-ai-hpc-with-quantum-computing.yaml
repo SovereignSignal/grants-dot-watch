@@ -1,0 +1,19 @@
+id: ukri-integration-of-ai-hpc-with-quantum-computing
+name: UKRI Integration of AI/HPC with quantum computing
+org: uk-research-and-innovation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ukri.org/opportunity/ukri-integration-of-ai-hpc-with-quantum/
+summary: "UKRI Integration of AI/HPC with quantum computing: dispatch from the wire, no further
+  detail on file."
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-03
+    size: up to £3,750,000 FEC (EPSRC funds 80%); £17,000,000 total fund
+    source: https://www.ukri.org/opportunity/ukri-integration-of-ai-hpc-with-quantum/
+sources:
+  - https://www.ukri.org/opportunity/ukri-integration-of-ai-hpc-with-quantum/
