@@ -6,6 +6,7 @@ import {cpSync,existsSync,mkdirSync,readFileSync,rmSync,symlinkSync} from 'node:
 import {join,resolve} from 'node:path';
 import YAML from 'yaml';
 import {lockDatabase,loadDeskStore,truncateDeskTables,closePg,sandboxCwd,row,TEST_DATABASE_URL,skipWithoutPg} from './pg-helper.mjs';
+import {copyLegacyRegistry} from './legacy-registry.mjs';
 import {previewFundingProposal,readControlledFunding} from '../src/lib/funding-desk-core.mjs';
 import {readBaseline} from '../src/lib/funding-store.mjs';
 import {calendarDate} from '../src/lib/funding-api.mjs';
@@ -13,7 +14,7 @@ const opts={skip:skipWithoutPg},repo=resolve('.'),oldEnv={...process.env},childr
 const spotify=JSON.parse(readFileSync(join(repo,'research/v2/spotify-pilot.json'),'utf8'));
 const yc=JSON.parse(readFileSync(join(repo,'research/v2/yc-investment-pilot.json'),'utf8'));
 let sandbox,store,decide;
-function copy(root){mkdirSync(root,{recursive:true});cpSync(join(repo,'registry'),join(root,'registry'),{recursive:true});}
+function copy(root){mkdirSync(root,{recursive:true});copyLegacyRegistry(join(root,'registry'),join(repo,'registry'));}
 function setup(){
  for(const name of ['registry','.data','scripts','readers'])rmSync(join(sandbox,name),{recursive:true,force:true});
  copy(sandbox);mkdirSync(join(sandbox,'scripts'));cpSync(join(repo,'scripts/validate-registry.mjs'),join(sandbox,'scripts/validate-registry.mjs'));

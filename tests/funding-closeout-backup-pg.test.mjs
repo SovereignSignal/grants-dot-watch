@@ -7,6 +7,7 @@ import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import YAML from 'yaml';
 import {lockDatabase,loadDeskStore,truncateDeskTables,closePg,sandboxCwd,sql,TEST_DATABASE_URL,skipWithoutPg} from './pg-helper.mjs';
+import {copyLegacyRegistry} from './legacy-registry.mjs';
 import {previewFundingProposal,readControlledFunding} from '../src/lib/funding-desk-core.mjs';
 import {readBaseline} from '../src/lib/funding-store.mjs';
 import {calendarDate} from '../src/lib/funding-api.mjs';
@@ -16,7 +17,7 @@ const targets=[];const pack=JSON.parse(readFileSync(join(repo,'research/v2/spoti
 const dump=process.env.PG_DUMP_BIN||'pg_dump',restore=process.env.PG_RESTORE_BIN||'pg_restore';
 function setupFiles(){
  for(const sub of ['registry','.data','scripts'])rmSync(join(sandbox,sub),{recursive:true,force:true});
- cpSync(join(repo,'registry'),join(sandbox,'registry'),{recursive:true});mkdirSync(join(sandbox,'scripts'));
+ copyLegacyRegistry(join(sandbox,'registry'),join(repo,'registry'));mkdirSync(join(sandbox,'scripts'));
  cpSync(join(repo,'scripts/validate-registry.mjs'),join(sandbox,'scripts/validate-registry.mjs'));
  if(!existsSync(join(sandbox,'node_modules')))symlinkSync(join(repo,'node_modules'),join(sandbox,'node_modules'),'dir');
 }
@@ -42,7 +43,7 @@ test('owner approval survives a real pg_dump/restore and fresh filesystem recove
  const expected=await approve(),t=target();
  const receipt=await verifyDatabaseRestore({sourceUrl:TEST_DATABASE_URL,targetUrl:t.url,expectedTarget:t.database,pgDump:dump,pgRestore:restore});
  assert.equal(receipt.passed,true);assert.equal(receipt.source_writes,false);assert.equal(receipt.data.sha256,receipt.restored.data_sha256);assert.ok(receipt.data.total_rows>0);
- const root=join(sandbox,'restored-reader');mkdirSync(root);cpSync(join(repo,'registry'),join(root,'registry'),{recursive:true});
+ const root=join(sandbox,'restored-reader');mkdirSync(root);copyLegacyRegistry(join(root,'registry'),join(repo,'registry'));
  const moduleUrl=pathToFileURL(join(repo,'src/lib/boot-replay.ts')).href;
  const code=`const {replayAppliedChanges}=await import(${JSON.stringify(moduleUrl)});console.log('REPLAY:'+JSON.stringify(await replayAppliedChanges({root:process.cwd()})));`;
  const out=execFileSync(process.execPath,['--experimental-strip-types','--experimental-loader',join(repo,'tests/ts-loader.mjs'),'--input-type=module','-e',code],{cwd:root,env:{...process.env,DATABASE_URL:t.url},encoding:'utf8',timeout:30000});

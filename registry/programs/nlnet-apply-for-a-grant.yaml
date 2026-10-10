@@ -6,6 +6,7 @@ systems: []
 wires:
   - oss
 status: active
+apply_url: https://nlnet.nl/propose/
 summary: "NLnet's open call for projects that contribute to an open internet: grants between EUR
   5,000 and EUR 50,000 for a first grant, for free/libre/open source software, hardware, data and
   standards. Back-to-back calls with a deadline on the 3rd of every odd month; next deadline

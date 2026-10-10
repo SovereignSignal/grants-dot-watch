@@ -8,7 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
-apply_url: https://seedfund.nsf.gov/
+apply_url: https://seedfund.nsf.gov/apply/
 summary: >
   Non-dilutive R&D funding for U.S. deep-tech startups: Phase I awards up to $305k, Phase II up to
   $1.25M, with Fast-Track options, reaching roughly 400 companies and $200M+ deployed per year. A

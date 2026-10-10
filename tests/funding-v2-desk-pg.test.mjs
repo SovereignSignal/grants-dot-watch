@@ -10,13 +10,14 @@ import {closePg,loadDeskStore,lockDatabase,row,rows,sandboxCwd,skipWithoutPg,tru
 import {previewFundingProposal,readControlledFunding,CONTROL_PATH} from '../src/lib/funding-desk-core.mjs';
 import {readBaseline} from '../src/lib/funding-store.mjs';
 import {calendarDate} from '../src/lib/funding-api.mjs';
+import {copyLegacyRegistry} from './legacy-registry.mjs';
 const opts={skip:skipWithoutPg};
 const repo=resolve('.'),oldEnv={...process.env};
 let sandbox,store,decide,committer;
 const pack=JSON.parse(readFileSync(join(repo,'research/v2/spotify-pilot.json'),'utf8'));
 function setupFiles(){
  for(const sub of ['registry','.data','scripts'])rmSync(join(sandbox,sub),{recursive:true,force:true});
- cpSync(join(repo,'registry'),join(sandbox,'registry'),{recursive:true});
+ copyLegacyRegistry(join(sandbox,'registry'),join(repo,'registry'));
  mkdirSync(join(sandbox,'scripts'));
  cpSync(join(repo,'scripts/validate-registry.mjs'),join(sandbox,'scripts/validate-registry.mjs'));
  if(!existsSync(join(sandbox,'node_modules')))symlinkSync(join(repo,'node_modules'),join(sandbox,'node_modules'),'dir');
@@ -52,7 +53,7 @@ test('v2 queued records require the owner and approved rows survive a real fresh
  assert.equal(approved.body.commit,null);
  const ledger=await row('SELECT files,state,synced_at FROM desk_applied_changes');assert.equal(ledger.state,'ready');assert.equal(ledger.synced_at,null);
  assert.ok(ledger.files.some(f=>f.path===CONTROL_PATH));assert.equal(ledger.files.length,3);
- const root=join(sandbox,'restart');mkdirSync(root);cpSync(join(repo,'registry'),join(root,'registry'),{recursive:true});
+ const root=join(sandbox,'restart');mkdirSync(root);copyLegacyRegistry(join(root,'registry'),join(repo,'registry'));
  const replay=restart(root);assert.equal(replay.failed,0);assert.equal(replay.applied,1);
  assert.equal(readControlledFunding(join(root,'registry')).dataset['funding-events'].length,3);
  const repeated=restart(root);assert.equal(repeated.applied,0);assert.equal(repeated.alreadyApplied,1);
@@ -73,7 +74,7 @@ test('v2 verdict failure holds the claim and its prepared row never replays',opt
  assert.equal(result.status,500);assert.equal(result.body.reconciliation_hold,true);
  assert.equal((await store.getProposal(p.id)).state,'applying');
  assert.equal((await row('SELECT state FROM desk_applied_changes')).state,'prepared');
- const root=join(sandbox,'prepared-restart');mkdirSync(root);cpSync(join(repo,'registry'),join(root,'registry'),{recursive:true});
+ const root=join(sandbox,'prepared-restart');mkdirSync(root);copyLegacyRegistry(join(root,'registry'),join(repo,'registry'));
  const replay=restart(root);assert.equal(replay.applied,0);assert.equal(existsSync(join(root,CONTROL_PATH)),false);
 });
 test('v2 concurrent prepared intents cannot fork the shared control path',opts,async()=>{

@@ -24,9 +24,14 @@ function proposal(overrides) {
   };
 }
 
+// A registry edit writes the one YAML file it targets. Since the funding
+// ledger reached Git, the committer also rewrites registry/funding-control.json
+// in the same change set so the control chain stays bound to the snapshot.
 function written(result) {
-  assert.equal(result.changes.length, 1);
-  return YAML.parse(result.changes[0].content);
+  const yaml = result.changes.filter((change) => change.path.endsWith('.yaml'));
+  assert.equal(yaml.length, 1);
+  assert.deepEqual(result.changes.filter((change) => !change.path.endsWith('.yaml')).map((change) => change.path), ['registry/funding-control.json']);
+  return YAML.parse(yaml[0].content);
 }
 
 test('a status change writes its summary onto the program even when the patch omits it', () => {
@@ -68,7 +73,9 @@ test('merging a duplicate round keeps the canonical round, its exact deadline, a
   const kept = doc.rounds.find((round) => round.name === 'Round 41 grants');
   assert.equal(kept.closes_at, '2026-10-07T23:59:00Z');
   assert.equal(kept.closes, '2026-10-07');
-  assert.equal(kept.status, 'open');
+  // Round 41 closed on its deadline (Desk p01616, in Git since the 2026-10-10
+  // sync). The merge must leave the kept round's status alone either way.
+  assert.equal(kept.status, 'closed');
   assert.equal(kept.size, '$25,000 across 3 awards');
   assert.ok(doc.sources.includes('https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951'));
   assert.deepEqual(doc.review.round_names, ['Round 41 grants']);
@@ -87,7 +94,8 @@ test('marking a round duplicate keeps its source and drops it from open lists', 
   assert.equal(marked.status, 'duplicate');
   assert.match(marked.source, /round-38/);
   assert.equal(roundHistoryLabel(marked), 'Duplicate');
-  assert.equal(doc.rounds.find((round) => round.name === 'Round 41 grants').status, 'open');
+  // The untouched Round 41 keeps whatever status the registry holds (closed since 2026-10-07).
+  assert.equal(doc.rounds.find((round) => round.name === 'Round 41 grants').status, 'closed');
 });
 
 test('a profile note replaces a program display name and summary without changing its id', () => {
