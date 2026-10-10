@@ -1,0 +1,23 @@
+id: nlnet-open-social-fund-activitypub-fediverse
+name: NLnet Open Social Fund — ActivityPub & Fediverse
+org: nlnet-foundation
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://nlnet.nl/opensocial/
+summary: Apply for up to €50,000 to advance the open, federated social web — ActivityPub
+  implementations, decentralised microblogging, link-sharing, forums, media hosting, and fediverse
+  tooling qualify. A private NLnet sub-fund with fewer EU restrictions than NGI-backed calls;
+  applications reopen September 3, 2026 with a deadline of November 3, 2026 at 12:00 CEST. Not
+  listed among the three new Open Internet Stack programmes (Restack, CodeSupply, ELFA) — a
+  separate, existing fund.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-03
+    size: €5,000–€50,000
+    source: https://nlnet.nl/opensocial/
+sources:
+  - https://nlnet.nl/opensocial/
