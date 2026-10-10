@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: active
+status: paused
 mechanism: grants
 apply_url: https://submit.interledger.org/submit/356649/2026-interledger-local-impact-mini-grant
 summary: Interledger Foundation's 2026 Local Impact Mini-Grants provide $500 to $3,000 for
