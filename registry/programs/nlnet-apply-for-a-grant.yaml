@@ -5,12 +5,11 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
-summary: NLnet; Apply for a grant To main content Submit your proposals. Next deadline November 3,
-  2026 Menu Funding Apply for funding Theme funds NGI Zero Support services Projects All projects
-  Currently running Topic index Stories News & events News Events Webinars Office Hour Podcast NGI
-  Zero Tour Schedule Speaker Bureau Resources Best practices Presentations Hex stickers Support
-  NLnet Financial contrib
+status: active
+summary: "NLnet's open call for projects that contribute to an open internet: grants between EUR
+  5,000 and EUR 50,000 for a first grant, for free/libre/open source software, hardware, data and
+  standards. Back-to-back calls with a deadline on the 3rd of every odd month; next deadline
+  November 3, 2026, 12:00 CET."
 rounds: []
 sources:
   - https://nlnet.nl/propose/
