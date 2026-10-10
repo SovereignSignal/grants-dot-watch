@@ -11,6 +11,10 @@ summary: Young Futures challenge funding US nonprofits, fiscally sponsored proje
   helping young people ages 10-19 learn deeply, think critically and make healthy decisions in an
   AI-shaped world. Awards $50,000-$100,000; at least $1M across 10+ organizations. Applications Sep
   23 to Oct 16, 2026, 5 PM PT.
-rounds: []
+rounds:
+  - name: 2026 challenge
+    status: open
+    closes: 2026-10-16
+    source: https://youngfutures.org/challenges/unwritten
 sources:
   - https://youngfutures.org/challenges/unwritten
