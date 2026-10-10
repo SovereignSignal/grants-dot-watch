@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: paused
 apply_url: https://opensourcefirmware.foundation/funding/
 summary: Open-Source Firmware Foundation's recurring open call funding open source firmware
   development, tooling, security, docs and research at EUR 1,000 to 7,500 per proposal; open to
