@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.ffg.at/en/ai-oekosysteme-2026
 summary: FFG call with about EUR 8.4M for cooperative industrial-research projects advancing core AI
   technology in Hybrid AI and Green AI. EUR 100,000 to 1M per project; companies, research
