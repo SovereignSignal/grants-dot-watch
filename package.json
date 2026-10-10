@@ -58,7 +58,7 @@
   "overrides": {
     "axios": "1.18.1",
     "postcss": "$postcss",
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "viem": {
       "ws": "8.21.1"
     },
