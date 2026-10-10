@@ -8,6 +8,10 @@ wires:
 status: active
 apply_url: https://nostradamus-project.eu/open-call-1/
 summary: "Open: applications Sep 29 to Dec 2, 2026, 17:00 CET."
-rounds: []
+rounds:
+  - name: "Open Call #1"
+    status: open
+    closes: 2026-12-02
+    source: https://nostradamus-project.eu/open-call-1/
 sources:
   - https://nostradamus-project.eu/open-call-1/
