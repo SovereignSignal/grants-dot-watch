@@ -173,11 +173,11 @@ export default function Search({ label }: { label: string }) {
   }, [panelOpen, query]);
 
   return (
-    <form ref={containerRef} className="ledger-search" role="search" action="/opportunities"
+    <form ref={containerRef} className="ledger-search" role="search" action="/programs"
       onSubmit={(event) => {
         event.preventDefault();
         setOpen(false);
-        router.push(`/opportunities?q=${encodeURIComponent(query.trim())}`);
+        router.push(`/programs?q=${encodeURIComponent(query.trim())}`);
       }}>
       <label htmlFor="hero-search">{label}</label>
       <div className="ledger-search-controls">

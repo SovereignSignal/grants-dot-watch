@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import YAML from 'yaml';
 import type { Award, Grantee, Org, OrgStats, Program, RegistryIndex, System } from './types';
 import { currentRounds, productDateISO } from './round-state';
+import { dateBounds } from './opportunities';
 
 const ROOT = join(process.cwd(), 'registry');
 
@@ -184,7 +185,7 @@ export function loadRegistry(force = false): RegistryIndex {
     const liveRounds = progs.flatMap((program) => currentRounds(program, todayISO));
     const dates = [
       ...given.map((a) => a.date).filter(Boolean),
-      ...progs.flatMap((p) => (p.rounds || []).map((r) => r.closes || r.opens)).filter(Boolean),
+      ...progs.flatMap((p) => (p.rounds || []).flatMap((r) => [r.opens, r.closes])).filter(Boolean),
     ] as string[];
     orgStats.set(o.id, {
       awards_given: given.length,
@@ -192,7 +193,12 @@ export function loadRegistry(force = false): RegistryIndex {
       grantees: new Set(given.map((a) => a.grantee)).size,
       programs: progs.length,
       live_rounds: liveRounds.length,
-      last_activity: dates.sort().pop() || null,
+      // Only completed date bounds can establish past activity. A future
+      // deadline must not conceal an already recorded opening or award.
+      last_activity: dates.filter(date => {
+        const bounds = dateBounds(date);
+        return bounds && bounds.last <= todayISO;
+      }).sort().pop() || null,
     });
   }
 

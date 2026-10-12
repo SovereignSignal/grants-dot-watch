@@ -178,15 +178,15 @@ test('cadence defaults to current evidence and bounds the all-program view', asy
 });
 
 test('departures pagination preserves active filters', async ({ page }) => {
-  await page.goto('/programs?status=active');
+  await page.goto('/programs?status=active&view=departures');
   await expect(page.getByText(/showing 1-50 of \d+ current rounds/i)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Next →' })).toHaveAttribute(
     'href',
-    '/programs?status=active&page=2'
+    '/programs?status=active&view=departures&page=2'
   );
 
   await page.getByRole('link', { name: 'Next →' }).click();
-  await expect(page).toHaveURL(/\/programs\?status=active&page=2$/);
+  await expect(page).toHaveURL(/\/programs\?status=active&view=departures&page=2$/);
   await expect(page.getByText(/showing 51-\d+ of \d+ current rounds/i)).toBeVisible();
   await expect(page.getByText(/^Page 2 of \d+$/)).toBeVisible();
 });
@@ -208,7 +208,7 @@ test.describe('mobile', () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     await expect(page.locator('main ol > li')).toHaveCount(50);
 
-    await page.goto('/programs');
+    await page.goto('/programs?view=departures');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     await expect(page.locator('main a[href^="/programs/"]')).toHaveCount(50);
 

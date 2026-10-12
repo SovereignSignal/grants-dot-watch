@@ -13,7 +13,8 @@ const require = createRequire(import.meta.url);
 const source = readFileSync(new URL('../src/components/funding/funding-terms.tsx', import.meta.url), 'utf8');
 const compiled = ts.transpileModule(source, { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
 const runtime = pathToFileURL(require.resolve('react/jsx-runtime')).href;
-const code = compiled.replaceAll('"react/jsx-runtime"', JSON.stringify(runtime));
+const displayModule = new URL('../src/lib/funding-display.ts', import.meta.url).href;
+const code = compiled.replaceAll('"react/jsx-runtime"', JSON.stringify(runtime)).replace(/(['"])\.\.\/\.\.\/lib\/funding-display\1/g, JSON.stringify(displayModule));
 const { FundingTerms } = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
 const render = row => renderToStaticMarkup(createElement(FundingTerms, { row }));
 

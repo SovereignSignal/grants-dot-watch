@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProgram, loadRegistry } from '@/lib/registry';
 import { httpUrl } from '@/lib/opportunities';
-import { programFacts, factDate, notedDate, roundHistoryLabel } from '@/lib/program-facts';
+import { programFacts, factDate, roundHistoryLabel } from '@/lib/program-facts';
 import { WIRE_LABEL } from '@/lib/format';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
 import { ProgramHistory } from '@/components/programs/program-review';
@@ -13,6 +13,8 @@ import { parsePage } from '@/lib/pagination';
 import { param, type SearchParams } from '@/components/ledger/query';
 import { pageMetadata } from '@/lib/site-metadata';
 import { productDateISO } from '@/lib/round-state';
+import { loadPublicFundingProduct } from '@/lib/public-api-v2';
+import { programProfileFields } from '@/lib/program-profile';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params; const p = getProgram(id);
@@ -31,28 +33,35 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
   const facts = programFacts(program, today);
   const deadline = facts.nextDeadline;
   const org = registry.orgs.find(org => org.id === program.org);
-  const review = program.review;
+  let fundingProduct = null;
+  let fundingUnavailable = false;
+  try { fundingProduct = await loadPublicFundingProduct(); }
+  catch { fundingUnavailable = true; }
+  const profileFields = programProfileFields(program, fundingProduct?.collections['program-terms'] || [], today);
   const apply = httpUrl(program.apply_url);
   const sources = [...new Set(program.sources || [])].map(httpUrl).filter((url): url is string => !!url);
   const children = registry.programs.filter(p => p.parent === id);
   const rounds = [...(program.rounds || [])].sort((a, b) => (b.closes || b.opens || '').localeCompare(a.closes || a.opens || ''));
   return <article className="program-dossier">
-    <nav className="dossier-breadcrumb" aria-label="Breadcrumb"><Link href="/programs">Programs</Link><span>/</span>{program.wires.map(wire => <Link key={wire} href={`/opportunities?wire=${wire}`}>{WIRE_LABEL[wire]}</Link>)}<span>/</span>{org ? <Link href={`/orgs/${org.id}`}>{org.name}</Link> : program.org}</nav>
+    <nav className="dossier-breadcrumb" aria-label="Breadcrumb"><Link href="/programs">Programs</Link><span>/</span>{program.wires.map(wire => <Link key={wire} href={`/programs?wire=${wire}`}>{WIRE_LABEL[wire]}</Link>)}<span>/</span>{org ? <Link href={`/orgs/${org.id}`}>{org.name}</Link> : program.org}</nav>
     <div className="dossier-grid">
       <header className="dossier-hero"><p className="dossier-kicker"><span className={`wire-square field-${program.wires[0]}`} aria-hidden/>{org?.name || program.org} · {program.wires.map(wire => WIRE_LABEL[wire]).join(' · ')} · {MECHANISM_LABEL[program.mechanism || 'other']}</p><h1>{program.name}</h1><p className="dossier-summary">{program.summary}</p></header>
       <div className="dossier-main">
       <section><h2>Who can apply</h2><dl className="dossier-facts">
-        {([['eligibility', 'Eligibility'], ['geography', 'Location'], ['funding', 'Funding']] as const).map(([key, label]) => {
-          const fact = review?.facts?.[key];
-          return <div key={key}><dt>{label}</dt><dd>{fact?.value || "Not recorded. Check the funder's terms."}{fact && <Source url={httpUrl(fact.source)} notedOn={notedDate(fact.checked_on, today)}/>}</dd></div>;
-        })}
+        {profileFields.map(({ key, label, entries, missing }) => <div key={key}><dt>{label}</dt><dd>
+          {entries.length ? entries.map((entry, index) => <div key={index} className={index ? 'mt-4' : undefined}>
+            <p className="deadline-note">{entry.scope}</p>{entry.values.map((value, i) => <p key={i}>{value}</p>)}
+            {entry.note && <p className="deadline-note">{entry.note}</p>}
+            <Source url={entry.source} notedOn={entry.notedOn}/>
+          </div>) : <p>{fundingUnavailable ? 'Additional evidence is temporarily unavailable. Check the recorded summary and sources.' : missing}</p>}
+        </dd></div>)}
       </dl></section>
       <section><h2>Round history</h2>{rounds.length ? <div className="round-history"><table><thead><tr><th>Round</th><th>Window</th><th>Size</th><th>Source</th></tr></thead><tbody>{rounds.map((round, i) => <tr key={`${round.name}-${i}`}>
         <th scope="row">{round.name}</th><td>{round.opens && round.closes ? `${factDate(round.opens)} to ${factDate(round.closes)}` : round.closes ? `Deadline: ${factDate(round.closes)}` : round.opens ? `From ${factDate(round.opens)}` : 'Dates not recorded'}<span className="round-history-state">{roundHistoryLabel(round, today)}</span></td><td>{round.size || 'Not stated'}</td><td>{httpUrl(round.source) ? <a href={round.source} target="_blank" rel="noreferrer" aria-label={`Source for ${round.name}`}>{new URL(round.source!).hostname.replace(/^www\./, '')}</a> : 'Not recorded'}</td>
       </tr>)}</tbody></table></div> : <p>No rounds on file.</p>}<p className="deadline-note">Past rounds stay on the page, so you can see how often this program opens.</p></section>
       {(program.parent || children.length > 0) && <section><h2>Related programs</h2>{program.parent && <Link className="evidence-link" href={`/programs/${program.parent}`}>Parent program</Link>}{children.map(child => <Link className="evidence-link block" href={`/programs/${child.id}`} key={child.id}>{child.name}</Link>)}</section>}
       <ProgramHistory program={program}/>
-      <ProgramFunding programId={id}/>
+      <ProgramFunding programId={id} product={fundingProduct} unavailable={fundingUnavailable}/>
       <section id="sources"><h2>Sources</h2><ol className="dossier-sources">{sources.map((source, i) => <li key={source}><span>{String(i + 1).padStart(2, '0')}</span><a href={source} target="_blank" rel="noreferrer">{new URL(source).hostname.replace(/^www\./, '')}<small>{new URL(source).pathname === '/' ? 'Program website' : new URL(source).pathname}</small></a></li>)}</ol></section>
     </div><aside className="application-panel" aria-label="The facts"><div className="application-panel-inner"><h2 className="hero-kicker">The facts</h2><dl>
       <div><dt>Status</dt><dd>{facts.status.label}<p className="deadline-note">{facts.status.note}</p><Source url={facts.status.source}/></dd></div>

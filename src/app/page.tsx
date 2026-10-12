@@ -61,7 +61,7 @@ export default function Home() {
         const programs = active.filter(program => program.wires.includes(wire.id));
         const counts = activeProgramsByOrg(programs);
         const funders = registry.orgs.filter(org => counts.has(org.id)).sort((a, b) => counts.get(b.id)! - counts.get(a.id)! || a.name.localeCompare(b.name)).slice(0, 4);
-        const href = `/opportunities?wire=${wire.id}&status=active`;
+        const href = `/programs?wire=${wire.id}&status=active`;
         return <article className="ledger-wire" key={wire.id}>
           <p className="wire-kicker"><span className={`wire-square field-${wire.id}`} aria-hidden/>The {wire.label} wire</p>
           <h2><Link href={href}><span className={`wire-square mobile-wire-square field-${wire.id}`} aria-hidden/>{wire.name}</Link></h2>
@@ -96,7 +96,7 @@ export default function Home() {
     </div>
     <section className="funding-methods">
       <div className="ledger-section-head"><h2>Ways to be funded</h2><span>Active programs of each kind</span></div>
-      <div className="mechanism-grid">{MECHANISMS.map(([mechanism, label, description]) => <Link key={mechanism} href={`/opportunities?status=active&mechanism=${mechanism}`}>
+      <div className="mechanism-grid">{MECHANISMS.map(([mechanism, label, description]) => <Link key={mechanism} href={`/programs?status=active&mechanism=${mechanism}`}>
         <div><h3>{label}</h3><span>{active.filter(program => (program.mechanism || 'other') === mechanism).length}</span></div><p>{description}</p>
       </Link>)}</div>
     </section>

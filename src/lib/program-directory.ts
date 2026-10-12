@@ -14,7 +14,7 @@ export function collectPrograms(programs: Program[], orgs: Org[], today = produc
 }
 
 export function queryPrograms(items: ProgramEntry[], filters: {
-  q?: string; wire?: string; mechanism?: string; status?: string; method?: string; sort?: string;
+  q?: string; wire?: string; mechanism?: string; status?: string; method?: string; sort?: string; org?: string;
 }): ProgramEntry[] {
   const words = (filters.q || '').toLowerCase().trim().split(/\s+/).filter(Boolean);
   return items.filter(({ program, org, facts }) => {
@@ -24,7 +24,8 @@ export function queryPrograms(items: ProgramEntry[], filters: {
       && (!filters.wire || program.wires.includes(filters.wire as Wire))
       && (!filters.mechanism || (program.mechanism || 'other') === filters.mechanism)
       && (!filters.status || program.status === filters.status)
-      && (!filters.method || facts.howToApply.value === filters.method);
+      && (!filters.method || facts.howToApply.value === filters.method)
+      && (!filters.org || program.org === filters.org);
   }).sort((a, b) => {
     if (filters.sort !== 'name') {
       const active = Number(b.program.status === 'active') - Number(a.program.status === 'active');

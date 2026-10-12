@@ -1,13 +1,9 @@
+import { fundingAmountLabel } from '../../lib/funding-display';
 type Row = Record<string, unknown>;
 const object = (value: unknown): Row => value && typeof value === 'object' && !Array.isArray(value) ? value as Row : {};
 const array = (value: unknown): unknown[] => Array.isArray(value) ? value : [];
 const text = (value: unknown): string => typeof value === 'string' ? value : '';
 const words = (value: unknown) => array(value).filter((item): item is string => typeof item === 'string');
-function amountLabel(value: Row) {
-  const qualifier = value.qualifier === 'up_to' ? 'Up to ' : value.qualifier === 'approximate' ? 'Approximately ' : '';
-  if (value.amount == null) return text(value.amount_text) || 'Amount not disclosed';
-  return `${qualifier}${text(value.currency)} ${text(value.amount)}${value.unit !== 'currency' ? ` ${text(value.unit)}` : ''}`.trim();
-}
 
 export function FundingTerms({ row }: { row: Row }) {
   const resources = array(row.resources).map(object), access = object(row.access);
@@ -16,7 +12,7 @@ export function FundingTerms({ row }: { row: Row }) {
     {resources.map((resource, index) => {
       const value = object(resource.value), restrictions = words(resource.restrictions);
       return <div key={index} className="border-l-2 border-line pl-3" data-funding-resource={text(resource.kind)}>
-        <p className="font-medium text-paper">{amountLabel(value)} <span className="font-normal text-dim">({text(resource.kind).replaceAll('_', ' ')})</span></p>
+        <p className="font-medium text-paper">{fundingAmountLabel(value)} <span className="font-normal text-dim">({text(resource.kind).replaceAll('_', ' ')})</span></p>
         {value.amount != null && text(value.amount_text) && <p className="mt-1">{text(value.amount_text)}</p>}
         {restrictions.map((restriction, i) => <p key={i} className="mt-1">{restriction}</p>)}
       </div>;
