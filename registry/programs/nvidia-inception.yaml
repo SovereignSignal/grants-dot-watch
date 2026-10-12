@@ -8,9 +8,33 @@ wires:
 status: active
 mechanism: incubator
 apply_url: https://programs.nvidia.com/phoenix/application
-summary: Free program guiding AI startups with training, developer tools, preferred
-  hardware/software pricing, and investor introductions through a VC Alliance. No fees, deadlines,
-  or cohorts — rolling applications.
+summary: Free startup program providing technical resources, training, preferred pricing, partner
+  offers and potential investor introductions. Applications have no fixed deadlines or cohorts.
+  Membership carries no fee or equity requirement; benefits are not a cash award or guaranteed
+  investment.
 rounds: []
+review:
+  kind: program
+  facts:
+    eligibility:
+      value: Applicants must be incorporated, less than ten years old, have a working website and employ
+        at least one developer. Consulting or outsourced-development firms,
+        cryptocurrency-associated companies, cloud service providers, resellers/distributors and
+        public companies are excluded. NVIDIA technology use and revenue are not prerequisites.
+      source: https://www.nvidia.com/en-us/startups/
+      checked_on: 2026-10-12
+  intake: unknown
+  source: https://www.nvidia.com/en-us/startups/
+  history: []
+  operating: active
+  questions:
+    - Confirm the current application route before treating intake as submission-verified;
+      individual benefits remain subject to eligibility.
+  checked_on: 2026-10-12
+  intake_mode: rolling
+  intake_note: The issuer describes applications without deadlines or cohorts. This review verifies
+    published eligibility; an authenticated application submission was not tested.
+  relationship: current
+  review_after: 2026-11-12
 sources:
   - https://www.nvidia.com/en-us/startups/
