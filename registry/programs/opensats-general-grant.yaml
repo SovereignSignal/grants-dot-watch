@@ -4,13 +4,55 @@ org: opensats
 parent: null
 systems: []
 wires:
+  - crypto
   - oss
 status: active
+mechanism: grants
 apply_url: https://opensats.org/apply
-summary: "Standing open call: OpenSats grants from its General Fund for free and open-source
-  projects that benefit Bitcoin and related ecosystems; open worldwide and nym-friendly,
-  applications reviewed by the board and grants distributed periodically. No fixed deadline or
-  amount published."
-rounds: []
+summary: OpenSats General Grants support free and open-source work benefiting Bitcoin and related
+  ecosystems. Applications are accepted in the first two months of each quarter and closed in March,
+  June, September and December. General grants run for 3 to 12 months; budgets are denominated in
+  USD and grants are payable in bitcoin. No fixed individual award range is stated.
+rounds:
+  - name: Q4 2026 application window
+    status: open
+    opens: 2026-10-01
+    closes: 2026-11-30
+    source: https://opensats.org/faq/application
+review:
+  kind: program
+  facts:
+    funding:
+      value: Budgets are in USD; grants are payable in bitcoin. Individual amount is unstated, and this
+        payment policy does not establish that any award was paid.
+      source: https://opensats.org/faq/application
+      checked_on: 2026-10-12
+    deadline:
+      value: "Q4 window: October and November 2026. Closed in December. Exact cutoff time and timezone are
+        unknown."
+      source: https://opensats.org/faq/application
+      checked_on: 2026-10-12
+    eligibility:
+      value: Open-source work benefiting Bitcoin and related ecosystems. General applications need at
+        least two written references and a short applicant video. General grants last 3 to 12
+        months; recipients report progress every 90 days.
+      source: https://opensats.org/faq/application
+      checked_on: 2026-10-12
+  intake: open
+  source: https://opensats.org/faq/application
+  history: []
+  operating: active
+  questions:
+    - Exact closing time and timezone for the normalized Q4 window are not stated.
+  checked_on: 2026-10-12
+  intake_mode: rounds
+  intake_note: The issuer FAQ specifies the first two months of each quarter; the current apply page
+    links the General Grant form. Q4 dates are calendar normalization of this recurring rule, not an
+    issuer-named standalone program. Exact closing time and timezone are unspecified.
+  round_names:
+    - Q4 2026 application window
+  relationship: current
+  review_after: 2026-11-12
 sources:
   - https://opensats.org/apply
+  - https://opensats.org/faq/application
