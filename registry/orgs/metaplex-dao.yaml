@@ -1,0 +1,16 @@
+id: metaplex-dao
+name: Metaplex DAO
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+org_type: dao
+website: https://www.metaplex.foundation/governance
+status: active
+profile: Metaplex DAO coordinates community governance of the Metaplex Protocol and provides grants
+  for its growth and development.
+sources:
+  - https://www.metaplex.foundation/grants
+  - https://www.metaplex.foundation/governance

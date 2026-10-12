@@ -61,6 +61,7 @@ test('a round update narrative does not replace the program summary', () => {
 });
 
 test('merging a duplicate round keeps the canonical round, its exact deadline, and the duplicate source', () => {
+  const before = YAML.parse(readFileSync('registry/programs/rocket-pool-gmc-grants.yaml', 'utf8'));
   const doc = written(buildProposalChanges(proposal({
     type: 'round_update',
     proposed_change: {
@@ -80,7 +81,7 @@ test('merging a duplicate round keeps the canonical round, its exact deadline, a
   assert.equal(kept.status, 'closed');
   assert.equal(kept.size, '$25,000 across 3 awards');
   assert.ok(doc.sources.includes('https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951'));
-  assert.deepEqual(doc.review.round_names, ['Round 41 grants']);
+  assert.deepEqual(doc.review.round_names, before.review.round_names.filter((name) => name !== 'Round 36 (Apr 7-May 7 2026)'));
 });
 
 test('marking a round duplicate keeps its source and drops it from open lists', () => {

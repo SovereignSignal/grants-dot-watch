@@ -1,0 +1,14 @@
+id: spiral
+name: Spiral
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://spiral.xyz/
+status: active
+profile: Spiral is a Block initiative that supports open-source bitcoin and AI. Its grants page
+  invites detailed proposals from contributors.
+sources:
+  - https://spiral.xyz/grants/

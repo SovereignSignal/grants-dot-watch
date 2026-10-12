@@ -1,0 +1,15 @@
+id: doublezero
+name: DoubleZero
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://doublezero.xyz/
+status: active
+profile: DoubleZero operates a network for distributed systems. Its grants program supports external
+  builders through targeted RFPs and open proposals, with milestone-based grants denominated in 2Z
+  tokens.
+sources:
+  - https://doublezero.xyz/journal/introducing-the-doublezero-grants-program

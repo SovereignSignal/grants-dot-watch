@@ -1,0 +1,15 @@
+id: vinteum
+name: Vinteum
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://www.vinteum.org/
+status: active
+profile: Vinteum is a Bitcoin research and development center in Brazil. It funds experienced
+  contributors to open-source Bitcoin infrastructure through long-term, flexible grants.
+sources:
+  - https://www.vinteum.org/programs/grants
+  - https://www.vinteum.org/

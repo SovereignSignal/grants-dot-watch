@@ -1,0 +1,24 @@
+id: otf-rapid-response-service-provider-rfp-2026
+name: OTF Rapid Response Service Provider RFP 2026
+org: free-and-open-source-software-sustainability-fund
+parent: otf-rapid-response-fund
+systems:
+  - internet-freedom
+  - sovereign-tech
+wires:
+  - oss
+status: active
+mechanism: rfp
+apply_url: https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
+summary: OTF is procuring digital emergency support services through time-and-materials contracts.
+  Each initial one-year contract has a ceiling of USD 150,000; work and payment are not guaranteed.
+  This procurement is separate from applications for emergency assistance.
+rounds:
+  - name: 2026 service-provider proposals
+    opens: 2026-10-06
+    closes: 2026-11-23
+    source: https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
+    status: open
+    closes_at: 2026-11-23T23:59:00-05:00
+sources:
+  - https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
