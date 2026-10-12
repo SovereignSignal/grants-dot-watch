@@ -1,29 +1,26 @@
 id: free-and-open-source-software-sustainability-fund
-name: Free and Open Source Software Sustainability Fund
+name: Open Technology Fund
 aka:
-  - Open Technology Fund
   - Open Tech Fund
   - OTF
   - open technology
-systems: [internet-freedom, sovereign-tech]
-wires: [oss]
-roles: [funder]
+systems:
+  - internet-freedom
+  - sovereign-tech
+wires:
+  - oss
+roles:
+  - funder
 org_type: nonprofit
-website: https://www.opentech.fund/funds/free-and-open-source-software-sustainability-fund/
+website: https://www.opentech.fund/
 socials:
   x: https://x.com/OpenTechFund
 status: active
-profile: >
-  The Free and Open Source Software Sustainability Fund is run by the Open
-  Technology Fund (OTF), a Washington DC-based 501(c)(3) supporting internet
-  freedom technology worldwide. The fund makes targeted awards (from $7k/month
-  up to $400k over 24 months) for maintenance, interoperability, security,
-  and resilience of internet-freedom FOSS tools, via a two-stage competitive
-  process (concept notes to proposals, advisory council review, performance
-  contracts) with complementary lab support. OTF administers deliverable-based
-  contracts rather than lump-sum grants; a March-May 2026 application round
-  ran recently, and OTF's broader funds (such as the Internet Freedom Fund)
-  accept concept notes on a rolling basis.
+profile: Open Technology Fund (OTF) is an independent nonprofit advancing global internet freedom by
+  supporting technology that counters censorship and surveillance. Its programs include the Internet
+  Freedom Fund, Rapid Response Fund and FOSS Sustainability Fund, alongside resource labs. The FOSS
+  Sustainability Fund is one OTF program; it is not the organization itself. Service-provider
+  procurements have separate terms and deadlines from requests for emergency assistance.
 funding:
   focus:
     - internet freedom
@@ -34,14 +31,15 @@ funding:
     - secure communications
     - applied research
     - human rights tech
-  typical_size: >
-    $10,000-$900,000 (most requests $50,000-$200,000)
-  cadence: >
-    Rolling -- concept notes accepted on an ongoing basis for the Internet
-    Freedom Fund; Rapid Response Fund reviewed within ~5 days.
+  typical_size: Varies by fund; consult the individual program for its supported range and terms.
+  cadence: Program-specific. Funding applications and service-provider procurements have separate
+    processes and deadlines.
   apply_url: https://apply.opentech.fund/
 sources:
   - https://www.opentech.fund/funds/free-and-open-source-software-sustainability-fund/
   - https://apply.opentech.fund/
   - https://www.opentech.fund/projects-we-support/supported-projects/f-droid-sustainability/
   - https://www.opentech.fund/projects-we-support/supported-projects/lantern/
+  - https://www.opentech.fund/
+  - https://www.opentech.fund/about/
+  - https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
