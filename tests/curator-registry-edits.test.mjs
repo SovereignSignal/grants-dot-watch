@@ -193,3 +193,30 @@ test('an organization status change writes the submission summary onto the profi
   assert.equal(doc.id, 'rocket-pool');
   assert.ok(doc.sources.includes('https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043'));
 });
+
+for (const type of ['new_program', 'round_update', 'deadline_change', 'profile_note']) {
+  test(`${type} preserves a supplied exact deadline including its timezone`, () => {
+    const round = { name: 'Exact deadline regression', status: 'announced', closes: '2099-11-23', closes_at: '2099-11-23T23:59:00-05:00' };
+    const doc = written(buildProposalChanges(proposal({
+      type,
+      proposed_change: { 'programs/rocket-pool-gmc-grants.yaml': { rounds: [round] } },
+    })));
+    const result = doc.rounds.find(r => r.name === round.name);
+    assert.equal(result.closes, round.closes);
+    assert.equal(result.closes_at, round.closes_at);
+  });
+}
+
+test('updating a round preserves its exact deadline unless the closing date changes', () => {
+  const before = YAML.parse(readFileSync('registry/programs/rocket-pool-gmc-grants.yaml', 'utf8'));
+  const round = before.rounds.find(r => r.name === 'Round 42 grants');
+  assert.ok(round.closes_at);
+  for (const patch of [{ size: 'Unchanged deadline' }, { closes: round.closes }, { closes: '2099-11-24' }]) {
+    const doc = written(buildProposalChanges(proposal({
+      type: 'round_update',
+      proposed_change: { 'programs/rocket-pool-gmc-grants.yaml': { rounds: [{ name: round.name, ...patch }] } },
+    })));
+    const result = doc.rounds.find(r => r.name === round.name);
+    assert.equal(result.closes_at, patch.closes && patch.closes !== round.closes ? undefined : round.closes_at);
+  }
+});

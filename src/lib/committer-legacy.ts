@@ -201,6 +201,8 @@ function mergeRounds(existing: Round[], incoming: unknown, evidenceUrl?: string 
       status: r.status || base.status,
       opens: r.opens ?? base.opens,
       closes: r.closes ?? base.closes,
+      // Keep an exact instant only while its stated closing date still applies.
+      closes_at: r.closes_at ?? (r.closes == null || r.closes === base.closes ? base.closes_at : undefined),
       size: r.size ?? base.size,
       source: r.source ?? base.source ?? evidenceUrl ?? undefined,
     };
