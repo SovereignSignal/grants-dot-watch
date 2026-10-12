@@ -7,16 +7,49 @@ wires:
   - oss
 status: active
 apply_url: https://www.openscience.nl/en/calls/open-science-infrastructure
-summary: Open Science NL invites consortia of at least three institutions to apply for the 2nd round
-  of its Open Science Infrastructure Programme, offering up to €1,700,000 per proposal from a €17
-  million pool for open science software, workflows, platforms, and data services. Submit a letter
-  of intent by November 3, 2026 (14:00 CET), with full proposals due April 13, 2027; an optional
-  orientation session is held October 26, 2026, in Utrecht.
+summary: The second Open Science Infrastructure call has a EUR 17 million budget and a maximum EUR
+  1.7 million request per project. A letter of intent and registration for the mandatory December 2
+  workshop are due November 3, 2026 before 14:00 CET. Full proposals from workshop participants are
+  due April 13, 2027 before 14:00 CEST. The optional October 26 orientation is online.
 rounds:
   - name: Current call
     status: open
     closes: 2026-11-03
+    closes_at: 2026-11-03T14:00:00+01:00
     size: up to €1,700,000 per proposal
     source: https://www.openscience.nl/en/calls/open-science-infrastructure
+  - name: Full proposals (workshop participants)
+    status: announced
+    closes: 2027-04-13
+    closes_at: 2027-04-13T14:00:00+02:00
+    source: https://www.openscience.nl/en/calls/open-science-infrastructure
+review:
+  kind: program
+  facts:
+    deadline:
+      value: "Letter of intent and workshop registration: before November 3, 2026 14:00 CET. Full
+        proposal: before April 13, 2027 14:00 CEST. October 26 orientation is optional and online."
+      source: https://www.openscience.nl/en/calls/open-science-infrastructure
+      checked_on: 2026-10-12
+    eligibility:
+      value: At least three applicants from three different organizations. Each applicant may join only
+        one proposal as main or co-applicant. Main applicant or representative must attend the
+        December 2 preparatory workshop.
+      source: https://www.openscience.nl/en/calls/open-science-infrastructure
+      checked_on: 2026-10-12
+  intake: open
+  source: https://www.openscience.nl/en/calls/open-science-infrastructure
+  history: []
+  operating: active
+  questions: []
+  checked_on: 2026-10-12
+  intake_mode: rounds
+  intake_note: Open for letters of intent. November 3 is the entry deadline; the April full-proposal
+    stage requires prior workshop participation and is not an unrestricted new-entry window.
+  round_names:
+    - Current call
+    - Full proposals (workshop participants)
+  relationship: current
+  review_after: 2026-11-12
 sources:
   - https://www.openscience.nl/en/calls/open-science-infrastructure
