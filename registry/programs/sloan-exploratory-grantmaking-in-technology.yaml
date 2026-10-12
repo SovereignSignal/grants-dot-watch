@@ -1,0 +1,43 @@
+id: sloan-exploratory-grantmaking-in-technology
+name: Alfred P. Sloan Foundation Exploratory Grantmaking in Technology
+org: sloan-foundation-tech-oss
+parent: sloan-foundation-tech-oss-digital-technology
+systems:
+  - oss-sustainability
+wires:
+  - ai
+  - oss
+status: active
+mechanism: grants
+apply_url: https://sloan.org/programs/digital-technology/exploratory-grantmaking-in-technology
+summary: Sloan supports exploratory work at the intersection of research and technology, including
+  AI in Science and Automation in Science. The program invites letters of inquiry of no more than
+  two pages by email. Formal grant proposals require an invitation. No program-wide award range or
+  dated application deadline is stated.
+rounds: []
+review:
+  kind: program
+  facts:
+    eligibility:
+      value: Research-and-technology projects aligned with current exploratory focus areas. Start with an
+        emailed letter of inquiry of at most two pages; formal proposals require invitation.
+        Foundation-wide exclusions apply.
+      source: https://sloan.org/programs/digital-technology/exploratory-grantmaking-in-technology
+      checked_on: 2026-10-12
+  intake: open
+  source: https://sloan.org/programs/digital-technology/exploratory-grantmaking-in-technology
+  history: []
+  operating: active
+  questions:
+    - Individual grant amounts, deadlines and decision timing depend on the inquiry; no uniform
+      program-wide terms are stated.
+  checked_on: 2026-10-12
+  intake_mode: unknown
+  intake_note: Program-specific instructions invite emailed letters of inquiry. This is the inquiry
+    stage; formal proposals are invitation-only. No deadline or verified recurring intake cadence is
+    asserted.
+  relationship: current
+  review_after: 2026-11-12
+sources:
+  - https://sloan.org/programs/digital-technology/exploratory-grantmaking-in-technology
+  - https://sloan.org/grants/apply
