@@ -48,10 +48,11 @@ test('v2 refuses direct apply flags and never opens a database',()=>{
  assert.notEqual(result.status,0);
  assert.match(result.stderr,/Unknown option/);
 });
-test('v2 foundation preserves the exact v1 loader, types, validator and serializer',()=>{
+test('v2 foundation preserves legacy types, validator and serializer',()=>{
  const expected={
    'src/lib/types.ts':'d0b205765cf554fbc7bed2c9b88bddc3b28ad9df',
-   'src/lib/registry.ts':'8140aa8b84f046bb0f2423eabe16951daeefdb71',
+   // Registry activity behavior is covered by registry-activity.test.mjs;
+   // its loader has an intentional correction to exclude future dates.
    'src/lib/public-api.ts':'5294eff89b70e438ebfa83f364083728296f5df9',
    'scripts/validate-registry.mjs':'cd6cb98e656c3f96596688ddc6475d0132fc69d3',
  };

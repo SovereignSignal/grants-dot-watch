@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { loadPublicFundingProduct } from '@/lib/public-api-v2';
 import { FundingRecord, type FundingRow } from './funding-record';
 
-export async function ProgramFunding({ programId }: { programId: string }) {
-  let product;
-  try { product = await loadPublicFundingProduct(); }
-  catch { return <section><h2>Funding evidence</h2><p>Funding evidence is temporarily unavailable. The existing program record remains available above.</p></section>; }
+type FundingProduct = Awaited<ReturnType<typeof loadPublicFundingProduct>>;
+
+export function ProgramFunding({ programId, product, unavailable = false }: { programId: string; product: FundingProduct; unavailable?: boolean }) {
+  if (unavailable) return <section><h2>Funding evidence</h2><p>Funding evidence is temporarily unavailable. The existing program record remains available above.</p></section>;
   if (!product) return null;
   const kinds = ['funding-events', 'process-metrics', 'program-terms'];
   const rows = kinds.flatMap(kind => (product.collections[kind] as unknown as FundingRow[]).filter(r => r.program === programId).map(row => ({ kind, row })));

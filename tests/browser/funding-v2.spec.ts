@@ -58,3 +58,21 @@ test('funding pages, evidence queries, OpenAPI and exports are connected', async
   await page.setViewportSize({ width:375, height:812 }); await page.goto(`${preview}/funding?kind=claims`);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+
+test('program profiles surface accepted eligibility and funding in the main fields', async ({ page }, testInfo) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.goto(`${preview}/programs/unwritten-challenge`);
+  const fields=page.locator('.dossier-facts');
+  await expect(fields).toContainText('US 501(c)(3), school or fiscal sponsor route');
+  await expect(fields).toContainText('Advertised $50,000');
+  await expect(fields).toContainText('currency unknown');
+  await expect(fields).toContainText('Location is not recorded separately');
+  await expect(fields).not.toContainText("Not recorded. Check the funder's terms.");
+  await expect(fields.getByRole('link').first()).toHaveAttribute('href','https://youngfutures.org/challenges/unwritten');
+  await page.getByRole('heading',{name:'Who can apply',exact:true}).scrollIntoViewIfNeeded();
+  await page.screenshot({path:testInfo.outputPath('unwritten-profile.png')});
+  await page.goto(`${preview}/programs/1inch-dao-aqua-revenue-stream-incubator`);
+  await expect(fields).toContainText('Rolling 2026 intake');
+  await expect(fields).toContainText('Up to $50,000 per team; $436,000 total pool');
+});
