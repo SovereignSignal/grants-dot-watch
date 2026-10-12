@@ -8,7 +8,7 @@ wires:
   - crypto
 status: active
 mechanism: grants
-apply_url: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
+apply_url: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
 summary: Rocket Pool's Grants and Bounties Management Committee (GMC) funds grants, bounties, and
   retrospective awards for rETH/protocol infrastructure work, run in numbered rounds.
 rounds:
@@ -38,24 +38,30 @@ rounds:
     source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
     status: closed
     closes_at: 2026-10-07T23:59:00Z
+  - name: Round 42 grants
+    status: open
+    opens: 2026-10-07
+    closes: 2026-11-07
+    source: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
 review:
   kind: program
   facts:
     funding:
-      value: Applicants propose a USD budget and payment schedule.
-      source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
-      checked_on: 2026-09-26
+      value: Applicants propose a USD budget and payment schedule; no award or payment is established by
+        submission.
+      source: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
+      checked_on: 2026-10-12
     deadline:
-      value: October 7, 2026 at 23:59 UTC.
-      source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
-      checked_on: 2026-10-08
+      value: November 7, 2026 at 23:59 UTC.
+      source: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
+      checked_on: 2026-10-12
     eligibility:
       value: Applicants proposing to carry out work benefiting Rocket Pool, node operators, rETH users or
         the protocol community.
       source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
       checked_on: 2026-09-26
-  intake: closed
-  source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
+  intake: open
+  source: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
   history:
     - date: 2026-10-03
       label: Duplicate round merged
@@ -67,16 +73,20 @@ review:
       source: https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
       summary: The issuer-stated October 7, 2026 at 23:59 UTC grant deadline has passed. No extension was
         established in the source review. Subsequent rounds require separate verification.
+    - date: 2026-10-12
+      label: Round 42 grant intake reviewed
+      source: https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
+      summary: Issuer call confirms the new grant application window; Round 41 remains closed.
   operating: active
   questions: []
-  checked_on: 2026-10-08
+  checked_on: 2026-10-12
   intake_mode: rounds
-  intake_note: Round 41 grant applications closed October 7, 2026 at 23:59 UTC. This assessment covers
-    the named grant round, not future rounds or separate bounty and retrospective calls.
+  intake_note: Round 42 accepts grant proposals through November 7, 2026 at 23:59 UTC. The separate
+    bounty-proposal intake is recorded separately.
   round_names:
-    - Round 41 grants
+    - Round 42 grants
   relationship: current
-  review_after: 2026-10-15
+  review_after: 2026-10-19
 sources:
   - https://dao.rocketpool.net/t/round-36-april-7-may-7-grants-bounties-retrospective-awards-results/3951
   - https://dao.rocketpool.net/t/round-37-gmc-call-for-grant-applications-deadline-is-june-7/3938
@@ -84,3 +94,4 @@ sources:
   - https://dao.rocketpool.net/t/round-39-gmc-call-for-bounty-applications-deadline-is-august-7/3996
   - https://dao.rocketpool.net/t/round-40-gmc-call-for-grant-applications-deadline-is-september-7/4019
   - https://dao.rocketpool.net/t/round-41-gmc-call-for-grant-applications-deadline-is-october-7/4043
+  - https://dao.rocketpool.net/t/round-42-gmc-call-for-grant-applications-deadline-is-november-7/4070
