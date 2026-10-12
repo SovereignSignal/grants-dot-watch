@@ -15,9 +15,10 @@ summary: OTF is procuring digital emergency support services through time-and-ma
   This procurement is separate from applications for emergency assistance.
 rounds:
   - name: 2026 service-provider proposals
-    status: open
     opens: 2026-10-06
     closes: 2026-11-23
     source: https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
+    status: open
+    closes_at: 2026-11-23T23:59:00-05:00
 sources:
   - https://www.opentech.fund/news/open-technology-fund-requests-proposals-for-the-rapid-response-fund/
