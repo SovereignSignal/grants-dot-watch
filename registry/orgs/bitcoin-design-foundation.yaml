@@ -1,0 +1,14 @@
+id: bitcoin-design-foundation
+name: Bitcoin Design Foundation
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://bitcoindesignfoundation.org/
+status: active
+profile: Bitcoin Design Foundation is a nonprofit supporting individuals who contribute to
+  open-source bitcoin design, user research and related work through grants.
+sources:
+  - https://bitcoindesignfoundation.org/apply
