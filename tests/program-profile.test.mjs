@@ -23,6 +23,10 @@ test('profile uses the same named round sizes when typed funding is absent', () 
   assert.equal(f.funding.entries[0].values[0],'Up to $50,000 per team; $436,000 total pool');
   assert.equal(f.funding.entries[0].source,source);
 });
+test('numeric resource labels retain source conditions carried in amount_text', () => {
+  const row = {...terms, resources:[{kind:'cloud_credit',value:{amount:'100000',currency:'USD',unit:'currency',qualifier:'up_to',amount_text:'Year two covers 20% of eligible usage.'},restrictions:[]}]};
+  assert.deepEqual(fields(program,[row]).funding.entries[0].values,['Up to USD 100000 (cloud credit)','Year two covers 20% of eligible usage.']);
+});
 test('history and multiple resources stay scoped without inferring totals or present access', () => {
   const historic = {...terms,round_name:'2025 cohort',effective_to:'2025-12-31',resources:[{kind:'cash',value:{amount:'100',currency:'USD',unit:'currency',qualifier:'up_to'},restrictions:['Subject to milestones']},{kind:'cloud_credit',value:{amount:'200',currency:'USD',unit:'currency',qualifier:'exact'},restrictions:[]}]};
   const f = fields(program,[historic]);

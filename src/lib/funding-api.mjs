@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { programRoundReferenceErrors } from './program-round-reference.mjs';
 import { CAPITAL_FORMS, EVENT_TYPES, FUNDING_SCHEMAS, INSTRUMENTS, LEDGERS, SELECTION_MODELS, canonical, isIsoDate, isPublicUrl, projectRecord, validateFundingDataset } from './funding-model.mjs';
 
 export const COLLECTIONS = ['systems', 'orgs', 'programs', 'rounds', 'awards', 'recipients', ...LEDGERS, 'sources', 'opportunities'];
@@ -25,13 +26,15 @@ export class FundingApiError extends Error {
 
 function publicRound(p, r) {
   const id = roundId(p.id,r.name);
-  return { id, identity_basis:'legacy_program_and_round_name', program:p.id, org:p.org, name:text(r.name), status:text(r.status), opens:precisionDate(r.opens), closes:precisionDate(r.closes), closes_at:text(r.closes_at), size:text(r.size), source:safeUrl(r.source), api:collectionUrl('rounds',id) };
+  return { id, canonical_round_id:p.parent_round ? roundId(p.parent,p.parent_round) : id, canonical_program:p.parent_round ? p.parent : p.id, identity_basis:'legacy_program_and_round_name', program:p.id, org:p.org, name:text(r.name), status:text(r.status), opens:precisionDate(r.opens), closes:precisionDate(r.closes), closes_at:text(r.closes_at), size:text(r.size), source:safeUrl(r.source), api:collectionUrl('rounds',id) };
 }
 function publicOrg(o) {
-  return { id:o.id, name:o.name, aka:strings(o.aka), systems:strings(o.systems), wires:strings(o.wires), roles:strings(o.roles), org_type:text(o.org_type), website:safeUrl(o.website), status:o.status, profile:o.profile, sources:urls(o.sources), href:`/orgs/${o.id}`, api:collectionUrl('orgs',o.id) };
+  const socials = Object.fromEntries(['x','github','forum','instagram'].filter(key => isPublicUrl(o.socials?.[key])).map(key => [key,o.socials[key]]));
+  const funding = o.funding ? { focus:strings(o.funding.focus), typical_size:text(o.funding.typical_size), cadence:text(o.funding.cadence), apply_url:safeUrl(o.funding.apply_url) } : null;
+  return { id:o.id, name:o.name, aka:strings(o.aka), systems:strings(o.systems), wires:strings(o.wires), roles:strings(o.roles), org_type:text(o.org_type), website:safeUrl(o.website), socials, status:o.status, profile:o.profile, funding, sources:urls(o.sources), href:`/orgs/${o.id}`, api:collectionUrl('orgs',o.id) };
 }
 function publicProgram(p) {
-  return { id:p.id, name:p.name, org:p.org, parent:text(p.parent), systems:strings(p.systems), wires:strings(p.wires), status:p.status, legacy_mechanism:text(p.mechanism), apply_url:safeUrl(p.apply_url), summary:p.summary, sources:urls(p.sources), href:`/programs/${p.id}`, api:collectionUrl('programs',p.id) };
+  return { id:p.id, name:p.name, org:p.org, parent:text(p.parent), parent_round:text(p.parent_round), systems:strings(p.systems), wires:strings(p.wires), status:p.status, legacy_mechanism:text(p.mechanism), apply_url:safeUrl(p.apply_url), summary:p.summary, sources:urls(p.sources), href:`/programs/${p.id}`, api:collectionUrl('programs',p.id) };
 }
 function publicAward(a) {
   return { id:a.key, funder:a.funder, funder_name:a.funder_name, recipient:a.grantee, recipient_name:a.grantee_name, program:text(a.program), program_name:text(a.program_name), amount:finite(a.amount), currency:text(a.currency), amount_text:text(a.amount_text), date:date(a.date), wire:text(a.wire), source:safeUrl(a.source), payment_state:'not_established', origin:'legacy_award_ledger', api:collectionUrl('awards',a.key) };
@@ -64,7 +67,7 @@ const NOT_OPEN_TO_APPLICANTS = ['invitation','internal_selection','donor_directe
  *  retire it: a current access check, or primary-supported rolling intake.
  *  Returns null, or the basis plus the access record and route it relied on. */
 function currentOpportunity(p, r, terms, today, now) {
-  if (p.status !== 'active' || r.status !== 'open') return null;
+  if (p.parent_round || p.status !== 'active' || r.status !== 'open') return null;
   if (p.review && (p.review.kind !== 'program' || p.review.relationship !== 'current' || p.review.intake !== 'open')) return null;
   if (r.opens && (!isIsoDate(r.opens) || r.opens > today)) return null;
   if (r.closes && (!isIsoDate(r.closes) || r.closes < today)) return null;
@@ -72,7 +75,7 @@ function currentOpportunity(p, r, terms, today, now) {
   if (terms.conflict) return null;
   const t = terms.record;
   if (t && (t.evidence_state !== 'primary_supported' || CLOSED_INTAKE.includes(t.intake_mode) || t.selection_models.some(x => NOT_OPEN_TO_APPLICANTS.includes(x)))) return null;
-  const a = t?.access?.round_name === r.name && t.access.checked_on <= today ? t.access : null;
+  const a = t?.access?.round_name === (terms.originalRoundName || r.name) && t.access.checked_on <= today ? t.access : null;
   if (a && (a.state === 'closed' || a.new_applicants === false || a.prerequisites_clear === false)) return null;
   const usable = a?.state === 'open' ? a : null;
   const route = safeUrl(usable?.route) || safeUrl(p.apply_url);
@@ -88,28 +91,35 @@ function currentOpportunity(p, r, terms, today, now) {
 export function buildFundingCollections(baseline, dataset, at = new Date()) {
   const today = calendarDate(at);
   if (validateFundingDataset(dataset,baseline,today).length) throw new Error('Funding sidecars are invalid');
+  if (programRoundReferenceErrors(baseline.programs).length) throw new Error('Invalid program round references');
   const terms = dataset['program-terms'];
   const result = Object.fromEntries(COLLECTIONS.map(kind => [kind,[]]));
-  result.systems = (baseline.systems || []).map(s => ({ id:s.id,name:s.name,kind:s.kind,part_of:strings(s.part_of),wires:strings(s.wires),summary:s.summary,sources:urls(s.sources),api:collectionUrl('systems',s.id) }));
+  result.systems = (baseline.systems || []).map(s => ({ id:s.id,name:s.name,kind:s.kind,part_of:strings(s.part_of),wires:strings(s.wires),summary:s.summary,funding_channels:strings(s.funding_channels),sources:urls(s.sources),api:collectionUrl('systems',s.id) }));
   result.orgs = baseline.orgs.map(publicOrg);
   result.programs = baseline.programs.map(p => {
     const record = publicProgram(p);
     const applicable = latestTerms(terms.filter(t => t.program === p.id && !t.round_name),today);
     const selected = applicable?.evidence_state === 'primary_supported' ? applicable : null;
-    return { ...record, current_terms_key:selected?.key || null, instruments:selected?.instruments || null, capital_forms:selected?.capital_forms || null, selection_models:selected?.selection_models || null };
+    return { ...record, current_terms_key:selected?.key || null, instruments:selected?.instruments || null, capital_forms:selected?.capital_forms || null, allocation_methods:selected?.allocation_methods || null, selection_models:selected?.selection_models || null, intake_mode:selected?.intake_mode || null };
   });
   for (const p of baseline.programs) for (const r of p.rounds || []) {
     result.rounds.push(publicRound(p,r));
     const scoped = terms.filter(t => t.program === p.id && t.round_name === r.name);
-    const current = currentTerms(scoped.length ? scoped : terms.filter(t => t.program === p.id && !t.round_name),today);
+    const linkedCalls = baseline.programs.filter(call => call.parent === p.id && call.parent_round === r.name);
+    const linked = terms.filter(t => linkedCalls.some(call => t.program === call.id && (!t.round_name || t.round_name === call.rounds[0].name)));
+    const own = scoped.length ? scoped : terms.filter(t => t.program === p.id && !t.round_name);
+    // Explicit preserved-call references scope their original evidence to this round.
+    // Conflicting unlinked observations still fail closed; no legal facts are copied.
+    const current = currentTerms([...own,...linked],today);
     const candidate = current.length === 1 ? current[0] : null;
-    const hit = currentOpportunity(p,r,{record:candidate,conflict:current.length > 1},today,at.getTime());
+    const linkedCall = linkedCalls.find(call => call.id === candidate?.program);
+    const hit = currentOpportunity(p,r,{record:candidate,originalRoundName:linkedCall?.rounds[0].name,conflict:current.length > 1},today,at.getTime());
     if (hit) result.opportunities.push({
       id:roundId(p.id,r.name),program:p.id,program_name:p.name,org:p.org,round_name:r.name,basis:hit.basis,
       instruments:candidate?.instruments ?? null,capital_forms:candidate?.capital_forms ?? null,selection_models:candidate?.selection_models ?? null,
       entry_stage:hit.access?.stage ?? null,apply_url:hit.route,opens:date(r.opens),closes:date(r.closes),closes_at:text(r.closes_at),
       checked_on:hit.access?.checked_on ?? candidate?.checked_on ?? null,
-      source:safeUrl(hit.access?.source) || safeUrl(r.source) || safeUrl(candidate?.source) || null,terms_key:candidate?.key ?? null,
+      source:safeUrl(hit.access?.source) || safeUrl(r.source) || safeUrl(candidate?.source) || null,terms_key:candidate?.key ?? null,terms_program:candidate?.program ?? null,
       eligibility:candidate?.eligibility == null ? null : strings(candidate.eligibility),
       geography:candidate?.geography == null ? null : strings(candidate.geography),
       eligibility_is_personalized:false,api:collectionUrl('opportunities',roundId(p.id,r.name)),href:`/programs/${p.id}`,

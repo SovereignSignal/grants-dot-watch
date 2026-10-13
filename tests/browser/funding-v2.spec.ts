@@ -63,7 +63,7 @@ test('funding pages, evidence queries, OpenAPI and exports are connected', async
 test('program profiles surface accepted eligibility and funding in the main fields', async ({ page }, testInfo) => {
   await page.setViewportSize({width:1440,height:1000});
   await page.goto(`${preview}/programs/unwritten-challenge`);
-  const fields=page.locator('.dossier-facts');
+  const fields=page.locator('.dossier-facts:not(.dossier-classification)');
   await expect(fields).toContainText('US 501(c)(3), school or fiscal sponsor route');
   await expect(fields).toContainText('Advertised $50,000');
   await expect(fields).toContainText('currency unknown');
@@ -75,4 +75,28 @@ test('program profiles surface accepted eligibility and funding in the main fiel
   await page.goto(`${preview}/programs/1inch-dao-aqua-revenue-stream-incubator`);
   await expect(fields).toContainText('Rolling 2026 intake');
   await expect(fields).toContainText('Up to $50,000 per team; $436,000 total pool');
+});
+
+
+test('profiles and API preserve separate funding classifications and existing entity fields', async ({ page, request }, testInfo) => {
+  await page.goto(`${preview}/programs/google-for-startups-cloud-program-ai-tier`);
+  const classification = page.locator('.dossier-classification');
+  await expect(classification).toContainText('Subsidy');
+  await expect(classification).toContainText('Cloud credit');
+  await expect(classification).toContainText('No separate allocation method field is recorded');
+  await expect(page.locator('.dossier-kicker')).toContainText('Legacy classification: Other');
+  await classification.scrollIntoViewIfNeeded();
+  await page.screenshot({path:testInfo.outputPath('google-classification.png')});
+  await page.goto(`${preview}/programs/nvidia-inception`);
+  await expect(classification).toContainText('Service');
+  await expect(classification).toContainText('Cloud credit');
+  await expect(classification).toContainText('Other');
+  const org = await (await request.get(`${preview}/api/v2/orgs/php-foundation`)).json();
+  expect(org.data.socials.github).toBe('https://github.com/ThePHPF/thephp.foundation');
+  const program = await (await request.get(`${preview}/api/v2/programs/google-for-startups-cloud-program-ai-tier`)).json();
+  expect(program.data.instruments).toEqual(['subsidy']);
+  expect(program.data.allocation_methods).toEqual([]);
+  expect(program.data.intake_mode).toBe('unknown');
+  const system = await (await request.get(`${preview}/api/v2/systems/oss-sustainability`)).json();
+  expect(Array.isArray(system.data.funding_channels)).toBe(true);
 });

@@ -1,4 +1,5 @@
-// Registry mutation gateway. Legacy implementation is retained byte-for-byte.
+// Registry mutation gateway. Legacy proposals and additive round-reference links
+// use the same serializers and guarded staging path.
 // Funding imports use the same durable outbox, verdict and boot replay path.
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmdirSync } from 'node:fs';
 import { join } from 'node:path';

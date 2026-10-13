@@ -4,7 +4,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { createHash } from 'node:crypto';
+import { publicProgram } from '../src/lib/public-api.ts';
 import YAML from 'yaml';
 import { buildFundingCollections } from '../src/lib/funding-api.mjs';
 import { readBaseline, readFundingLedgers } from '../src/lib/funding-store.mjs';
@@ -48,16 +48,9 @@ test('v2 refuses direct apply flags and never opens a database',()=>{
  assert.notEqual(result.status,0);
  assert.match(result.stderr,/Unknown option/);
 });
-test('v2 foundation preserves legacy types, validator and serializer',()=>{
- const expected={
-   'src/lib/types.ts':'d0b205765cf554fbc7bed2c9b88bddc3b28ad9df',
-   // Registry activity behavior is covered by registry-activity.test.mjs;
-   // its loader has an intentional correction to exclude future dates.
-   'src/lib/public-api.ts':'5294eff89b70e438ebfa83f364083728296f5df9',
-   'scripts/validate-registry.mjs':'cd6cb98e656c3f96596688ddc6475d0132fc69d3',
- };
- for(const [path,hash] of Object.entries(expected)) {
-   const bytes=readFileSync(path);
-   assert.equal(createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex'),hash,path);
- }
+test('unannotated v1 programs retain their legacy wire shape',()=>{
+ const program={id:'legacy',name:'Legacy',org:'funder',parent:null,systems:[],wires:['oss'],status:'concluded',mechanism:'grants',summary:'Historical funding',rounds:[{name:'2025',status:'closed'}],sources:['https://example.org']};
+ assert.deepEqual(publicProgram(program,'2026-10-13'),{
+  ...program,apply_url:null,live:false,live_rounds:[],href:'/programs/legacy',api:'/api/v1/programs/legacy',
+ });
 });

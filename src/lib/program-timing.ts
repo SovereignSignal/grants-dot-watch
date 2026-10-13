@@ -32,7 +32,7 @@ export function summarizeProgramTiming(
   const openWithoutDeadline = current.filter((item) => item.round.status === 'open' && !item.round.closes);
   const announced = current.filter((item) => item.round.status === 'announced');
   const currentProgramIds = new Set(current.map((item) => item.program.id));
-  const activeOrAnnounced = programs.filter((program) => program.status === 'active' || program.status === 'announced');
+  const activeOrAnnounced = programs.filter((program) => !program.parent_round && (program.status === 'active' || program.status === 'announced'));
 
   return {
     todayISO,

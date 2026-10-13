@@ -1,0 +1,447 @@
+{
+  "preview_only": true,
+  "production_changed": false,
+  "as_of": "2026-10-13T20:00:00.000Z",
+  "before": {
+    "programs": [
+      {
+        "id": "numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "name": "NumFOCUS Small Development Grants, 2025 Round 2",
+        "org": "numfocus",
+        "parent": "numfocus-small-development-grants",
+        "parent_round": null,
+        "systems": [],
+        "wires": [
+          "oss"
+        ],
+        "status": "concluded",
+        "legacy_mechanism": null,
+        "apply_url": null,
+        "summary": "Round 2 of the 2025 NumFOCUS Small Development Grants, open to NumFOCUS fiscally sponsored or affiliated projects for up to $10,000 per proposal. Proposals were due October 17, 2025. The NumFOCUS program page lists that schedule under its 2025 funding rounds and shows no 2026 round.",
+        "sources": [
+          "https://numfocus.org/programs/small-development-grants"
+        ],
+        "href": "/programs/numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "api": "/api/v2/programs/numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "current_terms_key": null,
+        "instruments": null,
+        "capital_forms": null,
+        "allocation_methods": null,
+        "selection_models": null,
+        "intake_mode": null
+      },
+      {
+        "id": "numfocus-small-development-grants",
+        "name": "NumFOCUS Small Development Grants",
+        "org": "numfocus",
+        "parent": null,
+        "parent_round": null,
+        "systems": [
+          "oss-sustainability"
+        ],
+        "wires": [
+          "oss",
+          "ai"
+        ],
+        "status": "paused",
+        "legacy_mechanism": "grants",
+        "apply_url": "https://numfocus.org/projects-overview",
+        "summary": "Small grants to help NumFOCUS's fiscally sponsored and affiliated open-source scientific computing projects improve usability, grow their communities, and speed release cycles. Calls for proposals normally run 3x/year; applications are currently closed while NumFOCUS updates its financial and administrative systems.",
+        "sources": [
+          "https://numfocus.org/projects-overview"
+        ],
+        "href": "/programs/numfocus-small-development-grants",
+        "api": "/api/v2/programs/numfocus-small-development-grants",
+        "current_terms_key": "backfill-20261008-b07:numfocus-small-development-grants:terms",
+        "instruments": [
+          "grant"
+        ],
+        "capital_forms": [
+          "cash"
+        ],
+        "allocation_methods": [],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "unknown"
+      },
+      {
+        "id": "php-foundation-2027-core-development-contractors",
+        "name": "PHP Foundation 2027 Core Development Contractors",
+        "org": "php-foundation",
+        "parent": null,
+        "parent_round": null,
+        "systems": [],
+        "wires": [
+          "oss"
+        ],
+        "status": "active",
+        "legacy_mechanism": null,
+        "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "summary": "The PHP Foundation seeks paid independent contractors to maintain PHP core in 2027, covering security patches, issue triage, PR review, and under-resourced extensions. Apply by October 20, 2026; the async, distributed role is open to any developer legally eligible to receive funds via the Open Source Collective, excluding OFAC-sanctioned territories. Compensation is not specified.",
+        "sources": [
+          "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open"
+        ],
+        "href": "/programs/php-foundation-2027-core-development-contractors",
+        "api": "/api/v2/programs/php-foundation-2027-core-development-contractors",
+        "current_terms_key": null,
+        "instruments": null,
+        "capital_forms": null,
+        "allocation_methods": null,
+        "selection_models": null,
+        "intake_mode": null
+      }
+    ],
+    "rounds": [
+      {
+        "id": "round-607e833a032e6fc4642d127ece3c9f19b16e806ee87cc9b64f7c2d15c415d67b",
+        "canonical_round_id": "round-607e833a032e6fc4642d127ece3c9f19b16e806ee87cc9b64f7c2d15c415d67b",
+        "canonical_program": "numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "org": "numfocus",
+        "name": "2025 Round 2",
+        "status": "closed",
+        "opens": null,
+        "closes": "2025-10-17",
+        "closes_at": null,
+        "size": "Up to $10,000",
+        "source": "https://numfocus.org/programs/small-development-grants",
+        "api": "/api/v2/rounds/round-607e833a032e6fc4642d127ece3c9f19b16e806ee87cc9b64f7c2d15c415d67b"
+      },
+      {
+        "id": "round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29",
+        "canonical_round_id": "round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29",
+        "canonical_program": "php-foundation-2027-core-development-contractors",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "php-foundation-2027-core-development-contractors",
+        "org": "php-foundation",
+        "name": "Current call",
+        "status": "open",
+        "opens": null,
+        "closes": "2026-10-20",
+        "closes_at": null,
+        "size": "not specified",
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "api": "/api/v2/rounds/round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29"
+      }
+    ],
+    "opportunities": [
+      {
+        "id": "round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29",
+        "program": "php-foundation-2027-core-development-contractors",
+        "program_name": "PHP Foundation 2027 Core Development Contractors",
+        "org": "php-foundation",
+        "round_name": "Current call",
+        "basis": "published_deadline",
+        "instruments": null,
+        "capital_forms": null,
+        "selection_models": null,
+        "entry_stage": null,
+        "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "opens": null,
+        "closes": "2026-10-20",
+        "closes_at": null,
+        "checked_on": null,
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "terms_key": null,
+        "terms_program": null,
+        "eligibility": null,
+        "geography": null,
+        "eligibility_is_personalized": false,
+        "api": "/api/v2/opportunities/round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29",
+        "href": "/programs/php-foundation-2027-core-development-contractors"
+      }
+    ]
+  },
+  "after": {
+    "programs": [
+      {
+        "id": "numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "name": "NumFOCUS Small Development Grants, 2025 Round 2",
+        "org": "numfocus",
+        "parent": "numfocus-small-development-grants",
+        "parent_round": "2025 Round 2",
+        "systems": [],
+        "wires": [
+          "oss"
+        ],
+        "status": "concluded",
+        "legacy_mechanism": null,
+        "apply_url": null,
+        "summary": "Round 2 of the 2025 NumFOCUS Small Development Grants, open to NumFOCUS fiscally sponsored or affiliated projects for up to $10,000 per proposal. Proposals were due October 17, 2025. The NumFOCUS program page lists that schedule under its 2025 funding rounds and shows no 2026 round.",
+        "sources": [
+          "https://numfocus.org/programs/small-development-grants"
+        ],
+        "href": "/programs/numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "api": "/api/v2/programs/numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "current_terms_key": null,
+        "instruments": null,
+        "capital_forms": null,
+        "allocation_methods": null,
+        "selection_models": null,
+        "intake_mode": null
+      },
+      {
+        "id": "numfocus-small-development-grants",
+        "name": "NumFOCUS Small Development Grants",
+        "org": "numfocus",
+        "parent": null,
+        "parent_round": null,
+        "systems": [
+          "oss-sustainability"
+        ],
+        "wires": [
+          "oss",
+          "ai"
+        ],
+        "status": "paused",
+        "legacy_mechanism": "grants",
+        "apply_url": "https://numfocus.org/projects-overview",
+        "summary": "Small grants to help NumFOCUS's fiscally sponsored and affiliated open-source scientific computing projects improve usability, grow their communities, and speed release cycles. Calls for proposals normally run 3x/year; applications are currently closed while NumFOCUS updates its financial and administrative systems.",
+        "sources": [
+          "https://numfocus.org/projects-overview",
+          "https://numfocus.org/programs/small-development-grants"
+        ],
+        "href": "/programs/numfocus-small-development-grants",
+        "api": "/api/v2/programs/numfocus-small-development-grants",
+        "current_terms_key": "backfill-20261008-b07:numfocus-small-development-grants:terms",
+        "instruments": [
+          "grant"
+        ],
+        "capital_forms": [
+          "cash"
+        ],
+        "allocation_methods": [],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "unknown"
+      },
+      {
+        "id": "php-foundation-2027-core-development-contractors",
+        "name": "PHP Foundation 2027 Core Development Contractors",
+        "org": "php-foundation",
+        "parent": "php-foundation-core-development-contractors",
+        "parent_round": "2027 contractor intake",
+        "systems": [],
+        "wires": [
+          "oss"
+        ],
+        "status": "active",
+        "legacy_mechanism": null,
+        "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "summary": "The PHP Foundation seeks paid independent contractors to maintain PHP core in 2027, covering security patches, issue triage, PR review, and under-resourced extensions. Apply by October 20, 2026; the async, distributed role is open to any developer legally eligible to receive funds via the Open Source Collective, excluding OFAC-sanctioned territories. Compensation is not specified.",
+        "sources": [
+          "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open"
+        ],
+        "href": "/programs/php-foundation-2027-core-development-contractors",
+        "api": "/api/v2/programs/php-foundation-2027-core-development-contractors",
+        "current_terms_key": "representative:php-foundation-2027-core-development-contractors:2026-10-13",
+        "instruments": [
+          "contract"
+        ],
+        "capital_forms": [
+          "cash"
+        ],
+        "allocation_methods": [],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "rounds"
+      },
+      {
+        "id": "php-foundation-core-development-contractors",
+        "name": "PHP Foundation Core Development Contractors",
+        "org": "php-foundation",
+        "parent": null,
+        "parent_round": null,
+        "systems": [
+          "oss-sustainability"
+        ],
+        "wires": [
+          "oss"
+        ],
+        "status": "active",
+        "legacy_mechanism": null,
+        "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "summary": "The PHP Foundation supports ongoing PHP core maintenance and development through contracted developers. Annual application calls seek contributors to this continuing work; a call does not guarantee that new contractors will be hired.",
+        "sources": [
+          "https://thephp.foundation/structure/",
+          "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open"
+        ],
+        "href": "/programs/php-foundation-core-development-contractors",
+        "api": "/api/v2/programs/php-foundation-core-development-contractors",
+        "current_terms_key": null,
+        "instruments": null,
+        "capital_forms": null,
+        "allocation_methods": null,
+        "selection_models": null,
+        "intake_mode": null
+      }
+    ],
+    "rounds": [
+      {
+        "id": "round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec",
+        "canonical_round_id": "round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec",
+        "canonical_program": "php-foundation-core-development-contractors",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "php-foundation-core-development-contractors",
+        "org": "php-foundation",
+        "name": "2027 contractor intake",
+        "status": "open",
+        "opens": null,
+        "closes": "2026-10-20",
+        "closes_at": null,
+        "size": "not specified",
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "api": "/api/v2/rounds/round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec"
+      },
+      {
+        "id": "round-284b1d979a3a2729fa58ef4cb08d6d64350899586bb0f2f9d16f5dae6bef17d0",
+        "canonical_round_id": "round-284b1d979a3a2729fa58ef4cb08d6d64350899586bb0f2f9d16f5dae6bef17d0",
+        "canonical_program": "numfocus-small-development-grants",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "numfocus-small-development-grants",
+        "org": "numfocus",
+        "name": "2025 Round 2",
+        "status": "closed",
+        "opens": null,
+        "closes": "2025-10-17",
+        "closes_at": null,
+        "size": "Up to $10,000",
+        "source": "https://numfocus.org/programs/small-development-grants",
+        "api": "/api/v2/rounds/round-284b1d979a3a2729fa58ef4cb08d6d64350899586bb0f2f9d16f5dae6bef17d0"
+      },
+      {
+        "id": "round-607e833a032e6fc4642d127ece3c9f19b16e806ee87cc9b64f7c2d15c415d67b",
+        "canonical_round_id": "round-284b1d979a3a2729fa58ef4cb08d6d64350899586bb0f2f9d16f5dae6bef17d0",
+        "canonical_program": "numfocus-small-development-grants",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "numfocus-sdg-2026-round-2-cfp-open-due-oct-17",
+        "org": "numfocus",
+        "name": "2025 Round 2",
+        "status": "closed",
+        "opens": null,
+        "closes": "2025-10-17",
+        "closes_at": null,
+        "size": "Up to $10,000",
+        "source": "https://numfocus.org/programs/small-development-grants",
+        "api": "/api/v2/rounds/round-607e833a032e6fc4642d127ece3c9f19b16e806ee87cc9b64f7c2d15c415d67b"
+      },
+      {
+        "id": "round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29",
+        "canonical_round_id": "round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec",
+        "canonical_program": "php-foundation-core-development-contractors",
+        "identity_basis": "legacy_program_and_round_name",
+        "program": "php-foundation-2027-core-development-contractors",
+        "org": "php-foundation",
+        "name": "Current call",
+        "status": "open",
+        "opens": null,
+        "closes": "2026-10-20",
+        "closes_at": null,
+        "size": "not specified",
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "api": "/api/v2/rounds/round-d4c2e6690f39072b56c3fca5d7123d7acda559e951582203a302522afb995d29"
+      }
+    ],
+    "opportunities": [
+      {
+        "id": "round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec",
+        "program": "php-foundation-core-development-contractors",
+        "program_name": "PHP Foundation Core Development Contractors",
+        "org": "php-foundation",
+        "round_name": "2027 contractor intake",
+        "basis": "published_deadline",
+        "instruments": [
+          "contract"
+        ],
+        "capital_forms": [
+          "cash"
+        ],
+        "selection_models": [
+          "application"
+        ],
+        "entry_stage": null,
+        "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "opens": null,
+        "closes": "2026-10-20",
+        "closes_at": null,
+        "checked_on": "2026-10-13",
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+        "terms_key": "representative:php-foundation-2027-core-development-contractors:2026-10-13",
+        "terms_program": "php-foundation-2027-core-development-contractors",
+        "eligibility": [
+          "C and systems programming experience is required.",
+          "Applicants must be legally eligible to receive funds from a US entity; residents of sanctioned territories are excluded."
+        ],
+        "geography": null,
+        "eligibility_is_personalized": false,
+        "api": "/api/v2/opportunities/round-1f9017776f60fe81fb9494640ba6b4395032795a011851275933b9ef7849daec",
+        "href": "/programs/php-foundation-core-development-contractors"
+      }
+    ]
+  },
+  "application": {
+    "canonical_write": false,
+    "production_access": false,
+    "reports": [
+      {
+        "proposal": "preview-terms-php",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/program-terms/desk-7ecc91dd0ec9b915806e407c5987bd35b7da88fef7af8995a6c478a732462159.jsonl"
+        ],
+        "notes": [
+          "v2 funding import: 1 new records; no payment inferred"
+        ]
+      },
+      {
+        "proposal": "preview-terms-google",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/program-terms/desk-3b913030ce81e2a2bd1250b97c1a59f30b6b36efe3ff83a97540cda35dc85df9.jsonl"
+        ],
+        "notes": [
+          "v2 funding import: 1 new records; no payment inferred"
+        ]
+      },
+      {
+        "proposal": "preview-terms-nvidia",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/program-terms/desk-00f0110a1e49dd77fb3ac8fe811fb38f9cb9fcaa39dca4555ac342580bac4645.jsonl"
+        ],
+        "notes": [
+          "v2 funding import: 1 new records; no payment inferred"
+        ]
+      },
+      {
+        "proposal": "preview-php-parent",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/programs/php-foundation-core-development-contractors.yaml"
+        ],
+        "notes": []
+      },
+      {
+        "proposal": "preview-php-call",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/programs/php-foundation-2027-core-development-contractors.yaml"
+        ],
+        "notes": []
+      },
+      {
+        "proposal": "preview-numfocus-round",
+        "paths": [
+          "registry/funding-control.json",
+          "registry/programs/numfocus-small-development-grants.yaml",
+          "registry/programs/numfocus-sdg-2026-round-2-cfp-open-due-oct-17.yaml"
+        ],
+        "notes": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "observed_on": "2026-10-13",
+  "raw_text_publication": false,
+  "sources": [
+    {
+      "name": "php",
+      "url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open/",
+      "representation_sha256": "da35d8cbcbc48f9623e88684b7d17ed62603a9f9f61ff697c88d2b755265d97d",
+      "html_sha256": "00f0969c81d9c1613b0ef5153c59223e9a27893b4de46c70ad8b67be4f2a1559",
+      "field_lines": {
+        "instruments": [
+          23,
+          46
+        ],
+        "capital_forms": [
+          34
+        ],
+        "selection_models": [
+          23
+        ],
+        "intake_mode": [
+          25
+        ],
+        "eligibility": [
+          28,
+          34,
+          64
+        ],
+        "requirements": [
+          42,
+          44,
+          45
+        ],
+        "resources": [
+          34,
+          46
+        ],
+        "access": [
+          23
+        ]
+      }
+    },
+    {
+      "name": "google",
+      "url": "https://cloud.google.com/startup/ai",
+      "representation_sha256": "50a5b4ec706586f3ad8fe61445b210c656f473f2ff24f9d9dc545b7b3ba6fc5e",
+      "html_sha256": "6641dbe9536515b6031b94c105008139c3d3e8e95175c47ce183538a1d10556f",
+      "field_lines": {
+        "instruments": [
+          18,
+          19
+        ],
+        "capital_forms": [
+          18,
+          19
+        ],
+        "selection_models": [
+          13
+        ],
+        "eligibility": [
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "requirements": [
+          28
+        ],
+        "resources": [
+          18,
+          19,
+          28
+        ],
+        "access": [
+          13
+        ]
+      }
+    },
+    {
+      "name": "nvidia",
+      "url": "https://www.nvidia.com/en-us/startups/",
+      "representation_sha256": "8652c785ce616f3682325435eeee5f66e53498e763b294c9c2d213223db8486c",
+      "html_sha256": "f1db20c3e82b4a5e6b9832ff779c0b2e68caed49139620361ba0ad93671dfeba",
+      "field_lines": {
+        "instruments": [
+          799
+        ],
+        "capital_forms": [
+          705,
+          799
+        ],
+        "selection_models": [
+          716
+        ],
+        "eligibility": [
+          805,
+          807,
+          808,
+          809,
+          810,
+          811
+        ],
+        "requirements": [
+          799
+        ],
+        "resources": [
+          696,
+          697,
+          702,
+          705,
+          707,
+          708
+        ],
+        "access": [
+          714
+        ]
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { existsSync, lstatSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { LEDGERS, canonical, validateFundingDataset } from './funding-model.mjs';
 import { digest, readFundingLedgers } from './funding-store.mjs';
+import { programRoundReferenceErrors } from './program-round-reference.mjs';
 import { planFundingImport } from './funding-migration.mjs';
 export const CONTROL_PATH='registry/funding-control.json';
 export const MAX_PACK_BYTES=256*1024;
@@ -78,7 +79,7 @@ export function validateFundingChanges(root,baseline,changes,today,parseYaml){
  const relevant=changes.some(c=>isLedgerPath(c.path)||c.path===CONTROL_PATH);
  const present=LEDGERS.some(k=>existsSync(join(root,k))&&readdirSync(join(root,k)).some(f=>f.endsWith('.jsonl')));
  if(!relevant&&!present)return;
- const {data,next,control}=overlay(root,baseline,changes,parseYaml),errors=validateFundingDataset(data,next,today);
+ const {data,next,control}=overlay(root,baseline,changes,parseYaml),errors=[...validateFundingDataset(data,next,today),...programRoundReferenceErrors(next.programs)];
  if(errors.length)throw new Error(`Funding reference/schema validation failed: ${errors.slice(0,5).join('; ')}`);
  if(control.value&&control.value.dataset_sha256!==datasetHash(data))throw new Error('Prepared funding control does not match the complete dataset');
  const programs=new Set(LEDGERS.flatMap(k=>data[k].map(r=>r.program)).filter(Boolean));

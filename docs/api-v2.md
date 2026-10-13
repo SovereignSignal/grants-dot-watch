@@ -67,3 +67,42 @@ Three candidate packs are retained outside canonical ledgers: historical Spotify
 CI validates the legacy registry and sidecars, checks the public boundary, lints the added implementation, runs unit/CLI tests and real PostgreSQL integration tests against an isolated CI service, typechecks, builds the application and runs browser/HTTP tests. Database tests still skip during local runs without `TEST_DATABASE_URL`; report those skips honestly. Read the current commit's CI receipt rather than assuming prior successful checks cover new changes.
 
 Remaining: populated nonproduction rollout and rollback rehearsal, broader research backfill, source adapters, all remaining research controls, field-level provenance/rights, public changes/history, output and impact joins, quota/billing systems and production activation. No schedule or paid data pipeline is enabled by this PR.
+
+## Additive registry profile fields
+
+Organization list/detail/export records expose `socials` (public URL values for
+x, github, forum and instagram) and `funding` (focus, typical_size, cadence,
+apply_url). Absent funding is null; absent scalar subfields are null and focus is
+an array. These are recorded organization profile facts with the organization's
+`sources`, not newly verified terms. Unsupported nested fields are not published;
+URLs pass the v2 public-URL guard.
+
+Systems expose their existing `funding_channels` program IDs. These are navigation
+anchors, not proof of capital ownership. Programs expose `allocation_methods` and
+`intake_mode` alongside existing typed axes using the same `current_terms_key`
+selection. Missing, disputed, round-only or conflicting terms produce null summary
+fields. Full historical and round-scoped terms remain available separately.
+Legacy `legacy_mechanism` and all v1 shapes/filters remain unchanged. See
+[registry conventions](registry-conventions.md) for taxonomy and identity rules.
+
+## Preserved call records and canonical rounds
+
+`parent_round` optionally identifies a program record retained as a compatibility
+page for a round on its existing `parent`. Program IDs, `/programs/{id}` pages,
+v1/v2 program detail routes and original v2 round IDs remain available. V2 round
+records add `canonical_program` and `canonical_round_id`; these point to the
+enduring program round for a preserved call and to the record itself otherwise.
+The `relationships` collection exposes a `preserved_call` edge to that round,
+rather than labelling the call as a distinct child program. Program and round
+exports retain compatibility records; use canonical_round_id to group identities,
+not to sum their funding. Ordinary v1 rows are unchanged; annotated v1 rows add
+parent_round. No redirect or destructive migration is required.
+
+Main program browse and current-call views exclude preserved call records; the
+enduring parent owns the application window. The old call page continues to show
+its original evidence and links to the anchored parent round. Parent profiles
+show explicitly linked call terms under the named round and link back to the
+original call. The raw terms' program, scope, keys and provenance never change.
+A parent opportunity may refer to that original terms key; `terms_program` names
+its original program. This does not promote annual call terms into a current
+program-level summary. Conflicting applicable observations remain fail-closed.

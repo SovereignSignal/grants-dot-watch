@@ -51,6 +51,8 @@ export interface Program {
   name: string;
   org: string;
   parent?: string | null;
+  /** Preserved call page: exact round name under parent, not a separate program. */
+  parent_round?: string | null;
   systems: string[];
   wires: Wire[];
   status: 'active' | 'paused' | 'concluded' | 'announced' | 'unknown';

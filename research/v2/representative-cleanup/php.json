@@ -1,0 +1,196 @@
+{
+  "schema_version": 2,
+  "id": "representative-php-20261013",
+  "reference_blobs": {
+    "programs/php-foundation-2027-core-development-contractors.yaml": "8cfe992937aacfe6e97da2356d53b9004eba6699",
+    "orgs/php-foundation.yaml": "993b25c79ff2ca1f6d122a2231de9f553ef05297"
+  },
+  "records": {
+    "program-terms": [
+      {
+        "key": "representative:php-foundation-2027-core-development-contractors:2026-10-13",
+        "program": "php-foundation-2027-core-development-contractors",
+        "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open/",
+        "checked_on": "2026-10-13",
+        "evidence_state": "primary_supported",
+        "evidence_note": "The issuer solicits PHP core contractors for 2027. Contract describes the offered instrument, not an executed contract or payment. Compensation amount and currency are not published.",
+        "instruments": [
+          "contract"
+        ],
+        "allocation_methods": [],
+        "capital_forms": [
+          "cash"
+        ],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "rounds",
+        "resources": [
+          {
+            "kind": "cash",
+            "value": {
+              "amount": null,
+              "currency": null,
+              "unit": "currency",
+              "qualifier": "not_disclosed",
+              "amount_text": "Contractor compensation; amount and currency not published."
+            },
+            "restrictions": [
+              "Hiring is not guaranteed by the application call."
+            ]
+          }
+        ],
+        "access": null,
+        "eligibility": [
+          "C and systems programming experience is required.",
+          "Applicants must be legally eligible to receive funds from a US entity; residents of sanctioned territories are excluded."
+        ],
+        "requirements": [
+          "Describe proposed PHP core work and its expected benefit."
+        ],
+        "provenance": {
+          "version": 1,
+          "sources": [
+            {
+              "url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open/",
+              "representation_sha256": "da35d8cbcbc48f9623e88684b7d17ed62603a9f9f61ff697c88d2b755265d97d",
+              "observed_on": "2026-10-13",
+              "provider": "manual",
+              "representation": "tool_text_excerpt",
+              "scope": "Manually reviewed issuer page; HTML text nodes extracted in document order with scripts/styles omitted and whitespace normalized. Bounded program terms only; no verified application access or funding event.",
+              "source_revision": null,
+              "redistribution": "unassessed",
+              "rights_source": null,
+              "id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad"
+            }
+          ],
+          "assertions": [
+            {
+              "field": "/instruments",
+              "value_sha256": "1b431d391631485b26b2e9e03df5900186c2a309d096a0fbddccba0fcc22d93a",
+              "method": "normalized",
+              "rule": "Contractor call normalized to contract; no signed agreement inferred.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 23
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 46
+                }
+              ]
+            },
+            {
+              "field": "/capital_forms",
+              "value_sha256": "4c35bbeedf37adba3b66047996d2ef712c4f1bbbb89de1249e1054f0f9e8e996",
+              "method": "normalized",
+              "rule": "Funds received by contractors normalized to cash; denomination withheld.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 34
+                }
+              ]
+            },
+            {
+              "field": "/selection_models",
+              "value_sha256": "d1928806d31c522d3159022e482ab5ceead1010b0a5549e944701edf285c3e8a",
+              "method": "normalized",
+              "rule": "Application-based contractor intake.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 23
+                }
+              ]
+            },
+            {
+              "field": "/intake_mode",
+              "value_sha256": "6ce9ca00fbb1c79c199ee2b2c3972687190396428d7788041af3a6a953f6e708",
+              "method": "normalized",
+              "rule": "A dated 2027 contractor call, not evidence of rolling access.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 25
+                }
+              ]
+            },
+            {
+              "field": "/eligibility",
+              "value_sha256": "6b2a03994edf860a50eb991919557655984bc47d4ef8019aed9e5c60fe3b8d54",
+              "method": "normalized",
+              "rule": "Summarized mandatory technical and legal eligibility.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 28
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 34
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 64
+                }
+              ]
+            },
+            {
+              "field": "/requirements",
+              "value_sha256": "3aa86a499a4ecc8b0421401b32f48595d9cffe347eb1973a2cf021e62cd35c9c",
+              "method": "normalized",
+              "rule": "Summarized proposed-work requirement.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 42
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 44
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 45
+                }
+              ]
+            },
+            {
+              "field": "/resources",
+              "value_sha256": "87e38f5d2f71c946090c1288fd3bf17c3b632e310d53090838401ba3aac0c2d7",
+              "method": "normalized",
+              "rule": "Undisclosed contractor compensation, no amount or currency inferred.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 34
+                },
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 46
+                }
+              ]
+            },
+            {
+              "field": "/access",
+              "value_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+              "method": "withheld",
+              "rule": "No application-path verification performed.",
+              "evidence": [
+                {
+                  "source_id": "f900b880c54f37f7cf55b1806c37517702b8248a2cafcafc08af14386f510cad",
+                  "line": 23
+                }
+              ]
+            }
+          ],
+          "raw_text_publication": false
+        }
+      }
+    ],
+    "funding-events": [],
+    "process-metrics": []
+  }
+}
