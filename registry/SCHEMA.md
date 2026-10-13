@@ -88,3 +88,16 @@ One JSON object per line:
 `{"funder","funder_name","grantee","grantee_name","amount","currency","amount_text","date","program","wire","source","key"}`
 `funder`/`program` reference registry ids; `grantee` is a slug (may not have an org file).
 Append-only; `key` is the dedupe key.
+
+### Preserved call identities
+
+A program may optionally carry `parent_round`, the exact name of one round on
+its `parent`. This marks an existing call page retained for URL, ID and evidence
+compatibility. It is not an additional enduring program or a second application
+window. The parent must exist, have the same organization, not itself be a
+preserved call, and contain exactly one round with that name. The call record
+retains exactly one original round, with its original name and identity.
+
+This link is an explicit reviewed identity decision. Similar names or shared
+source URLs never create it automatically. Original facts may remain as history
+when later parent-round facts evolve. Ordinary subprograms omit `parent_round`.

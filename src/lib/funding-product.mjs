@@ -1,7 +1,7 @@
 // Public funding product projections. Every row comes from validated canonical data.
 // Research candidates, queue metadata and raw source text are never read here.
 import { createHash } from 'node:crypto';
-import { buildFundingCollections, COLLECTIONS, calendarDate, handleFundingRequest, fundingIndex, memoBySnapshot } from './funding-api.mjs';
+import { buildFundingCollections, COLLECTIONS, calendarDate, roundId, handleFundingRequest, fundingIndex, memoBySnapshot } from './funding-api.mjs';
 import { canonical, isIsoDate, isPublicUrl, LEDGERS, FUNDING_SCHEMAS } from './funding-model.mjs';
 import { pointerValue } from './funding-provenance.mjs';
 
@@ -28,7 +28,8 @@ export function buildFundingProduct(baseline,dataset,at=new Date()) {
   for(const p of baseline.programs) {
     // p.org is the curated association, not proof of legal capital ownership.
     addEdge('program',p.id,'registry_association','org',p.org,{program:p.id,org:p.org,source:url(p.review?.source)||arr(p.sources).map(url).find(Boolean)||null,evidence_state:'registry_record',effective_from:null,effective_to:null,record_key:null});
-    if(p.parent)addEdge('program',p.id,'child_program','program',p.parent,{program:p.id,org:p.org,source:arr(p.sources).map(url).find(Boolean)||null,evidence_state:'registry_record',effective_from:null,effective_to:null,record_key:null});
+    if(p.parent && !p.parent_round)addEdge('program',p.id,'child_program','program',p.parent,{program:p.id,org:p.org,source:arr(p.sources).map(url).find(Boolean)||null,evidence_state:'registry_record',effective_from:null,effective_to:null,record_key:null});
+    if(p.parent_round)addEdge('program',p.id,'preserved_call','round',roundId(p.parent,p.parent_round),{program:p.parent,org:p.org,source:arr(p.sources).map(url).find(Boolean)||null,evidence_state:'registry_record',record_key:p.id,scope:p.parent_round});
     for(const h of arr(p.review?.history)){
       if(!day(h.date)||!url(h.source))continue;
       const id=`history-${sha([p.id,h.date,h.label,h.summary,h.source])}`;

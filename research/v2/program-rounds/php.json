@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "id": "php-enduring-program-20261013",
+  "evidence": [
+    {
+      "url": "https://thephp.foundation/structure/",
+      "checked_on": "2026-10-13",
+      "basis": "Core Developers describes the foundation contracting engineers for continuing PHP language maintenance and development."
+    },
+    {
+      "url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+      "checked_on": "2026-10-13",
+      "basis": "The opening paragraph explicitly says the 2027 contractor intake repeats the practice of prior years; this establishes recurring activity, not just a similar title or URL."
+    }
+  ],
+  "proposals": [
+    {
+      "id": "preview-php-parent",
+      "type": "new_program",
+      "org": "php-foundation",
+      "program": "php-foundation-core-development-contractors",
+      "title": "Program and round structure: php-foundation",
+      "summary": "Owner-reviewed identity convention; preserve the original call record, URL, round identity and evidence while linking it to the enduring program round.",
+      "evidence_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+      "lane": "judgment",
+      "state": "pending",
+      "created_at": "2026-10-13T00:00:00Z",
+      "wire": "oss",
+      "proposed_change": {
+        "programs/php-foundation-core-development-contractors.yaml": {
+          "id": "php-foundation-core-development-contractors",
+          "name": "PHP Foundation Core Development Contractors",
+          "org": "php-foundation",
+          "parent": null,
+          "systems": [
+            "oss-sustainability"
+          ],
+          "wires": [
+            "oss"
+          ],
+          "status": "active",
+          "apply_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+          "summary": "The PHP Foundation supports ongoing PHP core maintenance and development through contracted developers. Annual application calls seek contributors to this continuing work; a call does not guarantee that new contractors will be hired.",
+          "rounds": [
+            {
+              "name": "2027 contractor intake",
+              "status": "open",
+              "closes": "2026-10-20",
+              "size": "not specified",
+              "source": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open"
+            }
+          ],
+          "sources": [
+            "https://thephp.foundation/structure/",
+            "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open"
+          ]
+        },
+        "_expected_content_hashes": {
+          "programs/php-foundation-core-development-contractors.yaml": null
+        }
+      }
+    },
+    {
+      "id": "preview-php-call",
+      "type": "profile_note",
+      "org": "php-foundation",
+      "program": "php-foundation-2027-core-development-contractors",
+      "title": "Program and round structure: php-foundation",
+      "summary": "Owner-reviewed identity convention; preserve the original call record, URL, round identity and evidence while linking it to the enduring program round.",
+      "evidence_url": "https://thephp.foundation/blog/2026/09/30/applications-for-2027-are-open",
+      "lane": "judgment",
+      "state": "pending",
+      "created_at": "2026-10-13T00:00:00Z",
+      "wire": "oss",
+      "proposed_change": {
+        "programs/php-foundation-2027-core-development-contractors.yaml": {
+          "parent": "php-foundation-core-development-contractors",
+          "parent_round": "2027 contractor intake"
+        },
+        "_expected_content_hashes": {
+          "programs/php-foundation-2027-core-development-contractors.yaml": "d15bd97780fa97ef27a2e22d3fa45d55d22b89f5cd934e89a47d8eeec35e056e"
+        }
+      }
+    }
+  ]
+}

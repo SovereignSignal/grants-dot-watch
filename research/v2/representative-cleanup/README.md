@@ -53,8 +53,11 @@ projections. The working registry validates with 240 terms; the temporary copy
 has 243. Both have 535 programs, 435 organizations, 225 funding events and 16
 process metrics. No broad completeness claim follows from those counts.
 
-NumFOCUS's 2025 Round 2 legacy child ID and PHP's dated program identity remain
-review decisions; Rocket Pool's evergreen program/round structure is retained.
+The follow-up approved identity convention is implemented in the separate
+[PHP/NumFOCUS preview](../program-rounds/README.md), retaining both old call IDs.
+Apply the terms packets first, then those guarded identity proposals; the original
+PHP terms stay attached to its call and are displayed at the named parent round.
+Rocket Pool's evergreen program/round structure is retained.
 See [registry conventions](../../../docs/registry-conventions.md). No organization
 type is invented, no scheduler/parser/LLM maintenance is introduced, and no
 production data is changed.

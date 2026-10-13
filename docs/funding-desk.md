@@ -8,7 +8,7 @@ Set `GRANTS_WATCH_FUNDING_DESK=1` only in a controlled test or rollout environme
 
 The packet carries at most 100 records for exactly one existing program. It uses the existing owner-only `profile_note` proposal class with a reserved `_funding_v2` envelope. The mutation gateway routes that envelope explicitly and rejects malformed/mixed payloads. It never silently falls through to a prose-only profile edit. Curator and machine verdicts are forbidden. There is no new auto-approval lane.
 
-The original committer remains unchanged in `committer-legacy.ts`; the gateway delegates legacy behavior when no funding feature/data participates. V1 registry types, serializer, loader and canonical validator remain unchanged.
+The gateway delegates legacy behavior to `committer-legacy.ts` when no funding feature/data participates. The optional `parent_round` compatibility annotation uses that same guarded proposal/serializer path; ordinary unannotated v1 records keep their existing shape. See `docs/registry-conventions.md`.
 
 ## Durability and conflicts
 

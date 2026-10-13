@@ -84,3 +84,25 @@ selection. Missing, disputed, round-only or conflicting terms produce null summa
 fields. Full historical and round-scoped terms remain available separately.
 Legacy `legacy_mechanism` and all v1 shapes/filters remain unchanged. See
 [registry conventions](registry-conventions.md) for taxonomy and identity rules.
+
+## Preserved call records and canonical rounds
+
+`parent_round` optionally identifies a program record retained as a compatibility
+page for a round on its existing `parent`. Program IDs, `/programs/{id}` pages,
+v1/v2 program detail routes and original v2 round IDs remain available. V2 round
+records add `canonical_program` and `canonical_round_id`; these point to the
+enduring program round for a preserved call and to the record itself otherwise.
+The `relationships` collection exposes a `preserved_call` edge to that round,
+rather than labelling the call as a distinct child program. Program and round
+exports retain compatibility records; use canonical_round_id to group identities,
+not to sum their funding. Ordinary v1 rows are unchanged; annotated v1 rows add
+parent_round. No redirect or destructive migration is required.
+
+Main program browse and current-call views exclude preserved call records; the
+enduring parent owns the application window. The old call page continues to show
+its original evidence and links to the anchored parent round. Parent profiles
+show explicitly linked call terms under the named round and link back to the
+original call. The raw terms' program, scope, keys and provenance never change.
+A parent opportunity may refer to that original terms key; `terms_program` names
+its original program. This does not promote annual call terms into a current
+program-level summary. Conflicting applicable observations remain fail-closed.

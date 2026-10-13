@@ -108,6 +108,7 @@ export function publicProgram(program: Program, today: string = productDateISO()
     name: program.name,
     org: program.org,
     parent: program.parent || null,
+    ...(program.parent_round ? { parent_round: program.parent_round } : {}),
     systems: program.systems || [],
     wires: program.wires || [],
     status: program.status,

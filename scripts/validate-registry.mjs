@@ -250,6 +250,24 @@ for (const { file, base, doc } of programs) {
   if (doc.status === 'concluded' && doc.apply_url) err(file, 'concluded program must not keep apply_url');
 }
 
+// Explicit compatibility records keep old call/round identities while naming
+// one round on an enduring parent. This validator remains standalone for Desk staging.
+for (const { file, doc } of programs) {
+  if (doc.parent_round == null) continue;
+  const parent = programById.get(doc.parent);
+  if (typeof doc.parent_round !== 'string' || !doc.parent_round.trim() || doc.parent_round.length > 300)
+    err(file, 'parent_round must be an exact round name');
+  if (!parent || parent.id === doc.id || parent.parent_round != null || parent.org !== doc.org) {
+    err(file, 'parent_round requires an enduring parent with the same organization');
+    if (parent) err(`programs/${parent.id}.yaml`, `invalid enduring parent for ${doc.id}`);
+  }
+  if ((parent?.rounds || []).filter(round => round.name === doc.parent_round).length !== 1) {
+    err(file, 'parent_round must resolve to exactly one parent round');
+    if (parent) err(`programs/${parent.id}.yaml`, `missing or ambiguous referenced round for ${doc.id}`);
+  }
+  if ((doc.rounds || []).length !== 1) err(file, 'a preserved call page must retain exactly one original round');
+}
+
 // awards jsonl
 const awardsDir = join(ROOT, 'awards');
 if (existsSync(awardsDir)) {

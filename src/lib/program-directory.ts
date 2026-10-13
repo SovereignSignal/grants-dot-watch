@@ -10,7 +10,7 @@ export interface ProgramEntry {
 
 export function collectPrograms(programs: Program[], orgs: Org[], today = productDateISO()): ProgramEntry[] {
   const byOrg = new Map(orgs.map(org => [org.id, org]));
-  return programs.map(program => ({ program, org: byOrg.get(program.org), facts: programFacts(program, today) }));
+  return programs.filter(program => !program.parent_round).map(program => ({ program, org: byOrg.get(program.org), facts: programFacts(program, today) }));
 }
 
 export function queryPrograms(items: ProgramEntry[], filters: {

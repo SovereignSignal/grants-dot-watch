@@ -103,6 +103,6 @@ export function roundHistoryLabel(round: Round, today = productDateISO()): strin
 
 export function activeProgramsByOrg(programs: Program[]): Map<string, number> {
   const counts = new Map<string, number>();
-  for (const program of programs) if (program.status === 'active') counts.set(program.org, (counts.get(program.org) || 0) + 1);
+  for (const program of programs) if (program.status === 'active' && !program.parent_round) counts.set(program.org, (counts.get(program.org) || 0) + 1);
   return counts;
 }

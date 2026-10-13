@@ -116,6 +116,7 @@ function programDocToYamlObject(p: Program): Record<string, unknown> {
     wires: p.wires ?? [],
     status: p.status,
   };
+  if (p.parent_round) out.parent_round = p.parent_round;
   if (p.mechanism) out.mechanism = p.mechanism;
   if (p.apply_url) out.apply_url = p.apply_url;
   out.summary = p.summary;
@@ -164,6 +165,7 @@ function buildNewProgramChange(slug: string, input: Record<string, unknown>, p: 
     name: (input.name as string) || existing?.name || p.program || p.title,
     org: orgId,
     parent: (input.parent as string | null | undefined) ?? existing?.parent ?? null,
+    parent_round: (input.parent_round as string | null | undefined) ?? existing?.parent_round ?? null,
     systems: uniqArr(existing?.systems, Array.isArray(input.systems) ? (input.systems as string[]) : []),
     wires: uniqArr(
       existing?.wires,
@@ -390,7 +392,7 @@ function buildAwardChange(p: Proposal): AppliedChange {
 
 const ORG_SET_FIELDS = new Set(['name', 'aka', 'systems', 'wires', 'roles', 'org_type', 'website', 'status', 'profile']);
 const ORG_MERGE_OBJECT_FIELDS = new Set(['socials', 'funding']);
-const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'status', 'mechanism', 'apply_url', 'summary', 'review']);
+const PROGRAM_SET_FIELDS = new Set(['name', 'parent', 'parent_round', 'status', 'mechanism', 'apply_url', 'summary', 'review']);
 const PROGRAM_WIRES = new Set(['crypto', 'ai', 'oss']);
 
 /** A wire move replaces the program's wire list. Empty, unknown, or repeated

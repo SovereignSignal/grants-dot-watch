@@ -61,12 +61,22 @@ those values. Any consolidation needs a reviewed crosswalk and preservation of
 sources, chronology and inbound links.
 
 Rocket Pool Round 42 already belongs under `rocket-pool-gmc-grants` and follows
-this convention. NumFOCUS's historical 2025 Round 2 is an existing child program
-with the misleading stable ID `numfocus-sdg-2026-round-2-cfp-open-due-oct-17`.
-Its corrected name, parent and 2025 history remain intact. Review whether to keep
-that legacy identity or design a compatibility crosswalk before consolidation;
-this first batch does neither. PHP's 2027 call similarly stays at its existing ID;
-an evergreen contractor vehicle would require an explicit identity decision.
+this convention. The approved bounded PHP/NumFOCUS preview now implements it
+using an optional `parent_round` annotation on preserved call records:
+
+- PHP gains `php-foundation-core-development-contractors`, with a `2027 contractor
+  intake` round. Its existing 2027 page and original `Current call` round remain
+  available and explicitly point to the parent round.
+- NumFOCUS gains its existing `2025 Round 2` history on the enduring Small
+  Development Grants program. The misleading but stable child ID
+  `numfocus-sdg-2026-round-2-cfp-open-due-oct-17` remains available and points to it.
+
+These are explicit issuer-supported mappings, not identity guesses from URL/title
+similarity. Keep original source facts, terms keys, awards, events and round IDs.
+Only the enduring parent appears in main program and current-call listings;
+compatibility rows stay in full API exports with canonical round pointers.
+Ordinary subprograms have a parent but no parent_round. See
+[the review packets and reproducible preview](../research/v2/program-rounds/README.md).
 
 ## Review and ledger boundary
 

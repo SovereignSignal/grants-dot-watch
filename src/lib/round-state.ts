@@ -21,6 +21,7 @@ export function productYear(at: Date = new Date()): number {
 }
 
 export function isCurrentRound(program: Program, round: Round, today: string = productDateISO()): boolean {
+  if (program.parent_round) return false; // The enduring parent's round owns current listings.
   if (program.review && (program.review.kind === 'unresolved' || program.review.relationship !== 'current' || program.review.intake !== 'open')) return false;
   if (program.status !== 'active' && program.status !== 'announced') return false;
   if (round.status !== 'open' && round.status !== 'announced') return false;
