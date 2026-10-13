@@ -1,0 +1,22 @@
+id: bridgeai-deployment-catalyst-phase-1-2026
+name: BridgeAI Deployment Catalyst Phase 1 2026
+org: uk-research-and-innovation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.ukri.org/opportunity/bridgeai-deployment-catalyst-ai-for-decision-critical-systems/
+summary: Announced October 13. Applications open October 21 at 9:30 a.m. UK and close December 8 at
+  11 a.m. UK. One GBP5m Phase 1 pool spans decision-critical systems, operational systems, and
+  assurance/compliance strands. Grant requests GBP100k-200k for 3-5 months. UK SME AI lead at TRL5-6
+  with a UK medium/large deployer; optional third member. Choose one strand. Funding remains subject
+  to full business case approval; indicative GBP52m multi-phase ambition is not this round budget.
+  Application competition 2598 and sibling 2599/2597 pages inspected.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-08
+    source: https://www.ukri.org/opportunity/bridgeai-deployment-catalyst-ai-for-decision-critical-systems/
+sources:
+  - https://www.ukri.org/opportunity/bridgeai-deployment-catalyst-ai-for-decision-critical-systems/
