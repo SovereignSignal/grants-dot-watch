@@ -4,7 +4,7 @@ import { getProgram, loadRegistry } from '@/lib/registry';
 import { httpUrl } from '@/lib/opportunities';
 import { programFacts, factDate, roundHistoryLabel } from '@/lib/program-facts';
 import { WIRE_LABEL } from '@/lib/format';
-import { MECHANISM_LABEL } from '@/components/ledger/labels';
+import { legacyClassificationLabel } from '@/lib/program-classification';
 import { ProgramHistory } from '@/components/programs/program-review';
 import { AwardLedger } from '@/components/awards/award-ledger';
 import { ProgramFunding } from '@/components/funding/program-funding';
@@ -38,6 +38,7 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
   try { fundingProduct = await loadPublicFundingProduct(); }
   catch { fundingUnavailable = true; }
   const profileFields = programProfileFields(program, fundingProduct?.collections['program-terms'] || [], today);
+  const classificationFields = programProfileFields(program, fundingProduct?.collections['program-terms'] || [], today, true);
   const apply = httpUrl(program.apply_url);
   const sources = [...new Set(program.sources || [])].map(httpUrl).filter((url): url is string => !!url);
   const children = registry.programs.filter(p => p.parent === id);
@@ -45,10 +46,19 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
   return <article className="program-dossier">
     <nav className="dossier-breadcrumb" aria-label="Breadcrumb"><Link href="/programs">Programs</Link><span>/</span>{program.wires.map(wire => <Link key={wire} href={`/programs?wire=${wire}`}>{WIRE_LABEL[wire]}</Link>)}<span>/</span>{org ? <Link href={`/orgs/${org.id}`}>{org.name}</Link> : program.org}</nav>
     <div className="dossier-grid">
-      <header className="dossier-hero"><p className="dossier-kicker"><span className={`wire-square field-${program.wires[0]}`} aria-hidden/>{org?.name || program.org} · {program.wires.map(wire => WIRE_LABEL[wire]).join(' · ')} · {MECHANISM_LABEL[program.mechanism || 'other']}</p><h1>{program.name}</h1><p className="dossier-summary">{program.summary}</p></header>
+      <header className="dossier-hero"><p className="dossier-kicker"><span className={`wire-square field-${program.wires[0]}`} aria-hidden/>{org?.name || program.org} · {program.wires.map(wire => WIRE_LABEL[wire]).join(' · ')} · {legacyClassificationLabel(program.mechanism)}</p><h1>{program.name}</h1><p className="dossier-summary">{program.summary}</p></header>
       <div className="dossier-main">
       <section><h2>Who can apply</h2><dl className="dossier-facts">
         {profileFields.map(({ key, label, entries, missing }) => <div key={key}><dt>{label}</dt><dd>
+          {entries.length ? entries.map((entry, index) => <div key={index} className={index ? 'mt-4' : undefined}>
+            <p className="deadline-note">{entry.scope}</p>{entry.values.map((value, i) => <p key={i}>{value}</p>)}
+            {entry.note && <p className="deadline-note">{entry.note}</p>}
+            <Source url={entry.source} notedOn={entry.notedOn}/>
+          </div>) : <p>{fundingUnavailable ? 'Additional evidence is temporarily unavailable. Check the recorded summary and sources.' : missing}</p>}
+        </dd></div>)}
+      </dl></section>
+      <section><h2>Funding classification</h2><dl className="dossier-classification dossier-facts">
+        {classificationFields.map(({ key, label, entries, missing }) => <div key={key}><dt>{label}</dt><dd>
           {entries.length ? entries.map((entry, index) => <div key={index} className={index ? 'mt-4' : undefined}>
             <p className="deadline-note">{entry.scope}</p>{entry.values.map((value, i) => <p key={i}>{value}</p>)}
             {entry.note && <p className="deadline-note">{entry.note}</p>}

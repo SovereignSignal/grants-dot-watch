@@ -28,7 +28,7 @@ roles: [funder]                # funder | grantee | ecosystem (one or more)
 org_type: foundation           # foundation | dao | company | nonprofit | government | education
 website: https://...
 socials: {}                    # x, github, forum keys — urls
-status: active                 # active | winding-down | dormant | unknown
+status: active                 # active | winding-down | dormant | dead | unknown
 profile: >                     # 2–4 sentences, public facts only
   ...
 funding:                       # funders only; omit keys you can't source
@@ -52,7 +52,7 @@ mechanism: grants              # grants | retro | quadratic | prize | fellowship
 apply_url: ""
 summary: >
   ...
-rounds: []                     # list of {name, status, opens?, closes?, size?, source}
+rounds: []                     # list of {name, status, opens?, closes?, closes_at?, size?, source}
                                # round status: announced | open | reviewing | closed | deployed | withdrawn | duplicate
                                # withdrawn and duplicate stay on the program with their source,
                                # and drop out of open and announced lists.
@@ -65,6 +65,23 @@ rounds: []                     # list of {name, status, opens?, closes?, size?, 
                                # application window closes, even if selection or funded work continues.
 sources: []
 ```
+
+`closes_at` is an optional source-stated ISO timestamp with an explicit UTC offset
+(or `Z`), consistent with the full `closes` date. Never invent a cutoff from a date.
+
+`review` is optional program research metadata: required fields are `checked_on`,
+`review_after`, `operating` (program status enum), `intake` (open/closed/postponed/unknown),
+`intake_note`, `source`, `kind` (program/unresolved), `relationship`
+(current/former/unconfirmed), `questions` and `history`. History entries carry
+`date`, `label`, `summary`, `source`. Optional fields are `relationship_note`,
+`intake_mode` (rolling/rounds/unknown), `round_names` (exact assessment scope),
+and `facts` (eligibility/geography/funding/deadline, each with value/source/checked_on).
+Research timestamps are not program events or automatic evidence of open access.
+Internal review questions are not a public API field.
+
+See [classification and identity conventions](../docs/registry-conventions.md)
+for the mixed legacy mechanism vocabulary and evergreen program/subprogram/round
+rules. V2 typed terms supplement legacy mechanisms without rewriting their enums.
 
 ## awards/<year>.jsonl
 One JSON object per line:

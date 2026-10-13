@@ -1,0 +1,219 @@
+{
+  "schema_version": 2,
+  "id": "representative-nvidia-20261013",
+  "reference_blobs": {
+    "programs/nvidia-inception.yaml": "85e62deeeef61b06096a79ca1618e1a16321d3a7",
+    "orgs/nvidia.yaml": "244ebe629acd64271225aa3add73ea71105c0195"
+  },
+  "records": {
+    "program-terms": [
+      {
+        "key": "representative:nvidia-inception:2026-10-13",
+        "program": "nvidia-inception",
+        "source": "https://www.nvidia.com/en-us/startups/",
+        "checked_on": "2026-10-13",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Free startup membership with credits and services. The instrument remains other: neither grant cash nor an investment commitment is established. This observation adds issuer eligibility.",
+        "instruments": [
+          "other"
+        ],
+        "allocation_methods": [],
+        "capital_forms": [
+          "cloud_credit",
+          "service"
+        ],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "unknown",
+        "resources": [
+          {
+            "kind": "cloud_credit",
+            "value": {
+              "amount": null,
+              "currency": null,
+              "unit": "currency",
+              "qualifier": "not_disclosed",
+              "amount_text": "NVIDIA and partner cloud credits; quantity not published."
+            },
+            "restrictions": [
+              "Member benefits; no cash disbursement established."
+            ]
+          },
+          {
+            "kind": "service",
+            "value": {
+              "amount": null,
+              "currency": null,
+              "unit": "service",
+              "qualifier": "not_disclosed",
+              "amount_text": "Training, technical resources and possible investor introductions."
+            },
+            "restrictions": [
+              "Investor exposure is eligibility-dependent, not investment."
+            ]
+          }
+        ],
+        "access": null,
+        "supersedes_key": "backfill-20261008-b07:nvidia-inception:terms",
+        "eligibility": [
+          "Incorporated startup under ten years old, with a working website and at least one developer.",
+          "Consulting/outsourced development firms, cryptocurrency-associated companies, cloud providers, resellers/distributors and public companies are excluded."
+        ],
+        "requirements": [
+          "Keep company and product details current to remain eligible for benefits."
+        ],
+        "provenance": {
+          "version": 1,
+          "sources": [
+            {
+              "url": "https://www.nvidia.com/en-us/startups/",
+              "representation_sha256": "8652c785ce616f3682325435eeee5f66e53498e763b294c9c2d213223db8486c",
+              "observed_on": "2026-10-13",
+              "provider": "manual",
+              "representation": "tool_text_excerpt",
+              "scope": "Manually reviewed issuer page; HTML text nodes extracted in document order with scripts/styles omitted and whitespace normalized. Bounded program terms only; no verified application access or funding event.",
+              "source_revision": null,
+              "redistribution": "unassessed",
+              "rights_source": null,
+              "id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec"
+            }
+          ],
+          "assertions": [
+            {
+              "field": "/instruments",
+              "value_sha256": "c8c317de489c9971a7dbb62622af5caf41de5c0c20095c1ac0f1ac5fda104d6d",
+              "method": "normalized",
+              "rule": "Free membership retained as other; no unsupported grant or investment classification.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 799
+                }
+              ]
+            },
+            {
+              "field": "/capital_forms",
+              "value_sha256": "7ead88537a23ab2af40180067d8e0b0521fa0e242dbab11734d46833fba1b844",
+              "method": "normalized",
+              "rule": "Noncash cloud credits and services kept distinct.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 705
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 799
+                }
+              ]
+            },
+            {
+              "field": "/selection_models",
+              "value_sha256": "d1928806d31c522d3159022e482ab5ceead1010b0a5549e944701edf285c3e8a",
+              "method": "normalized",
+              "rule": "Membership application reviewed by issuer.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 716
+                }
+              ]
+            },
+            {
+              "field": "/eligibility",
+              "value_sha256": "1c1905b4e3dfd6ba31aeae63735bc7c34f62440ffdc1fa9cb4f99fb39f61d398",
+              "method": "normalized",
+              "rule": "Summarized issuer membership criteria and exclusions.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 805
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 807
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 808
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 809
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 810
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 811
+                }
+              ]
+            },
+            {
+              "field": "/requirements",
+              "value_sha256": "48988dc1e26fb3b272d917e41a36fdbf2ff2055af36d71bf0188e4b47f91b037",
+              "method": "normalized",
+              "rule": "Profile upkeep requirement.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 799
+                }
+              ]
+            },
+            {
+              "field": "/resources",
+              "value_sha256": "9a8d0beb79776ca987d8b729d4106c49ca12fe05595fb873411e4092c105cc95",
+              "method": "normalized",
+              "rule": "Benefits kept separate; amounts and currencies unknown.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 696
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 697
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 702
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 705
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 707
+                },
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 708
+                }
+              ]
+            },
+            {
+              "field": "/access",
+              "value_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+              "method": "withheld",
+              "rule": "Application route and prerequisites not verified; no current-access claim.",
+              "evidence": [
+                {
+                  "source_id": "6ae51d7a60122fd5ded86908986e994c8a81b9677ffae57c8eec76e8b3b346ec",
+                  "line": 714
+                }
+              ]
+            }
+          ],
+          "raw_text_publication": false
+        }
+      }
+    ],
+    "funding-events": [],
+    "process-metrics": []
+  }
+}

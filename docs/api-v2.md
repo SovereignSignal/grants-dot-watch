@@ -67,3 +67,20 @@ Three candidate packs are retained outside canonical ledgers: historical Spotify
 CI validates the legacy registry and sidecars, checks the public boundary, lints the added implementation, runs unit/CLI tests and real PostgreSQL integration tests against an isolated CI service, typechecks, builds the application and runs browser/HTTP tests. Database tests still skip during local runs without `TEST_DATABASE_URL`; report those skips honestly. Read the current commit's CI receipt rather than assuming prior successful checks cover new changes.
 
 Remaining: populated nonproduction rollout and rollback rehearsal, broader research backfill, source adapters, all remaining research controls, field-level provenance/rights, public changes/history, output and impact joins, quota/billing systems and production activation. No schedule or paid data pipeline is enabled by this PR.
+
+## Additive registry profile fields
+
+Organization list/detail/export records expose `socials` (public URL values for
+x, github, forum and instagram) and `funding` (focus, typical_size, cadence,
+apply_url). Absent funding is null; absent scalar subfields are null and focus is
+an array. These are recorded organization profile facts with the organization's
+`sources`, not newly verified terms. Unsupported nested fields are not published;
+URLs pass the v2 public-URL guard.
+
+Systems expose their existing `funding_channels` program IDs. These are navigation
+anchors, not proof of capital ownership. Programs expose `allocation_methods` and
+`intake_mode` alongside existing typed axes using the same `current_terms_key`
+selection. Missing, disputed, round-only or conflicting terms produce null summary
+fields. Full historical and round-scoped terms remain available separately.
+Legacy `legacy_mechanism` and all v1 shapes/filters remain unchanged. See
+[registry conventions](registry-conventions.md) for taxonomy and identity rules.

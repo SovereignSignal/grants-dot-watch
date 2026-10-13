@@ -1,0 +1,207 @@
+{
+  "schema_version": 2,
+  "id": "representative-google-20261013",
+  "reference_blobs": {
+    "programs/google-for-startups-cloud-program-ai-tier.yaml": "2890aa4e0bd59464f5206a90bc6f9f2e00718a16",
+    "orgs/google.yaml": "ec38051d9088613f98abefe9de475e0441e130d8"
+  },
+  "records": {
+    "program-terms": [
+      {
+        "key": "representative:google-for-startups-cloud-program-ai-tier:2026-10-13",
+        "program": "google-for-startups-cloud-program-ai-tier",
+        "source": "https://cloud.google.com/startup/ai",
+        "checked_on": "2026-10-13",
+        "evidence_state": "primary_supported",
+        "evidence_note": "Conditional cloud usage credits, not cash. This observation adds issuer eligibility and resource restrictions; older source evidence remains retained.",
+        "instruments": [
+          "subsidy"
+        ],
+        "allocation_methods": [],
+        "capital_forms": [
+          "cloud_credit"
+        ],
+        "selection_models": [
+          "application"
+        ],
+        "intake_mode": "unknown",
+        "resources": [
+          {
+            "kind": "cloud_credit",
+            "value": {
+              "amount": "250000",
+              "currency": "USD",
+              "unit": "currency",
+              "qualifier": "up_to",
+              "amount_text": "Year one covers 100% of eligible usage, up to USD 250,000."
+            },
+            "restrictions": [
+              "AI-first tier; conditional eligible cloud usage, not cash."
+            ]
+          },
+          {
+            "kind": "cloud_credit",
+            "value": {
+              "amount": "100000",
+              "currency": "USD",
+              "unit": "currency",
+              "qualifier": "up_to",
+              "amount_text": "Year two covers 20% of eligible usage, up to an additional USD 100,000."
+            },
+            "restrictions": [
+              "Conditional year-two usage coverage, not a cash installment."
+            ]
+          }
+        ],
+        "access": null,
+        "supersedes_key": "backfill-20261008-b04:google-for-startups-cloud-program-ai-tier:terms",
+        "eligibility": [
+          "Startup uses or plans to use Gemini as a basis of its primary offering.",
+          "Founded within five years; Pre-Seed/Seed funding within five years or Series A within twelve months.",
+          "Previously received Google Cloud credits must not exceed USD 5,000; acceptance remains at Google Cloud discretion."
+        ],
+        "requirements": [
+          "Third-party models are billed separately and excluded from program credits."
+        ],
+        "provenance": {
+          "version": 1,
+          "sources": [
+            {
+              "url": "https://cloud.google.com/startup/ai",
+              "representation_sha256": "50a5b4ec706586f3ad8fe61445b210c656f473f2ff24f9d9dc545b7b3ba6fc5e",
+              "observed_on": "2026-10-13",
+              "provider": "manual",
+              "representation": "tool_text_excerpt",
+              "scope": "Manually reviewed issuer page; HTML text nodes extracted in document order with scripts/styles omitted and whitespace normalized. Bounded program terms only; no verified application access or funding event.",
+              "source_revision": null,
+              "redistribution": "unassessed",
+              "rights_source": null,
+              "id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956"
+            }
+          ],
+          "assertions": [
+            {
+              "field": "/instruments",
+              "value_sha256": "11e62b2b41cd7a94f035ae2f0fd3354ed9778896b255dd8afbe88590c0ff2db4",
+              "method": "normalized",
+              "rule": "Cloud cost support normalized to subsidy.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 18
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 19
+                }
+              ]
+            },
+            {
+              "field": "/capital_forms",
+              "value_sha256": "be9b404be4bf6f151a49f155fd188b9f745e7dcff375e1338ebdf62558559ef1",
+              "method": "normalized",
+              "rule": "Cloud credits retained separately from cash.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 18
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 19
+                }
+              ]
+            },
+            {
+              "field": "/selection_models",
+              "value_sha256": "d1928806d31c522d3159022e482ab5ceead1010b0a5549e944701edf285c3e8a",
+              "method": "normalized",
+              "rule": "Issuer-discretion application.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 13
+                }
+              ]
+            },
+            {
+              "field": "/eligibility",
+              "value_sha256": "94a77d5eef424f5c1c527c77297b382b8d423c590b814e11dbea570234977a49",
+              "method": "normalized",
+              "rule": "Summarized eligibility; not personalized or exhaustive approval.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 9
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 10
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 11
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 12
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 13
+                }
+              ]
+            },
+            {
+              "field": "/requirements",
+              "value_sha256": "81b8698bacd62eaee43526c7e03742345fdf27c38d83c68345559a248913e751",
+              "method": "normalized",
+              "rule": "Third-party model exclusion retained.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 28
+                }
+              ]
+            },
+            {
+              "field": "/resources",
+              "value_sha256": "7e3c8285cd6387cfe820d81b721eddf793022c95b24a7433f568bb5fce215278",
+              "method": "normalized",
+              "rule": "Separate year-one and year-two usage components; no summed cash award.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 18
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 19
+                },
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 28
+                }
+              ]
+            },
+            {
+              "field": "/access",
+              "value_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+              "method": "withheld",
+              "rule": "No application-path verification performed.",
+              "evidence": [
+                {
+                  "source_id": "65a5a712da4fb0764716531680fc26a35ad5769755139588a3e20712b493d956",
+                  "line": 13
+                }
+              ]
+            }
+          ],
+          "raw_text_publication": false
+        }
+      }
+    ],
+    "funding-events": [],
+    "process-metrics": []
+  }
+}

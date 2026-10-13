@@ -28,7 +28,9 @@ function publicRound(p, r) {
   return { id, identity_basis:'legacy_program_and_round_name', program:p.id, org:p.org, name:text(r.name), status:text(r.status), opens:precisionDate(r.opens), closes:precisionDate(r.closes), closes_at:text(r.closes_at), size:text(r.size), source:safeUrl(r.source), api:collectionUrl('rounds',id) };
 }
 function publicOrg(o) {
-  return { id:o.id, name:o.name, aka:strings(o.aka), systems:strings(o.systems), wires:strings(o.wires), roles:strings(o.roles), org_type:text(o.org_type), website:safeUrl(o.website), status:o.status, profile:o.profile, sources:urls(o.sources), href:`/orgs/${o.id}`, api:collectionUrl('orgs',o.id) };
+  const socials = Object.fromEntries(['x','github','forum','instagram'].filter(key => isPublicUrl(o.socials?.[key])).map(key => [key,o.socials[key]]));
+  const funding = o.funding ? { focus:strings(o.funding.focus), typical_size:text(o.funding.typical_size), cadence:text(o.funding.cadence), apply_url:safeUrl(o.funding.apply_url) } : null;
+  return { id:o.id, name:o.name, aka:strings(o.aka), systems:strings(o.systems), wires:strings(o.wires), roles:strings(o.roles), org_type:text(o.org_type), website:safeUrl(o.website), socials, status:o.status, profile:o.profile, funding, sources:urls(o.sources), href:`/orgs/${o.id}`, api:collectionUrl('orgs',o.id) };
 }
 function publicProgram(p) {
   return { id:p.id, name:p.name, org:p.org, parent:text(p.parent), systems:strings(p.systems), wires:strings(p.wires), status:p.status, legacy_mechanism:text(p.mechanism), apply_url:safeUrl(p.apply_url), summary:p.summary, sources:urls(p.sources), href:`/programs/${p.id}`, api:collectionUrl('programs',p.id) };
@@ -90,13 +92,13 @@ export function buildFundingCollections(baseline, dataset, at = new Date()) {
   if (validateFundingDataset(dataset,baseline,today).length) throw new Error('Funding sidecars are invalid');
   const terms = dataset['program-terms'];
   const result = Object.fromEntries(COLLECTIONS.map(kind => [kind,[]]));
-  result.systems = (baseline.systems || []).map(s => ({ id:s.id,name:s.name,kind:s.kind,part_of:strings(s.part_of),wires:strings(s.wires),summary:s.summary,sources:urls(s.sources),api:collectionUrl('systems',s.id) }));
+  result.systems = (baseline.systems || []).map(s => ({ id:s.id,name:s.name,kind:s.kind,part_of:strings(s.part_of),wires:strings(s.wires),summary:s.summary,funding_channels:strings(s.funding_channels),sources:urls(s.sources),api:collectionUrl('systems',s.id) }));
   result.orgs = baseline.orgs.map(publicOrg);
   result.programs = baseline.programs.map(p => {
     const record = publicProgram(p);
     const applicable = latestTerms(terms.filter(t => t.program === p.id && !t.round_name),today);
     const selected = applicable?.evidence_state === 'primary_supported' ? applicable : null;
-    return { ...record, current_terms_key:selected?.key || null, instruments:selected?.instruments || null, capital_forms:selected?.capital_forms || null, selection_models:selected?.selection_models || null };
+    return { ...record, current_terms_key:selected?.key || null, instruments:selected?.instruments || null, capital_forms:selected?.capital_forms || null, allocation_methods:selected?.allocation_methods || null, selection_models:selected?.selection_models || null, intake_mode:selected?.intake_mode || null };
   });
   for (const p of baseline.programs) for (const r of p.rounds || []) {
     result.rounds.push(publicRound(p,r));

@@ -1,19 +1,13 @@
 import { PROGRAM_STATUS } from '@/lib/program-facts';
+import { LEGACY_MECHANISMS } from '@/lib/program-classification';
 
 // Label maps for program-level fields not covered by src/lib/format.ts
 // (which only knows round status and wires). Kept in the ledger module
 // since only the programs pages use them.
 
-export const MECHANISM_LABEL: Record<string, string> = {
-  grants: 'Grants',
-  retro: 'Retroactive',
-  quadratic: 'Quadratic',
-  prize: 'Prize',
-  fellowship: 'Fellowship',
-  incubator: 'Incubator',
-  rfp: 'RFP',
-  other: 'Other',
-};
+export const MECHANISM_LABEL: Record<string, string> = Object.fromEntries(
+  Object.entries(LEGACY_MECHANISMS).map(([key, fact]) => [key, fact.label]),
+);
 
 export const PROGRAM_STATUS_LABEL: Record<string, string> = Object.fromEntries(
   Object.entries(PROGRAM_STATUS).map(([status, fact]) => [status, fact.label]),

@@ -3,6 +3,7 @@ import { httpUrl } from './opportunities';
 import { factDate, notedDate } from './program-facts';
 import { fundingAmountLabel } from './funding-display';
 import { productDateISO } from './round-state';
+import { TERM_CLASSIFICATIONS, classificationLabel } from './program-classification';
 
 type Row = Record<string, unknown>;
 const object = (value: unknown): Row => value && typeof value === 'object' && !Array.isArray(value) ? value as Row : {};
@@ -12,21 +13,26 @@ export type ProfileEntry = { scope: string; values: string[]; source: string | n
 
 /** Enrich the existing profile from accepted public terms. Every recorded scope
  * stays separate: a historical cohort or an observation is never current intake. */
-export function programProfileFields(program: Program, terms: Row[], today = productDateISO()) {
+export function programProfileFields(program: Program, terms: Row[], today = productDateISO(), classifications = false) {
   const records = terms.filter(row => row.program === program.id);
   const conditions = records.some(row => words(row.eligibility).length || words(row.requirements).length);
-  return ([['eligibility', 'Eligibility'], ['geography', 'Location'], ['funding', 'Funding']] as const).map(([key, label]) => {
+  const fields = classifications ? Object.entries(TERM_CLASSIFICATIONS)
+    : [['eligibility', 'Eligibility'], ['geography', 'Location'], ['funding', 'Funding']];
+  return fields.map(([key, label]) => {
     const entries: ProfileEntry[] = [];
-    const fact = program.review?.facts?.[key];
+    const fact = !classifications ? program.review?.facts?.[key as 'eligibility' | 'geography' | 'funding'] : undefined;
     if (fact?.value) entries.push({ scope: 'Recorded program fact', values: [fact.value], source: httpUrl(fact.source), notedOn: notedDate(fact.checked_on, today) });
     for (const row of records) {
       let values: string[];
-      if (key === 'funding') {
+      if (classifications) {
+        values = words(row[key]).map(classificationLabel);
+      } else if (key === 'funding') {
         values = (Array.isArray(row.resources) ? row.resources : []).flatMap(resource => {
           const r = object(resource), value = object(r.value);
           const kind = text(r.kind).replaceAll('_', ' ');
           const description = fundingAmountLabel(value);
-          return [`${description}${kind ? ` (${kind})` : ''}`, ...words(r.restrictions)];
+          const detail = text(value.amount_text);
+          return [`${description}${kind ? ` (${kind})` : ''}`, ...(detail && detail !== description ? [detail] : []), ...words(r.restrictions)];
         });
       } else {
         values = key === 'eligibility' ? [...words(row.eligibility), ...words(row.requirements)] : words(row.geography);
