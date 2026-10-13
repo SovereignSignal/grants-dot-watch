@@ -87,6 +87,6 @@ test('legacy categories identify their dimension without fabricating typed terms
   assert.equal(legacyClassificationLabel('incubator'),'Program format: Incubator');
   assert.equal(legacyClassificationLabel('rfp'),'Solicitation: RFP');
   assert.equal(legacyClassificationLabel('other'),'Legacy classification: Other');
-  assert.equal(legacyClassificationLabel(undefined),'Classification not recorded');
+  assert.equal(legacyClassificationLabel(undefined),'Legacy classification not recorded');
   assert.ok(programProfileFields({...baseline.programs[0],mechanism:'grants'},[],today,true).every(f=>!f.entries.length));
 });

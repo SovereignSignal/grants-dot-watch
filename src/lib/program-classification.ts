@@ -13,7 +13,7 @@ export const LEGACY_MECHANISMS = {
 } satisfies Record<NonNullable<Program['mechanism']>, { dimension: string; label: string }>;
 
 export function legacyClassificationLabel(mechanism: Program['mechanism']): string {
-  if (!mechanism) return 'Classification not recorded';
+  if (!mechanism) return 'Legacy classification not recorded';
   const fact = LEGACY_MECHANISMS[mechanism];
   return `${fact.dimension}: ${fact.label}`;
 }
