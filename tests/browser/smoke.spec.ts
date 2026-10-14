@@ -228,7 +228,8 @@ test.describe('narrow mobile', () => {
   test('Ledger header, search and program facts fit a narrow phone', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 239, 230)');
+    // Dark system scheme with nothing stored: dark paper, and the toggle shows its widest label ("Light").
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(20, 20, 24)');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 
     const search = page.getByRole('combobox', { name: 'Search the register' });
