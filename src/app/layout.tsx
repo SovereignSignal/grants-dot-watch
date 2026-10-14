@@ -3,6 +3,7 @@ import Link from 'next/link';
 import '@fontsource-variable/newsreader/standard.css';
 import '@fontsource-variable/newsreader/standard-italic.css';
 import '@fontsource-variable/instrument-sans/index.css';
+import '@/brand/tokens.css';
 import './globals.css';
 import SiteHeader from '@/components/site-header';
 import { publicSiteOrigin } from '@/lib/site-metadata';
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body className="min-h-dvh flex flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>

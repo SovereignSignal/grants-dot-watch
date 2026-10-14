@@ -1,34 +1,40 @@
 @import 'tailwindcss';
 
-/* The approved Ledger palette. Utility names retain their existing meaning:
-   void is the paper ground and paper is the foreground ink. */
+/* The approved Ledger palette, read from the shared Sovereign Signal tokens
+   (src/brand/tokens.css, loaded by the root layout). Utility names retain their
+   existing meaning: void is the paper ground and paper is the foreground ink. */
 @theme {
-  --color-accent: #17171A;
-  --color-void: #F3EFE6;
-  --color-deep: #F3EFE6;
-  --color-surface: #F3EFE6;
-  --color-raised: #F3EFE6;
-  --color-line: #CFC8B8;
-  --color-paper: #17171A;
-  --color-dim: #3E3D39;
-  --color-faint: #66635B;
+  --color-accent: var(--ink);
+  --color-void: var(--paper);
+  --color-deep: var(--paper);
+  --color-surface: var(--paper);
+  --color-raised: var(--paper);
+  --color-line: var(--rule);
+  --color-paper: var(--ink);
+  --color-dim: var(--ink-2);
+  --color-faint: var(--ink-3);
+  --color-live: var(--ink);
+  --color-closing: var(--ink);
+  --color-signal: var(--ink);
+  /* The site self-hosts Newsreader and Instrument Sans through Fontsource,
+     which names the families "... Variable"; the shared stacks follow as fallback. */
+  --font-display: 'Newsreader Variable', var(--serif);
+  --font-body: 'Newsreader Variable', var(--serif);
+  --font-sans: 'Instrument Sans Variable', var(--sans);
+  --font-mono: 'Instrument Sans Variable', var(--sans);
+}
+/* grants.watch personality: the three wire colours. Category markers only,
+   never buttons, links or emphasis. */
+@theme {
   --color-crypto: #9A6512;
   --color-ai: #5B3FC4;
   --color-oss: #0A7189;
-  --color-live: #17171A;
-  --color-closing: #17171A;
-  --color-signal: #17171A;
-  --font-display: 'Newsreader Variable', Georgia, serif;
-  --font-body: 'Newsreader Variable', Georgia, serif;
-  --font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
-  --font-mono: 'Instrument Sans Variable', system-ui, sans-serif;
 }
-:root { color-scheme: light; }
 html, body { background: var(--color-void); }
 body { color: var(--color-paper); font-family: var(--font-body); font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-line); }
 a { text-underline-offset: 4px; }
-a:hover { color: #1D5E3F; }
+a:hover { color: var(--rust); }
 :focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
 @layer components {
   .coord { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
@@ -52,7 +58,7 @@ a:hover { color: #1D5E3F; }
 .brand-mark { width: 20px; height: 20px; background: var(--color-paper); flex-shrink: 0; }
 .desktop-nav { display: flex; gap: 28px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .desktop-nav a { color: var(--color-dim); padding-bottom: 5px; text-decoration: none; border-bottom: 2px solid transparent; }
-.desktop-nav a:hover { color: #1D5E3F; }
+.desktop-nav a:hover { color: var(--rust); }
 .desktop-nav a[aria-current] { border-color: var(--color-paper); }
 .mobile-menu { display: none; }
 .masthead-byline { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0 12px; border-bottom: 1px solid var(--color-line); font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }

@@ -1,0 +1,72 @@
+/* sovereign-signal-brand tokens v1.0.0 */
+/* Shared tokens for Sovereign Signal sites. Copy this file whole, keep line 1 intact,
+   and put site-specific tokens in a separate personality block below it.
+   Run `node <brand>/check.mjs <site-dir>` to confirm the copy has not drifted.
+   Rules: BRAND.md. */
+
+/* Light palette: the default */
+:root,
+[data-theme=light] {
+  color-scheme: light;
+  --paper: #F3EFE6;
+  --ink: #17171A;
+  --ink-2: #3E3D39;
+  --ink-3: #66635B;
+  --rule: #CFC8B8;
+  --rust: #B4482A;
+}
+
+/* Dark palette, following the system setting unless the page pins light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    color-scheme: dark;
+    --paper: #141418;
+    --ink: #EDE8DD;
+    --ink-2: #B9B3A6;
+    --ink-3: #8A857A;
+    --rule: #2E2D2A;
+    --rust: #D2694A;
+  }
+}
+
+/* Dark palette, pinned by the page */
+[data-theme=dark] {
+  color-scheme: dark;
+  --paper: #141418;
+  --ink: #EDE8DD;
+  --ink-2: #B9B3A6;
+  --ink-3: #8A857A;
+  --rule: #2E2D2A;
+  --rust: #D2694A;
+}
+
+/* Type, rules and spacing: the same in both modes */
+:root {
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Hairline: border-top: var(--rule-hair) solid var(--rule) */
+  --rule-hair: 1px;
+  /* Masthead double rule, from the logo: 1.5px over 1px ink, 4px total.
+     box-sizing: border-box; height: var(--rule-double);
+     border-top: var(--rule-double-top) solid var(--ink);
+     border-bottom: var(--rule-double-bottom) solid var(--ink); */
+  --rule-double: 4px;
+  --rule-double-top: 1.5px;
+  --rule-double-bottom: 1px;
+
+  /* Corners are square. This is the ceiling, never more. */
+  --radius: 2px;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+}
