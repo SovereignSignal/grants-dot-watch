@@ -124,6 +124,9 @@ a:hover { color: var(--rust); }
 .mechanism-grid p { margin-top: 8px; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--color-dim); }
 .ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; padding: 14px 0 80px; border-top: 4px double var(--color-paper); font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
 .footer-mark { display: inline-block; width: 9px; height: 9px; background: var(--color-paper); margin-right: 8px; }
+.footer-credits { display: inline-flex; flex-wrap: wrap; gap: 10px 28px; }
+.endorsement { display: inline-flex; align-items: center; gap: 8px; }
+.endorsement svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--ink); }
 @media(max-width: 1150px) {
   .ledger-shell { width: calc(100% - 64px); }
   .desktop-nav { gap: 18px; font-size: 10px; }

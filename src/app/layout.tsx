@@ -6,6 +6,7 @@ import '@fontsource-variable/instrument-sans/index.css';
 import '@/brand/tokens.css';
 import './globals.css';
 import SiteHeader from '@/components/site-header';
+import { SovereignSignalEndorsement } from '@/components/sovereign-signal-endorsement';
 import { publicSiteOrigin } from '@/lib/site-metadata';
 
 export const dynamic = 'force-dynamic';
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <footer className="ledger-shell ledger-footer">
           <Link href="/"><span className="footer-mark" aria-hidden />grants.watch · The registry of the funding world</Link>
-          <span>A Grant Wire publication</span>
+          <span className="footer-credits"><span>A Grant Wire publication</span><SovereignSignalEndorsement /></span>
         </footer>
       </body>
     </html>
