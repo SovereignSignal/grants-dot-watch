@@ -8,7 +8,7 @@ import * as legacy from './committer-legacy';
 import { invalidateRegistryCache } from './registry';
 import { productDateISO } from './round-state';
 import { readBaseline } from './funding-store.mjs';
-import { addLegacyFundingControl, buildFundingDeskChanges, fundingGuard, isFundingProposal, validateFundingChanges } from './funding-desk-core.mjs';
+import { addLegacyFundingControl, buildFundingDeskChanges, CONTROL_PATH, fundingGuard, isFundingProposal, validateFundingChanges } from './funding-desk-core.mjs';
 import type { Proposal } from './types';
 import type { AppliedChange, ApplyResult } from './committer-legacy';
 
@@ -40,6 +40,15 @@ export function buildProposalChanges(p:Proposal):ApplyResult {
   if ((enabled() || hasFunding()) && !isFundingProposal(p)) result=addLegacyFundingControl(REGISTRY,result) as ApplyResult;
   validateFundingChanges(REGISTRY,baseline,result.changes,productDateISO(),YAML.parse);
   return result;
+}
+/** The paths buildProposalChanges would write, for display only. A legacy proposal skips the
+ *  full funding baseline, control and dataset validation (~170ms each), which froze the server
+ *  when the queue enriched every proposal ever made. Approval still runs buildProposalChanges. */
+export function proposalDestinations(p:Proposal):string[] {
+  if (isFundingProposal(p)) return buildProposalChanges(p).changes.map(c=>c.path);
+  const paths=legacy.buildProposalChanges(p).changes.map(c=>c.path);
+  // Mirrors addLegacyFundingControl: a non-empty legacy edit also writes the funding control.
+  return (enabled() || hasFunding()) && paths.length && !paths.includes(CONTROL_PATH) ? [CONTROL_PATH,...paths] : paths;
 }
 export function prepareProposalChanges(p:Proposal):ApplyResult {
   if (!participates(p)) return legacy.prepareProposalChanges(p);

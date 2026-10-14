@@ -81,7 +81,7 @@ function TokenGate({ children }: { children: ReactNode }) {
 
   const probe = useCallback(async () => {
     try {
-      const res = await fetch('/api/desk/queue', { cache: 'no-store' });
+      const res = await fetch('/api/desk/queue?counts=1', { cache: 'no-store' });
       setAuthed(res.status !== 401);
     } catch {
       setAuthed(false);
@@ -207,7 +207,7 @@ function PrivyGate({ children }: { children: ReactNode }) {
     setAccessError(null);
     try {
       const headers = await getAuthHeaders();
-      const res = await fetch('/api/desk/queue', { cache: 'no-store', headers });
+      const res = await fetch('/api/desk/queue?counts=1', { cache: 'no-store', headers });
       if (res.ok) setAuthorized(true);
       else if (res.status === 401 || res.status === 403) setAuthorized(false);
       else throw new Error(`Admin API returned ${res.status}`);

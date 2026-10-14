@@ -1,4 +1,4 @@
-import { buildProposalChanges } from '@/lib/committer';
+import { proposalDestinations } from '@/lib/committer';
 import { listProposals, listVerdicts, queueCounts } from '@/lib/desk-store';
 import { getSignalEvidence } from '@/lib/signal-lookup';
 import type { Proposal } from '@/lib/types';
@@ -7,15 +7,14 @@ import { checkAuth, unauthorized } from '../lib';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-/** WHERE, at a glance: the same buildProposalChanges dry run applyProposal
- *  uses to decide what to write — reused (not reimplemented) so the
- *  destination line in the queue can never drift from what approve actually
- *  does. Wrapped per-proposal: one proposal that can't resolve a target
- *  (e.g. an ambiguous program match) must never take the whole queue down. */
+/** WHERE, at a glance: the paths approve would write, from the same builders
+ *  applyProposal uses, minus the funding dataset validation that approve
+ *  still runs (see proposalDestinations). Wrapped per-proposal: one proposal
+ *  that can't resolve a target (e.g. an ambiguous program match) must never
+ *  take the whole queue down. */
 function destinationFor(p: Proposal): { paths: string[] | null; error: string | null } {
   try {
-    const { changes } = buildProposalChanges(p);
-    return { paths: changes.map((c) => c.path), error: null };
+    return { paths: proposalDestinations(p), error: null };
   } catch (e) {
     return { paths: null, error: e instanceof Error ? e.message : 'destination could not be resolved' };
   }
@@ -40,6 +39,8 @@ export async function GET(req: Request) {
   if (!auth.ok) return unauthorized();
 
   const url = new URL(req.url);
+  // The admin gate only needs to know the caller is authorized: answer with counts, no queue.
+  if (url.searchParams.get('counts') === '1') return Response.json({ counts: await queueCounts() });
   const lane = url.searchParams.get('lane');
   const state = url.searchParams.get('state');
 
