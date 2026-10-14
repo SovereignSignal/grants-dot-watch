@@ -97,7 +97,7 @@ export function AwardTable({
                     Source ↗
                   </a>
                 ) : (
-                  <span className="text-faint">–</span>
+                  <span className="text-faint">{NOT_RECORDED}</span>
                 )}
               </div>
             </li>

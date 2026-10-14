@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Empty } from '@/components/ui';
 import { MECHANISM_LABEL } from '@/components/ledger/labels';
-import { WIRE_COLOR } from '@/lib/format';
+import { NOT_RECORDED, WIRE_COLOR } from '@/lib/format';
 import type { Departure } from '@/lib/departures';
 import { programFacts } from '@/lib/program-facts';
 import { monthLabel, monthYearShort } from './date-helpers';
@@ -20,7 +20,7 @@ function UndatedRow({ d, status }: { d: Departure; status?: string }) {
         <div className="coord mt-0.5 truncate">{d.orgName}</div>
       </div>
       <div className="max-w-[45%] shrink-0 text-right">
-        <div className="truncate text-[12px] font-semibold text-dim tabular-nums">{d.round.size || '–'}</div>
+        <div className="truncate text-[12px] font-semibold text-dim tabular-nums">{d.round.size || NOT_RECORDED}</div>
         <div className="coord mt-0.5">{status || MECHANISM_LABEL[d.program.mechanism || 'other'] || d.program.mechanism}</div>
       </div>
     </Link>
