@@ -45,5 +45,5 @@ test('award amount labels preserve source text and format numeric fallbacks', ()
   assert.equal(awardAmountLabel(award({ amount: 12500, currency: 'USD', amount_text: '$12,500 exact' })), '$12,500 exact');
   assert.equal(awardAmountLabel(award({ amount: 12500, currency: 'USD' })), '$12,500');
   assert.equal(awardAmountLabel(award({ amount: 12500, currency: 'ARB' })), '12,500 ARB');
-  assert.equal(awardAmountLabel(award()), '–');
+  assert.equal(awardAmountLabel(award()), 'Not recorded');
 });

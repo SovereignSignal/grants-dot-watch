@@ -7,6 +7,6 @@ export default function About() {
     <section><h2>How to read a program</h2><p>Each program page gives its status, how it takes applications and its next published deadline. Status describes whether the program is running. A passed deadline moves into round history without changing the program’s status.</p><p>Sources and recorded check dates stay with each fact. Review schedules do not hide those facts. Follow the funder’s page for its terms.</p></section>
     <section><h2>Missing information</h2><p>An unrecorded amount stays explicit. An unavailable source remains a review task. Funding totals, individual grant sizes, token awards and credits are kept distinct where sources make that distinction. Older records are available to explore, with uncertainty stated.</p></section>
     <section><h2>Coverage</h2><p>The directory covers the opportunities collected through our research. Coverage varies by ecosystem and source, and we do not claim to include every opportunity online. “Noted” dates record when a source was checked.</p></section>
-    <Link href="/programs" className="primary-link">Browse programs</Link>
+    <Link href="/programs" className="primary-link main-action">Browse programs</Link>
   </article>;
 }

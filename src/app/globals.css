@@ -1,35 +1,61 @@
 @import 'tailwindcss';
 
-/* The approved Ledger palette. Utility names retain their existing meaning:
-   void is the paper ground and paper is the foreground ink. */
+/* The approved Ledger palette, read from the shared Sovereign Signal tokens
+   (src/brand/tokens.css, loaded by the root layout). Utility names retain their
+   existing meaning: void is the paper ground and paper is the foreground ink. */
 @theme {
-  --color-accent: #17171A;
-  --color-void: #F3EFE6;
-  --color-deep: #F3EFE6;
-  --color-surface: #F3EFE6;
-  --color-raised: #F3EFE6;
-  --color-line: #CFC8B8;
-  --color-paper: #17171A;
-  --color-dim: #3E3D39;
-  --color-faint: #66635B;
+  --color-accent: var(--ink);
+  --color-void: var(--paper);
+  --color-deep: var(--paper);
+  --color-surface: var(--paper);
+  --color-raised: var(--paper);
+  --color-line: var(--rule);
+  --color-paper: var(--ink);
+  --color-dim: var(--ink-2);
+  --color-faint: var(--ink-3);
+  --color-live: var(--ink);
+  --color-closing: var(--ink);
+  --color-signal: var(--ink);
+  /* The site self-hosts Newsreader and Instrument Sans through Fontsource,
+     which names the families "... Variable"; the shared stacks follow as fallback. */
+  --font-display: 'Newsreader Variable', var(--serif);
+  --font-body: 'Newsreader Variable', var(--serif);
+  --font-sans: 'Instrument Sans Variable', var(--sans);
+  /* IBM Plex Mono, self-hosted from src/brand/fonts/, for the existing mono
+     roles only: Desk ids and diffs, Health dates and counts, review dates. */
+  --font-mono: var(--mono);
+}
+/* grants.watch personality: the three wire colours. Category markers only,
+   never buttons, links or emphasis. */
+@theme {
   --color-crypto: #9A6512;
   --color-ai: #5B3FC4;
   --color-oss: #0A7189;
-  --color-live: #17171A;
-  --color-closing: #17171A;
-  --color-signal: #17171A;
-  --font-display: 'Newsreader Variable', Georgia, serif;
-  --font-body: 'Newsreader Variable', Georgia, serif;
-  --font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
-  --font-mono: 'Instrument Sans Variable', system-ui, sans-serif;
 }
-:root { color-scheme: light; }
+/* On dark paper (#141418) the light markers sink: ai reads 2.6:1, oss 3.3:1,
+   crypto 3.7:1. These keep each hue and sit between 5:1 and 5.4:1 against the
+   dark paper (markers, not text). Same two conditions as tokens.css: the system
+   setting when no light choice is stored, and a stored dark choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    --color-crypto: #B5812C;
+    --color-ai: #8C74E0;
+    --color-oss: #1F97B3;
+  }
+}
+[data-theme=dark] {
+  --color-crypto: #B5812C;
+  --color-ai: #8C74E0;
+  --color-oss: #1F97B3;
+}
 html, body { background: var(--color-void); }
 body { color: var(--color-paper); font-family: var(--font-body); font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-line); }
 a { text-underline-offset: 4px; }
-a:hover { color: #1D5E3F; }
+a:hover { color: var(--rust); }
 :focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
+/* Plex Mono ships at 400 and 500 only. Semibold mono text uses 500 rather than a synthetic bold. */
+.font-mono { font-synthesis-weight: none; }
 @layer components {
   .coord { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
   .display { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
@@ -38,7 +64,6 @@ a:hover { color: #1D5E3F; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 .rule, .starline { border-top: 1px solid var(--color-line); }
-.rule-heavy { border-top: 4px double var(--color-paper); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
@@ -47,14 +72,18 @@ a:hover { color: #1D5E3F; }
    design/mocks/ledger-evergreen/. Responsive rules follow its phone artboard. */
 .ledger-shell { width: calc(100% - 128px); max-width: 1312px; margin-inline: auto; }
 .ledger-header { padding-top: 32px; }
-.masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding-bottom: 14px; border-bottom: 4px double var(--color-paper); }
-.wordmark { display: inline-flex; align-items: center; gap: 12px; font-size: 38px; font-weight: 600; line-height: 1; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
+.masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; position: relative; padding-bottom: 18px; }
+.wordmark { display: inline-flex; align-items: center; gap: 12px; margin-right: auto; font-size: 38px; font-weight: 600; line-height: 1; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
 .brand-mark { width: 20px; height: 20px; background: var(--color-paper); flex-shrink: 0; }
 .desktop-nav { display: flex; gap: 28px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .desktop-nav a { color: var(--color-dim); padding-bottom: 5px; text-decoration: none; border-bottom: 2px solid transparent; }
-.desktop-nav a:hover { color: #1D5E3F; }
-.desktop-nav a[aria-current] { border-color: var(--color-paper); }
+.desktop-nav a:hover { color: var(--rust); }
+.desktop-nav a[aria-current] { color: var(--color-paper); border-color: var(--color-paper); }
 .mobile-menu { display: none; }
+/* The theme toggle, as on sovereignsignal.com: a hairline ink box, Instrument Sans
+   caps, hidden until the browser can say which mode is next. */
+.theme-toggle { position: relative; font-family: var(--font-sans); font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: .14em; text-transform: uppercase; background: none; color: var(--ink); border: 1px solid var(--ink); border-radius: var(--radius); padding: 9px 14px; margin-bottom: 1px; white-space: nowrap; cursor: pointer; transition: color 150ms, border-color 150ms; }
+.theme-toggle:hover { color: var(--rust); border-color: var(--rust); }
 .masthead-byline { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0 12px; border-bottom: 1px solid var(--color-line); font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
 .ledger-hero { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 72px; align-items: end; padding: 72px 0 64px; }
 .ledger-kicker, .hero-kicker { font-family: var(--font-sans); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--color-faint); }
@@ -116,8 +145,17 @@ a:hover { color: #1D5E3F; }
 .mechanism-grid h3 { font-size: 24px; line-height: 1.2; }
 .mechanism-grid > a > div > span { font-size: 28px; font-style: italic; line-height: 1; }
 .mechanism-grid p { margin-top: 8px; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--color-dim); }
-.ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; padding: 14px 0 80px; border-top: 4px double var(--color-paper); font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
+.ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; position: relative; padding: 18px 0 80px; font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
+/* The double rule from the logo: 2px over 1px ink with a 4px gap (src/brand/tokens.css).
+   Two borders on a 7px box, whole pixels only: a gradient tiles with a seam at 3x,
+   and a 1.5px border floors to 1px at 1x. */
+.masthead::after, .ledger-footer::before { content: ''; position: absolute; left: 0; right: 0; box-sizing: border-box; height: var(--rule-double); border-top: var(--rule-double-top) solid var(--ink); border-bottom: var(--rule-double-bottom) solid var(--ink); }
+.masthead::after { bottom: 0; }
+.ledger-footer::before { top: 0; }
 .footer-mark { display: inline-block; width: 9px; height: 9px; background: var(--color-paper); margin-right: 8px; }
+.footer-credits { display: inline-flex; flex-wrap: wrap; gap: 10px 28px; }
+.endorsement { display: inline-flex; align-items: center; gap: 8px; }
+.endorsement svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--ink); }
 @media(max-width: 1150px) {
   .ledger-shell { width: calc(100% - 64px); }
   .desktop-nav { gap: 18px; font-size: 10px; }
@@ -132,6 +170,8 @@ a:hover { color: #1D5E3F; }
   .mobile-menu { display: block; position: relative; }
   .mobile-menu summary { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; list-style: none; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
+  .theme-toggle { margin-bottom: 0; }
+  .theme-toggle::after { content: ''; position: absolute; inset: -8px -4px; }
   .mobile-menu nav { position: absolute; top: 100%; right: 0; z-index: 60; width: 220px; background: var(--color-void); border: 1px solid var(--color-paper); padding: 8px 16px; }
   .mobile-menu nav a { display: flex; align-items: center; min-height: 44px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
   .ledger-hero { grid-template-columns: minmax(0, 1fr) 240px; gap: 28px; }
@@ -145,8 +185,9 @@ a:hover { color: #1D5E3F; }
 @media(max-width: 600px) {
   .ledger-shell { width: calc(100% - 40px); }
   .ledger-header { padding-top: 12px; }
-  .masthead { align-items: center; padding-bottom: 8px; gap: 16px; }
+  .masthead { align-items: center; padding-bottom: 12px; gap: 16px; }
   .wordmark { font-size: 28px; gap: 10px; }.brand-mark { width: 16px; height: 16px; }
+  .theme-toggle { padding: 9px 10px; }.theme-toggle-word { display: none; }
   .masthead-byline { font-size: 10px; padding: 8px 0 10px; }.masthead-byline > span:last-child { display: none; }
   .ledger-hero { display: flex; flex-direction: column; align-items: stretch; gap: 28px; padding: 36px 0 28px; }
   .ledger-kicker { font-size: 10px; }.ledger-hero h1 { margin-top: 12px; font-size: 48px; line-height: 1; }
@@ -165,7 +206,7 @@ a:hover { color: #1D5E3F; }
   .ecosystem-row { padding: 12px 0; min-height: 44px; gap: 14px; }.ecosystem-row > span:first-child { font-size: 18px; }.ecosystem-row > span:last-child { font-size: 20px; }.ecosystems-all { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; }
   .funding-methods { margin-top: 24px; }.funding-methods .ledger-section-head > span { display: none; }.mechanism-grid { grid-template-columns: 1fr; }
   .mechanism-grid > a { padding: 14px 0; }.mechanism-grid h3 { font-size: 20px; }.mechanism-grid > a > div > span { font-size: 21px; }.mechanism-grid p { margin-top: 4px; font-size: 13px; line-height: 1.45; }
-  .ledger-footer { margin-top: 32px; padding-bottom: 32px; font-size: 9px; }.ledger-footer a { min-height: 44px; }
+  .ledger-footer { margin-top: 32px; padding-bottom: 32px; font-size: 11px; }.ledger-footer a { min-height: 44px; text-wrap: balance; }
 }
 
 /* Directory filters and results share the Ledger type and rules. */
@@ -275,3 +316,10 @@ a:hover { color: #1D5E3F; }
 @media(max-width:750px) { .program-dossier { width:calc(100% - 40px); }.dossier-grid { display:flex; flex-direction:column; padding-top:28px; }.dossier-hero h1 { font-size:40px; }.dossier-summary { font-size:20px; }.application-panel { margin-top:32px; order:1; }.dossier-main { order:2; }.dossier-facts > div { grid-template-columns:1fr; gap:8px; }.dossier-breadcrumb a, .evidence-link, .dossier-funder .ledger-link { min-height:44px; display:inline-flex; align-items:center; }.dossier-kicker { align-items:baseline; }.round-history a { display:inline-flex; align-items:center; min-height:44px; } }
 
 .ledger-home { line-height: normal; }
+
+/* The rust rule from the house style: rust marks the one main action on a screen
+   (home search, directory search, the apply link on a program or organization page,
+   the About page link).
+   Text on rust is paper. Everything else stays ink. */
+button.main-action, a.main-action { background: var(--rust); color: var(--paper); }
+button.main-action:hover, a.main-action:hover { background: color-mix(in srgb, var(--rust) 86%, var(--ink)); color: var(--paper); }

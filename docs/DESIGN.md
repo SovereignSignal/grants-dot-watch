@@ -179,3 +179,4 @@ from the funding wires, edition-stamped, sourced like a paper of record.
   first-time visitor with zero context. Insider terms get an inline definition at first
   use per page or get replaced with plain words. Empty states explain what absence means.
 - Icon: the ink square printer's block. Nothing cosmic, ever.
+- House style (2026-10-13): palette, fonts, the rust rule and the endorsement line come from the Sovereign Signal brand repo (`SovereignSignal/sovereign-signal-brand`, see its `BRAND.md`); the site's copy of the tokens is `src/brand/tokens.css`.

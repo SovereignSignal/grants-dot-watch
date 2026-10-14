@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 import { PRIMARY_NAV } from './primary-nav';
+import ThemeToggle from './theme-toggle';
 
 export default function SiteHeader() {
   const path = usePathname();
@@ -15,6 +16,7 @@ export default function SiteHeader() {
     <div className="masthead">
       <Link href="/" className="wordmark"><span className="brand-mark" aria-hidden/>grants.watch</Link>
       <nav className="desktop-nav" aria-label="Primary">{links}</nav>
+      <ThemeToggle />
       <details ref={menu} className="mobile-menu">
         <summary aria-label="Menu"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
         <nav aria-label="Primary">{links}</nav>

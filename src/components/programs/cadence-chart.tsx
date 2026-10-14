@@ -41,7 +41,7 @@ function plotRounds(program: Program, year: number): Plot[] {
         startPct: Math.min(opensPct, closesPct),
         endPct: Math.max(opensPct, closesPct),
         faded,
-        caption: `${state} · ${monthDayShort(r.opens as string)}–${monthDayShort(r.closes as string)}`,
+        caption: `${state} · ${monthDayShort(r.opens as string)} to ${monthDayShort(r.closes as string)}`,
       });
       continue;
     }

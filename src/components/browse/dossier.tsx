@@ -19,6 +19,7 @@ export function Dossier({
   aka,
   factsLine,
   standfirst,
+  action,
   compact,
 }: {
   kicker: string;
@@ -27,6 +28,8 @@ export function Dossier({
   aka?: string;
   factsLine?: ReactNode;
   standfirst?: ReactNode;
+  /** The screen's one main action (rust), set under the standfirst. */
+  action?: ReactNode;
   compact?: boolean;
 }) {
   return (
@@ -57,6 +60,7 @@ export function Dossier({
           {standfirst}
         </div>
       )}
+      {action && <div className="mt-6">{action}</div>}
     </div>
   );
 }

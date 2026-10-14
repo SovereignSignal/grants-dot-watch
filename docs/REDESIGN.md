@@ -3,6 +3,10 @@
 Direction approved by Sov on September 23 and 24, 2026. This document is the spec. The
 mockups in [design/mocks/ledger-evergreen/](../design/mocks/ledger-evergreen/) show it.
 
+House style (2026-10-13): colour, fonts, the rust rule and the endorsement line now come from the
+Sovereign Signal brand repo (`SovereignSignal/sovereign-signal-brand`, see its `BRAND.md`) and
+override this document where they differ; the site's copy of the tokens is `src/brand/tokens.css`.
+
 ## Decisions
 
 1. **Look: The Ledger.** A 1920s wire service carried by typography. Paper ground, ink,
