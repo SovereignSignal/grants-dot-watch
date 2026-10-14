@@ -62,7 +62,7 @@ a:hover { color: var(--rust); }
 .desktop-nav { display: flex; gap: 28px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .desktop-nav a { color: var(--color-dim); padding-bottom: 5px; text-decoration: none; border-bottom: 2px solid transparent; }
 .desktop-nav a:hover { color: var(--rust); }
-.desktop-nav a[aria-current] { border-color: var(--color-paper); }
+.desktop-nav a[aria-current] { color: var(--color-paper); border-color: var(--color-paper); }
 .mobile-menu { display: none; }
 .masthead-byline { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0 12px; border-bottom: 1px solid var(--color-line); font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
 .ledger-hero { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 72px; align-items: end; padding: 72px 0 64px; }
@@ -127,8 +127,8 @@ a:hover { color: var(--rust); }
 .mechanism-grid p { margin-top: 8px; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--color-dim); }
 .ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; position: relative; padding: 18px 0 80px; font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
 /* The double rule from the logo: 1.5px over 1px ink (src/brand/tokens.css).
-   CSS double borders draw two equal lines, so the rule is a pseudo-element. */
-.masthead::after, .ledger-footer::before { content: ''; position: absolute; left: 0; right: 0; height: var(--rule-double); box-sizing: border-box; border-top: var(--rule-double-top) solid var(--ink); border-bottom: var(--rule-double-bottom) solid var(--ink); }
+   A gradient, because browsers round a 1.5px border down to 1px. */
+.masthead::after, .ledger-footer::before { content: ''; position: absolute; left: 0; right: 0; height: var(--rule-double); background: linear-gradient(var(--ink) 0 var(--rule-double-top), transparent var(--rule-double-top) calc(100% - var(--rule-double-bottom)), var(--ink) calc(100% - var(--rule-double-bottom)) 100%); }
 .masthead::after { bottom: 0; }
 .ledger-footer::before { top: 0; }
 .footer-mark { display: inline-block; width: 9px; height: 9px; background: var(--color-paper); margin-right: 8px; }

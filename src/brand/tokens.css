@@ -49,9 +49,11 @@
   /* Hairline: border-top: var(--rule-hair) solid var(--rule) */
   --rule-hair: 1px;
   /* Masthead double rule, from the logo: 1.5px over 1px ink, 4px total.
-     box-sizing: border-box; height: var(--rule-double);
-     border-top: var(--rule-double-top) solid var(--ink);
-     border-bottom: var(--rule-double-bottom) solid var(--ink); */
+     Draw it with a gradient: browsers round a 1.5px border down to 1px.
+     height: var(--rule-double);
+     background: linear-gradient(var(--ink) 0 var(--rule-double-top),
+       transparent var(--rule-double-top) calc(100% - var(--rule-double-bottom)),
+       var(--ink) calc(100% - var(--rule-double-bottom)) 100%); */
   --rule-double: 4px;
   --rule-double-top: 1.5px;
   --rule-double-bottom: 1px;
