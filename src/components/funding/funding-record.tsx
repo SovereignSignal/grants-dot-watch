@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { fundingAmountLabel, fundingLabel } from '../../lib/funding-display';
+import { classificationLabel, TERM_CLASSIFICATIONS } from '../../lib/program-classification';
 import { FundingTerms } from './funding-terms';
 
 export type FundingRow = Record<string, unknown>;
@@ -11,25 +13,30 @@ const safeUrl = (value: unknown) => {
 };
 const display = (value: unknown): string => value == null ? 'Not recorded' : typeof value === 'string' ? value : JSON.stringify(value);
 
-export function FundingRecord({ row, kind }: { row: FundingRow; kind: string }) {
+export function FundingRecord({ row, kind, programName }: { row: FundingRow; kind: string; programName?: string }) {
   const amount = object(row.amount), provenance = object(row.provenance);
-  const name = string(row.recipient_name) || string(row.program_name) || string(row.name) || string(row.label) || string(row.program) || 'Funding record';
+  const recipientName = string(row.recipient_name) || (kind === 'outputs' ? string(row.name) : '');
+  const name = recipientName || string(row.program_name) || string(row.name) || string(row.label) || programName || string(row.program) || 'Funding record';
   const program = string(row.program), source = safeUrl(row.source);
   const recordApi = string(row.api);
-  const monetary = amount.amount == null ? 'Amount not disclosed' : `${string(amount.currency)} ${string(amount.amount)}${amount.unit !== 'currency' ? ` ${string(amount.unit)}` : ''}`.trim();
+  const monetary = fundingAmountLabel(amount);
+  const labels = (value: unknown) => array(value).filter((item): item is string => typeof item === 'string').map(classificationLabel).join(', ') || 'Not recorded';
   const evidenceSources = array(provenance.sources).map(object);
   const assertions = array(provenance.assertions).map(object);
   return <article className="min-w-0 border-t border-line py-5" data-funding-record={string(row.id)}>
     <div className="flex flex-wrap items-start justify-between gap-3">
-      <div className="min-w-0"><p className="coord mb-1">{string(row.event_type) || string(row.kind) || kind.replaceAll('-', ' ')}{row.award_period ? ` · ${display(row.award_period)}` : ''}</p>
-        <h3 className="break-words text-lg font-semibold text-paper">{program ? <Link href={`/programs/${encodeURIComponent(program)}`}>{name}</Link> : name}</h3>
+      <div className="min-w-0"><p className="coord mb-1">{fundingLabel(row.event_type || row.kind || kind)}{row.award_period ? ` · ${display(row.award_period)}` : ''}</p>
+        <h3 className="break-words text-lg font-semibold text-paper">{program && !recipientName ? <Link href={`/programs/${encodeURIComponent(program)}`}>{name}</Link> : name}</h3>
+        {program && !!recipientName && <p className="mt-1 text-sm text-dim">Program: <Link className="evidence-link" href={`/programs/${encodeURIComponent(program)}`}>{programName || string(row.program_name) || program}</Link></p>}
       </div>
-      {kind === 'funding-events' && <div className="text-right text-lg tabular-nums text-paper">{monetary}<p className="coord mt-1">{row.payment_date ? `Payment recorded ${display(row.payment_date)}` : 'Payment not established'}</p></div>}
+      {kind === 'funding-events' && <div className="min-w-0 max-w-full break-words text-right text-lg tabular-nums text-paper">{monetary}<p className="coord mt-1">{row.payment_date ? `Payment recorded ${display(row.payment_date)}` : 'Payment not established'}</p></div>}
     </div>
     {row.purpose ? <p className="mt-2 text-dim">{display(row.purpose)}</p> : null}
     {kind === 'process-metrics' && <dl className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">{[['Period', row.period], ['Eligible applications', row.eligible_applications], ['Offers', row.offers], ['Published rate', row.published_percent]].map(([label, value]) => <div key={String(label)}><dt className="coord">{String(label)}</dt><dd className="mt-1 text-lg tabular-nums text-paper">{display(value)}</dd></div>)}</dl>}
-    {kind === 'program-terms' && <><p className="mt-2 text-dim">{array(row.instruments).join(', ')} · {array(row.capital_forms).join(', ')} · {display(row.intake_mode)}</p><FundingTerms row={row}/></>}
-    {kind === 'claims' && <div className="mt-3"><code className="break-all text-xs text-dim">{display(row.field)}</code><p className="mt-1 break-words text-paper">{display(row.value)}</p><p className="coord mt-2">{display(row.method)} · {display(row.evidence_state)}</p></div>}
+    {kind === 'program-terms' && <><dl className="mt-3 grid gap-3 text-sm sm:grid-cols-3">{[...Object.entries(TERM_CLASSIFICATIONS).map(([field, label]) => [label, labels(row[field])]), ['Application intake', fundingLabel(row.intake_mode)]].map(([label, value]) => <div key={label}><dt className="text-dim">{label}</dt><dd className="mt-1 text-paper">{value}</dd></div>)}</dl><FundingTerms row={row}/></>}
+    {kind === 'funding-events' && <><dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">{[['Support', fundingLabel(row.capital_form)], ['Event date', display(row.occurred_on)], ['Announcement date', display(row.announced_on)]].map(([label, value]) => <div key={label}><dt className="text-dim">{label}</dt><dd className="text-paper">{value}</dd></div>)}</dl>{array(row.conditions).length > 0 && <p className="mt-2 text-sm text-dim">Conditions: {array(row.conditions).map(display).join('; ')}</p>}</>}
+    {row.evidence_state != null && <p className="mt-3 text-sm text-dim">{fundingLabel(row.evidence_state)}{row.checked_on ? ` · Noted ${display(row.checked_on)}` : ''}</p>}
+    {kind === 'claims' && <div className="mt-3"><code className="break-all text-xs text-dim">{display(row.field)}</code><p className="mt-1 break-words text-paper">{display(row.value)}</p><p className="coord mt-2">{fundingLabel(row.method)}</p></div>}
     {kind === 'relationships' && <p className="mt-2 break-words text-dim">{display(row.from)} → {display(row.role).replaceAll('_', ' ')} → {display(row.to)}</p>}
     {kind === 'changes' && <p className="mt-2 text-dim">{row.summary ? display(row.summary) : `Evidence recorded: ${display(row.observed_on)}. Effective date: ${display(row.effective_on)}.`}</p>}
     {kind === 'outputs' && <p className="mt-2 text-dim">A linked funded project. Delivery and causal impact are not established by this link.</p>}
@@ -40,7 +47,7 @@ export function FundingRecord({ row, kind }: { row: FundingRow; kind: string }) 
       {program && <Link className="evidence-link" href={`/funding?program=${encodeURIComponent(program)}&kind=${encodeURIComponent(kind)}`}>Program funding</Link>}
     </div>
     {kind === 'process-metrics' && <p className="mt-3 text-sm text-dim">Exclusions: {array(row.exclusions).join('; ') || 'Not recorded'}. Historical cohort data does not estimate an individual applicant’s chances.</p>}
-    {(assertions.length > 0 || array(row.sources).length > 0) && <details className="mt-4 text-sm"><summary className="cursor-pointer text-paper">Evidence and field provenance {assertions.length ? `(${assertions.length} fields)` : ''}</summary>
+    {(assertions.length > 0 || array(row.sources).length > 0) && <details className="mt-4 text-sm"><summary className="cursor-pointer text-paper">Source details and field provenance {assertions.length ? `(${assertions.length} fields)` : ''}</summary>
       <div className="mt-3 space-y-3 break-words text-dim">{evidenceSources.map(s => <p key={string(s.id)}>{safeUrl(s.url) && <a className="evidence-link break-all" href={string(s.url)} target="_blank" rel="noreferrer">{string(s.url)}</a>}<br/>{display(s.scope)} · observed {display(s.observed_on)} · reuse {display(s.redistribution)}</p>)}
       {kind === 'claims' && array(row.sources).map(object).map((s, i) => <p key={i}>{safeUrl(s.url) && <a className="evidence-link break-all" href={string(s.url)} target="_blank" rel="noreferrer">{string(s.url)}</a>} · observed {display(s.observed_on)}{s.line ? ` · representation line ${display(s.line)}` : ''}</p>)}
       {assertions.length > 0 && <div className="overflow-x-auto"><table className="w-full text-left text-xs"><thead><tr><th className="p-2">Field</th><th className="p-2">Treatment</th><th className="p-2">Evidence lines</th></tr></thead><tbody>{assertions.map(a => <tr key={string(a.field)} className="border-t border-line"><td className="break-all p-2"><code>{string(a.field)}</code></td><td className="p-2">{string(a.rule).replaceAll('_', ' ')}</td><td className="p-2">{array(a.evidence).map(object).map(e => display(e.line)).join(', ')}</td></tr>)}</tbody></table></div>}

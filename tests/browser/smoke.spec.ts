@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { loadRegistry } from '../../src/lib/registry';
+import { awardAmountLabel, sortAwardsNewest } from '../../src/lib/awards';
+import { notedDate } from '../../src/lib/program-facts';
+import { productDateISO } from '../../src/lib/round-state';
 
 const registry = loadRegistry();
 const registerCounts = [registry.programs.filter(p => p.status === 'active').length, registry.orgs.length, registry.systems.length, registry.awards.length].map(n => n.toLocaleString('en-US'));
@@ -100,11 +103,17 @@ test('directory filters program facts and links source-backed details', async ({
   await expect(page.getByRole('heading', { name: 'No matching programs' })).toBeVisible();
 });
 
-test('front page has program facts without deadline or verification labels', async ({ page }) => {
+test('front page has program facts without deadline or verification labels', async ({ page }, testInfo) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   const main = page.getByRole('main');
   await expect(main).toContainText('active programs');
-  await expect(main).not.toContainText(/confirmed open|verified open|unverified|verification|closing soon|open now/i);
+  // Recipient names are source text and may legitimately mention verification.
+  const productCopy = main.locator('.ledger-hero, .ledger-wires, .program-reading-note');
+  await expect(productCopy).toHaveCount(3);
+  for (const section of await productCopy.all()) {
+    await expect(section).not.toContainText(/confirmed open|verified open|unverified|verification|closing soon|open now/i);
+  }
   await expect(main.locator('dt', { hasText: /deadline|opens|checked/i })).toHaveCount(0);
   await expect(main.getByRole('combobox', { name: 'Search the register' })).toBeVisible();
   const deskLinks = page.locator('header a[href="/admin/desk"]');
@@ -114,14 +123,29 @@ test('front page has program facts without deadline or verification labels', asy
   await expect(main).not.toContainText(/applications close|closing date/i);
   await expect(main.getByRole('heading', { name: /deadline/i })).toHaveCount(0);
   await expect(main.getByRole('complementary', { name: 'The register' }).locator('dd')).toHaveText(registerCounts);
-  for (const name of ['Funding ecosystems', 'Latest awards', 'Ways to be funded']) {
+  for (const name of ['Funding ecosystems', 'Latest recorded awards', 'Ways to be funded']) {
     await expect(main.getByRole('heading', { name, exact: true })).toBeVisible();
   }
-  await expect(main.locator('.latest-awards li')).toHaveCount(4);
+  // The latest evidence includes records without an amount, across every funder.
+  const expectedAwards = sortAwardsNewest(registry.awards.filter(award =>
+    notedDate(award.date || undefined, productDateISO()),
+  )).slice(0, 4);
+  const latestAwards = main.locator('.latest-awards li');
+  await expect(latestAwards).toHaveCount(expectedAwards.length);
+  for (const [index, award] of expectedAwards.entries()) {
+    const row = latestAwards.nth(index);
+    await expect(row.getByRole('link')).toHaveText(award.grantee_name);
+    await expect(row.locator('time')).toHaveAttribute('datetime', award.date!);
+    await expect(row.locator('div > span')).toHaveText(awardAmountLabel(award));
+    await expect(row.getByRole('link')).toHaveAttribute('href', `/awards?${new URLSearchParams({ q: award.grantee_name, funder: award.funder })}`);
+  }
   await expect(main.locator('.mechanism-grid > a')).toHaveCount(8);
-  await expect(main.locator('.latest-awards li').first()).toContainText('300,000 OP');
-  await main.locator('.latest-awards li').first().getByRole('link').click();
-  await expect(page).toHaveURL(/awards\?q=Gamma\+Strategies&funder=optimism-foundation/);
+  await expect(main.locator('.latest-awards')).toBeVisible();
+  await main.locator('.latest-awards').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('latest-awards-desktop.png') });
+  const firstAwardHref = await latestAwards.first().getByRole('link').getAttribute('href');
+  await latestAwards.first().getByRole('link').click();
+  await expect(page).toHaveURL(new URL(firstAwardHref!, page.url()).href);
   await expect(page.getByRole('heading', { name: 'Awards', exact: true })).toBeVisible();
   await expect(main.getByRole('link', { name: /Open now|Closing soon|Needs verification/i })).toHaveCount(0);
 });
