@@ -48,7 +48,6 @@ a:hover { color: var(--rust); }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 .rule, .starline { border-top: 1px solid var(--color-line); }
-.rule-heavy { border-top: 4px double var(--color-paper); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
@@ -57,7 +56,7 @@ a:hover { color: var(--rust); }
    design/mocks/ledger-evergreen/. Responsive rules follow its phone artboard. */
 .ledger-shell { width: calc(100% - 128px); max-width: 1312px; margin-inline: auto; }
 .ledger-header { padding-top: 32px; }
-.masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding-bottom: 14px; border-bottom: 4px double var(--color-paper); }
+.masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; position: relative; padding-bottom: 18px; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; font-size: 38px; font-weight: 600; line-height: 1; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
 .brand-mark { width: 20px; height: 20px; background: var(--color-paper); flex-shrink: 0; }
 .desktop-nav { display: flex; gap: 28px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
@@ -126,7 +125,12 @@ a:hover { color: var(--rust); }
 .mechanism-grid h3 { font-size: 24px; line-height: 1.2; }
 .mechanism-grid > a > div > span { font-size: 28px; font-style: italic; line-height: 1; }
 .mechanism-grid p { margin-top: 8px; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--color-dim); }
-.ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; padding: 14px 0 80px; border-top: 4px double var(--color-paper); font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
+.ledger-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 64px; position: relative; padding: 18px 0 80px; font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
+/* The double rule from the logo: 1.5px over 1px ink (src/brand/tokens.css).
+   CSS double borders draw two equal lines, so the rule is a pseudo-element. */
+.masthead::after, .ledger-footer::before { content: ''; position: absolute; left: 0; right: 0; height: var(--rule-double); box-sizing: border-box; border-top: var(--rule-double-top) solid var(--ink); border-bottom: var(--rule-double-bottom) solid var(--ink); }
+.masthead::after { bottom: 0; }
+.ledger-footer::before { top: 0; }
 .footer-mark { display: inline-block; width: 9px; height: 9px; background: var(--color-paper); margin-right: 8px; }
 .footer-credits { display: inline-flex; flex-wrap: wrap; gap: 10px 28px; }
 .endorsement { display: inline-flex; align-items: center; gap: 8px; }
@@ -158,7 +162,7 @@ a:hover { color: var(--rust); }
 @media(max-width: 600px) {
   .ledger-shell { width: calc(100% - 40px); }
   .ledger-header { padding-top: 12px; }
-  .masthead { align-items: center; padding-bottom: 8px; gap: 16px; }
+  .masthead { align-items: center; padding-bottom: 12px; gap: 16px; }
   .wordmark { font-size: 28px; gap: 10px; }.brand-mark { width: 16px; height: 16px; }
   .masthead-byline { font-size: 10px; padding: 8px 0 10px; }.masthead-byline > span:last-child { display: none; }
   .ledger-hero { display: flex; flex-direction: column; align-items: stretch; gap: 28px; padding: 36px 0 28px; }
@@ -178,7 +182,7 @@ a:hover { color: var(--rust); }
   .ecosystem-row { padding: 12px 0; min-height: 44px; gap: 14px; }.ecosystem-row > span:first-child { font-size: 18px; }.ecosystem-row > span:last-child { font-size: 20px; }.ecosystems-all { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; }
   .funding-methods { margin-top: 24px; }.funding-methods .ledger-section-head > span { display: none; }.mechanism-grid { grid-template-columns: 1fr; }
   .mechanism-grid > a { padding: 14px 0; }.mechanism-grid h3 { font-size: 20px; }.mechanism-grid > a > div > span { font-size: 21px; }.mechanism-grid p { margin-top: 4px; font-size: 13px; line-height: 1.45; }
-  .ledger-footer { margin-top: 32px; padding-bottom: 32px; font-size: 9px; }.ledger-footer a { min-height: 44px; }
+  .ledger-footer { margin-top: 32px; padding-bottom: 32px; font-size: 11px; }.ledger-footer a { min-height: 44px; text-wrap: balance; }
 }
 
 /* Directory filters and results share the Ledger type and rules. */
