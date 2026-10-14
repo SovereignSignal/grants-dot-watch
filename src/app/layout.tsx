@@ -33,9 +33,20 @@ export const metadata: Metadata = {
   },
 };
 
+// Applies a saved theme before first paint. With nothing saved, tokens.css follows
+// the system setting. The browser chrome tint follows whichever paper is showing;
+// the toggle keeps it in sync after hydration. Same key and attribute as the
+// sovereignsignal.com site.
+const THEME_BOOT = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}
+try{var p=getComputedStyle(document.documentElement).getPropertyValue("--paper").trim();var m=document.querySelector('meta[name="theme-color"]');if(p&&m)m.setAttribute("content",p)}catch(e){}`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="theme-color" content="#F3EFE6" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
+      </head>
       <body className="min-h-dvh flex flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>
