@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import '@fontsource-variable/newsreader/standard.css';
-import '@fontsource-variable/newsreader/standard-italic.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
 import '@fontsource-variable/instrument-sans/index.css';
 import '@/brand/fonts/fonts.css';
 import '@/brand/tokens.css';
