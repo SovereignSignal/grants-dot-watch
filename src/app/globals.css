@@ -281,3 +281,10 @@ a:hover { color: var(--rust); }
 @media(max-width:750px) { .program-dossier { width:calc(100% - 40px); }.dossier-grid { display:flex; flex-direction:column; padding-top:28px; }.dossier-hero h1 { font-size:40px; }.dossier-summary { font-size:20px; }.application-panel { margin-top:32px; order:1; }.dossier-main { order:2; }.dossier-facts > div { grid-template-columns:1fr; gap:8px; }.dossier-breadcrumb a, .evidence-link, .dossier-funder .ledger-link { min-height:44px; display:inline-flex; align-items:center; }.dossier-kicker { align-items:baseline; }.round-history a { display:inline-flex; align-items:center; min-height:44px; } }
 
 .ledger-home { line-height: normal; }
+
+/* The rust rule from the house style: rust marks the one main action on a screen
+   (home search, directory search, the apply link on a program or organization page,
+   the About page link).
+   Text on rust is paper. Everything else stays ink. */
+button.main-action, a.main-action { background: var(--rust); color: var(--paper); }
+button.main-action:hover, a.main-action:hover { background: color-mix(in srgb, var(--rust) 86%, var(--ink)); color: var(--paper); }

@@ -206,7 +206,7 @@ export default function Search({ label }: { label: string }) {
           aria-activedescendant={panelOpen && activeIndex >= 0 ? (activeIndex === awardIndex ? awardOptionId : optionId(flatResults[activeIndex])) : undefined}
           aria-label="Search the register"
         />
-        <button type="submit" className="ink-button">Search</button>
+        <button type="submit" className="ink-button main-action">Search</button>
       </div>
       {panelOpen && (
         <div

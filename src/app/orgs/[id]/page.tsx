@@ -136,7 +136,7 @@ export default async function OrgPage({
           </div>
 
           {org.funding?.apply_url && (
-            <a href={org.funding.apply_url} target="_blank" rel="noreferrer" className="coord mt-2.5 inline-block hover:text-dim">
+            <a href={org.funding.apply_url} target="_blank" rel="noreferrer" className="coord mt-2.5 inline-block text-[var(--rust)] hover:text-paper">
               Apply ↗
             </a>
           )}
