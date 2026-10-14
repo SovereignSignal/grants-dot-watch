@@ -3,6 +3,7 @@ import Link from 'next/link';
 import '@fontsource-variable/newsreader/standard.css';
 import '@fontsource-variable/newsreader/standard-italic.css';
 import '@fontsource-variable/instrument-sans/index.css';
+import '@/brand/fonts/fonts.css';
 import '@/brand/tokens.css';
 import './globals.css';
 import SiteHeader from '@/components/site-header';

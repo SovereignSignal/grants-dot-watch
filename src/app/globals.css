@@ -21,7 +21,9 @@
   --font-display: 'Newsreader Variable', var(--serif);
   --font-body: 'Newsreader Variable', var(--serif);
   --font-sans: 'Instrument Sans Variable', var(--sans);
-  --font-mono: 'Instrument Sans Variable', var(--sans);
+  /* IBM Plex Mono, self-hosted from src/brand/fonts/, for the existing mono
+     roles only: Desk ids and diffs, Health dates and counts, review dates. */
+  --font-mono: var(--mono);
 }
 /* grants.watch personality: the three wire colours. Category markers only,
    never buttons, links or emphasis. */
@@ -36,6 +38,8 @@ body { color: var(--color-paper); font-family: var(--font-body); font-size: 18px
 a { text-underline-offset: 4px; }
 a:hover { color: var(--rust); }
 :focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
+/* Plex Mono ships at 400 and 500 only. Semibold mono text uses 500 rather than a synthetic bold. */
+.font-mono { font-synthesis-weight: none; }
 @layer components {
   .coord { font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-faint); }
   .display { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
