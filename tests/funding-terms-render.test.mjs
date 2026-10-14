@@ -20,12 +20,12 @@ const render = row => renderToStaticMarkup(createElement(FundingTerms, { row }))
 
 test('funding terms render an initial award ceiling with its restrictions', () => {
   const html = render({ round_name:'First call', resources:[{kind:'cash',value:{amount:'50000',currency:'EUR',unit:'currency',qualifier:'up_to',amount_text:'EUR 5,000 to EUR 50,000'},restrictions:['Initial proposal range; not an awarded amount.']}], access:{stage:'Initial project proposal',state:'open',checked_on:'2026-10-04',review_after:'2026-10-11'}, eligibility:['European dimension required'] });
-  for (const text of ['Up to EUR 50000','Initial proposal range','First call','Initial project proposal','European dimension required','not determine an individual']) assert.ok(html.includes(text),text);
+  for (const text of ['Up to EUR 50,000','Initial proposal range','First call','Initial project proposal','European dimension required','not determine an individual']) assert.ok(html.includes(text),text);
 });
 test('funding terms preserve distinct financing components without inventing a total', () => {
   const html = render({resources:[{kind:'cash',value:{amount:'125000',currency:'USD',unit:'currency',qualifier:'exact'},restrictions:['SAFE for fixed 7%']},{kind:'cash',value:{amount:'375000',currency:'USD',unit:'currency',qualifier:'exact'},restrictions:['Uncapped MFN SAFE']}]});
-  for(const text of ['USD 125000','USD 375000','SAFE for fixed 7%','Uncapped MFN SAFE','separately conditioned'])assert.ok(html.includes(text),text);
-  assert.ok(!html.includes('USD 500000'));
+  for(const text of ['USD 125,000','USD 375,000','SAFE for fixed 7%','Uncapped MFN SAFE','separately conditioned'])assert.ok(html.includes(text),text);
+  assert.ok(!html.includes('USD 500,000'));
 });
 test('funding terms show subsidy alternatives and do not turn unknown values into cash', () => {
   const html = render({resources:[{kind:'service',value:{amount:null,currency:null,unit:'audit service',qualifier:'not_disclosed',amount_text:'25%, 50%, or 100% audit-invoice subsidies'},restrictions:['No cash disbursement.']}], evidence_note:'Indicative monetary ceilings are disputed.'});
@@ -43,6 +43,13 @@ test('funding terms escape source-provided prose and tolerate absent optional fi
 });
 test('an access check reads as a dated note, not an expiring review', () => {
   const html = render({ resources:[], access:{ round_name:'First call', stage:'Initial project proposal', state:'open', new_applicants:true, prerequisites_clear:true, route:'https://nlnet.nl/propose/', checked_on:'2026-10-04', review_after:'2026-10-11', source:'https://nlnet.nl/codesupply/' } });
-  assert.ok(html.includes('Recorded intake state: open, noted 2026-10-04.'));
+  assert.ok(html.includes('Recorded intake state: Open, noted 2026-10-04.'));
   assert.ok(!/review due|2026-10-11/i.test(html));
+});
+
+test('funding terms display recorded effective dates without filling missing bounds', () => {
+  assert.ok(render({effective_from:'2025-01-01',effective_to:'2025-12-31'}).includes('Terms effective: 2025-01-01 to 2025-12-31.'));
+  assert.ok(render({effective_to:'2025-12-31'}).includes('Start not recorded to 2025-12-31.'));
+  assert.ok(render({effective_from:'2025-01-01'}).includes('2025-01-01 to End not recorded.'));
+  assert.ok(!render({}).includes('Terms effective:'));
 });

@@ -135,7 +135,8 @@ a:hover { color: var(--rust); }
 .latest-awards li { padding: 12px 0; border-bottom: 1px solid var(--color-line); }
 .latest-awards li > p { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--color-faint); }
 .latest-awards li > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 3px; font-size: 17px; }
-.latest-awards li > div > span { font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.latest-awards li > div > a { min-width: 0; overflow-wrap: anywhere; }
+.latest-awards li > div > span { flex: 0 0 96px; font-family: var(--font-sans); font-size: 14px; font-weight: 600; text-align: right; }
 .ledger-sidebar .ledger-link { margin-top: 12px; }
 .program-reading-note { margin-top: 14px; font-size: 18px; line-height: 1.5; color: var(--color-dim); }
 .funding-methods { margin-top: 56px; }

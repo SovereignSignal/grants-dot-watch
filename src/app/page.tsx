@@ -31,7 +31,7 @@ export default function Home() {
     ...system, count: (registry.bySystem.get(system.id)?.programs || []).filter(program => program.status === 'active').length,
   })).filter(system => system.count > 0).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
   const awards = sortAwardsNewest(registry.awards.filter(award =>
-    award.amount !== null && notedDate(award.date || undefined, productDateISO()),
+    notedDate(award.date || undefined, productDateISO()),
   )).slice(0, 4);
   const ecosystemRow = (system: typeof ecosystems[number]) => <Link className="ecosystem-row" href={`/systems/${system.id}`} key={system.id}>
     <span>{system.name}</span><span>{system.count}</span>
@@ -84,7 +84,7 @@ export default function Home() {
         <Link className="ledger-link ecosystems-all" href="/systems">All {registry.systems.length} ecosystems</Link>
       </section>
       <aside className="ledger-sidebar">
-        <section><div className="ledger-section-head"><h2>Latest awards</h2></div>
+        <section><div className="ledger-section-head"><h2>Latest recorded awards</h2></div>
           <ol className="latest-awards">{awards.map(award => <li key={award.key}>
             <p><time dateTime={award.date!}>{dateShort(award.date)}</time> · {award.funder_name}</p>
             <div><Link href={`/awards?${new URLSearchParams({ q: award.grantee_name, funder: award.funder })}`}>{award.grantee_name}</Link><span>{awardAmountLabel(award)}</span></div>

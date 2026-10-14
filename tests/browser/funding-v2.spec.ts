@@ -100,3 +100,122 @@ test('profiles and API preserve separate funding classifications and existing en
   const system = await (await request.get(`${preview}/api/v2/systems/oss-sustainability`)).json();
   expect(Array.isArray(system.data.funding_channels)).toBe(true);
 });
+
+test('funding records use readable classifications, amounts and distinct payment dates', async ({ page, request }, testInfo) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(`${preview}/funding?kind=program-terms&program=a16z-crypto-csx`);
+  const terms = page.locator('[data-funding-record]').first();
+  await expect(terms.getByRole('heading')).toHaveText('CSX (Crypto Startup Accelerator)');
+  await expect(terms.getByRole('heading').getByRole('link')).toHaveAttribute('href', '/programs/a16z-crypto-csx');
+  expect(await terms.locator('dt').allTextContents()).toEqual(expect.arrayContaining([
+    'Instrument', 'Capital form', 'Allocation method', 'Selection', 'Application intake',
+  ]));
+  await expect(terms).toContainText('In kind');
+  await expect(terms).not.toContainText('in_kind');
+  await expect(terms).toContainText('Supported by a primary source');
+  const provenance = terms.locator('details').filter({ has: page.locator('summary', { hasText: 'Source details and field provenance' }) });
+  await expect(provenance).not.toHaveAttribute('open');
+  await provenance.locator('summary').click();
+  await expect(provenance.getByRole('columnheader', { name: 'Field', exact: true })).toBeVisible();
+  await provenance.locator('summary').click();
+  await page.screenshot({ path: testInfo.outputPath('funding-terms-desktop.png') });
+
+  const response = await request.get(`${preview}/api/v2/funding-events?limit=20`);
+  expect(response.status()).toBe(200);
+  type FundingEvent = { id: string; program: string | null; recipient_name: string; recipient_url: string | null; amount: { amount: string | null; currency: string | null }; payment_date: string | null; occurred_on: string | null; announced_on: string | null };
+  const { data } = await response.json() as { data: FundingEvent[] };
+  const candidate = data.find(row => row.program && row.amount.amount && !row.payment_date)!;
+  expect(candidate, 'A recorded award without an established payment should exercise the lifecycle distinction').toBeTruthy();
+  await page.goto(`${preview}/funding`);
+  const record = page.locator(`[data-funding-record=${JSON.stringify(candidate.id)}]`);
+  await expect(record.getByRole('heading')).toHaveText(candidate.recipient_name);
+  await expect(record.getByRole('heading').getByRole('link')).toHaveCount(0);
+  await expect(record).toContainText('Program:');
+  await expect(record.locator(`a[href="/programs/${candidate.program}"]`)).toBeVisible();
+  await expect(record).toContainText('Payment not established');
+  if (candidate.recipient_url) await expect(record.getByRole('link', { name: 'Project', exact: true })).toHaveAttribute('href', candidate.recipient_url);
+  else await expect(record.getByRole('link', { name: 'Project', exact: true })).toHaveCount(0);
+  const [whole, fraction] = candidate.amount.amount!.split('.');
+  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (fraction === undefined ? '' : `.${fraction}`);
+  await expect(record).toContainText(grouped);
+  if (candidate.amount.currency) await expect(record).toContainText(candidate.amount.currency);
+  for (const [label, date] of [['Event date', candidate.occurred_on], ['Announcement date', candidate.announced_on]]) {
+    const field = record.locator('dl > div').filter({ has: page.getByText(label!, { exact: true }) });
+    await expect(field.locator('dd')).toHaveText(date || 'Not recorded');
+  }
+  await record.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('funding-events-desktop.png') });
+});
+
+test('linked project records retain their own title and destination beside the program', async ({ page, request }) => {
+  const response = await request.get(`${preview}/api/v2/outputs?limit=20`);
+  expect(response.status()).toBe(200);
+  const { data } = await response.json();
+  expect(data.length).toBeGreaterThan(0);
+  await page.goto(`${preview}/funding?kind=outputs`);
+  const record = page.locator(`[data-funding-record=${JSON.stringify(data[0].id)}]`);
+  await expect(record.getByRole('heading')).toHaveText(data[0].name);
+  await expect(record.getByRole('heading').getByRole('link')).toHaveCount(0);
+  await expect(record.getByRole('link', { name: 'Project', exact: true })).toHaveAttribute('href', data[0].url);
+});
+
+for (const width of [320, 375]) {
+  for (const colorScheme of ['light', 'dark'] as const) {
+    test(`readability surfaces fit ${width}px in ${colorScheme} while preserving house style`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: 812 });
+      await page.emulateMedia({ colorScheme });
+      const routes = [
+        ['home', '/'],
+        ['funding-events', '/funding'],
+        ['funding-terms', '/funding?kind=program-terms&program=a16z-crypto-csx'],
+        ['program', '/programs/unwritten-challenge'],
+        ['org', '/orgs/mozilla-foundation'],
+      ];
+      const observations: unknown[] = [];
+      const inspect = async (route: string, state: string) => {
+        const dimensions = await page.evaluate(() => ({
+          viewport: window.innerWidth,
+          document: document.documentElement.scrollWidth,
+          body: document.body.scrollWidth,
+        }));
+        observations.push({ route, state, colorScheme, ...dimensions });
+        expect(dimensions.document, `${route} (${state}) document width`).toBeLessThanOrEqual(width);
+        expect(dimensions.body, `${route} (${state}) body width`).toBeLessThanOrEqual(width);
+      };
+      for (const [name, route] of routes) {
+        await page.goto(`${preview}${route}`);
+        await page.evaluate(() => document.fonts.ready);
+        await expect(page.locator('body')).toHaveCSS('background-color', colorScheme === 'dark' ? 'rgb(20, 20, 24)' : 'rgb(243, 239, 230)');
+        const style = await page.evaluate(() => {
+          const root = getComputedStyle(document.documentElement);
+          const rule = (selector: string, pseudo: string) => {
+            const css = getComputedStyle(document.querySelector(selector)!, pseudo);
+            return { top: css.borderTopWidth, bottom: css.borderBottomWidth, gap: parseFloat(css.height) - parseFloat(css.borderTopWidth) - parseFloat(css.borderBottomWidth) };
+          };
+          return {
+            masthead: rule('.masthead', '::after'),
+            footer: rule('.ledger-footer', '::before'),
+            wires: ['crypto', 'ai', 'oss'].map(wire => root.getPropertyValue(`--color-${wire}`).trim().toUpperCase()),
+          };
+        });
+        expect(style.masthead).toEqual({ top: '2px', bottom: '1px', gap: 4 });
+        expect(style.footer).toEqual({ top: '2px', bottom: '1px', gap: 4 });
+        if (colorScheme === 'dark') expect(style.wires).toEqual(['#B5812C', '#8C74E0', '#1F97B3']);
+        await inspect(route, 'initial');
+        // The approved mobile layout hides the awards sidebar. Keep its desktop coverage in smoke.
+        if (name === 'home') await expect(page.locator('.ledger-sidebar')).toBeHidden();
+        if (name.startsWith('funding')) await page.locator('[data-funding-record]').first().scrollIntoViewIfNeeded();
+        await page.screenshot({ path: testInfo.outputPath(`${name}-${width}-${colorScheme}.png`) });
+        if (name === 'funding-terms') {
+          const provenance = page.locator('[data-funding-record]').first().locator('details').filter({ has: page.locator('summary', { hasText: 'Source details and field provenance' }) });
+          await provenance.locator('summary').click();
+          await expect(provenance.getByRole('columnheader', { name: 'Field', exact: true })).toBeVisible();
+          await inspect(route, 'provenance expanded');
+          await page.screenshot({ path: testInfo.outputPath(`provenance-${width}-${colorScheme}.png`) });
+        }
+      }
+      await testInfo.attach('responsive-dimensions.json', { body: JSON.stringify(observations, null, 2), contentType: 'application/json' });
+      console.log(`Responsive evidence: ${JSON.stringify(observations)}`);
+    });
+  }
+}
