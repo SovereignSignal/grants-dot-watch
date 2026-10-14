@@ -1,4 +1,4 @@
-/* sovereign-signal-brand tokens v1.0.0 */
+/* sovereign-signal-brand tokens v1.1.0 */
 /* Shared tokens for Sovereign Signal sites. Copy this file whole, keep line 1 intact,
    and put site-specific tokens in a separate personality block below it.
    Run `node <brand>/check.mjs <site-dir>` to confirm the copy has not drifted.
@@ -48,14 +48,13 @@
 
   /* Hairline: border-top: var(--rule-hair) solid var(--rule) */
   --rule-hair: 1px;
-  /* Masthead double rule, from the logo: 1.5px over 1px ink, 4px total.
-     Draw it with a gradient: browsers round a 1.5px border down to 1px.
-     height: var(--rule-double);
-     background: linear-gradient(var(--ink) 0 var(--rule-double-top),
-       transparent var(--rule-double-top) calc(100% - var(--rule-double-bottom)),
-       var(--ink) calc(100% - var(--rule-double-bottom)) 100%); */
-  --rule-double: 4px;
-  --rule-double-top: 1.5px;
+  /* Masthead double rule, from the logo: 2px over 1px ink with a 4px gap, 7px total.
+     Whole pixels: Chrome floors a 1.5px border to 1px, which flattens the heavier top.
+     box-sizing: border-box; height: var(--rule-double);
+     border-top: var(--rule-double-top) solid var(--ink);
+     border-bottom: var(--rule-double-bottom) solid var(--ink); */
+  --rule-double: 7px;
+  --rule-double-top: 2px;
   --rule-double-bottom: 1px;
 
   /* Corners are square. This is the ceiling, never more. */
