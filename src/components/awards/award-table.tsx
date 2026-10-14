@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { dateShort } from '@/lib/format';
+import { dateShort, NOT_RECORDED } from '@/lib/format';
 import { awardAmountLabel } from '@/lib/awards';
 import type { Award, Program } from '@/lib/types';
 
@@ -77,7 +77,7 @@ export function AwardTable({
                   )}
                 </div>
               )}
-              <div className="text-[12px] tabular-nums text-dim sm:text-right">
+              <div className={`text-[12px] tabular-nums sm:text-right ${awardAmountLabel(award) === NOT_RECORDED ? 'text-faint' : 'text-dim'}`}>
                 <span className="coord mr-2 sm:hidden">Amount</span>
                 {awardAmountLabel(award)}
               </div>

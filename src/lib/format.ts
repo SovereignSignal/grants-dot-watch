@@ -1,8 +1,11 @@
 import type { Wire } from './types';
 import { PRODUCT_TIME_ZONE } from './round-state';
 
+/** Shown where the registry has no value for a field. */
+export const NOT_RECORDED = 'Not recorded';
+
 export function money(n: number | null | undefined, text?: string | null): string {
-  if (n == null || n === 0) return text || '–';
+  if (n == null || n === 0) return text || NOT_RECORDED;
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `$${Math.round(n / 1_000)}K`;
@@ -10,7 +13,7 @@ export function money(n: number | null | undefined, text?: string | null): strin
 }
 
 export function dateShort(d: string | null | undefined): string {
-  if (!d) return '–';
+  if (!d) return NOT_RECORDED;
   const [y, m, day] = d.split('-');
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if (!m) return y;
@@ -62,18 +65,18 @@ function calendarDateParts(value: string): CalendarDateParts | null {
  *  YYYY-MM-DD or a full ISO timestamp like registry.loadedAt) and renders
  *  "July 10, 2026". */
 export function dateLong(d: string | null | undefined): string {
-  if (!d) return '–';
+  if (!d) return NOT_RECORDED;
   const parts = calendarDateParts(d);
-  if (!parts) return '–';
+  if (!parts) return NOT_RECORDED;
   return `${MONTHS_LONG[parts.month - 1]} ${parts.day}, ${parts.year}`;
 }
 
 /** Masthead edition code — "2026.07.10" from the same kind of input as
  *  dateLong(). */
 export function editionCode(d: string | null | undefined): string {
-  if (!d) return '–';
+  if (!d) return NOT_RECORDED;
   const parts = calendarDateParts(d);
-  if (!parts) return '–';
+  if (!parts) return NOT_RECORDED;
   const month = String(parts.month).padStart(2, '0');
   const day = String(parts.day).padStart(2, '0');
   return `${parts.year}.${month}.${day}`;

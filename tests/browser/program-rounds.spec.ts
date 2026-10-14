@@ -44,7 +44,7 @@ for(const [id,parent,name]of [
   const href=await link.getAttribute('href');expect(href).toMatch(new RegExp(`^/programs/${parent}#round-`));
   await link.click();await expect(page).toHaveURL(`${preview}${href}`);
   await expect(page.locator(`tr[id="${href!.split('#')[1]}"]`)).toContainText(name);
-  await expect(page.getByRole('link',{name:`${name} — preserved call page`})).toHaveAttribute('href',`/programs/${id}`);
+  await expect(page.getByRole('link',{name:`${name}: preserved call page`})).toHaveAttribute('href',`/programs/${id}`);
   if(id.startsWith('php')){
     await expect(page.locator('.dossier-classification')).toContainText('Contract');
     await expect(page.locator('.dossier-classification')).toContainText(name);

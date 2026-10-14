@@ -1,11 +1,12 @@
 // Small formatting helpers local to The Desk (created_at/decided_at are full
 // ISO timestamps, unlike the date-only strings src/lib/format.ts handles).
 import { PRODUCT_TIME_ZONE } from '../../../lib/round-state';
+import { NOT_RECORDED } from '../../../lib/format';
 
 export function timeAgo(iso: string | undefined | null): string {
-  if (!iso) return '–';
+  if (!iso) return NOT_RECORDED;
   const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return '–';
+  if (Number.isNaN(then)) return NOT_RECORDED;
   const diffMs = Date.now() - then;
   const min = Math.round(diffMs / 60000);
   if (min < 1) return 'just now';
@@ -36,9 +37,9 @@ export function shortUrl(url: string | null | undefined): string {
 /** Absolute short date for evidence "seen" timestamps — timeAgo() is for
  *  recency at a glance, this is for "what date did I actually see this". */
 export function dateShortIso(iso: string | undefined | null): string {
-  if (!iso) return '–';
+  if (!iso) return NOT_RECORDED;
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '–';
+  if (Number.isNaN(d.getTime())) return NOT_RECORDED;
   return d.toLocaleDateString('en-US', {
     timeZone: PRODUCT_TIME_ZONE,
     month: 'short',
@@ -50,9 +51,9 @@ export function dateShortIso(iso: string | undefined | null): string {
 /** Wire-service dateline for a citation line — "Jul 3", no year (the wire is
  *  read same-week; the year is the masthead's job, not every quote's). */
 export function citeDate(iso: string | undefined | null): string {
-  if (!iso) return '–';
+  if (!iso) return NOT_RECORDED;
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '–';
+  if (Number.isNaN(d.getTime())) return NOT_RECORDED;
   return d.toLocaleDateString('en-US', {
     timeZone: PRODUCT_TIME_ZONE,
     month: 'short',

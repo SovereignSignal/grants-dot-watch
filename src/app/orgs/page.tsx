@@ -130,7 +130,7 @@ export default async function OrgsPage({
                       <td className="coord py-3 pr-4 text-dim normal-case tracking-normal">{orgTypeLabel(o)}</td>
                       <td className="coord py-3 pr-4 normal-case tracking-normal">
                         {shown.length === 0 ? (
-                          <span className="text-faint">–</span>
+                          <span className="text-faint">Not recorded</span>
                         ) : (
                           <>
                             {shown.map((s, i) => (

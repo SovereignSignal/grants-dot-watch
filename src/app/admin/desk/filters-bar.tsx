@@ -25,7 +25,7 @@ const SOURCE_FILTERS: { key: SourceFilter; label: string }[] = [
 const CONFIDENCE_BANDS: { key: ConfidenceBand; label: string }[] = [
   { key: 'all', label: 'All source scores' },
   { key: 'high', label: 'Score 80+' },
-  { key: 'mid', label: 'Score 60–79' },
+  { key: 'mid', label: 'Score 60 to 79' },
   { key: 'low', label: 'Score <60' },
 ];
 

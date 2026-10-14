@@ -1,4 +1,5 @@
 import type { Award, Program } from './types';
+import { NOT_RECORDED } from './format';
 
 function normalizedName(value: string | null | undefined): string {
   return value?.trim().toLocaleLowerCase('en-US') || '';
@@ -34,7 +35,7 @@ export function sortAwardsNewest(awards: Award[]): Award[] {
 
 export function awardAmountLabel(award: Award): string {
   if (award.amount_text?.trim()) return award.amount_text.trim();
-  if (award.amount == null) return '–';
+  if (award.amount == null) return NOT_RECORDED;
 
   const value = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(award.amount);
   const currency = award.currency?.trim().toUpperCase();
