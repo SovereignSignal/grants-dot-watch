@@ -12,6 +12,7 @@ import { AwardLedger } from '@/components/awards/award-ledger';
 import { parsePage } from '@/lib/pagination';
 import { param, type SearchParams } from '@/components/ledger/query';
 import { money } from '@/lib/format';
+import { httpUrl } from '@/lib/opportunities';
 import { awardMatchesProgram } from '@/lib/awards';
 import { ReviewedPrograms } from '@/components/programs/program-review';
 
@@ -54,6 +55,8 @@ export default async function OrgPage({
   });
 
   const domain = org.website ? org.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : null;
+  const applyUrl = httpUrl(org.funding?.apply_url);
+  const applyHost = applyUrl ? new URL(applyUrl).hostname.replace(/^www\./, '') : null;
 
   return (
     <>
@@ -122,6 +125,13 @@ export default async function OrgPage({
             <span className="text-dim">No public profile on file yet. We&apos;ll add one as we find more sources.</span>
           )
         }
+        action={
+          applyUrl && (
+            <a className="primary-link main-action" href={applyUrl} target="_blank" rel="noreferrer">
+              Apply on {applyHost}
+            </a>
+          )
+        }
       />
 
       {/* Everything below runs full-width so long program and award ledgers
@@ -134,12 +144,6 @@ export default async function OrgPage({
               {programs.length} program{programs.length === 1 ? '' : 's'} on file
             </span>
           </div>
-
-          {org.funding?.apply_url && (
-            <a href={org.funding.apply_url} target="_blank" rel="noreferrer" className="coord mt-2.5 inline-block text-[var(--rust)] hover:text-paper">
-              Apply ↗
-            </a>
-          )}
 
           {programs.length === 0 ? <Empty>No programs on file for this org yet.</Empty> : programs.some(p => p.review) ? <ReviewedPrograms programs={programs} /> : <CadenceLane rows={cadenceRows} />}
         </section>
