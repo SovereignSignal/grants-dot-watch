@@ -7,10 +7,12 @@ wires:
 roles:
   - funder
 website: https://osmosis.zone
+socials:
+  x: https://x.com/osmosis
 status: active
-profile: "Osmosis is a decentralized exchange in the Cosmos ecosystem; its site describes it as
-  the leading decentralized Cosmos exchange. Grant requests are posted on its governance forum;
-  a posted request is not a funding decision."
+profile: Osmosis is a decentralized exchange in the Cosmos ecosystem; its site describes it as the
+  leading decentralized Cosmos exchange. Grant requests are posted on its governance forum; a posted
+  request is not a funding decision.
 sources:
   - https://osmosis.zone/
   - https://forum.osmosis.zone/
