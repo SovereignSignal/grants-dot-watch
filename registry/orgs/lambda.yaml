@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://lambda.ai/
+socials:
+  x: https://x.com/LambdaAPI
 status: active
 profile: Lambda runs a Research Grant program that provides GPU compute credits to fund open AI
   research projects, the same compute-credit model used by other open-source AI funders like AI
@@ -15,3 +17,4 @@ profile: Lambda runs a Research Grant program that provides GPU compute credits 
   pretraining effort (Open-Sora).
 sources:
   - https://lambda.ai/research
+  - https://lambda.ai/

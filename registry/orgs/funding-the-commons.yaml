@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.fundingthecommons.io/
+socials:
+  x: https://x.com/FundingCommons
 status: active
 profile: Funding the Commons is a global network accelerating innovation to fund and govern shared
   digital infrastructure. In February 2026 it launched a $100K match fund with Artizen for builders

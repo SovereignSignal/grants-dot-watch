@@ -8,9 +8,12 @@ wires:
 roles:
   - funder
 website: https://www.alchemy.com/
+socials:
+  x: https://x.com/Alchemy
 status: active
 profile: Alchemy, a Web3 developer-infrastructure company, runs an Arbitrum-specific grant offering
   up to $500,000 in platform credits per team building on Arbitrum Orbit chains. It is a multi-chain
   infra provider rather than a pure grants foundation, so confidence is moderate.
 sources:
   - https://www.alchemy.com/arbitrum-grant
+  - https://www.alchemy.com/

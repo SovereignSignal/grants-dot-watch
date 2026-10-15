@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.manossoftware.com/
+socials:
+  x: https://x.com/ManosSoftware
 status: active
 profile: Manos Software has announced the Manos AI Fellowship, a national program targeting
   ambitious AI builders aiming to deploy solutions in real markets. The initiative spans 8 months,
@@ -14,3 +16,4 @@ profile: Manos Software has announced the Manos AI Fellowship, a national progra
   March 2, 2026.
 sources:
   - https://x.com/ManosSoftware/status/2024207739350667318
+  - https://www.manossoftware.com/

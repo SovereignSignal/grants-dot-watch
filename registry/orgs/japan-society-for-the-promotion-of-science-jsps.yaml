@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.jsps.go.jp/english/
+socials:
+  x: https://x.com/jsps_sns
 status: active
 profile: JSPS administers KAKENHI, Japan's Grants-in-Aid for Scientific Research program, one of the
   country's largest public competitive funding schemes covering basic and applied research across
@@ -15,3 +17,4 @@ profile: JSPS administers KAKENHI, Japan's Grants-in-Aid for Scientific Research
   JST and NEDO as a core public R&D funding agency available to international collaborators.
 sources:
   - https://www.jsps.go.jp/english/e-grants/
+  - https://www.jsps.go.jp/english/

@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://airia.com/
+socials:
+  x: https://x.com/Airia_AI
 status: active
 profile: "Airia is hosting a virtual AI Agents Hackathon on Devpost. Build AI agents that integrate
   into the tools people use every day or automate workflows across enterprise systems. $7,000 in
@@ -14,3 +16,4 @@ profile: "Airia is hosting a virtual AI Agents Hackathon on Devpost. Build AI ag
   https://airia-hackathon.devpost.com/"
 sources:
   - https://x.com/Airia_AI/status/2025958869533421952
+  - https://airia.com/

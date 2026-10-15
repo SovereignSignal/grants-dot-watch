@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://www.vals.ai/
+socials:
+  x: https://x.com/ValsAI
 status: active
 profile: The Vals AI Fellowship is a 3-6 month program for researchers/builders working on AI
   evaluation benchmarks, offering a $1,000-$2,500/week stipend plus unlimited API credits, GPU
   budgets, and mentorship, remote or in SF. Deadline 2026-06-30.
 sources:
   - https://x.com/suraj_sharma14/status/2067238331478614508
+  - https://www.vals.ai/

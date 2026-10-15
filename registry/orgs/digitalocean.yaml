@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.digitalocean.com/
+socials:
+  x: https://x.com/digitalocean
 status: active
 profile: "🚀 Join the DigitalOcean Gradient™ AI Hackathon! Build smarter. Ship faster. Power the
   next wave of AI. 🗓 Deadline: March 19, 2026 🌍 Location: Online 💰 Prizes: $20,000 in cash Create
@@ -14,3 +16,4 @@ profile: "🚀 Join the DigitalOcean Gradient™ AI Hackathon! Build smarter. Sh
   training to deploym"
 sources:
   - https://x.com/ajay_2512x/status/2028325528076472520
+  - https://www.digitalocean.com/

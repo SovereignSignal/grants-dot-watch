@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://rgbprotocol.org/
+socials:
+  x: https://x.com/RGBAssociation
 status: active
 profile: The RGB Grants Program just dropped! Up to $40k in funding for devs and teams that care
   about Bitcoin and privacy. Send your own idea or check the priority areas out! All the info in the
   original post ⏬️
 sources:
   - https://x.com/utexocom/status/2023432132237156402
+  - https://rgbprotocol.org/

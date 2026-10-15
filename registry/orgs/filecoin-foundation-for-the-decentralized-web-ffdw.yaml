@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://ffdweb.org/
+socials:
+  x: https://x.com/FFDWeb
 status: active
 profile: FFDW is a separate 501(c)(3) nonprofit from Filecoin Foundation that has awarded roughly
   $23M across 20 grants to open-source/decentralized-web and journalism-infrastructure projects

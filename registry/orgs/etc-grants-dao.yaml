@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://etcgrantsdao.io/
+socials:
+  x: https://x.com/ETCGrantsDao
 status: unknown
 profile: "ETC Grants DAO: no sourced profile on file yet. See etcgrantsdao.io for the organization's
   own description, and the programs listed on this page."

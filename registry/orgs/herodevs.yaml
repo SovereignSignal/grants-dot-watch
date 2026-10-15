@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.herodevs.com/
+socials:
+  x: https://x.com/herodevs
 status: active
 profile: HeroDevs runs a $20 million Open Source Sustainability Fund that grants money to
   maintainers of open-source projects, with a particular focus on software that has reached
@@ -15,3 +17,4 @@ profile: HeroDevs runs a $20 million Open Source Sustainability Fund that grants
   support through the fund.
 sources:
   - https://www.herodevs.com/sustainability-fund
+  - https://www.herodevs.com/

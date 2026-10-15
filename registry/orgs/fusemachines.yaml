@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://fusemachines.com/
+socials:
+  x: https://x.com/fusemachines
 status: active
 profile: Applications are now open for the Fusemachines AI Fellowship 2026 – Nepal Cohort. As we
   launch the ninth year of our flagship AI Fellowship in Nepal, we are excited to welcome a new
@@ -14,3 +16,4 @@ profile: Applications are now open for the Fusemachines AI Fellowship 2026 – N
   AI, natural language
 sources:
   - https://x.com/fusemachines/status/2025875797286990094
+  - https://fusemachines.com/

@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://anii.org.uy
+socials:
+  x: https://x.com/ANIIuy
 status: unknown
 profile: "ANII (Uruguay National Agency for Research and Innovation): no sourced profile on file
   yet. See anii.org.uy for the organization's own description, and the programs listed on this
   page."
 sources:
   - https://anii.org.uy
+  - https://anii.org.uy/

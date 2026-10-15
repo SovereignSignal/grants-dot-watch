@@ -8,6 +8,8 @@ roles:
   - funder
 org_type: company
 website: https://elevenlabs.io/
+socials:
+  x: https://x.com/ElevenLabs
 status: active
 profile: >
   ElevenLabs is an AI audio company that operates the Engineers OSS Fund, a recurring program for
@@ -21,3 +23,4 @@ funding:
   cadence: Six-month internal nomination cycles
 sources:
   - https://elevenlabs.io/blog/elevenlabs-oss-engineers-fund-supporting-the-open-source-projects-that-shape-our-work
+  - https://elevenlabs.io/

@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.chaingpt.org/
+socials:
+  x: https://x.com/Chain_GPT
 status: unknown
 profile: "ChainGPT: no sourced profile on file yet. See chaingpt.org for the organization's own
   description, and the programs listed on this page."

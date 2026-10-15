@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://doublezero.xyz/
+socials:
+  x: https://x.com/doublezero
 status: active
 profile: DoubleZero operates a network for distributed systems. Its grants program supports external
   builders through targeted RFPs and open proposals, with milestone-based grants denominated in 2Z
   tokens.
 sources:
   - https://doublezero.xyz/journal/introducing-the-doublezero-grants-program
+  - https://doublezero.xyz/

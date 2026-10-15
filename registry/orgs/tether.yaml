@@ -8,20 +8,22 @@ roles:
   - funder
 org_type: company
 website: https://tether.io
-socials: {}
+socials:
+  x: https://x.com/tether
 status: active
 profile: >
-  Tether runs a Developer Grants Program funding local-first AI and payments
-  infrastructure. Grants are structured as task-based awards of roughly $1,500-$4,000 per
-  task, with applications running through its QVAC platform (qvac.tether.io). The program
-  was announced on Tether's news site and picked up by grant trackers in May 2026.
+  Tether runs a Developer Grants Program funding local-first AI and payments infrastructure. Grants
+  are structured as task-based awards of roughly $1,500-$4,000 per task, with applications running
+  through its QVAC platform (qvac.tether.io). The program was announced on Tether's news site and
+  picked up by grant trackers in May 2026.
 funding:
   focus:
     - local-first AI
     - payments infrastructure
-  typical_size: "$1,500-$4,000 per task"
+  typical_size: $1,500-$4,000 per task
   apply_url: https://qvac.tether.io/
 sources:
   - https://tether.io
   - https://tether.io/news/tether-launches-developer-grants-program-to-fund-local-first-ai-and-payments-infrastructure/
   - https://qvac.tether.io/
+  - https://tether.io/

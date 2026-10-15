@@ -9,13 +9,13 @@ roles:
   - funder
 org_type: company
 website: https://research.google/programs-and-events/
-socials: {}
+socials:
+  x: https://x.com/GoogleResearch
 status: active
 profile: >
-  Google Academic Research Awards is Google's umbrella for academic research
-  funding, listed on its programs and events page. Programs include the CS
-  Research Mentorship Program (CSRMP), the Award for Inclusion Research
-  Program (AIR), and the CAHSI-Google Institutional Research Program, plus
+  Google Academic Research Awards is Google's umbrella for academic research funding, listed on its
+  programs and events page. Programs include the CS Research Mentorship Program (CSRMP), the Award
+  for Inclusion Research Program (AIR), and the CAHSI-Google Institutional Research Program, plus
   unrestricted grants supporting Trust & Safety research.
 funding:
   focus:

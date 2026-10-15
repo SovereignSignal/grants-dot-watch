@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://www.zircuit.com
+socials:
+  x: https://x.com/Zircuit
 status: unknown
 profile: "Zircuit: no sourced profile on file yet. See zircuit.com for the organization's own
   description, and the programs listed on this page."
 sources:
   - https://www.zircuit.com
+  - https://www.zircuit.com/

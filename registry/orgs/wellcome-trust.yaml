@@ -4,20 +4,22 @@ aka:
   - Wellcome
 systems:
   - global-health
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: nonprofit
 website: https://wellcome.org
-socials: {}
+socials:
+  x: https://x.com/wellcometrust
 status: active
 profile: >
-  Charitable foundation that funds research around the world, across a broad
-  range of disciplines, to understand life, health and wellbeing and to deliver
-  equitable health solutions. Funding runs through published schemes: applicants
-  find an opportunity via its funding finder, follow published funding guidance
-  and policies, and apply through the Wellcome Funding portal. It also works
-  with communities, governments and partners to advocate for evidence-based
-  health policies.
+  Charitable foundation that funds research around the world, across a broad range of disciplines,
+  to understand life, health and wellbeing and to deliver equitable health solutions. Funding runs
+  through published schemes: applicants find an opportunity via its funding finder, follow published
+  funding guidance and policies, and apply through the Wellcome Funding portal. It also works with
+  communities, governments and partners to advocate for evidence-based health policies.
 sources:
   - https://wellcome.org
   - https://wellcome.org/research-funding/schemes
+  - https://wellcome.org/

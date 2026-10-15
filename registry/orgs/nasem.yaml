@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.nationalacademies.org/
+socials:
+  x: https://x.com/theNASEM
 status: active
 profile: Florida Atlantic University's Harbor Branch Oceanographic Institute has been awarded a
   $900,000, four-year grant from @theNASEM. The project will use high-resolution modeling, machine
@@ -14,3 +16,4 @@ profile: Florida Atlantic University's Harbor Branch Oceanographic Institute has
   sensors, and develo
 sources:
   - https://x.com/FloridaAtlantic/status/2027402053278912795
+  - https://www.nationalacademies.org/

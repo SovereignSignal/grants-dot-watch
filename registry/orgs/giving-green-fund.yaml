@@ -8,9 +8,12 @@ wires:
 roles:
   - funder
 website: https://www.givinggreen.earth/
+socials:
+  x: https://x.com/GivingGreenE
 status: active
 profile: Giving Green Fund pools donor money and regrants it to vetted climate nonprofits working on
   clean energy and industrial decarbonization; it announced $1.94M in grants in February 2026. It
   operates in the same effective-giving-adjacent lane as other funds the registry already tracks.
 sources:
   - https://www.givinggreen.earth/post/giving-green-fund-announces-1-94m-in-february-2026-grants-for-clean-energy-and-industrial-decarbonization
+  - https://www.givinggreen.earth/

@@ -7,7 +7,7 @@ import {execFileSync} from 'node:child_process';
 import YAML from 'yaml';
 import {readBaseline,readFundingLedgers} from '../src/lib/funding-store.mjs';
 import {buildFundingCollections} from '../src/lib/funding-api.mjs';
-import {legacyRegistryCopy} from './legacy-registry.mjs';
+import {legacyRegistryCopy,restoreReferenceBlobs} from './legacy-registry.mjs';
 const legacy=legacyRegistryCopy();test.after(()=>legacy.cleanup());
 const root=legacy.root;
 for(const [name,instrument,form] of [['yc-investment-pilot.json','investment','cash'],['zealynx-subsidy-pilot.json','subsidy','service']]) {
@@ -15,6 +15,7 @@ for(const [name,instrument,form] of [['yc-investment-pilot.json','investment','c
    const temp=mkdtempSync(join(tmpdir(),'funding-mechanism-'));
    try {
      const pack=resolve('research/v2',name),out=join(temp,'stage');
+     restoreReferenceBlobs(root,JSON.parse(readFileSync(pack)));
      const result=JSON.parse(execFileSync(process.execPath,['scripts/stage-funding-import.mjs','--root',root,'--pack',pack,'--write-stage',out],{encoding:'utf8',timeout:60000}));
      assert.equal(result.added['program-terms'],1);assert.equal(result.added['funding-events'],0);assert.equal(result.legacy_files_changed,0);
      const staged=join(out,'registry'),collections=buildFundingCollections(readBaseline(staged,YAML.parse),readFundingLedgers(staged));

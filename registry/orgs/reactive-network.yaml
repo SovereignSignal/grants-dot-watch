@@ -8,9 +8,12 @@ roles:
   - funder
 org_type: company
 website: https://reactive.network/
+socials:
+  x: https://x.com/0xReactive
 status: active
 profile: "Reactive Network's $3M Dev Fund backs EVM-compatible app builders with two tiers: Builder
   Grants ($3K-$5K) and Growth Grants (up to $10K), rolling and open globally. Posted officially by
   Reactive Network."
 sources:
   - https://reactive.network/devfund
+  - https://reactive.network/

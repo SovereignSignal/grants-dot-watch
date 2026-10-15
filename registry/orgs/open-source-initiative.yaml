@@ -10,9 +10,12 @@ roles:
   - ecosystem
 org_type: nonprofit
 website: https://opensource.org
+socials:
+  x: https://x.com/OpenSourceOrg
 status: unknown
 profile: The Open Source Initiative announced a new fellowship at UN Open Source Week to bridge open
   source practices and global AI policy, sponsored by organizations including Google and Red Hat.
   OSI is absent from the org registry.
 sources:
   - https://opensource.org/blog/open-source-ai-fellowship-announced-at-un-open-source-week
+  - https://opensource.org/

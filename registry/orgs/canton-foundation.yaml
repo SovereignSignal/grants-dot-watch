@@ -3,20 +3,23 @@ name: Canton Foundation
 aka:
   - Global Synchronizer Foundation
 systems: []
-wires: [crypto]
-roles: [funder, ecosystem]
+wires:
+  - crypto
+roles:
+  - funder
+  - ecosystem
 org_type: foundation
 website: https://canton.foundation/
 socials:
-  x: https://x.com/CantonNetwork
+  x: https://x.com/CantonFdn
   github: https://github.com/canton-network
 status: active
 profile: >
   The Canton Foundation is the member-led foundation that facilitates governance and ecosystem
-  development for the Canton Network. It administers the Canton Protocol Development Fund through
-  an independent Tech & Ops Committee, with quarterly budgets and milestone-based funding for
-  protocol research, developer tooling, security, reference implementations, infrastructure, and
-  eligible DeFi liquidity work.
+  development for the Canton Network. It administers the Canton Protocol Development Fund through an
+  independent Tech & Ops Committee, with quarterly budgets and milestone-based funding for protocol
+  research, developer tooling, security, reference implementations, infrastructure, and eligible
+  DeFi liquidity work.
 funding:
   focus:
     - core protocol research and development

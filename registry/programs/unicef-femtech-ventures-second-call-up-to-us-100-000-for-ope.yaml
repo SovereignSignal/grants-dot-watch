@@ -1,0 +1,25 @@
+id: unicef-femtech-ventures-second-call-up-to-us-100-000-for-ope
+name: "UNICEF Femtech Ventures second call: up to US$100,000 for open-source femtech startups (apply
+  by Nov 4)"
+org: unicef
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://www.unicef.org/innovation/FemTechCall
+summary: "UNICEF Femtech Ventures, a five-year initiative (2025–2030) of the UNICEF Venture Fund, is
+  accepting applications for its second annual cohort of companies using frontier technologies such
+  as AI, machine learning, blockchain or data science to build open-source solutions for the health,
+  wellbeing, and sexual and reproductive health and rights of girls and women. Selected companies
+  receive up to US$100,000 in equity-free funding, 12 months of technical mentorship and access to
+  UNICEF's global network. UNICEF is especially seeking companies registered in a UNICEF programme
+  country, working with "
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-04
+    size: Up to US$100,000 in equity-free funding
+    source: https://www.unicef.org/innovation/FemTechCall
+sources:
+  - https://www.unicef.org/innovation/FemTechCall

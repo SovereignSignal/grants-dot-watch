@@ -1,0 +1,15 @@
+id: soroban-security-audit-bank
+name: Soroban Security Audit Bank
+org: stellar-development-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: SDF funds security audits for eligible SCF-funded Stellar projects. An initial 5%
+  co-payment can be refunded when critical, high and medium issues are fixed within 20 business
+  days. Additional audit support depends on traction and programme conditions. Eligible teams can
+  request an audit through the published contact route. No cash grant or new round date is implied.
+rounds: []
+sources:
+  - https://stellar.org/grants-and-funding/soroban-audit-bank

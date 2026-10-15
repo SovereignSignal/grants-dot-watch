@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://horizonpublicservice.org
+socials:
+  x: https://x.com/HorizonIPS
 status: unknown
 profile: The Horizon Institute for Public Service opened the AI Rapid Response Fellowship on
   2026-07-01, a funded fellowship placing AI security experts into US executive branch roles at
   $170K-$250K+. Applications close July 22, 2026.
 sources:
   - https://horizonpublicservice.org/ai-rapid-response-fellowship/
+  - https://horizonpublicservice.org/

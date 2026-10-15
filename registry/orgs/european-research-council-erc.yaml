@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://erc.europa.eu/
+socials:
+  x: https://x.com/ERC_Research
 status: active
 profile: The European Research Council is the EU's flagship basic-research funder, awarding
   Starting, Consolidator, Advanced, Synergy, and Proof-of-Concept grants to researchers across all
@@ -15,3 +17,4 @@ profile: The European Research Council is the EU's flagship basic-research funde
   website distinct from the generic Horizon Europe entry already tracked.
 sources:
   - https://erc.europa.eu/homepage
+  - https://erc.europa.eu/

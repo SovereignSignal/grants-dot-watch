@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://plume.org
+socials:
+  x: https://x.com/plumenetwork
 status: unknown
 profile: "The Plume Foundation offers milestone-based non-dilutive grants (tranches, amount not
   specified) for building on Plume's RWA-native blockchain across four categories: novel RWAfi
@@ -16,3 +18,4 @@ profile: "The Plume Foundation offers milestone-based non-dilutive grants (tranc
   prioritized; KYC and a smart-contract requirement apply."
 sources:
   - https://plume.org/blog/grants-program
+  - https://plume.org/

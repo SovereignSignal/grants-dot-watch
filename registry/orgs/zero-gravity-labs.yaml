@@ -9,8 +9,11 @@ wires:
 roles:
   - funder
 website: https://0g.ai/
+socials:
+  x: https://x.com/0G_labs
 status: active
-profile: 0G Labs develops decentralized AI infrastructure and runs the Apollo accelerator with Blockchain Builders Fund.
+profile: 0G Labs develops decentralized AI infrastructure and runs the Apollo accelerator with
+  Blockchain Builders Fund.
 sources:
   - https://apollo.0g.ai/
   - https://0g.ai/

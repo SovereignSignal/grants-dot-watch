@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://solanamobile.com/
+socials:
+  x: https://x.com/solanamobile
 status: active
 profile: Solana Mobile supports builders developing mobile applications and infrastructure for its
   ecosystem through grants, technical guidance and launch support.
 sources:
   - https://solanamobile.com/grants
+  - https://solanamobile.com/

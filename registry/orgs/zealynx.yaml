@@ -8,6 +8,8 @@ roles:
   - funder
 org_type: company
 website: https://grants.zealynx.io/
+socials:
+  x: https://x.com/ZealynxSecurity
 status: active
 profile: Zealynx Audit Grants Season 1 covers 25-100% of senior smart contract audit costs for
   early-stage, pre-mainnet DeFi protocols across multiple languages, with no equity or tokens

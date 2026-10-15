@@ -12,16 +12,16 @@ roles:
 org_type: nonprofit
 website: https://safe.ai/
 socials:
-  x: https://x.com/CenterForAISafe
+  x: https://x.com/CAIS
 status: active
 profile: >
   The Center for AI Safety (CAIS) is a San Francisco-based 501(c)(3) nonprofit, led by Dan
-  Hendrycks, working to reduce societal-scale risks from AI through technical safety
-  research, field-building, and advocacy for standards. Rather than operating large
-  external grant programs, it funds the field through targeted fellowships and courses —
-  such as the AI and Society Fellowship — and compute cluster access for safety
-  researchers, having trained 1000+ people through its programs. It partners with
-  philanthropic funders such as Schmidt Sciences on AI safety science.
+  Hendrycks, working to reduce societal-scale risks from AI through technical safety research,
+  field-building, and advocacy for standards. Rather than operating large external grant programs,
+  it funds the field through targeted fellowships and courses — such as the AI and Society
+  Fellowship — and compute cluster access for safety researchers, having trained 1000+ people
+  through its programs. It partners with philanthropic funders such as Schmidt Sciences on AI safety
+  science.
 funding:
   focus:
     - AI safety research

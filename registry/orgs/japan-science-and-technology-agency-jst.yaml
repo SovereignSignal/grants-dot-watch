@@ -12,13 +12,13 @@ roles:
   - funder
 org_type: government
 website: https://www.jst.go.jp/
-socials: {}
+socials:
+  x: https://x.com/JST_info
 status: active
 profile: >
-  JST is a Japanese government science and technology agency that supports
-  the whole process from the creation of knowledge to its return to society.
-  It actively funds research through numerous open calls for proposals,
-  including collaborative research programs with countries such as Canada,
+  JST is a Japanese government science and technology agency that supports the whole process from
+  the creation of knowledge to its return to society. It actively funds research through numerous
+  open calls for proposals, including collaborative research programs with countries such as Canada,
   Thailand, and Indonesia, plus international exchange programs.
 funding:
   focus:
@@ -28,7 +28,8 @@ funding:
     - bioenergy
     - AI and automation in agriculture
     - AI-powered robotics
-  cadence: "Multiple concurrent programs with rolling, fiscal-year open calls throughout the year"
+  cadence: Multiple concurrent programs with rolling, fiscal-year open calls throughout the year
 sources:
   - https://www.jst.go.jp/EN/
   - https://jst.go.jp/kisoken/boshuu/
+  - https://www.jst.go.jp/

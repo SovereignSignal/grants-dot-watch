@@ -10,21 +10,22 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.gavi.org/
-socials: {}
+socials:
+  x: https://x.com/gavi
 status: active
 profile: >
-  Gavi is a public-private partnership that helps vaccinate more than half the
-  world's children against some of the world's deadliest diseases. It provides
-  financial and technical support for immunization programs in lower-income
-  countries, including vaccine support, health systems strengthening, and
-  grants to civil society organizations; since 2000 it has helped immunize
-  over 1.2 billion children.
+  Gavi is a public-private partnership that helps vaccinate more than half the world's children
+  against some of the world's deadliest diseases. It provides financial and technical support for
+  immunization programs in lower-income countries, including vaccine support, health systems
+  strengthening, and grants to civil society organizations; since 2000 it has helped immunize over
+  1.2 billion children.
 funding:
   focus:
     - immunisation coverage for zero-dose and under-immunised children
     - HPV vaccine rollout expansion
     - COVID-19 vaccine integration into routine immunisation
-  cadence: "Country-specific calls for proposals, plus single-source funding driven by countries and approved by governments"
+  cadence: Country-specific calls for proposals, plus single-source funding driven by countries and
+    approved by governments
   apply_url: https://www.gavi.org/our-work/funding-civil-society-organisations/application-guidance
 sources:
   - https://www.gavi.org/
