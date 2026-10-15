@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://defichain.com/metachain
+socials:
+  x: https://x.com/defichain
 status: unknown
 profile: "MetaChain: no sourced profile on file yet. See defichain.com for the organization's own
   description, and the programs listed on this page."
 sources:
   - https://defichain.com/metachain
+  - https://x.com/defichain
