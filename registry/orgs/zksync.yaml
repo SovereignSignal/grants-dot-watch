@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.zksync.io/
+socials:
+  x: https://x.com/zksync
 status: unknown
 profile: "ZKsync: no sourced profile on file yet. See zksync.io for the organization's own
   description, and the programs listed on this page."
