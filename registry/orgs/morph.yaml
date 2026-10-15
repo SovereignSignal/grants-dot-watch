@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://morph.network/
+socials:
+  x: https://x.com/MorphNetwork
 status: unknown
 profile: Morph is an onchain payments settlement network backed by the Bitget ecosystem. It runs the
   Morph Payment Accelerator for companies building high-volume payment products onchain.
 sources:
   - https://morph.network/accelerator
+  - https://morph.network/
