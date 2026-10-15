@@ -8,13 +8,13 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.internetsociety.org/
-socials: {}
+socials:
+  x: https://x.com/internetsociety
 status: unknown
 profile: >
-  The Internet Society is a non-profit organization that promotes the open
-  development and use of the internet. Its website (internetsociety.org)
-  blocks automated fetching, so its current funding programs have not yet
-  been confirmed here.
+  The Internet Society is a non-profit organization that promotes the open development and use of
+  the internet. Its website (internetsociety.org) blocks automated fetching, so its current funding
+  programs have not yet been confirmed here.
 sources:
   - https://www.internetsociety.org/
   - https://en.wikipedia.org/wiki/Internet_Society
