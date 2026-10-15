@@ -26,5 +26,6 @@ export default defineConfig([
     'public/vendor/**',
     'seed/**',
     'next-env.d.ts',
+    '.railway/**',
   ]),
 ]);
