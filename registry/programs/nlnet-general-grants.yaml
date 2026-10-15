@@ -10,9 +10,8 @@ wires:
 status: concluded
 mechanism: grants
 apply_url: ""
-summary: Legacy general intake record spanning multiple NLnet funds. Its former even-month cadence
-  is outdated. The scope of the Other route and any distinct general fund need verification before
-  this is presented as an independent opportunity.
+summary: Historical record of NLnet's general intake, kept for its past cadence. It is not a separate
+  funding program; current intake is NLnet open call and the named NLnet funds.
 rounds:
   - name: Even-month open calls
     status: closed
