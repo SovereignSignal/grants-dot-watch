@@ -8,6 +8,8 @@ roles:
   - funder
 org_type: nonprofit
 website: https://digitalchamber.org/
+socials:
+  x: https://x.com/DigitalChamber
 status: active
 profile: >
   The Digital Chamber is a nonprofit focused on blockchain and digital-asset policy, education, and
@@ -22,3 +24,4 @@ funding:
   cadence: Dated calls
 sources:
   - https://digitalchamber.org/tdcs-state-network-opens-2026-microgrant-application-process/
+  - https://digitalchamber.org/
