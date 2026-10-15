@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://sentient.foundation
+socials:
+  x: https://x.com/sentient_found
 status: unknown
 profile: Sentient Foundation runs a $42M grant program for developers, researchers, and companies
   building and leveraging open-source AGI, with rolling applications and no listed deadline.
@@ -16,3 +18,4 @@ profile: Sentient Foundation runs a $42M grant program for developers, researche
   10962, 10966, 10853).
 sources:
   - https://sentient.foundation/grants
+  - https://sentient.foundation/
