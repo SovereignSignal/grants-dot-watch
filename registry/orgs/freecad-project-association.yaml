@@ -13,13 +13,13 @@ website: https://fpa.freecad.org/
 socials:
   github: https://github.com/FreeCAD/FPA
   forum: https://forum.freecad.org
+  x: https://x.com/FreeCADNews
 status: active
 profile: >
-  The FreeCAD Project Association is an international non-profit association
-  created by FreeCAD administrators and core developers in November 2021 and
-  seated in Belgium, with the goal of supporting and protecting the FreeCAD
-  project. It offers grants to improve FreeCAD and its ecosystem and manages
-  project donations.
+  The FreeCAD Project Association is an international non-profit association created by FreeCAD
+  administrators and core developers in November 2021 and seated in Belgium, with the goal of
+  supporting and protecting the FreeCAD project. It offers grants to improve FreeCAD and its
+  ecosystem and manages project donations.
 funding:
   focus:
     - documentation
@@ -32,3 +32,4 @@ sources:
   - https://fpa.freecad.org/
   - https://fpa.freecad.org/programs/fpadf-announcement
   - https://fpa.freecad.org/programs.html
+  - https://x.com/FreeCADNews
