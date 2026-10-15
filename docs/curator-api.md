@@ -7,9 +7,11 @@ the registry write and the `GRANTS_WATCH_NO_GIT` ledger. Proposals go through
 `insertIngestProposals`, the same queue insert as wire ingest, and show up on
 the Desk for Sov to approve.
 
-This API cannot delete registry files, merge organizations, bulk-decide, or
+This API cannot delete registry files or merge organizations, and it cannot
 change `ADMIN_TOKEN`, reader keys, or `DESK_OWNERS`. It does not accept
 `ADMIN_TOKEN`, reader keys, or the wire-room-ops `INTERNAL_API_KEY`.
+`POST /api/v1/curator/bulk` stays forbidden. Low-risk bulk decide is a
+separate route, described below.
 
 ## Where writes land
 
@@ -34,8 +36,9 @@ lowercase SHA-256 `sha256`, `scopes`, UTC `expires_at`, and `revoked`. Optional
 Removing an entry also revokes it. The server reads the variable on every
 request. Hashes only — never put a bearer token in the variable.
 
-Scopes are `read_queue`, `decide`, and `propose`. A key only receives the
-scopes listed. Expired, revoked, missing, and unknown tokens are `401
+Scopes are `read_queue`, `decide`, `propose`, and `apply_low_risk`. A key only
+receives the scopes listed. `apply_low_risk` is not included unless it is
+named. Expired, revoked, missing, and unknown tokens are `401
 {"error":"unauthorized"}`. A live key without the scope is `403
 {"error":"forbidden"}`. Those bodies do not say which check failed. An empty
 or malformed variable is `503 {"error":"curator_unavailable"}` so a missing
@@ -58,6 +61,23 @@ not in git, chat, or a URL.
 
 Send `Authorization: Bearer TOKEN` on every request. Responses are
 `private, no-store` and do not enable browser CORS.
+
+To grant `apply_low_risk` to an existing key, add that scope to its entry.
+The bearer token does not change, and this command does not print one. On a
+trusted shell where `GRANTS_WATCH_CURATOR_KEYS` is already set, print the
+updated hash array and save that stdout back into the variable. Do not paste
+the array into chat.
+
+```bash
+node scripts/grant-curator-scope.mjs elouise apply_low_risk
+```
+
+`elouise` is the key's existing `id`, not the token. If the variable is not
+in the shell environment, pass the current hash array with `--keys-file`.
+Stdout is the full array. Merge nothing else by hand after it runs: the
+script keeps every other key. `CURATOR_AUTO_APPLY=0` stops auto-apply without
+removing the scope. Unset `CURATOR_AUTO_APPLY_TYPES` allows `x_handle` only;
+set it to a comma-separated list to change that. An empty value allows nothing.
 
 ## Writes
 
@@ -211,7 +231,7 @@ Fact updates use `"kind":"fact"` and `fact`:
 | `round_merge` | `program_id`, `round` (the duplicate), `into` (the round that remains) | `round_update` (Facts). The duplicate is removed. Dates, size, and source copy onto the remaining round only where that round is blank. Both source URLs stay on the program. |
 | `round_disposition` | `program_id`, `round`, `disposition` `withdrawn` or `duplicate` | `round_update` (Facts). The round stays on the program with its name, dates, and source, and leaves open and announced lists. |
 | `amount` | `amount_target` `round` (`program_id`, `round`, `amount`) or `award` (`org_id`, `grantee`, `amount`, `date`) | `round_update` or `new_award` (Facts) |
-| `x_handle` | `org_id`, `x` | `profile_note` (Judgment). An X handle is not a fact-lane type, so Sov sees it in Judgment. |
+| `x_handle` | `org_id`, `x` (a handle, or `null` to clear) | `profile_note` (Judgment). An X handle is not a fact-lane type. `null` removes `socials.x` from the organization file. It does not delete the file. |
 
 ```bash
 curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
@@ -331,6 +351,89 @@ The quote must be verbatim from the official page. A program already on that sin
 
 Approve with the same decide call as any other queued item. These edits do not delete a registry file and they do not merge organizations.
 
+Set an X handle:
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: x-example-foundation-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "x_handle",
+    "org_id": "example-foundation",
+    "x": "example",
+    "summary": "The foundation site links this X account.",
+    "reason": "The official site shows the handle in the footer.",
+    "sources": [{"url": "https://example.org/about", "quote": "Follow Example Foundation at https://x.com/example."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+A key with `apply_low_risk` auto-approves that proposal when all of these hold.
+Otherwise the item stays pending, the same as any other proposal.
+
+- `x_handle` is in `CURATOR_AUTO_APPLY_TYPES` (the default list is `x_handle`).
+- `CURATOR_AUTO_APPLY` is not `0`.
+- The change adds or replaces a handle. `x: null` is not auto-approved on submit.
+- A source URL host is the organization's registered website, or a subdomain of it. `www` is ignored. A sibling or lookalike host does not match. `x.com` and `twitter.com` are not treated as an organization's site.
+- The quote on that source contains `x.com/<handle>` or `twitter.com/<handle>` for that exact handle. A longer handle, or a status path under the handle, does not match. Match is case-insensitive.
+- The server fetches that URL (8 second timeout, 1 MB cap), follows redirects only while they stay on the same site, and finds the same link in the page. Private and loopback addresses are refused.
+
+The approval calls `decideProposal`. The reason stored on the verdict is the proposal reason prefixed with `auto:`. The Desk Log actor is `curator · <name> · auto-apply`. The verdict records the key id, the fetched URL, the SHA-256 of the page bytes, and the old and new handle values.
+
+Clear a dead handle. This stays pending on submit. Apply it with the bulk route below. The written reason is the evidence. The same `apply_low_risk` scope is required, and the verdict records the old value and a null new value.
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: x-example-foundation-clear-1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "fact",
+    "fact": "x_handle",
+    "org_id": "example-foundation",
+    "x": null,
+    "summary": "The X account named on this organization no longer exists.",
+    "reason": "The account returns a not-found page and the site no longer links it.",
+    "sources": [{"url": "https://example.org/about", "quote": "The about page no longer links an X account."}]
+  }' \
+  "https://grants.watch/api/v1/curator/proposals"
+```
+
+## Bulk decide
+
+`POST /api/v1/curator/queue/decide-bulk` takes `ids`, `decision`, and `reason`.
+`sources` is optional, the same https list as a single decide. At most 50 ids,
+all the same proposal type, no duplicates. `Idempotency-Key` is required.
+
+A key with `decide` may approve or reject that batch. Each `x_handle` add or
+replace is verified again with the same org-site, quote, and page checks
+before it is approved. A failed check stays pending and is listed in `failed`.
+A key with `apply_low_risk` and without `decide` may only approve a batch of
+allow-listed `x_handle` items, and only while auto-apply is on.
+
+`x: null` clears are approved on this route when the key has `apply_low_risk`,
+auto-apply is on, and the request reason is present. The proposal must already
+carry a source. One verdict is written per id, including the auto-apply audit.
+`CURATOR_AUTO_APPLY=0` leaves those items pending (`failed` error `disabled`).
+
+```bash
+curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
+  -H "Idempotency-Key: bulk-x-handles-1" \
+  -H "Content-Type: application/json" \
+  -d '{"ids":["p01939","p01940"],"decision":"approved","reason":"Each official site links the handle in the quote."}' \
+  "https://grants.watch/api/v1/curator/queue/decide-bulk"
+```
+
+The response is `{ "ok": true, "decided": ["p01939"], "failed": [{ "id": "p01940", "error": "page_missing_link" }] }`.
+
+## Desk Log
+
+Auto-applied rows are labeled `curator · <name> · auto-apply` and can be
+filtered with Auto-applied. Each row shows the key id, fetched URL, page hash,
+and the old and new values. Revert writes the old value back onto the
+organization and marks the row reverted. It is an owner action on the Desk,
+not a curator route.
+
 ## Search
 
 `GET /api/v1/curator/search?q=example&kind=orgs` needs `read_queue`. `kind` is
@@ -349,7 +452,7 @@ These return `403 {"error":"forbidden"}` for an authenticated key, and `401`
 with no key:
 
 - `DELETE /api/v1/curator/queue/:id`
-- `POST /api/v1/curator/bulk`
+- `POST /api/v1/curator/bulk` (use `POST /api/v1/curator/queue/decide-bulk`)
 - `POST /api/v1/curator/merge`
 - `POST`, `PUT`, `PATCH`, or `DELETE /api/v1/curator/config`
 - deciding a `merge_orgs` item, or any proposal whose change asks to remove or delete

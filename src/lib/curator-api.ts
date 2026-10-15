@@ -2,8 +2,17 @@
 // function as the Desk buttons. Proposals call insertIngestProposals, the
 // same insert door as wire ingest. Nothing here writes the registry itself.
 import { createHash } from 'node:crypto';
+import {
+  assessXHandleApply,
+  autoApplyNote,
+  curatorAutoApplyEnabled,
+  curatorAutoApplyTypes,
+  fetchEvidencePage,
+  readXHandleEdit,
+  type PageFetch,
+} from './curator-auto-apply';
 import { buildProposalChanges, type ApplyResult } from './committer';
-import { curatorJson, type CuratorGate, type CuratorIdentity, curatorGate } from './curator-auth';
+import { curatorJson, type CuratorGate, type CuratorIdentity, type CuratorScope, curatorGate } from './curator-auth';
 import { defaultIdempotencyStore, type IdempotencyStore } from './curator-idempotency';
 import { decideProposal, type DecideResult } from './desk-decide';
 import { dateBounds } from './evidence-fields';
@@ -91,6 +100,9 @@ export interface CuratorDeps {
   loadRegistry: typeof loadRegistry;
   preview: (proposal: Proposal) => ApplyResult;
   evidence: (signalId: Proposal['signal_id']) => SignalEvidence | null;
+  fetchPage?: (url: string, allowedDomain: string) => Promise<PageFetch>;
+  autoApplyEnabled?: () => boolean;
+  autoApplyTypes?: () => Set<string>;
 }
 
 let sharedIdempotency: IdempotencyStore | null = null;
@@ -181,8 +193,34 @@ function idempotencyHeader(request: Request): string | null {
   return value;
 }
 
-function authorize(request: Request, scope: 'read_queue' | 'decide' | 'propose', deps: CuratorDeps) {
+function authorize(request: Request, scope: CuratorScope | readonly CuratorScope[], deps: CuratorDeps) {
   return deps.gate.authorize(request, scope);
+}
+
+const BULK_MAX = 50;
+const BULK_FIELDS = new Set(['ids', 'decision', 'reason', 'sources']);
+const BULK_FORBIDDEN = new Set([...FORBIDDEN_FIELDS].filter((field) => field !== 'ids'));
+
+function autoApplyIsEnabled(deps: CuratorDeps): boolean {
+  return (deps.autoApplyEnabled ?? (() => curatorAutoApplyEnabled()))();
+}
+
+function autoApplyAllowList(deps: CuratorDeps): Set<string> {
+  return (deps.autoApplyTypes ?? (() => curatorAutoApplyTypes()))();
+}
+
+function orgSocial(deps: CuratorDeps, orgId: string): { website: string | null; oldValue: string | null } {
+  const org = deps.loadRegistry().orgs.find((item) => item.id === orgId);
+  return {
+    website: org?.website ?? null,
+    oldValue: typeof org?.socials?.x === 'string' ? org.socials.x : null,
+  };
+}
+
+function clearHasEvidence(proposal: Proposal, reason: string): boolean {
+  if (reason.trim().length < 8) return false;
+  const sources = proposal.submitted_by?.sources || [];
+  return sources.length > 0 || Boolean(proposal.evidence_url);
 }
 
 function matchesScore(score: string | undefined, minScore: number | undefined, confidence: number | undefined): boolean {
@@ -540,8 +578,60 @@ export async function proposeCuratorItem(request: Request, deps: CuratorDeps = d
       );
     }
     const proposal = inserted[0];
-    return curatorJson({ ok: true, id: proposal.id, type: proposal.type, lane: proposal.lane, state: proposal.state }, 201);
+    const outcome = await autoApplySubmitted(proposal, built.candidate, auth.identity, deps);
+    return curatorJson(
+      {
+        ok: true,
+        id: proposal.id,
+        type: proposal.type,
+        lane: proposal.lane,
+        state: outcome.state,
+        ...(outcome.auto_apply ? { auto_apply: outcome.auto_apply } : {}),
+      },
+      201
+    );
   });
+}
+
+async function autoApplySubmitted(
+  proposal: Proposal,
+  candidate: RawMinerProposal,
+  identity: CuratorIdentity,
+  deps: CuratorDeps
+): Promise<{ state: Proposal['state']; auto_apply?: { applied: boolean; reason?: string } }> {
+  if (!identity.scopes.includes('apply_low_risk')) return { state: proposal.state };
+  const edit = readXHandleEdit(candidate.proposed_change);
+  if (!edit || !autoApplyAllowList(deps).has('x_handle')) return { state: proposal.state };
+  if (!autoApplyIsEnabled(deps)) return { state: proposal.state, auto_apply: { applied: false, reason: 'disabled' } };
+  if (edit.clear) return { state: proposal.state, auto_apply: { applied: false, reason: 'clear_not_auto' } };
+  const current = orgSocial(deps, edit.orgId);
+  const assessed = await assessXHandleApply({
+    edit,
+    website: current.website,
+    oldValue: current.oldValue,
+    quotes: candidate.submitted_by?.quotes || [],
+    fetchPage: deps.fetchPage ?? fetchEvidencePage,
+    keyId: identity.id,
+  });
+  if (!assessed.ok) return { state: proposal.state, auto_apply: { applied: false, reason: assessed.reason } };
+  try {
+    const result = await deps.decide({
+      id: proposal.id,
+      decision: 'approved',
+      note: autoApplyNote(candidate.submitted_by?.reason || ''),
+      by: 'curator',
+      curator_id: identity.id,
+      curator_name: identity.name,
+      sources: candidate.submitted_by?.sources,
+      auto_apply: assessed.audit,
+    });
+    if (result.status === 200 && result.body.proposal) {
+      return { state: result.body.proposal.state, auto_apply: { applied: true } };
+    }
+  } catch {
+    // The queued proposal stays pending for Desk review.
+  }
+  return { state: proposal.state, auto_apply: { applied: false, reason: 'apply_failed' } };
 }
 
 export async function reviewCuratorItem(
@@ -616,7 +706,130 @@ export async function searchCuratorDirectory(request: Request, deps: CuratorDeps
   });
 }
 
-/** Authenticated refusal for deletes, merges, bulk decides, and config edits. */
+export async function decideCuratorBulk(request: Request, deps: CuratorDeps = defaultCuratorDeps): Promise<Response> {
+  const auth = authorize(request, ['decide', 'apply_low_risk'], deps);
+  if ('response' in auth) return auth.response;
+  const parsed = await readJson(request);
+  if ('response' in parsed) return counted(auth.identity, deps, parsed.response);
+  const body = objectBody(parsed.value);
+  if (!body) return counted(auth.identity, deps, invalid('Request body must be an object.'));
+  const fields = Object.keys(body);
+  if (fields.some((field) => BULK_FORBIDDEN.has(field))) return curatorJson({ error: 'forbidden' }, 403);
+  if (fields.some((field) => !BULK_FIELDS.has(field))) return counted(auth.identity, deps, invalid('Unknown field in request body.'));
+  const decision = body.decision;
+  const reason = reasonText(body.reason);
+  const sources = decisionSources(body.sources);
+  const ids = body.ids;
+  if (!Array.isArray(ids) || ids.some((id) => typeof id !== 'string' || !/^p\d+$/.test(id))) {
+    return counted(auth.identity, deps, invalid(`ids must be 1 to ${BULK_MAX} proposal ids.`));
+  }
+  if (ids.length < 1 || ids.length > BULK_MAX) {
+    return counted(auth.identity, deps, invalid(`ids must be 1 to ${BULK_MAX} proposal ids.`));
+  }
+  if (new Set(ids).size !== ids.length) return counted(auth.identity, deps, invalid('ids must be unique.'));
+  if (decision !== 'approved' && decision !== 'rejected') {
+    return counted(auth.identity, deps, invalid('decision must be approved or rejected.'));
+  }
+  if (!reason) return counted(auth.identity, deps, invalid('A written reason of 8 to 2000 characters is required.'));
+  if (!sources) return counted(auth.identity, deps, invalid('sources must be a list of official https URLs.'));
+
+  const canDecide = auth.identity.scopes.includes('decide');
+  const canAuto = auth.identity.scopes.includes('apply_low_risk');
+  return withWrite(request, auth.identity, { ids, ...body }, deps, async () => {
+    const loaded: { id: string; proposal: Proposal | null }[] = [];
+    for (const id of ids as string[]) loaded.push({ id, proposal: await deps.getProposal(id) });
+    const found = loaded.flatMap((item) => (item.proposal ? [item.proposal] : []));
+    const types = new Set(found.map((proposal) => proposal.type));
+    if (types.size > 1) return invalid('ids must all be the same proposal type.');
+    if (!canDecide) {
+      if (!canAuto || !autoApplyIsEnabled(deps) || decision !== 'approved') return curatorJson({ error: 'forbidden' }, 403);
+      const allow = autoApplyAllowList(deps);
+      if (found.some((proposal) => !readXHandleEdit(proposal.proposed_change) || !allow.has('x_handle'))) {
+        return curatorJson({ error: 'forbidden' }, 403);
+      }
+    }
+
+    const decided: string[] = [];
+    const failed: { id: string; error: string }[] = [];
+    for (const item of loaded) {
+      if (!item.proposal) {
+        failed.push({ id: item.id, error: 'not_found' });
+        continue;
+      }
+      if (item.proposal.state !== 'pending') {
+        failed.push({ id: item.id, error: 'already decided' });
+        continue;
+      }
+      if (proposalBlocked(item.proposal)) {
+        failed.push({ id: item.id, error: 'forbidden' });
+        continue;
+      }
+      const edit = decision === 'approved' ? readXHandleEdit(item.proposal.proposed_change) : null;
+      let audit: Parameters<CuratorDeps['decide']>[0]['auto_apply'] | undefined;
+      if (edit) {
+        if (!autoApplyAllowList(deps).has('x_handle')) {
+          failed.push({ id: item.id, error: 'forbidden' });
+          continue;
+        }
+        if (!autoApplyIsEnabled(deps)) {
+          failed.push({ id: item.id, error: 'disabled' });
+          continue;
+        }
+        if (edit.clear) {
+          if (!canAuto || !clearHasEvidence(item.proposal, reason)) {
+            failed.push({ id: item.id, error: 'forbidden' });
+            continue;
+          }
+          const current = orgSocial(deps, edit.orgId);
+          audit = {
+            key_id: auth.identity.id,
+            fetched_url: null,
+            page_hash: null,
+            old_value: current.oldValue,
+            new_value: null,
+          };
+        } else {
+          const current = orgSocial(deps, edit.orgId);
+          const assessed = await assessXHandleApply({
+            edit,
+            website: current.website,
+            oldValue: current.oldValue,
+            quotes: item.proposal.submitted_by?.quotes || [],
+            fetchPage: deps.fetchPage ?? fetchEvidencePage,
+            keyId: auth.identity.id,
+          });
+          if (!assessed.ok) {
+            failed.push({ id: item.id, error: assessed.reason });
+            continue;
+          }
+          audit = assessed.audit;
+        }
+      }
+      try {
+        const result = await deps.decide({
+          id: item.id,
+          decision,
+          note: audit ? autoApplyNote(reason) : reason,
+          by: 'curator',
+          curator_id: auth.identity.id,
+          curator_name: auth.identity.name,
+          sources,
+          ...(audit ? { auto_apply: audit } : {}),
+        });
+        if (result.status !== 200) {
+          failed.push({ id: item.id, error: result.body.error || 'apply_failed' });
+          continue;
+        }
+        decided.push(item.id);
+      } catch {
+        failed.push({ id: item.id, error: 'apply_failed' });
+      }
+    }
+    return curatorJson({ ok: true, decided, failed });
+  });
+}
+
+/** Authenticated refusal for deletes, merges, the legacy bulk route, and config edits. */
 export async function forbidCurator(request: Request, deps: CuratorDeps = defaultCuratorDeps): Promise<Response> {
   const auth = authorize(request, 'read_queue', deps);
   if ('response' in auth) return auth.response;

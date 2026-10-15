@@ -5,13 +5,14 @@
 import { randomBytes, createHash } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 
-const SCOPES = new Set(['read_queue', 'decide', 'propose']);
+const SCOPES = new Set(['read_queue', 'decide', 'propose', 'apply_low_risk']);
 const [id, name, scopeArg, expires, path] = process.argv.slice(2);
 const scopes = (scopeArg || '').split(',').map((scope) => scope.trim()).filter(Boolean);
 
 function usage() {
   console.error('Usage: node scripts/create-curator-key.mjs ID NAME SCOPES FUTURE_UTC_EXPIRY NEW_PRIVATE_FILE');
-  console.error('SCOPES is a comma-separated list: read_queue, decide, propose');
+  console.error('SCOPES is a comma-separated list: read_queue, decide, propose, apply_low_risk');
+  console.error('apply_low_risk is not included unless it is named.');
   process.exit(1);
 }
 

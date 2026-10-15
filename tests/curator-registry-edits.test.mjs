@@ -118,6 +118,22 @@ test('a profile note replaces a program wire list and leaves the rest of the fil
   assert.equal(doc.rounds[0].closes, '2026-11-04');
 });
 
+test('clearing an X handle removes socials.x and keeps the organization', () => {
+  const doc = written(buildProposalChanges(proposal({
+    type: 'profile_note',
+    lane: 'judgment',
+    org: 'nsf-sbir-sttr',
+    org_name: 'NSF SBIR / STTR',
+    program: null,
+    proposed_change: { 'orgs/nsf-sbir-sttr.yaml': { socials: { x: null } } },
+  })));
+  assert.equal(doc.id, 'nsf-sbir-sttr');
+  assert.equal(doc.name, 'NSF SBIR / STTR');
+  assert.equal(doc.website, 'https://seedfund.nsf.gov/');
+  assert.equal(doc.socials, undefined);
+  assert.equal(JSON.stringify(doc).includes('"remove"'), false);
+});
+
 test('a program wire list rejects an unknown or empty value', () => {
   assert.throws(
     () => buildProposalChanges(proposal({

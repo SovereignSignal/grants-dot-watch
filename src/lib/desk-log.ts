@@ -2,6 +2,14 @@
 // added beside them so a queued proposal is visible before anyone decides it.
 import type { CuratorStamp, Proposal, Verdict } from './types';
 
+export interface DeskLogAudit {
+  keyId: string;
+  fetchedUrl: string | null;
+  pageHash: string | null;
+  oldValue: string | null;
+  newValue: string | null;
+}
+
 export interface DeskLogRow {
   key: string;
   at: string;
@@ -11,6 +19,10 @@ export interface DeskLogRow {
   commit?: string | null;
   actor: string | null;
   destination?: string[] | null;
+  proposalId?: string;
+  autoApplied?: boolean;
+  reverted?: boolean;
+  audit?: DeskLogAudit;
 }
 
 function curatorActor(name: string | undefined, id: string | undefined): string {
@@ -19,7 +31,10 @@ function curatorActor(name: string | undefined, id: string | undefined): string 
 
 function verdictActor(verdict: Verdict): string | null {
   if (verdict.by === 'machine') return 'machine';
-  if (verdict.by === 'curator') return curatorActor(verdict.curator_name, verdict.curator_id);
+  if (verdict.by === 'curator') {
+    const actor = curatorActor(verdict.curator_name, verdict.curator_id);
+    return verdict.auto_apply ? `${actor} · auto-apply` : actor;
+  }
   return null;
 }
 
@@ -40,6 +55,18 @@ export function buildDeskLog(
       commit: verdict.commit ?? null,
       actor: verdictActor(verdict),
       destination: verdict.decision === 'approved' ? proposal?.destination ?? null : null,
+      proposalId: verdict.proposal_id,
+      autoApplied: Boolean(verdict.auto_apply),
+      reverted: Boolean(verdict.reverted_at),
+      audit: verdict.auto_apply
+        ? {
+            keyId: verdict.auto_apply.key_id,
+            fetchedUrl: verdict.auto_apply.fetched_url,
+            pageHash: verdict.auto_apply.page_hash,
+            oldValue: verdict.auto_apply.old_value,
+            newValue: verdict.auto_apply.new_value,
+          }
+        : undefined,
     });
   }
   for (const proposal of proposals) {
