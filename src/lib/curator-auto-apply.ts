@@ -10,7 +10,14 @@ export const FETCH_MAX_BYTES = 1_000_000;
 const MAX_REDIRECTS = 3;
 
 const HANDLE_URL = /^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/([A-Za-z0-9_]{1,15})\/?$/i;
-const SHARED_SITE = new Set(['x.com', 'twitter.com']);
+// Hosts where anyone can publish under the bare host. An org whose website sits
+// on one has no domain of its own, so no page there can confirm it. A per-user
+// subdomain (qwenlm.github.io, name.substack.com) is the org's own and stays usable.
+const SHARED_SITE = new Set([
+  'x.com', 'twitter.com', 'github.com', 'gitlab.com', 'docs.google.com', 'sites.google.com', 'drive.google.com',
+  'medium.com', 'notion.so', 'mirror.xyz', 'substack.com', 'gitbook.io', 'hackmd.io', 'linktr.ee', 'opencollective.com',
+  'youtube.com', 'linkedin.com', 'facebook.com', 'reddit.com', 'discord.com', 'discord.gg', 't.me', 'wordpress.com',
+]);
 
 export interface XHandleEdit {
   orgId: string;
