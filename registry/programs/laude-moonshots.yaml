@@ -1,6 +1,6 @@
 id: laude-moonshots
 name: Moonshots
-org: laude-institute-moonshot-program
+org: laude-institute
 parent: null
 systems: []
 wires: [ai]
