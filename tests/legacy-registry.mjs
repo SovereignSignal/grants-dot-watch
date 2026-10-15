@@ -8,7 +8,8 @@
 // registry carries those very records (the Desk ledger is synced to Git), so
 // staging them against registry/ reports zero additions. These tests are
 // about the path, not the current contents, so they run on this copy.
-import { cpSync, mkdtempSync, rmSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 
@@ -22,6 +23,15 @@ export function copyLegacyRegistry(dest, source = resolve('registry')) {
     filter: (path) => !(dirname(resolve(path)) === top && LEDGER_PATHS.has(basename(path))),
   });
   return dest;
+}
+
+/** Put each file a pilot pack references back at the exact blob it was written against.
+ *  Desk syncs keep editing those orgs and programs; the pilots test the import path, so
+ *  they read the pinned bytes from Git history instead of whatever registry/ holds now. */
+export function restoreReferenceBlobs(root, pack) {
+  for (const [path, hash] of Object.entries(pack.reference_blobs || {})) {
+    writeFileSync(join(root, path), execFileSync('git', ['cat-file', 'blob', hash]));
+  }
 }
 
 export function legacyRegistryCopy(source = resolve('registry')) {
