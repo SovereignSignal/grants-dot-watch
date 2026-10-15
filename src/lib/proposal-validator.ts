@@ -557,7 +557,7 @@ function tryDryRun(p: Proposal, checks: CheckResult[]): { ok: true } | { ok: fal
 const FACT_PATCH_FIELDS = new Set(['rounds']);
 const ROUND_PATCH_FIELDS = new Set(['name', 'status', 'opens', 'closes', 'size', 'source']);
 const FACT_ROUND_STATUSES = new Set(['announced', 'open', 'reviewing', 'closed', 'deployed']);
-const STATUS_EVIDENCE_PHRASES: Record<string, string[]> = {
+export const STATUS_EVIDENCE_PHRASES: Record<string, string[]> = {
   announced: ['announced', 'coming soon', 'launching', 'opens on'],
   open: ['applications open', 'applications are open', 'submissions open', 'now open', 'open call', 'apply now', 'accepting applications'],
   reviewing: ['under review', 'reviewing applications', 'applications are being reviewed', 'selection in progress'],

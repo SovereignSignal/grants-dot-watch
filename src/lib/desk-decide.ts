@@ -4,8 +4,8 @@ import { applyProposalDurably, commitMessageFor, registryMayHaveChanged } from '
 import { canonical } from './funding-model-core.mjs';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from './desk-store';
 import { isFundingProposal } from './funding-desk-core.mjs';
-import { awardSourcesAutoApplyEnabled, wireProgramAutoApplyEnabled } from './machine-approval-policy';
-import type { AwardAutoApply, CuratorAutoApply, Proposal, Verdict, WireProgramAutoApply } from './types';
+import { awardSourcesAutoApplyEnabled, isReviewRenewalChange, reviewRecheckEnabled, wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import type { AwardAutoApply, CuratorAutoApply, Proposal, ReviewRecheckAutoApply, Verdict, WireProgramAutoApply } from './types';
 
 export interface DecideInput {
   id:string; decision:'approved'|'rejected'; note?:string;
@@ -15,6 +15,8 @@ export interface DecideInput {
   award_auto_apply?:AwardAutoApply;
   /** Only the Wire program auto-apply sets this; no HTTP route passes it. */
   wire_program_auto_apply?:WireProgramAutoApply;
+  /** Only the daily review recheck sets this; no HTTP route passes it. */
+  review_recheck_auto_apply?:ReviewRecheckAutoApply;
   /** proposalChangeHash of the proposed_change the caller verified. When set,
    *  an approval applies only if the claimed proposal still hashes the same. */
   expect_change_hash?:string;
@@ -26,7 +28,7 @@ export function proposalChangeHash(change:unknown):string {
 /** Automatic approvals verify a payload before calling here, sometimes
  *  seconds earlier (a page fetch). They must name the payload they checked. */
 function changeHashRequired(input:DecideInput):boolean {
-  return Boolean(input.wire_program_auto_apply || input.award_auto_apply
+  return Boolean(input.wire_program_auto_apply || input.award_auto_apply || input.review_recheck_auto_apply
     || (input.auto_apply && (input.by==='machine' || input.by==='curator')));
 }
 /** The Wire program audit belongs to one machine approval of a pending Wire
@@ -35,6 +37,16 @@ function wireProgramAuditAllowed(proposal:Proposal,input:DecideInput):boolean {
   if(!input.wire_program_auto_apply)return true;
   return input.by==='machine' && input.decision==='approved' && wireProgramAutoApplyEnabled()
     && proposal.type==='new_program' && typeof proposal.signal_id==='string' && proposal.signal_id.startsWith('wire:');
+}
+/** The review recheck audit belongs to one machine approval of a pending
+ *  recheck renewal that sets only a program's review block, and only while
+ *  DESK_UPKEEP_ENABLED=1 and REVIEW_RECHECK_ENABLED=1. */
+function reviewRecheckAuditAllowed(proposal:Proposal,input:DecideInput):boolean {
+  if(!input.review_recheck_auto_apply)return true;
+  return input.by==='machine' && input.decision==='approved' && reviewRecheckEnabled()
+    && proposal.type==='profile_note' && typeof proposal.signal_id==='string' && proposal.signal_id.startsWith('recheck:')
+    && isReviewRenewalChange(proposal.proposed_change)
+    && Object.keys(proposal.proposed_change || {}).includes(`programs/${input.review_recheck_auto_apply.program_id}.yaml`);
 }
 /** Funding imports are owner decisions, except one machine approval: the
  *  award-source auto-apply, while its flag is on, for the exact plan digest it
@@ -61,6 +73,11 @@ function applyMessage(proposal:Proposal,input:DecideInput):string {
     const a=input.award_auto_apply;
     return [base,'',`Machine: award-source auto-apply (${a.policy})`,`Source: ${a.source} ${a.source_url}`,`Plan: ${a.plan_digest}`].join('\n');
   }
+  if(input.review_recheck_auto_apply){
+    const r=input.review_recheck_auto_apply;
+    return [base,'',`Machine: review renewal (${r.policy})`,`Page: ${r.final_url} sha256 ${r.page_hash}`,
+      `Matched: "${r.matched_name}" + ${r.matched_intake}`,`Review: ${r.previous_review_after} -> ${r.review_after}, checked ${r.checked_on}`].join('\n');
+  }
   if(input.wire_program_auto_apply){
     const w=input.wire_program_auto_apply;
     return [base,'',`Machine: Wire program auto-apply (${w.policy})`,`Page: ${w.final_url} sha256 ${w.page_hash}`,
@@ -82,6 +99,7 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
   if(isFundingProposal(proposal) && !fundingActorAllowed(proposal,input))return {status:403,body:{error:'Funding imports require owner review'}};
   if(input.award_auto_apply && (!isFundingProposal(proposal) || input.by!=='machine'))return {status:403,body:{error:'Award auto-apply covers funding imports only'}};
   if(!wireProgramAuditAllowed(proposal,input))return {status:403,body:{error:'Wire program auto-apply covers pending Wire new programs only'}};
+  if(!reviewRecheckAuditAllowed(proposal,input))return {status:403,body:{error:'Review renewal covers pending recheck renewals only'}};
   if(changeHashRequired(input) && !input.expect_change_hash)return {status:400,body:{error:'change_hash_required'}};
   let commit:string|null=null, mergedNote=note, ledgerRequired=false;
   if(decision==='approved') {
@@ -102,6 +120,10 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
       await deps.releaseProposalClaim(id);
       return {status:403,body:{error:'Wire program auto-apply covers pending Wire new programs only'}};
     }
+    if(!reviewRecheckAuditAllowed(proposal,input)) {
+      await deps.releaseProposalClaim(id);
+      return {status:403,body:{error:'Review renewal covers pending recheck renewals only'}};
+    }
     try {
       const {notes,changes,commit:appliedCommit}=await deps.applyProposalDurably(proposal,applyMessage(proposal,input));
       commit=appliedCommit;ledgerRequired=Boolean(process.env.DATABASE_URL) && changes.length>0 && appliedCommit===null;
@@ -120,6 +142,7 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
       ...(input.auto_apply?{auto_apply:input.auto_apply}:{}),
       ...(input.award_auto_apply?{award_auto_apply:input.award_auto_apply}:{}),
       ...(input.wire_program_auto_apply?{wire_program_auto_apply:input.wire_program_auto_apply}:{}),
+      ...(input.review_recheck_auto_apply?{review_recheck_auto_apply:input.review_recheck_auto_apply}:{}),
     });
     return {status:200,body:{ok:true,commit,proposal:updated,verdict}};
   } catch(error) {

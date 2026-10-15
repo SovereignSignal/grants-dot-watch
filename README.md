@@ -18,7 +18,10 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
   (`AWARD_SOURCES_AUTO_APPLY=1`): a clean first-party award packet from the daily sweep, see
   `docs/funding-live-product.md`. The one program exception is also opt-in
   (`WIRE_PROGRAM_AUTO_APPLY=1`): a Wire new program for an org already on file, confirmed on
-  that org's own site, see `docs/WIRE-HANDOFF.md`.
+  that org's own site, see `docs/WIRE-HANDOFF.md`. Review renewals are the third opt-in
+  (`REVIEW_RECHECK_ENABLED=1` with `DESK_UPKEEP_ENABLED=1`): a program review's two dates move
+  only when a fresh fetch of its official page still names the program and supports the recorded
+  intake, see `docs/DESIGN.md` "Review renewal".
 - **Signals in, registry out.** Wire scanning systems feed candidate changes; nothing enters
   the registry without either machine-verifiable provenance or an owner verdict.
 - **The taxonomy:** a *system* is a funding ecosystem with its own capital gravity (a treasury,
@@ -82,7 +85,13 @@ Railway replicas never double-run; last-run status lands in `ingest_state` and s
 the Wire ingest and the award sweep: it re-checks pending curator X handles (see below) and
 rejects pending items whose proposed deadline passed while they waited or that have waited
 30 days, as `machine` verdicts with an `auto:` note. Funding imports, org merges and claimed
-items are never expired. Rules: `docs/DESIGN.md` "Expiry".
+items are never expired. Rules: `docs/DESIGN.md` "Expiry". `REVIEW_RECHECK_ENABLED=1`
+(default off, and only with `DESK_UPKEEP_ENABLED=1`) adds the review recheck right after
+upkeep: it re-fetches the official page of every program review expired or due within 7 days
+(at most 30 pages a run), renews `checked_on` and `review_after` (30 days on) when the page
+supports the review, and queues closures, intake changes and anything it cannot vouch for at
+the Desk. A failed fetch stamps nothing. The summary is `review_recheck` on the `last_run`
+record and one line on `/admin/health`. Rules: `docs/DESIGN.md` "Review renewal".
 
 ## Agent and external read access
 

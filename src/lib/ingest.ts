@@ -25,7 +25,8 @@ import { buildNewProgramSourceFields } from './ingest-policy';
 import { productDateISO } from './round-state';
 import type { AwardSourceSweepSummary } from './funding-source-sweep.mjs';
 import type { DeskUpkeepSummary } from './desk-upkeep';
-import { wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import { reviewRecheckEnabled, wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import type { ReviewRecheckSummary } from './review-recheck';
 import type { WireProgramAutoApplySummary } from './wire-program-auto-apply';
 
 const WIRE_DATABASE_URL = process.env.WIRE_DATABASE_URL;
@@ -1183,6 +1184,8 @@ export interface IngestResult {
   wire_program_auto_apply?: WireProgramAutoApplySummary | { at: string; error: string };
   /** Daily timer only: the Desk upkeep summary (DESK_UPKEEP_ENABLED=1). */
   desk_upkeep?: DeskUpkeepSummary | { at: string; error: string };
+  /** Daily timer only: the review recheck (DESK_UPKEEP_ENABLED=1 and REVIEW_RECHECK_ENABLED=1). */
+  review_recheck?: ReviewRecheckSummary | { at: string; error: string };
 }
 
 /** Runs one full ingest cycle: fetch both sources (independently fail-soft),
@@ -1375,6 +1378,7 @@ interface DailyIngestDependencies {
   sweep?: () => Promise<AwardSourceSweepSummary | null>;
   wirePrograms?: () => Promise<WireProgramAutoApplySummary | null>;
   upkeep?: () => Promise<DeskUpkeepSummary | null>;
+  recheck?: () => Promise<ReviewRecheckSummary | null>;
 }
 
 /** Pending Wire new programs are checked after the Wire ingest has queued
@@ -1401,6 +1405,15 @@ async function runDeskUpkeepIfEnabled(): Promise<DeskUpkeepSummary | null> {
   if (process.env.DESK_UPKEEP_ENABLED !== '1') return null;
   const { runDeskUpkeep } = await import('./desk-upkeep');
   return runDeskUpkeep();
+}
+
+/** The review recheck rides the daily run right after Desk upkeep. Off unless
+ *  DESK_UPKEEP_ENABLED=1 and REVIEW_RECHECK_ENABLED=1 (the module is not
+ *  loaded otherwise). Fail-soft: its own failure is recorded, never thrown. */
+async function runReviewRecheckIfEnabled(): Promise<ReviewRecheckSummary | null> {
+  if (!reviewRecheckEnabled()) return null;
+  const { runReviewRecheck } = await import('./review-recheck');
+  return runReviewRecheck();
 }
 
 const DAILY_CLAIM_LEASE_MS = 2 * 60 * 60 * 1000;
@@ -1431,6 +1444,7 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
   const sweep = deps.sweep ?? runAwardSourcesIfEnabled;
   const wirePrograms = deps.wirePrograms ?? runWireProgramsIfEnabled;
   const upkeep = deps.upkeep ?? runDeskUpkeepIfEnabled;
+  const recheck = deps.recheck ?? runReviewRecheckIfEnabled;
   const day = productDateISO(now);
   const key = dailyClaimKey(day);
   if (blocksDailyRun(await getState(key), now)) return { executed: false, day };
@@ -1457,6 +1471,12 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
       if (desk) result.desk_upkeep = desk;
     } catch (e) {
       result.desk_upkeep = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'desk upkeep failed' };
+    }
+    try {
+      const reviews = await recheck();
+      if (reviews) result.review_recheck = reviews;
+    } catch (e) {
+      result.review_recheck = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'review recheck failed' };
     }
     await setState(key, { ...claim, status: 'completed', completed_at: new Date().toISOString() } satisfies DailyIngestClaim);
     return { executed: true, day, result };

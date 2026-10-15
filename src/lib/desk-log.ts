@@ -56,6 +56,7 @@ function verdictActor(verdict: Verdict): string | null {
   if (verdict.by === 'machine') {
     if (verdict.award_auto_apply) return 'machine · award auto-apply';
     if (verdict.wire_program_auto_apply) return 'machine · wire program auto-apply';
+    if (verdict.review_recheck_auto_apply) return 'machine · review renewal';
     return 'machine';
   }
   if (verdict.by === 'curator') {
@@ -83,7 +84,7 @@ export function buildDeskLog(
       actor: verdictActor(verdict),
       destination: verdict.decision === 'approved' ? proposal?.destination ?? null : null,
       proposalId: verdict.proposal_id,
-      autoApplied: Boolean(verdict.auto_apply || verdict.award_auto_apply || verdict.wire_program_auto_apply),
+      autoApplied: Boolean(verdict.auto_apply || verdict.award_auto_apply || verdict.wire_program_auto_apply || verdict.review_recheck_auto_apply),
       revertable: Boolean(verdict.auto_apply),
       reverted: Boolean(verdict.reverted_at),
       audit: verdict.auto_apply

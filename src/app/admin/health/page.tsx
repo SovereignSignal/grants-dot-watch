@@ -8,6 +8,7 @@ import { loadRegistry } from '@/lib/registry';
 import { getAppliedChangeLedgerHealth, getIngestState, listProposals, storeBackend } from '@/lib/desk-store';
 import { lastBootReplayReport, type BootReplayReport } from '@/lib/boot-replay';
 import { REVIEW_HORIZON_DAYS, reviewFreshness } from '@/lib/program-review';
+import { reviewRecheckLine } from '@/lib/review-recheck';
 import { wireProgramAutoApplyLine } from '@/lib/wire-program-auto-apply';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
@@ -57,6 +58,8 @@ interface LastIngestRun {
   };
   /** Read by wireProgramAutoApplyLine, which tolerates any shape. */
   wire_program_auto_apply?: unknown;
+  /** Read by reviewRecheckLine, which tolerates any shape. */
+  review_recheck?: unknown;
   desk_upkeep?: {
     error?: string;
     skipped?: string | null;
@@ -284,9 +287,18 @@ export default async function HealthPage() {
           <div className="mt-4 border-t border-line pt-3 coord">
             Review dates organize research follow-ups. Public program facts and their noted dates remain visible when a review is overdue.
           </div>
-          <div className="mt-1.5 coord text-faint">
-            Renew one wire at a time: npm run research:recheck -- --wire crypto --due-days {REVIEW_HORIZON_DAYS} --renew-days 30. It re-fetches each official source and proposes the renewal to the Desk; it never writes registry/ and never stamps a date it did not earn.
-          </div>
+          {(() => {
+            // The daily run renews what its official page still supports and
+            // queues the rest; a failed fetch stamps nothing.
+            const line = reviewRecheckLine(ingest?.review_recheck);
+            return (
+              <div className={`mt-1.5 coord ${line?.failed ? 'text-closing' : 'text-faint'}`}>
+                {line
+                  ? `${line.text}. Last run ${ingest?.at ? formatLoadedAt(ingest.at) : 'unknown time'}.`
+                  : 'Review recheck: did not run in the last daily ingest (DESK_UPKEEP_ENABLED=1 and REVIEW_RECHECK_ENABLED=1 turn it on). It renews a review only from a fresh fetch of its official page and queues everything else at the Desk.'}
+              </div>
+            );
+          })()}
           {identityBlocked > 0 && (
             <div className="mt-1.5 coord text-faint">
               {identityBlocked} expired {identityBlocked === 1 ? 'record is' : 'records are'} beyond a recheck: an unresolved identity, a former or unconfirmed operator, or a program that is not active. A renewed date alone does not resolve those questions.
