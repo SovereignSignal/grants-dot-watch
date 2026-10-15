@@ -313,6 +313,22 @@ function oldItem(id, type = 'new_org', createdAt = '2026-09-10T12:00:00.000Z') {
   };
 }
 
+test('a backlog handle edited after its page check is not applied', async () => {
+  const rows = [xNote('p1')];
+  const desk = realDesk(rows);
+  const { deps } = harness(rows, {
+    decide: (input) => {
+      rows[0].proposed_change = { 'orgs/example.yaml': { socials: { x: 'https://x.com/attacker' } } };
+      return desk.decide(input);
+    },
+  });
+  const summary = await runDeskUpkeep(deps);
+  assert.equal(summary.x_handles_applied, 0);
+  assert.deepEqual(summary.x_handles_reasons, { apply_failed: 1 });
+  assert.deepEqual(desk.applied, []);
+  assert.equal(rows[0].state, 'pending');
+});
+
 test('proposalDeadline reads live round deadlines and ignores historical rounds', () => {
   assert.equal(proposalDeadline({ 'programs/a.yaml': { rounds: [{ name: 'R', closes: '2026-10-01' }] } }), '2026-10-01');
   assert.equal(proposalDeadline({ rounds: [{ name: 'R', status: 'open', closes: '2026-07-15' }] }), '2026-07-15');

@@ -15,7 +15,7 @@ import {
 import { buildProposalChanges, type ApplyResult } from './committer';
 import { curatorJson, type CuratorGate, type CuratorIdentity, type CuratorScope, curatorGate } from './curator-auth';
 import { defaultIdempotencyStore, type IdempotencyStore } from './curator-idempotency';
-import { decideProposal, type DecideResult } from './desk-decide';
+import { decideProposal, proposalChangeHash, type DecideResult } from './desk-decide';
 import { dateBounds } from './evidence-fields';
 import { getProposal, insertIngestProposals, listProposals, saveCuratorReview, type CuratorReviewSave, type RawMinerProposal } from './desk-store';
 import {
@@ -621,6 +621,8 @@ async function autoApplySubmitted(
       curator_name: identity.name,
       sources: candidate.submitted_by?.sources,
       auto_apply: assessed.audit,
+      // The payload assessed above, which is what was inserted.
+      expect_change_hash: proposalChangeHash(candidate.proposed_change),
     });
     if (result.status === 200 && result.body.proposal) {
       return { state: result.body.proposal.state, auto_apply: { applied: true } };
@@ -811,7 +813,7 @@ export async function decideCuratorBulk(request: Request, deps: CuratorDeps = de
           curator_id: auth.identity.id,
           curator_name: auth.identity.name,
           sources,
-          ...(audit ? { auto_apply: audit } : {}),
+          ...(audit ? { auto_apply: audit, expect_change_hash: proposalChangeHash(item.proposal.proposed_change) } : {}),
         });
         if (result.status !== 200) {
           failed.push({ id: item.id, error: result.body.error || 'apply_failed' });

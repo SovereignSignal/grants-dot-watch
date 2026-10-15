@@ -51,13 +51,14 @@ These decisions do not consume source observations or initialize `wire_handoff_v
 
 A proposal is approved only when all of these hold; otherwise it stays pending exactly as before:
 
-- It came from the Wire ingest (`wire:` signal id), is not curator-queued, and no curator review says reject or needs owner. Its change is one `programs/<slug>.yaml` entry with only the fields the ingest writes (id, name, org, apply_url, rounds; rounds open or unstated).
+- It came from the Wire ingest (`wire:` signal id), is not curator-queued, and no curator review says reject or needs owner. Its change is one `programs/<slug>.yaml` entry with only id, name, org, apply_url and rounds, and at most one round: the ingest's `Current call`, open or unstated, with only name, status, closes and source. A Wire amount (`size`) or an `opens` date leaves it for the owner.
+- What gets published is plain and the org's own: the name has no markup or links; the proposal summary (it becomes the program summary) is 40 to 400 characters with no markup or links, and is published as filed, never rewritten; the payload cannot set systems, wires or a summary; the proposal's wire must be one of the org's wires.
 - The organization is already in the registry and its website gives a registered domain. No new org, no merge.
 - Every URL the record would carry (apply URL, evidence URL, round sources) is https on that domain or a subdomain, and the checked URL (the apply URL, else the evidence URL) is not the bare homepage.
 - The Wire source score is 70 or more, and no deadline is before today's product date.
 - No registry program has the same id, the same normalized name for that org, or the same apply URL, and nothing approved earlier in the run does.
-- A server fetch of the checked URL succeeds, using the curator auto-apply fetcher (https, public addresses only, redirects only within the domain, 1 MB, 8 s). The page's visible text contains the program name as a whole phrase, and either an open/apply phrase (such as "apply now", "accepting applications") or the proposal's deadline written with its year. A closed phrase ("applications are closed", "deadline has passed", ...) leaves it pending.
-- `decideProposal`, which re-runs the staged registry validation, succeeds.
+- A server fetch of the checked URL succeeds, using the curator auto-apply fetcher (https, public addresses only, redirects only within the domain, 1 MB, 8 s). The page's visible text contains the program name as a whole phrase, and either an open/apply phrase (such as "apply now", "accepting applications") or the proposal's deadline written with its year. Every deadline the record carries must be on the page with its year. A closed phrase ("applications are closed", "deadline has passed", ...) leaves it pending.
+- `decideProposal`, which re-runs the staged registry validation, succeeds, and the proposal it claims still hashes to the payload that was checked (`expect_change_hash`). A payload edited after the check is refused with `changed_since_check` and stays pending.
 
 Name matching is normalized: lowercase, diacritics and markup removed, every run of punctuation or whitespace collapsed to one space. The accepted phrases are the program name, the title's core name (the part after `<org name> · `), and either of those with a leading org name or alias removed. A phrase counts only with at least two words, eight characters, and one word of three or more letters that is not generic (grants, program, fund, round, ...) and not a number. Scattered words do not count.
 

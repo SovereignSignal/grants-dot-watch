@@ -28,7 +28,7 @@ import {
 } from './curator-auto-apply';
 import { curatorKeyStanding, type CuratorKeyStanding } from './curator-auth';
 import { proposalBlocked } from './curator-proposals';
-import { decideProposal, type DecideInput, type DecideResult } from './desk-decide';
+import { decideProposal, proposalChangeHash, type DecideInput, type DecideResult } from './desk-decide';
 import { listProposals } from './desk-store';
 import { isFundingProposal } from './funding-desk-core.mjs';
 import { loadRegistry } from './registry';
@@ -181,6 +181,7 @@ async function applyXHandleBacklog(pending: Proposal[], deps: DeskUpkeepDeps, su
         curator_name: identity.name,
         sources: stamp.sources,
         auto_apply: result.audit,
+        expect_change_hash: proposalChangeHash(proposal.proposed_change),
       });
       if (decision.status === 200 && decision.body.proposal) {
         summary.x_handles_applied += 1;

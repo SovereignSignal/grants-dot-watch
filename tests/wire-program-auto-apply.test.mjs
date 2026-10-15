@@ -30,14 +30,14 @@ const NO_SITE = { id: 'no-site', name: 'No Site Org', aka: [], roles: ['funder']
 const EXISTING = { id: 'example-grants', name: 'Example Grants', org: ORG.id, apply_url: 'https://example.org/grants/', wires: ['oss'], status: 'active', rounds: [], sources: [] };
 
 const URL_A = 'https://grants.example.org/builder-fund';
-const PAGE_A = '<html><head><script>var x = "applications closed";</script></head><body><h1>Example Builder Fund</h1><p>Grants up to $10,000. Apply now.</p></body></html>';
+const PAGE_A = '<html><head><script>var x = "applications closed";</script></head><body><h1>Example Builder Fund</h1><p>Grants up to $10,000. Apply now. Deadline: November 30, 2026.</p></body></html>';
 
 /** The shape mapWireRow/decide queue for a resolved org and a new program name. */
 function proposal({ id = 'p00001', name = 'Example Builder Fund', slug, org = ORG.id, orgName = ORG.name, url = URL_A, deadline = '2026-11-30', score = 85, created = '2026-10-15T10:00:00Z', extra = {} } = {}) {
   const programSlug = slug ?? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const payload = { id: programSlug, name, org, ...(deadline ? { apply_url: url, rounds: [{ name: 'Current call', status: 'open', closes: deadline, source: url }] } : {}) };
   return {
-    id, type: 'new_program', org, org_name: orgName, program: name, title: `${orgName} · ${name}`, summary: 'From the wire.',
+    id, type: 'new_program', org, org_name: orgName, program: name, title: `${orgName} · ${name}`, summary: 'From the wire: a builder fund for open source maintainers.',
     evidence_url: url, proposed_change: { [`programs/${programSlug}.yaml`]: payload }, confidence: score,
     signal_id: `wire:${id}`, wire: 'oss', lane: 'judgment', state: 'pending', created_at: created,
     validation: { checks: [], reason: 'new programs require owner review', checked_at: created, never_auto: true },
@@ -104,6 +104,58 @@ async function withFlag(value, fn) {
 }
 
 const leftReasons = (summary, id) => summary.left.find((l) => l.proposal_id === id)?.reasons;
+
+test('an auto-approved program carries only page-checked fields and the org wire', async () => {
+  const withRound = (round) => {
+    const p = proposal();
+    const [path, payload] = Object.entries(p.proposed_change)[0];
+    p.proposed_change = { [path]: { ...payload, rounds: [{ ...payload.rounds[0], ...round }] } };
+    return p;
+  };
+  const cases = [
+    ['wire amount', withRound({ size: 'up to $10,000' }), ['unverified_amount']],
+    ['opens date', withRound({ opens: '2026-10-01' }), ['unexpected_rounds']],
+    ['round name', withRound({ name: 'Season 9' }), ['unexpected_rounds']],
+    ['summary link', proposal({ extra: { summary: 'A builder fund for open source maintainers, see https://evil.example' } }), ['summary_has_markup_or_links']],
+    ['summary markup', proposal({ extra: { summary: 'A builder fund for open source <script>alert(1)</script> folks.' } }), ['summary_has_markup_or_links']],
+    ['summary too long', proposal({ extra: { summary: 'Builder fund. '.repeat(40) } }), ['summary_too_long']],
+    ['summary too thin', proposal({ extra: { summary: 'From the wire.' } }), ['summary_too_thin']],
+    ['wire not the org wire', proposal({ extra: { wire: 'crypto' } }), ['wire_not_org_wire']],
+    ['no wire', proposal({ extra: { wire: null } }), ['wire_not_org_wire']],
+    ['name markup', proposal({ name: 'Example Builder Fund <b>' }), ['name_unsafe']],
+  ];
+  for (const [label, item, reasons] of cases) {
+    const plan = assessWireProgram(item, { orgs: [ORG], programs: [], today: TODAY });
+    assert.equal(plan.ok, false, label);
+    for (const reason of reasons) assert.ok(plan.reasons.includes(reason), `${label}: ${plan.reasons}`);
+  }
+  // A payload cannot name another org, or set systems, wires or a summary at all.
+  for (const extraField of [{ org: 'other-org' }, { systems: ['cardano'] }, { wires: ['crypto'] }, { summary: 'x' }]) {
+    const p = proposal();
+    const [path, payload] = Object.entries(p.proposed_change)[0];
+    p.proposed_change = { [path]: { ...payload, ...extraField } };
+    assert.equal(assessWireProgram(p, { orgs: [ORG], programs: [], today: TODAY }).ok, false, JSON.stringify(extraField));
+  }
+  assert.equal(assessWireProgram(proposal(), { orgs: [ORG], programs: [], today: TODAY }).ok, true);
+});
+
+test('a payload edited between the page check and the approval is refused', async () => {
+  await withFlag('1', async () => {
+    const h = harness([proposal()]);
+    const summary = await h.run({
+      decide: (input) => {
+        const [path, payload] = Object.entries(h.rows[0].proposed_change)[0];
+        h.rows[0].proposed_change = { [path]: { ...payload, apply_url: 'https://evil.example/apply' } };
+        return decideProposal(input, h.deps);
+      },
+    });
+    assert.equal(summary.approved.length, 0);
+    assert.deepEqual(leftReasons(summary, 'p00001'), ['apply_failed: changed_since_check']);
+    assert.equal(h.applies.length, 0);
+    assert.deepEqual(h.released, ['p00001']);
+    assert.equal(h.rows[0].state, 'pending');
+  });
+});
 
 test('flag off: nothing is read, fetched or decided', async () => {
   assert.equal(wireProgramAutoApplyEnabled({}), false);
@@ -224,11 +276,12 @@ test('each failing condition leaves the item pending with its reason', async () 
 test('page checks: fetch failure, missing name, no signal and a closed page stay pending', async () => {
   const cases = [
     ['fetch fails', {}, ['fetch_failed']],
-    ['name missing', { [URL_A]: '<h1>Something else entirely</h1><p>Apply now.</p>' }, ['name_not_on_page']],
-    ['name words scattered', { [URL_A]: '<p>Example docs. Builder notes. Fund updates. Apply now.</p>' }, ['name_not_on_page']],
-    ['no open signal', { [URL_A]: '<h1>Example Builder Fund</h1><p>Read about past grantees.</p>' }, ['no_open_signal']],
-    ['closed page', { [URL_A]: '<h1>Example Builder Fund</h1><p>Applications are now closed. How to apply next year.</p>' }, ['page_says_closed']],
-    ['wrong-year deadline only', { [URL_A]: '<h1>Example Builder Fund</h1><p>Deadline: November 30, 2025.</p>' }, ['no_open_signal']],
+    ['name missing', { [URL_A]: '<h1>Something else entirely</h1><p>Apply now. Closes November 30, 2026.</p>' }, ['name_not_on_page']],
+    ['name words scattered', { [URL_A]: '<p>Example docs. Builder notes. Fund updates. Apply now. Closes November 30, 2026.</p>' }, ['name_not_on_page']],
+    ['no open signal', { [URL_A]: '<h1>Example Builder Fund</h1><p>Read about past grantees.</p>' }, ['deadline_not_on_page', 'no_open_signal']],
+    ['deadline not on page', { [URL_A]: '<h1>Example Builder Fund</h1><p>Apply now.</p>' }, ['deadline_not_on_page']],
+    ['closed page', { [URL_A]: '<h1>Example Builder Fund</h1><p>Applications are now closed. How to apply next year.</p>' }, ['page_says_closed', 'deadline_not_on_page']],
+    ['wrong-year deadline only', { [URL_A]: '<h1>Example Builder Fund</h1><p>Deadline: November 30, 2025.</p>' }, ['deadline_not_on_page', 'no_open_signal']],
   ];
   await withFlag('1', async () => {
     for (const [label, pages, reasons] of cases) {
@@ -309,7 +362,7 @@ test('cap: at most 15 pages per run, then the least recently checked go first', 
     assert.deepEqual(fetchedIds, capped);
 
     // A smaller cap is honoured too, and approvals never exceed it.
-    const h2 = harness(rows.map((r) => ({ ...r, state: 'pending' })), { pages: Object.fromEntries(Object.entries(pages).map(([u, b]) => [u, `${b} apply now`])) });
+    const h2 = harness(rows.map((r) => ({ ...r, state: 'pending' })), { pages: Object.fromEntries(Object.entries(pages).map(([u, b]) => [u, `${b} apply now by November 30, 2026`])) });
     const third = await h2.run({ maxChecks: 3 });
     assert.equal(third.approved.length, 3);
     assert.equal(h2.fetched.length, 3);
@@ -379,7 +432,8 @@ test('name matching: full name, title core, org-stripped core; generic phrases n
   assert.deepEqual(programNameCandidates({ name: 'Grants', title: null, orgNames: [] }), []);
   assert.deepEqual(programNameCandidates({ name: 'Señal Café Grants', title: null, orgNames: [] }), ['senal cafe grants']);
 
-  const plan = assessWireProgram(proposal(), { orgs: [ORG], programs: [], today: TODAY });
+  // No round: name matching alone (a dated round also needs its date on the page).
+  const plan = assessWireProgram(proposal({ deadline: null }), { orgs: [ORG], programs: [], today: TODAY });
   assert.equal(plan.ok, true);
   const ok = (body) => confirmWireProgramPage(plan.plan, { ok: true, body, hash: 'h', url: URL_A });
   assert.equal(ok('<p>EXAMPLE — Builder-Fund: apply now</p>').ok, true);

@@ -9,7 +9,7 @@
 // Only pending proposals are read. Nothing here builds registry or funding
 // changes for decided proposals; decideProposal builds the one it approves.
 import { fetchEvidencePage, hostMatchesRegisteredDomain, registeredDomain, type PageFetch } from './curator-auto-apply';
-import { decideProposal } from './desk-decide';
+import { decideProposal, proposalChangeHash } from './desk-decide';
 import { getIngestState, listProposals, setIngestState } from './desk-store';
 import { WIRE_PROGRAM_AUTO_APPLY_POLICY, WIRE_PROGRAM_MIN_SCORE, wireProgramAutoApplyEnabled } from './machine-approval-policy';
 import { isValidIsoDate, norm, normalizeForMatch, pageContainsDate } from './proposal-validator';
@@ -24,9 +24,30 @@ export const WIRE_PROGRAM_CHECKED_KEY = 'wire_program_auto_apply_checked';
 const LEFT_LIMIT = 50;
 
 const PROGRAM_KEY = /^programs\/([a-z0-9][a-z0-9-]*)\.yaml$/;
-/** Exactly the fields the Wire ingest writes for a new program. */
+/**
+ * What an auto-approved program may carry: the record the page can vouch for.
+ * Each published value is either checked here or on the page:
+ * - id, name: the slug and a name phrase found on the org's page;
+ * - org: must equal the proposal's resolved org, which must be in the registry;
+ * - apply_url, round source, evidence_url: on the org's registered domain;
+ * - rounds: the ingest's one "Current call" round, open, whose closes date
+ *   must appear on the page. A Wire amount (`size`) or `opens` is never
+ *   auto-published;
+ * - wires: the committer takes the proposal's wire, which must be one of the
+ *   org's own wires; systems cannot be set (the committer leaves them empty);
+ * - summary: the one Wire free-text field the registry requires (40+ chars).
+ *   It is published as filed, so it must be plain text: at most
+ *   SUMMARY_MAX characters, no markup and no links. Anything else goes to the
+ *   owner rather than being rewritten, so what is approved is what was queued.
+ */
 const PROGRAM_FIELDS = new Set(['id', 'name', 'org', 'apply_url', 'rounds']);
-const ROUND_FIELDS = new Set(['name', 'status', 'opens', 'closes', 'size', 'source']);
+const ROUND_FIELDS = new Set(['name', 'status', 'closes', 'source']);
+const ROUND_NAME = 'Current call';
+const NAME_MAX = 120;
+const SUMMARY_MIN = 40;
+export const SUMMARY_MAX = 400;
+/** Markup, links, bare domains with a path, and control characters. */
+const UNSAFE_TEXT = /[<>]|https?:\/\/|www\.|\]\(|\b[a-z0-9-]+\.[a-z]{2,}\/|[\u0000-\u0008\u000b-\u001f\u007f]/i;
 
 /** Words that never identify a program on their own. */
 const GENERIC_TOKENS = new Set([
@@ -166,16 +187,23 @@ export function assessWireProgram(
   if (payload.id !== undefined && payload.id !== slug) reasons.push('id_mismatch');
   const name = (typeof payload.name === 'string' ? payload.name : p.program || '').trim();
   if (!name) return { ok: false, reasons: [...reasons, 'no_name'] };
+  if (name.length > NAME_MAX || UNSAFE_TEXT.test(name)) reasons.push('name_unsafe');
+  const summary = (p.summary || '').trim();
+  if (summary.length < SUMMARY_MIN) reasons.push('summary_too_thin');
+  else if (summary.length > SUMMARY_MAX) reasons.push('summary_too_long');
+  if (UNSAFE_TEXT.test(summary)) reasons.push('summary_has_markup_or_links');
 
   const deadlines: string[] = [];
   const roundSources: unknown[] = [];
   if (payload.rounds !== undefined) {
     const rounds = Array.isArray(payload.rounds) ? payload.rounds : null;
-    const shapeOk = rounds !== null && rounds.every((round) =>
+    if (rounds?.some((round) => isRecord(round) && round.size !== undefined)) reasons.push('unverified_amount');
+    const shapeOk = rounds !== null && rounds.length <= 1 && rounds.every((round) =>
       isRecord(round) &&
-      Object.keys(round).every((key) => ROUND_FIELDS.has(key)) &&
+      Object.keys(round).every((key) => ROUND_FIELDS.has(key) || key === 'size') &&
+      round.name === ROUND_NAME &&
       (round.status === undefined || round.status === 'open') &&
-      ['opens', 'closes'].every((key) => round[key] === undefined || (typeof round[key] === 'string' && isValidIsoDate(round[key] as string)))
+      (round.closes === undefined || (typeof round.closes === 'string' && isValidIsoDate(round.closes)))
     );
     if (!shapeOk) reasons.push('unexpected_rounds');
     else {
@@ -191,6 +219,8 @@ export function assessWireProgram(
   if (payload.org !== undefined && payload.org !== orgId) return { ok: false, reasons: [...reasons, 'org_mismatch'] };
   const org = ctx.orgs.find((candidate) => candidate.id === orgId);
   if (!org) return { ok: false, reasons: [...reasons, 'unknown_org'] };
+  // The committer publishes the proposal's wire on the program; it must be the org's.
+  if (!p.wire || !(org.wires || []).includes(p.wire)) reasons.push('wire_not_org_wire');
   const domain = registeredDomain(org.website);
   if (!domain) return { ok: false, reasons: [...reasons, 'no_registered_website'] };
 
@@ -238,6 +268,8 @@ export function confirmWireProgramPage(
   if (!matchedName) reasons.push('name_not_on_page');
   if (CLOSED_PHRASES.some(has)) reasons.push('page_says_closed');
   const phrase = OPEN_PHRASES.find(has);
+  // Every deadline the record would publish must be on the page.
+  if (plan.deadlines.some((day) => !pageContainsDate(page.body, day))) reasons.push('deadline_not_on_page');
   const deadline = phrase ? null : plan.deadlines.find((day) => pageContainsDate(page.body, day)) ?? null;
   if (!phrase && !deadline) reasons.push('no_open_signal');
   if (reasons.length || !matchedName) return { ok: false, reasons };
@@ -370,6 +402,8 @@ export async function runWireProgramAutoApply(deps: WireProgramAutoApplyDeps = {
         by: 'machine',
         note: `auto: Wire program confirmed on ${plan.domain} ("${confirmed.matched_name}", ${confirmed.matched_signal}, score ${plan.score}, ${WIRE_PROGRAM_AUTO_APPLY_POLICY})`,
         wire_program_auto_apply: audit,
+        // The payload assessed and confirmed above; a changed one is refused.
+        expect_change_hash: proposalChangeHash(p.proposed_change),
       });
       if (result.status === 200) {
         approved.push({ proposal_id: p.id, program: plan.name, url: page.url });

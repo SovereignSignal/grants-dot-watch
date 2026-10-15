@@ -100,8 +100,14 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   curator, and no curator review that says reject or needs_owner;
  * - shape: exactly one `programs/<slug>.yaml` entry with only the fields the
  *   Wire ingest writes (id, name, org, apply_url, rounds), id equal to the
- *   slug, rounds limited to name/status/opens/closes/size/source, status
- *   `open` or absent;
+ *   slug, at most one round named `Current call` with only name, status,
+ *   closes and source, status `open` or absent. A Wire amount (`size`) or
+ *   `opens` is never auto-published;
+ * - published text is plain: the name has no markup or links (120 chars
+ *   max); the proposal summary, which becomes the program summary, is 40 to
+ *   SUMMARY_MAX characters with no markup or links. The payload cannot set
+ *   systems, wires or summary, and the proposal's wire (which the committer
+ *   publishes) must be one of the org's own wires;
  * - the org is already in the registry (no new org, no merge) and its website
  *   gives a registered domain;
  * - every URL the record would carry (apply_url, evidence_url, round sources)
@@ -115,8 +121,13 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   public addresses only, on-domain redirects, 1 MB, 8 s) returns 200; its
  *   visible text contains the program name as a whole phrase (see
  *   `programNameCandidates`), an open/apply phrase or the proposal's deadline
- *   written with its year, and no closed phrase;
- * - decideProposal, which re-runs the staged registry validation, succeeds.
+ *   written with its year, every deadline the record carries written with its
+ *   year, and no closed phrase;
+ * - decideProposal, which re-runs the staged registry validation, succeeds,
+ *   and the claimed payload still hashes to the one checked
+ *   (`expect_change_hash`; a payload changed since the check is refused).
+ *   Every automatic approval (curator auto-apply, award, Wire program) must
+ *   pass that hash; decideProposal refuses one without it.
  * The rule is `assessWireProgram` and `confirmWireProgramPage` in
  * src/lib/wire-program-auto-apply.ts. Approval is a machine decision with the
  * `wire_program_auto_apply` audit. At most MAX_WIRE_PROGRAM_CHECKS items are
