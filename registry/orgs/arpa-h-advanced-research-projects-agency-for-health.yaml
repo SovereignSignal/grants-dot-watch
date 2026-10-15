@@ -5,26 +5,31 @@ aka:
   - Advanced Research Projects Agency for Health
 systems:
   - us-federal-rd
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: government
 website: https://arpa-h.gov
+socials:
+  x: https://x.com/ARPA_H
 status: active
 profile: >
-  ARPA-H is a US federal agency that funds high-risk, high-reward biomedical
-  research on health challenges considered too big or too complex for
-  traditional funding. It organizes work under four focus areas — Health
-  Science Futures, Scalable Solutions, Proactive Health, and Resilient
-  Systems — and awards funding through open solicitations listed on its site,
-  with a public award directory of funded projects.
+  ARPA-H is a US federal agency that funds high-risk, high-reward biomedical research on health
+  challenges considered too big or too complex for traditional funding. It organizes work under four
+  focus areas — Health Science Futures, Scalable Solutions, Proactive Health, and Resilient Systems
+  — and awards funding through open solicitations listed on its site, with a public award directory
+  of funded projects.
 funding:
   focus:
     - Health Science Futures
     - Scalable Solutions
     - Proactive Health
     - Resilient Systems
-  cadence: rolling — Innovative Solutions Openings (ISOs) and mission-office solicitations posted on an ongoing basis
+  cadence: rolling — Innovative Solutions Openings (ISOs) and mission-office solicitations posted on
+    an ongoing basis
   apply_url: https://arpa-h.gov/explore-funding/open-funding-opportunities
 sources:
   - https://arpa-h.gov
   - https://arpa-h.gov/explore-funding/open-funding-opportunities
+  - https://arpa-h.gov/
