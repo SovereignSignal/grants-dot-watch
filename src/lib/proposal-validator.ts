@@ -18,6 +18,7 @@ import {
 import { isIP } from 'node:net';
 import { dirname, join, relative, resolve } from 'node:path';
 import { buildProposalChanges } from './committer';
+import { stripHiddenBlocks, stripTags } from './html-text';
 import { getOrg, loadRegistry } from './registry';
 import { productDateISO } from './round-state';
 import type { Org, Proposal } from './types';
@@ -261,9 +262,9 @@ function stripDiacritics(s: string): string {
  *  single space. Applied identically to page text and to name/date strings
  *  so both sides of a fuzzy comparison land in the same shape. */
 export function normalizeForMatch(s: string): string {
-  const visibleText = (s || '')
-    .replace(/<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
+  // Linear-time stripping (html-text.ts); the regexes it replaced went
+  // quadratic on pages with many unclosed openers or stray "<".
+  const visibleText = stripTags(stripHiddenBlocks(s || '', ' '), ' ')
     .replace(/&(?:nbsp|amp|quot|apos|lt|gt|#\d+|#x[0-9a-f]+);/gi, ' ');
   return stripDiacritics(visibleText.toLowerCase())
     .replace(/[^a-z0-9]+/g, ' ')

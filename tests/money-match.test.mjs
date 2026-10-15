@@ -136,18 +136,18 @@ test('page scanning reads every number whole', () => {
 });
 
 test('a plain or no-break space never separates thousands', () => {
-  for (const raw of ['$75 000', '$75 000', 'USD 2 500', '1 000 000 USD', '$1 000 000']) {
+  for (const raw of ['$75 000', '$75\u00a0000', 'USD 2 500', '1 000 000 USD', '$1 000 000']) {
     assert.equal(parseAmount(raw), null, JSON.stringify(raw));
   }
-  for (const html of ['<p>Budget: $75 000.</p>', '<p>Budget: $75&nbsp;000.</p>', '<p>Budget: $75 000.</p>']) {
+  for (const html of ['<p>Budget: $75 000.</p>', '<p>Budget: $75&nbsp;000.</p>', '<p>Budget: $75\u00a0000.</p>']) {
     assert.equal(onPage('$75,000', html), null, html);
     // Nor is the head read as an amount of its own.
     assert.equal(onPage('$75', html), null, html);
   }
   // The dedicated thin spaces still separate, the same way on both sides.
-  assert.equal(onPage('$75,000', '<p>$75&#8239;000</p>'), '$75 000');
-  assert.equal(onPage('$75,000', '<p>$75&thinsp;000</p>'), '$75 000');
-  assert.equal(parseMoney('$75 000').min, 7_500_000);
+  assert.equal(onPage('$75,000', '<p>$75&#8239;000</p>'), '$75\u202f000');
+  assert.equal(onPage('$75,000', '<p>$75&thinsp;000</p>'), '$75\u202f000');
+  assert.equal(parseMoney('$75\u2009000').min, 7_500_000);
 });
 
 test('a number split by markup never joins, and is not read as its head', () => {
@@ -163,10 +163,10 @@ test('a number split by markup never joins, and is not read as its head', () => 
 test('the same string parses identically as a proposal and on a page', () => {
   const readable = [
     '$75,000', '$75k', '$75K', '75,000 USD', 'USD 75,000', 'US$75,000', '$75,000.00', '€50.000', '€50.000,00', '50k EUR',
-    "CHF 75'000", 'EUR 50 000', 'EUR 50 000', '£2,500', '$1M', '$1 million', '$1,000,000', '$1.5M', 'up to $100,000',
+    "CHF 75'000", 'EUR 50\u202f000', 'EUR 50\u2009000', '£2,500', '$1M', '$1 million', '$1,000,000', '$1.5M', 'up to $100,000',
     '$50,000–$100,000', '$50,000-100,000', '$50k - $100k', '50,000–100,000 EUR', '$75,000 budget', 'up to $50,000 per project',
   ];
-  const unreadable = ['$75 000', '$75 000', 'USD 2 500', '1 000 000 USD', 'CA$75,000', '$75k+', '$1.500M', '$50-100k', '$75,000 2026'];
+  const unreadable = ['$75\u00a0000', '$75 000', 'USD 2 500', '1 000 000 USD', 'CA$75,000', '$75k+', '$1.500M', '$50-100k', '$75,000 2026'];
   const shape = (e) => ({ currency: e.currency, min: e.min, max: e.max, range: e.range, upTo: e.upTo });
   const pages = (raw) => [raw, `<p>${raw}</p>`, `<td><span>${raw}</span></td>`, `Intro text. ${raw}`];
   for (const raw of readable) {

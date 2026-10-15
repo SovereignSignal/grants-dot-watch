@@ -15,6 +15,8 @@
 // MAX_SCAN_CHARS of normalized text and MAX_ATOMS numbers, look-backs use a
 // fixed window, and no regex can backtrack across the page.
 
+import { stripHiddenBlocks, stripTags } from './html-text';
+
 export interface MoneyExpr {
   currency: string;
   /** Amounts in hundredths, so 1.5M and 1,500,000 compare equal. */
@@ -44,10 +46,10 @@ const LOOKBACK = 24;
 
 /** Where a tag stood. Not whitespace and not a digit separator, so a number
  *  split by markup ("$75,<b>000</b>") never reads as one number. */
-const TAG = '';
+const TAG = '\ue000';
 /** The one thin space kept as a thousands separator (U+2009 and U+202F both
  *  become U+202F). A plain or no-break space never separates thousands. */
-const THIN = ' ';
+const THIN = '\u202f';
 
 const SYMBOLS: Record<string, string> = { $: 'USD', 'US$': 'USD', '€': 'EUR', '£': 'GBP' };
 const CODES = ['USDC', 'USDT', 'USD', 'EUR', 'GBP', 'CHF', 'CAD', 'AUD', 'DAI'];
@@ -96,30 +98,12 @@ interface Atom {
  * a tag. Linear in the input.
  */
 export function normalizeMoneyText(input: string): string {
-  const html = (input || '').replace(/[]/g, ' ');
-  // Script-like blocks, found with forward-only searches.
-  const open = /<(script|style|noscript|template)\b/gi;
-  let kept = '';
-  let at = 0;
-  for (;;) {
-    open.lastIndex = at;
-    const m = open.exec(html);
-    if (!m) {
-      kept += html.slice(at);
-      break;
-    }
-    kept += html.slice(at, m.index) + TAG;
-    const close = new RegExp(`</${m[1]}\\b[^<>]*>`, 'gi');
-    close.lastIndex = m.index + m[0].length;
-    const end = close.exec(html);
-    if (!end) break;
-    at = end.index + end[0].length;
-  }
+  const html = (input || '').replace(/[\ue000\ue001]/g, ' ');
   const named: Record<string, string> = {
     nbsp: ' ', amp: '&', dollar: '$', euro: '€', pound: '£', ndash: '–', mdash: '—', thinsp: THIN, quot: '"', apos: "'",
   };
-  return kept
-    .replace(/<[^<>]*>/g, TAG)
+  // The same linear stripping as normalizeForMatch (html-text.ts).
+  return stripTags(stripHiddenBlocks(html, TAG), TAG)
     .replace(/&(#x[0-9a-f]{1,6}|#\d{1,7}|[a-z]{2,8});/gi, (_entity, code: string) => {
       const lower = code.toLowerCase();
       if (!lower.startsWith('#')) return named[lower] ?? ' ';
@@ -128,14 +112,14 @@ export function normalizeMoneyText(input: string): string {
       const char = String.fromCodePoint(point);
       return char === '<' || char === '>' || char === TAG ? ' ' : char;
     })
-    .replace(/[  ]/g, THIN)
-    .replace(/(?:[^\S ]|)+/g, (run) => (run.includes(TAG) ? TAG : ' '))
-    .replace(/^[ ]+|[ ]+$/g, '');
+    .replace(/[\u2009\u202f]/g, THIN)
+    .replace(/(?:[^\S\u202f]|\ue000)+/g, (run) => (run.includes(TAG) ? TAG : ' '))
+    .replace(/^[ \ue000]+|[ \ue000]+$/g, '');
 }
 
 /** Normalized text as a reader would quote it. */
 function display(text: string): string {
-  return text.replace(//g, ' ').replace(/ {2,}/g, ' ').trim();
+  return text.replace(/\ue000/g, ' ').replace(/ {2,}/g, ' ').trim();
 }
 
 /** Hundredths of a written number, or null when its form is ambiguous. */
@@ -252,7 +236,7 @@ export const QUALIFIER_MAX_WORDS = 4;
  *  anything else ("$75,000 for 10 teams", "varies", "between $5k and $10k",
  *  "$75,000/yr", "$75 000", any markup or entity). */
 export function parseAmount(raw: unknown): ParsedAmount | null {
-  if (typeof raw !== 'string' || raw.length > 80 || /[<>&]/.test(raw)) return null;
+  if (typeof raw !== 'string' || raw.length > 80 || /[<>&\ue000\ue001]/.test(raw)) return null;
   const text = normalizeMoneyText(raw);
   if (!text) return null;
   const found = findMoney(text);
