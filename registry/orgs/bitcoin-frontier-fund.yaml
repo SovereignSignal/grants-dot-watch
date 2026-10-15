@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.btcfrontier.fund/
+socials:
+  x: https://x.com/BTCFrontierFund
 status: active
 profile: Bitcoin Frontier Fund (formerly Stacks Ventures) is a venture capital firm and accelerator
   that invests in early-stage teams building new use cases for Bitcoin, including projects on
@@ -15,3 +17,4 @@ profile: Bitcoin Frontier Fund (formerly Stacks Ventures) is a venture capital f
   Stacks' 1:1 Bitcoin-backed asset, through its 3-month BFF Accelerator program.
 sources:
   - https://www.theblock.co/post/328240/bitcoin-frontier-fund-home-of-the-top-bitcoin-accelerator-to-invest-in-teams-built-on-sbtc
+  - https://www.btcfrontier.fund/
