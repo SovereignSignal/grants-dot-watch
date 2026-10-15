@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://www.mec.me
+socials:
+  x: https://x.com/_MetaEarth_
 status: unknown
 profile: Meta Earth, a modular rollup and DID project, advertises a $100M developer ecosystem fund
   with rolling applications and no fixed deadline via its official grants page. The $100M figure is
   the project's own claim and is not independently corroborated in the signal.
 sources:
   - https://www.mec.me/en-US/me-grants
+  - https://www.mec.me/
