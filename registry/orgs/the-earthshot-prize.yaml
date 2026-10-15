@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://earthshotprize.org
+socials:
+  x: https://x.com/EarthshotPrize
 status: unknown
 profile: "The Earthshot Prize: no sourced profile on file yet. See earthshotprize.org for the
   organization's own description, and the programs listed on this page."
 sources:
   - https://earthshotprize.org
+  - https://earthshotprize.org/
