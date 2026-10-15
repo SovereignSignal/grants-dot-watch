@@ -9,6 +9,8 @@ roles:
   - funder
 org_type: dao
 website: https://www.goat.network/
+socials:
+  x: https://x.com/GOATNetwork
 status: active
 profile: GOAT Network runs an AI Builder Grants Program funding builders creating AI agent
   infrastructure, verification layers, and agent-native apps on its Bitcoin-secured L2; first
@@ -18,3 +20,4 @@ profile: GOAT Network runs an AI Builder Grants Program funding builders creatin
 sources:
   - https://www.goat.network/builder-program
   - https://www.goat.network/news/goat-ai-builder-grants-program
+  - https://www.goat.network/
