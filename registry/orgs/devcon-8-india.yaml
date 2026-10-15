@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://devcon.org/
+socials:
+  x: https://x.com/EFDevcon
 status: active
 profile: >
   Devcon 8 is the Ethereum community conference scheduled for November 3-6, 2026 in Mumbai. Its
@@ -15,3 +17,4 @@ profile: >
   in official Devcon programming.
 sources:
   - https://forum.devcon.org/t/rfp-13-devcon-8-india-community-hubs/8657
+  - https://devcon.org/
