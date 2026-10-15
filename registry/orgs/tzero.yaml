@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.tzero.com/
+socials:
+  x: https://x.com/tZERO
 status: active
 profile: "🚀 Applications open for @tZERO’s hAIckathon A 2-day sprint for builders applying AI to
   real market infrastructure. Build production-ready tools across: · Tokenization · Compliance +
@@ -14,3 +16,4 @@ profile: "🚀 Applications open for @tZERO’s hAIckathon A 2-day sprint for bu
   tZERO. 📅 Event: Mar"
 sources:
   - https://x.com/tZERO/status/2027102616660869376
+  - https://www.tzero.com/
