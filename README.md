@@ -159,7 +159,10 @@ Learned on 2026-10-10, when the API went to 503 twice:
   `/api/v2` offline. Before editing any registry file by hand, sync, push, deploy
   and confirm, until no ready row is unsynced.
 - **One sync owner.** Only one person or agent runs `sync-desk-commits.mjs` at a
-  time. A `--from-jsonl` replay records no SHAs in the ledger, so
+  time. Since 2026-10-15 that owner is the `Desk sync` workflow
+  (`.github/workflows/desk-sync.yml`), daily at 18:30 UTC and on demand from the
+  Actions tab: it syncs, validates, merges into `main` with a merge commit, waits
+  for the deploy and confirms. Disable it before syncing by hand. A `--from-jsonl` replay records no SHAs in the ledger, so
   `--confirm-deployment` can never mark those rows synced.
 - **Merge sync PRs with a merge commit.** Squash or rebase changes the SHAs the
   ledger recorded.
