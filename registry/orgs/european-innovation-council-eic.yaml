@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://eic.ec.europa.eu/
+socials:
+  x: https://x.com/EUeic
 status: active
 profile: The European Innovation Council funds breakthrough, high-risk deep-tech innovation through
   instruments like EIC Pathfinder (research grants), EIC Transition (market-readiness grants), and
@@ -15,3 +17,4 @@ profile: The European Innovation Council funds breakthrough, high-risk deep-tech
   Horizon Europe umbrella but is a distinct funding body not yet tracked.
 sources:
   - https://eic.ec.europa.eu/eic-funding-opportunities_en
+  - https://x.com/EUeic

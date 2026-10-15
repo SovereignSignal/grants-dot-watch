@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://questbook.app/dashboard/?grantId=0xeb75a84db372485817c5fd4bf59ea639dfca685c&chainId=10&proposalId=65b1cf73b2ddffb3bfa1baa9
+socials:
+  x: https://x.com/AlchemixFi
 status: active
 profile: |-
   This proposal requests a maximum budget of $100k of ALCX (approximately 5k ALCX at today's prices) for the Alchemix grants program, to last a minimum of 3 months from the launch of the grants program
@@ -14,3 +16,4 @@ profile: |-
   Alchemix is ready to launch a grants program via Questbook, which will be hosted at https://questbook.app/dashboard/?grantId=0xeb75a84db372485817c5fd4bf59ea639dfca685c&chainId=10&proposalId=65b1cf73b
 sources:
   - https://snapshot.org/#/alchemixstakers.eth/proposal/0xf2808c1f44c0be57c523b4bde0aa56986ce4be89b4c5d8c3ebb2bd8425358589
+  - https://x.com/AlchemixFi

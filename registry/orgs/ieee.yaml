@@ -8,12 +8,14 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.ieee.org/
-socials: {}
+socials:
+  x: https://x.com/IEEEorg
 status: active
 profile: >
-  IEEE is a non-profit professional association for electrical, electronics,
-  and computing engineering. Its website (ieee.org) blocks automated content
-  access, so its funding programs have not yet been confirmed here.
+  IEEE is a non-profit professional association for electrical, electronics, and computing
+  engineering. Its website (ieee.org) blocks automated content access, so its funding programs have
+  not yet been confirmed here.
 sources:
   - https://www.ieee.org/
   - https://en.wikipedia.org/wiki/IEEE
+  - https://x.com/IEEEorg

@@ -8,9 +8,12 @@ wires:
 roles:
   - funder
 website: https://google.org/
+socials:
+  x: https://x.com/Googleorg
 status: active
-profile: "Google.org is Google's philanthropy. Its site says it connects nonprofits to funding and
+profile: Google.org is Google's philanthropy. Its site says it connects nonprofits to funding and
   additional resources. Google's commercial programs, such as Google for Startups and Google Cloud,
-  are listed under Google."
+  are listed under Google.
 sources:
   - https://google.org/
+  - https://x.com/Googleorg

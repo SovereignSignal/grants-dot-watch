@@ -10,13 +10,13 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.globalinnovation.fund/
-socials: {}
+socials:
+  x: https://x.com/GlobalInnovFund
 status: active
 profile: >
-  The Global Innovation Fund helps build scalable, sustainable innovations
-  that improve lives for underserved and vulnerable people, primarily in
-  Africa and Asia. It provides flexible capital — grants, equity, and debt —
-  along with strategic support to fund early-stage innovations focused on
+  The Global Innovation Fund helps build scalable, sustainable innovations that improve lives for
+  underserved and vulnerable people, primarily in Africa and Asia. It provides flexible capital —
+  grants, equity, and debt — along with strategic support to fund early-stage innovations focused on
   climate resilience and inclusive economic opportunity.
 funding:
   focus:
@@ -30,3 +30,4 @@ funding:
   apply_url: https://www.globalinnovation.fund/partnerships
 sources:
   - https://www.globalinnovation.fund/
+  - https://x.com/GlobalInnovFund

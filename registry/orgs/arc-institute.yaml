@@ -2,16 +2,20 @@ id: arc-institute
 name: Arc Institute
 aka: []
 systems: []
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: foundation
 website: https://arcinstitute.org/
+socials:
+  x: https://x.com/arcinstitute
 status: active
 profile: >
-  Arc Institute is an independent nonprofit research organization
-  headquartered in Palo Alto, California, working across computational
-  biology, genomics, and disease research, with recent publications in venues
-  including Nature, Science, and Cell. Its website describes internal research
-  programs and careers rather than an external grants process.
+  Arc Institute is an independent nonprofit research organization headquartered in Palo Alto,
+  California, working across computational biology, genomics, and disease research, with recent
+  publications in venues including Nature, Science, and Cell. Its website describes internal
+  research programs and careers rather than an external grants process.
 sources:
   - https://arcinstitute.org/
+  - https://x.com/arcinstitute

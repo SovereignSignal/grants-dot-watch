@@ -11,14 +11,15 @@ roles:
   - funder
 org_type: government
 website: https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en
-socials: {}
+socials:
+  x: https://x.com/HorizonEU
 status: active
 profile: >
-  Horizon Europe is the European Union's research and innovation framework programme,
-  administered by the European Commission. Funding is awarded through competitive calls
-  published on the EU Funding and Tenders portal, spanning topics that include AI and open
-  internet infrastructure — for example the Web 4.0 Architectural Framework and Open
-  Internet Stack topic (HORIZON-CL4-2026-04-HUMAN-02), which closed in April 2026.
+  Horizon Europe is the European Union's research and innovation framework programme, administered
+  by the European Commission. Funding is awarded through competitive calls published on the EU
+  Funding and Tenders portal, spanning topics that include AI and open internet infrastructure — for
+  example the Web 4.0 Architectural Framework and Open Internet Stack topic
+  (HORIZON-CL4-2026-04-HUMAN-02), which closed in April 2026.
 funding:
   apply_url: https://ec.europa.eu/info/funding-tenders/opportunities/portal/
 sources:
@@ -26,3 +27,4 @@ sources:
   - https://ec.europa.eu/info/funding-tenders/opportunities/portal/
   - https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2026-04-HUMAN-02
   - https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en
+  - https://x.com/HorizonEU

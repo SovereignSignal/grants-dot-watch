@@ -1,11 +1,17 @@
 id: center-on-long-term-risk
 name: Center on Long-Term Risk
-aka: [CLR]
-systems: [ai-safety]
-wires: [ai]
-roles: [funder]
+aka:
+  - CLR
+systems:
+  - ai-safety
+wires:
+  - ai
+roles:
+  - funder
 org_type: nonprofit
 website: https://longtermrisk.org/
+socials:
+  x: https://x.com/LongTermRisk
 status: active
 profile: >
   The Center on Long-Term Risk conducts and supports research intended to reduce risks of suffering
@@ -14,3 +20,4 @@ profile: >
 sources:
   - https://longtermrisk.org/
   - https://longtermrisk.org/safe-pareto-improvements-spi-fundamentals-program/
+  - https://x.com/LongTermRisk

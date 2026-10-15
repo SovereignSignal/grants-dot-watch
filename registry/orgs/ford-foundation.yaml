@@ -1,24 +1,25 @@
 id: ford-foundation
 name: Ford Foundation
 aka: []
-systems: [oss-sustainability]
-wires: [oss]
-roles: [funder]
+systems:
+  - oss-sustainability
+wires:
+  - oss
+roles:
+  - funder
 org_type: foundation
 website: https://www.fordfoundation.org
-socials: {}
+socials:
+  x: https://x.com/FordFoundation
 status: active
 profile: >
-  Ford Foundation is a major US philanthropic foundation that treats open-
-  source software as public digital infrastructure, a framing set out in
-  its "Roads and Bridges" report. It has co-funded Digital Infrastructure
-  Research grants alongside the Alfred P. Sloan Foundation, Mozilla,
-  Omidyar Network, and Open Society Foundations (fiscally hosted by Open
-  Collective Foundation for the 2020 round), supporting research into
-  sustaining open-source maintainer communities and dismantling systemic
-  inequities in the field. The programme has run across at least two waves,
-  2018 and 2020, and remains an active area of Ford's technology-and-
-  society work.
+  Ford Foundation is a major US philanthropic foundation that treats open- source software as public
+  digital infrastructure, a framing set out in its "Roads and Bridges" report. It has co-funded
+  Digital Infrastructure Research grants alongside the Alfred P. Sloan Foundation, Mozilla, Omidyar
+  Network, and Open Society Foundations (fiscally hosted by Open Collective Foundation for the 2020
+  round), supporting research into sustaining open-source maintainer communities and dismantling
+  systemic inequities in the field. The programme has run across at least two waves, 2018 and 2020,
+  and remains an active area of Ford's technology-and- society work.
 funding:
   focus:
     - open source software
@@ -27,9 +28,10 @@ funding:
     - equity in tech
     - open source policy and governance
   typical_size: "2020 round: $1.3M pool across 13 research projects"
-  cadence: "Periodic cohort rounds (2018 Ford/Sloan RFP; 2020 collaborative round)"
+  cadence: Periodic cohort rounds (2018 Ford/Sloan RFP; 2020 collaborative round)
   apply_url: https://www.fordfoundation.org/work/our-grants/
 sources:
   - https://www.fordfoundation.org
   - https://www.fordfoundation.org/work/challenging-inequality/technology-and-society/digital-infrastructure/our-work/
   - https://www.fordfoundation.org/media/5391/digital-infrastructure-research_-funded-project-descriptions.pdf
+  - https://x.com/FordFoundation

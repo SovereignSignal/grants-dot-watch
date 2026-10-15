@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://caf.com
+socials:
+  x: https://x.com/AgendaCAF
 status: unknown
 profile: "CAF (Development Bank of Latin America): no sourced profile on file yet. See caf.com for
   the organization's own description, and the programs listed on this page."
 sources:
   - https://caf.com
+  - https://x.com/AgendaCAF

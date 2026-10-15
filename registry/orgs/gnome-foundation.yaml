@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://foundation.gnome.org/
+socials:
+  x: https://x.com/gnome
 status: unknown
 profile: "GNOME Foundation: no sourced profile on file yet. See foundation.gnome.org for the
   organization's own description, and the programs listed on this page."
 sources:
   - https://foundation.gnome.org/
+  - https://x.com/gnome

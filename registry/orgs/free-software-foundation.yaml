@@ -10,13 +10,14 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.fsf.org
-socials: {}
+socials:
+  x: https://x.com/fsf
 status: active
 profile: >
-  The Free Software Foundation is a nonprofit that works globally to advance
-  computer user freedom by promoting and defending free software. It supports
-  the GNU operating system project and runs the Free Software Directory,
-  LibrePlanet, and its Licensing and Compliance Lab, alongside campaigns on
-  digital restrictions, software patents, and surveillance.
+  The Free Software Foundation is a nonprofit that works globally to advance computer user freedom
+  by promoting and defending free software. It supports the GNU operating system project and runs
+  the Free Software Directory, LibrePlanet, and its Licensing and Compliance Lab, alongside
+  campaigns on digital restrictions, software patents, and surveillance.
 sources:
   - https://www.fsf.org
+  - https://x.com/fsf
