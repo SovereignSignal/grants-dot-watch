@@ -9,9 +9,12 @@ roles:
   - funder
 org_type: dao
 website: https://www.axondao.io/
+socials:
+  x: https://x.com/AxonDAO
 status: active
 profile: AxonDAO's grant program supports researchers and teams building in health AI, DeSci,
   bioinformatics, and scientific computing, offering funding, compute credits, mentorship, and
   network connections.
 sources:
   - https://www.axondao.io/grants
+  - https://www.axondao.io/
