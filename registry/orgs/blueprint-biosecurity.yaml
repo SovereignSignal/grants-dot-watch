@@ -9,6 +9,8 @@ roles:
   - funder
 org_type: nonprofit
 website: https://blueprintbiosecurity.org/
+socials:
+  x: https://x.com/Blueprintbio
 status: active
 profile: >
   Blueprint Biosecurity is a nonprofit advancing pathogen-agnostic countermeasures for pandemic
