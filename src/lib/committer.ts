@@ -50,6 +50,15 @@ export function proposalDestinations(p:Proposal):string[] {
   // Mirrors addLegacyFundingControl: a non-empty legacy edit also writes the funding control.
   return (enabled() || hasFunding()) && paths.length && !paths.includes(CONTROL_PATH) ? [CONTROL_PATH,...paths] : paths;
 }
+/** WHERE, at a glance, for a queue card. Only proposals still awaiting action get one: decided
+ *  proposals (nearly 2,000) skip it, because a funding pack's destination runs its full import
+ *  build and doing that for every past pack froze the server. Wrapped per proposal: one that
+ *  can't resolve a target (e.g. an ambiguous program match) must never take the queue down. */
+export function queueDestination(p:Proposal):{ paths:string[]|null; error:string|null } {
+  if (p.state!=='pending' && p.state!=='applying') return { paths:null, error:null };
+  try { return { paths:proposalDestinations(p), error:null }; }
+  catch (e) { return { paths:null, error:e instanceof Error ? e.message : 'destination could not be resolved' }; }
+}
 export function prepareProposalChanges(p:Proposal):ApplyResult {
   if (!participates(p)) return legacy.prepareProposalChanges(p);
   const result=buildProposalChanges(p), virtual=new Map<string,string|null>();

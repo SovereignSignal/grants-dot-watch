@@ -30,3 +30,12 @@ for (const funding of ['1', '0']) {
     assert.throws(() => proposalDestinations(stale), /stale/);
   });
 }
+
+test('queue cards resolve destinations only for proposals awaiting action', async () => {
+  const { queueDestination } = await import('../src/lib/committer.ts');
+  const stale = proposal('0'.repeat(64));
+  assert.match(queueDestination(stale).error, /stale/);
+  assert.match(queueDestination({ ...stale, state: 'applying' }).error, /stale/);
+  // Decided proposals never run a build, so a stale or heavy one costs nothing.
+  for (const state of ['approved', 'rejected']) assert.deepEqual(queueDestination({ ...stale, state }), { paths: null, error: null });
+});
