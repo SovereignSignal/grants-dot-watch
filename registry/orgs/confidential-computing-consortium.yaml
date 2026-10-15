@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://confidentialcomputing.io/
+socials:
+  x: https://x.com/ConfidentialC2
 status: unknown
 profile: "Confidential Computing Consortium: no sourced profile on file yet. See
   confidentialcomputing.io for the organization's own description, and the programs listed on this
   page."
 sources:
   - https://confidentialcomputing.io/
+  - https://x.com/ConfidentialC2
