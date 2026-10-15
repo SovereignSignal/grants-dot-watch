@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://novonordiskfonden.dk/en/
+socials:
+  x: https://x.com/novonordiskfond
 status: active
 profile: The Gates Foundation, Novo Nordisk Foundation, and Wellcome jointly launched a
   philanthropic partnership backing country-led research to evaluate AI tools that could improve
@@ -16,3 +18,4 @@ profile: The Gates Foundation, Novo Nordisk Foundation, and Wellcome jointly lau
   settings.
 sources:
   - https://wellcome.org/insights/articles/philanthropic-partnership-backs-country-led-research-guide-use-ai-health
+  - https://novonordiskfonden.dk/en/
