@@ -2,18 +2,22 @@ id: shuttleworth-foundation
 name: Shuttleworth Foundation
 aka: []
 systems: []
-wires: [ai, oss]
-roles: [funder]
+wires:
+  - ai
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://shuttleworthfoundation.org
+socials:
+  x: https://x.com/ShuttleworthFdn
 status: unknown
 profile: >
-  The Shuttleworth Foundation has run a fellowship programme funding
-  individuals with an innovative idea for social change around openness,
-  technology, knowledge, and learning, providing salary-equivalent funding,
-  expense contributions, and project funding matched at a 10:1 ratio. The
-  fellowship page carries 2014-era content and does not state whether the
-  programme is currently awarding fellowships, so current status is unclear.
+  The Shuttleworth Foundation has run a fellowship programme funding individuals with an innovative
+  idea for social change around openness, technology, knowledge, and learning, providing
+  salary-equivalent funding, expense contributions, and project funding matched at a 10:1 ratio. The
+  fellowship page carries 2014-era content and does not state whether the programme is currently
+  awarding fellowships, so current status is unclear.
 funding:
   focus:
     - openness
@@ -22,14 +26,14 @@ funding:
     - learning
     - social change
   typical_size: >
-    One year's salary-equivalent funding plus expense contributions and a
-    travel allowance; additional project funding matched by the Foundation
-    at least 10:1 against the Fellow's own investment.
+    One year's salary-equivalent funding plus expense contributions and a travel allowance;
+    additional project funding matched by the Foundation at least 10:1 against the Fellow's own
+    investment.
   cadence: >
-    Page states two annual intakes: March 1 start (applications close
-    November 1) and September 1 start (applications close May 1); linked
-    application documents are dated 2013.
+    Page states two annual intakes: March 1 start (applications close November 1) and September 1
+    start (applications close May 1); linked application documents are dated 2013.
   apply_url: https://shuttleworthfoundation.org/funding/fellowship-programme
 sources:
   - https://shuttleworthfoundation.org
   - https://shuttleworthfoundation.org/funding/fellowship-programme
+  - https://x.com/ShuttleworthFdn
