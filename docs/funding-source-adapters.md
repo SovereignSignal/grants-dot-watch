@@ -25,7 +25,7 @@ Each generated packet can be tested with the existing staging importer:
 node scripts/stage-funding-import.mjs --pack /tmp/grants-source-batch-001/packets/PACKET_NAME.json
 ```
 
-For canonical publication, use the existing authenticated funding Desk preview/queue and single-item owner decision workflow. Re-preview every packet against the current snapshot after an earlier approval. The source compiler itself never queues or approves. Read/write feature gates and production settings remain unchanged.
+For canonical publication, use the existing authenticated funding Desk preview/queue and single-item owner decision workflow. Re-preview every packet against the current snapshot after an earlier approval. The source compiler itself never queues or approves. The daily award-source sweep (`AWARD_SOURCES_ENABLED=1`, see `docs/funding-live-product.md`) runs that same capture, compile, preview and queue sequence once per product day for the native sources; it also never approves. Read/write feature gates and production settings remain unchanged.
 
 ## Evidence and normalization rules
 
@@ -52,4 +52,4 @@ Sources:
 
 ## Remaining work
 
-Resolve held program/recipient mappings through the existing review boundary; add tested acquisition clients and supported structured formats; extend provenance/rights metadata and amendment handling; backfill further retained dossiers. Records 1–200 still need claim-level evidence recovery. The 416-organization research sequence has not been bulk imported. No recurring research or collection job is activated here.
+Resolve held program/recipient mappings through the existing review boundary; add tested acquisition clients and supported structured formats; extend provenance/rights metadata and amendment handling; backfill further retained dossiers. Records 1–200 still need claim-level evidence recovery. The 416-organization research sequence has not been bulk imported. The only recurring collection is the opt-in daily sweep of the four native sources; it queues for owner review and adds no sources.

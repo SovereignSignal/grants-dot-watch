@@ -23,6 +23,7 @@ import { runValidation } from './validation-runner';
 import type { Org, Program, Round, Wire } from './types';
 import { buildNewProgramSourceFields } from './ingest-policy';
 import { productDateISO } from './round-state';
+import type { AwardSourceSweepSummary } from './funding-source-sweep.mjs';
 
 const WIRE_DATABASE_URL = process.env.WIRE_DATABASE_URL;
 // NOT https://discuss.watch/api/v1/grants — verified live (2026-07-11) that the bare
@@ -1173,6 +1174,8 @@ export interface IngestResult {
   validation: { passed: number; failed: number };
   watermarks: { wire_scan_entries: unknown; discuss_grants: unknown };
   errors: string[];
+  /** Daily timer only: the award-source sweep summary (AWARD_SOURCES_ENABLED=1). */
+  award_sources?: AwardSourceSweepSummary | { at: string; error: string };
 }
 
 /** Runs one full ingest cycle: fetch both sources (independently fail-soft),
@@ -1362,6 +1365,16 @@ interface DailyIngestDependencies {
   getState?: typeof getIngestState;
   setState?: typeof setIngestState;
   run?: () => Promise<IngestResult>;
+  sweep?: () => Promise<AwardSourceSweepSummary | null>;
+}
+
+/** The award-source sweep rides the daily run after the Wire ingest has
+ *  finished. Off unless AWARD_SOURCES_ENABLED=1 (the module is not even
+ *  loaded otherwise). Fail-soft: its own failure is recorded, never thrown. */
+async function runAwardSourcesIfEnabled(): Promise<AwardSourceSweepSummary | null> {
+  if (process.env.AWARD_SOURCES_ENABLED !== '1') return null;
+  const { runAwardSourceSweep } = await import('./award-source-sweep');
+  return runAwardSourceSweep();
 }
 
 const DAILY_CLAIM_LEASE_MS = 2 * 60 * 60 * 1000;
@@ -1389,6 +1402,7 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
   const getState = deps.getState ?? getIngestState;
   const setState = deps.setState ?? setIngestState;
   const run = deps.run ?? (() => runIngest({}));
+  const sweep = deps.sweep ?? runAwardSourcesIfEnabled;
   const day = productDateISO(now);
   const key = dailyClaimKey(day);
   if (blocksDailyRun(await getState(key), now)) return { executed: false, day };
@@ -1398,6 +1412,12 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
   await setState(key, claim);
   try {
     const result = await run();
+    try {
+      const awards = await sweep();
+      if (awards) result.award_sources = awards;
+    } catch (e) {
+      result.award_sources = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'award source sweep failed' };
+    }
     await setState(key, { ...claim, status: 'completed', completed_at: new Date().toISOString() } satisfies DailyIngestClaim);
     return { executed: true, day, result };
   } catch (e) {

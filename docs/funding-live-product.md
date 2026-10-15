@@ -25,7 +25,15 @@ Microsoft source capture can scan the supported repository-recipient sections of
 
 The NumFOCUS small-development-grants and two Royal Society process-table adapters fetch only their fixed reviewed URLs, require an unambiguous exact table schema, retain exclusions and normalize native amounts without conversion. Each runs at most one request, with timeout, UTF-8 and byte bounds, and no redirects. HTML source text is not republished. Selected normalized representations have their own hashes and line locators.
 
-Per-source owner refreshes permit at most four starts per minute per process and one active capture. No recurring collector or publication scheduler is enabled. This process-local guard is not a paid multi-replica quota contract.
+Per-source refreshes permit at most four starts per minute per process and one active capture. The owner's buttons and the daily sweep below share that one guard. This process-local guard is not a paid multi-replica quota contract.
+
+## Daily award-source sweep
+
+With `AWARD_SOURCES_ENABLED=1` the daily ingest run (`INGEST_ENABLED=1`, the boot timer in `src/lib/ingest.ts`, once per product day under the ingest lock and day claim) finishes the Wire and discuss.watch ingest, then sweeps every native source in the workspace catalog. It also requires `GRANTS_WATCH_FUNDING_DESK=1`, since nothing it queues could be approved without it. The flag defaults off and is independent of the Wire flags.
+
+Each source goes through the same functions as the workspace buttons: guarded capture (Microsoft in supported-archive mode), snapshot validation, compile, preview against current canonical bytes, then `insertIngestProposals`. A packet is queued only when its preview adds records. Packets whose records are all already pending or were rejected are no-ops, as is a packet whose digest is already on file. A packet that overlaps a pending item is held until the owner decides that item. At most 20 previews run per day; the rest wait for the next run. The sweep yields to the event loop between sources and packets.
+
+The sweep never approves. Funding imports are `profile_note` proposals, which the machine validator never auto-approves, and the owner still decides each one through the single-item Desk route. A source failure is recorded and the other sources and the Wire ingest continue. The run summary (sources tried, packets queued, repeated, held, deferred, failed) is stored as `award_sources` on the `last_run` ingest_state row and shown on `/admin/health`. Manual `/api/ingest/run` calls do not run the sweep.
 
 ## Release verification
 

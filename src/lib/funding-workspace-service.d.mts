@@ -13,4 +13,12 @@ export interface FundingWorkspaceDependencies {
   now?: () => Date;
 }
 
+export const NATIVE_REFRESH_SOURCES: readonly string[];
+export function validateSourceSnapshots<T extends unknown[]>(snapshots: T, today: string): T;
+export function compileSourceSnapshots(
+  snapshots: unknown[],
+  load: FundingWorkspaceDependencies['load'],
+  today: string,
+): Promise<{ packets: unknown[]; held: unknown[]; [key: string]: unknown }>;
+
 export function handleFundingWorkspace(request: Request, dependencies: FundingWorkspaceDependencies): Promise<Response>;

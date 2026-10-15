@@ -5,6 +5,19 @@ import { calendarDate } from './funding-api.mjs';
 import { buildFundingProduct } from './funding-product.mjs';
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 const MAX_BODY=2*1024*1024;
+/** Catalog sources with a native, bounded first-party capture client. */
+export const NATIVE_REFRESH_SOURCES=Object.freeze(['microsoft-foss','numfocus-sdg','royal-society-research','royal-society-urf']);
+/** Shared by the owner workspace and the daily award-source sweep. */
+export function validateSourceSnapshots(snapshots,today){
+ if(!Array.isArray(snapshots)||snapshots.length<1||snapshots.length>50)throw new Error('invalid_snapshot_count');
+ for(const s of snapshots)validateSourceSnapshot(s,today);
+ return snapshots;
+}
+/** Compiles validated snapshots against the current editable snapshot. Never queues or approves. */
+export async function compileSourceSnapshots(snapshots,load,today){
+ const {baseline,dataset}=await load();
+ return compileFundingSourcePackets(snapshots,baseline,dataset,today);
+}
 export function fundingReferenceBlobs(baseline) {
  const entries=Object.entries(baseline?.source_blobs||{});
  if(entries.length>10000)throw new Error('reference_inventory_limit');
@@ -27,7 +40,7 @@ export async function handleFundingWorkspace(request,deps){
  if(request.method==='GET'){
   try{
    const {baseline,dataset}=await deps.load(),product=buildFundingProduct(baseline,dataset,now),pending=await deps.pending();
-   return json({features:{public_read:deps.publicEnabled,owner_write:deps.enabled},counts:Object.fromEntries(Object.entries(product.collections).map(([k,v])=>[k,v.length])),snapshot:product.snapshot,reference_blobs:fundingReferenceBlobs(baseline),coverage:product.collections.coverage,sources:Object.entries(SOURCE_CATALOG).map(([id,s])=>({id,url:s.url,program:s.program,issuer:s.issuer,native_refresh:['microsoft-foss','numfocus-sdg','royal-society-research','royal-society-urf'].includes(id)})),pending,scope:'Current registry and accepted funding data. Coverage gaps are not assertions that funding does not exist.'});
+   return json({features:{public_read:deps.publicEnabled,owner_write:deps.enabled},counts:Object.fromEntries(Object.entries(product.collections).map(([k,v])=>[k,v.length])),snapshot:product.snapshot,reference_blobs:fundingReferenceBlobs(baseline),coverage:product.collections.coverage,sources:Object.entries(SOURCE_CATALOG).map(([id,s])=>({id,url:s.url,program:s.program,issuer:s.issuer,native_refresh:NATIVE_REFRESH_SOURCES.includes(id)})),pending,scope:'Current registry and accepted funding data. Coverage gaps are not assertions that funding does not exist.'});
   }catch{return json({error:'workspace_unavailable'},503);}
  }
  if(!deps.enabled)return json({error:'funding_desk_disabled'},503);
@@ -45,11 +58,10 @@ export async function handleFundingWorkspace(request,deps){
    if(!Object.hasOwn(SOURCE_CATALOG,body.source)||!Number.isSafeInteger(body.fund??36)||(body.fund??36)<1||(body.fund??36)>100000||(body.revision!=null&&!/^[a-f0-9]{40}$/.test(body.revision))||(body.archive!==undefined&&typeof body.archive!=='boolean')||(body.archive&&body.source!=='microsoft-foss'))return json({error:'invalid_capture_request'},400);
    const capture=await deps.capture(body.source,body.archive?0:body.fund??36,body.revision??null);snapshots=capture.bundle.snapshots;receipt=capture.receipt;
   }
-  if(!Array.isArray(snapshots)||snapshots.length<1||snapshots.length>50)throw new Error('invalid_snapshot_count');
-  for(const s of snapshots)validateSourceSnapshot(s,today);
+  validateSourceSnapshots(snapshots,today);
  }catch(error){return json({error:body.action==='refresh'?'source_capture_failed':'invalid_source_bundle',message:'No data was approved or published. Inspect the source or uploaded representation.',retryable:error.message==='source_capture_busy'},body.action==='refresh'?502:400);}
  try{
-  const {baseline,dataset}=await deps.load(),compiled=compileFundingSourcePackets(snapshots,baseline,dataset,today);
+  const compiled=await compileSourceSnapshots(snapshots,deps.load,today);
   return json({...compiled,capture_receipt:receipt,canonical_write:false,approval:false,source_requests:receipt?.requests??0});
  }catch{return json({error:'compilation_failed',canonical_write:false},409);}
 }
