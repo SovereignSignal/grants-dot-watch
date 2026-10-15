@@ -20,6 +20,13 @@ import type { ProposalType } from './types';
  * CURATOR_AUTO_APPLY and CURATOR_AUTO_APPLY_TYPES, approve an add or replace
  * only when the quote and a fetched page on the org's own site name that exact
  * handle, and never approve a clear (`x: null`).
+ *
+ * The one machine rejection is Desk expiry, in the same daily upkeep: a
+ * pending item whose live proposed rounds all closed after it was filed, or
+ * that has waited 30 days, is rejected with by 'machine' and an `auto:` note
+ * (desk-upkeep.ts expiryFor). Funding v2 imports, org merges and claimed
+ * items are never expired; decideProposal also refuses any non-owner
+ * rejection of a funding import.
  */
 export function neverAutoReasonFor(type: ProposalType | string): string | null {
   switch (type) {

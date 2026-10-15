@@ -117,6 +117,8 @@ Pipeline: signal → **resolver** (explicit canonical name first, then unique al
 | Exception queue | a check failed | stays pending; Desk shows "machine check failed — &lt;reason&gt;" |
 | Never-auto | new orgs/programs, status/profile changes, new awards, org merges | stays pending; Desk shows "needs the owner" |
 
+**Expiry (daily Desk upkeep, `DESK_UPKEEP_ENABLED=1`, default off):** the daily ingest run rejects a pending item, verdict `by: machine`, when every live round it proposes (open, announced or undated status) closed after it was filed (`auto: expired (deadline YYYY-MM-DD passed)`), or when it has waited 30 days (`auto: stale (pending 30+ days)`). An item filed after its own deadline records history and only the 30-day rule applies to it. Funding v2 imports, org merges and claimed (`applying`) items are never expired. At most 100 a run; the rule is `expiryFor` in `src/lib/desk-upkeep.ts`.
+
 ## The app (v1 site)
 
 Next.js/TS on Railway (discuss.watch stack). Reads `registry/` into an index at boot; Postgres for queue/state. Surfaces:

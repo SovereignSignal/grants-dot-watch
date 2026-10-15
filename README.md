@@ -76,7 +76,11 @@ feed endpoint, no API key needed; defaults to `https://www.discuss.watch/api/v1/
 marketing homepage and drops the path). `INGEST_ENABLED=1` starts a daily in-process timer
 (`src/instrumentation.ts`, nodejs runtime) guarded by a Postgres advisory lock so multiple
 Railway replicas never double-run; last-run status lands in `ingest_state` and shows on
-`/admin/health`.
+`/admin/health`. `DESK_UPKEEP_ENABLED=1` (default off) adds Desk upkeep to that run, after
+the Wire ingest and the award sweep: it re-checks pending curator X handles (see below) and
+rejects pending items whose proposed deadline passed while they waited or that have waited
+30 days, as `machine` verdicts with an `auto:` note. Funding imports, org merges and claimed
+items are never expired. Rules: `docs/DESIGN.md` "Expiry".
 
 ## Agent and external read access
 

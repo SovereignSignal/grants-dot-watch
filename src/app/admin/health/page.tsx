@@ -61,6 +61,10 @@ interface LastIngestRun {
     x_handles_applied?: number;
     x_handles_left?: number;
     x_handles_reasons?: Record<string, number>;
+    expired?: number;
+    stale?: number;
+    expire_deferred?: number;
+    expire_failed?: number;
     errors?: string[];
   };
 }
@@ -79,8 +83,11 @@ function deskUpkeepLine(d: LastIngestRun['desk_upkeep']): { text: string; failed
     text:
       `Desk upkeep: X handles ${d.x_handles_applied ?? 0} applied, ${d.x_handles_left ?? 0} left` +
       (why ? ` (${why})` : '') +
+      `; ${d.expired ?? 0} expired, ${d.stale ?? 0} stale rejected` +
+      (d.expire_deferred ? `, ${d.expire_deferred} deferred` : '') +
+      (d.expire_failed ? `, ${d.expire_failed} failed` : '') +
       (errors.length ? `. Errors: ${errors.slice(0, 3).join('; ')}` : ''),
-    failed: errors.length > 0,
+    failed: errors.length > 0 || Boolean(d.expire_failed),
   };
 }
 

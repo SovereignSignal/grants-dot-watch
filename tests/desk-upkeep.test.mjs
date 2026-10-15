@@ -2,7 +2,14 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import test from 'node:test';
 
-import { deskUpkeepEnabled, runDeskUpkeep, X_HANDLE_BACKLOG_CAP } from '../src/lib/desk-upkeep.ts';
+import {
+  deskUpkeepEnabled,
+  EXPIRE_CAP,
+  expiryFor,
+  proposalDeadline,
+  runDeskUpkeep,
+  X_HANDLE_BACKLOG_CAP,
+} from '../src/lib/desk-upkeep.ts';
 import { curatorKeyStanding } from '../src/lib/curator-auth.ts';
 import { decideProposal } from '../src/lib/desk-decide.ts';
 import { runDailyIngestOnce } from '../src/lib/ingest.ts';
@@ -274,6 +281,135 @@ test('a backlog approval goes through decideProposal as a curator auto-apply ver
   assert.equal(verdict.by, 'curator');
   assert.equal(verdict.curator_id, 'hedwig');
   assert.equal(verdict.auto_apply.page_hash, PAGE_HASH);
+});
+
+function roundItem(id, { type = 'deadline_change', closes = '2026-10-01', status, createdAt = '2026-09-20T12:00:00.000Z', state = 'pending', extra = {} } = {}) {
+  const round = { name: 'Season 6', closes, source: 'https://example.org/grants' };
+  if (status) round.status = status;
+  return {
+    id,
+    type,
+    org: 'example',
+    title: `Example Grants: deadline ${closes}`,
+    summary: 'Wire deadline.',
+    lane: 'fact',
+    state,
+    created_at: createdAt,
+    proposed_change: { 'programs/example-grants.yaml': { rounds: [round] }, ...extra },
+  };
+}
+
+function oldItem(id, type = 'new_org', createdAt = '2026-09-10T12:00:00.000Z') {
+  return {
+    id,
+    type,
+    org: null,
+    title: `${id}: new org`,
+    summary: 'Old signal.',
+    lane: 'judgment',
+    state: 'pending',
+    created_at: createdAt,
+    proposed_change: { [`orgs/${id}.yaml`]: { id, name: id } },
+  };
+}
+
+test('proposalDeadline reads live round deadlines and ignores historical rounds', () => {
+  assert.equal(proposalDeadline({ 'programs/a.yaml': { rounds: [{ name: 'R', closes: '2026-10-01' }] } }), '2026-10-01');
+  assert.equal(proposalDeadline({ rounds: [{ name: 'R', status: 'open', closes: '2026-07-15' }] }), '2026-07-15');
+  assert.equal(
+    proposalDeadline({ 'programs/a.yaml': { rounds: [{ name: 'A', closes: '2026-09-01' }, { name: 'B', status: 'announced', closes: '2026-11-01' }] } }),
+    '2026-11-01'
+  );
+  assert.equal(proposalDeadline({ 'programs/a.yaml': { rounds: [{ name: 'R', status: 'closed', closes: '2026-09-01' }] } }), null);
+  assert.equal(proposalDeadline({ 'programs/a.yaml': { rounds: [{ name: 'Rolling', status: 'open' }, { name: 'R', closes: '2026-09-01' }] } }), null);
+  assert.equal(proposalDeadline({ 'orgs/a.yaml': { socials: { x: 'https://x.com/a' } } }), null);
+});
+
+test('a pending item whose deadline passed while it waited is rejected with a note', async () => {
+  const rows = [roundItem('p1'), roundItem('p2', { type: 'new_program', closes: '2026-11-30' })];
+  const desk = realDesk(rows);
+  const { deps } = harness(rows, { decide: desk.decide });
+  const summary = await runDeskUpkeep(deps);
+  assert.equal(summary.expired, 1);
+  assert.equal(summary.stale, 0);
+  assert.equal(rows[0].state, 'rejected');
+  assert.equal(rows[1].state, 'pending');
+  assert.deepEqual(desk.applied, []);
+  const [verdict] = desk.verdicts;
+  assert.equal(verdict.proposal_id, 'p1');
+  assert.equal(verdict.by, 'machine');
+  assert.equal(verdict.note, 'auto: expired (deadline 2026-10-01 passed)');
+});
+
+test('an item filed after its deadline records history and waits for the 30-day rule', async () => {
+  const rows = [roundItem('p1', { closes: '2026-09-01', createdAt: '2026-10-01T12:00:00.000Z' })];
+  const desk = realDesk(rows);
+  const { deps } = harness(rows, { decide: desk.decide });
+  const summary = await runDeskUpkeep(deps);
+  assert.equal(summary.expired + summary.stale, 0);
+  assert.equal(rows[0].state, 'pending');
+});
+
+test('a pending item 30 days old is rejected as stale', async () => {
+  const rows = [oldItem('p1', 'new_org', '2026-09-15T16:00:00.000Z'), oldItem('p2', 'new_org', '2026-09-16T12:00:00.000Z')];
+  const desk = realDesk(rows);
+  const { deps } = harness(rows, { decide: desk.decide });
+  const summary = await runDeskUpkeep(deps);
+  assert.equal(summary.stale, 1);
+  assert.equal(rows[0].state, 'rejected');
+  assert.equal(rows[1].state, 'pending');
+  assert.equal(desk.verdicts[0].note, 'auto: stale (pending 30+ days)');
+  assert.equal(desk.verdicts[0].by, 'machine');
+});
+
+test('funding imports, claimed items and org merges are never expired', async () => {
+  const funding = roundItem('p1', { type: 'profile_note', createdAt: '2026-08-01T00:00:00.000Z', extra: { _funding_v2: { pack: 'x' } } });
+  const applying = roundItem('p2', { createdAt: '2026-08-01T00:00:00.000Z', state: 'applying' });
+  const merge = oldItem('p3', 'merge_orgs', '2026-08-01T00:00:00.000Z');
+  const rows = [funding, applying, merge];
+  const decided = [];
+  const { deps } = harness(rows, {
+    decide: async (input) => {
+      decided.push(input.id);
+      return { status: 200, body: { ok: true } };
+    },
+  });
+  const summary = await runDeskUpkeep(deps);
+  assert.deepEqual(decided, []);
+  assert.equal(summary.expired + summary.stale + summary.expire_failed, 0);
+  assert.equal(expiryFor(funding, '2026-10-15', NOW.getTime()), null);
+  assert.equal(expiryFor(applying, '2026-10-15', NOW.getTime()), null);
+  assert.equal(expiryFor(merge, '2026-10-15', NOW.getTime()), null);
+});
+
+test('decideProposal refuses a machine rejection of a funding import', async () => {
+  const rows = [roundItem('p1', { type: 'profile_note', extra: { _funding_v2: { pack: 'x' } } })];
+  const desk = realDesk(rows);
+  const result = await desk.decide({ id: 'p1', decision: 'rejected', note: 'auto: stale (pending 30+ days)', by: 'machine' });
+  assert.equal(result.status, 403);
+  assert.equal(rows[0].state, 'pending');
+});
+
+test('expiry respects its per-run cap and leaves failures pending', async () => {
+  const pending = Array.from({ length: EXPIRE_CAP + 3 }, (_, i) => oldItem(`p${i + 1}`));
+  const h = harness(pending, {
+    decide: async (input) =>
+      input.id === 'p1' ? { status: 409, body: { error: 'already claimed or decided' } } : { status: 200, body: { ok: true } },
+  });
+  const summary = await runDeskUpkeep(h.deps);
+  assert.equal(summary.stale, EXPIRE_CAP - 1);
+  assert.equal(summary.expire_failed, 1);
+  assert.equal(summary.expire_deferred, 3);
+});
+
+test('an X handle approved this run is not then expired', async () => {
+  const rows = [xNote('p1', { createdAt: '2026-09-01T00:00:00.000Z' })];
+  const desk = realDesk(rows);
+  const { deps } = harness(rows, { decide: desk.decide });
+  const summary = await runDeskUpkeep(deps);
+  assert.equal(summary.x_handles_applied, 1);
+  assert.equal(summary.stale + summary.expire_failed, 0);
+  assert.equal(rows[0].state, 'approved');
 });
 
 test('the daily run records the desk upkeep summary and survives its failure', async () => {
