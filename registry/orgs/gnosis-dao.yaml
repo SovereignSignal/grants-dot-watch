@@ -2,22 +2,25 @@ id: gnosis-dao
 name: Gnosis DAO
 aka:
   - Gnosis
-systems: [ethereum]
-wires: [crypto]
-roles: [funder]
+systems:
+  - ethereum
+wires:
+  - crypto
+roles:
+  - funder
 org_type: dao
 website: https://gnosis.io/
 socials:
-  x: https://x.com/gnosisdao
+  x: https://x.com/gnosis_
   github: https://github.com/gnosis
   forum: https://forum.gnosis.io/
 status: active
 profile: >
   Gnosis DAO governs Gnosis Chain and related products, using token-weighted voting and forum
   proposals covering treasury, growth funds, and infrastructure. It historically ran grants via
-  GECO; current funding activity centers on participatory funding pilots such as Gardens
-  conviction voting, cashback programs, and annual budget requests (roughly $30M/yr proposed for
-  operations and infrastructure). Programs are active but under ongoing governance adjustment,
-  including budget extensions, white-hat rewards, and treasury-redemption debates.
+  GECO; current funding activity centers on participatory funding pilots such as Gardens conviction
+  voting, cashback programs, and annual budget requests (roughly $30M/yr proposed for operations and
+  infrastructure). Programs are active but under ongoing governance adjustment, including budget
+  extensions, white-hat rewards, and treasury-redemption debates.
 sources:
   - https://gnosis.io/
