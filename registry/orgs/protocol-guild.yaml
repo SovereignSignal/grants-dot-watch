@@ -9,6 +9,8 @@ wires:
 roles:
   - funder
 website: https://protocolguild.org
+socials:
+  x: https://x.com/ProtocolGuild
 status: active
 profile: Protocol Guild is a funding collective, launched in 2022, that pools donations from
   ecosystem projects, DAOs, institutions, and individuals and distributes them by formula to over
@@ -16,3 +18,4 @@ profile: Protocol Guild is a funding collective, launched in 2022, that pools do
   million in cumulative donations as of 2025.
 sources:
   - https://gitcoin.co/apps/protocol-guild
+  - https://x.com/ProtocolGuild

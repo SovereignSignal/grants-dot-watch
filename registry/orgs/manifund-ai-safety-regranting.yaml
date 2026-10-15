@@ -3,19 +3,22 @@ name: Manifund (AI safety regranting)
 aka:
   - Manifund
   - manifund ai safety regranting
-systems: [ai-safety]
-wires: [ai]
-roles: [funder]
+systems:
+  - ai-safety
+wires:
+  - ai
+roles:
+  - funder
 website: https://manifund.org/
+socials:
+  x: https://x.com/manifund
 status: active
 profile: >
-  Manifund runs a regranting program that gives independent budgets ($100k+)
-  to expert regrantors in AI safety, who recommend fast grants of roughly
-  $5k-$50k to seed early-stage projects, independent researchers, and
-  field-building work. Projects can also be posted publicly on the platform
-  for ongoing crowdfunding from donors and regrantors. Regrants go to
-  registered charities and individuals, with for-profit organizations
-  eligible pending due diligence.
+  Manifund runs a regranting program that gives independent budgets ($100k+) to expert regrantors in
+  AI safety, who recommend fast grants of roughly $5k-$50k to seed early-stage projects, independent
+  researchers, and field-building work. Projects can also be posted publicly on the platform for
+  ongoing crowdfunding from donors and regrantors. Regrants go to registered charities and
+  individuals, with for-profit organizations eligible pending due diligence.
 funding:
   focus:
     - AI safety
@@ -24,14 +27,15 @@ funding:
     - field-building
     - independent researchers
     - public goods funding infrastructure
-  typical_size: >
+  typical_size: |
     $5k-$50k per regrant (regrantors hold independent budgets of $100k+)
   cadence: >
-    Rolling -- regrantors can initiate fast grants at any time; projects can
-    also be posted on the platform for ongoing crowdfunding.
+    Rolling -- regrantors can initiate fast grants at any time; projects can also be posted on the
+    platform for ongoing crowdfunding.
   apply_url: https://manifund.org/about/regranting
 sources:
   - https://manifund.org/
   - https://manifund.org/about/regranting
   - https://manifund.org/NeelNanda
   - https://manifund.org/RyanKidd
+  - https://x.com/manifund

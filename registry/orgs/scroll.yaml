@@ -8,12 +8,14 @@ wires:
 roles:
   - funder
 website: https://scroll.io/
+socials:
+  x: https://x.com/Scroll_ZKP
 status: active
 profile: >
   Scroll is an Ethereum layer-2 ecosystem whose governance and community bodies have funded
-  ecosystem growth, community events, research, and other contributor programs. Funding
-  mechanisms and application windows vary by initiative and are documented through Scroll's
-  governance forum.
+  ecosystem growth, community events, research, and other contributor programs. Funding mechanisms
+  and application windows vary by initiative and are documented through Scroll's governance forum.
 sources:
   - https://scroll.io/
   - https://forum.scroll.io/t/introducing-community-grants-support-program/1164
+  - https://x.com/Scroll_ZKP

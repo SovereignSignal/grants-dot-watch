@@ -1,0 +1,21 @@
+id: cities-deliver-ai-solutions-for-public-services-2026
+name: "Cities Deliver: AI Solutions for Public Services 2026"
+org: the-rockefeller-foundation
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://www.rockefellerfoundation.org/cities-deliver-ai-solutions-for-public-services/
+summary: OpenAI Foundation and Rockefeller Foundation launched a USD 50m global call October 14.
+  Awards USD 500,000 to under USD 1m for seed projects and USD 1m-2m for scale projects over 24
+  months. Eligible organizations need a city-government partner and charitable purpose; governments
+  cannot apply directly. Round 1 and video due November 29 at 11:59pm US Eastern; invited Round 2
+  March 1. Tool-agnostic. Official portal inspected, submission not tested.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-11-29
+    source: https://www.rockefellerfoundation.org/cities-deliver-ai-solutions-for-public-services/
+sources:
+  - https://www.rockefellerfoundation.org/cities-deliver-ai-solutions-for-public-services/

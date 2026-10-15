@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://openai.com/
+socials:
+  x: https://x.com/OpenAI
 status: active
 profile: As AI systems grow more capable, making sure they behave as intended is a critical
   technical challenge. Today we announce the first 60 Alignment Project grants, and welcome
   @OpenAI  and @Microsoft  to a growing international coalition. Over £27m now supports this work.
 sources:
   - https://x.com/AISecurityInst/status/2024545087582056914
+  - https://x.com/OpenAI

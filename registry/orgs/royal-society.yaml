@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://royalsociety.org
+socials:
+  x: https://x.com/royalsociety
 status: active
 profile: The Royal Society is the UK's national academy of sciences, funding research fellowships
   and grant schemes for scientists across career stages, sometimes jointly with the British Academy
@@ -15,3 +17,4 @@ profile: The Royal Society is the UK's national academy of sciences, funding res
   public research funding landscape alongside UKRI and ARIA.
 sources:
   - https://royalsociety.org/news-resources/projects/royal-society-british-academy-educational-research/
+  - https://x.com/royalsociety

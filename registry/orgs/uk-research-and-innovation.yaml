@@ -5,24 +5,27 @@ aka:
   - UKRI
 systems:
   - uk-public-rd
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: government
 website: https://www.ukri.org/
-socials: {}
+socials:
+  x: https://x.com/UKRI_News
 status: active
 profile: >
-  UK public funding body that invests around 8 billion pounds of public money
-  each year into research and innovation. It operates through nine entities:
-  seven research councils (AHRC, BBSRC, ESRC, EPSRC, MRC, NERC, STFC),
-  Research England, and Innovate UK. Funding is distributed via competitive
-  open calls through its funding finder, with innovation funding applications
-  handled at apply-for-innovation-funding.service.gov.uk.
+  UK public funding body that invests around 8 billion pounds of public money each year into
+  research and innovation. It operates through nine entities: seven research councils (AHRC, BBSRC,
+  ESRC, EPSRC, MRC, NERC, STFC), Research England, and Innovate UK. Funding is distributed via
+  competitive open calls through its funding finder, with innovation funding applications handled at
+  apply-for-innovation-funding.service.gov.uk.
 funding:
-  typical_size: "Ranges widely by scheme, from roughly £2,500 up to £7M+ per award"
-  cadence: "Rolling; ~120 open opportunities at a time via the Funding Finder, competitive open calls"
+  typical_size: Ranges widely by scheme, from roughly £2,500 up to £7M+ per award
+  cadence: Rolling; ~120 open opportunities at a time via the Funding Finder, competitive open calls
   apply_url: https://www.ukri.org/opportunity/
 sources:
   - https://www.ukri.org/
   - https://apply-for-innovation-funding.service.gov.uk/
   - https://www.ukri.org/opportunity/
+  - https://x.com/UKRI_News

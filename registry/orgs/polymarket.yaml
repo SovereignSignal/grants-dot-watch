@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://polymarket.com
+socials:
+  x: https://x.com/Polymarket
 status: unknown
 profile: "Polymarket: no sourced profile on file yet. See polymarket.com for the organization's own
   description, and the programs listed on this page."
 sources:
   - https://polymarket.com
+  - https://polymarket.com/

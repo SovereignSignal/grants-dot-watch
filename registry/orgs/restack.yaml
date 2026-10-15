@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://www.restack.io/
+socials:
+  x: https://x.com/restackio
 status: active
 profile: Restack — Open Internet Stack cascade fund (NLnet/FSFE consortium) — dispatch from the
   wire, no further detail on file.
 sources:
   - https://fsfe.org/news/2026/news-20260528-01.en.html
+  - https://x.com/restackio

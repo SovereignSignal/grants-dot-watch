@@ -2,12 +2,16 @@ id: united-states-department-of-agriculture
 name: United States Department of Agriculture
 aka:
   - USDA
-systems: [us-federal-rd]
-wires: [ai]
-roles: [funder]
+systems:
+  - us-federal-rd
+wires:
+  - ai
+roles:
+  - funder
 org_type: government
 website: https://www.usda.gov/
-socials: {}
+socials:
+  x: https://x.com/USDA
 status: active
 profile: >
   The United States Department of Agriculture is the federal department responsible for agriculture,
@@ -22,3 +26,4 @@ funding:
 sources:
   - https://www.usda.gov/
   - https://www.aphis.usda.gov/funding
+  - https://x.com/USDA

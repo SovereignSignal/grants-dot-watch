@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.thebritishacademy.ac.uk/
+socials:
+  x: https://x.com/BritishAcademy_
 status: active
 profile: The British Academy is the UK's national academy for the humanities and social sciences, a
   government-sponsored body that runs more than 30 funding schemes each year for researchers in the
@@ -15,3 +17,4 @@ profile: The British Academy is the UK's national academy for the humanities and
   challenge-led collaborative awards.
 sources:
   - https://www.thebritishacademy.ac.uk/funding/
+  - https://x.com/BritishAcademy_

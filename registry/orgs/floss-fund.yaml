@@ -10,16 +10,14 @@ roles:
 org_type: nonprofit
 website: https://floss.fund/
 socials:
-  x: https://x.com/floss_fund
   github: https://github.com/floss-fund
 status: active
 profile: >
-  FLOSS/fund is a $1M-per-year fund backed by Zerodha that makes no-strings-attached grants
-  to free and open source software projects worldwide. Projects apply by publishing a
-  funding.json manifest and submitting it to the fund's public directory (dir.floss.fund),
-  where applications are also indexed for other prospective sponsors. It distributes in
-  tranches — the first in May 2025 and a second in October 2025 — with disbursements
-  published transparently.
+  FLOSS/fund is a $1M-per-year fund backed by Zerodha that makes no-strings-attached grants to free
+  and open source software projects worldwide. Projects apply by publishing a funding.json manifest
+  and submitting it to the fund's public directory (dir.floss.fund), where applications are also
+  indexed for other prospective sponsors. It distributes in tranches — the first in May 2025 and a
+  second in October 2025 — with disbursements published transparently.
 funding:
   focus:
     - free and open source software projects
@@ -28,3 +26,4 @@ funding:
 sources:
   - https://floss.fund/
   - https://grantsdatabase.org/2026/01/19/floss-fund-a-global-funding-initiative-supporting-open-source-software/
+  - https://api.x.com/2/users/by/username/floss_fund
