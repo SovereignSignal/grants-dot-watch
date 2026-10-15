@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.pyth.network/
+socials:
+  x: https://x.com/PythNetwork
 status: unknown
 profile: "Pyth: no sourced profile on file yet. See pyth.network for the organization's own
   description, and the programs listed on this page."
