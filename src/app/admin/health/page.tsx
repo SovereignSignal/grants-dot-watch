@@ -38,6 +38,34 @@ interface LastIngestRun {
   dropped?: number;
   validation?: { passed?: number; failed?: number };
   errors?: string[];
+  award_sources?: {
+    error?: string;
+    skipped?: string | null;
+    sources_tried?: number;
+    sources_failed?: number;
+    packets_queued?: number;
+    packets_repeated?: number;
+    packets_held?: number;
+    packets_deferred?: number;
+    sources?: { source?: string; status?: string; error?: string | null }[];
+  };
+}
+
+/** One line for the daily award-source sweep, or null when it did not run. */
+function awardSourcesLine(a: LastIngestRun['award_sources']): { text: string; failed: boolean } | null {
+  if (!a || typeof a !== 'object') return null;
+  if (a.error) return { text: `Award sources: failed (${a.error})`, failed: true };
+  if (a.skipped) return { text: `Award sources: skipped (${a.skipped})`, failed: false };
+  const failures = (Array.isArray(a.sources) ? a.sources : [])
+    .filter((s) => s?.status === 'failed')
+    .map((s) => `${s.source ?? 'unknown'}: ${s.error ?? 'failed'}`);
+  return {
+    text:
+      `Award sources: ${a.sources_tried ?? 0} tried, ${a.packets_queued ?? 0} queued, ${a.packets_repeated ?? 0} repeated, ` +
+      `${a.packets_held ?? 0} held, ${a.packets_deferred ?? 0} deferred, ${a.sources_failed ?? 0} failed` +
+      (failures.length ? ` (${failures.join('; ')})` : ''),
+    failed: failures.length > 0,
+  };
 }
 
 /** ingest_state's 'last_run' row (Postgres in prod, .data/ingest-state.json
@@ -372,6 +400,10 @@ export default async function HealthPage() {
                   {ingest.source_counts.discuss?.error ? ` (error: ${ingest.source_counts.discuss.error})` : ''}
                 </div>
               )}
+              {(() => {
+                const line = awardSourcesLine(ingest.award_sources);
+                return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
+              })()}
               {(ingest.error || (ingest.errors && ingest.errors.length > 0)) && (
                 <div className="mt-1.5 coord text-closing">
                   {ingest.error || ingest.errors!.join('; ')}

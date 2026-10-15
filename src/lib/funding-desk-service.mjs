@@ -12,6 +12,19 @@ async function readBody(request) {
   } finally {await reader.cancel().catch(()=>{});reader.releaseLock();}
 }
 /**
+ * Previews one pack against the current canonical bytes. Shared by the owner
+ * intake route and the daily award-source sweep; it never queues or approves.
+ * @param {unknown} pack
+ * @param {()=>({root:string, baseline:unknown}|Promise<{root:string, baseline:unknown}>)} load
+ * @param {Date} now
+ */
+export async function previewFundingPack(pack,load,now) {
+  const {root,baseline}=await load();
+  const preview=previewFundingProposal(root,baseline,pack,calendarDate(now));
+  preview.proposal.signal_id=`funding-v2:${preview.plan_digest}`;
+  return preview;
+}
+/**
  * Authentication is performed before parsing, filesystem access or queue reads.
  * @param {Request} request
  * @param {{authorize: (request:Request)=>Promise<boolean>, enabled: boolean, load:()=>({root:string, baseline:unknown}|Promise<{root:string, baseline:unknown}>), enqueue:(rows:unknown[])=>Promise<unknown>, now?:()=>Date}} deps
@@ -24,11 +37,8 @@ export async function handleFundingIntake(request,deps) {
   try {body=await readBody(request);}catch{return json({error:'invalid_or_oversized_body'},400);}
   if (!body || typeof body!=='object' || Array.isArray(body) || Object.keys(body).some(k=>!['mode','pack','plan_digest'].includes(k)) || !['preview','queue'].includes(body.mode)) return json({error:'invalid_request'},400);
   let preview;
-  try {
-    const {root,baseline}=await deps.load();
-    preview=previewFundingProposal(root,baseline,body.pack,calendarDate((deps.now || (()=>new Date()))()));
-  } catch {return json({error:'invalid_pack_or_stale_snapshot',message:'Recheck source references and preview the pack again'},409);}
-  preview.proposal.signal_id=`funding-v2:${preview.plan_digest}`;
+  try {preview=await previewFundingPack(body.pack,deps.load,(deps.now || (()=>new Date()))());}
+  catch {return json({error:'invalid_pack_or_stale_snapshot',message:'Recheck source references and preview the pack again'},409);}
   if (body.mode==='preview') return json(preview);
   if (body.plan_digest!==preview.plan_digest) return json({error:'preview_changed',message:'Preview and review the current pack before queueing'},409);
   try {return json({ok:true,result:await deps.enqueue([preview.proposal]),canonical_write:false},202);}
