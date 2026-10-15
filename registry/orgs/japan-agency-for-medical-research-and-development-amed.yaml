@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.amed.go.jp/en/
+socials:
+  x: https://x.com/AMED_officialGL
 status: active
 profile: AMED is one of Japan's core public R&D funding agencies, named alongside JSPS and JST in
   JST's own reference list of Japanese government funding programs available to international
@@ -15,3 +17,4 @@ profile: AMED is one of Japan's core public R&D funding agencies, named alongsid
   biomedical research.
 sources:
   - https://www.jst.go.jp/inter/washington/docs/fundinglist_e.pdf
+  - https://www.amed.go.jp/en/
