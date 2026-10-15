@@ -1,29 +1,31 @@
 id: unitary-foundation
 name: Unitary Foundation
 aka: []
-systems: [oss-sustainability]
-wires: [crypto]
-roles: [funder]
+systems:
+  - oss-sustainability
+wires:
+  - crypto
+roles:
+  - funder
 org_type: nonprofit
 website: https://unitary.foundation/
 socials:
-  x: https://x.com/unitaryfund
+  x: https://x.com/unitaryfdn
   github: https://github.com/unitaryfoundation
 status: active
 profile: >
-  Unitary Foundation is a 501(c)(3) nonprofit creating a quantum technology
-  ecosystem that benefits the most people. It runs a simple microgrant program
-  awarding $4k cash grants, with no organizational affiliation required, via a
-  short form and a two-minute video, for open source quantum software, education,
-  sensors, and more. It has awarded 100+ microgrants across 31+ countries, work
-  that has yielded 420+ papers and 40+ software libraries, and continues with
-  annual reports and a new advisory board in 2025.
+  Unitary Foundation is a 501(c)(3) nonprofit creating a quantum technology ecosystem that benefits
+  the most people. It runs a simple microgrant program awarding $4k cash grants, with no
+  organizational affiliation required, via a short form and a two-minute video, for open source
+  quantum software, education, sensors, and more. It has awarded 100+ microgrants across 31+
+  countries, work that has yielded 420+ papers and 40+ software libraries, and continues with annual
+  reports and a new advisory board in 2025.
 funding:
   focus:
     - open source quantum software
     - quantum education and workshops
     - quantum sensor prototypes
-  typical_size: "$4,000 flat cash grants"
+  typical_size: $4,000 flat cash grants
   apply_url: https://unitaryfund.typeform.com/to/j0kAOd?typeform-source=unitary.foundation
 sources:
   - https://unitary.foundation/
