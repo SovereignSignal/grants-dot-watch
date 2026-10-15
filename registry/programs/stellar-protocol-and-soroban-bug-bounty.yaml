@@ -1,0 +1,15 @@
+id: stellar-protocol-and-soroban-bug-bounty
+name: Stellar protocol and Soroban bug bounty
+org: stellar-development-foundation
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+summary: "Needs review: SDF's funding directory advertises bug bounties up to 250,000 XLM for the
+  protocol and up to USD50,000 for Soroban. The dedicated policy page was only partly recovered.
+  Confirm current scope, reward schedule and disclosure requirements before use; these figures are
+  directory maxima, not guaranteed awards."
+rounds: []
+sources:
+  - https://stellar.org/grants-and-funding/bug-bounty
