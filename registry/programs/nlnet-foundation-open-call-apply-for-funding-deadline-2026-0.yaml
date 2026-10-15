@@ -7,12 +7,12 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: unknown
+status: concluded
 mechanism: grants
 apply_url: ""
-summary: Legacy record created from a general NLnet call announcement. Its August deadline related
-  to the funds named in that notice. Its identity as a separate funding program is unresolved; see
-  the named program records for current intake.
+summary: Historical record of NLnet's August 2026 general call announcement, whose deadline belonged
+  to the funds named in that notice. It is not a separate funding program; current intake is NLnet
+  open call and the named NLnet funds.
 rounds:
   - name: August 2026 Open Call
     status: closed
@@ -21,17 +21,24 @@ rounds:
 sources:
   - https://nlnet.nl/news/2026/20260601-call.html
   - https://nlnet.nl/news/2026/20260903-call.html
+  - https://nlnet.nl/propose/
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
-  intake: unknown
-  intake_note: This record overlaps named funds. No separate current application opportunity has been verified.
+  checked_on: 2026-10-15
+  review_after: 2027-01-13
+  intake: closed
+  intake_note: Not a separate funding program. NLnet's current general call is recorded as NLnet open call
+    (nlnet-apply-for-a-grant, https://nlnet.nl/propose/); the named funds carry their own calls. This
+    record is kept for its round history.
   source: https://nlnet.nl/news/2026/20260903-call.html
-  kind: unresolved
-  relationship: unconfirmed
-  questions:
-    - Resolve this record against named funds and the Other application route, retaining existing
-      references and award history.
-  history: []
-  relationship_note: Association with NLnet is known; identity as a distinct funding program needs review.
-  operating: unknown
+  kind: program
+  relationship: current
+  questions: []
+  history:
+    - date: 2026-10-15
+      label: Resolved as historical
+      summary: Checked against NLnet's pages. The current general call is NLnet open call
+        (nlnet-apply-for-a-grant); this record is not a distinct program and is kept for history.
+      source: https://nlnet.nl/propose/
+  relationship_note: Operated by NLnet. Resolved on 2026-10-15 as a historical record; the current call is
+    nlnet-apply-for-a-grant.
+  operating: concluded

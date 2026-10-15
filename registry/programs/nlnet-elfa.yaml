@@ -7,32 +7,41 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: unknown
+status: announced
 mechanism: grants
 summary: Encrypted local-first applications research initiative. NLnet withdrew from the consortium
-  in August 2026. The consortium advertises forthcoming subgrants, but the call operator and
-  application terms are not recorded.
-rounds: []
+  in August 2026. The consortium says subgranting opens on 1 January 2027, with CrabNebula Ltd as
+  coordinator; application terms are not yet published.
+rounds:
+  - name: Subgranting
+    status: announced
+    opens: 2027-01-01
+    source: https://elfaconsortium.eu/
 sources:
   - https://nlnet.nl/ELFA/
   - https://elfaconsortium.eu/
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
+  checked_on: 2026-10-15
+  review_after: 2026-12-15
   intake: postponed
-  intake_note: NLnet postponed its calls after withdrawing. The consortium says subgrants will open
-    soon; no application terms or deadline are published on the checked pages.
-  source: https://nlnet.nl/ELFA/
+  intake_note: The consortium site says subgranting opens on 1 January 2027 and lists CrabNebula Ltd
+    as coordinator and subgranting partner. No application page, eligibility terms or deadline are
+    published yet.
+  source: https://elfaconsortium.eu/
   kind: program
   relationship: former
   questions:
-    - Who is now responsible for the calls, and where are the current eligibility and application
-      terms?
+    - Where are the eligibility and application terms for the January 2027 subgranting?
   history:
+    - date: 2026-10-15
+      label: Subgranting date announced
+      summary: The consortium site gives 1 January 2027 for subgranting, coordinated by CrabNebula
+        Ltd. NLnet's page still says the calls are postponed until another organisation runs them.
+      source: https://elfaconsortium.eu/
     - date: 2026-08
       label: NLnet withdrew
       summary: The notice specifies August only. Open calls were postponed pending another operator.
       source: https://nlnet.nl/ELFA/
-  relationship_note: NLnet withdrew. Retained here as a historical association; the current grant
-    operator is not recorded.
+  relationship_note: NLnet withdrew. Retained here as a historical association; the consortium names
+    CrabNebula Ltd as the subgranting operator.
   operating: unknown
