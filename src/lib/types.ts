@@ -294,6 +294,9 @@ export interface WireProgramAutoApply {
    *  page text that states it (same currency, same value). */
   amount?: string;
   matched_amount?: string;
+  /** Set when the amount check read only the first part of a very large or
+   *  number-dense page (money-match.ts MAX_SCAN_CHARS, MAX_ATOMS). */
+  page_truncated?: true;
   /** The Wire source score. */
   score: number;
 }

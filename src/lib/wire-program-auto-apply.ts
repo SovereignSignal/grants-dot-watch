@@ -12,7 +12,7 @@ import { fetchEvidencePage, hostMatchesRegisteredDomain, registeredDomain, type 
 import { decideProposal, proposalChangeHash } from './desk-decide';
 import { getIngestState, listProposals, setIngestState } from './desk-store';
 import { WIRE_PROGRAM_AUTO_APPLY_POLICY, WIRE_PROGRAM_MIN_SCORE, wireProgramAutoApplyEnabled } from './machine-approval-policy';
-import { matchAmountOnPage, parseAmount, visibleMoneyText, type ParsedAmount } from './money-match';
+import { matchAmountOnPage, normalizeMoneyText, parseAmount, type ParsedAmount } from './money-match';
 import { isValidIsoDate, norm, normalizeForMatch, pageContainsDate } from './proposal-validator';
 import { loadRegistry } from './registry';
 import { productDateISO } from './round-state';
@@ -270,7 +270,9 @@ export function assessWireProgram(
 export function confirmWireProgramPage(
   plan: WireProgramPlan,
   page: PageFetch
-): { ok: true; matched_name: string; matched_signal: string; matched_amount: string | null } | { ok: false; reasons: string[] } {
+):
+  | { ok: true; matched_name: string; matched_signal: string; matched_amount: string | null; page_truncated: boolean }
+  | { ok: false; reasons: string[] } {
   if (!page.ok) return { ok: false, reasons: ['fetch_failed'] };
   if (!hostMatchesRegisteredDomain(page.url, plan.domain)) return { ok: false, reasons: ['off_domain_redirect'] };
   const text = ` ${normalizeForMatch(page.body)} `;
@@ -284,7 +286,7 @@ export function confirmWireProgramPage(
   if (plan.deadlines.some((day) => !pageContainsDate(page.body, day))) reasons.push('deadline_not_on_page');
   const deadline = phrase ? null : plan.deadlines.find((day) => pageContainsDate(page.body, day)) ?? null;
   if (!phrase && !deadline) reasons.push('no_open_signal');
-  const amountMatch = plan.amount ? matchAmountOnPage(plan.amount.parsed, visibleMoneyText(page.body)) : null;
+  const amountMatch = plan.amount ? matchAmountOnPage(plan.amount.parsed, normalizeMoneyText(page.body)) : null;
   if (amountMatch && !amountMatch.ok) reasons.push(amountMatch.reason);
   const matchedAmount = amountMatch?.ok ? amountMatch.text : null;
   if (reasons.length || !matchedName) return { ok: false, reasons };
@@ -293,6 +295,7 @@ export function confirmWireProgramPage(
     matched_name: matchedName,
     matched_signal: phrase ? `phrase: ${phrase}` : `deadline: ${deadline}`,
     matched_amount: matchedAmount,
+    page_truncated: Boolean(amountMatch?.truncated),
   };
 }
 
@@ -414,6 +417,7 @@ export async function runWireProgramAutoApply(deps: WireProgramAutoApplyDeps = {
         matched_name: confirmed.matched_name,
         matched_signal: confirmed.matched_signal,
         ...(plan.amount && confirmed.matched_amount ? { amount: plan.amount.raw, matched_amount: confirmed.matched_amount } : {}),
+        ...(confirmed.page_truncated ? { page_truncated: true } : {}),
         score: plan.score,
       };
       await pause();

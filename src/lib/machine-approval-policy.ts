@@ -140,7 +140,14 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   a qualifier, that same page mention followed directly by the qualifier's
  *   words, in order, in the same sentence (`matchAmountOnPage`, else
  *   `amount_qualifier_not_on_page`; "$75k budget" states "$75,000 budget",
- *   "$75,000 pool" does not state "$75,000 per team"). Page
+ *   "$75,000 pool" does not state "$75,000 per team"). The proposal amount
+ *   and the page go through one normalization (`normalizeMoneyText`; a
+ *   proposal amount with markup or an entity is unparsed). Only , . ' ’ and
+ *   the thin spaces U+2009/U+202F separate thousands, never a plain or
+ *   no-break space, and a number that runs on into more digits through a
+ *   space, separator or tag ("$75 000", "$75,<b>000</b>") is not read at
+ *   all. Pages are read up to MAX_SCAN_CHARS of text and MAX_ATOMS numbers;
+ *   an amount past that is not found, and the audit records page_truncated. Page
  *   amounts are read with the same grammar, so "$75,000", "$75k",
  *   "75,000 USD", "USD 75,000" and "up to $75,000" are one value, "€50.000"
  *   is 50,000 euros, and "$1M", "$1 million" and "$1,000,000" are equal. A

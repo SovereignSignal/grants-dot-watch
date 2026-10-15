@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findAmountOnPage, findMoney, matchAmountOnPage, parseAmount, parseMoney, visibleMoneyText } from '../src/lib/money-match.ts';
+import { findAmountOnPage, findMoney, matchAmountOnPage, normalizeMoneyText, parseAmount, parseMoney, visibleMoneyText } from '../src/lib/money-match.ts';
 
 const onPage = (amount, html) => {
   const parsed = parseMoney(amount);
@@ -16,7 +16,7 @@ test('a Wire amount parses to one currency and value in every common rendering',
     assert.deepEqual({ currency: m.currency, min: m.min, max: m.max, range: m.range }, usd75k, raw);
     assert.equal(m.upTo, false, raw);
   }
-  for (const raw of ['€50.000', '€50,000', '50k EUR', '50.000 EUR', 'EUR 50 000', '€50.000,00']) {
+  for (const raw of ['€50.000', '€50,000', '50k EUR', '50.000 EUR', 'EUR 50\u202f000', "EUR 50'000", '€50.000,00']) {
     const m = parseMoney(raw);
     assert.ok(m, raw);
     assert.deepEqual([m.currency, m.min, m.max], ['EUR', 5_000_000, 5_000_000], raw);
@@ -56,7 +56,7 @@ test('the page states the amount in each recognisable form', () => {
     ['$75,000', '<p>Budget: 75,000 USD.</p>'],
     ['$75,000', '<p>Budget: USD 75,000.</p>'],
     ['$75,000', '<p>Budget: <strong>&#36;75,000</strong></p>'],
-    ['$75,000', '<p>Budget: $75&nbsp;000</p>'],
+    ['$75,000', '<p>Budget: $75&#8239;000</p>'],
     ['$75k', '<p>Budget: $75,000.</p>'],
     ['€50.000', '<p>Förderung bis €50.000 pro Projekt.</p>'],
     ['€50.000', '<p>Funding of 50k EUR per project.</p>'],
@@ -121,16 +121,91 @@ test('a Wire amount may carry a qualifier of 1 to 4 plain words', () => {
 
 test('the page must state the qualifier right after the same money mention', () => {
   const match = (raw, html) => matchAmountOnPage(parseAmount(raw), visibleMoneyText(html));
-  assert.deepEqual(match('$75,000 budget', '<p>A $75k budget.</p>'), { ok: true, text: '$75k budget' });
-  assert.deepEqual(match('$75,000 budget', '<p>A $75,000 pool, then a $75,000 budget.</p>'), { ok: true, text: '$75,000 budget' });
-  assert.deepEqual(match('$75,000 per team', '<p>A $75,000 pool.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
-  assert.deepEqual(match('$75,000 budget', '<p>$75,000. Budget soon.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
-  assert.deepEqual(match('$75,000 budget', '<p>$75,000 budgets.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
-  assert.deepEqual(match('$75,000 budget', '<p>A $175,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page' });
-  assert.deepEqual(match('$75,000 budget', '<p>A €75,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page' });
+  assert.deepEqual(match('$75,000 budget', '<p>A $75k budget.</p>'), { ok: true, text: '$75k budget', truncated: false });
+  assert.deepEqual(match('$75,000 budget', '<p>A $75,000 pool, then a $75,000 budget.</p>'), { ok: true, text: '$75,000 budget', truncated: false });
+  assert.deepEqual(match('$75,000 per team', '<p>A $75,000 pool.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page', truncated: false });
+  assert.deepEqual(match('$75,000 budget', '<p>$75,000. Budget soon.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page', truncated: false });
+  assert.deepEqual(match('$75,000 budget', '<p>$75,000 budgets.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page', truncated: false });
+  assert.deepEqual(match('$75,000 budget', '<p>A $175,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page', truncated: false });
+  assert.deepEqual(match('$75,000 budget', '<p>A €75,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page', truncated: false });
 });
 
 test('page scanning reads every number whole', () => {
   const found = findMoney(visibleMoneyText('<p>$175,000 then $75,000 and up to $1.5M, deadline November 30, 2026.</p>'));
   assert.deepEqual(found.map((e) => [e.text, e.min]), [['$175,000', 17_500_000], ['$75,000', 7_500_000], ['up to $1.5M', 150_000_000]]);
+});
+
+test('a plain or no-break space never separates thousands', () => {
+  for (const raw of ['$75 000', '$75 000', 'USD 2 500', '1 000 000 USD', '$1 000 000']) {
+    assert.equal(parseAmount(raw), null, JSON.stringify(raw));
+  }
+  for (const html of ['<p>Budget: $75 000.</p>', '<p>Budget: $75&nbsp;000.</p>', '<p>Budget: $75 000.</p>']) {
+    assert.equal(onPage('$75,000', html), null, html);
+    // Nor is the head read as an amount of its own.
+    assert.equal(onPage('$75', html), null, html);
+  }
+  // The dedicated thin spaces still separate, the same way on both sides.
+  assert.equal(onPage('$75,000', '<p>$75&#8239;000</p>'), '$75 000');
+  assert.equal(onPage('$75,000', '<p>$75&thinsp;000</p>'), '$75 000');
+  assert.equal(parseMoney('$75 000').min, 7_500_000);
+});
+
+test('a number split by markup never joins, and is not read as its head', () => {
+  for (const html of ['<p>$75,<b>000</b></p>', '<p>$75<b>,000</b></p>', '<p>$75<span>000</span></p>', '<p>$<i>75</i>000</p>', '<p>$75<!-- -->000</p>']) {
+    assert.equal(onPage('$75,000', html), null, html);
+    assert.equal(onPage('$75', html), null, html);
+    assert.equal(onPage('$75000', html), null, html);
+  }
+  // Markup around a whole amount is fine.
+  assert.equal(onPage('$75,000', '<p><span>$</span><strong>75,000</strong> budget</p>'), '$ 75,000');
+});
+
+test('the same string parses identically as a proposal and on a page', () => {
+  const readable = [
+    '$75,000', '$75k', '$75K', '75,000 USD', 'USD 75,000', 'US$75,000', '$75,000.00', '€50.000', '€50.000,00', '50k EUR',
+    "CHF 75'000", 'EUR 50 000', 'EUR 50 000', '£2,500', '$1M', '$1 million', '$1,000,000', '$1.5M', 'up to $100,000',
+    '$50,000–$100,000', '$50,000-100,000', '$50k - $100k', '50,000–100,000 EUR', '$75,000 budget', 'up to $50,000 per project',
+  ];
+  const unreadable = ['$75 000', '$75 000', 'USD 2 500', '1 000 000 USD', 'CA$75,000', '$75k+', '$1.500M', '$50-100k', '$75,000 2026'];
+  const shape = (e) => ({ currency: e.currency, min: e.min, max: e.max, range: e.range, upTo: e.upTo });
+  const pages = (raw) => [raw, `<p>${raw}</p>`, `<td><span>${raw}</span></td>`, `Intro text. ${raw}`];
+  for (const raw of readable) {
+    const proposal = parseAmount(raw);
+    assert.ok(proposal, raw);
+    for (const page of pages(raw)) {
+      const found = findMoney(normalizeMoneyText(page));
+      assert.equal(found.length, 1, `${raw} in ${page}`);
+      assert.deepEqual(shape(found[0]), shape(proposal.money), `${raw} in ${page}`);
+    }
+  }
+  for (const raw of unreadable) {
+    assert.equal(parseAmount(raw), null, raw);
+    for (const page of pages(raw)) assert.deepEqual(findMoney(normalizeMoneyText(page)), [], `${raw} in ${page}`);
+  }
+});
+
+test('reading a 1 MB page dense with numbers and "up to" stays fast and bounded', () => {
+  const chunk = 'up to $1,234 and 5,678 USD, up to €9.999 or 12 - 34 between $5k and $6k; ';
+  const html = `<p>${chunk.repeat(Math.ceil(1_048_576 / chunk.length))}</p>`.slice(0, 1_048_576);
+  assert.ok(html.length >= 1_000_000);
+  const started = performance.now();
+  const text = normalizeMoneyText(html);
+  assert.equal(findAmountOnPage(parseMoney('$75,000'), text), null);
+  const match = matchAmountOnPage(parseAmount('$75,000 budget'), text);
+  const elapsed = performance.now() - started;
+  assert.deepEqual(match, { ok: false, reason: 'amount_not_on_page', truncated: true });
+  assert.ok(elapsed < 500, `took ${elapsed.toFixed(0)} ms`);
+});
+
+test('pathological markup is linear: unclosed scripts, stray brackets, bare entities', () => {
+  const inputs = ['<script>'.repeat(100_000), '<'.repeat(1_000_000), '&'.repeat(500_000) + 'a'.repeat(500_000), '<a '.repeat(300_000), '&#'.repeat(400_000), '</script'.repeat(100_000)];
+  for (const html of inputs) {
+    const started = performance.now();
+    findMoney(normalizeMoneyText(html));
+    const elapsed = performance.now() - started;
+    assert.ok(elapsed < 500, `${html.slice(0, 12)}…: ${elapsed.toFixed(0)} ms`);
+  }
+  // An unclosed script hides the rest of the page.
+  assert.equal(onPage('$75,000', '<p>Intro</p><script>var x = 1; <p>$75,000</p>'), null);
+  assert.equal(onPage('$75,000', '<script>"$1"</script><p>$75,000</p>'), '$75,000');
 });
