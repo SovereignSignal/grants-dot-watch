@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { PageHeader, Stat } from '@/components/ui';
 import { FundingRecord, type FundingRow } from '@/components/funding/funding-record';
 import { loadPublicFundingProduct } from '@/lib/public-api-v2';
 import { queryProductCollection, EXTRA_COLLECTIONS } from '@/lib/funding-product.mjs';
@@ -16,8 +15,8 @@ export default async function FundingPage({ searchParams }: { searchParams: Prom
   const sp = await searchParams;
   let product;
   try { product = await loadPublicFundingProduct(); }
-  catch { return <><PageHeader eyebrow="THE FUNDING REGISTER" title="Funding evidence"/><p role="alert" className="mx-auto max-w-6xl p-6">Funding evidence is temporarily unavailable. <Link href="/programs" className="evidence-link">Browse the existing registry</Link>.</p></>; }
-  if (!product) return <><PageHeader eyebrow="THE FUNDING REGISTER" title="Funding evidence" sub="The funding-data release is not enabled on this instance."/><p className="mx-auto max-w-6xl p-6"><Link href="/programs" className="evidence-link">Browse programs</Link> · <Link href="/data" className="evidence-link">API documentation</Link></p></>;
+  catch { return <div className="directory-shell"><section className="directory-hero"><div className="hero-kicker">The funding register</div><div className="hero-line"><h1>Funding evidence</h1></div></section><p role="alert" className="border-t border-line py-6">Funding evidence is temporarily unavailable. <Link href="/programs" className="evidence-link">Browse the existing registry</Link>.</p></div>; }
+  if (!product) return <div className="directory-shell"><section className="directory-hero"><div className="hero-kicker">The funding register</div><div className="hero-line"><h1>Funding evidence</h1></div><p>The funding-data release is not enabled on this instance.</p></section><p className="border-t border-line py-6"><Link href="/programs" className="evidence-link">Browse programs</Link> · <Link href="/data" className="evidence-link">API documentation</Link></p></div>;
   const kind = kinds.some(([key]) => key === value(sp,'kind')) ? value(sp,'kind') : 'funding-events';
   const params = new URLSearchParams({ limit:'20' });
   for (const key of ['q','program','org','cursor']) if (value(sp,key)) params.set(key,value(sp,key));
@@ -29,9 +28,13 @@ export default async function FundingPage({ searchParams }: { searchParams: Prom
   const next = new URLSearchParams(params); next.delete('limit'); next.set('kind',kind); if(page.meta.next_cursor) next.set('cursor',page.meta.next_cursor);
   const programNames = new Map((product.collections.programs as { id: string; name: string }[]).map(p => [p.id, p.name]));
   const apiParams = new URLSearchParams(params);
-  return <><PageHeader eyebrow="THE FUNDING REGISTER" title="Funding evidence" sub="Who received funding, what was offered, and how decisions were made. Every new observation retains its source. Unknown payments and outcomes stay unknown." right={<Link className="evidence-link" href="/data">Use the API →</Link>}/>
-    <div className="mx-auto max-w-6xl px-4 pb-16">
-      <div className="grid grid-cols-2 gap-6 border-b border-line py-6 sm:grid-cols-4"><Stat label="Funding events" value={product.collections['funding-events'].length}/><Stat label="Process observations" value={product.collections['process-metrics'].length}/><Stat label="Program records" value={product.collections.programs.length}/><Stat label="Evidence claims" value={product.collections.claims.length}/></div>
+  return <div className="directory-shell">
+    <section className="directory-hero"><div className="hero-kicker">The funding register</div>
+      <div className="hero-line"><h1>Funding evidence</h1></div>
+      <p>Who received funding, what was offered, and how decisions were made. Every new observation retains its source. Unknown payments and outcomes stay unknown.</p>
+      <div className="directory-statline"><span><b>{product.collections['funding-events'].length.toLocaleString()}</b> funding events</span><span><b>{product.collections['process-metrics'].length.toLocaleString()}</b> process observations</span><span><b>{product.collections.programs.length.toLocaleString()}</b> program records</span><span><b>{product.collections.claims.length.toLocaleString()}</b> evidence claims</span><span><Link className="underline" href="/data">Use the API →</Link></span></div>
+    </section>
+    <div className="pb-16">
       <p className="mt-4 text-sm text-dim">Funding events track recommendations, awards and payments as separate observations. The <Link className="evidence-link" href="/awards">awards ledger</Link> includes additional historical awards; these counts cover different records.</p>
       <form className="my-6 flex flex-wrap items-end gap-4" action="/funding"><label className="min-w-0 grow text-sm text-dim">Search<input name="q" defaultValue={value(sp,'q')} placeholder="Project, program or recipient" className="mt-1 block w-full border border-line bg-transparent p-3 text-paper"/></label><label className="text-sm text-dim">Dataset<select name="kind" defaultValue={kind} className="mt-1 block max-w-full border border-line bg-raised p-3 text-paper">{kinds.map(([key,label]) => <option key={key} value={key}>{label}</option>)}</select></label>{value(sp,'program') && <input type="hidden" name="program" value={value(sp,'program')}/>}<button className="border border-paper px-5 py-3 text-sm text-paper" type="submit">Search records</button><Link className="evidence-link py-3 text-sm" href="/funding">Reset</Link></form>
       <div className="flex flex-wrap justify-between gap-3 pb-3 text-sm text-dim"><span>{page.meta.total.toLocaleString()} matching record{page.meta.total === 1 ? '' : 's'}{value(sp,'program') ? ` for ${programNames.get(value(sp,'program')) || value(sp,'program')}` : ''}</span><a className="evidence-link" href={`/api/v2/${kind}?${apiParams}`}>This view as JSON</a></div>
@@ -40,5 +43,5 @@ export default async function FundingPage({ searchParams }: { searchParams: Prom
       {page.data.map(row => <FundingRecord key={String(row.id)} row={row} kind={kind} programName={programNames.get(String(row.program))}/>)}
       {page.meta.next_cursor && <Link className="mt-5 inline-block border border-paper px-5 py-3 text-paper" href={`/funding?${next}`}>Next records →</Link>}
       <footer className="mt-10 border-t border-line pt-5 text-sm text-dim">The full current program registry is available. Detailed funding histories cover the sources ingested so far, not every program. <Link href="/data#coverage" className="evidence-link">Coverage and interpretation</Link>.</footer>
-    </div></>;
+    </div></div>;
 }
