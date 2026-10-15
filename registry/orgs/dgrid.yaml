@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://dgrid.ai
+socials:
+  x: https://x.com/dgrid_ai
 status: unknown
 profile: "dGrid: no sourced profile on file yet. See dgrid.ai for the organization's own
   description, and the programs listed on this page."
 sources:
   - https://dgrid.ai
+  - https://x.com/dgrid_ai
