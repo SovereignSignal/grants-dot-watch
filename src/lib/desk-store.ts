@@ -115,6 +115,8 @@ export interface RawMinerProposal {
   wire?: Wire | null;
   /** Curator API intake only. Miner candidates leave this unset. */
   submitted_by?: Proposal['submitted_by'];
+  /** Award-source sweep packets only. */
+  origin?: Proposal['origin'];
 }
 
 interface ResolutionReport {
@@ -313,6 +315,7 @@ function proposalFromRaw(item: RawMinerProposal, nextId: () => string): Proposal
     state: 'pending',
     created_at: new Date().toISOString(),
     ...(item.submitted_by ? { submitted_by: item.submitted_by } : {}),
+    ...(item.origin === 'award_source_sweep' ? { origin: item.origin } : {}),
   };
 }
 

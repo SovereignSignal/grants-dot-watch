@@ -118,7 +118,7 @@ test('flag off: the sweep queues only, and decide refuses a machine funding appr
       // Even if a hook were wired by mistake, the decide boundary checks the flag.
       const f2 = fixture(), d2 = desk(f2);
       try {
-        const summary = await sweepAwardSources(sweepDeps(f2, d2, { afterQueue: hook(f2, d2) }));
+        const summary = await sweepAwardSources(sweepDeps(f2, d2, { autoApply: hook(f2, d2) }));
         assert.equal(summary.auto_applied, 0);
         assert.equal(summary.left_for_owner.length, 2);
         for (const left of summary.left_for_owner) assert.deepEqual(left.reasons, ['apply_failed: Funding imports require owner review']);
@@ -134,7 +134,7 @@ test('clean packets are approved through decideProposal as a machine decision', 
   await withFlag('1', async () => {
     const f = fixture(), d = desk(f);
     try {
-      const summary = await sweepAwardSources(sweepDeps(f, d, { afterQueue: hook(f, d) }));
+      const summary = await sweepAwardSources(sweepDeps(f, d, { autoApply: hook(f, d) }));
       assert.equal(summary.approval, true);
       assert.equal(summary.packets_queued, 2, JSON.stringify(summary));
       assert.equal(summary.auto_applied, 2, JSON.stringify(summary.left_for_owner));
@@ -160,26 +160,34 @@ test('clean packets are approved through decideProposal as a machine decision', 
       assert.equal(dataset['funding-events'].length, 2);
       assert.equal(dataset['process-metrics'].length, 1);
       // Tomorrow the same sources compile to nothing new.
-      const again = await sweepAwardSources(sweepDeps(f, d, { now: () => NEXT_DAY, afterQueue: hook(f, d) }));
+      const again = await sweepAwardSources(sweepDeps(f, d, { now: () => NEXT_DAY, autoApply: hook(f, d) }));
       assert.equal(again.packets_queued, 0);
       assert.equal(again.auto_applied, 0);
     } finally { f.clean(); }
   });
 });
 
-test('a held record on the source keeps its packet pending with the reason', async () => {
+test('held records block only the packets they touch', async () => {
   await withFlag('1', async () => {
-    const pages = { [NF_URL]: nfPage([nfRow('Alpha', 'Alpha docs', '$1,000.00', '2024', '1'), nfRow('Gamma & Delta', 'Joint work', '$500.00', '2024', '1')]) };
-    const f = fixture(pages), d = desk(f);
+    // An unrelated joint row is held; Alpha's packet still auto-applies.
+    const f = fixture({ [NF_URL]: nfPage([nfRow('Alpha', 'Alpha docs', '$1,000.00', '2024', '1'), nfRow('Gamma & Delta', 'Joint work', '$500.00', '2024', '1')]) }), d = desk(f);
     try {
-      const summary = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], afterQueue: hook(f, d) }));
+      const summary = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], autoApply: hook(f, d) }));
+      assert.equal(summary.records_held, 1);
+      assert.equal(summary.auto_applied, 1, JSON.stringify(summary.left_for_owner));
+      assert.equal(d.rows[0].state, 'approved');
+    } finally { f.clean(); }
+    // A held joint row naming Alpha keeps Alpha's packet on the Desk.
+    const g = fixture({ [NF_URL]: nfPage([nfRow('Alpha', 'Alpha docs', '$1,000.00', '2024', '1'), nfRow('Alpha & Delta', 'Joint work', '$500.00', '2024', '2')]) }), e = desk(g);
+    try {
+      const summary = await sweepAwardSources(sweepDeps(g, e, { sources: ['numfocus-sdg'], autoApply: hook(g, e) }));
       assert.equal(summary.packets_queued, 1);
       assert.equal(summary.auto_applied, 0);
       assert.deepEqual(summary.left_for_owner[0].reasons, ['held_records:joint_beneficiary_needs_review']);
       assert.equal(summary.left_for_owner[0].queued, true);
-      assert.equal(d.rows[0].state, 'pending');
-      assert.equal(d.applies.length, 0);
-    } finally { f.clean(); }
+      assert.equal(e.rows[0].state, 'pending');
+      assert.equal(e.applies.length, 0);
+    } finally { g.clean(); }
   });
 });
 
@@ -220,6 +228,14 @@ test('each not-clean condition is named by the rule', async () => {
       [{ ...base, pack: { id: 'x' } }, 'pack_shape_unknown'],
     ];
     for (const [input, reason] of cases) assert.ok(packetReasons(input).includes(reason), `${reason}: ${JSON.stringify(packetReasons(input))}`);
+    // Attributable held rows block only packets sharing their program and recipient.
+    const heldFor = fact => ({ ...base, compiled: { ...compiled, held: [{ id: 'h', source_id: 'numfocus-sdg', fact, reason: 'possible_legacy_award_duplicate' }] } });
+    assert.deepEqual(packetReasons(heldFor({ kind: 'award', recipient: 'numfocus-zeta', recipient_name: 'Zeta' })), []);
+    assert.deepEqual(packetReasons(heldFor({ kind: 'award', recipient: 'numfocus-other', recipient_name: 'ALPHA' })), ['held_records:possible_legacy_award_duplicate']);
+    assert.deepEqual(packetReasons(heldFor({ kind: 'award', recipient: 'numfocus-beta', recipient_name: 'B' })), ['held_records:possible_legacy_award_duplicate']);
+    assert.deepEqual(packetReasons({ ...base, compiled: { ...compiled, held: [{ id: 'h', source_id: 'microsoft-foss', fact: { kind: 'award', recipient: 'x', recipient_name: 'Alpha' }, reason: 'r' }] } }), []);
+    assert.deepEqual(packetReasons(heldFor({ kind: 'award' })), ['held_records:possible_legacy_award_duplicate']);
+    assert.deepEqual(packetReasons({ ...base, compiled: { ...compiled, held: [{ id: 'h', source_id: 'numfocus-sdg', reason: 'provider_value_conflict', variants: [{ fact: { kind: 'award', recipient: 'numfocus-zeta', recipient_name: 'Zeta' } }] }] } }), []);
     const without = (list, id) => list.filter(x => x.id !== id);
     assert.deepEqual(mappingReasons('numfocus-sdg', pack, { ...baseline, programs: without(baseline.programs, 'numfocus-small-development-grants') }), ['program_not_in_registry']);
     assert.ok(mappingReasons('numfocus-sdg', pack, { ...baseline, orgs: without(baseline.orgs, 'numfocus') }).includes('program_not_in_registry'));
@@ -229,60 +245,107 @@ test('each not-clean condition is named by the rule', async () => {
   } finally { f.clean(); }
 });
 
-test('a registry change between queueing and applying leaves the packet pending', async () => {
+test('a stale retry is left pending: the queued plan no longer matches current bytes', async () => {
   await withFlag('1', async () => {
     const f = fixture(), d = desk(f);
     try {
-      // Queue both without auto-apply, then approve Royal Society by hand.
+      // Queued together without auto-apply, so both plans expect the same dataset.
       await sweepAwardSources(sweepDeps(f, d));
-      const nf = d.rows.find(r => r.program === 'numfocus-small-development-grants');
-      const rs = d.rows.find(r => r.program === 'royal-society-research-grants');
-      assert.equal((await decideProposal({ id: rs.id, decision: 'approved', by: 'owner' }, d.deps)).status, 200);
-      const pack = nf.proposed_change._funding_v2.pack;
-      const queuedPreview = { plan_digest: nf.signal_id.slice('funding-v2:'.length), added: { 'funding-events': 2 }, unchanged: {} };
-      const { baseline, dataset } = f.load();
-      const { compileFundingSourcePackets } = await import('../src/lib/funding-source-packets.mjs');
-      const compiled = compileFundingSourcePackets((await f.capture('numfocus-sdg')).bundle.snapshots, baseline, dataset, TODAY);
-      const outcome = await hook(f, d)({ source: 'numfocus-sdg', compiled, pack, preview: queuedPreview, proposal: nf });
-      assert.deepEqual(outcome, { applied: false, reasons: ['preview_changed'] });
-      assert.equal(nf.state, 'pending');
+      assert.ok(d.rows.every(r => r.origin === 'award_source_sweep'));
+      const summary = await sweepAwardSources(sweepDeps(f, d, { now: () => NEXT_DAY, autoApply: hook(f, d) }));
+      assert.equal(summary.auto_applied, 1);
+      assert.equal(summary.auto_applied_retries, 1);
+      assert.equal(summary.left_for_owner.length, 1);
+      assert.equal(summary.left_for_owner[0].retry, true);
+      assert.deepEqual(summary.left_for_owner[0].reasons, ['preview_changed']);
+      assert.deepEqual(d.rows.map(r => r.state).sort(), ['approved', 'pending']);
     } finally { f.clean(); }
   });
 });
 
-test('a busy funding writer leaves the packet pending without a claim', async () => {
+test('a busy writer defers a clean packet and the next run applies it', async () => {
   await withFlag('1', async () => {
     const f = fixture(), d = desk(f);
     let decides = 0;
     try {
-      const summary = await sweepAwardSources(sweepDeps(f, d, {
-        afterQueue: hook(f, d, { writerBusy: () => true, decide: async () => { decides++; return { status: 200, body: {} }; } }),
+      const run1 = await sweepAwardSources(sweepDeps(f, d, {
+        autoApply: hook(f, d, { writerBusy: () => true, decide: async () => { decides++; return { status: 200, body: {} }; } }),
       }));
-      assert.equal(summary.auto_applied, 0);
-      assert.deepEqual(summary.left_for_owner.map(l => l.reasons), [['writer_busy'], ['writer_busy']]);
+      assert.equal(run1.auto_applied, 0);
+      assert.deepEqual(run1.auto_apply_deferred.map(x => x.reasons), [['writer_busy'], ['writer_busy']]);
       assert.equal(decides, 0);
-      assert.ok(d.rows.every(r => r.state === 'pending'));
-      // The lock appearing during the re-preview read is reported the same way.
+      assert.equal(d.rows.length, 0);
+      const run2 = await sweepAwardSources(sweepDeps(f, d, { now: () => NEXT_DAY, autoApply: hook(f, d) }));
+      assert.equal(run2.auto_applied, 2, JSON.stringify(run2));
+      assert.ok(d.rows.every(r => r.state === 'approved'));
+      // The lock appearing during the re-preview read leaves the queued packet pending.
       const f2 = fixture(), d2 = desk(f2);
       try {
         const busyLoad = () => { throw new Error('Funding writer is active'); };
-        const s2 = await sweepAwardSources(sweepDeps(f2, d2, { sources: ['numfocus-sdg'], afterQueue: hook(f2, d2, { load: busyLoad }) }));
+        const s2 = await sweepAwardSources(sweepDeps(f2, d2, { sources: ['numfocus-sdg'], autoApply: hook(f2, d2, { load: busyLoad }) }));
         assert.deepEqual(s2.left_for_owner[0].reasons, ['writer_busy']);
         assert.equal(d2.rows[0].state, 'pending');
+        // Next run the writer is free: the sweep retries its own pending packet.
+        const s3 = await sweepAwardSources(sweepDeps(f2, d2, { sources: ['numfocus-sdg'], now: () => NEXT_DAY, autoApply: hook(f2, d2) }));
+        assert.equal(s3.auto_applied_retries, 1, JSON.stringify(s3));
+        assert.equal(d2.rows.length, 1);
+        assert.equal(d2.rows[0].state, 'approved');
       } finally { f2.clean(); }
     } finally { f.clean(); }
   });
 });
 
-test('the per-run cap is respected and the default is ten', async () => {
+test('the per-run cap is respected, retries go first, and the leftover applies next run', async () => {
   assert.equal(MAX_AWARD_AUTO_APPLIES, 10);
   await withFlag('1', async () => {
     const f = fixture(), d = desk(f);
     try {
-      const summary = await sweepAwardSources(sweepDeps(f, d, { afterQueue: hook(f, d, { maxApplies: 1 }) }));
-      assert.equal(summary.auto_applied, 1);
-      assert.deepEqual(summary.left_for_owner.map(l => l.reasons), [['auto_apply_cap']]);
-      assert.deepEqual(d.rows.map(r => r.state).sort(), ['approved', 'pending']);
+      const run1 = await sweepAwardSources(sweepDeps(f, d, { autoApply: hook(f, d, { maxApplies: 1 }) }));
+      assert.equal(run1.auto_applied, 1);
+      assert.deepEqual(run1.auto_apply_deferred.map(x => x.reasons), [['auto_apply_cap']]);
+      assert.deepEqual(run1.left_for_owner, []);
+      assert.deepEqual(d.rows.map(r => r.state), ['approved']);
+      const run2 = await sweepAwardSources(sweepDeps(f, d, { now: () => NEXT_DAY, autoApply: hook(f, d, { maxApplies: 1 }) }));
+      assert.equal(run2.auto_applied, 1, JSON.stringify(run2));
+      assert.deepEqual(d.rows.map(r => r.state), ['approved', 'approved']);
+    } finally { f.clean(); }
+    // A pending sweep packet is retried before a new packet can spend the cap.
+    const g = fixture(), e = desk(g);
+    try {
+      await sweepAwardSources(sweepDeps(g, e, { sources: ['royal-society-research'] }));
+      const run = await sweepAwardSources(sweepDeps(g, e, { now: () => NEXT_DAY, autoApply: hook(g, e, { maxApplies: 1 }) }));
+      assert.equal(run.auto_applied_retries, 1);
+      assert.deepEqual(run.auto_apply_deferred.map(x => x.source), ['numfocus-sdg']);
+      assert.deepEqual(e.rows.map(r => [r.program, r.state]), [['royal-society-research-grants', 'approved']]);
+    } finally { g.clean(); }
+  });
+});
+
+test('retries cover only the sweep\'s own pending packets and rely on the Desk claim', async () => {
+  await withFlag('1', async () => {
+    const f = fixture(), d = desk(f);
+    try {
+      await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'] }));
+      // Without the origin marker the packet is not the sweep's to retry.
+      delete d.rows[0].origin;
+      const unmarked = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], now: () => NEXT_DAY, autoApply: hook(f, d) }));
+      assert.equal(unmarked.auto_applied, 0);
+      assert.equal(d.rows[0].state, 'pending');
+      d.rows[0].origin = 'award_source_sweep';
+      // The owner wins the claim between the sweep's read and its approval.
+      const claim = d.deps.claimProposal;
+      d.deps.claimProposal = async () => null;
+      const raced = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], now: () => NEXT_DAY, autoApply: hook(f, d) }));
+      assert.equal(raced.auto_applied, 0);
+      assert.deepEqual(raced.left_for_owner[0].reasons, ['apply_failed: already claimed or decided']);
+      assert.equal(d.applies.length, 0);
+      // An item the owner already decided is not retried at all.
+      d.deps.claimProposal = claim;
+      d.rows[0].state = 'rejected';
+      const decided = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], now: () => NEXT_DAY, autoApply: hook(f, d) }));
+      assert.equal(decided.auto_applied, 0);
+      assert.equal(decided.left_for_owner.filter(l => l.retry).length, 0);
+      assert.equal(d.applies.length, 0);
     } finally { f.clean(); }
   });
 });
@@ -297,11 +360,11 @@ test('packets with owner-rejected records are held, never re-queued or auto-appl
       // A new row appears beside the two the owner rejected.
       f.pages[NF_URL] = nfPage([nfRow('Alpha', 'Alpha docs', '$1,000.00', '2024', '1'), nfRow('Beta', 'Beta tests', '$2,500.00', '2024', '2'), nfRow('Epsilon', 'Epsilon tools', '$900.00', '2025', '1')]);
       for (const now of [NEXT_DAY, new Date('2026-10-17T18:00:00Z')]) {
-        const summary = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], now: () => now, afterQueue: hook(f, d) }));
+        const summary = await sweepAwardSources(sweepDeps(f, d, { sources: ['numfocus-sdg'], now: () => now, autoApply: hook(f, d) }));
         assert.equal(summary.packets_queued, 0);
         assert.equal(summary.packets_held, 1);
         assert.equal(summary.auto_applied, 0);
-        assert.deepEqual(summary.left_for_owner, [{ source: 'numfocus-sdg', pack_id: 'source-numfocus-small-development-grants-001', proposal_id: null, queued: false, reasons: ['contains_rejected_records'] }]);
+        assert.deepEqual(summary.left_for_owner, [{ source: 'numfocus-sdg', pack_id: 'source-numfocus-small-development-grants-001', retry: false, proposal_id: null, queued: false, reasons: ['contains_rejected_records'] }]);
       }
       assert.equal(d.rows.length, 1);
       assert.equal(d.applies.length, 0);
@@ -340,7 +403,7 @@ test('a reconciliation hold stops auto-apply for the rest of the run', async () 
     let decides = 0;
     try {
       const summary = await sweepAwardSources(sweepDeps(f, d, {
-        afterQueue: hook(f, d, { decide: async () => { decides++; return { status: 500, body: { error: 'x', reconciliation_hold: true } }; } }),
+        autoApply: hook(f, d, { decide: async () => { decides++; return { status: 500, body: { error: 'x', reconciliation_hold: true } }; } }),
       }));
       assert.equal(decides, 1);
       assert.deepEqual(summary.left_for_owner.map(l => l.reasons), [['reconciliation_hold'], ['halted_after_reconciliation_hold']]);

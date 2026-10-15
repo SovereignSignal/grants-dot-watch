@@ -16,6 +16,48 @@ const plain = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const sum = counts => (plain(counts) ? Object.values(counts).reduce((n, v) => n + (Number(v) || 0), 0) : NaN);
 const orgFields = row => [row.funder, row.operator_org, row.disburser_org, ...(Array.isArray(row.capital_source_orgs) ? row.capital_source_orgs : [])].filter(v => v != null);
 
+const norm = name => String(name).toLowerCase().replace(/[^a-z0-9]/g, '');
+/** A name and, for a joint name, each of its parts. */
+const nameTerms = name => [name, ...String(name).split(JOINT_NAME)].map(norm).filter(Boolean).map(n => `name:${n}`);
+
+/** The identity terms a packet record exposes to held-record scoping. */
+function recordTerms(ledger, row) {
+  if (!plain(row)) return [];
+  if (ledger === 'funding-events') return [`recipient:${row.recipient}`, ...nameTerms(row.recipient_name ?? '')];
+  if (ledger === 'process-metrics') return [`period:${row.period}`];
+  return [];
+}
+
+/**
+ * Which packets a held record can block. The compiler maps each catalog source
+ * to exactly one program and leaves held rows out of every packet, so a held
+ * row is attributed to that program plus its recipient (slug and normalized
+ * name, and each part of a joint name) or, for a process metric, its period.
+ * Returns null when the held item does not carry enough to attribute it; the
+ * caller then blocks every packet from the source.
+ * @returns {{program:string, terms:Set<string>}|null}
+ */
+export function heldScope(item) {
+  if (!plain(item) || typeof item.source_id !== 'string' || !Object.hasOwn(SOURCE_CATALOG, item.source_id)) return null;
+  const program = SOURCE_CATALOG[item.source_id].program;
+  if (item.suggested_program != null && item.suggested_program !== program) return null;
+  const facts = plain(item.fact) ? [item.fact] : Array.isArray(item.variants) ? item.variants.map(v => v?.fact) : [];
+  if (!facts.length) return null;
+  const terms = new Set();
+  for (const fact of facts) {
+    if (!plain(fact)) return null;
+    if (fact.kind === 'award') {
+      if (typeof fact.recipient !== 'string' || typeof fact.recipient_name !== 'string' || !norm(fact.recipient_name)) return null;
+      terms.add(`recipient:${fact.recipient}`);
+      for (const term of nameTerms(fact.recipient_name)) terms.add(term);
+    } else if (fact.kind === 'metric') {
+      if (typeof fact.period !== 'string' || !fact.period) return null;
+      terms.add(`period:${fact.period}`);
+    } else return null;
+  }
+  return { program, terms };
+}
+
 /** Records in a pack, or null when the pack does not have the compiler's shape. */
 export function packRecords(pack) {
   if (!plain(pack) || !plain(pack.records)) return null;
@@ -37,18 +79,27 @@ export function packetReasons({ source, compiled, pack, preview }) {
   const config = Object.hasOwn(SOURCE_CATALOG, source) ? SOURCE_CATALOG[source] : null;
   // 1. An allowlisted first-party source with a native capture client.
   if (!config || !NATIVE_REFRESH_SOURCES.includes(source)) reasons.add('source_not_allowlisted');
-  // 2. The capture compiled whole: no failed snapshot, no coverage gap, no held record.
+  const rows = packRecords(pack);
+  // 2. The capture compiled whole: no failed snapshot and no coverage gap on the
+  //    source, and no held record that touches this packet.
   if (!plain(compiled) || !Array.isArray(compiled.held) || !Array.isArray(compiled.source_failures) || !Array.isArray(compiled.coverage_gaps)) {
     reasons.add('compile_output_unknown');
   } else {
     if (compiled.source_failures.length) reasons.add('source_failures');
     if (compiled.coverage_gaps.length) reasons.add('coverage_gaps');
     // Held reasons name the duplicate, identity, joint-beneficiary, mapping and
-    // supersession checks; each one keeps the whole source on the Desk.
-    for (const item of compiled.held) reasons.add(`held_records:${typeof item?.reason === 'string' ? item.reason : 'unknown'}`);
+    // supersession checks. A held row blocks a packet of the same program that
+    // shares its recipient (or metric period); one that cannot be attributed
+    // blocks every packet from the source.
+    const terms = rows ? new Set(rows.flatMap(({ ledger, row }) => recordTerms(ledger, row))) : null;
+    for (const item of compiled.held) {
+      const reason = `held_records:${typeof item?.reason === 'string' ? item.reason : 'unknown'}`;
+      const scope = heldScope(item);
+      if (!scope || !terms || !config) { reasons.add(reason); continue; }
+      if (scope.program === config.program && [...scope.terms].some(t => terms.has(t))) reasons.add(reason);
+    }
   }
   // 3. The pack is the compiler's shape and within the Desk and packet limits.
-  const rows = packRecords(pack);
   if (!rows) return [...reasons, 'pack_shape_unknown'];
   const bytes = Buffer.byteLength(JSON.stringify(pack));
   if (!rows.length || rows.length > MAX_PACK_RECORDS || bytes > MAX_PACK_BYTES || bytes > SOURCE_PACKET_BYTE_LIMIT) reasons.add('pack_limits');

@@ -185,6 +185,9 @@ export interface Proposal {
   validation?: ProposalValidation;
   /** Set when a curator API key queued this item. Absent on miner/owner intake. */
   submitted_by?: CuratorStamp;
+  /** Set by the daily award-source sweep on the funding packets it queues, so a
+   *  later run can retry its own still-pending clean packets. */
+  origin?: 'award_source_sweep';
   /** Latest curator annotation. Does not decide the item — the owner does. */
   curator_review?: CuratorReview;
   /** Every annotation, oldest first. `curator_review` is the last entry. */

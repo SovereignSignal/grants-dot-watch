@@ -33,10 +33,11 @@ export async function captureFundingSource(source: string, fund: number, revisio
 /** Off unless AWARD_SOURCES_ENABLED=1. Queues pending Desk items through the
  *  same preview and insert the workspace uses. With AWARD_SOURCES_AUTO_APPLY=1
  *  (independent, default off) a clean packet is approved right after it is
- *  queued, through the owner Desk path as a machine decision
- *  (src/lib/award-auto-apply.ts). Never throws. */
+ *  queued, and the sweep's own still-pending clean packets are retried, through
+ *  the owner Desk path as a machine decision (src/lib/award-auto-apply.ts).
+ *  Never throws. */
 export async function runAwardSourceSweep(): Promise<AwardSourceSweepSummary> {
-  const afterQueue = awardSourcesAutoApplyEnabled()
+  const autoApply = awardSourcesAutoApplyEnabled()
     ? (await import('./award-auto-apply')).createAwardAutoApply({ load: loadFundingEditableSnapshot })
     : undefined;
   return sweepAwardSources({
@@ -46,6 +47,6 @@ export async function runAwardSourceSweep(): Promise<AwardSourceSweepSummary> {
     load: loadFundingEditableSnapshot,
     proposals: async () => (await listProposals()).filter(isFundingProposal),
     enqueue: rows => insertIngestProposals(rows as RawMinerProposal[]),
-    afterQueue,
+    autoApply,
   });
 }
