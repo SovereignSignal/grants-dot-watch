@@ -16,7 +16,9 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
   complete validation gate. New entities and programs, status/profile changes, awards, merges,
   and taxonomy queue at **The Desk** for the owner. The one award exception is opt-in
   (`AWARD_SOURCES_AUTO_APPLY=1`): a clean first-party award packet from the daily sweep, see
-  `docs/funding-live-product.md`.
+  `docs/funding-live-product.md`. The one program exception is also opt-in
+  (`WIRE_PROGRAM_AUTO_APPLY=1`): a Wire new program for an org already on file, confirmed on
+  that org's own site, see `docs/WIRE-HANDOFF.md`.
 - **Signals in, registry out.** Wire scanning systems feed candidate changes; nothing enters
   the registry without either machine-verifiable provenance or an owner verdict.
 - **The taxonomy:** a *system* is a funding ecosystem with its own capital gravity (a treasury,

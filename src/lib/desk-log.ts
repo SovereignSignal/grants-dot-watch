@@ -19,6 +19,16 @@ export interface DeskLogAwardAudit {
   records: number;
 }
 
+export interface DeskLogProgramAudit {
+  policy: string;
+  fetchedUrl: string;
+  finalUrl: string;
+  pageHash: string;
+  matchedName: string;
+  matchedSignal: string;
+  score: number;
+}
+
 export interface DeskLogRow {
   key: string;
   at: string;
@@ -35,6 +45,7 @@ export interface DeskLogRow {
   reverted?: boolean;
   audit?: DeskLogAudit;
   awardAudit?: DeskLogAwardAudit;
+  programAudit?: DeskLogProgramAudit;
 }
 
 function curatorActor(name: string | undefined, id: string | undefined): string {
@@ -42,7 +53,11 @@ function curatorActor(name: string | undefined, id: string | undefined): string 
 }
 
 function verdictActor(verdict: Verdict): string | null {
-  if (verdict.by === 'machine') return verdict.award_auto_apply ? 'machine · award auto-apply' : 'machine';
+  if (verdict.by === 'machine') {
+    if (verdict.award_auto_apply) return 'machine · award auto-apply';
+    if (verdict.wire_program_auto_apply) return 'machine · wire program auto-apply';
+    return 'machine';
+  }
   if (verdict.by === 'curator') {
     const actor = curatorActor(verdict.curator_name, verdict.curator_id);
     return verdict.auto_apply ? `${actor} · auto-apply` : actor;
@@ -68,7 +83,7 @@ export function buildDeskLog(
       actor: verdictActor(verdict),
       destination: verdict.decision === 'approved' ? proposal?.destination ?? null : null,
       proposalId: verdict.proposal_id,
-      autoApplied: Boolean(verdict.auto_apply || verdict.award_auto_apply),
+      autoApplied: Boolean(verdict.auto_apply || verdict.award_auto_apply || verdict.wire_program_auto_apply),
       revertable: Boolean(verdict.auto_apply),
       reverted: Boolean(verdict.reverted_at),
       audit: verdict.auto_apply
@@ -88,6 +103,17 @@ export function buildDeskLog(
             packId: verdict.award_auto_apply.pack_id,
             planDigest: verdict.award_auto_apply.plan_digest,
             records: verdict.award_auto_apply.records,
+          }
+        : undefined,
+      programAudit: verdict.wire_program_auto_apply
+        ? {
+            policy: verdict.wire_program_auto_apply.policy,
+            fetchedUrl: verdict.wire_program_auto_apply.fetched_url,
+            finalUrl: verdict.wire_program_auto_apply.final_url,
+            pageHash: verdict.wire_program_auto_apply.page_hash,
+            matchedName: verdict.wire_program_auto_apply.matched_name,
+            matchedSignal: verdict.wire_program_auto_apply.matched_signal,
+            score: verdict.wire_program_auto_apply.score,
           }
         : undefined,
     });
