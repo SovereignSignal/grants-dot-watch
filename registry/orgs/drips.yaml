@@ -9,6 +9,8 @@ wires:
 roles:
   - funder
 website: https://www.drips.network/
+socials:
+  x: https://x.com/dripsnetwork
 status: active
 profile: Drips is an onchain platform for funding open-source developers and their dependencies,
   letting ecosystems stream funds to any GitHub repo and run retroactive public goods funding
