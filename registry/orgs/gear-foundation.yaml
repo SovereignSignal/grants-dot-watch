@@ -8,8 +8,11 @@ wires:
 roles:
   - funder
 website: https://gear-tech.io
+socials:
+  x: https://x.com/gear_techs
 status: unknown
 profile: "Gear Foundation: no sourced profile on file yet. See gear-tech.io for the organization's
   own description, and the programs listed on this page."
 sources:
   - https://gear-tech.io
+  - https://gear-tech.io/
