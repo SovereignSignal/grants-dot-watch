@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { loadRegistry } from '@/lib/registry';
 import { activeProgramsByOrg } from '@/lib/program-facts';
-import { PageHeader, Empty } from '@/components/ui';
+import { Empty } from '@/components/ui';
 import { OrgFilterBar, type OrgFilterState } from '@/components/browse/filters';
 import { ORG_ROLE_LABEL, ORG_STATUS_LABEL, orgTypeLabel } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL, dateShort } from '@/lib/format';
@@ -81,8 +81,16 @@ export default async function OrgsPage({
     .map((s) => ({ value: s.id, label: s.name }));
 
   return (
-    <>
-      <PageHeader eyebrow="THE REGISTER" title="Organizations" sub="Every org grants.watch tracks: funders curated in depth, others as thin records." />
+    <div className="directory-shell">
+      <section className="directory-hero">
+        <div className="hero-kicker">The register</div>
+        <div className="hero-line"><h1>Organizations</h1></div>
+        <p>Every org grants.watch tracks: funders curated in depth, others as thin records.</p>
+        <div className="directory-statline">
+          <span><b>{page.total.toLocaleString()}</b> matching organizations</span>
+          <span>Crypto · AI · Open source</span>
+        </div>
+      </section>
       <OrgFilterBar
         current={current}
         roleOptions={ROLE_OPTIONS.map((r) => ({ value: r, label: ORG_ROLE_LABEL[r] }))}
@@ -90,7 +98,7 @@ export default async function OrgsPage({
         systemOptions={systemOptions}
         statusOptions={STATUS_OPTIONS.map((s) => ({ value: s, label: ORG_STATUS_LABEL[s] }))}
       />
-      <div className="mx-auto max-w-6xl px-4 pb-16">
+      <div className="pb-16">
         <div className="coord border-b border-line py-3">
           {page.total === 0
             ? 'no organizations match'
@@ -211,6 +219,6 @@ export default async function OrgsPage({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }

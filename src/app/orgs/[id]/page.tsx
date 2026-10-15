@@ -59,7 +59,7 @@ export default async function OrgPage({
   const applyHost = applyUrl ? new URL(applyUrl).hostname.replace(/^www\./, '') : null;
 
   return (
-    <>
+    <article className="program-dossier">
       <Breadcrumb
         trail={[
           { label: 'Registry', href: '/' },
@@ -136,7 +136,7 @@ export default async function OrgPage({
 
       {/* Everything below runs full-width so long program and award ledgers
           keep enough room for names, amounts, and source evidence. */}
-      <div className="mx-auto max-w-6xl px-4 pb-16">
+      <div className="pb-16">
         <section className="pt-7">
           <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
             <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Programs</h2>
@@ -207,6 +207,6 @@ export default async function OrgPage({
           </div>
         </div>
       </div>
-    </>
+    </article>
   );
 }
