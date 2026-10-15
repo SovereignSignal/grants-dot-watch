@@ -1,9 +1,11 @@
 // The Desk approval path, shared by the owner UI and curator API.
+import { createHash } from 'node:crypto';
 import { applyProposalDurably, commitMessageFor, registryMayHaveChanged } from './committer';
+import { canonical } from './funding-model-core.mjs';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from './desk-store';
 import { isFundingProposal } from './funding-desk-core.mjs';
-import { awardSourcesAutoApplyEnabled } from './machine-approval-policy';
-import type { AwardAutoApply, CuratorAutoApply, Proposal, Verdict } from './types';
+import { awardSourcesAutoApplyEnabled, wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import type { AwardAutoApply, CuratorAutoApply, Proposal, Verdict, WireProgramAutoApply } from './types';
 
 export interface DecideInput {
   id:string; decision:'approved'|'rejected'; note?:string;
@@ -11,6 +13,28 @@ export interface DecideInput {
   auto_apply?:CuratorAutoApply;
   /** Only the award-source auto-apply sets this; no HTTP route passes it. */
   award_auto_apply?:AwardAutoApply;
+  /** Only the Wire program auto-apply sets this; no HTTP route passes it. */
+  wire_program_auto_apply?:WireProgramAutoApply;
+  /** proposalChangeHash of the proposed_change the caller verified. When set,
+   *  an approval applies only if the claimed proposal still hashes the same. */
+  expect_change_hash?:string;
+}
+/** SHA-256 of key-sorted JSON of a proposal's proposed_change. */
+export function proposalChangeHash(change:unknown):string {
+  return createHash('sha256').update(canonical(change ?? null)).digest('hex');
+}
+/** Automatic approvals verify a payload before calling here, sometimes
+ *  seconds earlier (a page fetch). They must name the payload they checked. */
+function changeHashRequired(input:DecideInput):boolean {
+  return Boolean(input.wire_program_auto_apply || input.award_auto_apply
+    || (input.auto_apply && (input.by==='machine' || input.by==='curator')));
+}
+/** The Wire program audit belongs to one machine approval of a pending Wire
+ *  new_program, and only while WIRE_PROGRAM_AUTO_APPLY=1. */
+function wireProgramAuditAllowed(proposal:Proposal,input:DecideInput):boolean {
+  if(!input.wire_program_auto_apply)return true;
+  return input.by==='machine' && input.decision==='approved' && wireProgramAutoApplyEnabled()
+    && proposal.type==='new_program' && typeof proposal.signal_id==='string' && proposal.signal_id.startsWith('wire:');
 }
 /** Funding imports are owner decisions, except one machine approval: the
  *  award-source auto-apply, while its flag is on, for the exact plan digest it
@@ -37,6 +61,11 @@ function applyMessage(proposal:Proposal,input:DecideInput):string {
     const a=input.award_auto_apply;
     return [base,'',`Machine: award-source auto-apply (${a.policy})`,`Source: ${a.source} ${a.source_url}`,`Plan: ${a.plan_digest}`].join('\n');
   }
+  if(input.wire_program_auto_apply){
+    const w=input.wire_program_auto_apply;
+    return [base,'',`Machine: Wire program auto-apply (${w.policy})`,`Page: ${w.final_url} sha256 ${w.page_hash}`,
+      `Matched: "${w.matched_name}" + ${w.matched_signal}, score ${w.score}`].join('\n');
+  }
   if(input.by!=='curator')return base;
   const who=`${input.curator_name || 'curator'} (${input.curator_id || 'unknown'})`;
   const lines=[base,'',`Curator: ${who}`];
@@ -52,15 +81,26 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
   if(proposal.state!=='pending')return {status:409,body:{error:'already decided'}};
   if(isFundingProposal(proposal) && !fundingActorAllowed(proposal,input))return {status:403,body:{error:'Funding imports require owner review'}};
   if(input.award_auto_apply && (!isFundingProposal(proposal) || input.by!=='machine'))return {status:403,body:{error:'Award auto-apply covers funding imports only'}};
+  if(!wireProgramAuditAllowed(proposal,input))return {status:403,body:{error:'Wire program auto-apply covers pending Wire new programs only'}};
+  if(changeHashRequired(input) && !input.expect_change_hash)return {status:400,body:{error:'change_hash_required'}};
   let commit:string|null=null, mergedNote=note, ledgerRequired=false;
   if(decision==='approved') {
     const claimed=await deps.claimProposal(id);
     if(!claimed)return {status:409,body:{error:'already claimed or decided'}};
     proposal=claimed;
+    // The caller verified one payload; never apply a different one.
+    if(input.expect_change_hash && proposalChangeHash(proposal.proposed_change)!==input.expect_change_hash) {
+      await deps.releaseProposalClaim(id);
+      return {status:409,body:{error:'changed_since_check'}};
+    }
     // Recheck the claimed payload; the approval boundary must not rely only on a prior read.
     if((isFundingProposal(proposal) && !fundingActorAllowed(proposal,input)) || (input.award_auto_apply && !isFundingProposal(proposal))) {
       await deps.releaseProposalClaim(id);
       return {status:403,body:{error:'Funding imports require owner review'}};
+    }
+    if(!wireProgramAuditAllowed(proposal,input)) {
+      await deps.releaseProposalClaim(id);
+      return {status:403,body:{error:'Wire program auto-apply covers pending Wire new programs only'}};
     }
     try {
       const {notes,changes,commit:appliedCommit}=await deps.applyProposalDurably(proposal,applyMessage(proposal,input));
@@ -79,6 +119,7 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
       ...(input.by==='curator'?{curator_id:input.curator_id,curator_name:input.curator_name,sources:input.sources}:{}),
       ...(input.auto_apply?{auto_apply:input.auto_apply}:{}),
       ...(input.award_auto_apply?{award_auto_apply:input.award_auto_apply}:{}),
+      ...(input.wire_program_auto_apply?{wire_program_auto_apply:input.wire_program_auto_apply}:{}),
     });
     return {status:200,body:{ok:true,commit,proposal:updated,verdict}};
   } catch(error) {

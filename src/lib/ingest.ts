@@ -24,6 +24,9 @@ import type { Org, Program, Round, Wire } from './types';
 import { buildNewProgramSourceFields } from './ingest-policy';
 import { productDateISO } from './round-state';
 import type { AwardSourceSweepSummary } from './funding-source-sweep.mjs';
+import type { DeskUpkeepSummary } from './desk-upkeep';
+import { wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import type { WireProgramAutoApplySummary } from './wire-program-auto-apply';
 
 const WIRE_DATABASE_URL = process.env.WIRE_DATABASE_URL;
 // NOT https://discuss.watch/api/v1/grants — verified live (2026-07-11) that the bare
@@ -1176,6 +1179,10 @@ export interface IngestResult {
   errors: string[];
   /** Daily timer only: the award-source sweep summary (AWARD_SOURCES_ENABLED=1). */
   award_sources?: AwardSourceSweepSummary | { at: string; error: string };
+  /** Daily timer only: the Wire program auto-apply pass (WIRE_PROGRAM_AUTO_APPLY=1). */
+  wire_program_auto_apply?: WireProgramAutoApplySummary | { at: string; error: string };
+  /** Daily timer only: the Desk upkeep summary (DESK_UPKEEP_ENABLED=1). */
+  desk_upkeep?: DeskUpkeepSummary | { at: string; error: string };
 }
 
 /** Runs one full ingest cycle: fetch both sources (independently fail-soft),
@@ -1366,6 +1373,17 @@ interface DailyIngestDependencies {
   setState?: typeof setIngestState;
   run?: () => Promise<IngestResult>;
   sweep?: () => Promise<AwardSourceSweepSummary | null>;
+  wirePrograms?: () => Promise<WireProgramAutoApplySummary | null>;
+  upkeep?: () => Promise<DeskUpkeepSummary | null>;
+}
+
+/** Pending Wire new programs are checked after the Wire ingest has queued
+ *  today's items. Off unless WIRE_PROGRAM_AUTO_APPLY=1 (the module is not
+ *  loaded otherwise). Fail-soft: its own failure is recorded, never thrown. */
+async function runWireProgramsIfEnabled(): Promise<WireProgramAutoApplySummary | null> {
+  if (!wireProgramAutoApplyEnabled()) return null;
+  const { runWireProgramAutoApply } = await import('./wire-program-auto-apply');
+  return runWireProgramAutoApply();
 }
 
 /** The award-source sweep rides the daily run after the Wire ingest has
@@ -1375,6 +1393,14 @@ async function runAwardSourcesIfEnabled(): Promise<AwardSourceSweepSummary | nul
   if (process.env.AWARD_SOURCES_ENABLED !== '1') return null;
   const { runAwardSourceSweep } = await import('./award-source-sweep');
   return runAwardSourceSweep();
+}
+
+/** Desk upkeep rides the daily run after the award sweep. Off unless
+ *  DESK_UPKEEP_ENABLED=1 (the module is not loaded otherwise). Fail-soft. */
+async function runDeskUpkeepIfEnabled(): Promise<DeskUpkeepSummary | null> {
+  if (process.env.DESK_UPKEEP_ENABLED !== '1') return null;
+  const { runDeskUpkeep } = await import('./desk-upkeep');
+  return runDeskUpkeep();
 }
 
 const DAILY_CLAIM_LEASE_MS = 2 * 60 * 60 * 1000;
@@ -1403,6 +1429,8 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
   const setState = deps.setState ?? setIngestState;
   const run = deps.run ?? (() => runIngest({}));
   const sweep = deps.sweep ?? runAwardSourcesIfEnabled;
+  const wirePrograms = deps.wirePrograms ?? runWireProgramsIfEnabled;
+  const upkeep = deps.upkeep ?? runDeskUpkeepIfEnabled;
   const day = productDateISO(now);
   const key = dailyClaimKey(day);
   if (blocksDailyRun(await getState(key), now)) return { executed: false, day };
@@ -1413,10 +1441,22 @@ export async function runDailyIngestOnce(now: Date = new Date(), deps: DailyInge
   try {
     const result = await run();
     try {
+      const programs = await wirePrograms();
+      if (programs) result.wire_program_auto_apply = programs;
+    } catch (e) {
+      result.wire_program_auto_apply = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'wire program auto-apply failed' };
+    }
+    try {
       const awards = await sweep();
       if (awards) result.award_sources = awards;
     } catch (e) {
       result.award_sources = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'award source sweep failed' };
+    }
+    try {
+      const desk = await upkeep();
+      if (desk) result.desk_upkeep = desk;
+    } catch (e) {
+      result.desk_upkeep = { at: new Date().toISOString(), error: e instanceof Error ? e.message : 'desk upkeep failed' };
     }
     await setState(key, { ...claim, status: 'completed', completed_at: new Date().toISOString() } satisfies DailyIngestClaim);
     return { executed: true, day, result };

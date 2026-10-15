@@ -260,7 +260,7 @@ function stripDiacritics(s: string): string {
 /** lowercase, strip diacritics, collapse anything non-alphanumeric to a
  *  single space. Applied identically to page text and to name/date strings
  *  so both sides of a fuzzy comparison land in the same shape. */
-function normalizeForMatch(s: string): string {
+export function normalizeForMatch(s: string): string {
   const visibleText = (s || '')
     .replace(/<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')

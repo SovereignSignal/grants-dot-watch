@@ -16,7 +16,9 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
   complete validation gate. New entities and programs, status/profile changes, awards, merges,
   and taxonomy queue at **The Desk** for the owner. The one award exception is opt-in
   (`AWARD_SOURCES_AUTO_APPLY=1`): a clean first-party award packet from the daily sweep, see
-  `docs/funding-live-product.md`.
+  `docs/funding-live-product.md`. The one program exception is also opt-in
+  (`WIRE_PROGRAM_AUTO_APPLY=1`): a Wire new program for an org already on file, confirmed on
+  that org's own site, see `docs/WIRE-HANDOFF.md`.
 - **Signals in, registry out.** Wire scanning systems feed candidate changes; nothing enters
   the registry without either machine-verifiable provenance or an owner verdict.
 - **The taxonomy:** a *system* is a funding ecosystem with its own capital gravity (a treasury,
@@ -76,7 +78,11 @@ feed endpoint, no API key needed; defaults to `https://www.discuss.watch/api/v1/
 marketing homepage and drops the path). `INGEST_ENABLED=1` starts a daily in-process timer
 (`src/instrumentation.ts`, nodejs runtime) guarded by a Postgres advisory lock so multiple
 Railway replicas never double-run; last-run status lands in `ingest_state` and shows on
-`/admin/health`.
+`/admin/health`. `DESK_UPKEEP_ENABLED=1` (default off) adds Desk upkeep to that run, after
+the Wire ingest and the award sweep: it re-checks pending curator X handles (see below) and
+rejects pending items whose proposed deadline passed while they waited or that have waited
+30 days, as `machine` verdicts with an `auto:` note. Funding imports, org merges and claimed
+items are never expired. Rules: `docs/DESIGN.md` "Expiry".
 
 ## Agent and external read access
 
@@ -90,7 +96,9 @@ for provisioning, full-scan semantics, limits and the standalone reader.
 
 The curator write API at `/api/v1/curator` is a separate bearer-key gate for
 queue, decide, and propose. A key that also has `apply_low_risk` can auto-apply
-a verified organization X handle. It reuses the Desk's approve/reject path and lands
+a verified organization X handle. With `DESK_UPKEEP_ENABLED=1`, the daily ingest run
+re-runs that same check over pending X-handle notes filed before it existed (at most
+25 a run). It reuses the Desk's approve/reject path and lands
 new items in the same site-database queue (`desk_proposals` /
 `desk_verdicts`). It does not write the Wire Room database. The routes stay
 inert (`503`, no Desk reads or writes) until `GRANTS_WATCH_CURATOR_KEYS` is

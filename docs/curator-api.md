@@ -379,6 +379,19 @@ Otherwise the item stays pending, the same as any other proposal.
 - The quote on that source contains `x.com/<handle>` or `twitter.com/<handle>` for that exact handle. A longer handle, or a status path under the handle, does not match. Match is case-insensitive.
 - The server fetches that URL (8 second timeout, 1 MB cap), follows redirects only while they stay on the same site, and finds the same link in the page. Private and loopback addresses are refused.
 
+Pending X-handle notes filed before this check existed get it once a day.
+With `DESK_UPKEEP_ENABLED=1` (default off), the daily ingest run re-runs the
+same check over pending `x_handle` adds and replaces, oldest first, at most 25
+per run, one at a time. A pass is approved through the same `decideProposal`
+call with the same audit, attributed to the curator key that filed it, and its
+reason is prefixed `auto: daily backlog check.`. As on submit, that key must
+still be configured, unexpired, unrevoked and hold `apply_low_risk`; a note with
+no curator stamp is never approved. A failed check, a failed fetch, a key
+without standing or a failed apply leaves the item pending. Clears are never approved by it.
+`CURATOR_AUTO_APPLY=0` or an allow list without `x_handle` stops it. Its
+counts, including why each item stayed pending, land on the run's
+`desk_upkeep` summary and show on `/admin/health`.
+
 The approval calls `decideProposal`. Curator keys can never approve funding imports; the only machine approval of those is the separate award-source auto-apply (`AWARD_SOURCES_AUTO_APPLY=1`, `docs/funding-live-product.md`), labeled `machine · award auto-apply`. The reason stored on the verdict is the proposal reason prefixed with `auto:`. The Desk Log actor is `curator · <name> · auto-apply`. The verdict records the key id, the fetched URL, the SHA-256 of the page bytes, and the old and new handle values.
 
 Clear a dead handle. This stays pending on submit. Apply it with the bulk route below. The written reason is the evidence. The same `apply_low_risk` scope is required, and the verdict records the old value and a null new value.

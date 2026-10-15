@@ -6,7 +6,7 @@
 // decision. Anything else stays a pending Desk item.
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { decideProposal } from './desk-decide';
+import { decideProposal, proposalChangeHash } from './desk-decide';
 import { previewFundingPack } from './funding-desk-service.mjs';
 import { mappingReasons, packRecords, packetReasons } from './funding-source-clean.mjs';
 import { SOURCE_CATALOG } from './funding-source-adapters.mjs';
@@ -132,6 +132,8 @@ export function createAwardAutoApply(deps: AwardAutoApplyDeps) {
       by: 'machine',
       note: `auto: clean first-party award packet from ${source} (${records} records, ${AWARD_AUTO_APPLY_POLICY})`,
       award_auto_apply: audit,
+      // The queued payload whose digest was checked above.
+      expect_change_hash: proposalChangeHash((proposal as QueuedSweepProposal).proposed_change),
     });
     await pause();
     if (result.status === 200) {

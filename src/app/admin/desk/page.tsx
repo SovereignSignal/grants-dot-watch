@@ -875,6 +875,20 @@ export default function DeskPage() {
                         {row.awardAudit.planDigest.slice(0, 12)}
                       </div>
                     )}
+                    {row.programAudit && (
+                      <div className="coord mt-1 text-faint">
+                        {row.programAudit.finalUrl}
+                        {row.programAudit.finalUrl !== row.programAudit.fetchedUrl ? ` (from ${row.programAudit.fetchedUrl})` : ''}
+                        {' · page '}
+                        {row.programAudit.pageHash.slice(0, 12)}
+                        {' · name "'}
+                        {row.programAudit.matchedName}
+                        {'" · '}
+                        {row.programAudit.matchedSignal}
+                        {' · score '}
+                        {row.programAudit.score}
+                      </div>
+                    )}
                     {row.destination && row.destination.length > 0 && (
                       <div className="coord mt-1">{row.destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
                     )}

@@ -3,14 +3,21 @@
 // own site. Clears are a separate field edit and are not approved here.
 import { createHash } from 'node:crypto';
 import { lookup } from 'node:dns/promises';
-import type { CuratorAutoApply } from './types';
+import type { CuratorAutoApply, Org } from './types';
 
 export const FETCH_TIMEOUT_MS = 8_000;
 export const FETCH_MAX_BYTES = 1_000_000;
 const MAX_REDIRECTS = 3;
 
 const HANDLE_URL = /^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\/([A-Za-z0-9_]{1,15})\/?$/i;
-const SHARED_SITE = new Set(['x.com', 'twitter.com']);
+// Hosts where anyone can publish under the bare host. An org whose website sits
+// on one has no domain of its own, so no page there can confirm it. A per-user
+// subdomain (qwenlm.github.io, name.substack.com) is the org's own and stays usable.
+const SHARED_SITE = new Set([
+  'x.com', 'twitter.com', 'github.com', 'gitlab.com', 'docs.google.com', 'sites.google.com', 'drive.google.com',
+  'medium.com', 'notion.so', 'mirror.xyz', 'substack.com', 'gitbook.io', 'hackmd.io', 'linktr.ee', 'opencollective.com',
+  'youtube.com', 'linkedin.com', 'facebook.com', 'reddit.com', 'discord.com', 'discord.gg', 't.me', 'wordpress.com',
+]);
 
 export interface XHandleEdit {
   orgId: string;
@@ -63,6 +70,15 @@ export function readXHandleEdit(change: unknown): XHandleEdit | null {
   const handle = HANDLE_URL.exec(socials.x)?.[1];
   if (!handle) return null;
   return { orgId, clear: false, handle, url: `https://x.com/${handle}` };
+}
+
+/** The registry state an X-handle check reads: the org's website and its current handle. */
+export function orgXState(orgs: readonly Org[], orgId: string): { website: string | null; oldValue: string | null } {
+  const org = orgs.find((item) => item.id === orgId);
+  return {
+    website: org?.website ?? null,
+    oldValue: typeof org?.socials?.x === 'string' ? org.socials.x : null,
+  };
 }
 
 /** The org website host, without a leading www. Shared platforms are not an org site. */

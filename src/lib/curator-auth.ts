@@ -84,6 +84,31 @@ function revoked(key: CuratorKey, now: number): boolean {
   return key.revoked_at !== null && Date.parse(key.revoked_at) <= now;
 }
 
+export type CuratorKeyStanding =
+  | { status: 'active'; identity: CuratorIdentity }
+  | { status: 'unknown' | 'inactive' | 'unavailable' };
+
+/** A key's current standing by id, read from the same configuration and with
+ *  the same expiry and revocation rules as `authorize`, for work that acts on
+ *  a curator's behalf without a request (the daily Desk upkeep). */
+export function curatorKeyStanding(
+  id: string,
+  config = () => process.env.GRANTS_WATCH_CURATOR_KEYS,
+  now = Date.now
+): CuratorKeyStanding {
+  let configured: CuratorKey[];
+  try {
+    configured = keys(config());
+  } catch {
+    return { status: 'unavailable' };
+  }
+  const key = configured.find((item) => item.id === id);
+  if (!key) return { status: 'unknown' };
+  const timestamp = now();
+  if (Date.parse(key.expires_at) <= timestamp || revoked(key, timestamp)) return { status: 'inactive' };
+  return { status: 'active', identity: { id: key.id, name: key.name, scopes: [...key.scopes] } };
+}
+
 export interface CuratorGate {
   authorize(request: Request, scope: CuratorScope | readonly CuratorScope[]): { identity: CuratorIdentity } | { response: Response };
   consumeWrite(id: string): { ok: true } | { response: Response };

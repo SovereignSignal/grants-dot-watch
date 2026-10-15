@@ -8,6 +8,7 @@ import { loadRegistry } from '@/lib/registry';
 import { getAppliedChangeLedgerHealth, getIngestState, listProposals, storeBackend } from '@/lib/desk-store';
 import { lastBootReplayReport, type BootReplayReport } from '@/lib/boot-replay';
 import { REVIEW_HORIZON_DAYS, reviewFreshness } from '@/lib/program-review';
+import { wireProgramAutoApplyLine } from '@/lib/wire-program-auto-apply';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
@@ -53,6 +54,43 @@ interface LastIngestRun {
     auto_apply_deferred?: { source?: string; pack_id?: string; reasons?: string[] }[];
     left_for_owner?: { source?: string; pack_id?: string; proposal_id?: string | null; queued?: boolean; reasons?: string[] }[];
     sources?: { source?: string; status?: string; error?: string | null }[];
+  };
+  /** Read by wireProgramAutoApplyLine, which tolerates any shape. */
+  wire_program_auto_apply?: unknown;
+  desk_upkeep?: {
+    error?: string;
+    skipped?: string | null;
+    x_handles_skipped?: string | null;
+    x_handles_applied?: number;
+    x_handles_left?: number;
+    x_handles_reasons?: Record<string, number>;
+    expired?: number;
+    stale?: number;
+    expire_deferred?: number;
+    expire_failed?: number;
+    errors?: string[];
+  };
+}
+
+/** One line for the daily Desk upkeep, or null when it did not run. */
+function deskUpkeepLine(d: LastIngestRun['desk_upkeep']): { text: string; failed: boolean } | null {
+  if (!d || typeof d !== 'object') return null;
+  if (d.error) return { text: `Desk upkeep: failed (${d.error})`, failed: true };
+  if (d.skipped) return { text: `Desk upkeep: skipped (${d.skipped})`, failed: false };
+  const reasons = Object.entries(d.x_handles_reasons && typeof d.x_handles_reasons === 'object' ? d.x_handles_reasons : {})
+    .map(([reason, count]) => `${reason} ${count}`)
+    .join(', ');
+  const why = d.x_handles_skipped || reasons;
+  const errors = Array.isArray(d.errors) ? d.errors : [];
+  return {
+    text:
+      `Desk upkeep: X handles ${d.x_handles_applied ?? 0} applied, ${d.x_handles_left ?? 0} left` +
+      (why ? ` (${why})` : '') +
+      `; ${d.expired ?? 0} expired, ${d.stale ?? 0} stale rejected` +
+      (d.expire_deferred ? `, ${d.expire_deferred} deferred` : '') +
+      (d.expire_failed ? `, ${d.expire_failed} failed` : '') +
+      (errors.length ? `. Errors: ${errors.slice(0, 3).join('; ')}` : ''),
+    failed: errors.length > 0 || Boolean(d.expire_failed),
   };
 }
 
@@ -415,6 +453,14 @@ export default async function HealthPage() {
               )}
               {(() => {
                 const line = awardSourcesLine(ingest.award_sources);
+                return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
+              })()}
+              {(() => {
+                const line = wireProgramAutoApplyLine(ingest.wire_program_auto_apply);
+                return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
+              })()}
+              {(() => {
+                const line = deskUpkeepLine(ingest.desk_upkeep);
                 return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
               })()}
               {(ingest.error || (ingest.errors && ingest.errors.length > 0)) && (
