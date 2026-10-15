@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://conservationxlabs.com
+socials:
+  x: https://x.com/conservationx
 status: unknown
 profile: "Conservation X Labs: no sourced profile on file yet. See conservationxlabs.com for the
   organization's own description, and the programs listed on this page."
 sources:
   - https://conservationxlabs.com
+  - https://conservationxlabs.com/
