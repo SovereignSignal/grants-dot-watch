@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://zfnd.org/
+socials:
+  x: https://x.com/ZcashFoundation
 status: unknown
 profile: "Zcash Foundation: no sourced profile on file yet. See zfnd.org for the organization's own
   description, and the programs listed on this page."
