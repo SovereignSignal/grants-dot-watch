@@ -67,7 +67,7 @@ export function AwardFilters({
   const wires: Wire[] = ['crypto', 'ai', 'oss'];
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col border-b border-line px-4 pt-4 pb-4">
+    <div className="flex flex-col border-b border-line pt-4 pb-4">
       <FilterOptions
         label="Wire"
         current={current}

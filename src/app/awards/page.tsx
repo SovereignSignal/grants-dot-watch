@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AwardFilters } from '@/components/awards/award-filters';
 import { AwardTable } from '@/components/awards/award-table';
-import { PageHeader, Empty, Stat } from '@/components/ui';
+import { Empty } from '@/components/ui';
 import { filterAwards, type AwardFilterState } from '@/lib/award-browse';
 import { sortAwardsNewest } from '@/lib/awards';
 import { paginate, paginationItems, parsePage } from '@/lib/pagination';
@@ -65,16 +65,19 @@ export default async function AwardsPage({
   });
 
   return (
-    <>
-      <PageHeader
-        eyebrow="THE REGISTER"
-        title="Awards"
-        sub="Sourced grant and funding decisions, linked to recipients, funders, programs, and primary evidence."
-        right={<Stat label="matching records" value={page.total.toLocaleString()} />}
-      />
+    <div className="directory-shell">
+      <section className="directory-hero">
+        <div className="hero-kicker">The register</div>
+        <div className="hero-line"><h1>Awards</h1></div>
+        <p>Sourced grant and funding decisions, linked to recipients, funders, programs, and primary evidence.</p>
+        <div className="directory-statline">
+          <span><b>{page.total.toLocaleString()}</b> matching records</span>
+          <span>Crypto · AI · Open source</span>
+        </div>
+      </section>
       <AwardFilters current={current} years={years} currencies={currencies} funders={funders} />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16">
+      <div className="pb-16">
         <div className="coord border-b border-line py-3">
           {page.total === 0
             ? 'no awards match'
@@ -135,6 +138,6 @@ export default async function AwardsPage({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
