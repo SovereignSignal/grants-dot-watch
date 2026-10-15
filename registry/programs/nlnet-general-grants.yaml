@@ -7,7 +7,7 @@ systems:
   - sovereign-tech
 wires:
   - oss
-status: unknown
+status: concluded
 mechanism: grants
 apply_url: ""
 summary: Legacy general intake record spanning multiple NLnet funds. Its former even-month cadence
@@ -23,22 +23,28 @@ sources:
   - https://nlnet.nl/news/2026/20260803-phaseshift.html
   - https://nlnet.nl/news/2026/20260903-call.html
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
-  intake: unknown
-  intake_note: This record overlaps named funds. No separate current application opportunity has been verified.
+  checked_on: 2026-10-15
+  review_after: 2027-01-13
+  intake: closed
+  intake_note: Not a separate funding program. NLnet's current general call is recorded as NLnet open call
+    (nlnet-apply-for-a-grant, https://nlnet.nl/propose/); the named funds carry their own calls. This
+    record is kept for its round history.
   source: https://nlnet.nl/news/2026/20260903-call.html
-  kind: unresolved
-  relationship: unconfirmed
-  questions:
-    - Resolve this record against named funds and the Other application route, retaining existing
-      references and award history.
+  kind: program
+  relationship: current
+  questions: []
   history:
+    - date: 2026-10-15
+      label: Resolved as historical
+      summary: Checked against NLnet's pages. The current general call is NLnet open call
+        (nlnet-apply-for-a-grant); this record is not a distinct program and is kept for history.
+      source: https://nlnet.nl/propose/
     - date: 2026-09-03
       label: Shared call scope unresolved
       summary: The previous record assigned the shared November 3 application deadline to a separate
         general fund. Current sources name Restack and CodeSupply; a distinct general program is not
         established.
       source: https://nlnet.nl/news/2026/20260903-call.html
-  relationship_note: Association with NLnet is known; identity as a distinct funding program needs review.
-  operating: unknown
+  relationship_note: Operated by NLnet. Resolved on 2026-10-15 as a historical record; the current call is
+    nlnet-apply-for-a-grant.
+  operating: concluded
