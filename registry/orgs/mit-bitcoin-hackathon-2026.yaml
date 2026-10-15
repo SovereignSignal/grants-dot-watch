@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://mitbitcoinexpo.org/
+socials:
+  x: https://x.com/MITBitcoinClub
 status: active
 profile: >-
   **MIT Bitcoin Expo** is hosting the MIT Bitcoin Hackathon 2026, a 36-hour in-person Bitcoin and
@@ -17,3 +19,4 @@ profile: >-
   The hackathon takes place in 2026 at the Massachusetts Institute of Technology.
 sources:
   - https://mitbitcoinexpo.org/hackathon
+  - https://mitbitcoinexpo.org/
