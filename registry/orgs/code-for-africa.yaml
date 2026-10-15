@@ -8,9 +8,12 @@ roles:
   - funder
 org_type: nonprofit
 website: https://codeforafrica.org/
+socials:
+  x: https://x.com/Code4Africa
 status: active
 profile: Code for Africa's Civic Graph Fellowship is a 3-month part-time fellowship (7 positions)
   for building open-source civic data systems, OSINT, and structured transparency data in South
   Africa ahead of elections. Deadline 2026-06-28.
 sources:
   - https://opportunities.codeforafrica.org/2026/06/05/call-for-applications-for-the-civic-graph-fellowship-in-south-africa/
+  - https://x.com/Code4Africa
