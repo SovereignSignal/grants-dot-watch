@@ -35,7 +35,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
   const satellites = registry.systems.filter((s) => (s.part_of || []).includes(system.id));
 
   return (
-    <>
+    <article className="program-dossier">
       <Breadcrumb
         trail={[{ label: 'Registry', href: '/' }, { label: 'Systems', href: '/systems' }, { label: system.name }]}
         note="System profile: sourced & linked"
@@ -68,7 +68,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
       />
 
       {system.sources?.length > 0 && (
-        <div className="mx-auto max-w-6xl px-4 pt-6 pb-2 flex flex-wrap gap-x-4 gap-y-1">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 pt-6 pb-2">
           {system.sources.map((src) => (
             <a key={src} href={src} target="_blank" rel="noreferrer" className="coord max-w-xs truncate hover:text-dim">
               {src.replace(/^https?:\/\//, '')}
@@ -78,7 +78,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
       )}
 
       {(parents.length > 0 || satellites.length > 0) && (
-        <div className="mx-auto max-w-6xl px-4 pb-6 flex flex-wrap gap-x-6 gap-y-1.5">
+        <div className="flex flex-wrap gap-x-6 gap-y-1.5 pb-6">
           {parents.length > 0 && (
             <div className="coord">
               Part of{' '}
@@ -108,7 +108,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
         </div>
       )}
 
-      <section className="mx-auto max-w-6xl px-4 pb-12">
+      <section className="pb-12">
         <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
           <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Funders in this System</h2>
           <span className="coord shrink-0">{funders.length} on file</span>
@@ -149,7 +149,7 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
         )}
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16">
+      <section className="pb-16">
         <div className="flex items-baseline justify-between gap-4 border-b-[1.5px] border-paper pb-2">
           <h2 className="text-[14px] font-bold tracking-[.03em] text-paper uppercase">Programs</h2>
           <span className="coord shrink-0">{members.programs.length} on file</span>
@@ -187,6 +187,6 @@ export default async function SystemPage({ params }: { params: Promise<{ id: str
           </div>
         )}
       </section>
-    </>
+    </article>
   );
 }

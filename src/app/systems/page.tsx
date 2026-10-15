@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { loadRegistry } from '@/lib/registry';
-import { Card, Empty, PageHeader } from '@/components/ui';
+import { Card, Empty } from '@/components/ui';
 import { firstSentence } from '@/components/browse/registry-helpers';
 import { WIRE_LABEL } from '@/lib/format';
 import { pageMetadata } from '@/lib/site-metadata';
@@ -48,13 +48,19 @@ export default function SystemsPage() {
   })).filter((group) => group.items.length > 0);
 
   return (
-    <>
-      <PageHeader
-        eyebrow="TAXONOMY"
-        title="Systems"
-        sub="Ecosystems with their own treasury, like Ethereum or Cardano, and the orgs and programs that organize under them."
-      />
-      <div className="mx-auto max-w-6xl px-4 pb-16">
+    <div className="directory-shell">
+      <section className="directory-hero">
+        <div className="hero-kicker">Taxonomy</div>
+        <div className="hero-line"><h1>Systems</h1></div>
+        <p>Ecosystems with their own treasury, like Ethereum or Cardano, and the orgs and programs that organize under them.</p>
+        <div className="directory-statline">
+          {groups.map((group) => (
+            <span key={group.kind}><b>{group.items.length.toLocaleString()}</b> {KIND_TITLE[group.kind].toLowerCase()}</span>
+          ))}
+          <span>Crypto · AI · Open source</span>
+        </div>
+      </section>
+      <div className="pt-10 pb-16">
         {systems.length === 0 ? (
           <Empty>No systems on file.</Empty>
         ) : (
@@ -97,6 +103,6 @@ export default function SystemsPage() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

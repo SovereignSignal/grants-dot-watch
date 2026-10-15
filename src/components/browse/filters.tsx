@@ -71,7 +71,7 @@ export function OrgFilterBar({
 }) {
   const hasAny = Boolean(current.q || current.role || current.wire || current.system || current.status);
   return (
-    <div className="mx-auto flex max-w-6xl flex-col border-b border-line px-4 pt-4 pb-4">
+    <div className="flex flex-col border-b border-line pt-4 pb-4">
       <OrgChipRow label="Role" current={current} filterKey="role" options={roleOptions} />
       <OrgChipRow label="Wire" current={current} filterKey="wire" options={wireOptions} />
       <OrgChipRow label="System" current={current} filterKey="system" options={systemOptions} />

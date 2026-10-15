@@ -1,7 +1,6 @@
-// The broadsheet dossier header — kicker + huge serif name + small-caps facts
-// row + serif standfirst — per design/mocks/c-orgcard.html's .dossier/.standfirst.
-// Shared by org and system detail pages; `compact` shrinks it for smaller,
-// mini-card-style uses.
+// The detail-page header for org and system pages: kicker, name, small-caps
+// facts row and summary, on the same `.dossier-hero` classes as program detail
+// pages so all three entity pages share one header.
 import type { ReactNode } from 'react';
 
 export function FactSep() {
@@ -20,7 +19,6 @@ export function Dossier({
   factsLine,
   standfirst,
   action,
-  compact,
 }: {
   kicker: string;
   kickerColor?: string;
@@ -30,38 +28,23 @@ export function Dossier({
   standfirst?: ReactNode;
   /** The screen's one main action (rust), set under the standfirst. */
   action?: ReactNode;
-  compact?: boolean;
 }) {
   return (
-    <div className="mx-auto max-w-6xl border-b border-line px-4 pt-7 pb-6">
-      <div className="coord mb-3 flex items-center gap-2">
-        {kickerColor && <span aria-hidden className="inline-block size-1.5 shrink-0" style={{ background: kickerColor }} />}
+    <header className="dossier-hero border-b border-line pt-7 pb-6 md:pt-11">
+      <p className="dossier-kicker">
+        {kickerColor && <span aria-hidden className="wire-square" style={{ background: kickerColor }} />}
         {kicker}
-      </div>
-      <h1
-        className={`display leading-[0.98] tracking-tight text-paper ${
-          compact ? 'text-[30px] md:text-[38px]' : 'text-[38px] md:text-[56px]'
-        }`}
-      >
-        {name}
-      </h1>
+      </p>
+      <h1>{name}</h1>
       {aka && <div className="coord mt-2">aka {aka}</div>}
       {factsLine && (
         <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[12px] font-bold tracking-[.08em] text-dim uppercase">
           {factsLine}
         </div>
       )}
-      {standfirst && (
-        <div
-          className={`serif-statement mt-5 max-w-[68ch] leading-[1.5] font-normal text-paper not-italic ${
-            compact ? 'text-[15.5px]' : 'text-[18px] md:text-[20px]'
-          }`}
-        >
-          {standfirst}
-        </div>
-      )}
+      {standfirst && <div className="dossier-summary max-w-[68ch]">{standfirst}</div>}
       {action && <div className="mt-6">{action}</div>}
-    </div>
+    </header>
   );
 }
 
