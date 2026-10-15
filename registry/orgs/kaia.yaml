@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://www.kaia.io
+socials:
+  x: https://x.com/kaiachain
 status: unknown
 profile: "Kaia: no sourced profile on file yet. See kaia.io for the organization's own description,
   and the programs listed on this page."
 sources:
   - https://www.kaia.io
+  - https://www.kaia.io/
