@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://endaoment.org
+socials:
+  x: https://x.com/endaomentdotorg
 status: active
 profile: Endaoment is an onchain donor-advised fund (DAF) platform that lets donors give stock,
   cash, and crypto to nonprofits, and it partnered with Circle to stand up a USDC-based disaster
@@ -15,3 +17,4 @@ profile: Endaoment is an onchain donor-advised fund (DAF) platform that lets don
   functioning as philanthropic funding infrastructure rather than a classic grants program.
 sources:
   - https://www.circle.com/pressroom/circle-collaborates-with-endaoment-creating-usdc-based-disaster-relief-fund-to-help-communities-affected-by-deadly-tornadoes
+  - https://endaoment.org/
