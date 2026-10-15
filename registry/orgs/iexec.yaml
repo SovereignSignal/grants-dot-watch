@@ -7,9 +7,12 @@ wires:
 roles:
   - funder
 website: https://www.iex.ec
+socials:
+  x: https://x.com/iEx_ec
 status: unknown
 profile: iExec promotes an Ecosystem Fund and Grants Program supporting dApps in DeFi, AI, RWA, and
   other use cases, per its official ecosystem fund page. iExec is absent from the org registry; a
   companion signal (10963) shows it also running a small privacy-focused hackathon ($1,500 pool).
 sources:
   - https://www.iex.ec/ecosystem-fund
+  - https://www.iex.ec/
