@@ -1,6 +1,7 @@
 // Turns a curator proposal into the same RawMinerProposal shape ingest uses,
 // so it lands in the Desk queue through insertIngestProposals. Official
-// sources are stored, not fetched: the server does not retrieve caller URLs.
+// sources are stored here. Low-risk auto-apply fetches a matching org-site
+// URL later, after the quote check, and only for an add or replace.
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -569,6 +570,26 @@ function buildHandle(
   const orgId = text(body.org_id, 1, 80);
   const org = orgId ? findOrg(snapshot, orgId) : undefined;
   if (!org) return fail(404, 'not_found', 'No organization with that id.');
+  if (body.x === null) {
+    return {
+      ok: true,
+      candidate: candidate({
+        type: 'profile_note',
+        title: titleOverride || `${org.name}: clear X handle`,
+        summary,
+        org: org.id,
+        orgName: org.name,
+        program: null,
+        wire: wire || org.wires?.[0] || null,
+        evidence: sources[0].url,
+        change: { [`orgs/${org.id}.yaml`]: { socials: { x: null }, sources: sources.map((source) => source.url) } },
+        identity,
+        reason,
+        sources,
+        at,
+      }),
+    };
+  }
   const raw = text(body.x, 1, 16);
   const handle = raw?.replace(/^@/, '') || '';
   if (!/^[A-Za-z0-9_]{1,15}$/.test(handle)) return fail(400, 'invalid_request', 'x must be an X handle.');

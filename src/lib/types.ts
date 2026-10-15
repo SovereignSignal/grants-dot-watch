@@ -238,4 +238,19 @@ export interface Verdict {
   curator_name?: string;
   /** Source URLs the curator attached to this decision. */
   sources?: string[];
+  /** Set when this approval was an automatic low-risk apply. The Desk Log
+   *  reads it for the auto-apply actor, the filter, and one-click revert. */
+  auto_apply?: CuratorAutoApply;
+  /** Set when an owner reverted this auto-apply. */
+  reverted_at?: string;
+  revert_commit?: string | null;
+}
+
+/** Audit for one automatic low-risk apply. Stored on the verdict JSON. */
+export interface CuratorAutoApply {
+  key_id: string;
+  fetched_url: string | null;
+  page_hash: string | null;
+  old_value: string | null;
+  new_value: string | null;
 }

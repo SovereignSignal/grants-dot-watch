@@ -2,11 +2,12 @@
 import { applyProposalDurably, commitMessageFor, registryMayHaveChanged } from './committer';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from './desk-store';
 import { isFundingProposal } from './funding-desk-core.mjs';
-import type { Proposal, Verdict } from './types';
+import type { CuratorAutoApply, Proposal, Verdict } from './types';
 
 export interface DecideInput {
   id:string; decision:'approved'|'rejected'; note?:string;
   by?:'owner'|'machine'|'curator'; curator_id?:string; curator_name?:string; sources?:string[];
+  auto_apply?:CuratorAutoApply;
 }
 export interface DecideResult {
   status:number;
@@ -58,6 +59,7 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
       note:mergedNote,commit,from:decision==='approved'?'applying':'pending',ledgerRequired,
       ...(input.by?{by:input.by}:{}),
       ...(input.by==='curator'?{curator_id:input.curator_id,curator_name:input.curator_name,sources:input.sources}:{}),
+      ...(input.auto_apply?{auto_apply:input.auto_apply}:{}),
     });
     return {status:200,body:{ok:true,commit,proposal:updated,verdict}};
   } catch(error) {

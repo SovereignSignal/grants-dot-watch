@@ -435,7 +435,7 @@ function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposa
   if (Array.isArray(map.sources)) map.sources = (map.sources as unknown[]).map(urlish);
   if (map.socials && typeof map.socials === 'object')
     for (const [sk, sv] of Object.entries(map.socials as Record<string, unknown>))
-      (map.socials as Record<string, unknown>)[sk] = urlish(sv);
+      if (sv !== null) (map.socials as Record<string, unknown>)[sk] = urlish(sv);
   if ('status' in map && typeof map.status === 'string' && !ORG_STATUSES.has(map.status)) {
     notes.push(`status "${map.status}" is not a valid org status, skipped, never guessed`);
     delete map.status;
@@ -465,7 +465,17 @@ function applyOrgFieldMap(slug: string, map: Record<string, unknown>, p: Proposa
       continue;
     }
     if (ORG_MERGE_OBJECT_FIELDS.has(field) && value && typeof value === 'object' && !Array.isArray(value)) {
-      next[field] = { ...((next[field] as Record<string, unknown>) || {}), ...(value as Record<string, unknown>) };
+      const merged = { ...((next[field] as Record<string, unknown>) || {}) };
+      for (const [key, item] of Object.entries(value as Record<string, unknown>)) {
+        // socials.x: null clears that one field. It does not delete the org file.
+        if (field === 'socials' && item === null) {
+          delete merged[key];
+          continue;
+        }
+        merged[key] = item;
+      }
+      if (Object.keys(merged).length) next[field] = merged;
+      else delete next[field];
       touched = true;
       continue;
     }

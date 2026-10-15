@@ -87,7 +87,8 @@ no editing or publishing capability. See [read API and Grok pilot](docs/read-api
 for provisioning, full-scan semantics, limits and the standalone reader.
 
 The curator write API at `/api/v1/curator` is a separate bearer-key gate for
-queue, decide, and propose. It reuses the Desk's approve/reject path and lands
+queue, decide, and propose. A key that also has `apply_low_risk` can auto-apply
+a verified organization X handle. It reuses the Desk's approve/reject path and lands
 new items in the same site-database queue (`desk_proposals` /
 `desk_verdicts`). It does not write the Wire Room database. The routes stay
 inert (`503`, no Desk reads or writes) until `GRANTS_WATCH_CURATOR_KEYS` is

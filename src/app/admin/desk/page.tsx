@@ -105,6 +105,9 @@ export default function DeskPage() {
   const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({});
   const [rejectOpen, setRejectOpen] = useState(false);
   const [phone, setPhone] = useState(false);
+  const [logFilter, setLogFilter] = useState<'all' | 'auto'>('all');
+  const [reverting, setReverting] = useState<string | null>(null);
+  const [revertError, setRevertError] = useState<string | null>(null);
   const [judgmentView, setJudgmentView] = useState<'list' | 'cards'>('list');
   const swipe = useRef<{ x: number; y: number } | null>(null);
   const inflight = useRef(new Set<string>());
@@ -131,6 +134,32 @@ export default function DeskPage() {
   useEffect(() => {
     loadQueue();
   }, [loadQueue]);
+
+  const revertRow = useCallback(
+    async (id: string) => {
+      setReverting(id);
+      setRevertError(null);
+      try {
+        const headers = await getAuthHeaders();
+        const res = await fetch('/api/desk/log/revert', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', ...headers },
+          body: JSON.stringify({ id }),
+        });
+        if (!res.ok) {
+          const json = (await res.json().catch(() => ({}))) as { error?: string };
+          setRevertError(json.error || 'Revert failed.');
+          return;
+        }
+        await loadQueue();
+      } catch {
+        setRevertError('Could not reach the Desk API.');
+      } finally {
+        setReverting(null);
+      }
+    },
+    [getAuthHeaders, loadQueue]
+  );
 
   useEffect(() => {
     const query = window.matchMedia('(max-width: 767px)');
@@ -755,45 +784,93 @@ export default function DeskPage() {
         </div>
       )}
 
-      {tab === 'log' &&
-        (deskLog.length === 0 ? (
-          <Empty>No decisions on file yet.</Empty>
-        ) : (
-          <div className="flex flex-col">
-            {deskLog.map((row) => {
-              const label = row.action === 'approved' ? 'Approved' : row.action === 'rejected' ? 'Rejected' : 'Queued';
-              return (
-                <div key={row.key} className="border-b border-line py-3 last:border-b-0">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
-                    <span className="coord shrink-0">{dateShortIso(row.at)}</span>
-                    <span className={row.action === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>{label}</span>
-                    {row.actor && <span className="coord shrink-0 text-faint">{row.actor}</span>}
-                    <span className="min-w-[10rem] flex-1 truncate text-dim">{row.title}</span>
-                    {row.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{row.note}</span>}
-                    {row.action === 'queued' ? (
-                      <span className="coord shrink-0">queue</span>
-                    ) : row.commit ? (
-                      <a
-                        href={commitUrl(row.commit)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="coord shrink-0 hover:text-dim"
-                      >
-                        {row.commit}
-                      </a>
-                    ) : (
-                      <span className="coord shrink-0">ledgered</span>
-                    )}
-                    <span className="coord hidden shrink-0 sm:inline">{timeAgo(row.at)}</span>
-                  </div>
-                  {row.destination && row.destination.length > 0 && (
-                    <div className="coord mt-1">{row.destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
-                  )}
-                </div>
-              );
-            })}
+      {tab === 'log' && (
+        <div className="flex flex-col">
+          <div className="mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-2">
+            <button
+              type="button"
+              aria-pressed={logFilter === 'all'}
+              onClick={() => setLogFilter('all')}
+              className={`coord ${logFilter === 'all' ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint hover:text-dim'}`}
+            >
+              All
+            </button>
+            <button
+              type="button"
+              data-testid="desk-log-auto-filter"
+              aria-pressed={logFilter === 'auto'}
+              onClick={() => setLogFilter('auto')}
+              className={`coord ${logFilter === 'auto' ? 'text-paper underline decoration-paper underline-offset-[3px]' : 'text-faint hover:text-dim'}`}
+            >
+              Auto-applied
+            </button>
           </div>
-        ))}
+          {revertError && <p className="coord mb-3 text-signal">{revertError}</p>}
+          {deskLog.filter((row) => logFilter === 'all' || row.autoApplied).length === 0 ? (
+            <Empty>{logFilter === 'auto' ? 'No auto-applied decisions.' : 'No decisions on file yet.'}</Empty>
+          ) : (
+            deskLog
+              .filter((row) => logFilter === 'all' || row.autoApplied)
+              .map((row) => {
+                const label = row.action === 'approved' ? 'Approved' : row.action === 'rejected' ? 'Rejected' : 'Queued';
+                return (
+                  <div key={row.key} className="border-b border-line py-3 last:border-b-0">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
+                      <span className="coord shrink-0">{dateShortIso(row.at)}</span>
+                      <span className={row.action === 'approved' ? 'font-semibold text-paper' : 'text-faint'}>{label}</span>
+                      {row.actor && <span className="coord shrink-0 text-faint">{row.actor}</span>}
+                      <span className="min-w-[10rem] flex-1 truncate text-dim">{row.title}</span>
+                      {row.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{row.note}</span>}
+                      {row.autoApplied && row.action === 'approved' && !row.reverted && row.proposalId && (
+                        <button
+                          type="button"
+                          data-testid="desk-log-revert"
+                          disabled={reverting === row.proposalId}
+                          onClick={() => void revertRow(row.proposalId as string)}
+                          className="coord shrink-0 underline decoration-line underline-offset-2 hover:text-dim disabled:opacity-50"
+                        >
+                          {reverting === row.proposalId ? 'Reverting…' : 'Revert'}
+                        </button>
+                      )}
+                      {row.reverted && <span className="coord shrink-0">Reverted</span>}
+                      {row.action === 'queued' ? (
+                        <span className="coord shrink-0">queue</span>
+                      ) : row.commit ? (
+                        <a
+                          href={commitUrl(row.commit)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="coord shrink-0 hover:text-dim"
+                        >
+                          {row.commit}
+                        </a>
+                      ) : (
+                        <span className="coord shrink-0">ledgered</span>
+                      )}
+                      <span className="coord hidden shrink-0 sm:inline">{timeAgo(row.at)}</span>
+                    </div>
+                    {row.audit && (
+                      <div className="coord mt-1 text-faint">
+                        {row.audit.keyId}
+                        {' · '}
+                        {row.audit.fetchedUrl || 'no fetch'}
+                        {' · '}
+                        {row.audit.pageHash ? row.audit.pageHash.slice(0, 12) : 'no page'}
+                        {' · '}
+                        {row.audit.oldValue || 'none'}
+                        {' → '}
+                        {row.audit.newValue || 'none'}
+                      </div>
+                    )}
+                    {row.destination && row.destination.length > 0 && (
+                      <div className="coord mt-1">{row.destination.map((p) => `→ ${p}`).join('  ·  ')}</div>
+                    )}
+                  </div>
+                );
+              })
+          )}
+        </div>
+      )}
     </div>
   );
 }

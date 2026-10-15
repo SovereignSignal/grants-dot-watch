@@ -2,7 +2,7 @@
 // GRANTS_WATCH_READER_KEYS. The env var holds SHA-256 hashes only.
 import { createHash, timingSafeEqual } from 'node:crypto';
 
-export const CURATOR_SCOPES = ['read_queue', 'decide', 'propose'] as const;
+export const CURATOR_SCOPES = ['read_queue', 'decide', 'propose', 'apply_low_risk'] as const;
 export type CuratorScope = (typeof CURATOR_SCOPES)[number];
 
 export interface CuratorIdentity {
@@ -85,7 +85,7 @@ function revoked(key: CuratorKey, now: number): boolean {
 }
 
 export interface CuratorGate {
-  authorize(request: Request, scope: CuratorScope): { identity: CuratorIdentity } | { response: Response };
+  authorize(request: Request, scope: CuratorScope | readonly CuratorScope[]): { identity: CuratorIdentity } | { response: Response };
   consumeWrite(id: string): { ok: true } | { response: Response };
 }
 
@@ -111,7 +111,10 @@ export function createCuratorGate(config = () => process.env.GRANTS_WATCH_CURATO
       if (!token || !matched || Date.parse(matched.expires_at) <= timestamp || revoked(matched, timestamp)) {
         return { response: curatorJson({ error: 'unauthorized' }, 401, { 'WWW-Authenticate': 'Bearer' }) };
       }
-      if (!matched.scopes.includes(scope)) return { response: curatorJson({ error: 'forbidden' }, 403) };
+      const required = Array.isArray(scope) ? scope : [scope];
+      if (!required.length || !required.some((item) => matched.scopes.includes(item))) {
+        return { response: curatorJson({ error: 'forbidden' }, 403) };
+      }
       return { identity: { id: matched.id, name: matched.name, scopes: [...matched.scopes] } };
     },
     consumeWrite(id) {

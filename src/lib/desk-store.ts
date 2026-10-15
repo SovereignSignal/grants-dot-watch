@@ -14,7 +14,7 @@ import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renam
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
 import { productDateISO } from './round-state';
-import type { CuratorReview, Proposal, ProposalType, Verdict, Wire } from './types';
+import type { CuratorAutoApply, CuratorReview, Proposal, ProposalType, Verdict, Wire } from './types';
 import { laneFor } from '../proposal-lanes';
 
 const REPO_ROOT = process.cwd();
@@ -65,6 +65,7 @@ interface RecordVerdictOptions {
   /** A no-git filesystem mutation may become replayable only in the same
    * Postgres transaction that records its approved verdict. */
   ledgerRequired?: boolean;
+  auto_apply?: CuratorAutoApply;
 }
 
 interface Store {
@@ -333,6 +334,7 @@ function buildVerdict(
     verdict.curator_name = opts.curator_name;
     if (opts.sources?.length) verdict.sources = opts.sources;
   }
+  if (opts?.auto_apply) verdict.auto_apply = opts.auto_apply;
   return verdict;
 }
 
@@ -1074,6 +1076,46 @@ export async function recordVerdict(
   opts?: RecordVerdictOptions
 ): Promise<{ proposal: Proposal; verdict: Verdict }> {
   return pgBacked() ? recordVerdictPg(id, decision, opts) : recordVerdictLocal(id, decision, opts);
+}
+
+async function markVerdictRevertedLocal(
+  proposalId: string,
+  at: string,
+  patch: { reverted_at: string; revert_commit: string | null }
+): Promise<Verdict | null> {
+  const store = readLocalStore();
+  const idx = store.verdicts.findIndex((verdict) => verdict.proposal_id === proposalId && verdict.at === at);
+  if (idx === -1) return null;
+  const next: Verdict = { ...store.verdicts[idx], ...patch };
+  store.verdicts[idx] = next;
+  writeLocalStore(store);
+  return next;
+}
+
+async function markVerdictRevertedPg(
+  proposalId: string,
+  at: string,
+  patch: { reverted_at: string; revert_commit: string | null }
+): Promise<Verdict | null> {
+  await ensureSchema();
+  const db = getPool();
+  const { rows } = await db.query(
+    `UPDATE desk_verdicts
+        SET data = data || $3::jsonb
+      WHERE proposal_id = $1 AND data->>'at' = $2
+      RETURNING data`,
+    [proposalId, at, JSON.stringify(patch)]
+  );
+  return (rows[0]?.data as Verdict) ?? null;
+}
+
+/** Records that an owner wrote an auto-applied value back. The verdict row stays. */
+export async function markVerdictReverted(
+  proposalId: string,
+  at: string,
+  patch: { reverted_at: string; revert_commit: string | null }
+): Promise<Verdict | null> {
+  return pgBacked() ? markVerdictRevertedPg(proposalId, at, patch) : markVerdictRevertedLocal(proposalId, at, patch);
 }
 
 /** Persist a validator run's result onto a still-pending proposal (FAIL case
