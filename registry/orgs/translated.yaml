@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://imminent.translated.com/
+socials:
+  x: https://x.com/imminent_news
 status: unknown
 profile: Translated runs Imminent, whose annual research grants fund five original research projects
   with $100,000 total.
 sources:
   - https://imminent.translated.com/apply-for-your-grants
+  - https://imminent.translated.com/
