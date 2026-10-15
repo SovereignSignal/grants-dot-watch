@@ -9,6 +9,8 @@ wires:
 roles:
   - funder
 website: https://goose-docs.ai/grants/
+socials:
+  x: https://x.com/goose_oss
 status: active
 profile: AAIF's Goose Grant Program offers up to $100,000 over 12 months to individuals or small
   teams building impactful enhancements to Goose, the open-source AI agent project. Applications are
