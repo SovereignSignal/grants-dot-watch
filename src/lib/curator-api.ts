@@ -775,6 +775,12 @@ export async function decideCuratorBulk(request: Request, deps: CuratorDeps = de
           continue;
         }
         if (edit.clear) {
+          // A clear removes a field, which low-risk auto-apply never does
+          // (the submit route refuses it the same way). It needs `decide`.
+          if (!canDecide) {
+            failed.push({ id: item.id, error: 'clear_not_auto' });
+            continue;
+          }
           if (!canAuto || !clearHasEvidence(item.proposal, reason)) {
             failed.push({ id: item.id, error: 'forbidden' });
             continue;

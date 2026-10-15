@@ -75,14 +75,21 @@ function worktreeContent(repo, path) {
   return existsSync(abs) ? readFileSync(abs, 'utf8') : null;
 }
 
-function assertSnapshotUnchanged(repo, plan, phase) {
-  if (headContent(repo, plan.path) !== plan.inHead) {
+/** Reads one snapshot layer (HEAD, index or worktree). In a dry run, a path an
+ *  earlier simulated row already "committed" reads as that row's content in
+ *  every layer, so chained rows see the state the real run would leave. */
+function readLayer(read, repo, path, simulated) {
+  return simulated && simulated.has(path) ? simulated.get(path) : read(repo, path);
+}
+
+function assertSnapshotUnchanged(repo, plan, phase, simulated = null) {
+  if (readLayer(headContent, repo, plan.path, simulated) !== plan.inHead) {
     throw new Error(`${plan.path}: HEAD changed ${phase}; refusing to continue`);
   }
-  if (indexContent(repo, plan.path) !== plan.inIndex) {
+  if (readLayer(indexContent, repo, plan.path, simulated) !== plan.inIndex) {
     throw new Error(`${plan.path}: exact target index changed ${phase}; refusing to continue`);
   }
-  if (worktreeContent(repo, plan.path) !== plan.current) {
+  if (readLayer(worktreeContent, repo, plan.path, simulated) !== plan.current) {
     throw new Error(`${plan.path}: worktree changed ${phase}; refusing to continue`);
   }
 }
@@ -116,8 +123,12 @@ function withTrailers(message) {
 }
 
 /** Applies one ledger row to the repo. Returns {sha|null, applied, skipped, wrote[]}:
- *  sha only when a commit was made; applied=false means the row was unusable. */
-export function applyRow(repo, row, dryRun) {
+ *  sha only when a commit was made; applied=false means the row was unusable.
+ *  `simulated` (dry run only) is a Map of path -> content carried across rows:
+ *  each simulated row records its content_after there, and later rows read it
+ *  in place of HEAD, index and worktree, since nothing is really committed. */
+export function applyRow(repo, row, dryRun, simulated = null) {
+  const sim = dryRun && simulated instanceof Map ? simulated : null;
   const files = Array.isArray(row.files) ? row.files : [];
   if (files.length === 0) throw new Error('ledger row contains no files');
   const wrote = [];
@@ -135,9 +146,9 @@ export function applyRow(repo, row, dryRun) {
     seenPaths.add(f.path);
 
     const abs = join(repo, f.path);
-    const current = worktreeContent(repo, f.path);
-    const inHead = headContent(repo, f.path);
-    const inIndex = indexContent(repo, f.path);
+    const current = readLayer(worktreeContent, repo, f.path, sim);
+    const inHead = readLayer(headContent, repo, f.path, sim);
+    const inIndex = readLayer(indexContent, repo, f.path, sim);
     const plan = { path: f.path, abs, current, inHead, inIndex, contentAfter: f.content_after };
 
     if (inHead === f.content_after) {
@@ -190,12 +201,15 @@ export function applyRow(repo, row, dryRun) {
 
   // Catch HEAD, index, or worktree movement after the complete row preflight
   // and before the first filesystem mutation.
-  for (const plan of plans) assertSnapshotUnchanged(repo, plan, 'during row preflight');
+  for (const plan of plans) assertSnapshotUnchanged(repo, plan, 'during row preflight', sim);
 
   if (wrote.length === 0) {
     return { sha: git(repo, 'rev-parse', 'HEAD'), applied: true, skipped: true, wrote };
   }
-  if (dryRun) return { sha: null, applied: true, skipped: false, wrote };
+  if (dryRun) {
+    if (sim) for (const plan of plans) sim.set(plan.path, plan.contentAfter);
+    return { sha: null, applied: true, skipped: false, wrote };
+  }
 
   for (const write of writes) atomicWrite(write.abs, write.content);
 
@@ -351,6 +365,9 @@ async function main() {
   let committed = 0;
   let alreadyApplied = 0;
   let hadFailure = false;
+  // Dry run only: what each simulated row would have committed, so a later row
+  // touching the same file checks against it instead of the unmoved HEAD.
+  const simulated = args.dryRun ? new Map() : null;
 
   for (const row of rows) {
     const label = `row ${row.id}${row.proposal_id ? ` (${row.proposal_id})` : ''}`;
@@ -358,7 +375,7 @@ async function main() {
     try {
       result = verifyLedgerCommit(repo, row)
         ? { sha: row.sha, applied: true, skipped: true, wrote: [] }
-        : applyRow(repo, row, args.dryRun);
+        : applyRow(repo, row, args.dryRun, simulated);
     } catch (e) {
       hadFailure = true;
       const detail = e instanceof Error ? e.message : String(e);

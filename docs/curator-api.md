@@ -394,7 +394,7 @@ counts, including why each item stayed pending, land on the run's
 
 The approval calls `decideProposal`. Curator keys can never approve funding imports; the only machine approval of those is the separate award-source auto-apply (`AWARD_SOURCES_AUTO_APPLY=1`, `docs/funding-live-product.md`), labeled `machine · award auto-apply`. The reason stored on the verdict is the proposal reason prefixed with `auto:`. The Desk Log actor is `curator · <name> · auto-apply`. The verdict records the key id, the fetched URL, the SHA-256 of the page bytes, and the old and new handle values.
 
-Clear a dead handle. This stays pending on submit. Apply it with the bulk route below. The written reason is the evidence. The same `apply_low_risk` scope is required, and the verdict records the old value and a null new value.
+Clear a dead handle. This stays pending on submit. Apply it with the bulk route below. The written reason is the evidence. Applying it needs `decide` as well as `apply_low_risk`, and the verdict records the old value and a null new value.
 
 ```bash
 curl -sS -X POST -H "Authorization: Bearer $CURATOR_TOKEN" \
@@ -424,9 +424,11 @@ before it is approved. A failed check stays pending and is listed in `failed`.
 A key with `apply_low_risk` and without `decide` may only approve a batch of
 allow-listed `x_handle` items, and only while auto-apply is on.
 
-`x: null` clears are approved on this route when the key has `apply_low_risk`,
-auto-apply is on, and the request reason is present. The proposal must already
-carry a source. One verdict is written per id, including the auto-apply audit.
+`x: null` clears are approved on this route when the key has both `decide` and
+`apply_low_risk`, auto-apply is on, and the request reason is present. The
+proposal must already carry a source. A clear removes a field, so it is never
+low-risk: a key with `apply_low_risk` and without `decide` gets the item back in
+`failed` with error `clear_not_auto`, the same reason the submit route gives. One verdict is written per id, including the auto-apply audit.
 `CURATOR_AUTO_APPLY=0` leaves those items pending (`failed` error `disabled`).
 
 ```bash

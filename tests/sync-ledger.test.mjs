@@ -269,3 +269,77 @@ test('deployment confirmation requires ledger bytes in deployed Git ancestry', a
     await assert.rejects(confirmDeployment(repo,{query:async()=>({rowCount:0})},[row],'https://example.org',false),/changed during/);
   } finally {globalThis.fetch=originalFetch;rmSync(repo,{recursive:true,force:true});}
 });
+
+function chainedLedger(repo, rows) {
+  const ledger = join(repo, 'chained.jsonl');
+  writeFileSync(ledger, rows.map((row) => JSON.stringify({ state: 'ready', ...row })).join('\n') + '\n');
+  return ledger;
+}
+
+function runSync(repo, ledger, ...extra) {
+  return spawnSync(process.execPath, [SYNC_SCRIPT, '--from-jsonl', ledger, '--repo', repo, ...extra], {
+    encoding: 'utf8',
+  });
+}
+
+test('dry run simulates rows chained on the same file, and the real run agrees', () => {
+  const repo = fixture();
+  try {
+    const ledger = chainedLedger(repo, [
+      {
+        message: 'first',
+        files: [{ path: 'registry/target.yaml', content_before_hash: hash('value: old\n'), content_after: 'value: one\n' }],
+      },
+      {
+        message: 'second',
+        files: [
+          { path: 'registry/target.yaml', content_before_hash: hash('value: one\n'), content_after: 'value: two\n' },
+          { path: 'registry/other.yaml', content_before_hash: hash('value: untouched\n'), content_after: 'value: moved\n' },
+        ],
+      },
+    ]);
+    const head = git(repo, 'rev-parse', 'HEAD');
+
+    const dry = runSync(repo, ledger, '--dry-run');
+    assert.equal(dry.status, 0, dry.stderr);
+    assert.equal((dry.stdout.match(/would commit/g) || []).length, 2);
+    assert.match(dry.stdout, /Done:/);
+    // The simulation moves nothing: HEAD, index and worktree stay as they were.
+    assert.equal(git(repo, 'rev-parse', 'HEAD'), head);
+    assert.equal(readFileSync(join(repo, 'registry', 'target.yaml'), 'utf8'), 'value: old\n');
+    assert.equal(git(repo, 'status', '--porcelain', '--', 'registry'), '');
+
+    const real = runSync(repo, ledger);
+    assert.equal(real.status, 0, real.stderr);
+    assert.equal(git(repo, 'show', 'HEAD:registry/target.yaml'), 'value: two');
+    assert.equal(git(repo, 'show', 'HEAD:registry/other.yaml'), 'value: moved');
+  } finally {
+    rmSync(repo, { recursive: true, force: true });
+  }
+});
+
+test('dry run still fails a genuinely stale row in a chain', () => {
+  const repo = fixture();
+  try {
+    const ledger = chainedLedger(repo, [
+      {
+        message: 'first',
+        files: [{ path: 'registry/target.yaml', content_before_hash: hash('value: old\n'), content_after: 'value: one\n' }],
+      },
+      {
+        // Based on a version neither HEAD nor the simulated first row produces.
+        message: 'stale',
+        files: [{ path: 'registry/target.yaml', content_before_hash: hash('value: elsewhere\n'), content_after: 'value: two\n' }],
+      },
+    ]);
+
+    const dry = runSync(repo, ledger, '--dry-run');
+    assert.equal(dry.status, 1);
+    assert.match(dry.stdout, /row L1: would commit 1 file/);
+    assert.match(dry.stderr, /row L2: FAILED .*HEAD changed since proposal apply/);
+    assert.doesNotMatch(dry.stdout, /Done:/);
+    assert.equal(readFileSync(join(repo, 'registry', 'target.yaml'), 'utf8'), 'value: old\n');
+  } finally {
+    rmSync(repo, { recursive: true, force: true });
+  }
+});
