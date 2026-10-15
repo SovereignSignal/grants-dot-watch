@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.anthropic.com/
+socials:
+  x: https://x.com/AnthropicAI
 status: active
 profile: >-
   **Claude Community Ambassadors** offers rolling grants to community organizers who host AI meetups
@@ -18,3 +20,4 @@ profile: >-
   basis.
 sources:
   - https://x.com/aitrendz_xyz/status/2031327365075468677
+  - https://www.anthropic.com/
