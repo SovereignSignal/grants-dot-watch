@@ -1,0 +1,98 @@
+name: Desk sync
+
+# Replays Desk approvals from the production ledger into Git once a day, after
+# the server's daily pass and the curator's run, then confirms them once the
+# merge is deployed. This workflow is the sync owner (README "Ledger operating
+# rules"): don't run scripts/sync-desk-commits.mjs by hand while it is enabled.
+#
+# SYNC_DATABASE_URL is a dedicated Postgres login that can only SELECT
+# desk_applied_changes and UPDATE its sha, last_error, last_attempt_at and
+# synced_at columns.
+
+on:
+  schedule:
+    - cron: '30 18 * * *' # 11:30 PDT / 10:30 PST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desk-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SYNC_DATABASE_URL: ${{ secrets.SYNC_DATABASE_URL }}
+      SITE: https://grants.watch
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Configure the commit identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+
+      - name: Confirm rows an earlier run already deployed
+        run: node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --db-url "$SYNC_DATABASE_URL"
+
+      - name: Commit unsynced rows on a sync branch
+        id: sync
+        run: |
+          branch="sync/desk-ledger-$(date -u +%F)-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          node scripts/sync-desk-commits.mjs --dry-run --db-url "$SYNC_DATABASE_URL"
+          node scripts/sync-desk-commits.mjs --db-url "$SYNC_DATABASE_URL" | tee sync.log
+          if grep -q '^Done: 0 commits' sync.log; then
+            echo "Nothing to sync."
+            echo "commits=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "commits=$(git rev-list --count origin/main..HEAD)" >> "$GITHUB_OUTPUT"
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      # A push made with GITHUB_TOKEN doesn't start the CI workflow, so the
+      # checks CI would run on registry data run here before anything reaches main.
+      - name: Validate the synced registry
+        if: steps.sync.outputs.commits != '0'
+        run: |
+          npm run validate
+          npm run validate:funding
+          npm test
+
+      - name: Merge into main with a merge commit
+        if: steps.sync.outputs.commits != '0'
+        id: merge
+        run: |
+          git fetch origin main
+          git switch -C main origin/main
+          git merge --no-ff "${{ steps.sync.outputs.branch }}" \
+            -m "Merge Desk ledger sync (${{ steps.sync.outputs.commits }} commits, run ${GITHUB_RUN_ID})"
+          git push origin main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for the merge to be deployed
+        if: steps.sync.outputs.commits != '0'
+        run: |
+          for i in $(seq 1 90); do
+            live=$(curl -fsS --max-time 10 "$SITE/api/v1/deployment" | sed -n 's/.*"commit":"\([a-f0-9]*\)".*/\1/p' || true)
+            if [ "$live" = "${{ steps.merge.outputs.sha }}" ]; then echo "Deployed after ${i} checks."; exit 0; fi
+            sleep 20
+          done
+          echo "The merge wasn't deployed within 30 minutes; the next run confirms it." >&2
+          exit 1
+
+      - name: Confirm the synced rows
+        if: steps.sync.outputs.commits != '0'
+        run: |
+          node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --dry-run --db-url "$SYNC_DATABASE_URL"
+          node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --db-url "$SYNC_DATABASE_URL"
