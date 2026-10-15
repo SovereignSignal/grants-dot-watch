@@ -7,6 +7,7 @@ import { captureMicrosoftArchive } from './funding-source-native-batch.mjs';
 import { captureFundingTable } from './funding-source-html.mjs';
 import { sweepAwardSources, type AwardSourceSweepSummary } from './funding-source-sweep.mjs';
 import { loadFundingEditableSnapshot } from './public-api-v2';
+import { awardSourcesAutoApplyEnabled } from './machine-approval-policy';
 
 type CaptureState = { active: boolean; starts: number[] };
 // Next bundles instrumentation (the ingest timer) and route handlers as
@@ -30,8 +31,15 @@ export async function captureFundingSource(source: string, fund: number, revisio
 }
 
 /** Off unless AWARD_SOURCES_ENABLED=1. Queues pending Desk items through the
- *  same preview and insert the workspace uses; it never approves. Never throws. */
+ *  same preview and insert the workspace uses. With AWARD_SOURCES_AUTO_APPLY=1
+ *  (independent, default off) a clean packet is approved right after it is
+ *  queued, and the sweep's own still-pending clean packets are retried, through
+ *  the owner Desk path as a machine decision (src/lib/award-auto-apply.ts).
+ *  Never throws. */
 export async function runAwardSourceSweep(): Promise<AwardSourceSweepSummary> {
+  const autoApply = awardSourcesAutoApplyEnabled()
+    ? (await import('./award-auto-apply')).createAwardAutoApply({ load: loadFundingEditableSnapshot })
+    : undefined;
   return sweepAwardSources({
     enabled: process.env.AWARD_SOURCES_ENABLED === '1',
     fundingDeskEnabled: process.env.GRANTS_WATCH_FUNDING_DESK === '1',
@@ -39,5 +47,6 @@ export async function runAwardSourceSweep(): Promise<AwardSourceSweepSummary> {
     load: loadFundingEditableSnapshot,
     proposals: async () => (await listProposals()).filter(isFundingProposal),
     enqueue: rows => insertIngestProposals(rows as RawMinerProposal[]),
+    autoApply,
   });
 }

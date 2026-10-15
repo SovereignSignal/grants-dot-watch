@@ -2,12 +2,24 @@
 import { applyProposalDurably, commitMessageFor, registryMayHaveChanged } from './committer';
 import { claimProposal, getProposal, recordVerdict, releaseProposalClaim } from './desk-store';
 import { isFundingProposal } from './funding-desk-core.mjs';
-import type { CuratorAutoApply, Proposal, Verdict } from './types';
+import { awardSourcesAutoApplyEnabled } from './machine-approval-policy';
+import type { AwardAutoApply, CuratorAutoApply, Proposal, Verdict } from './types';
 
 export interface DecideInput {
   id:string; decision:'approved'|'rejected'; note?:string;
   by?:'owner'|'machine'|'curator'; curator_id?:string; curator_name?:string; sources?:string[];
   auto_apply?:CuratorAutoApply;
+  /** Only the award-source auto-apply sets this; no HTTP route passes it. */
+  award_auto_apply?:AwardAutoApply;
+}
+/** Funding imports are owner decisions, except one machine approval: the
+ *  award-source auto-apply, while its flag is on, for the exact plan digest it
+ *  re-previewed. Rejections and every other non-owner actor are refused. */
+function fundingActorAllowed(proposal:Proposal,input:DecideInput):boolean {
+  if(!input.by || input.by==='owner')return true;
+  const audit=input.award_auto_apply;
+  return input.by==='machine' && input.decision==='approved' && Boolean(audit) && awardSourcesAutoApplyEnabled()
+    && proposal.signal_id===`funding-v2:${audit?.plan_digest}`;
 }
 export interface DecideResult {
   status:number;
@@ -20,7 +32,12 @@ export interface DecideDeps {
 }
 export const defaultDecideDeps:DecideDeps={getProposal,claimProposal,releaseProposalClaim,recordVerdict,applyProposalDurably,registryMayHaveChanged};
 function applyMessage(proposal:Proposal,input:DecideInput):string {
-  const base=commitMessageFor(proposal); if(input.by!=='curator')return base;
+  const base=commitMessageFor(proposal);
+  if(input.award_auto_apply){
+    const a=input.award_auto_apply;
+    return [base,'',`Machine: award-source auto-apply (${a.policy})`,`Source: ${a.source} ${a.source_url}`,`Plan: ${a.plan_digest}`].join('\n');
+  }
+  if(input.by!=='curator')return base;
   const who=`${input.curator_name || 'curator'} (${input.curator_id || 'unknown'})`;
   const lines=[base,'',`Curator: ${who}`];
   if(input.note)lines.push(`Reason: ${input.note.replace(/\s+/g,' ').trim()}`);
@@ -33,14 +50,15 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
   let proposal=await deps.getProposal(id);
   if(!proposal)return {status:404,body:{error:'not found'}};
   if(proposal.state!=='pending')return {status:409,body:{error:'already decided'}};
-  if(isFundingProposal(proposal) && input.by && input.by!=='owner')return {status:403,body:{error:'Funding imports require owner review'}};
+  if(isFundingProposal(proposal) && !fundingActorAllowed(proposal,input))return {status:403,body:{error:'Funding imports require owner review'}};
+  if(input.award_auto_apply && (!isFundingProposal(proposal) || input.by!=='machine'))return {status:403,body:{error:'Award auto-apply covers funding imports only'}};
   let commit:string|null=null, mergedNote=note, ledgerRequired=false;
   if(decision==='approved') {
     const claimed=await deps.claimProposal(id);
     if(!claimed)return {status:409,body:{error:'already claimed or decided'}};
     proposal=claimed;
     // Recheck the claimed payload; the approval boundary must not rely only on a prior read.
-    if(isFundingProposal(proposal) && input.by && input.by!=='owner') {
+    if((isFundingProposal(proposal) && !fundingActorAllowed(proposal,input)) || (input.award_auto_apply && !isFundingProposal(proposal))) {
       await deps.releaseProposalClaim(id);
       return {status:403,body:{error:'Funding imports require owner review'}};
     }
@@ -60,6 +78,7 @@ export async function decideProposal(input:DecideInput,deps:DecideDeps=defaultDe
       ...(input.by?{by:input.by}:{}),
       ...(input.by==='curator'?{curator_id:input.curator_id,curator_name:input.curator_name,sources:input.sources}:{}),
       ...(input.auto_apply?{auto_apply:input.auto_apply}:{}),
+      ...(input.award_auto_apply?{award_auto_apply:input.award_auto_apply}:{}),
     });
     return {status:200,body:{ok:true,commit,proposal:updated,verdict}};
   } catch(error) {

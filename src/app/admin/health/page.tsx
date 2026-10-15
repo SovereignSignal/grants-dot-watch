@@ -47,6 +47,11 @@ interface LastIngestRun {
     packets_repeated?: number;
     packets_held?: number;
     packets_deferred?: number;
+    approval?: boolean;
+    auto_applied?: number;
+    auto_applied_retries?: number;
+    auto_apply_deferred?: { source?: string; pack_id?: string; reasons?: string[] }[];
+    left_for_owner?: { source?: string; pack_id?: string; proposal_id?: string | null; queued?: boolean; reasons?: string[] }[];
     sources?: { source?: string; status?: string; error?: string | null }[];
   };
 }
@@ -59,11 +64,19 @@ function awardSourcesLine(a: LastIngestRun['award_sources']): { text: string; fa
   const failures = (Array.isArray(a.sources) ? a.sources : [])
     .filter((s) => s?.status === 'failed')
     .map((s) => `${s.source ?? 'unknown'}: ${s.error ?? 'failed'}`);
+  const left = Array.isArray(a.left_for_owner) ? a.left_for_owner : [];
+  const leftDetail = left
+    .slice(0, 8)
+    .map((p) => `${p?.pack_id ?? p?.source ?? 'packet'}${p?.proposal_id ? ` (${p.proposal_id})` : ''}: ${(p?.reasons ?? []).slice(0, 3).join(', ') || 'not clean'}`);
   return {
     text:
       `Award sources: ${a.sources_tried ?? 0} tried, ${a.packets_queued ?? 0} queued, ${a.packets_repeated ?? 0} repeated, ` +
       `${a.packets_held ?? 0} held, ${a.packets_deferred ?? 0} deferred, ${a.sources_failed ?? 0} failed` +
-      (failures.length ? ` (${failures.join('; ')})` : ''),
+      (failures.length ? ` (${failures.join('; ')})` : '') +
+      `. Auto-apply ${a.approval ? 'on' : 'off'}: ${a.auto_applied ?? 0} auto-applied` +
+      (a.auto_applied_retries ? ` (${a.auto_applied_retries} retried)` : '') +
+      `, ${Array.isArray(a.auto_apply_deferred) ? a.auto_apply_deferred.length : 0} deferred to next run, ${left.length} left for owner` +
+      (leftDetail.length ? ` (${leftDetail.join('; ')}${left.length > leftDetail.length ? '; …' : ''})` : ''),
     failed: failures.length > 0,
   };
 }

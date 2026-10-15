@@ -14,7 +14,9 @@ Part of the [.watch](https://discuss.watch) family · a [Sovereign Signal](https
 - **Two-lane curation.** Exact current round and deadline facts can auto-apply only when an
   organization-owned source supports the full changed value and the staged registry passes its
   complete validation gate. New entities and programs, status/profile changes, awards, merges,
-  and taxonomy always queue at **The Desk** for the owner.
+  and taxonomy queue at **The Desk** for the owner. The one award exception is opt-in
+  (`AWARD_SOURCES_AUTO_APPLY=1`): a clean first-party award packet from the daily sweep, see
+  `docs/funding-live-product.md`.
 - **Signals in, registry out.** Wire scanning systems feed candidate changes; nothing enters
   the registry without either machine-verifiable provenance or an owner verdict.
 - **The taxonomy:** a *system* is a funding ecosystem with its own capital gravity (a treasury,

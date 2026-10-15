@@ -14,7 +14,7 @@ import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renam
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
 import { productDateISO } from './round-state';
-import type { CuratorAutoApply, CuratorReview, Proposal, ProposalType, Verdict, Wire } from './types';
+import type { AwardAutoApply, CuratorAutoApply, CuratorReview, Proposal, ProposalType, Verdict, Wire } from './types';
 import { laneFor } from '../proposal-lanes';
 
 const REPO_ROOT = process.cwd();
@@ -66,6 +66,7 @@ interface RecordVerdictOptions {
    * Postgres transaction that records its approved verdict. */
   ledgerRequired?: boolean;
   auto_apply?: CuratorAutoApply;
+  award_auto_apply?: AwardAutoApply;
 }
 
 interface Store {
@@ -114,6 +115,8 @@ export interface RawMinerProposal {
   wire?: Wire | null;
   /** Curator API intake only. Miner candidates leave this unset. */
   submitted_by?: Proposal['submitted_by'];
+  /** Award-source sweep packets only. */
+  origin?: Proposal['origin'];
 }
 
 interface ResolutionReport {
@@ -312,6 +315,7 @@ function proposalFromRaw(item: RawMinerProposal, nextId: () => string): Proposal
     state: 'pending',
     created_at: new Date().toISOString(),
     ...(item.submitted_by ? { submitted_by: item.submitted_by } : {}),
+    ...(item.origin === 'award_source_sweep' ? { origin: item.origin } : {}),
   };
 }
 
@@ -335,6 +339,7 @@ function buildVerdict(
     if (opts.sources?.length) verdict.sources = opts.sources;
   }
   if (opts?.auto_apply) verdict.auto_apply = opts.auto_apply;
+  if (opts?.award_auto_apply) verdict.award_auto_apply = opts.award_auto_apply;
   return verdict;
 }
 

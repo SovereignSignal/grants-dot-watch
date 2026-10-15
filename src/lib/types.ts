@@ -185,6 +185,9 @@ export interface Proposal {
   validation?: ProposalValidation;
   /** Set when a curator API key queued this item. Absent on miner/owner intake. */
   submitted_by?: CuratorStamp;
+  /** Set by the daily award-source sweep on the funding packets it queues, so a
+   *  later run can retry its own still-pending clean packets. */
+  origin?: 'award_source_sweep';
   /** Latest curator annotation. Does not decide the item — the owner does. */
   curator_review?: CuratorReview;
   /** Every annotation, oldest first. `curator_review` is the last entry. */
@@ -241,6 +244,10 @@ export interface Verdict {
   /** Set when this approval was an automatic low-risk apply. The Desk Log
    *  reads it for the auto-apply actor, the filter, and one-click revert. */
   auto_apply?: CuratorAutoApply;
+  /** Set when the award-source auto-apply approved a clean first-party
+   *  funding packet (by is 'machine'). Funding ledgers are append-only, so
+   *  this has no one-click revert. */
+  award_auto_apply?: AwardAutoApply;
   /** Set when an owner reverted this auto-apply. */
   reverted_at?: string;
   revert_commit?: string | null;
@@ -253,4 +260,14 @@ export interface CuratorAutoApply {
   page_hash: string | null;
   old_value: string | null;
   new_value: string | null;
+}
+
+/** Audit for one award-source auto-apply. Stored on the verdict JSON. */
+export interface AwardAutoApply {
+  policy: string;
+  source: string;
+  source_url: string;
+  pack_id: string;
+  plan_digest: string;
+  records: number;
 }

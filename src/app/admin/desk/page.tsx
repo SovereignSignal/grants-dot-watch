@@ -821,7 +821,7 @@ export default function DeskPage() {
                       {row.actor && <span className="coord shrink-0 text-faint">{row.actor}</span>}
                       <span className="min-w-[10rem] flex-1 truncate text-dim">{row.title}</span>
                       {row.note && <span className="hidden max-w-xs truncate text-[12px] text-faint italic md:inline">{row.note}</span>}
-                      {row.autoApplied && row.action === 'approved' && !row.reverted && row.proposalId && (
+                      {row.revertable && row.action === 'approved' && !row.reverted && row.proposalId && (
                         <button
                           type="button"
                           data-testid="desk-log-revert"
@@ -860,6 +860,19 @@ export default function DeskPage() {
                         {row.audit.oldValue || 'none'}
                         {' → '}
                         {row.audit.newValue || 'none'}
+                      </div>
+                    )}
+                    {row.awardAudit && (
+                      <div className="coord mt-1 text-faint">
+                        {row.awardAudit.source}
+                        {' · '}
+                        {row.awardAudit.sourceUrl}
+                        {' · '}
+                        {row.awardAudit.packId}
+                        {' · '}
+                        {row.awardAudit.records} records
+                        {' · plan '}
+                        {row.awardAudit.planDigest.slice(0, 12)}
                       </div>
                     )}
                     {row.destination && row.destination.length > 0 && (

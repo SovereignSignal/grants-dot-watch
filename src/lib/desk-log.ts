@@ -10,6 +10,15 @@ export interface DeskLogAudit {
   newValue: string | null;
 }
 
+export interface DeskLogAwardAudit {
+  policy: string;
+  source: string;
+  sourceUrl: string;
+  packId: string;
+  planDigest: string;
+  records: number;
+}
+
 export interface DeskLogRow {
   key: string;
   at: string;
@@ -21,8 +30,11 @@ export interface DeskLogRow {
   destination?: string[] | null;
   proposalId?: string;
   autoApplied?: boolean;
+  /** One-click revert exists only for curator X-handle auto-applies. */
+  revertable?: boolean;
   reverted?: boolean;
   audit?: DeskLogAudit;
+  awardAudit?: DeskLogAwardAudit;
 }
 
 function curatorActor(name: string | undefined, id: string | undefined): string {
@@ -30,7 +42,7 @@ function curatorActor(name: string | undefined, id: string | undefined): string 
 }
 
 function verdictActor(verdict: Verdict): string | null {
-  if (verdict.by === 'machine') return 'machine';
+  if (verdict.by === 'machine') return verdict.award_auto_apply ? 'machine · award auto-apply' : 'machine';
   if (verdict.by === 'curator') {
     const actor = curatorActor(verdict.curator_name, verdict.curator_id);
     return verdict.auto_apply ? `${actor} · auto-apply` : actor;
@@ -56,7 +68,8 @@ export function buildDeskLog(
       actor: verdictActor(verdict),
       destination: verdict.decision === 'approved' ? proposal?.destination ?? null : null,
       proposalId: verdict.proposal_id,
-      autoApplied: Boolean(verdict.auto_apply),
+      autoApplied: Boolean(verdict.auto_apply || verdict.award_auto_apply),
+      revertable: Boolean(verdict.auto_apply),
       reverted: Boolean(verdict.reverted_at),
       audit: verdict.auto_apply
         ? {
@@ -65,6 +78,16 @@ export function buildDeskLog(
             pageHash: verdict.auto_apply.page_hash,
             oldValue: verdict.auto_apply.old_value,
             newValue: verdict.auto_apply.new_value,
+          }
+        : undefined,
+      awardAudit: verdict.award_auto_apply
+        ? {
+            policy: verdict.award_auto_apply.policy,
+            source: verdict.award_auto_apply.source,
+            sourceUrl: verdict.award_auto_apply.source_url,
+            packId: verdict.award_auto_apply.pack_id,
+            planDigest: verdict.award_auto_apply.plan_digest,
+            records: verdict.award_auto_apply.records,
           }
         : undefined,
     });

@@ -4,7 +4,7 @@ This release starts from the live registry. It ports the existing research intak
 
 ## Boundaries
 
-Wire Room owns observations and editorial status. grants.watch owns accepted public facts. Capture does not publish a program or accept a correction. New programs, rolling calls, awards, unresolved leads, withdrawals and changed terms are retained for review. An owner prepares a sourced correction against an exact program file hash and accepts it through the existing Desk. The intake supports summary/eligibility evidence, application URLs, operating status and replacement round assessments. It does not infer these fields from prose.
+Wire Room owns observations and editorial status. grants.watch owns accepted public facts. Capture does not publish a program or accept a correction. New programs, rolling calls, awards, unresolved leads, withdrawals and changed terms are retained for review. (Wire captures never auto-apply awards. The separate daily award-source sweep can auto-apply clean first-party award packets when `AWARD_SOURCES_AUTO_APPLY=1`; see `docs/funding-live-product.md`.) An owner prepares a sourced correction against an exact program file hash and accepts it through the existing Desk. The intake supports summary/eligibility evidence, application URLs, operating status and replacement round assessments. It does not infer these fields from prose.
 
 `wire:<entry-id>` remains the source identity. Versioned proposal signals append a substantive hash. Accepted single-target Desk proposals establish mappings to surviving registry records; conflicting surviving targets remain unresolved. A Wire Room program ID is carried as source evidence, never substituted for a registry slug. Duplicate-parent changes are evidence too.
 
