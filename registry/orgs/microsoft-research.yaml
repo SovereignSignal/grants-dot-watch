@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://microsoft.com/research
+socials:
+  x: https://x.com/MSFTResearch
 status: unknown
 profile: "Microsoft Research: no sourced profile on file yet. See microsoft.com for the
   organization's own description, and the programs listed on this page."
 sources:
   - https://microsoft.com/research
+  - https://x.com/MSFTResearch
