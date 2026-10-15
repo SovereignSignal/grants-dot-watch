@@ -1,21 +1,23 @@
 id: climateworks-foundation
 name: ClimateWorks Foundation
 aka: []
-systems: [climate]
-wires: [ai]
-roles: [funder]
+systems:
+  - climate
+wires:
+  - ai
+roles:
+  - funder
 org_type: nonprofit
 website: https://www.climateworks.org
-socials: {}
+socials:
+  x: https://x.com/ClimateWorks
 status: active
 profile: >
-  ClimateWorks Foundation is a philanthropic organization that connects
-  funders and implementers to build and scale climate solutions, granting
-  over $2 billion since 2008 and working with more than 80 philanthropic
-  funders and 850+ grantees across 50+ countries. Its programs span 13+
-  focus areas including carbon dioxide removal, aviation and maritime
-  shipping, food and agriculture, industry and power, and sustainable
-  finance. The site was actively maintained as of 2026 with recent
+  ClimateWorks Foundation is a philanthropic organization that connects funders and implementers to
+  build and scale climate solutions, granting over $2 billion since 2008 and working with more than
+  80 philanthropic funders and 850+ grantees across 50+ countries. Its programs span 13+ focus areas
+  including carbon dioxide removal, aviation and maritime shipping, food and agriculture, industry
+  and power, and sustainable finance. The site was actively maintained as of 2026 with recent
   funding announcements.
 funding:
   focus:
@@ -35,3 +37,4 @@ funding:
 sources:
   - https://www.climateworks.org
   - https://www.climateworks.org/programs/
+  - https://x.com/ClimateWorks
