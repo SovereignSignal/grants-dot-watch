@@ -4,23 +4,27 @@ aka:
   - TPRF
 systems:
   - oss-sustainability
-wires: [oss]
-roles: [funder]
+wires:
+  - oss
+roles:
+  - funder
 org_type: nonprofit
 website: https://www.perlfoundation.org/
-socials: {}
+socials:
+  x: https://x.com/perlfoundation
 status: active
 profile: >
-  Nonprofit dedicated to the advancement of the Perl and Raku programming
-  languages through open discussion, collaboration, design, and code. It funds
-  developers maintaining these languages via donation-funded grant initiatives,
-  including the Perl Core Development Fund, the Raku Development Fund, and
-  general grant programs benefiting the broader community.
+  Nonprofit dedicated to the advancement of the Perl and Raku programming languages through open
+  discussion, collaboration, design, and code. It funds developers maintaining these languages via
+  donation-funded grant initiatives, including the Perl Core Development Fund, the Raku Development
+  Fund, and general grant programs benefiting the broader community.
 funding:
   focus:
     - core language improvements
     - documentation and tutorials
-  cadence: "Call for grant proposals opens every two months (two-week public feedback window before committee vote)"
+  cadence: Call for grant proposals opens every two months (two-week public feedback window before
+    committee vote)
   apply_url: https://www.perlfoundation.org/grants.html
 sources:
   - https://www.perlfoundation.org/
+  - https://x.com/perlfoundation
