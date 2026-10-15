@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://x1ecochain.com/
+socials:
+  x: https://x.com/X1_EcoChain
 status: unknown
 profile: "X1 EcoChain: no sourced profile on file yet. See x1ecochain.com for the organization's own
   description, and the programs listed on this page."
