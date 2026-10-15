@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://joinpond.ai/
+socials:
+  x: https://x.com/JoinPond
 status: active
 profile: "**Pond Deep Funding Contest Bounties** offers new funding for builders contributing to its
   Ethereum-based open-source experiment that uses AI to fund open source software. The contest
@@ -15,3 +17,4 @@ profile: "**Pond Deep Funding Contest Bounties** offers new funding for builders
   announcement at https://x.com/cryptheneon/status/2031714396154511660."
 sources:
   - https://x.com/cryptheneon/status/2031714396154511660
+  - https://joinpond.ai/
