@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.greenclimate.fund/
+socials:
+  x: https://x.com/theGCF
 status: active
 profile: The Green Climate Fund is the world's largest dedicated climate fund, established under the
   UN climate framework to invest in low-emission, climate-resilient projects in developing
