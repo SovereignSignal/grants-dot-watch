@@ -12,6 +12,7 @@ import { fetchEvidencePage, hostMatchesRegisteredDomain, registeredDomain, type 
 import { decideProposal, proposalChangeHash } from './desk-decide';
 import { getIngestState, listProposals, setIngestState } from './desk-store';
 import { WIRE_PROGRAM_AUTO_APPLY_POLICY, WIRE_PROGRAM_MIN_SCORE, wireProgramAutoApplyEnabled } from './machine-approval-policy';
+import { findAmountOnPage, parseMoney, visibleMoneyText, type MoneyExpr } from './money-match';
 import { isValidIsoDate, norm, normalizeForMatch, pageContainsDate } from './proposal-validator';
 import { loadRegistry } from './registry';
 import { productDateISO } from './round-state';
@@ -31,8 +32,10 @@ const PROGRAM_KEY = /^programs\/([a-z0-9][a-z0-9-]*)\.yaml$/;
  * - org: must equal the proposal's resolved org, which must be in the registry;
  * - apply_url, round source, evidence_url: on the org's registered domain;
  * - rounds: the ingest's one "Current call" round, open, whose closes date
- *   must appear on the page. A Wire amount (`size`) or `opens` is never
- *   auto-published;
+ *   must appear on the page. A Wire amount (`size`) publishes only when
+ *   `parseMoney` reads it whole and the same page states the same value in
+ *   the same currency (money-match.ts); it is published as queued, never
+ *   rewritten. `opens` is never auto-published;
  * - wires: the committer takes the proposal's wire, which must be one of the
  *   org's own wires; systems cannot be set (the committer leaves them empty);
  * - summary: the one Wire free-text field the registry requires (40+ chars).
@@ -84,6 +87,8 @@ export interface WireProgramPlan {
   /** apply_url when the record carries one, else evidence_url. */
   url: string;
   deadlines: string[];
+  /** The round's Wire amount as queued, and how it parsed. */
+  amount: { raw: string; parsed: MoneyExpr } | null;
   score: number;
   nameCandidates: string[];
 }
@@ -195,9 +200,9 @@ export function assessWireProgram(
 
   const deadlines: string[] = [];
   const roundSources: unknown[] = [];
+  let amount: WireProgramPlan['amount'] = null;
   if (payload.rounds !== undefined) {
     const rounds = Array.isArray(payload.rounds) ? payload.rounds : null;
-    if (rounds?.some((round) => isRecord(round) && round.size !== undefined)) reasons.push('unverified_amount');
     const shapeOk = rounds !== null && rounds.length <= 1 && rounds.every((round) =>
       isRecord(round) &&
       Object.keys(round).every((key) => ROUND_FIELDS.has(key) || key === 'size') &&
@@ -210,6 +215,11 @@ export function assessWireProgram(
       for (const round of rounds as Record<string, unknown>[]) {
         if (typeof round.closes === 'string') deadlines.push(round.closes);
         if (round.source !== undefined) roundSources.push(round.source);
+        if (round.size !== undefined) {
+          const parsed = parseMoney(round.size);
+          if (parsed) amount = { raw: round.size as string, parsed };
+          else reasons.push('amount_unparsed');
+        }
       }
     }
   }
@@ -251,14 +261,15 @@ export function assessWireProgram(
   if (!nameCandidates.length) reasons.push('name_not_specific');
 
   if (reasons.length) return { ok: false, reasons };
-  return { ok: true, plan: { proposal: p, slug, name, orgId, domain, url, deadlines, score: score as number, nameCandidates } };
+  return { ok: true, plan: { proposal: p, slug, name, orgId, domain, url, deadlines, amount, score: score as number, nameCandidates } };
 }
 
-/** The page half of the rule: name phrase, open signal or deadline, no closed phrase. */
+/** The page half of the rule: name phrase, open signal or deadline, no closed
+ *  phrase, and the Wire amount (when there is one) stated on the same page. */
 export function confirmWireProgramPage(
   plan: WireProgramPlan,
   page: PageFetch
-): { ok: true; matched_name: string; matched_signal: string } | { ok: false; reasons: string[] } {
+): { ok: true; matched_name: string; matched_signal: string; matched_amount: string | null } | { ok: false; reasons: string[] } {
   if (!page.ok) return { ok: false, reasons: ['fetch_failed'] };
   if (!hostMatchesRegisteredDomain(page.url, plan.domain)) return { ok: false, reasons: ['off_domain_redirect'] };
   const text = ` ${normalizeForMatch(page.body)} `;
@@ -272,8 +283,15 @@ export function confirmWireProgramPage(
   if (plan.deadlines.some((day) => !pageContainsDate(page.body, day))) reasons.push('deadline_not_on_page');
   const deadline = phrase ? null : plan.deadlines.find((day) => pageContainsDate(page.body, day)) ?? null;
   if (!phrase && !deadline) reasons.push('no_open_signal');
+  const matchedAmount = plan.amount ? findAmountOnPage(plan.amount.parsed, visibleMoneyText(page.body))?.text ?? null : null;
+  if (plan.amount && !matchedAmount) reasons.push('amount_not_on_page');
   if (reasons.length || !matchedName) return { ok: false, reasons };
-  return { ok: true, matched_name: matchedName, matched_signal: phrase ? `phrase: ${phrase}` : `deadline: ${deadline}` };
+  return {
+    ok: true,
+    matched_name: matchedName,
+    matched_signal: phrase ? `phrase: ${phrase}` : `deadline: ${deadline}`,
+    matched_amount: matchedAmount,
+  };
 }
 
 export interface WireProgramAutoApplySummary {
@@ -393,6 +411,7 @@ export async function runWireProgramAutoApply(deps: WireProgramAutoApplyDeps = {
         page_hash: page.hash,
         matched_name: confirmed.matched_name,
         matched_signal: confirmed.matched_signal,
+        ...(plan.amount && confirmed.matched_amount ? { amount: plan.amount.raw, matched_amount: confirmed.matched_amount } : {}),
         score: plan.score,
       };
       await pause();
@@ -400,7 +419,7 @@ export async function runWireProgramAutoApply(deps: WireProgramAutoApplyDeps = {
         id: p.id,
         decision: 'approved',
         by: 'machine',
-        note: `auto: Wire program confirmed on ${plan.domain} ("${confirmed.matched_name}", ${confirmed.matched_signal}, score ${plan.score}, ${WIRE_PROGRAM_AUTO_APPLY_POLICY})`,
+        note: `auto: Wire program confirmed on ${plan.domain} ("${confirmed.matched_name}", ${confirmed.matched_signal}${confirmed.matched_amount ? `, amount "${confirmed.matched_amount}"` : ''}, score ${plan.score}, ${WIRE_PROGRAM_AUTO_APPLY_POLICY})`,
         wire_program_auto_apply: audit,
         // The payload assessed and confirmed above; a changed one is refused.
         expect_change_hash: proposalChangeHash(p.proposed_change),

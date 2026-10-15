@@ -26,6 +26,7 @@ export interface DeskLogProgramAudit {
   pageHash: string;
   matchedName: string;
   matchedSignal: string;
+  matchedAmount?: string;
   score: number;
 }
 
@@ -114,6 +115,7 @@ export function buildDeskLog(
             pageHash: verdict.wire_program_auto_apply.page_hash,
             matchedName: verdict.wire_program_auto_apply.matched_name,
             matchedSignal: verdict.wire_program_auto_apply.matched_signal,
+            ...(verdict.wire_program_auto_apply.matched_amount ? { matchedAmount: verdict.wire_program_auto_apply.matched_amount } : {}),
             score: verdict.wire_program_auto_apply.score,
           }
         : undefined,

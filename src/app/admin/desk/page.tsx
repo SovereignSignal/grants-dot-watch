@@ -885,6 +885,7 @@ export default function DeskPage() {
                         {row.programAudit.matchedName}
                         {'" · '}
                         {row.programAudit.matchedSignal}
+                        {row.programAudit.matchedAmount ? ` · amount "${row.programAudit.matchedAmount}"` : ''}
                         {' · score '}
                         {row.programAudit.score}
                       </div>

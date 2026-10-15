@@ -107,8 +107,14 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  * - shape: exactly one `programs/<slug>.yaml` entry with only the fields the
  *   Wire ingest writes (id, name, org, apply_url, rounds), id equal to the
  *   slug, at most one round named `Current call` with only name, status,
- *   closes and source, status `open` or absent. A Wire amount (`size`) or
- *   `opens` is never auto-published;
+ *   closes, source and size, status `open` or absent. `opens` is never
+ *   auto-published;
+ * - a Wire amount (`size`), when present, reads whole as one amount: a
+ *   currency (US$, $, €, £ or USD, EUR, GBP, CHF, CAD, AUD, USDC, USDT, DAI)
+ *   and a value, a range ("$50,000–$100,000", "50k–100k EUR") or an
+ *   "up to" amount, with nothing else in the text (`parseMoney`); anything
+ *   ambiguous ("$75,000 per team", "$50-100k", "1.500M", "CA$", "$75k+")
+ *   is `amount_unparsed`. It is published exactly as queued;
  * - published text is plain: the name has no markup or links (120 chars
  *   max); the proposal summary, which becomes the program summary, is 40 to
  *   SUMMARY_MAX characters with no markup or links. The payload cannot set
@@ -128,19 +134,26 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   visible text contains the program name as a whole phrase (see
  *   `programNameCandidates`), an open/apply phrase or the proposal's deadline
  *   written with its year, every deadline the record carries written with its
- *   year, and no closed phrase;
+ *   year, no closed phrase, and, for a Wire amount, the same amount in the
+ *   same currency (`findAmountOnPage`, else `amount_not_on_page`). Page
+ *   amounts are read with the same grammar, so "$75,000", "$75k",
+ *   "75,000 USD", "USD 75,000" and "up to $75,000" are one value, "€50.000"
+ *   is 50,000 euros, and "$1M", "$1 million" and "$1,000,000" are equal. A
+ *   number is read whole (175,000 never matches 75,000), a range matches only
+ *   the same range, and an "up to" amount needs "up to" on the page;
  * - decideProposal, which re-runs the staged registry validation, succeeds,
  *   and the claimed payload still hashes to the one checked
  *   (`expect_change_hash`; a payload changed since the check is refused).
  *   Every automatic approval (curator auto-apply, award, Wire program) must
  *   pass that hash; decideProposal refuses one without it.
  * The rule is `assessWireProgram` and `confirmWireProgramPage` in
- * src/lib/wire-program-auto-apply.ts. Approval is a machine decision with the
- * `wire_program_auto_apply` audit. At most MAX_WIRE_PROGRAM_CHECKS items are
+ * src/lib/wire-program-auto-apply.ts, with amounts in src/lib/money-match.ts.
+ * Approval is a machine decision with the `wire_program_auto_apply` audit,
+ * which records the queued amount and the page text that matched it. At most MAX_WIRE_PROGRAM_CHECKS items are
  * fetched per run, least recently checked first. Anything else stays pending
  * for the owner, with its reasons on the ingest last_run record.
  */
-export const WIRE_PROGRAM_AUTO_APPLY_POLICY = 'verified_wire_program_known_org_v1';
+export const WIRE_PROGRAM_AUTO_APPLY_POLICY = 'verified_wire_program_known_org_v2';
 export const WIRE_PROGRAM_MIN_SCORE = 70;
 
 export function wireProgramAutoApplyEnabled(env: NodeJS.ProcessEnv = process.env): boolean {

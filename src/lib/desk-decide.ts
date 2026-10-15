@@ -81,7 +81,8 @@ function applyMessage(proposal:Proposal,input:DecideInput):string {
   if(input.wire_program_auto_apply){
     const w=input.wire_program_auto_apply;
     return [base,'',`Machine: Wire program auto-apply (${w.policy})`,`Page: ${w.final_url} sha256 ${w.page_hash}`,
-      `Matched: "${w.matched_name}" + ${w.matched_signal}, score ${w.score}`].join('\n');
+      `Matched: "${w.matched_name}" + ${w.matched_signal}, score ${w.score}`,
+      ...(w.matched_amount?[`Amount: "${w.amount}" matched "${w.matched_amount}"`]:[])].join('\n');
   }
   if(input.by!=='curator')return base;
   const who=`${input.curator_name || 'curator'} (${input.curator_id || 'unknown'})`;

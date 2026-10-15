@@ -113,7 +113,7 @@ test('an auto-approved program carries only page-checked fields and the org wire
     return p;
   };
   const cases = [
-    ['wire amount', withRound({ size: 'up to $10,000' }), ['unverified_amount']],
+    ['unparseable wire amount', withRound({ size: 'up to $10,000 per team' }), ['amount_unparsed']],
     ['opens date', withRound({ opens: '2026-10-01' }), ['unexpected_rounds']],
     ['round name', withRound({ name: 'Season 9' }), ['unexpected_rounds']],
     ['summary link', proposal({ extra: { summary: 'A builder fund for open source maintainers, see https://evil.example' } }), ['summary_has_markup_or_links']],
@@ -220,7 +220,7 @@ test('happy path: a verified Wire program is approved by the machine with its au
       matched_signal: 'phrase: apply now',
       score: 85,
     });
-    assert.match(h.applies[0].message, /Machine: Wire program auto-apply \(verified_wire_program_known_org_v1\)/);
+    assert.match(h.applies[0].message, /Machine: Wire program auto-apply \(verified_wire_program_known_org_v2\)/);
     assert.match(h.applies[0].message, new RegExp(`sha256 ${hash(PAGE_A)}`));
 
     const [row] = buildDeskLog([{ id: 'p00001', title: h.rows[0].title }], h.verdicts);
@@ -240,6 +240,80 @@ test('a deadline written with its year is an open signal when no apply phrase is
     const summary = await h.run();
     assert.equal(summary.approved.length, 1);
     assert.equal(h.verdicts[0].wire_program_auto_apply.matched_signal, 'deadline: 2026-11-30');
+  });
+});
+
+/** The Wire ingest's proposal with a round amount, as buildNewProgramSourceFields queues it. */
+function withSize(size, opts = {}) {
+  const p = proposal(opts);
+  const [path, payload] = Object.entries(p.proposed_change)[0];
+  p.proposed_change = { [path]: { ...payload, rounds: [{ ...payload.rounds[0], size }] } };
+  return p;
+}
+const amountPage = (text) => `<h1>Example Builder Fund</h1><p>${text} Apply now. Deadline: November 30, 2026.</p>`;
+
+test('a Wire amount stated on the page is approved, published as queued, and recorded', async () => {
+  await withFlag('1', async () => {
+    const item = withSize('$75,000');
+    const queued = structuredClone(item.proposed_change);
+    const page = amountPage('Wave budget: $75k in total.');
+    const h = harness([item], { pages: { [URL_A]: page } });
+    const summary = await h.run();
+    assert.equal(summary.approved.length, 1, JSON.stringify(summary.left));
+    const audit = h.verdicts[0].wire_program_auto_apply;
+    assert.equal(audit.amount, '$75,000');
+    assert.equal(audit.matched_amount, '$75k');
+    assert.match(h.verdicts[0].note, /amount "\$75k"/);
+    assert.match(h.applies[0].message, /^Amount: "\$75,000" matched "\$75k"$/m);
+    // The payload is applied exactly as queued: the amount is never rewritten.
+    assert.deepEqual(h.rows[0].proposed_change, queued);
+    assert.equal(h.registry.programs.at(-1).rounds[0].size, '$75,000');
+    const [row] = buildDeskLog([{ id: item.id, title: item.title }], h.verdicts);
+    assert.equal(row.programAudit.matchedAmount, '$75k');
+  });
+});
+
+test('ranges and "up to" amounts match the same form on the page', async () => {
+  const cases = [
+    ['up to $100,000', 'Grants of up to $100k each.', 'up to $100k'],
+    ['$50,000–$100,000', 'Grants from $50k&ndash;$100k.', '$50k–$100k'],
+    ['50k EUR', 'Funding of €50.000 per project.', '€50.000'],
+    ['$1M', 'A pool of 1,000,000 USD.', '1,000,000 USD'],
+  ];
+  await withFlag('1', async () => {
+    for (const [size, text, matched] of cases) {
+      const h = harness([withSize(size)], { pages: { [URL_A]: amountPage(text) } });
+      const summary = await h.run();
+      assert.equal(summary.approved.length, 1, `${size}: ${JSON.stringify(summary.left)}`);
+      assert.equal(h.verdicts[0].wire_program_auto_apply.matched_amount, matched, size);
+    }
+  });
+});
+
+test('a Wire amount the page does not state, or that does not parse, stays with the owner', async () => {
+  const pageMisses = [
+    ['missing', '$75,000', 'Grants for maintainers.'],
+    ['larger number', '$75,000', 'Wave budget: $175,000.'],
+    ['wrong currency', '$75,000', 'Wave budget: €75,000.'],
+    ['range endpoint', '$75,000', 'Grants from $25,000–$75,000.'],
+    ['up to without up to', 'up to $100,000', 'Grants of $100,000.'],
+  ];
+  await withFlag('1', async () => {
+    for (const [label, size, text] of pageMisses) {
+      const h = harness([withSize(size)], { pages: { [URL_A]: amountPage(text) } });
+      const summary = await h.run();
+      assert.equal(summary.approved.length, 0, label);
+      assert.deepEqual(leftReasons(summary, 'p00001'), ['amount_not_on_page'], label);
+      assert.equal(h.rows[0].state, 'pending', label);
+      assert.equal(h.applies.length, 0, label);
+      assert.equal(h.fetched.length, 1, label);
+    }
+    for (const size of ['$75,000 budget', 'varies by track', '$50-100k', '75,000', 75000]) {
+      const h = harness([withSize(size)], { pages: { [URL_A]: amountPage('Wave budget: $75,000.') } });
+      const summary = await h.run();
+      assert.deepEqual(leftReasons(summary, 'p00001'), ['amount_unparsed'], String(size));
+      assert.equal(h.fetched.length, 0, `${size}: refused before any fetch`);
+    }
   });
 });
 
