@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://nebius.com/
+socials:
+  x: https://x.com/nebiusai
 status: active
 profile: "**Nebius Startup Program** has relaunched and is offering GPU capacity, transparent
   pricing, reliable large-scale training, and engineering support to AI startups. The program
@@ -14,3 +16,4 @@ profile: "**Nebius Startup Program** has relaunched and is offering GPU capacity
   startups receive dedicated resources and technical assistance for large-scale AI development."
 sources:
   - https://x.com/nebiusai/status/2031794002987794779
+  - https://nebius.com/
