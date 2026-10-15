@@ -1,0 +1,1 @@
+grants.watch: the registry of the funding world. A Sovereign Signal project.

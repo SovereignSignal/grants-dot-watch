@@ -26,8 +26,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     ...(siteOrigin ? { url: siteOrigin } : {}),
   },
+  // The card image itself is src/app/opengraph-image.png (Next picks it up by file name).
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'grants.watch',
     description: SITE_DESCRIPTION,
   },
