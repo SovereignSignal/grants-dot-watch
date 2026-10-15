@@ -2,18 +2,20 @@ id: lever-for-change
 name: Lever for Change
 aka: []
 systems: []
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: nonprofit
 website: https://leverforchange.org/
-socials: {}
+socials:
+  x: https://x.com/LeverforChange
 status: active
 profile: >
-  Lever for Change connects philanthropic funders with nonprofit organizations
-  addressing global challenges, running customized open calls and other tailored
-  funding opportunities. Since 2019 its competitions have moved over $2.5 billion
-  through 450+ grant awards to 500+ organizations, across areas including
-  education, justice, healthcare, refugee support, and mental health.
+  Lever for Change connects philanthropic funders with nonprofit organizations addressing global
+  challenges, running customized open calls and other tailored funding opportunities. Since 2019 its
+  competitions have moved over $2.5 billion through 450+ grant awards to 500+ organizations, across
+  areas including education, justice, healthcare, refugee support, and mental health.
 funding:
   focus:
     - education
@@ -23,8 +25,9 @@ funding:
     - mental health
     - indigenous communities
     - environmental solutions
-  cadence: "Open calls (rolling launches; no calls were accepting new applications as of Jul 2026)"
+  cadence: Open calls (rolling launches; no calls were accepting new applications as of Jul 2026)
   apply_url: https://leverforchange.org/open-calls/
 sources:
   - https://leverforchange.org/
   - https://leverforchange.org/open-calls/
+  - https://x.com/LeverforChange
