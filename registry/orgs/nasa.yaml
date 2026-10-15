@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.nasa.gov
+socials:
+  x: https://x.com/NASA
 status: active
 profile: NASA funds external research and development through competitive grant programs such as
   NASA Innovative Advanced Concepts (NIAC), which issues multiple solicitations and grant awards
@@ -15,3 +17,4 @@ profile: NASA funds external research and development through competitive grant 
   through NASA's own funding channels and grants.gov listings.
 sources:
   - https://www.nasa.gov/work-with-us/
+  - https://www.nasa.gov/
