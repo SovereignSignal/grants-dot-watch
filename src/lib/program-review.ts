@@ -1,9 +1,9 @@
 import { productDateISO } from './round-state';
 import type { Program } from './types';
 
-/** Operator lead time on a lapsing verification. The recheck producer defaults
- *  to the same window, so "due" on /admin/health and "due" in a recheck run name
- *  the same programs. */
+/** Operator lead time on a lapsing verification. The daily review recheck
+ *  (review-recheck.ts) uses the same window, so "due" on /admin/health and
+ *  "due" in a recheck run name the same programs. */
 export const REVIEW_HORIZON_DAYS = 7;
 
 /** Registry dates are date-only, so the shift is plain UTC arithmetic on the
@@ -23,6 +23,19 @@ export function reviewDueState(program: Program, today = productDateISO(), horiz
   return review.review_after <= shiftDay(today, horizonDays) ? 'due' : 'current';
 }
 
+/** Why a renewed date cannot repair this record, or null when a recheck can:
+ *  an unresolved identity, a former or unconfirmed operator, or a program that
+ *  is not active. A new check date does not resolve any of those. */
+export function reviewRenewalBlocker(program: Program): 'no_review' | 'unresolved_identity' | 'former_operator' | 'unconfirmed_operator' | 'program_not_active' | null {
+  const review = program.review;
+  if (!review) return 'no_review';
+  if (review.kind !== 'program') return 'unresolved_identity';
+  if (review.relationship === 'former') return 'former_operator';
+  if (review.relationship !== 'current') return 'unconfirmed_operator';
+  if (program.status !== 'active') return 'program_not_active';
+  return null;
+}
+
 export interface ReviewRow { id: string; name: string; review_after: string; renewable: boolean }
 export interface ReviewFreshness { reviewed: number; expired: ReviewRow[]; due: ReviewRow[]; drifted: ReviewRow[] }
 
@@ -33,7 +46,7 @@ const byDue = (a: ReviewRow, b: ReviewRow) => a.review_after.localeCompare(b.rev
 export function reviewFreshness(programs: Program[], today = productDateISO(), horizonDays = REVIEW_HORIZON_DAYS): ReviewFreshness {
   const reviewed = programs.filter(p => p.review);
   const row = (p: Program): ReviewRow => ({ id: p.id, name: p.name, review_after: p.review!.review_after,
-    renewable: p.review!.kind === 'program' && p.review!.relationship === 'current' && p.status === 'active' });
+    renewable: reviewRenewalBlocker(p) === null });
   const inState = (state: ReviewDueState) => reviewed.filter(p => reviewDueState(p, today, horizonDays) === state).map(row).sort(byDue);
   return { reviewed: reviewed.length, expired: inState('expired'), due: inState('due'),
     drifted: reviewed.filter(p => p.review!.operating !== p.status).map(row).sort(byDue) };

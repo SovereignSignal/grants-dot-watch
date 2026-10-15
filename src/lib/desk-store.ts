@@ -14,7 +14,7 @@ import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renam
 import { join } from 'node:path';
 import { Pool, type PoolClient } from 'pg';
 import { productDateISO } from './round-state';
-import type { AwardAutoApply, CuratorAutoApply, CuratorReview, Proposal, ProposalType, Verdict, Wire, WireProgramAutoApply } from './types';
+import type { AwardAutoApply, CuratorAutoApply, CuratorReview, Proposal, ProposalType, ReviewRecheckAutoApply, Verdict, Wire, WireProgramAutoApply } from './types';
 import { laneFor } from '../proposal-lanes';
 
 const REPO_ROOT = process.cwd();
@@ -68,6 +68,7 @@ interface RecordVerdictOptions {
   auto_apply?: CuratorAutoApply;
   award_auto_apply?: AwardAutoApply;
   wire_program_auto_apply?: WireProgramAutoApply;
+  review_recheck_auto_apply?: ReviewRecheckAutoApply;
 }
 
 interface Store {
@@ -342,6 +343,7 @@ function buildVerdict(
   if (opts?.auto_apply) verdict.auto_apply = opts.auto_apply;
   if (opts?.award_auto_apply) verdict.award_auto_apply = opts.award_auto_apply;
   if (opts?.wire_program_auto_apply) verdict.wire_program_auto_apply = opts.wire_program_auto_apply;
+  if (opts?.review_recheck_auto_apply) verdict.review_recheck_auto_apply = opts.review_recheck_auto_apply;
   return verdict;
 }
 

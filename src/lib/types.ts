@@ -251,6 +251,9 @@ export interface Verdict {
   /** Set when the Wire program auto-apply approved a new program for a known
    *  org after confirming it on the org's own site (by is 'machine'). */
   wire_program_auto_apply?: WireProgramAutoApply;
+  /** Set when the daily review recheck renewed a program's review dates after
+   *  re-fetching its official page (by is 'machine'). */
+  review_recheck_auto_apply?: ReviewRecheckAutoApply;
   /** Set when an owner reverted this auto-apply. */
   reverted_at?: string;
   revert_commit?: string | null;
@@ -289,4 +292,24 @@ export interface WireProgramAutoApply {
   matched_signal: string;
   /** The Wire source score. */
   score: number;
+}
+
+/** Audit for one review renewal by the daily recheck. Stored on the verdict JSON. */
+export interface ReviewRecheckAutoApply {
+  policy: string;
+  program_id: string;
+  /** The review source the server asked for, and the URL that answered after redirects. */
+  fetched_url: string;
+  final_url: string;
+  /** SHA-256 of the fetched page bytes. */
+  page_hash: string;
+  /** The normalized program name found on the page. */
+  matched_name: string;
+  /** The recorded intake and the phrase that supports it, e.g. `open: apply now`. */
+  matched_intake: string;
+  /** The review dates before and after the renewal. */
+  previous_checked_on: string;
+  previous_review_after: string;
+  checked_on: string;
+  review_after: string;
 }
