@@ -44,6 +44,7 @@ export default defineRailway(() => {
       NEXT_PUBLIC_PRIVY_APP_ID: preserve(),
       NEXT_PUBLIC_PRIVY_CLIENT_ID: preserve(),
       PRIVY_APP_SECRET: preserve(),
+      REVIEW_RECHECK_ENABLED: preserve(),
       WIRE_DATABASE_URL: preserve(),
       WIRE_PROGRAM_AUTO_APPLY: preserve(),
     },
