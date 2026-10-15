@@ -1,4 +1,4 @@
-import { proposalDestinations } from '@/lib/committer';
+import { queueDestination } from '@/lib/committer';
 import { listProposals, listVerdicts, queueCounts } from '@/lib/desk-store';
 import { getSignalEvidence } from '@/lib/signal-lookup';
 import type { Proposal } from '@/lib/types';
@@ -7,25 +7,12 @@ import { checkAuth, unauthorized } from '../lib';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-/** WHERE, at a glance: the paths approve would write, from the same builders
- *  applyProposal uses, minus the funding dataset validation that approve
- *  still runs (see proposalDestinations). Wrapped per-proposal: one proposal
- *  that can't resolve a target (e.g. an ambiguous program match) must never
- *  take the whole queue down. */
-function destinationFor(p: Proposal): { paths: string[] | null; error: string | null } {
-  try {
-    return { paths: proposalDestinations(p), error: null };
-  } catch (e) {
-    return { paths: null, error: e instanceof Error ? e.message : 'destination could not be resolved' };
-  }
-}
-
 /** Enriches a proposal with the two things a card needs to show at a glance
  *  without a follow-up fetch: WHERE it writes, and the wire signal it came
  *  from (VALIDATE). WHAT (the full diff) stays behind /api/desk/preview,
  *  fetched per card since it re-reads the target file. */
 function enrich(p: Proposal) {
-  const { paths, error } = destinationFor(p);
+  const { paths, error } = queueDestination(p);
   return {
     ...p,
     destination: paths,
