@@ -9,6 +9,17 @@ import type { ProposalType } from './types';
  * not the validator. It covers only v2 funding packets that the daily award
  * sweep compiled and queued in the same run from an allowlisted first-party
  * source. Award creation through any other route requires owner review.
+ *
+ * The validator also never approves an X handle. Those go through the curator
+ * auto-apply (src/lib/curator-auto-apply.ts): at submit time for a key with
+ * `apply_low_risk`, and, with DESK_UPKEEP_ENABLED=1, in the daily Desk upkeep
+ * (src/lib/desk-upkeep.ts), which re-runs the same check over pending curator
+ * X-handle notes filed before submit-time auto-apply existed, acting only for
+ * a filing key that is still active, unrevoked and holds `apply_low_risk`
+ * (curator-auth.ts curatorKeyStanding). Both honor
+ * CURATOR_AUTO_APPLY and CURATOR_AUTO_APPLY_TYPES, approve an add or replace
+ * only when the quote and a fetched page on the org's own site name that exact
+ * handle, and never approve a clear (`x: null`).
  */
 export function neverAutoReasonFor(type: ProposalType | string): string | null {
   switch (type) {

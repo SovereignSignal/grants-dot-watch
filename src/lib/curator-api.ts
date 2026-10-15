@@ -8,6 +8,7 @@ import {
   curatorAutoApplyEnabled,
   curatorAutoApplyTypes,
   fetchEvidencePage,
+  orgXState,
   readXHandleEdit,
   type PageFetch,
 } from './curator-auto-apply';
@@ -210,11 +211,7 @@ function autoApplyAllowList(deps: CuratorDeps): Set<string> {
 }
 
 function orgSocial(deps: CuratorDeps, orgId: string): { website: string | null; oldValue: string | null } {
-  const org = deps.loadRegistry().orgs.find((item) => item.id === orgId);
-  return {
-    website: org?.website ?? null,
-    oldValue: typeof org?.socials?.x === 'string' ? org.socials.x : null,
-  };
+  return orgXState(deps.loadRegistry().orgs, orgId);
 }
 
 function clearHasEvidence(proposal: Proposal, reason: string): boolean {

@@ -3,7 +3,7 @@
 // own site. Clears are a separate field edit and are not approved here.
 import { createHash } from 'node:crypto';
 import { lookup } from 'node:dns/promises';
-import type { CuratorAutoApply } from './types';
+import type { CuratorAutoApply, Org } from './types';
 
 export const FETCH_TIMEOUT_MS = 8_000;
 export const FETCH_MAX_BYTES = 1_000_000;
@@ -63,6 +63,15 @@ export function readXHandleEdit(change: unknown): XHandleEdit | null {
   const handle = HANDLE_URL.exec(socials.x)?.[1];
   if (!handle) return null;
   return { orgId, clear: false, handle, url: `https://x.com/${handle}` };
+}
+
+/** The registry state an X-handle check reads: the org's website and its current handle. */
+export function orgXState(orgs: readonly Org[], orgId: string): { website: string | null; oldValue: string | null } {
+  const org = orgs.find((item) => item.id === orgId);
+  return {
+    website: org?.website ?? null,
+    oldValue: typeof org?.socials?.x === 'string' ? org.socials.x : null,
+  };
 }
 
 /** The org website host, without a leading www. Shared platforms are not an org site. */
