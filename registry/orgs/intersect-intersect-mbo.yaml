@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.intersectmbo.org/
+socials:
+  x: https://x.com/IntersectMBO
 status: active
 profile: Intersect is the member-based organization now stewarding Cardano protocol development and
   coordinating the community budget process, including facilitating Project Catalyst / on-chain
@@ -15,3 +17,4 @@ profile: Intersect is the member-based organization now stewarding Cardano proto
   of the ecosystem's core funding bodies, but it has no org entry yet.
 sources:
   - https://www.intersectmbo.org/governance
+  - https://www.intersectmbo.org/
