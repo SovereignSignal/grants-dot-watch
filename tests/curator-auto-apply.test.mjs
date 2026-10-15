@@ -158,6 +158,11 @@ test('handle link checks are exact and stay on the registered site', () => {
   assert.equal(curatorAutoApplyTypes({ CURATOR_AUTO_APPLY_TYPES: '' }).size, 0);
   assert.equal(registeredDomain('https://www.example.org/about'), 'example.org');
   assert.equal(registeredDomain('https://x.com/example'), null);
+  // Shared hosts confirm nothing; an org's own subdomain on them still does.
+  assert.equal(registeredDomain('https://github.com/open-source'), null);
+  assert.equal(registeredDomain('https://docs.google.com/document/d/abc/'), null);
+  assert.equal(registeredDomain('https://qwenlm.github.io/'), 'qwenlm.github.io');
+  assert.equal(registeredDomain('https://cornarolabs.substack.com/'), 'cornarolabs.substack.com');
   assert.equal(hostMatchesRegisteredDomain('https://blog.example.org/team', 'example.org'), true);
   assert.equal(hostMatchesRegisteredDomain('https://example.org.evil.com/team', 'example.org'), false);
   assert.equal(hostMatchesRegisteredDomain('https://notexample.org/team', 'example.org'), false);

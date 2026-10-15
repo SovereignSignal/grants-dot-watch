@@ -5,10 +5,13 @@ import type { ProposalType } from './types';
  * every proposal the validator sees, including v2 funding imports (type
  * `profile_note`): the validator never approves award creation.
  *
- * The one narrower machine path is the award-source auto-apply below. It is
- * not the validator. It covers only v2 funding packets that the daily award
- * sweep compiled and queued in the same run from an allowlisted first-party
- * source. Award creation through any other route requires owner review.
+ * Two narrower machine paths sit beside the validator, each behind its own
+ * flag. The award-source auto-apply below covers only v2 funding packets that
+ * the daily award sweep compiled and queued from an allowlisted first-party
+ * source. The Wire program auto-apply below covers only Wire `new_program`
+ * items for an organization already in the registry, confirmed on that
+ * organization's own site. Every other new program, and award creation
+ * through any other route, requires owner review.
  *
  * The validator also never approves an X handle. Those go through the curator
  * auto-apply (src/lib/curator-auto-apply.ts): at submit time for a key with
@@ -83,4 +86,46 @@ export const AWARD_AUTO_APPLY_POLICY = 'clean_first_party_award_packet_v1';
 
 export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
   return env.AWARD_SOURCES_AUTO_APPLY === '1';
+}
+
+/**
+ * Wire program auto-apply. Off unless WIRE_PROGRAM_AUTO_APPLY=1. The daily
+ * ingest runs it inside its lock and once-per-day claim, after the Wire
+ * ingest, over every pending Wire `new_program` item (new today and backlog).
+ * The validator above still never approves a new program; this is a separate
+ * path with its own audit.
+ *
+ * A pending proposal is approved by the machine only when ALL hold:
+ * - provenance: type `new_program`, signal id `wire:<entry>`, not queued by a
+ *   curator, and no curator review that says reject or needs_owner;
+ * - shape: exactly one `programs/<slug>.yaml` entry with only the fields the
+ *   Wire ingest writes (id, name, org, apply_url, rounds), id equal to the
+ *   slug, rounds limited to name/status/opens/closes/size/source, status
+ *   `open` or absent;
+ * - the org is already in the registry (no new org, no merge) and its website
+ *   gives a registered domain;
+ * - every URL the record would carry (apply_url, evidence_url, round sources)
+ *   is https on that domain or a subdomain, and the checked URL (apply_url,
+ *   else evidence_url) is not the bare homepage;
+ * - the Wire source score is at least WIRE_PROGRAM_MIN_SCORE;
+ * - every deadline is a valid date not before today's product date;
+ * - no registry program has the same id, the same normalized name for that
+ *   org, or the same apply_url, and nothing approved earlier in the run does;
+ * - a server fetch of the checked URL (the curator auto-apply fetcher: https,
+ *   public addresses only, on-domain redirects, 1 MB, 8 s) returns 200; its
+ *   visible text contains the program name as a whole phrase (see
+ *   `programNameCandidates`), an open/apply phrase or the proposal's deadline
+ *   written with its year, and no closed phrase;
+ * - decideProposal, which re-runs the staged registry validation, succeeds.
+ * The rule is `assessWireProgram` and `confirmWireProgramPage` in
+ * src/lib/wire-program-auto-apply.ts. Approval is a machine decision with the
+ * `wire_program_auto_apply` audit. At most MAX_WIRE_PROGRAM_CHECKS items are
+ * fetched per run, least recently checked first. Anything else stays pending
+ * for the owner, with its reasons on the ingest last_run record.
+ */
+export const WIRE_PROGRAM_AUTO_APPLY_POLICY = 'verified_wire_program_known_org_v1';
+export const WIRE_PROGRAM_MIN_SCORE = 70;
+
+export function wireProgramAutoApplyEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
+  return env.WIRE_PROGRAM_AUTO_APPLY === '1';
 }

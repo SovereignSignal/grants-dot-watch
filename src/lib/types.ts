@@ -248,6 +248,9 @@ export interface Verdict {
    *  funding packet (by is 'machine'). Funding ledgers are append-only, so
    *  this has no one-click revert. */
   award_auto_apply?: AwardAutoApply;
+  /** Set when the Wire program auto-apply approved a new program for a known
+   *  org after confirming it on the org's own site (by is 'machine'). */
+  wire_program_auto_apply?: WireProgramAutoApply;
   /** Set when an owner reverted this auto-apply. */
   reverted_at?: string;
   revert_commit?: string | null;
@@ -270,4 +273,20 @@ export interface AwardAutoApply {
   pack_id: string;
   plan_digest: string;
   records: number;
+}
+
+/** Audit for one Wire program auto-apply. Stored on the verdict JSON. */
+export interface WireProgramAutoApply {
+  policy: string;
+  /** The URL the server asked for, and the URL that answered after redirects. */
+  fetched_url: string;
+  final_url: string;
+  /** SHA-256 of the fetched page bytes. */
+  page_hash: string;
+  /** The normalized name phrase found on the page. */
+  matched_name: string;
+  /** `phrase: <open phrase>` or `deadline: <YYYY-MM-DD>`. */
+  matched_signal: string;
+  /** The Wire source score. */
+  score: number;
 }

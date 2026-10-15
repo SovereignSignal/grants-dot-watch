@@ -8,6 +8,7 @@ import { loadRegistry } from '@/lib/registry';
 import { getAppliedChangeLedgerHealth, getIngestState, listProposals, storeBackend } from '@/lib/desk-store';
 import { lastBootReplayReport, type BootReplayReport } from '@/lib/boot-replay';
 import { REVIEW_HORIZON_DAYS, reviewFreshness } from '@/lib/program-review';
+import { wireProgramAutoApplyLine } from '@/lib/wire-program-auto-apply';
 import { Card, Coord, Empty, PageHeader, Stat } from '@/components/ui';
 
 export const metadata = { title: 'Health' };
@@ -54,6 +55,8 @@ interface LastIngestRun {
     left_for_owner?: { source?: string; pack_id?: string; proposal_id?: string | null; queued?: boolean; reasons?: string[] }[];
     sources?: { source?: string; status?: string; error?: string | null }[];
   };
+  /** Read by wireProgramAutoApplyLine, which tolerates any shape. */
+  wire_program_auto_apply?: unknown;
   desk_upkeep?: {
     error?: string;
     skipped?: string | null;
@@ -450,6 +453,10 @@ export default async function HealthPage() {
               )}
               {(() => {
                 const line = awardSourcesLine(ingest.award_sources);
+                return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
+              })()}
+              {(() => {
+                const line = wireProgramAutoApplyLine(ingest.wire_program_auto_apply);
                 return line ? <div className={`mt-1.5 coord ${line.failed ? 'text-closing' : 'text-faint'}`}>{line.text}</div> : null;
               })()}
               {(() => {
