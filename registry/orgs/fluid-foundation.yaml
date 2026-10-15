@@ -7,8 +7,11 @@ wires:
 roles:
   - funder
 website: https://gov.fluid.io/
+socials:
+  x: https://x.com/0xfluid
 status: unknown
 profile: "Fluid Foundation: no sourced profile on file yet. See gov.fluid.io for the organization's
   own description, and the programs listed on this page."
 sources:
   - https://gov.fluid.io/
+  - https://x.com/0xfluid
