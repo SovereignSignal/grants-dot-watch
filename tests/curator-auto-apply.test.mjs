@@ -333,6 +333,59 @@ test('clearing a dead handle is a field clear, stays pending on submit, and bulk
   assert.equal(withoutScope.decisions.length, 0);
 });
 
+test('bulk clears need decide; apply_low_risk alone still applies adds and replaces', async () => {
+  const stamp = {
+    key_id: 'elouise',
+    key_name: 'Elouise',
+    reason: 'The official site shows the handle.',
+    sources: ['https://blog.example.org/team'],
+    quotes: [{ url: 'https://blog.example.org/team', quote: 'Follow Example at https://x.com/example.' }],
+    at: '2026-06-01T00:00:00.000Z',
+  };
+  const base = { type: 'profile_note', state: 'pending', lane: 'judgment', created_at: '2026-06-01T00:00:00.000Z', submitted_by: stamp };
+  const seed = () => new Map([
+    ['p00201', { ...base, id: 'p00201', org: 'example', title: 'Example: clear X', summary: 'The X account is gone.', proposed_change: { 'orgs/example.yaml': { socials: { x: null } } } }],
+    ['p00202', { ...base, id: 'p00202', org: 'example', title: 'Example: X @example', summary: 'Replace the handle.', proposed_change: { 'orgs/example.yaml': { socials: { x: 'https://x.com/example' } } } }],
+    ['p00203', { ...base, id: 'p00203', org: 'fresh', title: 'Fresh: X @example', summary: 'Add a handle.', proposed_change: { 'orgs/fresh.yaml': { socials: { x: 'https://x.com/example' } } } }],
+  ]);
+  const withFresh = {
+    ...registry,
+    orgs: [...registry.orgs, { ...registry.orgs[0], id: 'fresh', name: 'Fresh', socials: {} }],
+  };
+  const reason = 'The account returns not found and the site no longer links it.';
+
+  const lowRisk = harness({ scopes: ['apply_low_risk'], proposals: seed() });
+  lowRisk.api.loadRegistry = () => withFresh;
+  const lowRiskResponse = await decideCuratorBulk(
+    request('https://grants.watch/api/v1/curator/queue/decide-bulk', {
+      idempotency: 'bulk-clear-lowrisk-1',
+      body: { ids: ['p00201', 'p00202', 'p00203'], decision: 'approved', reason },
+    }),
+    lowRisk.api
+  );
+  const lowRiskBody = await lowRiskResponse.json();
+  assert.equal(lowRiskResponse.status, 200);
+  assert.deepEqual(lowRiskBody.decided, ['p00202', 'p00203']);
+  assert.deepEqual(lowRiskBody.failed, [{ id: 'p00201', error: 'clear_not_auto' }]);
+  assert.deepEqual(lowRisk.decisions.map((d) => d.id), ['p00202', 'p00203']);
+  assert.equal(lowRisk.decisions[0].auto_apply.old_value, 'https://x.com/oldhandle');
+  assert.equal(lowRisk.decisions[1].auto_apply.old_value, null);
+  assert.equal(lowRisk.proposals.get('p00201').state, 'pending');
+
+  const decider = harness({ scopes: ['decide', 'apply_low_risk'], proposals: seed() });
+  const deciderResponse = await decideCuratorBulk(
+    request('https://grants.watch/api/v1/curator/queue/decide-bulk', {
+      idempotency: 'bulk-clear-decide-1',
+      body: { ids: ['p00201'], decision: 'approved', reason },
+    }),
+    decider.api
+  );
+  const deciderBody = await deciderResponse.json();
+  assert.deepEqual(deciderBody.decided, ['p00201']);
+  assert.deepEqual(deciderBody.failed, []);
+  assert.equal(decider.decisions[0].auto_apply.new_value, null);
+});
+
 test('bulk decide caps at 50, requires one type, and re-verifies each x handle', async () => {
   const tooMany = harness({ scopes: ['decide', 'apply_low_risk'] });
   const capped = await decideCuratorBulk(
