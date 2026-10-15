@@ -379,7 +379,7 @@ Otherwise the item stays pending, the same as any other proposal.
 - The quote on that source contains `x.com/<handle>` or `twitter.com/<handle>` for that exact handle. A longer handle, or a status path under the handle, does not match. Match is case-insensitive.
 - The server fetches that URL (8 second timeout, 1 MB cap), follows redirects only while they stay on the same site, and finds the same link in the page. Private and loopback addresses are refused.
 
-The approval calls `decideProposal`. The reason stored on the verdict is the proposal reason prefixed with `auto:`. The Desk Log actor is `curator · <name> · auto-apply`. The verdict records the key id, the fetched URL, the SHA-256 of the page bytes, and the old and new handle values.
+The approval calls `decideProposal`. Curator keys can never approve funding imports; the only machine approval of those is the separate award-source auto-apply (`AWARD_SOURCES_AUTO_APPLY=1`, `docs/funding-live-product.md`), labeled `machine · award auto-apply`. The reason stored on the verdict is the proposal reason prefixed with `auto:`. The Desk Log actor is `curator · <name> · auto-apply`. The verdict records the key id, the fetched URL, the SHA-256 of the page bytes, and the old and new handle values.
 
 Clear a dead handle. This stays pending on submit. Apply it with the bulk route below. The written reason is the evidence. The same `apply_low_risk` scope is required, and the verdict records the old value and a null new value.
 

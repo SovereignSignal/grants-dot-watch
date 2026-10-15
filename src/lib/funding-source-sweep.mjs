@@ -1,7 +1,10 @@
 // Daily award-source sweep: the owner workspace's refresh -> compile ->
 // preview -> queue steps, run once per product day from the ingest timer.
-// It reuses those exact functions, queues pending Desk items only, and has
-// no approval path. Each source fails on its own; nothing here throws.
+// It reuses those exact functions and queues pending Desk items. It has no
+// approval path of its own: with AWARD_SOURCES_AUTO_APPLY=1 the caller passes
+// an `afterQueue` hook (src/lib/award-auto-apply.ts) that may approve one
+// freshly queued packet through the owner Desk path. Each source fails on its
+// own; nothing here throws.
 import { LEDGERS } from './funding-model.mjs';
 import { calendarDate } from './funding-api.mjs';
 import { previewFundingPack } from './funding-desk-service.mjs';
@@ -37,13 +40,15 @@ const addedCount=added=>Object.values(added||{}).reduce((n,v)=>n+(Number(v)||0),
  *  load:()=>Promise<{root:string,baseline:unknown,dataset:unknown}>|{root:string,baseline:unknown,dataset:unknown},
  *  proposals:()=>Promise<Array<{state?:string,proposed_change?:any}>>,
  *  enqueue:(rows:unknown[])=>Promise<{inserted:unknown[],skipped:number}>,
- *  sources?:readonly string[], now?:()=>Date, yieldTurn?:()=>Promise<void>, maxPreviews?:number
+ *  sources?:readonly string[], now?:()=>Date, yieldTurn?:()=>Promise<void>, maxPreviews?:number,
+ *  afterQueue?:(input:{source:string,compiled:unknown,pack:unknown,preview:unknown,proposal:any})=>Promise<{applied:boolean,reasons:string[]}>
  * }} deps
  */
 export async function sweepAwardSources(deps){
  const now=(deps.now||(()=>new Date()))(),started=Date.now();
  const summary={at:now.toISOString(),enabled:deps.enabled===true,skipped:null,sources_tried:0,sources_failed:0,
-  packets_queued:0,packets_repeated:0,packets_held:0,packets_deferred:0,records_held:0,duration_ms:0,sources:[],approval:false};
+  packets_queued:0,packets_repeated:0,packets_held:0,packets_deferred:0,records_held:0,duration_ms:0,sources:[],
+  approval:typeof deps.afterQueue==='function',auto_applied:0,left_for_owner:[]};
  if(!summary.enabled){summary.skipped='award_sources_disabled';return summary;}
  if(deps.fundingDeskEnabled!==true){summary.skipped='funding_desk_disabled';return summary;}
  const pause=deps.yieldTurn||turn,cap=deps.maxPreviews??MAX_SWEEP_PREVIEWS,today=calendarDate(now);
@@ -51,7 +56,7 @@ export async function sweepAwardSources(deps){
  try{seen=seenKeys(await deps.proposals());}
  catch(error){summary.skipped='desk_queue_unavailable';summary.error=message(error);return summary;}
  for(const source of deps.sources||NATIVE_REFRESH_SOURCES){
-  const row={source,status:'ok',packets:0,queued:0,repeated:0,held:0,deferred:0,records_held:0,error:null};
+  const row={source,status:'ok',packets:0,queued:0,repeated:0,held:0,deferred:0,records_held:0,auto_applied:0,error:null};
   summary.sources.push(row);summary.sources_tried++;
   try{
    await pause();
@@ -63,6 +68,9 @@ export async function sweepAwardSources(deps){
     const keys=packetKeys(pack);
     // Identical repeats are no-ops: every record is already queued or was rejected.
     if(keys.every(k=>seen.inflight.has(k)||seen.rejected.has(k))){row.repeated++;continue;}
+    // New records beside owner-rejected ones: the owner's rejection covered the
+    // packet, so it is held here rather than re-queued daily, and never auto-applies.
+    if(keys.some(k=>seen.rejected.has(k))){row.held++;summary.left_for_owner.push({source,pack_id:pack.id,proposal_id:null,queued:false,reasons:['contains_rejected_records']});continue;}
     // A packet that overlaps a pending item waits until the owner decides that item.
     if(keys.some(k=>seen.inflight.has(k))){row.held++;continue;}
     if(previews>=cap){row.deferred++;continue;}
@@ -73,8 +81,15 @@ export async function sweepAwardSources(deps){
     if(addedCount(preview.added)===0){row.repeated++;continue;}
     // insertIngestProposals dedupes on signal_id (funding-v2:<plan digest>).
     const result=await deps.enqueue([preview.proposal]);
-    if(result.inserted.length){row.queued++;for(const k of keys)seen.inflight.add(k);}
-    else row.repeated++;
+    if(!result.inserted.length){row.repeated++;continue;}
+    row.queued++;for(const k of keys)seen.inflight.add(k);
+    if(!deps.afterQueue)continue;
+    const proposal=result.inserted[0];
+    let outcome;
+    try{await pause();outcome=await deps.afterQueue({source,compiled,pack,preview,proposal});}
+    catch(error){outcome={applied:false,reasons:[`auto_apply_error: ${message(error)}`]};}
+    if(outcome.applied){row.auto_applied++;summary.auto_applied++;}
+    else summary.left_for_owner.push({source,pack_id:pack.id,proposal_id:proposal?.id??null,queued:true,reasons:outcome.reasons.length?outcome.reasons:['not_clean']});
    }
   }catch(error){row.status='failed';row.error=message(error);summary.sources_failed++;}
   summary.packets_queued+=row.queued;summary.packets_repeated+=row.repeated;summary.packets_held+=row.held;
