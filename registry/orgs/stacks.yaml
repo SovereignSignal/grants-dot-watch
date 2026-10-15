@@ -7,6 +7,8 @@ wires:
 roles:
   - funder
 website: https://www.stacks.co/
+socials:
+  x: https://x.com/Stacks
 status: active
 profile: The Stacks Ecosystem Grants Program has officially launched as of February 10, 2026, with
   applications now open for funding. The program, backed by the Treasury Committee's 2026 operating
@@ -16,3 +18,4 @@ profile: The Stacks Ecosystem Grants Program has officially launched as of Febru
   for applicants seeking guidance.
 sources:
   - https://forum.stacks.org/t/stacks-ecosystem-grants-program-live/18665
+  - https://www.stacks.co/
