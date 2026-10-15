@@ -8,6 +8,8 @@ wires:
 roles:
   - funder
 website: https://www.climateresiliencefund.org/
+socials:
+  x: https://x.com/ClimateResFund
 status: active
 profile: The Climate Resilience Fund supports community climate-resilience work in the US, building
   on tools like NOAA's Climate Program Office resilience toolkit. Evidence of a formal, sizeable
@@ -15,3 +17,4 @@ profile: The Climate Resilience Fund supports community climate-resilience work 
   scrutiny.
 sources:
   - https://www.climateresiliencefund.org/
+  - https://x.com/ClimateResFund
