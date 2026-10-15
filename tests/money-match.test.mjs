@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findAmountOnPage, findMoney, parseMoney, visibleMoneyText } from '../src/lib/money-match.ts';
+import { findAmountOnPage, findMoney, matchAmountOnPage, parseAmount, parseMoney, visibleMoneyText } from '../src/lib/money-match.ts';
 
 const onPage = (amount, html) => {
   const parsed = parseMoney(amount);
@@ -96,6 +96,38 @@ test('a larger number, another currency, or a different shape never matches', ()
     ['$75,000', '<script>var budget = "$75,000";</script><p>Budget soon.</p>', 'script text is not visible'],
   ];
   for (const [amount, html, label] of misses) assert.equal(onPage(amount, html), null, label);
+});
+
+test('a Wire amount may carry a qualifier of 1 to 4 plain words', () => {
+  const read = (raw) => {
+    const a = parseAmount(raw);
+    return a && [a.money.currency, a.money.min, a.money.upTo, a.qualifier.join(' ')];
+  };
+  assert.deepEqual(read('$75,000 budget'), ['USD', 7_500_000, false, 'budget']);
+  assert.deepEqual(read('$75,000 per team'), ['USD', 7_500_000, false, 'per team']);
+  assert.deepEqual(read('up to $50,000 per project'), ['USD', 5_000_000, true, 'per project']);
+  assert.deepEqual(read('$436,000 Pool'), ['USD', 43_600_000, false, 'pool']);
+  assert.deepEqual(read('$75,000'), ['USD', 7_500_000, false, '']);
+  assert.deepEqual(read('$1 million in grants per year'), ['USD', 100_000_000, false, 'in grants per year']);
+  for (const raw of [
+    '$75,000 per 2 teams', '$75,000 for Q4', '$75,000 for 10 teams', '$75,000/yr', '$75,000budget', '$75,000, per team',
+    '$75,000 budget for open source builders', 'Budget: $75,000', 'Stellar Wave 10 on Drips: $75,000 budget', '$75,000 per équipe',
+  ]) {
+    assert.equal(parseAmount(raw), null, raw);
+  }
+  // parseMoney stays money-only.
+  assert.equal(parseMoney('$75,000 budget'), null);
+});
+
+test('the page must state the qualifier right after the same money mention', () => {
+  const match = (raw, html) => matchAmountOnPage(parseAmount(raw), visibleMoneyText(html));
+  assert.deepEqual(match('$75,000 budget', '<p>A $75k budget.</p>'), { ok: true, text: '$75k budget' });
+  assert.deepEqual(match('$75,000 budget', '<p>A $75,000 pool, then a $75,000 budget.</p>'), { ok: true, text: '$75,000 budget' });
+  assert.deepEqual(match('$75,000 per team', '<p>A $75,000 pool.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
+  assert.deepEqual(match('$75,000 budget', '<p>$75,000. Budget soon.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
+  assert.deepEqual(match('$75,000 budget', '<p>$75,000 budgets.</p>'), { ok: false, reason: 'amount_qualifier_not_on_page' });
+  assert.deepEqual(match('$75,000 budget', '<p>A $175,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page' });
+  assert.deepEqual(match('$75,000 budget', '<p>A €75,000 budget.</p>'), { ok: false, reason: 'amount_not_on_page' });
 });
 
 test('page scanning reads every number whole', () => {

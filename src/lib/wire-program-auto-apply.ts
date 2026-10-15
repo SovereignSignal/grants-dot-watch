@@ -12,7 +12,7 @@ import { fetchEvidencePage, hostMatchesRegisteredDomain, registeredDomain, type 
 import { decideProposal, proposalChangeHash } from './desk-decide';
 import { getIngestState, listProposals, setIngestState } from './desk-store';
 import { WIRE_PROGRAM_AUTO_APPLY_POLICY, WIRE_PROGRAM_MIN_SCORE, wireProgramAutoApplyEnabled } from './machine-approval-policy';
-import { findAmountOnPage, parseMoney, visibleMoneyText, type MoneyExpr } from './money-match';
+import { matchAmountOnPage, parseAmount, visibleMoneyText, type ParsedAmount } from './money-match';
 import { isValidIsoDate, norm, normalizeForMatch, pageContainsDate } from './proposal-validator';
 import { loadRegistry } from './registry';
 import { productDateISO } from './round-state';
@@ -33,9 +33,10 @@ const PROGRAM_KEY = /^programs\/([a-z0-9][a-z0-9-]*)\.yaml$/;
  * - apply_url, round source, evidence_url: on the org's registered domain;
  * - rounds: the ingest's one "Current call" round, open, whose closes date
  *   must appear on the page. A Wire amount (`size`) publishes only when
- *   `parseMoney` reads it whole and the same page states the same value in
- *   the same currency (money-match.ts); it is published as queued, never
- *   rewritten. `opens` is never auto-published;
+ *   `parseAmount` reads it (money, then at most a short plain-word
+ *   qualifier) and the same page states the same value in the same currency,
+ *   followed by the same qualifier (money-match.ts); it is published as
+ *   queued, never rewritten. `opens` is never auto-published;
  * - wires: the committer takes the proposal's wire, which must be one of the
  *   org's own wires; systems cannot be set (the committer leaves them empty);
  * - summary: the one Wire free-text field the registry requires (40+ chars).
@@ -88,7 +89,7 @@ export interface WireProgramPlan {
   url: string;
   deadlines: string[];
   /** The round's Wire amount as queued, and how it parsed. */
-  amount: { raw: string; parsed: MoneyExpr } | null;
+  amount: { raw: string; parsed: ParsedAmount } | null;
   score: number;
   nameCandidates: string[];
 }
@@ -216,7 +217,7 @@ export function assessWireProgram(
         if (typeof round.closes === 'string') deadlines.push(round.closes);
         if (round.source !== undefined) roundSources.push(round.source);
         if (round.size !== undefined) {
-          const parsed = parseMoney(round.size);
+          const parsed = parseAmount(round.size);
           if (parsed) amount = { raw: round.size as string, parsed };
           else reasons.push('amount_unparsed');
         }
@@ -283,8 +284,9 @@ export function confirmWireProgramPage(
   if (plan.deadlines.some((day) => !pageContainsDate(page.body, day))) reasons.push('deadline_not_on_page');
   const deadline = phrase ? null : plan.deadlines.find((day) => pageContainsDate(page.body, day)) ?? null;
   if (!phrase && !deadline) reasons.push('no_open_signal');
-  const matchedAmount = plan.amount ? findAmountOnPage(plan.amount.parsed, visibleMoneyText(page.body))?.text ?? null : null;
-  if (plan.amount && !matchedAmount) reasons.push('amount_not_on_page');
+  const amountMatch = plan.amount ? matchAmountOnPage(plan.amount.parsed, visibleMoneyText(page.body)) : null;
+  if (amountMatch && !amountMatch.ok) reasons.push(amountMatch.reason);
+  const matchedAmount = amountMatch?.ok ? amountMatch.text : null;
   if (reasons.length || !matchedName) return { ok: false, reasons };
   return {
     ok: true,

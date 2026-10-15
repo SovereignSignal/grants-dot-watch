@@ -126,17 +126,39 @@ export function findMoney(text: string): MoneyExpr[] {
   return out;
 }
 
-/** A proposal amount read whole: exactly one expression and nothing else, or
- *  null when the text says anything the grammar cannot carry ("$75,000 per
- *  team", "$5k-$10k in USDC", "varies"). */
-export function parseMoney(raw: unknown): MoneyExpr | null {
+/** A Wire amount: one money expression at the start, then an optional short
+ *  qualifier ("budget", "per team", "pool"). */
+export interface ParsedAmount {
+  money: MoneyExpr;
+  /** Lowercase plain words, empty when the amount is money alone. */
+  qualifier: string[];
+}
+
+export const QUALIFIER_MAX_WORDS = 4;
+
+/** A proposal amount read whole: one money expression at the very start,
+ *  then nothing or 1 to QUALIFIER_MAX_WORDS plain words (ASCII letters only,
+ *  no digits). Null for anything else ("$75,000 for 10 teams", "varies",
+ *  "between $5k and $10k", "$75,000/yr"). */
+export function parseAmount(raw: unknown): ParsedAmount | null {
   if (typeof raw !== 'string') return null;
   const text = raw.replace(/\s+/g, ' ').trim();
   if (!text || text.length > 80) return null;
   const found = findMoney(text);
-  if (found.length !== 1) return null;
-  const expr = found[0];
-  return expr.start === 0 && expr.end === text.length ? expr : null;
+  const money = found[0];
+  if (!money || money.start !== 0) return null;
+  const rest = text.slice(money.end);
+  if (!rest) return found.length === 1 ? { money, qualifier: [] } : null;
+  if (!rest.startsWith(' ')) return null;
+  const words = rest.trim().split(' ');
+  if (words.length > QUALIFIER_MAX_WORDS || !words.every((word) => /^[A-Za-z]+$/.test(word))) return null;
+  return { money, qualifier: words.map((word) => word.toLowerCase()) };
+}
+
+/** A proposal amount that is money and nothing else. */
+export function parseMoney(raw: unknown): MoneyExpr | null {
+  const parsed = parseAmount(raw);
+  return parsed && parsed.qualifier.length === 0 ? parsed.money : null;
 }
 
 /** The page's visible text with currency signs and dashes kept: tags,
@@ -169,11 +191,36 @@ export function visibleMoneyText(html: string): string {
  * same range. A range endpoint never stands in for a single amount.
  */
 export function findAmountOnPage(amount: MoneyExpr, pageText: string): MoneyExpr | null {
-  for (const expr of findMoney(pageText)) {
-    if (expr.currency !== amount.currency || expr.range !== amount.range) continue;
-    if (expr.min !== amount.min || expr.max !== amount.max) continue;
-    if (amount.upTo && !expr.upTo) continue;
-    return expr;
+  return moneyOnPage(amount, pageText)[0] ?? null;
+}
+
+function moneyOnPage(amount: MoneyExpr, pageText: string): MoneyExpr[] {
+  return findMoney(pageText).filter((expr) =>
+    expr.currency === amount.currency && expr.range === amount.range &&
+    expr.min === amount.min && expr.max === amount.max && (!amount.upTo || expr.upTo)
+  );
+}
+
+export type AmountMatch =
+  | { ok: true; text: string }
+  | { ok: false; reason: 'amount_not_on_page' | 'amount_qualifier_not_on_page' };
+
+/**
+ * The page states the whole Wire amount: the money matches under
+ * findAmountOnPage, and when the amount has a qualifier, that same money
+ * mention is followed directly by the qualifier's words, in order, in the
+ * same sentence ("$75k budget" states "$75,000 budget"; "$75,000 pool" does
+ * not state "$75,000 per team"). Between words only spaces, hyphens, dashes
+ * or a slash may stand; a sentence stop, comma or anything else breaks it.
+ */
+export function matchAmountOnPage(amount: ParsedAmount, pageText: string): AmountMatch {
+  const hits = moneyOnPage(amount.money, pageText);
+  if (!hits.length) return { ok: false, reason: 'amount_not_on_page' };
+  if (!amount.qualifier.length) return { ok: true, text: hits[0].text };
+  const phrase = new RegExp(`^\\s+${amount.qualifier.join('[\\s\\-–—/]+')}(?![A-Za-z0-9])`, 'i');
+  for (const hit of hits) {
+    const tail = phrase.exec(pageText.slice(hit.end));
+    if (tail) return { ok: true, text: pageText.slice(hit.start, hit.end + tail[0].length).trim() };
   }
-  return null;
+  return { ok: false, reason: 'amount_qualifier_not_on_page' };
 }

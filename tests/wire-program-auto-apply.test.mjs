@@ -113,7 +113,7 @@ test('an auto-approved program carries only page-checked fields and the org wire
     return p;
   };
   const cases = [
-    ['unparseable wire amount', withRound({ size: 'up to $10,000 per team' }), ['amount_unparsed']],
+    ['unparseable wire amount', withRound({ size: 'up to $10,000 for 5 teams' }), ['amount_unparsed']],
     ['opens date', withRound({ opens: '2026-10-01' }), ['unexpected_rounds']],
     ['round name', withRound({ name: 'Season 9' }), ['unexpected_rounds']],
     ['summary link', proposal({ extra: { summary: 'A builder fund for open source maintainers, see https://evil.example' } }), ['summary_has_markup_or_links']],
@@ -308,11 +308,58 @@ test('a Wire amount the page does not state, or that does not parse, stays with 
       assert.equal(h.applies.length, 0, label);
       assert.equal(h.fetched.length, 1, label);
     }
-    for (const size of ['$75,000 budget', 'varies by track', '$50-100k', '75,000', 75000]) {
+    for (const size of ['$75,000 for 10 teams', '$75,000 budget for open source builders', 'varies by track', '$50-100k', '75,000', 75000]) {
       const h = harness([withSize(size)], { pages: { [URL_A]: amountPage('Wave budget: $75,000.') } });
       const summary = await h.run();
       assert.deepEqual(leftReasons(summary, 'p00001'), ['amount_unparsed'], String(size));
       assert.equal(h.fetched.length, 0, `${size}: refused before any fetch`);
+    }
+  });
+});
+
+test('a Wire amount with a short qualifier is approved only when the page states the whole phrase', async () => {
+  await withFlag('1', async () => {
+    const passes = [
+      ['$75,000 budget', 'The wave has a $75k budget.', '$75k budget'],
+      ['$75,000 per team', 'Each grant is $75,000 per team.', '$75,000 per team'],
+      ['up to $50,000 per project', 'Grants of up to $50,000 per-project.', 'up to $50,000 per-project'],
+      ['$436,000 pool', 'A <strong>$436,000</strong> Pool for builders.', '$436,000 Pool'],
+    ];
+    for (const [size, text, matched] of passes) {
+      const item = withSize(size);
+      const queued = structuredClone(item.proposed_change);
+      const h = harness([item], { pages: { [URL_A]: amountPage(text) } });
+      const summary = await h.run();
+      assert.equal(summary.approved.length, 1, `${size}: ${JSON.stringify(summary.left)}`);
+      assert.equal(h.verdicts[0].wire_program_auto_apply.amount, size);
+      assert.equal(h.verdicts[0].wire_program_auto_apply.matched_amount, matched, size);
+      assert.ok(h.applies[0].message.includes(`Amount: "${size}" matched "${matched}"`), size);
+      assert.deepEqual(h.rows[0].proposed_change, queued, `${size}: published as queued`);
+    }
+
+    const misses = [
+      ['mismatched qualifier', '$75,000 per team', 'A $75,000 pool for the wave.'],
+      ['qualifier in another sentence', '$75,000 budget', 'Grants total $75,000. Budget details soon.'],
+      ['qualifier words out of order', '$75,000 per team', 'A $75,000 team per wave.'],
+      ['qualifier not adjacent', '$75,000 budget', 'A $75,000 total budget.'],
+      ['qualifier after another amount', '$75,000 budget', 'A $75,000 pool and a $10,000 budget.'],
+    ];
+    for (const [label, size, text] of misses) {
+      const h = harness([withSize(size)], { pages: { [URL_A]: amountPage(text) } });
+      const summary = await h.run();
+      assert.equal(summary.approved.length, 0, label);
+      assert.deepEqual(leftReasons(summary, 'p00001'), ['amount_qualifier_not_on_page'], label);
+      assert.equal(h.rows[0].state, 'pending', label);
+    }
+    // The money itself still has to be there.
+    const h = harness([withSize('$75,000 budget')], { pages: { [URL_A]: amountPage('A $175,000 budget.') } });
+    assert.deepEqual(leftReasons(await h.run(), 'p00001'), ['amount_not_on_page']);
+
+    // A qualifier with digits, or of five or more words, never parses.
+    for (const size of ['$75,000 per 2 teams', '$75,000 for Q4', '$75,000 budget for open source builders', 'up to $50,000 per project in this wave']) {
+      const h = harness([withSize(size)], { pages: { [URL_A]: amountPage(`Grants of ${size}.`) } });
+      assert.deepEqual(leftReasons(await h.run(), 'p00001'), ['amount_unparsed'], size);
+      assert.equal(h.fetched.length, 0, size);
     }
   });
 });

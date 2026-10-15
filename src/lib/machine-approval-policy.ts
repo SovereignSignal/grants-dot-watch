@@ -109,12 +109,13 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   slug, at most one round named `Current call` with only name, status,
  *   closes, source and size, status `open` or absent. `opens` is never
  *   auto-published;
- * - a Wire amount (`size`), when present, reads whole as one amount: a
- *   currency (US$, $, €, £ or USD, EUR, GBP, CHF, CAD, AUD, USDC, USDT, DAI)
- *   and a value, a range ("$50,000–$100,000", "50k–100k EUR") or an
- *   "up to" amount, with nothing else in the text (`parseMoney`); anything
- *   ambiguous ("$75,000 per team", "$50-100k", "1.500M", "CA$", "$75k+")
- *   is `amount_unparsed`. It is published exactly as queued;
+ * - a Wire amount (`size`), when present, reads as one amount at the start:
+ *   a currency (US$, $, €, £ or USD, EUR, GBP, CHF, CAD, AUD, USDC, USDT,
+ *   DAI) and a value, a range ("$50,000–$100,000", "50k–100k EUR") or an
+ *   "up to" amount, then nothing or a qualifier of 1 to 4 plain words with
+ *   no digits ("budget", "per team", "pool"; `parseAmount`). Anything else
+ *   ("$75,000 for 10 teams", a 5-word qualifier, "$50-100k", "1.500M",
+ *   "CA$", "$75k+") is `amount_unparsed`. It is published exactly as queued;
  * - published text is plain: the name has no markup or links (120 chars
  *   max); the proposal summary, which becomes the program summary, is 40 to
  *   SUMMARY_MAX characters with no markup or links. The payload cannot set
@@ -135,7 +136,11 @@ export function awardSourcesAutoApplyEnabled(env: NodeJS.ProcessEnv = process.en
  *   `programNameCandidates`), an open/apply phrase or the proposal's deadline
  *   written with its year, every deadline the record carries written with its
  *   year, no closed phrase, and, for a Wire amount, the same amount in the
- *   same currency (`findAmountOnPage`, else `amount_not_on_page`). Page
+ *   same currency (`findAmountOnPage`, else `amount_not_on_page`), and for
+ *   a qualifier, that same page mention followed directly by the qualifier's
+ *   words, in order, in the same sentence (`matchAmountOnPage`, else
+ *   `amount_qualifier_not_on_page`; "$75k budget" states "$75,000 budget",
+ *   "$75,000 pool" does not state "$75,000 per team"). Page
  *   amounts are read with the same grammar, so "$75,000", "$75k",
  *   "75,000 USD", "USD 75,000" and "up to $75,000" are one value, "€50.000"
  *   is 50,000 euros, and "$1M", "$1 million" and "$1,000,000" are equal. A
