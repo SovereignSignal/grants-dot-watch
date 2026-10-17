@@ -11,26 +11,9 @@ apply_url: https://solanamobile.com/grants
 summary: Milestone-based grants for mobile dApps, infrastructure and tools in the Solana Mobile
   ecosystem, with potential technical and launch support.
 rounds: []
-sources:
-  - https://solanamobile.com/grants
-  - https://blog.solanamobile.com/post/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
-  operating: active
-  intake: open
-  intake_note: The official FAQ accepts grant ideas at any time. This assessment covers the general
-    builder route, not a future hackathon cohort.
-  source: https://solanamobile.com/grants
   kind: program
-  relationship: current
-  intake_mode: rolling
   facts:
-    eligibility:
-      value: Individuals, teams and organizations building mobile dApps, infrastructure, tooling, content
-        or research for the Solana Mobile ecosystem.
-      source: https://solanamobile.com/grants
-      checked_on: 2026-09-26
     funding:
       value: Milestone-based grant; amount not published.
       source: https://solanamobile.com/grants
@@ -39,5 +22,22 @@ review:
       value: Rolling intake. No fixed closing date is stated.
       source: https://solanamobile.com/grants
       checked_on: 2026-09-26
-  questions: []
+    eligibility:
+      value: Individuals, teams and organizations building mobile dApps, infrastructure, tooling, content
+        or research for the Solana Mobile ecosystem.
+      source: https://solanamobile.com/grants
+      checked_on: 2026-09-26
+  intake: open
+  source: https://solanamobile.com/grants
   history: []
+  operating: active
+  questions: []
+  checked_on: 2026-10-16
+  intake_mode: rolling
+  intake_note: The official FAQ accepts grant ideas at any time. This assessment covers the general
+    builder route, not a future hackathon cohort.
+  relationship: current
+  review_after: 2026-11-15
+sources:
+  - https://solanamobile.com/grants
+  - https://blog.solanamobile.com/post/solana-mobile-builder-grants-bring-your-best-seeker-and-skr-ideas

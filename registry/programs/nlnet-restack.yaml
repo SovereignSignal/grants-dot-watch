@@ -21,23 +21,8 @@ rounds:
     size: EUR 5,000 to EUR 50,000 per initial proposal
     source: https://nlnet.nl/restack/
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
-  operating: active
-  intake: open
-  intake_note: The first call is open. The official page states a November 3 deadline at noon CET.
-  source: https://nlnet.nl/restack/
   kind: program
-  relationship: current
-  intake_mode: rounds
-  round_names:
-    - First call
   facts:
-    eligibility:
-      value: Open internet infrastructure with results under a recognized free or open source license.
-        Most AI projects are outside scope; check the stated exception.
-      source: https://nlnet.nl/restack/
-      checked_on: 2026-09-26
     funding:
       value: EUR 5,000 to EUR 50,000 per initial proposal
       source: https://nlnet.nl/restack/
@@ -46,13 +31,28 @@ review:
       value: November 3, 2026 at 12:00 CET (noon).
       source: https://nlnet.nl/restack/
       checked_on: 2026-09-26
-  questions: []
+    eligibility:
+      value: Open internet infrastructure with results under a recognized free or open source license.
+        Most AI projects are outside scope; check the stated exception.
+      source: https://nlnet.nl/restack/
+      checked_on: 2026-09-26
+  intake: open
+  source: https://nlnet.nl/restack/
   history:
     - date: 2026-09-03
       label: First call opened
+      source: https://nlnet.nl/news/2026/20260903-call.html
       summary: Current intake follows the new odd-month deadline cycle. The earlier June date is not a
         confirmed round.
-      source: https://nlnet.nl/news/2026/20260903-call.html
+  operating: active
+  questions: []
+  checked_on: 2026-10-16
+  intake_mode: rounds
+  intake_note: The first call is open. The official page states a November 3 deadline at noon CET.
+  round_names:
+    - First call
+  relationship: current
+  review_after: 2026-11-15
 sources:
   - https://fsfe.org/news/2026/news-20260528-01.en.html
   - https://nlnet.nl/restack/

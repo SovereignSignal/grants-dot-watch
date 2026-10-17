@@ -9,10 +9,6 @@ wires:
   - oss
 status: active
 mechanism: grants
-sources:
-  - https://nlnet.nl/codesupply/
-  - https://nlnet.nl/codesupply/eligibility/
-  - https://nlnet.nl/news/2026/20260903-call.html
 apply_url: https://nlnet.nl/propose/
 summary: Supports open software metadata, licensing information and vulnerability data for software
   supply chains. EUR 400,000 is reserved for external grants, with initial requests of EUR 5,000 to
@@ -26,23 +22,8 @@ rounds:
     source: https://nlnet.nl/news/2026/20260903-call.html
     closes_at: 2026-11-03T12:00:00+01:00
 review:
-  checked_on: 2026-09-26
-  review_after: 2026-10-03
-  operating: active
-  intake: open
-  intake_note: The first call is open. The official page states a November 3 deadline at noon CET.
-  source: https://nlnet.nl/codesupply/
   kind: program
-  relationship: current
-  intake_mode: rounds
-  round_names:
-    - First call
   facts:
-    eligibility:
-      value: Independent researchers, developers and organizations contributing free or open source
-        software supply-chain tools and metadata.
-      source: https://nlnet.nl/codesupply/
-      checked_on: 2026-09-26
     funding:
       value: EUR 5,000 to EUR 50,000 per initial proposal
       source: https://nlnet.nl/codesupply/
@@ -51,10 +32,29 @@ review:
       value: November 3, 2026 at 12:00 CET (noon).
       source: https://nlnet.nl/codesupply/
       checked_on: 2026-09-26
-  questions: []
+    eligibility:
+      value: Independent researchers, developers and organizations contributing free or open source
+        software supply-chain tools and metadata.
+      source: https://nlnet.nl/codesupply/
+      checked_on: 2026-09-26
+  intake: open
+  source: https://nlnet.nl/codesupply/
   history:
     - date: 2026-09-03
       label: First call opened
+      source: https://nlnet.nl/news/2026/20260903-call.html
       summary: Current intake follows the new odd-month deadline cycle. The earlier June date is not a
         confirmed round.
-      source: https://nlnet.nl/news/2026/20260903-call.html
+  operating: active
+  questions: []
+  checked_on: 2026-10-16
+  intake_mode: rounds
+  intake_note: The first call is open. The official page states a November 3 deadline at noon CET.
+  round_names:
+    - First call
+  relationship: current
+  review_after: 2026-11-15
+sources:
+  - https://nlnet.nl/codesupply/
+  - https://nlnet.nl/codesupply/eligibility/
+  - https://nlnet.nl/news/2026/20260903-call.html

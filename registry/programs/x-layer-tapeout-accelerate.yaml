@@ -1,0 +1,16 @@
+id: x-layer-tapeout-accelerate
+name: X Layer TapeOut Accelerate
+org: x-layer
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://web3.okx.com/xlayer/build-x-series
+summary: X Layer and TapeOut hackathon with a 100,000 USDT prize pool (first prize 20,000 USDT) for
+  practical onchain apps built with the TapeOut protocol on X Layer. Individuals and teams build
+  online from Oct 16 and submit by December 7, 2026 at 23:59 UTC; shortlisted teams attend an
+  offline Demo Day.
+rounds: []
+sources:
+  - https://web3.okx.com/xlayer/build-x-series

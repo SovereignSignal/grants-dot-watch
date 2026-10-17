@@ -1,0 +1,15 @@
+id: x-layer
+name: X Layer
+aka: []
+systems: []
+wires:
+  - crypto
+roles:
+  - funder
+website: https://web3.okx.com/xlayer
+status: unknown
+profile: X Layer is OKX's onchain network. It funds builders through its Build X Series hackathons,
+  currently X Layer TapeOut Accelerate with a 100,000 USDT prize pool running Oct 16 to Dec 7, 2026.
+sources:
+  - https://web3.okx.com/xlayer/build-x-series
+  - https://x.com/XLayerOfficial/status/2110921188625006895

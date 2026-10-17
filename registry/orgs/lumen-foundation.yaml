@@ -8,8 +8,6 @@ roles:
   - funder
 org_type: foundation
 website: https://lumen.foundation/
-socials:
-  x: https://x.com/Lumen_FND
 status: dead
 profile: >-
   LUMEN Foundation is tracked as a foundation funder on the AI wire. As of July 2026 its website
@@ -23,3 +21,4 @@ profile: >-
 sources:
   - https://lumen.foundation/
   - https://domains.atom.com/lpd/name/lumen.foundation
+  - https://api.x.com/2/users/by/username/Lumen_FND

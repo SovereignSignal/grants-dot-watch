@@ -6,6 +6,8 @@ wires:
   - crypto
 roles:
   - funder
+socials:
+  x: https://x.com/Logos_network
 status: active
 profile: Logos RFP-005 (Multisig and Coordination) is open for proposals until October 16, 2026.
   Logos asks for an audited M-of-N multisig program on the Logos Execution Zone (LEZ) with an
@@ -16,3 +18,4 @@ profile: Logos RFP-005 (Multisig and Coordination) is open for proposals until O
 sources:
   - https://github.com/logos-co/rfp/blob/master/RFPs/RFP-005-multisig-and-coordination.md
   - https://github.com/logos-co/rfp/blob/master/README.md
+  - https://x.com/Logos_network
