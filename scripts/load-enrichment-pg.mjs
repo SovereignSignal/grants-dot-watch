@@ -3,7 +3,7 @@
 // outputs that have no registry/ file equivalent (docs/DESIGN.md's
 // "Postgres layer" section) —
 //   - seed/source-checks.json  -> org_sources liveness (last_checked/http_status/dead)
-//   - seed/notion_map.json     -> notion_map (org <-> Notion "Sov's Orgs" row)
+//   - seed/notion_map.json     -> notion_map (org <-> Notion "Orgs" row)
 // and records one enrichment_runs row summarizing this sweep. Idempotent:
 // org_sources upserts on (org_id, url) update liveness fields in place;
 // notion_map upserts on org_id.

@@ -1,11 +1,11 @@
 # Curator API
 
-Hedwig, or any other agent acting for Sov, can read the Desk queues, decide
+Hedwig, or any other agent acting for the owner, can read the Desk queues, decide
 items, and propose changes without the Privy-gated `/admin/desk` UI. Approve
 and reject call the same `decideProposal` path as the Desk buttons, including
 the registry write and the `GRANTS_WATCH_NO_GIT` ledger. Proposals go through
 `insertIngestProposals`, the same queue insert as wire ingest, and show up on
-the Desk for Sov to approve.
+the Desk for the owner to approve.
 
 This API cannot delete registry files or merge organizations, and it cannot
 change `ADMIN_TOKEN`, reader keys, or `DESK_OWNERS`. It does not accept

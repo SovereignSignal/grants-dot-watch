@@ -187,7 +187,7 @@
     "org_name": null,
     "program": null,
     "title": "Lacuna Fund's own site says it is no longer being updated; leadership transferred away",
-    "summary": "Lacuna Fund's homepage now leads with: \"Lacuna Fund Transitions to Partners in Africa and Latin America\" and states directly: \"Please note that this site is no longer being updated. The content reflects the state of Lacuna Fund's work in July 2025. This site will be available until a new online presence and data repository are established.\" Site navigation now shows only \"Past RFPs\" (no current/open RFPs). The registry currently lists status: active; this is the org's own confirmation that its original entity is not actively grantmaking and its site is frozen — status should move to winding-down (or the successor partner institutions tracked separately) pending Sov's call on how to represent the transition.",
+    "summary": "Lacuna Fund's homepage now leads with: \"Lacuna Fund Transitions to Partners in Africa and Latin America\" and states directly: \"Please note that this site is no longer being updated. The content reflects the state of Lacuna Fund's work in July 2025. This site will be available until a new online presence and data repository are established.\" Site navigation now shows only \"Past RFPs\" (no current/open RFPs). The registry currently lists status: active; this is the org's own confirmation that its original entity is not actively grantmaking and its site is frozen — status should move to winding-down (or the successor partner institutions tracked separately) pending the owner's call on how to represent the transition.",
     "evidence_url": "https://lacunafund.org/",
     "proposed_change": {
       "orgs/lacuna-fund.yaml": {

@@ -1,5 +1,5 @@
 // Server-only: mutates registry/ FILES per approved proposal (the only door
-// into the canonical dataset besides Sov's own hand), then tries a local git
+// into the canonical dataset besides the owner's own hand), then tries a local git
 // commit for provenance + undo. Field order in every written YAML file
 // follows registry/SCHEMA.md exactly.
 import { execFileSync } from 'node:child_process';

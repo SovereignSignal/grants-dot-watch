@@ -1,6 +1,6 @@
 # grants.watch redesign: The Ledger
 
-Direction approved by Sov on September 23 and 24, 2026. This document is the spec. The
+Direction approved by the owner on September 23 and 24, 2026. This document is the spec. The
 mockups in [design/mocks/ledger-evergreen/](../design/mocks/ledger-evergreen/) show it.
 
 House style (2026-10-13): colour, fonts, the rust rule and the endorsement line now come from the
@@ -16,10 +16,10 @@ override this document where they differ; the site's copy of the tokens is `src/
 2. **The front page is evergreen.** The hero says what the site is and offers search. Nothing
    on the front page needs a person to update it. Every number and list is computed from the
    registry.
-3. **No deadlines on the front page.** Sov rejected a "deadlines on file" section twice.
+3. **No deadlines on the front page.** The owner rejected a "deadlines on file" section twice.
    Deadlines appear only on each program's own page.
 4. **Retire the verification labels.** Remove "Verified open", "Unverified", "Intake
-   unverified", "Applications open" stamps and the weekly review expiry that flips them. Sov:
+   unverified", "Applications open" stamps and the weekly review expiry that flips them. The owner:
    "I hate these labels."
 5. **Show dated facts instead of expiring claims.** Each program gives three facts: its
    status, how it takes applications, and its next published deadline with a link to where
@@ -176,7 +176,7 @@ button. The register box stays 2 by 2. Sections stack in the same order as on de
 ## Not decided yet
 
 - **The /programs page.** Today it is a deadline-ordered departures board. The proposal is a
-  plain directory of programs with status and how to apply. Sov has not confirmed.
+  plain directory of programs with status and how to apply. The owner has not confirmed.
 - **Dark mode.** The Ledger has no dark design yet. The current navy and lavender dark theme
   should not carry over.
 - **The About page.** Its copy is written around the old verification model ("'Open' is a
@@ -186,5 +186,5 @@ button. The register box stays 2 by 2. Sections stack in the same order as on de
 
 The mockups use real registry data as of September 24, 2026: 485 programs, 305 active, 417
 organizations, 21 ecosystems and 2,650 awards. The build must compute these live, never hard
-code them. The mockups started on a private design canvas in Sov's Claude account. The copies
+code them. The mockups started on a private design canvas in the owner's Claude account. The copies
 in this repository are the design of record.

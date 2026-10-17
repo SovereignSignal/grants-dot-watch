@@ -155,7 +155,7 @@
     "org_name": null,
     "program": null,
     "title": "hedera.com now points builders to a 'Hedera Foundation' (hedera.foundation) distinct from the profile's stated 'Hashgraph Association'",
-    "summary": "The registry profile for Hedera says ecosystem funding flows primarily through the independent Hashgraph Association. Hedera's own homepage now links its funding/investment activity to 'Hedera Foundation' at hedera.foundation, which describes backing DeFi/enterprise projects and cites an investment in a Fidelity International tokenized fund via Archax — a different kind of activity (treasury investment, not grants). Unclear if this is a rename, a second funding arm, or a different entity; worth Sov confirming before the profile is edited.",
+    "summary": "The registry profile for Hedera says ecosystem funding flows primarily through the independent Hashgraph Association. Hedera's own homepage now links its funding/investment activity to 'Hedera Foundation' at hedera.foundation, which describes backing DeFi/enterprise projects and cites an investment in a Fidelity International tokenized fund via Archax — a different kind of activity (treasury investment, not grants). Unclear if this is a rename, a second funding arm, or a different entity; worth the owner confirming before the profile is edited.",
     "evidence_url": "https://hedera.foundation/",
     "proposed_change": {
       "orgs/hedera.yaml": {
@@ -223,7 +223,7 @@
     "org_name": null,
     "program": null,
     "title": "schmidt-futures.yaml and schmidt-sciences.yaml are duplicate org files for the same organization",
-    "summary": "schmidt-futures.yaml's own profile states its website 'now redirects to Schmidt Sciences' and lists Schmidt Sciences programs (AI2050, five research centers). A separate, fuller org file already exists at schmidt-sciences.yaml (website schmidtsciences.org, funding block filled, owns the schmidt-sciences-trustworthy-ai program). These look like the same funder under an old name and a new name, not two organizations. Recommend Sov decide which id to keep canonical and merge/retire the other (schmidt-futures' aka already lists 'Schmidt Sciences', supporting a merge into schmidt-sciences with schmidt-futures kept only as an aka).",
+    "summary": "schmidt-futures.yaml's own profile states its website 'now redirects to Schmidt Sciences' and lists Schmidt Sciences programs (AI2050, five research centers). A separate, fuller org file already exists at schmidt-sciences.yaml (website schmidtsciences.org, funding block filled, owns the schmidt-sciences-trustworthy-ai program). These look like the same funder under an old name and a new name, not two organizations. Recommend the owner decide which id to keep canonical and merge/retire the other (schmidt-futures' aka already lists 'Schmidt Sciences', supporting a merge into schmidt-sciences with schmidt-futures kept only as an aka).",
     "evidence_url": "https://www.schmidtsciences.org/",
     "proposed_change": {
       "action": "flag_possible_duplicate",

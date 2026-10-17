@@ -1,6 +1,6 @@
 // Two-lane law (docs/DESIGN.md): machine-verifiable facts with evidence apply
 // automatically with provenance; everything else is an editorial judgment
-// call that queues for Sov. Pure logic, safe to import from server or client.
+// call that queues for the owner. Pure logic, safe to import from server or client.
 import type { ProposalType } from './lib/types';
 
 export const FACT_TYPES: ReadonlySet<ProposalType> = new Set([

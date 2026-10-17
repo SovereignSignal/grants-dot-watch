@@ -2,7 +2,7 @@
 
 Slice: `merge_orgs` (never-auto) + all `profile_note` items from the pending Desk queue. 39 items total.
 8 decided (4 approved, 4 rejected) where the call was unambiguous by the registry's own laws — see notes on
-each verdict in the Desk for the full reasoning. The 31 below still need Sov. One line each:
+each verdict in the Desk for the full reasoning. The 31 below still need the owner. One line each:
 **[id] type · title · recommendation · why · evidence**.
 
 ## Merges (8) — investigated, none executed

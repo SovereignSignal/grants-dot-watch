@@ -7,7 +7,7 @@ const DISMISSED_KEY = 'gw_desk_explainer_dismissed';
 /** The Desk's standing header (canon: design/mocks/c-desk.html) — a byline of
  *  wire volume plus a short, dismissible, mechanics-only orientation
  *  paragraph (what Approve does, what Reject does, the two lanes — no
- *  aphorisms; Sov: "display/serif statements must describe the product or
+ *  aphorisms; the owner: "display/serif statements must describe the product or
  *  state fact"). The byline is always on; the paragraph is dismissible
  *  (localStorage, per-viewer, not a server preference). */
 export function DeskHeader({

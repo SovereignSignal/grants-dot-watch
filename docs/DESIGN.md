@@ -1,23 +1,23 @@
 # grants.watch — Design
 
-*Approved by Sov 2026-07-07 (brainstorm session, high-level sign-off; details to be tuned in use).*
+*Approved by the owner 2026-07-07 (brainstorm session, high-level sign-off; details to be tuned in use).*
 
 ## In one line
 
-The canonical registry of the funding world Sov tracks — systems, organizations, programs, rounds, awards — fed by wire signals, self-curating under a two-lane gate, mirrored into Notion for CRM, built to become a public resource.
+The canonical registry of the funding world the owner tracks — systems, organizations, programs, rounds, awards — fed by wire signals, self-curating under a two-lane gate, mirrored into Notion for CRM, built to become a public resource.
 
 ## Why
 
 The "known world" of orgs is scattered across six places (Notion Orgs, `watch_surfaces`, `org_profiles`, funder/grantee profiles, the awards ledger, Stringer's lake) and none of them is the entity system of record. wire-room-ops is the *signal* system — it is the wrong home for entities. grants.watch gives the intelligence asset (the center of the June first-principles model) its own sovereign home, sibling to discuss.watch.
 
-## Decisions locked (Sov, 2026-07-07)
+## Decisions locked (the owner, 2026-07-07)
 
 1. **Systems = funding ecosystems**, not the wires. Test: *capital gravity* — its own treasury/foundation/allocating identity plus ≥2 orgs/programs that organize under it. Cardano passes; "Crypto" fails (it's a wire = tag/lens). Systems are flat, may link `part_of` (Optimism → Ethereum), carry `kind: protocol-ecosystem | funding-domain`. Orgs join several systems; `systems: []` is legal.
 2. **One org registry, depth by role.** Everyone is an org. Funders get deep curation; grantees exist as thin records derived from awards, promoted to curated files only when they matter.
-3. **Two-lane curation from day one.** Authoritative, exact deadline facts may auto-apply after the full safety gate; every identity, status, award, profile, taxonomy, and new-program judgment queues for Sov. Graduation of a judgment class requires an explicit policy change backed by verdict logs.
-4. **Notion mirror: all funders.** Every funder org gets/keeps a row in "Sov's Orgs"; grantees never do. Registry pushes read-only summary fields; Notion keeps owning Relationship, Action(s), Contacts, people. One-way per field, no write-back.
-5. **V1 = private asset first.** Registry + seed + signal feed + curation + site. Public launch (flipping the repo/site public) and the full galaxy viz are later phases — but the site ships polished from day one because Sov curates by using it.
-6. **Hosting: Railway** (Sov). Repo: `SovereignSignal/grants-dot-watch`, private until the data earns publicness.
+3. **Two-lane curation from day one.** Authoritative, exact deadline facts may auto-apply after the full safety gate; every identity, status, award, profile, taxonomy, and new-program judgment queues for the owner. Graduation of a judgment class requires an explicit policy change backed by verdict logs.
+4. **Notion mirror: all funders.** Every funder org gets/keeps a row in "Orgs"; grantees never do. Registry pushes read-only summary fields; Notion keeps owning Relationship, Action(s), Contacts, people. One-way per field, no write-back.
+5. **V1 = private asset first.** Registry + seed + signal feed + curation + site. Public launch (flipping the repo/site public) and the full galaxy viz are later phases — but the site ships polished from day one because the owner curates by using it.
+6. **Hosting: Railway** (the owner). Repo: `SovereignSignal/grants-dot-watch`, private until the data earns publicness.
 
 ## Architecture (hybrid: curated core in git, operational layer in Postgres)
 
@@ -34,7 +34,7 @@ grants-dot-watch/
 ```
 
 - **Files are the truth.** The app's Postgres holds only operational state: signal inbox, judgment queue (`proposals`), resolver misses, sync watermarks, derived grantee records, verdict log. Burn the DB down and the registry has lost nothing.
-- **Three writers, one door:** Sov's hand edits (always win), the fact lane (bot commits, source URL in the commit message), approved judgment items (the approve action lands the commit).
+- **Three writers, one door:** the owner's hand edits (always win), the fact lane (bot commits, source URL in the commit message), approved judgment items (the approve action lands the commit).
 - **Railway `watchPaths` = app code only** — registry commits don't redeploy; the app refreshes its index when `registry/` changes.
 - **Private membrane by construction:** BD fields from `org_profiles` (`relationship_context`, `propensity_score`, `current_wedge`, `recommended_action`, `operator_read`, `watch_priority`) and anything account-scope NEVER enter registry files. They live only in the private DB world and Notion.
 
@@ -109,7 +109,7 @@ Pipeline: signal → **resolver** (explicit canonical name first, then unique al
 | Fact | current round/deadline values supported exactly by the org's own page or trusted feed | safe fetch + exact value binding + full staged-registry validation, then apply |
 | Judgment | new orgs/programs, status/profile changes, awards, merges/renames, system membership | queue → admin UI → full staged validation → approve lands the commit, reject logs why |
 
-**Machine validation, the graduation clause (2026-07-11):** Sov won't hand-approve routine items — the system checks them itself, deterministically, no LLM (`proposal-validator.ts` + `validation-runner.ts`, run via `POST /api/desk/validate` or the Desk's "Run validation" button). This turns the two lanes above into three tiers:
+**Machine validation, the graduation clause (2026-07-11):** the owner won't hand-approve routine items — the system checks them itself, deterministically, no LLM (`proposal-validator.ts` + `validation-runner.ts`, run via `POST /api/desk/validate` or the Desk's "Run validation" button). This turns the two lanes above into three tiers:
 
 | Tier | What it means | Effect |
 |---|---|---|
@@ -133,14 +133,14 @@ Next.js/TS on Railway (discuss.watch stack). Reads `registry/` into an index at 
 
 ## Notion mirror (build in v1, first run gated)
 
-Worker with a per-field ownership map. Registry→Notion for every funder org: summary fields (systems, live programs, next deadline, last activity, registry link). Never touches Relationship/Action(s)/Contacts/Tier. Batched writes, 429 backoff, dry-run mode; **first real run only after Sov reviews the dry-run diff** (his CRM, his call).
+Worker with a per-field ownership map. Registry→Notion for every funder org: summary fields (systems, live programs, next deadline, last activity, registry link). Never touches Relationship/Action(s)/Contacts/Tier. Batched writes, 429 backoff, dry-run mode; **first real run only after the owner reviews the dry-run diff** (his CRM, his call).
 
 ## Postgres layer
 
 `registry/` files are canonical; Postgres is a disposable index plus real operational state. Four migration files live under `db/migrations/`:
 
 - **`001_registry_index.sql`** — `registry_systems`, `registry_orgs`, `registry_programs`, `registry_rounds` (programs' `rounds[]` unnested for querying), `registry_awards`: faithful relational mirrors of the YAML/JSONL schemas (text ids as PKs, `text[]` for arrays, `jsonb` for nested shapes and the full parsed doc, plus `loaded_at` + `content_hash` per row). **INDEX tables — DROP-and-rebuild safe**, never hand-edited; a `registry_awards` row's identity is its file `key`.
-- **`002_operational.sql`** — real Postgres state with no file equivalent: `org_sources` (every URL known for an org, with liveness tracking — `last_checked`/`http_status`/`dead` — seeded from the registry but never truncated, so that state survives reloads), `notion_map` (org ↔ Notion "Sov's Orgs" row for the mirror), `enrichment_runs` (a log of loader/enrichment passes). Desk tables (`desk_proposals`, `desk_verdicts`, `ingest_state`) already exist via `src/lib/desk-store.ts` and are untouched by this layer.
+- **`002_operational.sql`** — real Postgres state with no file equivalent: `org_sources` (every URL known for an org, with liveness tracking — `last_checked`/`http_status`/`dead` — seeded from the registry but never truncated, so that state survives reloads), `notion_map` (org ↔ Notion "Orgs" row for the mirror), `enrichment_runs` (a log of loader/enrichment passes). Desk tables (`desk_proposals`, `desk_verdicts`, `ingest_state`) already exist via `src/lib/desk-store.ts` and are untouched by this layer.
 - **`003_desk_ledger.sql`:** the durable Desk replay ledger with complete compare-and-set snapshots.
 - **`004_desk_ledger_outbox.sql`:** prepared, ready, and abandoned outbox states plus replay error telemetry. Only ready rows can sync. An approval makes its prepared rows ready in the same transaction as its verdict.
 
@@ -152,13 +152,13 @@ Public access, the full galaxy viz, people/contacts in the registry, writes into
 
 ## Success criteria
 
-1. A safe authoritative deadline fact lands within a day; every other change reaches Sov's review queue without data loss.
-2. Sov answers a consulting question from the site faster than from the query brain.
+1. A safe authoritative deadline fact lands within a day; every other change reaches the owner's review queue without data loss.
+2. The owner answers a consulting question from the site faster than from the query brain.
 3. Notion funder rows carry live registry summaries (post dry-run approval).
 4. Zero BD-private fields in any `registry/` file (verifiable by grep/CI).
 5. The registry survives a DB wipe (rebuild from files).
 
-## Voice & era (Sov, 2026-07-11)
+## Voice & era (the owner, 2026-07-11)
 
 The register is the 1920s–30s wire service — the grand age of the newspaper — carried by
 discipline, never costume. grants.watch speaks as a press bureau for capital: dispatches
@@ -173,13 +173,13 @@ from the funding wires, edition-stamped, sourced like a paper of record.
   incoming signal streams. "Ledger" only ever means the awards ledger.
 - NO pastiche: no distressed textures, no faux-aged paper, no period typefaces beyond the
   serif/sans system already chosen. Modern hairline discipline, era-true voice.
-- PLAIN PROSE (Sov, 2026-07-12): short sentences. No em dashes. Cut adjectives and
+- PLAIN PROSE (the owner, 2026-07-12): short sentences. No em dashes. Cut adjectives and
   filler. If a sentence sounds like AI wrote it, rewrite it. Applies to product copy,
   docs, and reports.
-- NO aphorisms (Sov, 2026-07-11): display statements DESCRIBE the product or STATE fact —
+- NO aphorisms (the owner, 2026-07-11): display statements DESCRIBE the product or STATE fact —
   never maxims or process-philosophy ("Nothing joins the registry until someone reads it
   and says so" is the canonical counter-example: killed on sight).
-- EXTERNAL READER TEST (Sov, 2026-07-11): every public page must be fully legible to a
+- EXTERNAL READER TEST (the owner, 2026-07-11): every public page must be fully legible to a
   first-time visitor with zero context. Insider terms get an inline definition at first
   use per page or get replaced with plain words. Empty states explain what absence means.
 - Icon: the ink square printer's block. Nothing cosmic, ever.
