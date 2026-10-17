@@ -5,15 +5,14 @@ parent: null
 systems: []
 wires:
   - ai
-status: active
-apply_url: https://youngfutures.org/challenges/unwritten
+status: concluded
 summary: Young Futures challenge funding US nonprofits, fiscally sponsored projects and schools
   helping young people ages 10-19 learn deeply, think critically and make healthy decisions in an
-  AI-shaped world. Awards $50,000-$100,000; at least $1M across 10+ organizations. Applications Sep
-  23 to Oct 16, 2026, 5 PM PT.
+  AI-shaped world. Awards $50,000-$100,000; at least $1M across 10+ organizations. Applications
+  closed October 16, 2026, 5 PM PT.
 rounds:
   - name: 2026 challenge
-    status: open
+    status: closed
     closes: 2026-10-16
     size: $50,000 to $100,000 per award; minimum $1 million across 10+ organizations
     source: https://youngfutures.org/challenges/unwritten

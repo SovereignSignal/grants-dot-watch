@@ -194,7 +194,10 @@ test('reading a 1 MB page dense with numbers and "up to" stays fast and bounded'
   const match = matchAmountOnPage(parseAmount('$75,000 budget'), text);
   const elapsed = performance.now() - started;
   assert.deepEqual(match, { ok: false, reason: 'amount_not_on_page', truncated: true });
-  assert.ok(elapsed < 500, `took ${elapsed.toFixed(0)} ms`);
+  // An idle run is about 120ms. On the 2026-10-16 Desk sync runner the same
+  // scan took 502ms while the suite ran in parallel, two milliseconds over
+  // the old ceiling. One second still rejects a superlinear scan.
+  assert.ok(elapsed < 1_000, `took ${elapsed.toFixed(0)} ms`);
 });
 
 test('pathological markup is linear: unclosed scripts, stray brackets, bare entities', () => {

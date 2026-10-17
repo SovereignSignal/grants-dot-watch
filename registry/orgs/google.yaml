@@ -7,11 +7,14 @@ wires:
 roles:
   - funder
 website: https://about.google/
+socials:
+  x: https://x.com/Google
 status: active
-profile: Google's commercial programs that have no entry of their own in this registry, such as Google
-  for Startups, Google Cloud events and data-center community programs. Google's philanthropy is
-  listed separately as Google.org; Google DeepMind, Google Summer of Code and Google Research awards
-  have their own entries.
+profile: Google's commercial programs that have no entry of their own in this registry, such as
+  Google for Startups, Google Cloud events and data-center community programs. Google's philanthropy
+  is listed separately as Google.org; Google DeepMind, Google Summer of Code and Google Research
+  awards have their own entries.
 sources:
   - https://about.google/
   - https://startup.google.com/
+  - https://x.com/Google
