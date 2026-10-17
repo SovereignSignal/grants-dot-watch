@@ -8,9 +8,12 @@ roles:
   - funder
 org_type: company
 website: https://subnets.testnet.konnex.world/
+socials:
+  x: https://x.com/konnex_world
 status: active
 profile: "Konnex runs a tiered builder grant program for its subnets: Spark ($25K for prototypes),
   Launch ($75K for demos), and Mainnet ($200K+ for shipped subnets), with SDK support and marketing
   allocations. The program page is on Konnex's testnet domain."
 sources:
   - https://subnets.testnet.konnex.world/builder
+  - https://x.com/konnex_world
