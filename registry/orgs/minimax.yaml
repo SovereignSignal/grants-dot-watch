@@ -2,17 +2,20 @@ id: minimax
 name: MiniMax
 aka: []
 systems: []
-wires: [ai]
-roles: [funder]
+wires:
+  - ai
+roles:
+  - funder
 org_type: company
 website: https://www.minimaxi.com/
-socials: {}
+socials:
+  x: https://x.com/MiniMax_AI
 status: active
 profile: >
-  MiniMax is an AI company developing multimodal large language models and AI
-  products, including the M3 language model with 1M-token context, Hailuo
-  video generation, speech and music models, and the MiniMax Code
-  coding-agent platform. Its site offers API access and subscription plans;
-  no grant or funding program is described on the homepage.
+  MiniMax is an AI company developing multimodal large language models and AI products, including
+  the M3 language model with 1M-token context, Hailuo video generation, speech and music models, and
+  the MiniMax Code coding-agent platform. Its site offers API access and subscription plans; no
+  grant or funding program is described on the homepage.
 sources:
   - https://www.minimaxi.com/
+  - https://x.com/MiniMax_AI
