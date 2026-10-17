@@ -1,0 +1,17 @@
+id: parameter-committee-public-rfp-utxocostperbyte-research
+name: "Parameter Committee Public RFP: utxoCostPerByte Research"
+org: intersect-intersect-mbo
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://forum.cardano.org/t/public-rfp-research-on-cardanos-utxocostperbyte-parameter/157406
+summary: Intersect's Parameter Committee, funded by its Technical Steering Committee, seeks
+  fixed-price proposals in ada for 1 to 2 weeks of research on how far Cardano's utxoCostPerByte
+  parameter can safely be reduced. Open to individuals and teams; 2-page PDF proposals are due by
+  November 4, 2026.
+rounds: []
+sources:
+  - https://forum.cardano.org/t/public-rfp-research-on-cardanos-utxocostperbyte-parameter/157406
+  - https://www.intersectmbo.org/news/intersect-weekly-update-133-oct-17-2026
