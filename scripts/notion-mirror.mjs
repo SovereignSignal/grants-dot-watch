@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// One-way mirror: grants.watch registry -> Notion "Sov's Orgs" CRM.
+// One-way mirror: grants.watch registry -> Notion "Orgs" CRM.
 //
 // THE MEMBRANE (docs/DESIGN.md decision #4): this script writes ONLY the
 // registry-owned mirror fields listed in MIRROR_FIELDS. It never reads or

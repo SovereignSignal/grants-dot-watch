@@ -41,7 +41,7 @@ registry. Full registry names and deterministic sorting can differ from the
 shortened names and example rows in the mockups. No deadline listings appear
 on the front page.
 
-Sov approved replacing labels and counts on `/programs` while retaining its
+The owner approved replacing labels and counts on `/programs` while retaining its
 existing departures and cadence layouts. Their inventory and pagination remain
 unchanged. The shared masthead and typography follow the Ledger. The directory
 and program pages use paper, ink and rules in place of rounded cards. The old

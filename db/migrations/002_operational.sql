@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS org_sources (
 CREATE INDEX IF NOT EXISTS idx_org_sources_org   ON org_sources (org_id);
 CREATE INDEX IF NOT EXISTS idx_org_sources_dead ON org_sources (dead);
 
--- ---- notion_map: org <-> Notion "Sov's Orgs" row, for the registry->Notion mirror ----
+-- ---- notion_map: org <-> Notion "Orgs" row, for the registry->Notion mirror ----
 CREATE TABLE IF NOT EXISTS notion_map (
   org_id         text PRIMARY KEY,                  -- references registry_orgs.id
   notion_page_id text NOT NULL,

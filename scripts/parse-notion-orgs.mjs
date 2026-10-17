@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Parse the Notion export of "Sov's Orgs" (one .md per row) into seed/notion_orgs.json.
+// Parse the Notion export of "Orgs" (one .md per row) into seed/notion_orgs.json.
 // CRM fields (Relationship, Tier) are kept in the seed for resolution/depth decisions
 // but are PRIVATE — they must never be copied into registry/ files.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
