@@ -1,0 +1,15 @@
+id: stellar-wave-program
+name: Stellar Wave Program
+org: drips
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://www.drips.network/wave/stellar
+summary: Drips runs the Stellar Wave Program, a monthly 7-day contribution cycle where contributors
+  solve issues across Stellar-related repos and earn Points that translate to rewards. Wave 10 runs
+  Oct 15-22, 2026 with a $75,000 budget.
+rounds: []
+sources:
+  - https://www.drips.network/wave/stellar
