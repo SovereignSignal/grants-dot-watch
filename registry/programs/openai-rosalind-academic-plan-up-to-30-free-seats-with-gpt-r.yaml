@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 summary: OpenAI introduced the Rosalind Academic Plan on October 15, 2026. Eligible academic labs
   can receive up to 30 Business Standard seats at no cost for up to 12 months, with access to
   GPT-Rosalind, its life sciences model, subject to trusted-access approval. The plan is currently
