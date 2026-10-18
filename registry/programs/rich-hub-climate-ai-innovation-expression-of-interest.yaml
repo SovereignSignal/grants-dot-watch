@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://climatehub.developlocal.org/2026/10/the-research-innovation-for-climate-hub-invites-african-climate-ai-innovators-to-explore-partnership-opportunities/
 summary: Rolling Expression of Interest from the AI4D Research & Innovation for Climate (RICH) Hub
   for African-led or Africa-based climate AI innovations at pilot stage or beyond. Selected
