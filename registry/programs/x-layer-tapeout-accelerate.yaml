@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
 apply_url: https://web3.okx.com/xlayer/build-x-series
 summary: X Layer and TapeOut hackathon with a 100,000 USDT prize pool (first prize 20,000 USDT) for
   practical onchain apps built with the TapeOut protocol on X Layer. Individuals and teams build
