@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
 apply_url: https://forum.cardano.org/t/public-rfp-research-on-cardanos-utxocostperbyte-parameter/157406
 summary: Intersect's Parameter Committee, funded by its Technical Steering Committee, seeks
   fixed-price proposals in ada for 1 to 2 weeks of research on how far Cardano's utxoCostPerByte

@@ -9,8 +9,6 @@ roles:
   - funder
 org_type: nonprofit
 website: https://www.fossfund.org/
-socials:
-  x: https://x.com/fossfund
 status: dead
 profile: >-
   The FOSS Sustainability Fund is listed as a funder supporting the sustainability of free and open
@@ -23,3 +21,4 @@ profile: >-
   so it is treated as defunct pending contrary evidence.
 sources:
   - https://www.fossfund.org/
+  - https://api.x.com/2/users/by/username/fossfund
