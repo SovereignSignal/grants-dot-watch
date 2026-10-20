@@ -1,0 +1,15 @@
+id: orcid
+name: ORCID
+aka: []
+systems: []
+wires:
+  - oss
+roles:
+  - funder
+website: https://orcid.org/
+status: unknown
+profile: ORCID is the nonprofit that runs the ORCID researcher identifier registry. Through its
+  Global Participation Fund it gives grants to organizations in the Global South for ORCID community
+  building and for building ORCID integrations in open-source systems.
+sources:
+  - https://info.orcid.org/global-participation-program/global-participation-fund/
