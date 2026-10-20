@@ -16,6 +16,10 @@ rounds:
     status: open
     closes: 2026-11-10
     source: https://github.com/logos-co/rfp/blob/master/README.md
+  - name: "RFP-005: Multisig and Coordination"
+    status: open
+    closes: 2026-10-23
+    source: https://github.com/logos-co/rfp/blob/master/README.md
 sources:
   - https://github.com/logos-co/rfp/blob/master/README.md
   - https://forum.logos.co/t/new-rfp-rfp-021-trustless-ethereum-state-attestation-for-lez-tier-m/2010
