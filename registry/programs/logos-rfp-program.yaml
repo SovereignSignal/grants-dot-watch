@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - crypto
-status: unknown
+status: active
 apply_url: https://github.com/logos-co/rfp
 summary: Logos funds independent developers and teams through grants for specific Requests for
   Proposals (RFPs) on the Logos stack, mostly Logos Execution Zone (LEZ) tooling, infrastructure,
