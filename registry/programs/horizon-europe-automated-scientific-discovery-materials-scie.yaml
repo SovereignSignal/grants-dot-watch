@@ -1,0 +1,22 @@
+id: horizon-europe-automated-scientific-discovery-materials-scie
+name: "Horizon Europe — Automated Scientific Discovery: Materials Science (RAISE pilot)"
+org: eu-horizon-europe
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+apply_url: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01
+summary: Horizon Europe topic HORIZON-RAISE-2027-01-01 under the AI in Science call (RAISE pilot)
+  funds Research and Innovation Actions building safe, trustworthy closed-loop experimentation
+  systems that combine lab automation with AI-driven decision-making for materials science. Topic
+  budget €26.5M, about 3 grants of €9M each. Opened October 13, 2026; single-stage deadline February
+  2, 2027.
+rounds:
+  - name: HORIZON-RAISE-2027-01-01
+    status: open
+    opens: 2026-10-13
+    closes: 2027-02-02
+    source: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01
+sources:
+  - https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01

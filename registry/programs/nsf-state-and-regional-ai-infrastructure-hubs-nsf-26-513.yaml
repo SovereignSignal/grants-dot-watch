@@ -5,13 +5,19 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
+apply_url: https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial
 summary: "New NSF solicitation supporting state or multi-state consortia (universities, industry,
   philanthropy, government) to expand researcher access to AI computing infrastructure. Awards of
   $4M-$12M over 5 years, roughly $100M total, about 10 awards per cycle, one per state/region. Funds
   consortium coordination, AI-infrastructure workforce development, and faculty training (not the
   compute hardware itself). Eligible: US higher-ed institutions and nonprofit research
   organizations. Posted by the U.S. National Science Foundation."
-rounds: []
+rounds:
+  - name: Full proposal
+    status: open
+    closes: 2026-11-04
+    source: https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial
 sources:
   - https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial/nsf26-513/solicitation
+  - https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial
