@@ -1,0 +1,17 @@
+id: logos-rfp-program
+name: Logos RFP Program
+org: logos-rfp-005
+parent: null
+systems: []
+wires:
+  - crypto
+status: unknown
+apply_url: https://github.com/logos-co/rfp
+summary: Logos funds independent developers and teams through grants for specific Requests for
+  Proposals (RFPs) on the Logos stack, mostly Logos Execution Zone (LEZ) tooling, infrastructure,
+  applications and integrations. Each RFP is tiered and has its own submission deadline; proposals
+  are submitted as GitHub issues in the logos-co/rfp repository and reviewed weekly.
+rounds: []
+sources:
+  - https://github.com/logos-co/rfp/blob/master/README.md
+  - https://forum.logos.co/t/new-rfp-rfp-021-trustless-ethereum-state-attestation-for-lez-tier-m/2010
