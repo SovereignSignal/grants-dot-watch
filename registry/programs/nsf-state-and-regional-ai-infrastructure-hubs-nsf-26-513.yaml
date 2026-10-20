@@ -6,6 +6,7 @@ systems: []
 wires:
   - ai
 status: active
+apply_url: https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial
 summary: "New NSF solicitation supporting state or multi-state consortia (universities, industry,
   philanthropy, government) to expand researcher access to AI computing infrastructure. Awards of
   $4M-$12M over 5 years, roughly $100M total, about 10 awards per cycle, one per state/region. Funds
