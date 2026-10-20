@@ -1,0 +1,21 @@
+id: aria-scaling-trust-grants
+name: ARIA Scaling Trust grants
+org: aria
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://aria.org.uk/opportunity-spaces/trust-everything-everywhere/scaling-trust/funding
+summary: ARIA's Scaling Trust programme (nearly £50m) is open on a rolling basis for Track 2
+  (Tooling) and Track 3 proposals on secure coordination of AI agents, reviewed in quarterly
+  batches. Grants range from £100,000 to £3,000,000. The next proposal cut-off is 31 October 2026
+  (14:00 GMT).
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-10-31
+    size: £100,000 - £3,000,000
+    source: https://aria.org.uk/opportunity-spaces/trust-everything-everywhere/scaling-trust/funding
+sources:
+  - https://aria.org.uk/opportunity-spaces/trust-everything-everywhere/scaling-trust/funding
