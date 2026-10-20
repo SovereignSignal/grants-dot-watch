@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01
 summary: Horizon Europe topic HORIZON-RAISE-2027-01-01 under the AI in Science call (RAISE pilot)
   funds Research and Innovation Actions building safe, trustworthy closed-loop experimentation
