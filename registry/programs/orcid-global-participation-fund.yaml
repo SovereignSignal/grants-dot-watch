@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://info.orcid.org/global-participation-program/global-participation-fund/
 summary: "ORCID's Global Participation Fund gives annual competitive grants to non-profits, NGOs and
   government agencies in Global South focus communities, in two tracks: Community Development and
