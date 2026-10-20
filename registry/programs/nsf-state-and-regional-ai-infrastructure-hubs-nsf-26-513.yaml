@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 summary: "New NSF solicitation supporting state or multi-state consortia (universities, industry,
   philanthropy, government) to expand researcher access to AI computing infrastructure. Awards of
   $4M-$12M over 5 years, roughly $100M total, about 10 awards per cycle, one per state/region. Funds
@@ -15,3 +15,4 @@ summary: "New NSF solicitation supporting state or multi-state consortia (univer
 rounds: []
 sources:
   - https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial/nsf26-513/solicitation
+  - https://www.nsf.gov/funding/opportunities/us-national-science-foundation-state-regional-artificial
