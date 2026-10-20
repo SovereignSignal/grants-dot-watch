@@ -1,0 +1,18 @@
+id: nebius-ai-builder-program
+name: Nebius AI Builder Program
+org: nebius
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://dev.nebius.com/builders
+summary: Nebius's AI Builder Program gives builders free credits, runnable examples and technical
+  guidance for building on open models. On October 19, 2026 Nebius and NVIDIA expanded it across
+  Europe with a $10M commitment covering compute grants for European open-source AI projects (open
+  models, coding agents, inference and evaluation tooling), introductions to Accel and other
+  European VCs, and community programs. No deadline stated.
+rounds: []
+sources:
+  - https://nebius.com/blog/posts/ai-builder-program-in-europe
+  - https://dev.nebius.com/builders
