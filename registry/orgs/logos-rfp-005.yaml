@@ -9,12 +9,10 @@ roles:
 socials:
   x: https://x.com/Logos_network
 status: active
-profile: Logos RFP-005 (Multisig and Coordination) is open for proposals until October 16, 2026.
-  Logos asks for an audited M-of-N multisig program on the Logos Execution Zone (LEZ) with an
-  encrypted, metadata-resistant coordination channel for signers. The codebase must go through an
-  independent security audit and be deployed on devnet/testnet, and proposals must include the audit
-  budget as a line item. RFP tier L; grant amount not stated. Apply with the Submit Proposal link in
-  the logos-co/rfp repository.
+profile: Logos is a decentralised technology stack with blockchain, storage and messaging layers.
+  Through the Logos RFP Program it funds independent developers and teams with grants to build
+  tools, infrastructure, applications and integrations for the Logos ecosystem; RFPs and their
+  deadlines are published in the logos-co/rfp GitHub repository.
 sources:
   - https://github.com/logos-co/rfp/blob/master/RFPs/RFP-005-multisig-and-coordination.md
   - https://github.com/logos-co/rfp/blob/master/README.md
