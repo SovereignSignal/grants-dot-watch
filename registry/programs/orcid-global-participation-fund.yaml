@@ -12,6 +12,10 @@ summary: "ORCID's Global Participation Fund gives annual competitive grants to n
   Outreach, and Technical Integration, which funds software development to build and update ORCID
   integrations in open-source systems. Proposals do not require ORCID membership. The current cycle
   is open through 31 October."
-rounds: []
+rounds:
+  - name: 2026 cycle
+    status: open
+    closes: 2026-10-31
+    source: https://info.orcid.org/global-participation-program/global-participation-fund/
 sources:
   - https://info.orcid.org/global-participation-program/global-participation-fund/
