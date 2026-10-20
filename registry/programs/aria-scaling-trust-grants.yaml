@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://aria.org.uk/opportunity-spaces/trust-everything-everywhere/scaling-trust/funding
 summary: ARIA's Scaling Trust programme (nearly £50m) is open on a rolling basis for Track 2
   (Tooling) and Track 3 proposals on secure coordination of AI agents, reviewed in quarterly
