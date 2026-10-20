@@ -2,9 +2,13 @@
 // write; this one runs in CI without TEST_DATABASE_URL, which is where the
 // superseded-approval decision has to stay red if it regresses.
 import assert from 'node:assert/strict';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 
-import { ledgerRowSuperseded, registryPrSuperseded } from '../src/lib/boot-replay.ts';
+import { applyLedgerRow, ledgerRowSuperseded, registryPrSuperseded } from '../src/lib/boot-replay.ts';
+import { APPLY_URL_BY_PATH } from '../src/lib/ledger-apply-urls.mjs';
 
 const OPENAI = 'registry/programs/openai-ai-and-teen-development-research-grant-program.yaml';
 const IVADO = 'registry/programs/ivado-call-for-participation-funding-for-ai-projects-in-neur.yaml';
@@ -72,4 +76,47 @@ test('registry PR #31 leftovers are superseded even when the canonical bytes dif
   }
   assert.equal(registryPrSuperseded('p00001', files, read), false);
   assert.equal(registryPrSuperseded('p01550', [file(OPENAI, canonical, null)], read), false);
+});
+
+const NSF_HUBS = 'registry/programs/nsf-state-and-regional-ai-infrastructure-hubs-nsf-26-513.yaml';
+const NSF_URL = APPLY_URL_BY_PATH[NSF_HUBS];
+const NSF_LEDGER = 'status: active\nsummary: Ledger snapshot long enough to stand in for the program.\n';
+const NSF_WITH_URL = `status: active\napply_url: ${NSF_URL}\nsummary: Ledger snapshot long enough to stand in for the program.\n`;
+
+test('a blessed NSF apply link satisfies the ledger snapshot and is not stripped', () => {
+  const root = mkdtempSync(join(tmpdir(), 'grants-watch-boot-'));
+  try {
+    mkdirSync(join(root, 'registry', 'programs'), { recursive: true });
+    writeFileSync(join(root, NSF_HUBS), NSF_WITH_URL);
+    const wrote = applyLedgerRow(root, [file(NSF_HUBS, NSF_LEDGER, 'hash-of-base')]);
+    assert.deepEqual(wrote, []);
+    assert.equal(readFileSync(join(root, NSF_HUBS), 'utf8'), NSF_WITH_URL);
+
+    const earlier = [file(NSF_HUBS, 'status: unknown\nsummary: Earlier snapshot long enough to stand in.\n', 'hash-of-git')];
+    const later = [file(NSF_HUBS, NSF_LEDGER, 'hash-of-earlier')];
+    assert.equal(ledgerRowSuperseded(earlier, () => NSF_WITH_URL, [later]), true);
+    assert.equal(ledgerRowSuperseded(later, () => NSF_WITH_URL, []), false);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('an edit besides the blessed apply line is still a conflict', () => {
+  const diverged = `status: active\napply_url: ${NSF_URL}\nsummary: Different summary long enough to be a real edit.\n`;
+  const earlier = [file(NSF_HUBS, 'status: unknown\nsummary: Earlier snapshot long enough to stand in.\n', 'hash-of-git')];
+  const later = [file(NSF_HUBS, NSF_LEDGER, 'hash-of-earlier')];
+  assert.equal(ledgerRowSuperseded(earlier, () => diverged, [later]), false);
+
+  const root = mkdtempSync(join(tmpdir(), 'grants-watch-boot-'));
+  try {
+    mkdirSync(join(root, 'registry', 'programs'), { recursive: true });
+    writeFileSync(join(root, NSF_HUBS), diverged);
+    assert.throws(
+      () => applyLedgerRow(root, [file(NSF_HUBS, NSF_LEDGER, 'hash-of-base')]),
+      /canonical content changed since proposal apply/
+    );
+    assert.equal(readFileSync(join(root, NSF_HUBS), 'utf8'), diverged);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });

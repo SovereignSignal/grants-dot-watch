@@ -9,7 +9,7 @@ status: active
 mechanism: grants
 apply_url: https://commonfund.nih.gov/primed-ai/funding-opportunities
 summary: >
-  NIH's Common Fund PRIMED-AI initiative has two open RFAs for AI precision medicine:
+  NIH's Common Fund PRIMED-AI initiative had two RFAs for AI precision medicine:
   RFA-RM-27-011 (multi-use AI frameworks playbook, due 2026-10-09) and RFA-RM-27-013
   (translating AI precision-medicine models into clinical use, due 2026-10-19).
 rounds:
@@ -18,7 +18,7 @@ rounds:
     closes: 2026-10-09
     source: https://simpler.grants.gov/opportunity/5b0a5980-5b84-4cdf-9370-2a36c301760b
   - name: RFA-RM-27-013 Model-to-Clinic
-    status: open
+    status: closed
     closes: 2026-10-19
     source: https://simpler.grants.gov/opportunity/360c4588-1512-4fa4-9b61-52a3f1d6c368
 sources:

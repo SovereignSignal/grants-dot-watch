@@ -45,6 +45,9 @@ jobs:
       - name: Confirm rows an earlier run already deployed
         run: node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --db-url "$SYNC_DATABASE_URL"
 
+      # Ledger rows commit first, byte for byte. A later commit in that same
+      # branch inserts the NSF apply links; it is not part of the ledger blob,
+      # so the rows' base hashes still match main.
       - name: Commit unsynced rows on a sync branch
         id: sync
         run: |

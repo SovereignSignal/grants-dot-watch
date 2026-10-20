@@ -180,8 +180,14 @@ test('dated live calls advance to the next recorded deadline and preserve apply 
 
   const itcr = briefing.dated.find((row) => row.program_id === 'nih-itcr-early-stage-informatics');
   assert.ok(itcr);
-  assert.equal(itcr.round.closes, '2026-10-19');
+  assert.equal(itcr.round.closes, '2027-06-11');
+  assert.equal(itcr.round.status, 'announced');
+  assert.equal(
+    registry.programs.find((program) => program.id === 'nih-itcr-early-stage-informatics').rounds.find((round) => round.closes === '2026-10-19').status,
+    'closed'
+  );
   assert.ok(!briefing.dated.some((row) => row.program_id === 'nih-itcr-early-stage-informatics' && row.round.closes === '2026-07-01'));
+  assert.ok(!briefing.dated.some((row) => row.program_id === 'nih-itcr-early-stage-informatics' && row.round.closes === '2026-10-19'));
 
   const btod = briefing.dated.find((row) => row.program_id === 'nih-biomedical-tech-optimization-center');
   assert.ok(btod);

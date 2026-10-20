@@ -23,6 +23,12 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { APPLY_URL_BY_PATH, withApplyUrl } from '../src/lib/ledger-apply-urls.mjs';
+
+const APPLY_URL_MESSAGE = `Record NSF apply links for open calls
+
+Desk ledger rows replay first, byte for byte, so their base hashes still match.
+This follow-up only inserts the official NSF application URL above summary.`;
 
 const DEFAULT_REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -251,6 +257,33 @@ export function applyRow(repo, row, dryRun, simulated = null) {
   return { sha, applied: true, skipped: false, wrote };
 }
 
+/** After a clean replay, insert blessed apply URLs and commit them separately.
+ *  The ledger commit stays equal to content_after. A dry run only updates the
+ *  simulated snapshot so later logging sees the post-replay text. */
+export function recordBlessedApplyUrls(repo, dryRun, simulated, paths) {
+  const planned = [];
+  for (const path of Object.keys(APPLY_URL_BY_PATH)) {
+    if (!paths.has(path)) continue;
+    const current = simulated && simulated.has(path) ? simulated.get(path) : worktreeContent(repo, path);
+    if (typeof current !== 'string') continue;
+    const next = withApplyUrl(current, APPLY_URL_BY_PATH[path]);
+    if (!next.changed) continue;
+    planned.push({ path, content: next.content });
+  }
+  if (planned.length === 0) return { commits: 0, wrote: [] };
+  const wrote = planned.map((item) => item.path);
+  if (dryRun) {
+    if (simulated) for (const item of planned) simulated.set(item.path, item.content);
+    console.log(`  would record apply_url on ${wrote.join(', ')}`);
+    return { commits: 0, wrote };
+  }
+  for (const item of planned) atomicWrite(join(repo, item.path), item.content);
+  git(repo, 'add', '--', ...wrote);
+  git(repo, 'commit', '--only', '-m', APPLY_URL_MESSAGE, '--', ...wrote);
+  console.log(`  recorded apply_url ${git(repo, 'rev-parse', 'HEAD')} (${wrote.length} file(s))`);
+  return { commits: 1, wrote };
+}
+
 /** A local commit is durable only once an image containing it is serving.
  * Validate ledger bytes at that commit and ancestry of the deployed image.
  * Later accepted commits may legitimately supersede the same file. */
@@ -368,6 +401,7 @@ async function main() {
   // Dry run only: what each simulated row would have committed, so a later row
   // touching the same file checks against it instead of the unmoved HEAD.
   const simulated = args.dryRun ? new Map() : null;
+  const applyUrlPaths = new Set();
 
   for (const row of rows) {
     const label = `row ${row.id}${row.proposal_id ? ` (${row.proposal_id})` : ''}`;
@@ -398,6 +432,9 @@ async function main() {
       committed++;
       console.log(`  ${label}: committed ${result.sha} (${result.wrote.length} file(s))`);
     }
+    for (const file of Array.isArray(row.files) ? row.files : []) {
+      if (file && typeof file.path === 'string' && Object.hasOwn(APPLY_URL_BY_PATH, file.path)) applyUrlPaths.add(file.path);
+    }
     if (pool && !args.dryRun) {
       if (pool.supportsDeskLedgerErrors) {
         await pool.query(
@@ -424,6 +461,8 @@ async function main() {
     process.exitCode = 1;
     return;
   }
+  const followUp = recordBlessedApplyUrls(repo, args.dryRun, simulated, applyUrlPaths);
+  if (!args.dryRun) committed += followUp.commits;
   console.log(
     `Done: ${committed} commit${committed === 1 ? '' : 's'}, ${alreadyApplied} already applied` +
       `${args.fromJsonl && !args.dryRun ? ' (jsonl mode: entries are not marked synced — idempotency via content match)' : ''}` +
