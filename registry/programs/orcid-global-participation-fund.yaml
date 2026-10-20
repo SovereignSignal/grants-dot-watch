@@ -1,0 +1,17 @@
+id: orcid-global-participation-fund
+name: ORCID Global Participation Fund
+org: orcid
+parent: null
+systems: []
+wires:
+  - oss
+status: unknown
+apply_url: https://info.orcid.org/global-participation-program/global-participation-fund/
+summary: "ORCID's Global Participation Fund gives annual competitive grants to non-profits, NGOs and
+  government agencies in Global South focus communities, in two tracks: Community Development and
+  Outreach, and Technical Integration, which funds software development to build and update ORCID
+  integrations in open-source systems. Proposals do not require ORCID membership. The current cycle
+  is open through 31 October."
+rounds: []
+sources:
+  - https://info.orcid.org/global-participation-program/global-participation-fund/
