@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://dev.nebius.com/builders
 summary: Nebius's AI Builder Program gives builders free credits, runnable examples and technical
   guidance for building on open models. On October 19, 2026 Nebius and NVIDIA expanded it across
