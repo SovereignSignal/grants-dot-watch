@@ -24,6 +24,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { Pool } from 'pg';
+import { sameLedgerBytes } from './ledger-apply-urls.mjs';
 
 /** Bounds the boot. register() gates the first request and railway.json's
  *  healthcheckPath is '/', so an outbox nobody has synced in months must not
@@ -156,9 +157,10 @@ export function applyLedgerRow(root: string, files: LedgerFile[]): string[] {
 
     const abs = join(root, f.path);
     const current = readIfExists(abs);
-    // Already applied. This branch is what makes a repeated replay a no-op
-    // instead of a conflict storm.
-    if (current === f.content_after) continue;
+    // Already applied. A follow-up commit may have inserted one blessed apply
+    // URL above `summary`; that line still satisfies this snapshot. Any other
+    // difference falls through to the base-hash refusal below.
+    if (sameLedgerBytes(f.path, current, f.content_after)) continue;
 
     // Three distinct shapes, and they are not interchangeable: a hex string
     // is "the file held these bytes", null is "the file did not exist", an
@@ -214,7 +216,8 @@ export function applyLedgerRow(root: string, files: LedgerFile[]): string[] {
   return writes.map((write) => write.path);
 }
 
-/** True when every file of this row is already `content_after`. Invalid rows
+/** True when every file of this row is already `content_after`, allowing the
+ *  one blessed apply line a follow-up commit may have inserted. Invalid rows
  *  return false so the caller falls through to applyLedgerRow's refusal. */
 function filesAlreadyOnDisk(files: LedgerFile[], read: (path: string) => string | null): boolean {
   if (!Array.isArray(files) || files.length === 0) return false;
@@ -222,7 +225,7 @@ function filesAlreadyOnDisk(files: LedgerFile[], read: (path: string) => string 
   for (const file of files) {
     if (!file || !safePath(file.path) || typeof file.content_after !== 'string' || seen.has(file.path)) return false;
     seen.add(file.path);
-    if (read(file.path) !== file.content_after) return false;
+    if (!sameLedgerBytes(file.path, read(file.path), file.content_after)) return false;
   }
   return true;
 }
@@ -243,12 +246,12 @@ export function ledgerRowSuperseded(
     if (!file || !safePath(file.path) || typeof file.content_after !== 'string' || seen.has(file.path)) return false;
     seen.add(file.path);
     const current = read(file.path);
-    if (current === file.content_after) continue;
+    if (sameLedgerBytes(file.path, current, file.content_after)) continue;
     replaced = true;
     const canonical = laterRows.some(
       (later) =>
         Array.isArray(later) &&
-        later.some((candidate) => candidate && candidate.path === file.path && candidate.content_after === current)
+        later.some((candidate) => candidate && candidate.path === file.path && sameLedgerBytes(file.path, current, candidate.content_after))
     );
     if (!canonical) return false;
   }

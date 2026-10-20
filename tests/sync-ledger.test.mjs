@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
+import { APPLY_URL_BY_PATH } from '../src/lib/ledger-apply-urls.mjs';
 import { applyRow } from '../scripts/sync-desk-commits.mjs';
 
 const SYNC_SCRIPT = fileURLToPath(new URL('../scripts/sync-desk-commits.mjs', import.meta.url));
@@ -343,3 +344,97 @@ test('dry run still fails a genuinely stale row in a chain', () => {
     rmSync(repo, { recursive: true, force: true });
   }
 });
+
+const NSF_HUBS = 'registry/programs/nsf-state-and-regional-ai-infrastructure-hubs-nsf-26-513.yaml';
+const NSF_DCL = 'registry/programs/nsf-dcl-unleashing-a-new-age-of-ai-enabled-scientific-discov.yaml';
+
+test('NSF apply links are a follow-up commit and the ledger base hash still matches', () => {
+  const repo = fixture();
+  try {
+    mkdirSync(join(repo, 'registry', 'programs'), { recursive: true });
+    const original = [
+      'id: nsf-state-and-regional-ai-infrastructure-hubs-nsf-26-513',
+      'name: NSF State and Regional AI Infrastructure Hubs (NSF 26-513)',
+      'status: unknown',
+      'summary: Original git snapshot long enough for the base hash.',
+      'rounds: []',
+      '',
+    ].join('\n');
+    const hubsAfter = original.replace('status: unknown', 'status: active').replace('rounds: []', 'rounds:\n  - name: Full proposal\n    status: open\n');
+    const dclAfter = [
+      'id: nsf-dcl-unleashing-a-new-age-of-ai-enabled-scientific-discov',
+      'name: NSF DCL',
+      'status: active',
+      'summary: DCL snapshot long enough to be a created program file.',
+      'rounds: []',
+      '',
+    ].join('\n');
+    writeFileSync(join(repo, NSF_HUBS), original);
+    git(repo, 'add', NSF_HUBS);
+    git(repo, 'commit', '-qm', 'nsf base');
+
+    const ledger = chainedLedger(repo, [
+      {
+        id: 810,
+        message: 'publish hubs',
+        files: [{ path: NSF_HUBS, content_before_hash: hash(original), content_after: hubsAfter }],
+      },
+      {
+        id: 806,
+        message: 'publish dcl',
+        files: [{ path: NSF_DCL, content_before_hash: null, content_after: dclAfter }],
+      },
+    ]);
+
+    const dry = runSync(repo, ledger, '--dry-run');
+    assert.equal(dry.status, 0, dry.stderr);
+    assert.match(dry.stdout, /would record apply_url/);
+    assert.equal(readFileSync(join(repo, NSF_HUBS), 'utf8'), original);
+    assert.equal(exists(repo, NSF_DCL), false);
+
+    const real = runSync(repo, ledger);
+    assert.equal(real.status, 0, real.stderr);
+    assert.match(real.stdout, /recorded apply_url/);
+    const head = git(repo, 'rev-parse', 'HEAD');
+    const ledgerHead = git(repo, 'rev-parse', 'HEAD~1');
+    const show = (spec) => execFileSync('git', ['show', spec], { cwd: repo, stdio: 'pipe' }).toString();
+    assert.equal(show(`${ledgerHead}:${NSF_HUBS}`), hubsAfter);
+    assert.equal(show(`${ledgerHead}:${NSF_DCL}`), dclAfter);
+    assert.equal(show(`HEAD~2:${NSF_HUBS}`), hubsAfter);
+    assert.equal(show(`HEAD~3:${NSF_HUBS}`), original);
+    assert.match(show(`${head}:${NSF_HUBS}`), new RegExp(`apply_url: ${escapeRegExp(APPLY_URL_BY_PATH[NSF_HUBS])}`));
+    assert.match(show(`${head}:${NSF_DCL}`), new RegExp(`apply_url: ${escapeRegExp(APPLY_URL_BY_PATH[NSF_DCL])}`));
+    assert.doesNotMatch(hubsAfter, /apply_url:/);
+    assert.match(real.stdout, /Done: 3 commits/);
+
+    const replayed = join(repo, 'replayed.jsonl');
+    writeFileSync(
+      replayed,
+      [
+        JSON.stringify({ id: 810, state: 'ready', sha: git(repo, 'rev-parse', 'HEAD~2'), message: 'publish hubs', files: [{ path: NSF_HUBS, content_before_hash: hash(original), content_after: hubsAfter }] }),
+        JSON.stringify({ id: 806, state: 'ready', sha: ledgerHead, message: 'publish dcl', files: [{ path: NSF_DCL, content_before_hash: null, content_after: dclAfter }] }),
+      ].join('\n') + '\n'
+    );
+    const again = runSync(repo, replayed);
+    assert.equal(again.status, 0, again.stderr);
+    assert.match(again.stdout, /ledger content is committed/);
+    assert.doesNotMatch(again.stdout, /recorded apply_url/);
+    assert.equal(git(repo, 'rev-parse', 'HEAD'), head);
+    assert.match(readFileSync(join(repo, NSF_HUBS), 'utf8'), /apply_url:/);
+  } finally {
+    rmSync(repo, { recursive: true, force: true });
+  }
+});
+
+function exists(repo, path) {
+  try {
+    readFileSync(join(repo, path));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
