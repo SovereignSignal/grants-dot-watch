@@ -18,5 +18,10 @@ rounds:
     status: closed
     closes: 2026-10-09
     source: https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
+  - name: Full proposals
+    status: announced
+    opens: 2026-10-27
+    closes: 2026-12-02
+    source: https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
 sources:
   - https://aria.org.uk/opportunity-spaces/resilient-climate-and-ecosystems/forecasting-tipping-points/funding
