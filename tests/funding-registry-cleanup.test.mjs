@@ -10,15 +10,19 @@ import { buildFundingProduct, handleFundingProductRequest } from '../src/lib/fun
 import { validateFundingDataset } from '../src/lib/funding-model.mjs';
 import { programProfileFields } from '../src/lib/program-profile.ts';
 import { legacyClassificationLabel } from '../src/lib/program-classification.ts';
+import { restoreReferenceBlobs } from './legacy-registry.mjs';
 
 const today='2026-10-13', at=new Date(`${today}T20:00:00Z`);
 const root=join(mkdtempSync(join(tmpdir(),'registry-cleanup-')),'registry');
 cpSync('registry',root,{recursive:true});
 test.after(()=>rmSync(join(root,'..'),{recursive:true,force:true}));
+const packs=['php','google','nvidia'].map(name=>JSON.parse(readFileSync(`research/v2/representative-cleanup/${name}.json`)));
+// The packets were reviewed against these program and org bytes; later registry edits
+// (2bec2d3 closed the PHP call) would trip their blob guards, so pin them in the copy.
+for(const pack of packs)restoreReferenceBlobs(root,pack);
 const baseline=readBaseline(root,YAML.parse);
 baseline.systems=readdirSync(join(root,'systems')).filter(f=>f.endsWith('.yaml')).map(f=>YAML.parse(readFileSync(join(root,'systems',f),'utf8')));
 const before=readControlledFunding(root);
-const packs=['php','google','nvidia'].map(name=>JSON.parse(readFileSync(`research/v2/representative-cleanup/${name}.json`)));
 
 test('representative packets apply through the existing controlled Desk plan only in a disposable copy',()=>{
   for(const pack of packs){

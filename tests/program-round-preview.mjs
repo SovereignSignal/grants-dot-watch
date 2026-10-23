@@ -1,14 +1,27 @@
 // Reusable, isolated review fixture. It has no production-application mode.
-import { cpSync, mkdtempSync, rmSync, mkdirSync, symlinkSync } from 'node:fs';
+import { cpSync, mkdtempSync, rmSync, mkdirSync, readFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { restoreReferenceBlobs } from './legacy-registry.mjs';
+
+const repo = resolve(import.meta.dirname, '..');
+
+/** Replay the 2026-10-13 review: put each file the terms packets guard back at the blob it was
+ *  reviewed against. Later registry edits (2bec2d3 closed the PHP call) change those bytes, and
+ *  the identity proposals' content hashes and round facts were captured from the same files. */
+export function restorePreviewReferences(root) {
+  for (const name of ['php', 'google', 'nvidia']) {
+    restoreReferenceBlobs(root, JSON.parse(readFileSync(join(repo, `research/v2/representative-cleanup/${name}.json`), 'utf8')));
+  }
+  return root;
+}
 
 export function createProgramRoundPreview() {
-  const repo = resolve(import.meta.dirname, '..');
   const dir = mkdtempSync(join(tmpdir(), 'gw-round-preview-'));
   try {
     cpSync(join(repo, 'registry'), join(dir, 'registry'), { recursive: true });
+    restorePreviewReferences(join(dir, 'registry'));
     mkdirSync(join(dir,'scripts'));
     cpSync(join(repo,'scripts/validate-registry.mjs'),join(dir,'scripts/validate-registry.mjs'));
     symlinkSync(join(repo,'node_modules'),join(dir,'node_modules'),'dir');
