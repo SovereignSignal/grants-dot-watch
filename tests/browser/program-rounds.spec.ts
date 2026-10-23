@@ -3,6 +3,7 @@ import { spawn, type ChildProcess } from 'node:child_process';
 import { createServer } from 'node:net';
 import { symlinkSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { createProgramRoundPreview } from '../program-round-preview.mjs';
 
 let fixture: ReturnType<typeof createProgramRoundPreview>;
@@ -20,7 +21,8 @@ test.beforeAll(async ({ playwright }) => {
   const port=address.port;
   await new Promise<void>((done,reject)=>reservation.close(error=>error?reject(error):done()));
   preview=`http://127.0.0.1:${port}`;
-  child=spawn(process.execPath,[resolve('node_modules/next/dist/bin/next'),'start','--hostname','127.0.0.1','--port',String(port)],{
+  // Serve the preview as of its review date; the PHP call it maps closed on 2026-10-20.
+  child=spawn(process.execPath,['--import',pathToFileURL(resolve('tests/fixtures/review-clock.mjs')).href,resolve('node_modules/next/dist/bin/next'),'start','--hostname','127.0.0.1','--port',String(port)],{
     cwd:fixture.dir,env:{...process.env,DATABASE_URL:'',WIRE_DATABASE_URL:'',INGEST_ENABLED:'0',GRANTS_WATCH_API_V2:'1',GRANTS_WATCH_ALLOW_LOCAL_STORE:'1',ADMIN_TOKEN:'preview-only'},stdio:['ignore','pipe','pipe'],
   });
   child.stdout?.on('data',chunk=>{output=(output+chunk).slice(-16000);});

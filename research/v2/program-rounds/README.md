@@ -53,6 +53,8 @@ node --test --experimental-strip-types --experimental-loader ./tests/ts-loader.m
 ```
 
 The helper creates a new temporary directory, copies the committed registry,
+restores each file the terms packets guard to its reviewed Git blob, freezes the
+preview's clock at 2026-10-13 (the PHP call closed on 2026-10-20),
 previews/applies the first three terms packets there, then prepares, validates and
 writes these proposals through the existing committer and funding-control guard.
 It does not queue proposals, record owner verdicts, connect to production or write

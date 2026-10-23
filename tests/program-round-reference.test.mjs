@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync}from'node:fs';
+import {cpSync,mkdtempSync,readFileSync,rmSync}from'node:fs';
+import {tmpdir}from'node:os';
 import {join}from'node:path';
 import YAML from'yaml';
-import {createProgramRoundPreview}from'./program-round-preview.mjs';
+import {createProgramRoundPreview,restorePreviewReferences}from'./program-round-preview.mjs';
 import {readBaseline}from'../src/lib/funding-store.mjs';
 import {readControlledFunding,validateFundingChanges}from'../src/lib/funding-desk-core.mjs';
 import {buildFundingProduct,handleFundingProductRequest}from'../src/lib/funding-product.mjs';
@@ -19,7 +20,10 @@ import {publicProgram}from'../src/lib/public-api.ts';
 const originalControl=readFileSync('registry/funding-control.json','utf8');
 const preview=createProgramRoundPreview();test.after(()=>preview.cleanup());
 const root=join(preview.dir,'registry'),baseline=readBaseline(root,YAML.parse),{dataset}=readControlledFunding(root);
-const old=readBaseline('registry',YAML.parse),at=new Date('2026-10-13T20:00:00Z');
+// Compare against the same pinned bytes the preview starts from, not today's registry.
+const pinned=mkdtempSync(join(tmpdir(),'gw-round-before-'));test.after(()=>rmSync(pinned,{recursive:true,force:true}));
+cpSync('registry',join(pinned,'registry'),{recursive:true});
+const old=readBaseline(restorePreviewReferences(join(pinned,'registry')),YAML.parse),at=new Date('2026-10-13T20:00:00Z');
 const pairs=[['php-foundation-2027-core-development-contractors','php-foundation-core-development-contractors','2027 contractor intake'],['numfocus-sdg-2026-round-2-cfp-open-due-oct-17','numfocus-small-development-grants','2025 Round 2']];
 const product=buildFundingProduct(baseline,dataset,at);
 
