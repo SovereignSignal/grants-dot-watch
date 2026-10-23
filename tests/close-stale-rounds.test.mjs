@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -50,4 +50,42 @@ sources:
   assert.equal(doc.rounds[0].status, 'closed');
   assert.equal(doc.rounds[1].status, 'announced');
   assert.match(readFileSync(file, 'utf8'), /name: Current call\n    status: closed/);
+});
+
+test('close-stale-rounds leaves files an unsynced ledger row targets and exits 2', () => {
+  const root = mkdtempSync(join(tmpdir(), 'close-stale-'));
+  mkdirSync(join(root, 'programs'));
+  const program = (id) => `id: ${id}
+name: ${id}
+org: example
+status: active
+mechanism: grants
+summary: A fixture used to exercise held stale rounds.
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-08-28
+    source: https://example.org/apply
+sources:
+  - https://example.org/apply
+`;
+  const held = join(root, 'programs', 'held-grants.yaml');
+  const free = join(root, 'programs', 'free-grants.yaml');
+  writeFileSync(held, program('held-grants'));
+  writeFileSync(free, program('free-grants'));
+  const ledgerPaths = join(root, 'ledger-paths.txt');
+  writeFileSync(ledgerPaths, 'registry/programs/held-grants.yaml\nregistry/funding-control.json\n');
+
+  const result = spawnSync(
+    process.execPath,
+    ['scripts/close-stale-rounds.mjs', '--write', '--json', '--ledger-paths', ledgerPaths],
+    { cwd: process.cwd(), encoding: 'utf8', env: { ...process.env, REGISTRY_ROOT: root, VALIDATION_TODAY: '2026-08-29' } }
+  );
+  assert.equal(result.status, 2, result.stderr);
+  const out = JSON.parse(result.stdout);
+  assert.deepEqual(out.changes.map((change) => change.id), ['free-grants']);
+  assert.deepEqual(out.held.map((change) => change.id), ['held-grants']);
+  assert.match(result.stderr, /unsynced Desk ledger row/);
+  assert.equal(YAML.parse(readFileSync(free, 'utf8')).rounds[0].status, 'closed');
+  assert.equal(readFileSync(held, 'utf8'), program('held-grants'));
 });

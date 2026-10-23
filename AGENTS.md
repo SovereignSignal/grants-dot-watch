@@ -28,7 +28,8 @@ covers the product model.
   not keep `apply_url`. Dated one-shot calls and named cohorts conclude after the
   application window closes; recurring vehicles may stay active or pause between rounds.
   `npm run close:stale -- --write` closes past-dated live rounds in place when a deadline
-  has rolled over.
+  has rolled over. The Desk sync workflow runs it daily, after the ledger rows it syncs;
+  by hand, sync first (README "Ledger operating rules").
 
 <!-- BEGIN:nextjs-agent-rules -->
 

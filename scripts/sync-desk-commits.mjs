@@ -9,6 +9,7 @@
 //   node scripts/sync-desk-commits.mjs [--db-url postgres://...] [--repo <path>] [--dry-run]
 //   DATABASE_URL=postgres://... node scripts/sync-desk-commits.mjs
 //   node scripts/sync-desk-commits.mjs --from-jsonl .data/pending-commits.jsonl --repo <path>
+//   node scripts/sync-desk-commits.mjs --unsynced-paths [--db-url postgres://...]
 //
 // Idempotent: re-runs skip already-synced rows; a row whose files already
 // match the repo byte-for-byte records HEAD without a new commit. Never
@@ -17,6 +18,10 @@
 // --from-jsonl reads the local-dev fallback ledger (same entry shape, one
 // JSON object per line) instead of Postgres. JSONL entries can't be marked
 // synced in place; idempotency there comes from the content-match skip.
+//
+// --unsynced-paths prints every registry path an unsynced ready row targets,
+// one per line, and changes nothing. Those rows replay at boot until a deploy
+// is confirmed, so a hand edit to one of these files would be refused.
 
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -37,13 +42,14 @@ const TRAILERS = [
 ];
 
 function parseArgs(argv) {
-  const out = { repo: DEFAULT_REPO, dryRun: false, fromJsonl: null, dbUrl: null, deploymentUrl: null };
+  const out = { repo: DEFAULT_REPO, dryRun: false, fromJsonl: null, dbUrl: null, deploymentUrl: null, unsyncedPaths: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--db-url') out.dbUrl = argv[++i];
     else if (argv[i] === '--repo') out.repo = resolve(argv[++i]);
     else if (argv[i] === '--from-jsonl') out.fromJsonl = resolve(argv[++i]);
     else if (argv[i] === '--confirm-deployment') out.deploymentUrl = argv[++i];
     else if (argv[i] === '--dry-run') out.dryRun = true;
+    else if (argv[i] === '--unsynced-paths') out.unsyncedPaths = true;
     else {
       console.error(`Unknown argument: ${argv[i]}`);
       process.exit(1);
@@ -385,6 +391,18 @@ async function main() {
         WHERE synced_at IS NULL${replayable} ORDER BY id ASC`
     );
     rows = res.rows;
+  }
+
+  if (args.unsyncedPaths) {
+    if (pool) await pool.end();
+    const paths = new Set();
+    for (const row of rows) {
+      for (const file of Array.isArray(row.files) ? row.files : []) {
+        if (file && typeof file.path === 'string') paths.add(file.path);
+      }
+    }
+    for (const path of [...paths].sort()) console.log(path);
+    return;
   }
 
   if (args.deploymentUrl) {
