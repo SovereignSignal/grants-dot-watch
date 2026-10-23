@@ -5,13 +5,15 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://www.microsoft.com/en-us/research/group/aiei/aiei-open-call-4/
-summary: "Microsoft’s AI Economy Institute invites proposals for its fourth global research call,
-  “AI and Jobs: designing for augmented work,” from researchers affiliated with accredited
-  universities or research institutions. Each selected proposal will receive a single research grant
-  of $75,000. The submission portal opens October 19, 2026, and the proposal deadline is November
-  30, 2026 (6:00 PM Pacific). Applicants use the linked Submit Proposal portal."
+summary: "Microsoft's AI Economy Institute (AIEI) funds independent, policy-relevant research
+  through its fourth global call, 'AI and Jobs: designing for augmented work', on the organizational
+  choices that decide whether AI augments or substitutes for human work. Each selected proposal
+  receives a single $75,000 research grant plus a travel allowance; up to two PIs from accredited
+  universities or research institutions worldwide, each with a PhD or equivalent held for at least
+  three years. The portal opened October 19, 2026; proposals are due November 30, 2026 (6:00 PM
+  Pacific)."
 rounds:
   - name: Current call
     status: open
