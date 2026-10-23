@@ -17,6 +17,7 @@ summary: "Microsoft's AI Economy Institute (AIEI) funds independent, policy-rele
 rounds:
   - name: Current call
     status: open
+    opens: 2026-10-19
     closes: 2026-11-30
     size: $75,000
     source: https://www.microsoft.com/en-us/research/group/aiei/aiei-open-call-4/
