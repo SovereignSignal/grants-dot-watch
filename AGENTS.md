@@ -20,9 +20,11 @@ covers the product model.
 - **Quality gates:** `npm run lint`, `npm run typecheck`, `npm test` (Node built-in test runner),
   `npm run validate`, `npm run check:loader`, `npm run check:public`, `npm run test:browser`
   (needs Chromium via `npx playwright install --with-deps chromium`).
-- **Recency law:** a round whose `closes` date is already past must not stay `open` or
-  `announced` — set it to `closed` (the committer auto-closes on write; `npm run validate`
-  fails the registry otherwise). Prefer closing stale rounds over weakening the validator.
+- **Recency law:** a round whose deadline is past must not stay `open` or `announced` —
+  set it to `closed` (the committer auto-closes on write; `npm run validate` fails the
+  registry otherwise). The deadline is `closes_at` when given, else the end of the `closes`
+  day (or month) Anywhere on Earth; the validator and `close-stale-rounds.mjs` share that
+  rule and fail or close 6 hours after it. Prefer closing stale rounds over weakening the validator.
   Multi-window calls must record each remaining cutoff, not only the last date. An undated
   open or announced round may not carry a past year in its name. A concluded program must
   not keep `apply_url`. Dated one-shot calls and named cohorts conclude after the

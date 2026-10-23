@@ -161,7 +161,8 @@ Learned on 2026-10-10, when the API went to 503 twice:
 - **One sync owner.** Only one person or agent runs `sync-desk-commits.mjs` at a
   time. Since 2026-10-15 that owner is the `Desk sync` workflow
   (`.github/workflows/desk-sync.yml`), daily at 18:30 UTC and on demand from the
-  Actions tab: it syncs, closes rounds whose deadline has passed, validates,
+  Actions tab: it syncs, closes rounds 6 hours past their deadline
+  (`closes_at`, or the end of the `closes` day Anywhere on Earth), validates,
   merges into `main` with a merge commit, waits for the deploy and confirms. It
   never closes a round in a file an unsynced row targets; that run fails before
   merging, and the row has to be synced and confirmed before the round can close. Disable it before syncing by hand. A `--from-jsonl` replay records no SHAs in the ledger, so

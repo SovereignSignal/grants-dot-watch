@@ -58,9 +58,12 @@ jobs:
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
       # Rounds roll past their close date every few days, and npm run validate
-      # rejects a live round with a past close (both read the date in
-      # America/Los_Angeles). Closing runs here, after the rows above are
-      # committed, as one more commit on the same branch. A file an unsynced
+      # rejects a live round 6 hours after its deadline: closes_at when given,
+      # else the end of the closes day Anywhere on Earth. Both scripts share
+      # that rule and read the same pinned instant (VALIDATION_NOW), so a
+      # deadline can't pass between closing and validating. Closing runs here,
+      # after the rows above are committed, as one more commit on the same
+      # branch. Rounds are set to closed, never removed. A file an unsynced
       # row targets is left alone: that row replays at boot until the deploy is
       # confirmed, and replay refuses a file changed underneath it. A stale
       # round in such a file fails this step, and nothing is merged. The count
@@ -68,16 +71,23 @@ jobs:
       - name: Close stale rounds on the sync branch
         id: close
         run: |
+          now="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "now=$now" >> "$GITHUB_OUTPUT"
           node scripts/sync-desk-commits.mjs --unsynced-paths --db-url "$SYNC_DATABASE_URL" > ledger-paths.txt
-          node scripts/close-stale-rounds.mjs --write --json --ledger-paths ledger-paths.txt > close.json
+          status=0
+          VALIDATION_NOW="$now" node scripts/close-stale-rounds.mjs --write --json --ledger-paths ledger-paths.txt > close.json || status=$?
+          jq -r '"Close pass as of \(.now): \(.changes | length) closed, \(.held | length) held."' close.json
+          jq -r '.changes[] | "  closed \(.file): \"\(.round)\" \(.from) → closed (deadline \(.deadline) by \(.basis); closable after \(.cutoff))"' close.json
+          jq -r '.held[] | "  held \(.file): \"\(.round)\" stays \(.from); an unsynced ledger row targets this file"' close.json
+          if [ "$status" -ne 0 ]; then exit "$status"; fi
           if git diff --quiet -- registry/programs; then
             echo "No stale rounds."
           else
             {
               jq -r '"Close past-due rounds (\([.changes[].program] | unique | join(", ")))"' close.json
               echo
-              jq -r '"Output of scripts/close-stale-rounds.mjs --write as of \(.today):"' close.json
-              jq -r '.changes[] | "  \(.file): \"\(.round)\" \(.from) → closed (closes \(.closes))"' close.json
+              jq -r '"Output of scripts/close-stale-rounds.mjs --write as of \(.now):"' close.json
+              jq -r '.changes[] | "  \(.file): \"\(.round)\" \(.from) → closed (closes \(.closes); deadline \(.deadline) by \(.basis))"' close.json
               echo
               echo "Deadline expiry closes intake; it does not conclude the program."
             } > close-message.txt
@@ -91,8 +101,10 @@ jobs:
       # checks CI would run on registry data run here before anything reaches main.
       - name: Validate the synced registry
         if: steps.close.outputs.commits != '0'
+        env:
+          CLOSE_NOW: ${{ steps.close.outputs.now }}
         run: |
-          npm run validate
+          VALIDATION_NOW="$CLOSE_NOW" npm run validate
           npm run validate:funding
           npm test
 
