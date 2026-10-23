@@ -1,0 +1,20 @@
+id: aria-robot-dexterity-benchmarks-standards-interoperability-r
+name: ARIA Robot Dexterity benchmarks standards interoperability RFP 2026
+org: aria
+parent: null
+systems: []
+wires:
+  - ai
+status: unknown
+apply_url: https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding
+summary: "ARIA's Robot Dexterity programme, backed by £88.5m, has an open request for proposals on
+  benchmarks, standards and interoperability for dexterous robotics, supporting practical efforts to
+  remove shared barriers to progress across the field. Proposals are no more than five pages, plus
+  references. Submission deadline: December 1, 2026, 13:00 GMT."
+rounds:
+  - name: Current call
+    status: open
+    closes: 2026-12-01
+    source: https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding
+sources:
+  - https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding
