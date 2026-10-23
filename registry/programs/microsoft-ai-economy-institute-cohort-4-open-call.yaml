@@ -1,0 +1,25 @@
+id: microsoft-ai-economy-institute-cohort-4-open-call
+name: Microsoft AI Economy Institute Cohort 4 Open Call
+org: microsoft
+parent: null
+systems: []
+wires:
+  - ai
+status: active
+apply_url: https://www.microsoft.com/en-us/research/group/aiei/aiei-open-call-4/
+summary: "Microsoft's AI Economy Institute (AIEI) funds independent, policy-relevant research
+  through its fourth global call, 'AI and Jobs: designing for augmented work', on the organizational
+  choices that decide whether AI augments or substitutes for human work. Each selected proposal
+  receives a single $75,000 research grant plus a travel allowance; up to two PIs from accredited
+  universities or research institutions worldwide, each with a PhD or equivalent held for at least
+  three years. The portal opened October 19, 2026; proposals are due November 30, 2026 (6:00 PM
+  Pacific)."
+rounds:
+  - name: Current call
+    status: open
+    opens: 2026-10-19
+    closes: 2026-11-30
+    size: $75,000
+    source: https://www.microsoft.com/en-us/research/group/aiei/aiei-open-call-4/
+sources:
+  - https://www.microsoft.com/en-us/research/group/aiei/aiei-open-call-4/

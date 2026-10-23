@@ -1,0 +1,19 @@
+id: aws-open-source-credits-program
+name: AWS Open Source Credits Program
+org: amazon-web-services-aws
+parent: null
+systems: []
+wires:
+  - oss
+status: active
+apply_url: https://aws.amazon.com/blogs/opensource/aws-promotional-credits-open-source-projects/
+summary: AWS gives promotional credits to open source projects, typically used for upstream and
+  performance testing, CI/CD and artifact storage on AWS. Projects need an active AWS account and an
+  OSI-approved (or field-standard open) license; applicants complete the AWS Open Source Credits
+  Application form and email it to awsopen@amazon.com. Applications are reviewed monthly, favoring
+  projects with maintainers from multiple entities or owned by foundations or non-profits; credits
+  expire after one year. Rolling, no deadline.
+rounds: []
+sources:
+  - https://aws.amazon.com/blogs/opensource/aws-promotional-credits-open-source-projects/
+  - https://openssf.org/blog/2026/09/14/empowering-open-source-security-with-scalable-infrastructure/
