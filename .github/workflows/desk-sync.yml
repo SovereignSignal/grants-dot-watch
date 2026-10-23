@@ -54,37 +54,61 @@ jobs:
           branch="sync/desk-ledger-$(date -u +%F)-${GITHUB_RUN_ID}"
           git switch -c "$branch"
           node scripts/sync-desk-commits.mjs --dry-run --db-url "$SYNC_DATABASE_URL"
-          node scripts/sync-desk-commits.mjs --db-url "$SYNC_DATABASE_URL" | tee sync.log
-          if grep -q '^Done: 0 commits' sync.log; then
-            echo "Nothing to sync."
-            echo "commits=0" >> "$GITHUB_OUTPUT"
-          else
-            echo "commits=$(git rev-list --count origin/main..HEAD)" >> "$GITHUB_OUTPUT"
-          fi
+          node scripts/sync-desk-commits.mjs --db-url "$SYNC_DATABASE_URL"
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      # Rounds roll past their close date every few days, and npm run validate
+      # rejects a live round with a past close (both read the date in
+      # America/Los_Angeles). Closing runs here, after the rows above are
+      # committed, as one more commit on the same branch. A file an unsynced
+      # row targets is left alone: that row replays at boot until the deploy is
+      # confirmed, and replay refuses a file changed underneath it. A stale
+      # round in such a file fails this step, and nothing is merged. The count
+      # covers rows and closes: zero means there is nothing to merge.
+      - name: Close stale rounds on the sync branch
+        id: close
+        run: |
+          node scripts/sync-desk-commits.mjs --unsynced-paths --db-url "$SYNC_DATABASE_URL" > ledger-paths.txt
+          node scripts/close-stale-rounds.mjs --write --json --ledger-paths ledger-paths.txt > close.json
+          if git diff --quiet -- registry/programs; then
+            echo "No stale rounds."
+          else
+            {
+              jq -r '"Close past-due rounds (\([.changes[].program] | unique | join(", ")))"' close.json
+              echo
+              jq -r '"Output of scripts/close-stale-rounds.mjs --write as of \(.today):"' close.json
+              jq -r '.changes[] | "  \(.file): \"\(.round)\" \(.from) → closed (closes \(.closes))"' close.json
+              echo
+              echo "Deadline expiry closes intake; it does not conclude the program."
+            } > close-message.txt
+            git add -- registry/programs
+            git commit -q -F close-message.txt
+            git show --stat --format=%B HEAD
+          fi
+          echo "commits=$(git rev-list --count origin/main..HEAD)" >> "$GITHUB_OUTPUT"
 
       # A push made with GITHUB_TOKEN doesn't start the CI workflow, so the
       # checks CI would run on registry data run here before anything reaches main.
       - name: Validate the synced registry
-        if: steps.sync.outputs.commits != '0'
+        if: steps.close.outputs.commits != '0'
         run: |
           npm run validate
           npm run validate:funding
           npm test
 
       - name: Merge into main with a merge commit
-        if: steps.sync.outputs.commits != '0'
+        if: steps.close.outputs.commits != '0'
         id: merge
         run: |
           git fetch origin main
           git switch -C main origin/main
           git merge --no-ff "${{ steps.sync.outputs.branch }}" \
-            -m "Merge Desk ledger sync (${{ steps.sync.outputs.commits }} commits, run ${GITHUB_RUN_ID})"
+            -m "Merge Desk ledger sync (${{ steps.close.outputs.commits }} commits, run ${GITHUB_RUN_ID})"
           git push origin main
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Wait for the merge to be deployed
-        if: steps.sync.outputs.commits != '0'
+        if: steps.close.outputs.commits != '0'
         run: |
           for i in $(seq 1 90); do
             live=$(curl -fsS --max-time 10 "$SITE/api/v1/deployment" | sed -n 's/.*"commit":"\([a-f0-9]*\)".*/\1/p' || true)
@@ -95,7 +119,7 @@ jobs:
           exit 1
 
       - name: Confirm the synced rows
-        if: steps.sync.outputs.commits != '0'
+        if: steps.close.outputs.commits != '0'
         run: |
           node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --dry-run --db-url "$SYNC_DATABASE_URL"
           node scripts/sync-desk-commits.mjs --confirm-deployment "$SITE" --db-url "$SYNC_DATABASE_URL"

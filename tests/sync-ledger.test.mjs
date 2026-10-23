@@ -438,3 +438,31 @@ function exists(repo, path) {
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+test('unsynced paths lists every file a ready row targets and changes nothing', () => {
+  const repo = fixture();
+  try {
+    const ledger = chainedLedger(repo, [
+      {
+        message: 'first',
+        files: [{ path: 'registry/target.yaml', content_before_hash: hash('value: old\n'), content_after: 'value: one\n' }],
+      },
+      {
+        message: 'second',
+        files: [
+          { path: 'registry/target.yaml', content_before_hash: hash('value: one\n'), content_after: 'value: two\n' },
+          { path: 'registry/other.yaml', content_before_hash: hash('value: untouched\n'), content_after: 'value: moved\n' },
+        ],
+      },
+    ]);
+    const head = git(repo, 'rev-parse', 'HEAD');
+
+    const result = runSync(repo, ledger, '--unsynced-paths');
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout, 'registry/other.yaml\nregistry/target.yaml\n');
+    assert.equal(git(repo, 'rev-parse', 'HEAD'), head);
+    assert.equal(git(repo, 'status', '--porcelain', '--', 'registry'), '');
+  } finally {
+    rmSync(repo, { recursive: true, force: true });
+  }
+});
