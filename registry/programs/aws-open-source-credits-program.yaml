@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - oss
-status: unknown
+status: active
 apply_url: https://aws.amazon.com/blogs/opensource/aws-promotional-credits-open-source-projects/
 summary: AWS gives promotional credits to open source projects, typically used for upstream and
   performance testing, CI/CD and artifact storage on AWS. Projects need an active AWS account and an
