@@ -40,7 +40,8 @@ export interface CadenceRow {
   grantCount: number;
 }
 
-export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number }) {
+/** `showMeta` toggles the per-row "N grants tracked · status · how to apply" line. */
+export function CadenceLane({ rows, year, showMeta = true }: { rows: CadenceRow[]; year?: number; showMeta?: boolean }) {
   const y = year ?? productYear();
   const todayPct = dayOfYearPct(productDateISO(), y);
 
@@ -57,9 +58,11 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
               className="block border-b border-line py-3 transition-colors hover:bg-raised/40"
             >
               <div className="display text-[15px] leading-tight text-paper">{program.name}</div>
+              {showMeta && (
               <div className="coord mt-1">
-                {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
-              </div>
+                  {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
+                </div>
+              )}
               <div className="mt-1 text-[12px] leading-snug text-dim">{detail}</div>
             </Link>
           );
@@ -123,9 +126,11 @@ export function CadenceLane({ rows, year }: { rows: CadenceRow[]; year?: number 
                   {program.name}
                 </Link>
                 <span id={descriptionId} className="sr-only">{description}</span>
+                {showMeta && (
                 <div className="coord mt-0.5 text-[9.5px]">
-                  {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
-                </div>
+                    {grantCount} grant{grantCount === 1 ? '' : 's'} tracked · {programFacts(program).status.label} · {programFacts(program).howToApply.label}
+                  </div>
+                )}
               </div>
               <div className="relative h-[28px] flex-1">
                 {caption ? (
