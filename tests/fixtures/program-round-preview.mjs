@@ -2,6 +2,7 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { readFileSync, realpathSync } from 'node:fs';
 import YAML from 'yaml';
+import './review-clock.mjs';
 import { readBaseline } from '../../src/lib/funding-store.mjs';
 import { readControlledFunding, previewFundingProposal } from '../../src/lib/funding-desk-core.mjs';
 
