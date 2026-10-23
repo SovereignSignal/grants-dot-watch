@@ -5,7 +5,7 @@ parent: null
 systems: []
 wires:
   - ai
-status: unknown
+status: active
 apply_url: https://aria.org.uk/opportunity-spaces/adaptive-machines/robot-dexterity/funding
 summary: "ARIA's £88.5m Robot Dexterity programme has an open Request for Proposal on standards and
   benchmarks for dexterous robotics: benchmarks, standards, interfaces and shared testing
