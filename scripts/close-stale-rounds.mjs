@@ -30,11 +30,54 @@ const calendarDateIn = (date, timeZone) => {
   const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return `${value.year}-${value.month}-${value.day}`;
 };
-const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
-
-const isIsoDate = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
-const isMonthDate = (value) => typeof value === 'string' && /^\d{4}-(0[1-9]|1[0-2])$/.test(value);
-const closeUpperBound = (value) => (isIsoDate(value) ? value : isMonthDate(value) ? `${value}-31` : null);
+// Keep this block identical to scripts/validate-registry.mjs (tests check the
+// two agree). Desk staging copies that file alone, so it cannot import it.
+// A deadline is closes_at when given; otherwise the end of the closes day (or
+// month) Anywhere on Earth. A live round fails 6 hours after its deadline.
+const DEADLINE_GRACE_MS = 6 * 60 * 60 * 1000;
+const AOE_OFFSET_MS = 12 * 60 * 60 * 1000;
+const endOfDayIn = (dayISO, timeZone) => {
+  const [y, m, d] = dayISO.split('-').map(Number);
+  let t = Date.UTC(y, m - 1, d + 1) - 14 * 60 * 60 * 1000;
+  while (calendarDateIn(new Date(t), timeZone) <= dayISO) t += 15 * 60 * 1000;
+  return t - 1;
+};
+const roundDeadlineMs = (round) => {
+  const at = typeof round.closes_at === 'string' ? round.closes_at.trim() : '';
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/.test(at)) {
+    const ms = Date.parse(at);
+    if (Number.isFinite(ms)) return ms;
+  }
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?$/.test(at)) {
+    const ms = Date.parse(`${at}Z`);
+    if (Number.isFinite(ms)) return ms + AOE_OFFSET_MS;
+  }
+  const closes = typeof round.closes === 'string' ? round.closes : '';
+  let match = closes.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (match) return Date.UTC(+match[1], +match[2] - 1, +match[3] + 1) + AOE_OFFSET_MS;
+  match = closes.match(/^(\d{4})-(0[1-9]|1[0-2])$/);
+  if (match) return Date.UTC(+match[1], +match[2], 1) + AOE_OFFSET_MS;
+  return null;
+};
+const isPastDeadline = (round, now) => {
+  const deadline = roundDeadlineMs(round);
+  return deadline != null && now > deadline + DEADLINE_GRACE_MS;
+};
+// VALIDATION_NOW pins the instant. VALIDATION_TODAY replays the end of a past
+// or future product day; set to today it means now.
+const resolveNowMs = () => {
+  if (process.env.VALIDATION_NOW) {
+    const ms = Date.parse(process.env.VALIDATION_NOW);
+    if (!Number.isFinite(ms)) throw new Error(`VALIDATION_NOW is not a timestamp: ${process.env.VALIDATION_NOW}`);
+    return ms;
+  }
+  const replay = process.env.VALIDATION_TODAY;
+  if (replay && replay !== calendarDateIn(new Date(), PRODUCT_TIME_ZONE)) return endOfDayIn(replay, PRODUCT_TIME_ZONE);
+  return Date.now();
+};
+const nowMs = resolveNowMs();
+const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(nowMs), PRODUCT_TIME_ZONE);
+const nowStamp = new Date(nowMs).toISOString();
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -61,8 +104,8 @@ for (const file of readdirSync(dir).filter((name) => name.endsWith('.yaml')).sor
   let next = raw;
   for (const round of doc.rounds || []) {
     if (round.status !== 'open' && round.status !== 'announced') continue;
-    const bound = closeUpperBound(round.closes);
-    if (!bound || bound >= todayISO) continue;
+    if (!isPastDeadline(round, nowMs)) continue;
+    const deadline = roundDeadlineMs(round);
     const change = {
       file: `programs/${file}`,
       id: doc.id,
@@ -70,6 +113,9 @@ for (const file of readdirSync(dir).filter((name) => name.endsWith('.yaml')).sor
       round: round.name,
       from: round.status,
       closes: round.closes,
+      deadline: new Date(deadline).toISOString(),
+      basis: round.closes_at ? 'closes_at' : 'end of day AoE',
+      cutoff: new Date(deadline + DEADLINE_GRACE_MS).toISOString(),
     };
     if (ledgerPaths.has(`registry/programs/${file}`)) {
       held.push(change);
@@ -82,14 +128,17 @@ for (const file of readdirSync(dir).filter((name) => name.endsWith('.yaml')).sor
 }
 
 if (jsonOutput) {
-  process.stdout.write(`${JSON.stringify({ today: todayISO, write, changes, held }, null, 2)}\n`);
+  process.stdout.write(`${JSON.stringify({ today: todayISO, now: nowStamp, write, changes, held }, null, 2)}\n`);
 } else if (changes.length) {
-  console.log(`${write ? 'Closed' : 'Would close'} ${changes.length} stale round${changes.length === 1 ? '' : 's'} as of ${todayISO}:`);
+  console.log(`${write ? 'Closed' : 'Would close'} ${changes.length} stale round${changes.length === 1 ? '' : 's'} as of ${nowStamp}:`);
   for (const change of changes) {
-    console.log(`  ${change.file}: "${change.round}" ${change.from} → closed (closes ${change.closes})`);
+    console.log(
+      `  ${change.file}: "${change.round}" ${change.from} → closed (closes ${change.closes}; ` +
+        `deadline ${change.deadline} by ${change.basis}, closable after ${change.cutoff})`
+    );
   }
 } else {
-  console.log(`OK: no stale live rounds as of ${todayISO}`);
+  console.log(`OK: no stale live rounds as of ${nowStamp}`);
 }
 
 if (held.length) {

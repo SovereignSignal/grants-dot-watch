@@ -20,7 +20,53 @@ const calendarDateIn = (date, timeZone) => {
   const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return `${value.year}-${value.month}-${value.day}`;
 };
-const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(), PRODUCT_TIME_ZONE);
+// Keep this block identical to scripts/close-stale-rounds.mjs (tests check the
+// two agree). Desk staging copies this file alone, so it cannot import it.
+// A deadline is closes_at when given; otherwise the end of the closes day (or
+// month) Anywhere on Earth. A live round fails 6 hours after its deadline.
+const DEADLINE_GRACE_MS = 6 * 60 * 60 * 1000;
+const AOE_OFFSET_MS = 12 * 60 * 60 * 1000;
+const endOfDayIn = (dayISO, timeZone) => {
+  const [y, m, d] = dayISO.split('-').map(Number);
+  let t = Date.UTC(y, m - 1, d + 1) - 14 * 60 * 60 * 1000;
+  while (calendarDateIn(new Date(t), timeZone) <= dayISO) t += 15 * 60 * 1000;
+  return t - 1;
+};
+const roundDeadlineMs = (round) => {
+  const at = typeof round.closes_at === 'string' ? round.closes_at.trim() : '';
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/.test(at)) {
+    const ms = Date.parse(at);
+    if (Number.isFinite(ms)) return ms;
+  }
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?$/.test(at)) {
+    const ms = Date.parse(`${at}Z`);
+    if (Number.isFinite(ms)) return ms + AOE_OFFSET_MS;
+  }
+  const closes = typeof round.closes === 'string' ? round.closes : '';
+  let match = closes.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (match) return Date.UTC(+match[1], +match[2] - 1, +match[3] + 1) + AOE_OFFSET_MS;
+  match = closes.match(/^(\d{4})-(0[1-9]|1[0-2])$/);
+  if (match) return Date.UTC(+match[1], +match[2], 1) + AOE_OFFSET_MS;
+  return null;
+};
+const isPastDeadline = (round, now) => {
+  const deadline = roundDeadlineMs(round);
+  return deadline != null && now > deadline + DEADLINE_GRACE_MS;
+};
+// VALIDATION_NOW pins the instant. VALIDATION_TODAY replays the end of a past
+// or future product day; set to today it means now.
+const resolveNowMs = () => {
+  if (process.env.VALIDATION_NOW) {
+    const ms = Date.parse(process.env.VALIDATION_NOW);
+    if (!Number.isFinite(ms)) throw new Error(`VALIDATION_NOW is not a timestamp: ${process.env.VALIDATION_NOW}`);
+    return ms;
+  }
+  const replay = process.env.VALIDATION_TODAY;
+  if (replay && replay !== calendarDateIn(new Date(), PRODUCT_TIME_ZONE)) return endOfDayIn(replay, PRODUCT_TIME_ZONE);
+  return Date.now();
+};
+const nowMs = resolveNowMs();
+const todayISO = process.env.VALIDATION_TODAY || calendarDateIn(new Date(nowMs), PRODUCT_TIME_ZONE);
 // VALIDATION_TODAY predates research metadata and replays deadline rollovers.
 // A newly captured assessment is checked against the real capture clock,
 // even when the application-date rules are being replayed historically.
@@ -235,8 +281,7 @@ for (const { file, base, doc } of programs) {
       err(file, `round "${r.name}" opens after it closes`);
     const live = r.status === 'open' || r.status === 'announced';
     if (live) hasLiveRound = true;
-    const closeUpperBound = isIsoDate(r.closes) ? r.closes : isRoundDate(r.closes) ? `${r.closes}-31` : null;
-    if (live && closeUpperBound && closeUpperBound < todayISO)
+    if (live && isPastDeadline(r, nowMs))
       err(file, `round "${r.name}" is ${r.status} with past close ${r.closes}`);
     if (live && !r.closes) {
       const namedYears = [...String(r.name || '').matchAll(/\b(20\d{2})\b/g)].map((m) => Number(m[1]));
